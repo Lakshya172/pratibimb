@@ -68,9 +68,10 @@ documentation asserting a thing is fixed is not evidence that it is fixed.
 | **Status** | `BLOCKED` |
 | **Owner** | Human — repository owner (`ronitsaha11`) |
 | **Dependency** | Either a maintainer merges, or the contributor is granted write access |
-| **Impact** | **Major, process-level.** Work can be branched, committed, pushed, evidenced and opened as a PR, but **not merged**. Open PRs therefore accumulate and no checkpoint tag can be created, because tags are cut from merged `main`. |
-| **Evidence** | `gh api repos/ronitsaha11/pratibimb` → `{"admin":false,"maintain":false,"push":false,"triage":false,"pull":true}` for both authenticated identities. `gh pr merge 1` → `GraphQL: Lakshya172 does not have the correct permissions to execute MergePullRequest`. |
-| **Resolution path** | Repository owner merges reviewed PRs, **or** grants write access to the contributing account. |
+| **Impact** | **Major, process-level, and it has two halves.** (1) Work can be branched, committed, pushed, evidenced and opened as a PR, but **not merged**; open PRs accumulate and no checkpoint tag can be cut, because tags come from merged `main`. (2) **CI does not even run.** GitHub holds workflow runs on pull requests from a first-time fork contributor in `action_required` until a maintainer approves them, and approving requires admin. So "required checks are green" — the third condition of any merge policy — is **unreachable from the fork side**, not merely unmet. |
+| **Evidence** | `gh api repos/ronitsaha11/pratibimb` → `{"admin":false,"maintain":false,"push":false,"triage":false,"pull":true}` for both authenticated identities. `gh pr merge 1` → `GraphQL: Lakshya172 does not have the correct permissions to execute MergePullRequest`. `gh run list` → PRs #2 and #3 both `action_required`, duration `0s`, zero check-runs. `POST .../actions/runs/<id>/approve` → **HTTP 403 "Must have admin rights to Repository."** |
+| **Resolution path** | Repository owner (a) approves the held workflow runs so CI reports, (b) merges reviewed PRs — **or** grants write access to the contributing account, which resolves both halves at once. |
+| **Interim mitigation** | Every CI job is reproduced locally on each PR head and the verbatim output is posted as a PR comment, so a reviewer has the evidence even while the hosted run is held. **This is a substitute for visibility, not for CI**, and it is not represented as a passing hosted run anywhere. |
 | **Explicitly not done** | No attempt to route around the permission model, no use of a second identity to obtain access it does not have, and **no PR reported as merged that was not merged**. |
 
 ### B-05 · `main` has no branch protection, and `agentos/state.md` claims otherwise
