@@ -15,6 +15,7 @@
 | `docs/adr/` | Architecture decision records and index | Decisions precede code |
 | `agentos/` | Development-time engineering OS: agents, workflows, gates, registries, state | Governs how we build. **Never part of the product.** |
 | `artifacts/experiments/` | Reproducible spike evidence | Week-1 output; promotes UNKNOWN to FACT |
+| `artifacts/environment/` | **Per-workstation environment audits**, one file per machine | More than one workstation is now in use, and no capability result transfers between them |
 | `artifacts/reviews/` | Audits | AUDIT-0001 (framework audit) |
 | `.github/` | PR template, issue forms, CODEOWNERS, labels, CI | Review process is enforced, not suggested |
 | `scripts/` | Repository tooling that CI and humans both run | One implementation, two callers |
@@ -54,3 +55,26 @@ artifacts/experiments/W1-S01-chrome-webgpu-context/
 It never enters `apps/` or `packages/`. It is not reviewed for production quality. It is
 kept forever, because the evidence is the deliverable — including when the verdict is
 REJECT.
+
+## Where environment audits live
+
+`artifacts/environment/ENV-000N-<machine-slug>.md` — **one file per physical workstation**,
+never edited to describe a different machine.
+
+The first environment audit was written as
+`artifacts/experiments/ENV-0001-workspace-environment.md`, before a second workstation
+existed. **`ENV-0001` stays where it is**: moving it would break every reference already
+recorded against that path, for a cosmetic gain. New environment audits go under
+`artifacts/environment/`, and the two conventions are reconciled by this note rather than by
+rewriting history.
+
+The separation from `artifacts/experiments/` is deliberate. An experiment answers a
+*question* and has a verdict; an environment audit describes a *machine* and has none. They
+are cited differently: an experiment is cited to justify a decision, an environment audit is
+cited to **scope** one.
+
+Every experiment artifact must name the machine it ran on, and **no result is generalised
+across machines**. `W1-S01` measured WebGPU on a workstation with Intel integrated graphics;
+`ENV-0002` describes a workstation with AMD integrated graphics. Those are different cells,
+and neither answers the other.
+
