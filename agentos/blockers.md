@@ -29,8 +29,10 @@ documentation asserting a thing is fixed is not evidence that it is fixed.
 
 | Field | Value |
 |---|---|
-| **Status** | `BLOCKED` |
+| **Status** | **`RESOLVED` 2026-09-07** |
 | **Owner** | Human — workstation owner |
+| **Resolution evidence** | Firefox **155.0.1** installed via `winget Mozilla.Firefox` on workstation 2. **S-02 executed against real Firefox** — no simulation, no inference from Chrome. Verdict **ACCEPT**, 3 runs of 3, artifact `artifacts/experiments/W1-S02-firefox-webgpu-context/`. Acceptance criteria were **not** altered after seeing results; the pre-registered protocol is preserved in the same file. |
+| **Residual** | **Firefox on LINUX is still `UNKNOWN`** — a separate cell, and the one the risk register rates High. Tracked as **S-02a**, not as part of B-01. |
 | **Dependency** | Mozilla Firefox installed on a workstation available to the project |
 | **Impact** | **Critical, on the critical path.** `agentos/workflows/spike.md` states *"Nothing else in the project starts until S-01 and S-02 resolve."* S-01 has an answer; S-02 has none, and cannot be attempted. By the project's own gating rule, downstream implementation does not begin. |
 | **Evidence** | `artifacts/environment/ENV-0002-workstation-omen-audit.md` — Firefox not installed; Chrome 152 and Edge 152 present |

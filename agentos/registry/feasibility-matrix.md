@@ -44,7 +44,43 @@ artifact path under `artifacts/experiments/`.
 | # | Question | Status | Evidence |
 |---|---|---|---|
 | S-01 | Does `navigator.gpu.requestAdapter()` return a **real adapter** inside a Chrome `chrome.offscreen` document? | **`FACT` — YES** | [`W1-S01`](../../artifacts/experiments/W1-S01-chrome-webgpu-context/README.md) |
-| S-02 | Does `navigator.gpu.requestAdapter()` return a **real adapter** inside a Firefox MV3 event page? | `UNKNOWN` | — |
+| S-02 | Does `navigator.gpu.requestAdapter()` return a **real adapter** inside a Firefox MV3 event page? | **`FACT` — YES (Windows only)** | [`W1-S02`](../../artifacts/experiments/W1-S02-firefox-webgpu-context/README.md) |
+
+### S-02 result — recorded 2026-09-07
+
+**ACCEPT.** Firefox **155.0.1** release, headful, Windows 11, **workstation 2**.
+`dom.webgpu.enabled` was **not** touched — release defaults.
+
+Adapter returned, device created, WGSL compute shader output **element-exact against a CPU
+reference over 262,144 elements**, device destroyed and re-acquired cleanly. **3 runs of 3**,
+**zero uncaptured GPU errors**, **zero shader compilation errors**. The ordinary-page control
+passed on the same machine.
+
+Timings (event page, min/median/max over 3 runs): `requestAdapter` 376 / 409 / 1864 ms -
+`requestDevice` 111 / 127 / 146 ms - cold dispatch 99 / 99 / 100 ms - warm p50 100 ms.
+End-to-end submit-to-readback on a trivial shader, **not** a model and **not** kernel time.
+**These must not be compared with S-01's Chrome figures — different browser AND different
+machine.**
+
+Two constraints attached to the acceptance:
+
+1. **The adapter cannot be identified.** Firefox returns an **empty `adapterInfo`**. Unlike
+   the Chrome cell, no Firefox figure can be attributed to a specific GPU. Every Firefox
+   WebGPU number must be labelled **"adapter unidentified"**.
+2. **Windows only.** **Firefox on Linux remains `UNKNOWN`** — WebGPU is off by default there
+   behind `dom.webgpu.enabled`, and it is the configuration the risk register rates **High**.
+   No Linux environment exists on this workstation.
+
+**S-01 and S-02 both now have answers, so the gate in `agentos/workflows/spike.md` is
+satisfied for the cells measured.** S-02 does **not** answer S-03: ORT Web's WebGPU backend
+was **not tested**, and raw WebGPU working is not ORT Web working.
+
+| # | New question raised by S-02 | Status | Blocks |
+|---|---|---|---|
+| S-02a | **Firefox on Linux** — the likely judging configuration | `UNKNOWN` | Firefox parity story |
+| S-02b | **ADR:** per-browser execution context. Chrome needs an offscreen document; Firefox's MV3 background is already a `window` with DOM. | `UNKNOWN` | Perception tier |
+| S-02c | **ADR/spike:** Firefox MV3 gates `host_permissions` behind user-granted origin controls, and the extension `fetch` was refused. What does that mean for the egress path, Invariant E and the CSP `connect-src` pin? | `UNKNOWN` | **QG-04** |
+| S-02d | How are Firefox figures labelled when no adapter identity is available? | `UNKNOWN` | Reporting discipline |
 | S-03 | Can an ONNX Runtime Web session be **created and run** in each context, on each backend? | `UNKNOWN` | — |
 | S-04 | Can **three ORT Web sessions coexist** in one WebAssembly heap inside an extension offscreen document, and does teardown reclaim memory? | `UNKNOWN` | — |
 | S-05 | What are the **real `tabs.captureVisibleTab` rate limits** under `activeTab`? | `UNKNOWN` | — |
