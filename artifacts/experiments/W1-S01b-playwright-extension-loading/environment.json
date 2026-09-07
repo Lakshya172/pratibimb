@@ -1,0 +1,52 @@
+{
+  "experiment": "W1-S01b-playwright-extension-loading",
+  "recorded_at": "2026-09-07T21:33:50+05:30",
+  "scope_warning": "Measured on ONE machine, on Windows, against branded browsers. The CI target for the egress suite is Linux (ubuntu-latest). Nothing here is a fact about Linux, and nothing here is a fact about Playwright's own bundled Chromium, which could not be executed on this machine (see blocked_variants).",
+  "host": {
+    "machine": "HP OMEN Gaming Laptop 16-ap0xxx (LAPTOP-SRCINK2B)",
+    "os": "Windows 11 Home Single Language",
+    "os_version": "10.0.26200",
+    "arch": "AMD64",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M (16 logical)",
+    "ram_bytes": 24717639680,
+    "node": "v26.4.0",
+    "npm": "11.17.0",
+    "workspace": "C:/Users/OMEN/Desktop/PratiBimb (not OneDrive)"
+  },
+  "gpu": {
+    "integrated": "AMD Radeon 860M Graphics, driver 32.0.22042.29001",
+    "discrete": "NVIDIA GeForce RTX 5050 Laptop GPU, 8151 MiB, driver 592.82, CUDA 13.1"
+  },
+  "automation": {
+    "playwright": "1.63.0",
+    "playwright_expected_browser": "Chrome for Testing 153.0.8010.12 (playwright chromium build v1243)"
+  },
+  "browsers_under_test": {
+    "branded_chrome_stable": "152.0.7977.77",
+    "branded_edge_stable": "152.0.4191.66",
+    "playwright_bundled_chromium": "NOT EXECUTABLE ON THIS MACHINE - see blocked_variants"
+  },
+  "blocked_variants": [
+    {
+      "what": "playwright install chromium",
+      "observed": "HTTP 400 from both https://cdn.playwright.dev/... and https://playwright.azureedge.net/... for builds/chromium/1243/chromium-win64.zip. Repeated twice; npm registry reachable in the same session, so general network egress works.",
+      "label": "FACT"
+    },
+    {
+      "what": "Chrome for Testing 153.0.8010.12 obtained from the official Google chrome-for-testing-public bucket and placed at Playwright's expected path",
+      "observed": "chrome.exe fails to start: 'The application has failed to start because its side-by-side configuration is incorrect.' Reproduced after a clean re-extraction with Expand-Archive. sha256 of downloaded zip: 415968b02065d4a9e2c10b85f0ae9f489b8fba500e94d9d0a7b7c4852a7234c1",
+      "label": "FACT",
+      "note": "Likely a missing Visual C++ runtime side-by-side assembly. NOT remediated - installing a system-wide redistributable is a human decision, not a spike action."
+    },
+    {
+      "what": "headless variant",
+      "observed": "Playwright requires a separate chrome-headless-shell-1243 build, which is behind the same failing download endpoint.",
+      "label": "FACT"
+    }
+  ],
+  "collector": {
+    "endpoint": "http://127.0.0.1:8901",
+    "purpose": "Loopback-only ground truth: records what ACTUALLY arrived, independent of what the automation framework reported. Not shipped.",
+    "external_hosts_contacted_by_harness": "none"
+  }
+}

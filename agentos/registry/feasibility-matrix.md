@@ -80,7 +80,47 @@ working is not ONNX Runtime Web's WebGPU backend working.
 | # | New question raised by S-01 | Status | Blocks |
 |---|---|---|---|
 | S-01a | Can Chrome be made to select the discrete NVIDIA adapter, and what does that do to the numbers? | `UNKNOWN` | Nothing; affects labelling |
-| S-01b | Does Playwright's bundled Chromium still honour `--load-extension`, so the egress suite can run in CI? | `UNKNOWN` | QG-04 enforcement plan |
+| S-01b | Does Playwright's bundled Chromium still honour `--load-extension`, so the egress suite can run in CI? | **still `UNKNOWN`** — see the S-01b result below | QG-04 enforcement plan |
+
+### S-01b result — recorded 2026-09-07
+
+**CONDITIONAL.** Playwright **1.63.0**, branded **Edge 152.0.4191.66** and branded **Chrome
+152.0.7977.77**, headful, Windows 11, on **workstation 2** (AMD Ryzen AI 7 350 / Radeon 860M
+— *a different machine from S-01*; see `artifacts/environment/ENV-0002-workstation-omen-audit.md`).
+
+The spike was deliberately widened beyond its original wording, because *"does the extension
+load"* is a precondition for the Invariant E suite rather than the capability it needs. The
+suite must also **observe** and **block**. It cannot.
+
+| Question | Result |
+|---|---|
+| Does a Playwright-driven browser load the unpacked MV3 extension? | **Edge 152: YES · Chrome 152: NO** |
+| Does Playwright's **own bundled** Chromium load it? | **`UNKNOWN`** — the binary would not execute here |
+| Can Playwright observe egress from the MV3 **service worker**? | **YES** |
+| Can Playwright observe egress from the MV3 **offscreen document**? | **NO** — 3 of 3 runs |
+| Can Playwright **block** offscreen-document egress? | **NO** — the POST reached the wire under an abort-everything route, 3 of 3 runs |
+
+`docs/architecture/constitution.md` section 5 places payload assembly and inference in the
+**offscreen document**. `context.route()` is therefore blind to the context PratiBimb sends
+from, and a suite written on it would assert *zero outbound requests*, pass, and prove
+nothing. **QG-04 cannot be signed off on the current enforcement plan.** No invariant was
+weakened; the replacement vehicle is an ADR decision and is not made here. See issue #5.
+
+Root cause: CDP reports the offscreen document as a `background_page` target; Playwright's
+`BrowserContext` does not surface it, so the route handler never attaches to it.
+
+**Three variants could not be run**, and are recorded rather than glossed: Playwright's
+browser CDN returns **HTTP 400** on this network, and the Chrome for Testing 153.0.8010.12
+build it names **will not start** on this machine (side-by-side configuration error).
+**The literal S-01b question therefore remains `UNKNOWN`.**
+
+Evidence: [`W1-S01b`](../../artifacts/experiments/W1-S01b-playwright-extension-loading/README.md)
+
+| # | New question raised by S-01b | Status | Blocks |
+|---|---|---|---|
+| S-01b-1 | Does the interception gap reproduce on **`ubuntu-latest` with Playwright's own Chromium** — the real CI cell? | `UNKNOWN` | **QG-04 enforcement plan** |
+| S-01b-2 | Which vehicle enforces Invariant E mechanism (2)? **Requires an ADR.** | `UNKNOWN` | **QG-04 sign-off** |
+| S-01b-3 | Is the gap a Playwright limitation or specific to Edge? | `UNKNOWN` | Scope of S-01b-2 |
 
 ---
 

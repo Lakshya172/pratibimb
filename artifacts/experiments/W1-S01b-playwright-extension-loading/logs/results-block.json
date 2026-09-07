@@ -1,0 +1,83 @@
+{
+  "experiment": "W1-S01b-block",
+  "runs": [
+    {
+      "run": 1,
+      "extensionLoaded": true,
+      "extensionId": "kapobnekdfajlhifmcpdgfpenmifefbg",
+      "probe": {
+        "serviceWorker": {
+          "ok": false,
+          "error": "TypeError: Failed to fetch"
+        },
+        "offscreen": {
+          "ok": true,
+          "status": 200
+        }
+      },
+      "playwrightObserved": [
+        "http://127.0.0.1:8901/ready/service-worker",
+        "http://127.0.0.1:8901/egress/service-worker"
+      ],
+      "playwrightAborted": [
+        "http://127.0.0.1:8901/ready/service-worker",
+        "http://127.0.0.1:8901/egress/service-worker"
+      ],
+      "collectorReceived": [
+        "POST /egress/offscreen-document"
+      ]
+    },
+    {
+      "run": 2,
+      "extensionLoaded": true,
+      "extensionId": "kapobnekdfajlhifmcpdgfpenmifefbg",
+      "probe": {
+        "serviceWorker": {
+          "ok": false,
+          "error": "TypeError: Failed to fetch"
+        },
+        "offscreen": {
+          "ok": true,
+          "status": 200
+        }
+      },
+      "playwrightObserved": [
+        "http://127.0.0.1:8901/ready/service-worker",
+        "http://127.0.0.1:8901/egress/service-worker"
+      ],
+      "playwrightAborted": [
+        "http://127.0.0.1:8901/ready/service-worker",
+        "http://127.0.0.1:8901/egress/service-worker"
+      ],
+      "collectorReceived": [
+        "POST /egress/offscreen-document"
+      ]
+    },
+    {
+      "run": 3,
+      "extensionLoaded": true,
+      "extensionId": "kapobnekdfajlhifmcpdgfpenmifefbg",
+      "probe": {
+        "serviceWorker": {
+          "ok": false,
+          "error": "TypeError: Failed to fetch"
+        },
+        "offscreen": {
+          "ok": true,
+          "status": 200
+        }
+      },
+      "playwrightObserved": [
+        "http://127.0.0.1:8901/egress/service-worker",
+        "http://127.0.0.1:8901/ready/service-worker"
+      ],
+      "playwrightAborted": [
+        "http://127.0.0.1:8901/egress/service-worker",
+        "http://127.0.0.1:8901/ready/service-worker"
+      ],
+      "collectorReceived": [
+        "POST /egress/offscreen-document"
+      ]
+    }
+  ]
+}
