@@ -1,0 +1,38 @@
+{
+  "experiment": "W1-S02a2-firefox-linux-wasm",
+  "recorded_at": "2026-09-07",
+  "scope": "WASM SUBSTRATE only — availability, SIMD, threads, and a fixed integer kernel. NOT ONNX Runtime Web, NOT a model. S-03 remains a separate, untested question.",
+  "machine_boundary": {
+    "windows_host": "HP OMEN 16-ap0xxx — workstation 2. Host only; no Windows browser involved.",
+    "linux_guest": "WSL2 Ubuntu 26.04, kernel 6.18.33.2-microsoft-standard-WSL2",
+    "all_results_measured_in": "linux_guest"
+  },
+  "browser": {
+    "name": "Mozilla Firefox",
+    "version": "155.0.1",
+    "channel": "release",
+    "source": "Mozilla official linux64 tarball",
+    "path": "/opt/firefox/firefox",
+    "modes": ["headful (WSLg, DISPLAY=:0)", "headless"]
+  },
+  "contexts": ["Firefox MV3 event page (background.scripts)", "ordinary web page (control)"],
+  "kernel": {
+    "workload": "out[i] = in[i]*2 + 1 over 262,144 i32",
+    "why": "deliberately identical to the S-02a WebGPU probe so the two are comparable on one machine and one browser",
+    "built_from": "kernel.wat / kernel-simd.wat, compiled with wabt, embedded as base64 so the probe needs no fetch",
+    "verification": "element-by-element against a CPU reference"
+  },
+  "variants": {
+    "defaults-headful": "manifest declares no content_security_policy",
+    "defaults-headless": "manifest declares no content_security_policy",
+    "wasm-unsafe-eval-headful": "manifest declares script-src 'self' 'wasm-unsafe-eval'; object-src 'self' — measured to establish that a remedy EXISTS. Not adopted anywhere."
+  },
+  "toolchain": { "node": "v22.22.1", "wabt": "npm wabt", "web-ext": "10.6.0" },
+  "gpu_state": {
+    "note": "Irrelevant to this experiment — WASM needs no GPU. Recorded for continuity: nvidia-smi works (CUDA compute), /dev/dri absent, 0 Vulkan ICDs, OpenGL is llvmpipe."
+  },
+  "system_changes": [
+    { "package": "wabt (npm)", "source": "npm registry", "why": "compile kernel.wat to kernel.wasm; the WAT source is committed so the binary is reproducible", "rollback": "rm -rf node_modules" }
+  ],
+  "data": { "payloads": "synthetic Int32Array of i % 1024", "pii": "none", "secrets": "none", "profiles": "fresh temporary Firefox profile per run, deleted afterwards" }
+}

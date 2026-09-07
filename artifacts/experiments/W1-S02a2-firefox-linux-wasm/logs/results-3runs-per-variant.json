@@ -1,0 +1,1077 @@
+{
+  "experiment": "W1-S02a2-firefox-linux-wasm",
+  "startedAt": "2026-09-07T21:31:43.662Z",
+  "firefox": "/opt/firefox/firefox",
+  "host": "WSL2 Ubuntu 26.04 guest on a Windows 11 host",
+  "runs": [
+    {
+      "variant": "defaults-headful",
+      "prefs": [],
+      "headless": false,
+      "run": 1,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:31:46.661Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 4,
+            "instantiateMs": 0,
+            "coldDispatchMs": 2,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 1,
+            "instantiateMs": 0,
+            "coldDispatchMs": 1,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:31:46.678Z",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:31:46.681Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "call to WebAssembly.compile() blocked by CSP",
+            "stack": "benchmark@moz-extension://7c855f3c-ef8e-40b5-92a6-bd57e6737d8c/probe.js:78:40\nrunWasmProbe@moz-extension://7c855f3c-ef8e-40b5-92a6-bd57e6737d8c/probe.js:120:24\n@moz-extension://7c855f3c-ef8e-40b5-92a6-bd57e6737d8c/background.js:44:32\n"
+          },
+          "conclusion": "threw: call to WebAssembly.compile() blocked by CSP",
+          "finishedAt": "2026-09-07T21:31:46.685Z",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "ordinary-web-page-CONTROL",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02a2/extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "defaults-headful",
+      "prefs": [],
+      "headless": false,
+      "run": 2,
+      "reported": [
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:31:50.848Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 6,
+            "instantiateMs": 7,
+            "coldDispatchMs": 2,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0,
+            "instantiateMs": 0,
+            "coldDispatchMs": 0,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:31:50.877Z",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        },
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:31:51.014Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "call to WebAssembly.compile() blocked by CSP",
+            "stack": "benchmark@moz-extension://fe6b6583-928e-4276-a40f-45c32d6391a4/probe.js:78:40\nrunWasmProbe@moz-extension://fe6b6583-928e-4276-a40f-45c32d6391a4/probe.js:120:24\n@moz-extension://fe6b6583-928e-4276-a40f-45c32d6391a4/background.js:44:32\n"
+          },
+          "conclusion": "threw: call to WebAssembly.compile() blocked by CSP",
+          "finishedAt": "2026-09-07T21:31:51.022Z",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        }
+      ],
+      "contextsReported": [
+        "ordinary-web-page-CONTROL",
+        "__alive__",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02a2/extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "defaults-headful",
+      "prefs": [],
+      "headless": false,
+      "run": 3,
+      "reported": [
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:31:54.689Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 6,
+            "instantiateMs": 0,
+            "coldDispatchMs": 2,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 1,
+            "instantiateMs": 0,
+            "coldDispatchMs": 2,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:31:54.712Z",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        },
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:31:54.819Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "call to WebAssembly.compile() blocked by CSP",
+            "stack": "benchmark@moz-extension://6f465b0b-cd42-4bb4-a67b-df54e2e49082/probe.js:78:40\nrunWasmProbe@moz-extension://6f465b0b-cd42-4bb4-a67b-df54e2e49082/probe.js:120:24\n@moz-extension://6f465b0b-cd42-4bb4-a67b-df54e2e49082/background.js:44:32\n"
+          },
+          "conclusion": "threw: call to WebAssembly.compile() blocked by CSP",
+          "finishedAt": "2026-09-07T21:31:54.824Z",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        }
+      ],
+      "contextsReported": [
+        "ordinary-web-page-CONTROL",
+        "__alive__",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02a2/extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "defaults-headless",
+      "prefs": [],
+      "headless": true,
+      "run": 1,
+      "reported": [
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:31:58.419Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 5,
+            "instantiateMs": 0,
+            "coldDispatchMs": 0,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 1,
+            "instantiateMs": 0,
+            "coldDispatchMs": 2,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:31:58.437Z",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        },
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:31:58.541Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "call to WebAssembly.compile() blocked by CSP",
+            "stack": "benchmark@moz-extension://3f7dcfda-6584-4f28-85fa-442282a3901b/probe.js:78:40\nrunWasmProbe@moz-extension://3f7dcfda-6584-4f28-85fa-442282a3901b/probe.js:120:24\n@moz-extension://3f7dcfda-6584-4f28-85fa-442282a3901b/background.js:44:32\n"
+          },
+          "conclusion": "threw: call to WebAssembly.compile() blocked by CSP",
+          "finishedAt": "2026-09-07T21:31:58.545Z",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        }
+      ],
+      "contextsReported": [
+        "ordinary-web-page-CONTROL",
+        "__alive__",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02a2/extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "defaults-headless",
+      "prefs": [],
+      "headless": true,
+      "run": 2,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:32:02.017Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "call to WebAssembly.compile() blocked by CSP",
+            "stack": "benchmark@moz-extension://10fe0116-0ef9-48b3-83bc-5a584df9561e/probe.js:78:40\nrunWasmProbe@moz-extension://10fe0116-0ef9-48b3-83bc-5a584df9561e/probe.js:120:24\n@moz-extension://10fe0116-0ef9-48b3-83bc-5a584df9561e/background.js:44:32\n"
+          },
+          "conclusion": "threw: call to WebAssembly.compile() blocked by CSP",
+          "finishedAt": "2026-09-07T21:32:02.023Z",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        },
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:32:02.093Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 3,
+            "instantiateMs": 0,
+            "coldDispatchMs": 1,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 1,
+            "instantiateMs": 0,
+            "coldDispatchMs": 1,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:32:02.108Z",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "firefox-mv3-event-page",
+        "ordinary-web-page-CONTROL"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02a2/extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "defaults-headless",
+      "prefs": [],
+      "headless": true,
+      "run": 3,
+      "reported": [
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:32:05.812Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 5,
+            "instantiateMs": 1,
+            "coldDispatchMs": 2,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 1,
+            "instantiateMs": 0,
+            "coldDispatchMs": 1,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:32:05.834Z",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        },
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:32:05.911Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "call to WebAssembly.compile() blocked by CSP",
+            "stack": "benchmark@moz-extension://8f172e76-6b40-4484-bbdf-c26f4f860038/probe.js:78:40\nrunWasmProbe@moz-extension://8f172e76-6b40-4484-bbdf-c26f4f860038/probe.js:120:24\n@moz-extension://8f172e76-6b40-4484-bbdf-c26f4f860038/background.js:44:32\n"
+          },
+          "conclusion": "threw: call to WebAssembly.compile() blocked by CSP",
+          "finishedAt": "2026-09-07T21:32:05.918Z",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        }
+      ],
+      "contextsReported": [
+        "ordinary-web-page-CONTROL",
+        "__alive__",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02a2/extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "wasm-unsafe-eval-headful",
+      "prefs": [],
+      "headless": false,
+      "run": 1,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:32:10.260Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 1,
+            "instantiateMs": 0,
+            "coldDispatchMs": 0,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0,
+            "instantiateMs": 0,
+            "coldDispatchMs": 1,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:32:10.272Z",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        },
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:32:10.304Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 3,
+            "instantiateMs": 0,
+            "coldDispatchMs": 3,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0,
+            "instantiateMs": 0,
+            "coldDispatchMs": 2,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:32:10.322Z",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "firefox-mv3-event-page",
+        "ordinary-web-page-CONTROL"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02a2/extension-wasm-csp as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "wasm-unsafe-eval-headful",
+      "prefs": [],
+      "headless": false,
+      "run": 2,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:32:15.979Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 3,
+            "instantiateMs": 0,
+            "coldDispatchMs": 4,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 1,
+            "instantiateMs": 1,
+            "coldDispatchMs": 3,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:32:16.005Z",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:32:15.884Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 2,
+            "instantiateMs": 0,
+            "coldDispatchMs": 2,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 1,
+            "instantiateMs": 0,
+            "coldDispatchMs": 2,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:32:15.908Z",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "ordinary-web-page-CONTROL",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02a2/extension-wasm-csp as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "wasm-unsafe-eval-headful",
+      "prefs": [],
+      "headless": false,
+      "run": 3,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:32:22.328Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 4,
+            "instantiateMs": 0,
+            "coldDispatchMs": 2,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0,
+            "instantiateMs": 0,
+            "coldDispatchMs": 1,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:32:22.346Z",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:32:22.367Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": false
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 1,
+            "instantiateMs": 0,
+            "coldDispatchMs": 2,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 1
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 2,
+            "instantiateMs": 0,
+            "coldDispatchMs": 1,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 0
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:32:22.384Z",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "ordinary-web-page-CONTROL",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02a2/extension-wasm-csp as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-07T21:32:24.264Z"
+}
