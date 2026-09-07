@@ -1,0 +1,198 @@
+{
+  "experiment": "W1-S02-firefox-webgpu-context",
+  "runs": 3,
+  "browser": "Mozilla Firefox 155.0.1 release, headful, Windows 11",
+  "measurement_note": "Timings are end-to-end wall clock (queue.submit -> mapAsync resolving) on a trivial hand-written WGSL shader. NOT kernel time, NOT a model. They must not be compared with S-01's Chrome figures: different browser AND different machine.",
+  "contexts": {
+    "firefox-mv3-event-page": {
+      "records": 3,
+      "globalKind": [
+        "window",
+        "window",
+        "window"
+      ],
+      "navigatorGpuPresent": [
+        true,
+        true,
+        true
+      ],
+      "adapterAvailable": [
+        true,
+        true,
+        true
+      ],
+      "deviceCreated": [
+        true,
+        true,
+        true
+      ],
+      "computeRan": [
+        true,
+        true,
+        true
+      ],
+      "outputCorrect": [
+        true,
+        true,
+        true
+      ],
+      "mismatches": [
+        0,
+        0,
+        0
+      ],
+      "shaderCompileErrors": [
+        0,
+        0,
+        0
+      ],
+      "uncapturedErrors": [
+        0,
+        0,
+        0
+      ],
+      "adapterInfo": {
+        "vendor": "",
+        "architecture": "",
+        "device": "",
+        "description": ""
+      },
+      "teardown": {
+        "destroyMs": 100,
+        "lost": {
+          "reason": "destroyed",
+          "message": "Device destroyed"
+        }
+      },
+      "reacquire": [
+        {
+          "adapterAvailable": true,
+          "deviceCreated": true
+        },
+        {
+          "adapterAvailable": true,
+          "deviceCreated": true
+        },
+        {
+          "adapterAvailable": true,
+          "deviceCreated": true
+        }
+      ],
+      "requestAdapterMs": {
+        "min": 376,
+        "median": 409,
+        "max": 1864
+      },
+      "requestDeviceMs": {
+        "min": 111,
+        "median": 127,
+        "max": 146
+      },
+      "coldDispatchMs": {
+        "min": 99,
+        "median": 99,
+        "max": 100
+      },
+      "warmDispatchP50Ms": {
+        "min": 100,
+        "median": 100,
+        "max": 100
+      }
+    },
+    "ordinary-web-page-CONTROL": {
+      "records": 3,
+      "globalKind": [
+        "window",
+        "window",
+        "window"
+      ],
+      "navigatorGpuPresent": [
+        true,
+        true,
+        true
+      ],
+      "adapterAvailable": [
+        true,
+        true,
+        true
+      ],
+      "deviceCreated": [
+        true,
+        true,
+        true
+      ],
+      "computeRan": [
+        true,
+        true,
+        true
+      ],
+      "outputCorrect": [
+        true,
+        true,
+        true
+      ],
+      "mismatches": [
+        0,
+        0,
+        0
+      ],
+      "shaderCompileErrors": [
+        0,
+        0,
+        0
+      ],
+      "uncapturedErrors": [
+        0,
+        0,
+        0
+      ],
+      "adapterInfo": {
+        "vendor": "",
+        "architecture": "",
+        "device": "",
+        "description": ""
+      },
+      "teardown": {
+        "destroyMs": 100,
+        "lost": {
+          "reason": "destroyed",
+          "message": "Device destroyed"
+        }
+      },
+      "reacquire": [
+        {
+          "adapterAvailable": true,
+          "deviceCreated": true
+        },
+        {
+          "adapterAvailable": true,
+          "deviceCreated": true
+        },
+        {
+          "adapterAvailable": true,
+          "deviceCreated": true
+        }
+      ],
+      "requestAdapterMs": {
+        "min": 299,
+        "median": 314,
+        "max": 1815
+      },
+      "requestDeviceMs": {
+        "min": 187,
+        "median": 199,
+        "max": 222
+      },
+      "coldDispatchMs": {
+        "min": 100,
+        "median": 100,
+        "max": 101
+      },
+      "warmDispatchP50Ms": {
+        "min": 100,
+        "median": 100,
+        "max": 100
+      }
+    }
+  }
+}

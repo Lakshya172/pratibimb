@@ -1,0 +1,177 @@
+{
+  "experiment": "W1-B02-invariant-e-observation",
+  "question": "How can this project INDEPENDENTLY establish that an outbound request occurred, through which path, and with which bytes?",
+  "measurement_note": "Boolean capability results, not latency. The loopback collector is the ground truth: it records what actually arrived and recomputes SHA-256 over the received bytes, independently of any instrumentation being evaluated.",
+  "browser": "Microsoft Edge 152.0.4191.66 (branded, stable, headful) driven by Playwright 1.63.0; raw CDP over Node's built-in WebSocket on port 9444",
+  "cases": [
+    {
+      "case": "A-observe-authorised",
+      "scenario": {
+        "egress": true
+      },
+      "enforcement_mode": "observe-only",
+      "m1_playwright": {
+        "surfaces_offscreen_target": false,
+        "requests_observed": 0,
+        "requests_blocked": 0
+      },
+      "m2_cdp_offscreen": {
+        "attached": true,
+        "target_type": "background_page",
+        "requests_observed": 1,
+        "requests_blocked": 0,
+        "saw_declared_hash": [
+          true
+        ],
+        "saw_correlation_id": [
+          true
+        ]
+      },
+      "m3_collector_ground_truth": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "declared_hash_present": true,
+          "hash_matches_actual_bytes": true,
+          "correlation_id": "cid-A-observe-authorised-1788800899942"
+        }
+      ],
+      "m5_extension_self_audit_entries": 1
+    },
+    {
+      "case": "B-observe-unauthorised",
+      "scenario": {
+        "rogue": true
+      },
+      "enforcement_mode": "observe-only",
+      "m1_playwright": {
+        "surfaces_offscreen_target": false,
+        "requests_observed": 0,
+        "requests_blocked": 0
+      },
+      "m2_cdp_offscreen": {
+        "attached": true,
+        "target_type": "background_page",
+        "requests_observed": 1,
+        "requests_blocked": 0,
+        "saw_declared_hash": [
+          false
+        ],
+        "saw_correlation_id": [
+          false
+        ]
+      },
+      "m3_collector_ground_truth": [
+        {
+          "url": "/rogue",
+          "bytes": 54,
+          "declared_hash_present": false,
+          "hash_matches_actual_bytes": null,
+          "correlation_id": null
+        }
+      ],
+      "m5_extension_self_audit_entries": 0
+    },
+    {
+      "case": "C-observe-tampered",
+      "scenario": {
+        "tamper": true
+      },
+      "enforcement_mode": "observe-only",
+      "m1_playwright": {
+        "surfaces_offscreen_target": false,
+        "requests_observed": 0,
+        "requests_blocked": 0
+      },
+      "m2_cdp_offscreen": {
+        "attached": true,
+        "target_type": "background_page",
+        "requests_observed": 1,
+        "requests_blocked": 0,
+        "saw_declared_hash": [
+          true
+        ],
+        "saw_correlation_id": [
+          true
+        ]
+      },
+      "m3_collector_ground_truth": [
+        {
+          "url": "/egress",
+          "bytes": 60,
+          "declared_hash_present": true,
+          "hash_matches_actual_bytes": false,
+          "correlation_id": "cid-C-observe-tampered-1788800908524"
+        }
+      ],
+      "m5_extension_self_audit_entries": 1
+    },
+    {
+      "case": "D-block-with-playwright",
+      "scenario": {
+        "egress": true
+      },
+      "enforcement_mode": "m1",
+      "m1_playwright": {
+        "surfaces_offscreen_target": false,
+        "requests_observed": 0,
+        "requests_blocked": 0
+      },
+      "m2_cdp_offscreen": {
+        "attached": true,
+        "target_type": "background_page",
+        "requests_observed": 1,
+        "requests_blocked": 0,
+        "saw_declared_hash": [
+          true
+        ],
+        "saw_correlation_id": [
+          true
+        ]
+      },
+      "m3_collector_ground_truth": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "declared_hash_present": true,
+          "hash_matches_actual_bytes": true,
+          "correlation_id": "cid-D-block-with-playwright-1788800912753"
+        }
+      ],
+      "m5_extension_self_audit_entries": 1
+    },
+    {
+      "case": "E-block-with-cdp",
+      "scenario": {
+        "egress": true
+      },
+      "enforcement_mode": "m2",
+      "m1_playwright": {
+        "surfaces_offscreen_target": false,
+        "requests_observed": 0,
+        "requests_blocked": 0
+      },
+      "m2_cdp_offscreen": {
+        "attached": true,
+        "target_type": "background_page",
+        "requests_observed": 1,
+        "requests_blocked": 1,
+        "saw_declared_hash": [
+          true
+        ],
+        "saw_correlation_id": [
+          true
+        ]
+      },
+      "m3_collector_ground_truth": [],
+      "m5_extension_self_audit_entries": 1
+    }
+  ],
+  "regression_guard": {
+    "total": 3,
+    "groundTruthDetected": 3,
+    "falseGreenReproduced": 3,
+    "playwrightNowSeesIt": 0,
+    "verdict": "PASS"
+  }
+}

@@ -1,23 +1,27 @@
 ---
 id: W1-S02
 title: "S-02 — WebGPU adapter inside a Firefox MV3 event page"
-status: BLOCKED — pre-registered, not run
+status: recorded — executed 2026-09-07
 date: 2026-09-07
-label: UNKNOWN
-verdict: none — the experiment has not been executed
+label: FACT (observations) / INFERENCE (assessment)
+verdict: ACCEPT (with two recorded constraints)
 ---
 
 # S-02 — WebGPU in a Firefox MV3 event page
 
-> # ⛔ THIS EXPERIMENT HAS NOT RUN. THERE IS NO RESULT.
+> # ✅ EXECUTED 2026-09-07 — VERDICT: ACCEPT
 >
-> **Firefox is not installed on any workstation currently available to the project.**
-> This document is a **pre-registered protocol**: the question, the environment required,
-> the procedure, and the accept/reject criteria — all fixed *before* any measurement, so
-> the criteria cannot be fitted to whatever the data turns out to be.
+> Firefox 155.0.1 was installed on workstation 2, resolving blocker **B-01**, and the
+> protocol below was run **unchanged**.
 >
-> **S-02 remains `UNKNOWN` in `agentos/registry/feasibility-matrix.md`.** Nothing in this
-> file may be cited as a result. See blocker **B-01** in `agentos/blockers.md`.
+> **The sections Hypothesis, Environment required, Procedure and Acceptance / rejection
+> criteria are preserved exactly as they were pre-registered, before any data existed.**
+> They have not been edited in the light of the result — that is the entire value of
+> pre-registration. Only *Actual result* and *Conclusion* are new, plus a *Findings*
+> section between them.
+>
+> **This result is Firefox on WINDOWS.** Firefox on **Linux** is a separate cell and stays
+> `UNKNOWN`.
 
 ## Hypothesis
 
@@ -121,25 +125,111 @@ on Linux**. The adapter's availability *inside the MV3 event page specifically* 
 question, and the honest prior is that it is genuinely uncertain — which is why the spike
 gates the project.
 
-## Actual result
+## Actual result — FACT
 
-**NOT MEASURED.** The experiment has not been run. Firefox is not installed. See **B-01**.
+**Executed 2026-09-07. Three complete runs. Firefox 155.0.1 release, headful, Windows 11,
+workstation 2. `dom.webgpu.enabled` was NOT touched — these are release defaults.**
+
+| | **Firefox MV3 event page** | ordinary page (CONTROL) |
+|---|---|---|
+| `navigator.gpu` present | **true** 3/3 | true 3/3 |
+| `requestAdapter()` non-null | **true** 3/3 | true 3/3 |
+| `requestDevice()` succeeded | **true** 3/3 | true 3/3 |
+| Compute shader ran | **true** 3/3 | true 3/3 |
+| **Output element-exact vs CPU reference** | **true 3/3 — 0 mismatches of 262,144** | true 3/3 — 0 mismatches |
+| Shader compilation errors | **0** 3/3 | 0 3/3 |
+| Uncaptured GPU errors | **0** 3/3 | 0 3/3 |
+| Device destroy then re-acquire | **clean** 3/3 | clean 3/3 |
+
+Timings, event page, min / median / max over 3 runs:
+`requestAdapter` 376 / 409 / 1864 ms - `requestDevice` 111 / 127 / 146 ms -
+cold dispatch 99 / 99 / 100 ms - warm p50 100 / 100 / 100 ms.
+
+> **These figures must not be compared with S-01's Chrome numbers.** That was a different
+> browser **and** a different machine. A Chrome-versus-Firefox claim needs both measured on
+> the *same* workstation, and that has not been done.
+
+## Findings
+
+**Finding 1 — the dossier's stated failure case does not occur here.** WebGPU is available
+and functional inside the Firefox MV3 event page on Windows, at release defaults, with no
+`about:config` change. S-01 and S-02 were the two spikes gating all other work; **both now
+have answers.**
+
+**Finding 2 — Firefox reports an EMPTY `adapterInfo`.** `vendor`, `architecture`, `device`
+and `description` are all empty strings. **We cannot tell which GPU Firefox used.** S-01
+could identify Chrome's choice (`intel / gen-12lp`) and attach a constraint to it; here that
+is impossible from inside the page. **Every Firefox WebGPU figure this project records must
+therefore be labelled "adapter unidentified".**
+
+**Finding 3 — the Firefox MV3 background is a `window`, not a service worker.** The probe
+reports `globalKind: "window"` in all three runs. Chrome MV3 gives a service worker with no
+DOM, which is exactly why `docs/architecture/constitution.md` section 5 introduces the
+**offscreen document**. Firefox's event page already *is* a DOM context, so the offscreen
+document has no Firefox counterpart and no Firefox need. **This is a platform asymmetry in
+where inference runs. It is an architecture decision, not a spike conclusion, and nothing is
+redesigned here.**
+
+**Finding 4 — Firefox MV3 refuses the extension's `fetch` to the loopback origin.** The
+event page got `TypeError: NetworkError when attempting to fetch resource` even with
+`host_permissions` declared, and setting `extensions.originControls.grantByDefault=true` did
+**not** change it. Firefox MV3 treats host permissions as **opt-in origin controls** granted
+by the user, not at install time.
+
+The harness worked around this **for reporting only**, through a tab-navigation beacon
+carrying the full payload — no measurement was lost or altered. But the product implication
+is not a harness detail: **PratiBimb's egress module must reach the server origin from an
+extension context, and on Firefox MV3 that may require an explicit user grant.** That
+interacts with Invariant E and with the CSP `connect-src` pin. **Not resolved here.**
+
+**Finding 5 — the control passed**, so a null adapter would have been attributable to the
+extension context rather than to the machine. It was not needed, but it is what makes the
+positive result interpretable.
 
 ## Conclusion
 
-**None. `UNKNOWN`.** This document establishes a procedure and a set of criteria; it
-establishes no fact. `agentos/registry/feasibility-matrix.md` continues to record S-02 as
-`UNKNOWN`, and `agentos/workflows/spike.md`'s gating rule continues to hold: downstream
-implementation does not start.
+**ACCEPT**, against the criteria fixed before any data existed: a non-null adapter in the
+Firefox MV3 event page, a created device, element-exact compute output, **3 of 3 runs**,
+zero uncaptured errors, with the ordinary-page control succeeding on the same machine.
+
+Two constraints attached to the acceptance:
+
+1. **Adapter unidentified.** Firefox returns an empty `adapterInfo`, so no Firefox WebGPU
+   figure can be attributed to a specific GPU.
+2. **Windows only.** `agentos/registry/feasibility-matrix.md` has separate Firefox cells for
+   Windows and Linux. **This fills the Windows cell and no other.** Firefox-on-Linux — where
+   WebGPU is off by default behind `dom.webgpu.enabled`, and which the dossier calls the most
+   likely judging configuration — remains **`UNKNOWN`**.
+
+### What this explicitly does NOT establish
+
+These are three separate facts and are deliberately not collapsed:
+
+| | Question | Status |
+|---|---|---|
+| **A** | Is the WebGPU **API** available in Firefox 155 on Windows? | **FACT — yes** |
+| **B** | Does **ONNX Runtime Web's** WebGPU backend initialise and run a model there? | **`UNKNOWN` — NOT TESTED.** That is **S-03**, a separate spike. Raw WebGPU working is not ORT Web working. |
+| **C** | Is it available in the **exact extension execution context** PratiBimb uses? | **FACT — yes** for the Firefox MV3 event page. See Finding 3: that context differs structurally from Chrome's. |
+
+Also unaffected: S-04 (three ORT sessions in one WASM heap), S-05, S-06, S-07, and all
+twenty model cells. **No model was downloaded. No product code was written.**
 
 ## Reproducibility
 
-Not yet applicable — nothing has been run. Once Firefox is available:
-
 ```bash
-git switch -c spike/firefox-webgpu-context upstream/main
-# build the harness per Procedure above, under this directory's harness/
-# three runs, raw logs under logs/
+cd artifacts/experiments/W1-S02-firefox-webgpu-context/harness
+npm install web-ext@10.6.0
+RUNS=3 node run-s02.js        # -> results.json (committed as logs/results-3runs.json)
 ```
 
-The harness will contact no host other than loopback.
+Requires Firefox at the default Windows install path. Each run creates a fresh temporary
+profile under the system temp directory and deletes it afterwards. The harness contacts **no
+host other than `127.0.0.1:8903`**, which also serves the ordinary-page control, so both
+contexts run byte-identical probe code.
+
+## Scope
+
+**One machine - Windows - Firefox 155.0.1 release - MV3 event page - headful.**
+Per `AGENTS.md` section 5 this fills the cell it tested and no other. It says nothing about
+Firefox on Linux, nothing about ONNX Runtime Web, nothing about Chrome, and nothing about
+workstation 1.
