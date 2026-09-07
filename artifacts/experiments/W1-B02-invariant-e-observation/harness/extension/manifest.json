@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "PratiBimb B-02 Invariant E observation probe",
+  "version": "1.0.0",
+  "description": "Throwaway spike harness. Compares candidate mechanisms for independently establishing whether an outbound request occurred, through which path, and with which bytes.",
+  "minimum_chrome_version": "116",
+  "background": { "service_worker": "background.js" },
+  "permissions": ["offscreen"],
+  "host_permissions": ["http://127.0.0.1:8902/*"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
