@@ -1,0 +1,188 @@
+{
+  "experiment": "W1-B02-1-linux-observation",
+  "question": "Does the CDP auto-attach + independent collector model hold on Linux, headful and headless?",
+  "machine_boundary": {
+    "windows_host": "workstation 2",
+    "linux_guest": "WSL2 Ubuntu 26.04, kernel 6.18.33.2-microsoft-standard-WSL2",
+    "all_results_measured_in": "linux_guest"
+  },
+  "browser": "Chrome for Testing 153.0.8010.12 (Playwright chromium v1243 build)",
+  "total_runs": 66,
+  "cells": [
+    {
+      "case": "A-authorised",
+      "display_mode": "headful",
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "runs": 3
+    },
+    {
+      "case": "B-unauthorised",
+      "display_mode": "headful",
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "runs": 3
+    },
+    {
+      "case": "C-tampered",
+      "display_mode": "headful",
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "runs": 3
+    },
+    {
+      "case": "D-playwright-enforcing",
+      "display_mode": "headful",
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "runs": 3
+    },
+    {
+      "case": "E-cdp-enforcing",
+      "display_mode": "headful",
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "runs": 3
+    },
+    {
+      "case": "A-authorised",
+      "display_mode": "headless",
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "runs": 3
+    },
+    {
+      "case": "B-unauthorised",
+      "display_mode": "headless",
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "runs": 3
+    },
+    {
+      "case": "C-tampered",
+      "display_mode": "headless",
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "runs": 3
+    },
+    {
+      "case": "D-playwright-enforcing",
+      "display_mode": "headless",
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "runs": 3
+    },
+    {
+      "case": "E-cdp-enforcing",
+      "display_mode": "headless",
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "runs": 3
+    },
+    {
+      "case": "race-no-attach",
+      "display_mode": "headful",
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "runs": 5
+    },
+    {
+      "case": "race-late-attach",
+      "display_mode": "headful",
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "runs": 5
+    },
+    {
+      "case": "race-auto-attach",
+      "display_mode": "headful",
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "runs": 5
+    },
+    {
+      "case": "race-no-attach",
+      "display_mode": "headless",
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "runs": 5
+    },
+    {
+      "case": "race-late-attach",
+      "display_mode": "headless",
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "runs": 5
+    },
+    {
+      "case": "race-auto-attach",
+      "display_mode": "headless",
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "runs": 5
+    },
+    {
+      "case": "fail-cdp-endpoint",
+      "display_mode": "headless",
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "runs": 3
+    },
+    {
+      "case": "fail-fetch-enable",
+      "display_mode": "headless",
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "runs": 3
+    }
+  ],
+  "attach_timings_ms_race_auto_attach": {
+    "swReady": {
+      "min": 242,
+      "max": 359,
+      "n": 10
+    },
+    "armed": {
+      "min": 253,
+      "max": 373,
+      "n": 10
+    },
+    "firstPaused": {
+      "min": 303,
+      "max": 437,
+      "n": 10
+    },
+    "offscreenAttached": null,
+    "fetchEnabled": null,
+    "note": "offscreenAttached and fetchEnabled were NOT captured: the harness keyed them on a URL containing offscreen.html, and the offscreen target auto-attaches as type 'other' before its URL is populated. instrumentationBeforeSend is therefore null = UNMEASURED, not false. The ordering is nevertheless demonstrated by BLOCKED_CONFIRMED in 10/10 auto-attach runs."
+  },
+  "ci_equivalence": {
+    "github_actions_ubuntu_latest_resolved_to": "ubuntu-24.04 image 20260831.293 (observed in this repository's own Actions run)",
+    "this_experiment": "Ubuntu 26.04 under WSL2",
+    "classification": "CI-RELEVANT EVIDENCE only. CI RESULT = UNKNOWN."
+  },
+  "headline_findings": [
+    "Headless is identical to headful in every cell.",
+    "Playwright-only enforcement produces a false green on Linux too (6/6).",
+    "The late-attach race reproduces on Linux (10/10) and setAutoAttach closes it (10/10).",
+    "CDP auto-attach FAILS OPEN under partial instrumentation failure: with Fetch.enable skipped it reported nothing while the payload shipped (3/3). Only the independent collector caught it."
+  ]
+}
