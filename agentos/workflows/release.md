@@ -1,6 +1,6 @@
 # Workflow: Release
 
-> Exit gate: `agentos/gates/QG-06-release.md`
+> Exit gate: [QG-06](../gates/README.md#qg-06--release)
 > Owning reviewer: `integration-release-engineer`
 
 ---
