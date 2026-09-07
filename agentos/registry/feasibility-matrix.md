@@ -199,7 +199,45 @@ Evidence: [`W1-B02`](../../artifacts/experiments/W1-B02-invariant-e-observation/
 
 | # | New question raised by B-02 | Status | Blocks |
 |---|---|---|---|
-| B-02-1 | Does this reproduce on **`ubuntu-latest` with Playwright's own Chromium** — the real CI cell? | `UNKNOWN` | **QG-04 sign-off** |
+| B-02-1 | Does this reproduce on **`ubuntu-latest` with Playwright's own Chromium** — the real CI cell? | **PARTLY ANSWERED — see below** | **QG-04 sign-off** |
+
+### B-02-1 result (Linux) — recorded 2026-09-07
+
+**CONDITIONAL.** Re-run inside **WSL2 Ubuntu 26.04** against **Chrome for Testing
+153.0.8010.12** — the build Playwright 1.63.0 names for chromium v1243 — **headful and
+headless**. 66 runs, every cell unanimous, **headless identical to headful in every one**.
+
+Evidence: [`W1-B02-1`](../../artifacts/experiments/W1-B02-1-linux-observation/README.md)
+
+| Case | mechanism | ground truth | false green |
+|---|---|---|---|
+| Playwright enforcing | **`NOT_OBSERVED`** 3/3 both modes | ARRIVED | **YES** |
+| CDP `auto-attach` enforcing | **`BLOCKED_CONFIRMED`** 3/3 both modes | NO_ARRIVAL | no |
+| race, `late-attach` | **`NOT_OBSERVED`** 5/5 both modes | ARRIVED | **YES** |
+| race, `auto-attach` | **`BLOCKED_CONFIRMED`** 5/5 both modes | NO_ARRIVAL | no |
+| injected: CDP endpoint unreachable | `NOT_OBSERVABLE` 3/3 | NO_ARRIVAL | no |
+| **injected: `Fetch.enable` skipped** | **`NOT_OBSERVED`** 3/3 | **ARRIVED** | **YES** |
+
+**The finding that changes the wording of the recommendation: CDP auto-attach does NOT fail
+closed on its own.** With `Fetch.enable` skipped while attachment still succeeded, it
+reported nothing while the payload reached the wire — from CDP's side indistinguishable from
+a clean run in which nothing was sent. **Only the independent collector caught it.** A
+connection failure is loud (`NOT_OBSERVABLE`); a *partial* failure is silent, and partial
+failures are the common kind in CI. The collector is therefore **not redundancy — it is what
+makes the pair fail-closed**, and the ADR (B-02-2) should say so in those terms.
+
+**CI is NOT validated and is not claimed.** `ubuntu-latest` resolves to **`ubuntu-24.04`**
+(image `20260831.293`, observed in this repository's own Actions run); this ran on **Ubuntu
+26.04 under WSL2** — a different release and kernel, with no GPU and no WSLg on a hosted
+runner. Recorded as **CI-relevant evidence**; the CI result itself stays `UNKNOWN`.
+
+**QG-04 remains unsigned.**
+
+| # | New question raised by B-02-1 | Status | Blocks |
+|---|---|---|---|
+| B-02-1a | Run the matrix in the **real GitHub Actions cell** (`ubuntu-24.04`, hosted runner) | `UNKNOWN` | **QG-04 sign-off** |
+| B-02-1b | Capture `fetchEnabledMs` directly — key on target **type** plus `Target.targetInfoChanged`, so `instrumentationBeforeSend` is measured rather than inferred from the outcome | `UNKNOWN` | Confidence in the ordering claim |
+| B-02-1c | Add the **partial-instrumentation-failure** case to the permanent regression suite — it is the failure mode that fails open | `UNKNOWN` | **QG-04 enforcement design** |
 | B-02-2 | **ADR** adopting or rejecting M2 + M3 as Invariant E mechanism (2) | `UNKNOWN` | **QG-04 sign-off** |
 | B-02-3 | Does `Target.setAutoAttach` + `waitForDebuggerOnStart` close M2's target-discovery race? | `UNKNOWN` | Confidence in M2 |
 | B-02-4 | What bounds M3's blind spot for destinations it does not host? | `UNKNOWN` | Completeness of mechanism (3) |
