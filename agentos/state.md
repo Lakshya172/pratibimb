@@ -11,9 +11,9 @@
 |---|---|
 | **Date** | 2026-09-07 |
 | **Phase** | Phase 1 — Week-1 capability spikes (in progress) |
-| **Sprint** | Sprint 1 — Week-1 capability spikes. **S-01 merged (ACCEPT). S-01b answered (CONDITIONAL, PR #2 open). S-02 BLOCKED — no Firefox.** |
+| **Sprint** | Sprint 1 — Week-1 capability spikes. **S-01 merged (ACCEPT). S-01b merged (CONDITIONAL). B-02 answered (CONDITIONAL, PR #9 open). S-02 BLOCKED — no Firefox.** |
 | **Health** | 🟠 **AMBER** — S-01 resolved, but the gating spike S-02 cannot run and Invariant E's test vehicle is measurably blind to the send path. Neither is a code defect; both stop defined work. |
-| **Next milestone** | **`v0.2.0-spikes`** — cannot be cut until S-02 resolves and PR #2 merges. Then S-03 … S-07, then the 20-cell matrix. |
+| **Next milestone** | **`v0.2.0-spikes`** — blocked on S-02, which cannot run without Firefox (**B-01**). Then S-03 … S-07, then the 20-cell matrix. |
 | **Product code written** | **None. Zero.** |
 
 ---
@@ -26,7 +26,8 @@
 | `artifacts/reviews/AUDIT-0001-agentos-framework.md` | What Raptor's Way actually implements, and what PratiBimb adopts from it |
 | `artifacts/experiments/W1-S01-chrome-webgpu-context/` | **S-01 ACCEPT** — WebGPU is fully functional in a dedicated worker inside a Chrome MV3 offscreen document, across 3 runs. Chrome selects integrated graphics. Chrome 152 refuses `--load-extension`. **Workstation 1 only.** |
 | `artifacts/environment/ENV-0002-workstation-omen-audit.md` | **Workstation 2** — AMD integrated graphics, no Docker, no WSL, no Firefox. Establishes that S-01's adapter finding cannot transfer. |
-| `artifacts/experiments/W1-S01b-playwright-extension-loading/` *(open PR #2)* | **S-01b CONDITIONAL** — Playwright's `context.route()` does not observe or block egress from the MV3 offscreen document. 3 runs of 3. **Workstation 2 only.** |
+| `artifacts/experiments/W1-S01b-playwright-extension-loading/` | **S-01b CONDITIONAL** — Playwright's `context.route()` does not observe or block egress from the MV3 offscreen document. 3 runs of 3. **Workstation 2 only.** Merged `d7fe11d`. |
+| `artifacts/experiments/W1-B02-invariant-e-observation/` *(open PR #9)* | **B-02 CONDITIONAL** — CDP attached to the offscreen target observes and genuinely blocks; an independent loopback collector proves arrival, detects an unauthorised sender by absent provenance, and caught a tampered payload by recomputing its hash. **Workstation 2 only.** |
 | `artifacts/experiments/W1-S02-firefox-webgpu-context/` | **No result.** A pre-registered protocol and accept/reject criteria for S-02, fixed before any data exists. **Nothing in it may be cited as a result.** |
 
 ## Repository
@@ -71,7 +72,8 @@
 | Task | Status | Owner | Blocked by |
 |---|---|---|---|
 | S-01 — WebGPU in a Chrome MV3 offscreen document | `DONE` — ACCEPT, merged in PR #1 (`2fb4e82`) | `browser-engineer` | — |
-| S-01b — Playwright / Invariant E interception coverage | `IN_REVIEW` — CONDITIONAL, evidence in **open PR #2** | `browser-engineer` · `evaluation-qa-engineer` | Maintainer merge (**B-04**) |
+| S-01b — Playwright / Invariant E interception coverage | `DONE` — CONDITIONAL, merged `d7fe11d` | `browser-engineer` · `evaluation-qa-engineer` | — |
+| B-02 — which mechanism can be trusted to enforce Invariant E | `IN_REVIEW` — CONDITIONAL, evidence in **open PR #9** | `browser-engineer` · `evaluation-qa-engineer` | Maintainer merge (**B-04**) |
 | S-02 — WebGPU in a Firefox MV3 event page | `BLOCKED` | `browser-engineer` | **B-01** — no Firefox on any workstation |
 | Invariant E enforcement vehicle | `BLOCKED` | `privacy-security-engineer` → human architect | **B-02** — needs an ADR, issue #5 |
 | Server host decision, then E-01 / E-02 | `BLOCKED` | Human — team | **B-03** |
@@ -138,8 +140,8 @@ The two that gated everything else:
 New UNKNOWNs raised by S-01:
 
 - **S-01a** — can Chrome be made to select the discrete NVIDIA adapter? (p2, blocks nothing)
-- **S-01b** — **answered, and the answer is worse than the question.** Evidence in open
-  **PR #2**, verdict **CONDITIONAL**. Branded Edge 152 loads the unpacked MV3 extension
+- **S-01b** — **answered, and the answer is worse than the question.** Merged `d7fe11d`,
+  verdict **CONDITIONAL**. Branded Edge 152 loads the unpacked MV3 extension
   where branded Chrome 152 does not — but `context.route()` **does not cover the MV3
   offscreen document**, which `docs/architecture/constitution.md` §5 makes the send path.
   Under an abort-everything route handler the offscreen POST reached the wire in **3 runs
@@ -152,6 +154,14 @@ New UNKNOWNs raised by S-01:
 (3) manifest CSP and (4) payload hash pin are unaffected; mechanism (2) has a measured
 coverage gap over the send path, and choosing its replacement is an ADR decision reserved
 for the human architect.
+
+- **B-02** — **answered.** Open **PR #9**, verdict **CONDITIONAL**. CDP attached to the
+  offscreen target observes 5 of 5 and genuinely blocks (the collector confirms zero
+  arrivals); an independent loopback collector detects an unauthorised sender by its absent
+  provenance headers and caught a tampered payload by recomputing SHA-256 over the received
+  bytes. **No single mechanism answers all five sub-questions; `CDP + collector` does**, with
+  independent failure modes. **Not adopted — that needs an ADR (B-02-2).** A deterministic
+  regression guard now encodes the false-green failure mode, 3 of 3 runs.
 
 Operational risk, **workstation 1 only**: its working tree is on a OneDrive-synced path,
 which can race with Git on `.git/` internals. Workstation 2 is on a plain local path and
