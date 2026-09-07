@@ -162,7 +162,7 @@ and `docs/architecture/constitution.md` are untouched. QG-04 remains unsigned.**
 
 | # | Item | Priority | Blocks |
 |---|---|---|---|
-| S-02a-2b-1 | **Is `'wasm-eval'` accepted, and is it sufficient?** A narrower directive materially changes the S-02a-2a security analysis. | **p0** | S-02a-2a |
+| ~~S-02a-2b-1~~ | ~~Is `'wasm-eval'` accepted?~~ **RESOLVED — NO.** `'wasm-eval'` and `'unsafe-eval'` both make the extension fail to load, both platforms. **`'wasm-unsafe-eval'` is the only accepted token.** See `S02a2b1-NARROWER-DIRECTIVE.md`. | ✅ | — |
 | S-02a-2b-2 | Confirm the Chrome/Firefox `SharedArrayBuffer` asymmetry survives on native Linux and on a real judging machine | **p1** | The WASM budget |
 
 ## Reproducibility

@@ -85,6 +85,11 @@ async function oneRun({ variant, extDir, headless, run }, received) {
     { variant: "default-csp-headless",      extDir: "ext-default",   headless: true },
     { variant: "wasm-unsafe-eval-headful",  extDir: "ext-wasm-csp",  headless: false },
     { variant: "wasm-unsafe-eval-headless", extDir: "ext-wasm-csp",  headless: true },
+    // S-02a-2b-1: is a NARROWER directive accepted and sufficient? Chrome's own error
+    // names 'wasm-eval'. Choosing more privilege than needed, in the manifest that also
+    // pins connect-src, would be a poor default.
+    { variant: "wasm-eval-headless",        extDir: "ext-wasm-eval", headless: true },
+    { variant: "unsafe-eval-headless",      extDir: "ext-unsafe-eval", headless: true },
   ];
 
   for (const v of plan) {

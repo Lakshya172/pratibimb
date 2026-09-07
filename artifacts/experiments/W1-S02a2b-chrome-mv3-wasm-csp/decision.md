@@ -90,7 +90,7 @@ The ADR now has what it needs on the *problem* side, and one gap on the *solutio
 
 | # | Item | Priority | Blocks |
 |---|---|---|---|
-| S-02a-2b-1 | **Is `'wasm-eval'` accepted and sufficient in Chrome MV3, and what does Firefox accept?** | **p0** | **S-02a-2a** |
+| ~~S-02a-2b-1~~ | ~~Is `'wasm-eval'` accepted and sufficient?~~ **RESOLVED — NO.** Both `'wasm-eval'` and `'unsafe-eval'` make the extension **fail to load entirely** (no service worker), 2/2 on Windows and 2/2 on Linux. **`'wasm-unsafe-eval'` is the only token Chrome MV3 accepts.** See `S02a2b1-NARROWER-DIRECTIVE.md`. | ✅ | — |
 | S-02a-2b-2 | Does the Chrome/Firefox `SharedArrayBuffer` asymmetry hold on native Linux? | **p1** | The WASM budget |
 
 ## Registry effect
