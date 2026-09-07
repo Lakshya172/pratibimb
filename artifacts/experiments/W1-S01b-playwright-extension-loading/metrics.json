@@ -1,0 +1,146 @@
+{
+  "experiment": "W1-S01b-playwright-extension-loading",
+  "question": "Can the Playwright setup used by this project load the unpacked MV3 extension in the manner the Invariant E egress interception suite requires - that is, load it AND observe AND block network requests issued from the extension's background contexts?",
+  "measurement_note": "Boolean capability results, not latency. The collector is the ground truth: it records what actually arrived on the wire, independently of what Playwright reported.",
+  "matrix": [
+    {
+      "variant": "A-bundled-chromium-headed-observe",
+      "launched": false,
+      "launch_error": "Error: browserType.launchPersistentContext: spawn UNKNOWN",
+      "extension_loaded": false,
+      "extension_id": null,
+      "requests_observed_by_playwright": [],
+      "requests_that_actually_arrived": []
+    },
+    {
+      "variant": "B-bundled-chromium-headed-block",
+      "launched": false,
+      "launch_error": "Error: browserType.launchPersistentContext: spawn UNKNOWN",
+      "extension_loaded": false,
+      "extension_id": null,
+      "requests_observed_by_playwright": [],
+      "requests_that_actually_arrived": []
+    },
+    {
+      "variant": "C-bundled-chromium-headless-observe",
+      "launched": false,
+      "launch_error": "Error: browserType.launchPersistentContext: Executable doesn't exist at C:\\Users\\OMEN\\AppData\\Local\\ms-playwright\\chromium_headless_shell-1243\\chrome-headless-shell-win64\\chrome-headless-shell.exe",
+      "extension_loaded": false,
+      "extension_id": null,
+      "requests_observed_by_playwright": [],
+      "requests_that_actually_arrived": []
+    },
+    {
+      "variant": "D-branded-chrome-stable-headed-observe",
+      "launched": true,
+      "launch_error": null,
+      "extension_loaded": false,
+      "extension_id": null,
+      "requests_observed_by_playwright": [],
+      "requests_that_actually_arrived": []
+    },
+    {
+      "variant": "E-branded-edge-stable-headed-observe",
+      "launched": true,
+      "launch_error": null,
+      "extension_loaded": true,
+      "extension_id": "kapobnekdfajlhifmcpdgfpenmifefbg",
+      "requests_observed_by_playwright": [
+        "http://127.0.0.1:8901/ready/service-worker",
+        "http://127.0.0.1:8901/egress/service-worker"
+      ],
+      "requests_that_actually_arrived": [
+        "GET /ready/service-worker",
+        "POST /egress/service-worker",
+        "POST /egress/offscreen-document"
+      ]
+    }
+  ],
+  "blocking_test": {
+    "method": "context.route('**/*') aborts every request to the collector, from every context. Anything still arriving was not interceptable.",
+    "runs": [
+      {
+        "run": 1,
+        "extension_loaded": true,
+        "aborted_by_playwright": [
+          "http://127.0.0.1:8901/ready/service-worker",
+          "http://127.0.0.1:8901/egress/service-worker"
+        ],
+        "still_arrived_at_collector": [
+          "POST /egress/offscreen-document"
+        ],
+        "service_worker_fetch": {
+          "ok": false,
+          "error": "TypeError: Failed to fetch"
+        },
+        "offscreen_fetch": {
+          "ok": true,
+          "status": 200
+        }
+      },
+      {
+        "run": 2,
+        "extension_loaded": true,
+        "aborted_by_playwright": [
+          "http://127.0.0.1:8901/ready/service-worker",
+          "http://127.0.0.1:8901/egress/service-worker"
+        ],
+        "still_arrived_at_collector": [
+          "POST /egress/offscreen-document"
+        ],
+        "service_worker_fetch": {
+          "ok": false,
+          "error": "TypeError: Failed to fetch"
+        },
+        "offscreen_fetch": {
+          "ok": true,
+          "status": 200
+        }
+      },
+      {
+        "run": 3,
+        "extension_loaded": true,
+        "aborted_by_playwright": [
+          "http://127.0.0.1:8901/egress/service-worker",
+          "http://127.0.0.1:8901/ready/service-worker"
+        ],
+        "still_arrived_at_collector": [
+          "POST /egress/offscreen-document"
+        ],
+        "service_worker_fetch": {
+          "ok": false,
+          "error": "TypeError: Failed to fetch"
+        },
+        "offscreen_fetch": {
+          "ok": true,
+          "status": 200
+        }
+      }
+    ],
+    "reproducibility": "3 of 3 runs identical"
+  },
+  "target_visibility": {
+    "playwright_pages": [
+      "about:blank"
+    ],
+    "playwright_service_workers": [
+      "chrome-extension://kapobnekdfajlhifmcpdgfpenmifefbg/background.js"
+    ],
+    "playwright_background_pages": [],
+    "cdp_targets": [
+      {
+        "type": "service_worker",
+        "url": "chrome-extension://kapobnekdfajlhifmcpdgfpenmifefbg/background.js"
+      },
+      {
+        "type": "background_page",
+        "url": "chrome-extension://kapobnekdfajlhifmcpdgfpenmifefbg/offscreen.html"
+      },
+      {
+        "type": "page",
+        "url": "about:blank"
+      }
+    ],
+    "cdp_sees_offscreen_document": true
+  }
+}

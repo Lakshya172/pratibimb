@@ -1,0 +1,38 @@
+{
+  "probe": {
+    "serviceWorker": {
+      "ok": true,
+      "status": 200
+    },
+    "offscreen": {
+      "ok": true,
+      "status": 200
+    }
+  },
+  "playwrightPages": [
+    "about:blank"
+  ],
+  "playwrightServiceWorkers": [
+    "chrome-extension://kapobnekdfajlhifmcpdgfpenmifefbg/background.js"
+  ],
+  "cdpTargets": [
+    {
+      "type": "service_worker",
+      "url": "chrome-extension://kapobnekdfajlhifmcpdgfpenmifefbg/background.js"
+    },
+    {
+      "type": "background_page",
+      "url": "chrome-extension://kapobnekdfajlhifmcpdgfpenmifefbg/offscreen.html"
+    },
+    {
+      "type": "page",
+      "url": "about:blank"
+    }
+  ],
+  "cdpOffscreenPresent": true,
+  "collectorReceived": [
+    "GET /ready/service-worker",
+    "POST /egress/service-worker",
+    "POST /egress/offscreen-document"
+  ]
+}
