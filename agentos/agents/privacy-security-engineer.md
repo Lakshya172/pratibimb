@@ -2,7 +2,7 @@
 
 > **Authority: L1 — standing veto on the trust boundary.**
 > **Cross-refs:** `docs/security/security-invariants.md` · `docs/security/threat-model.md` ·
-> `docs/architecture/manifest-schema.md` · `docs/architecture/action-schema.md` · `agentos/gates/QG-04-egress-invariant.md`
+> `docs/architecture/manifest-schema.md` · `docs/architecture/action-schema.md` · [QG-04](../gates/README.md#qg-04--egress-invariant)
 
 ---
 

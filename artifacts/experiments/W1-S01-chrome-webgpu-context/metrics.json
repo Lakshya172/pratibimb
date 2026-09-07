@@ -1,0 +1,229 @@
+{
+  "experiment": "W1-S01-chrome-webgpu-context",
+  "runs": 3,
+  "browser": "Google Chrome 152.0.7977.82 (headful)",
+  "measurement_note": "dispatchMs is END-TO-END wall clock from queue.submit() to readback mapAsync() resolving, NOT isolated GPU kernel time.",
+  "workload": "262144 f32 elements, out[i]=in[i]*2+1, workgroup_size 64, 20 iterations (1 cold + 19 warm)",
+  "per_context": {
+    "ordinary-web-page-CONTROL": {
+      "runs": 3,
+      "navigatorGpuPresent": [
+        true
+      ],
+      "adapterAvailable": [
+        true
+      ],
+      "deviceCreated": [
+        true
+      ],
+      "computeOutputCorrect": [
+        true
+      ],
+      "repeatableAfterDestroy": [
+        true
+      ],
+      "adapterVendorArch": [
+        "intel/gen-12lp"
+      ],
+      "highPerfVendorArch": [
+        "intel/gen-12lp"
+      ],
+      "requestAdapterMs_default": [
+        63.7,
+        51.1,
+        492
+      ],
+      "requestDeviceMs": [
+        19.1,
+        12.8,
+        153.7
+      ],
+      "coldDispatchMs": [
+        6.7,
+        7.3,
+        7.2
+      ],
+      "warmP50Ms": [
+        4.1,
+        4.1,
+        4.7
+      ],
+      "warmP95Ms": [
+        7.8,
+        24.3,
+        6.1
+      ],
+      "warmMinMs": [
+        2.2,
+        2.7,
+        3.5
+      ],
+      "uncapturedErrorCount": 0
+    },
+    "mv3-service-worker": {
+      "runs": 3,
+      "navigatorGpuPresent": [
+        true
+      ],
+      "adapterAvailable": [
+        true
+      ],
+      "deviceCreated": [
+        true
+      ],
+      "computeOutputCorrect": [
+        true
+      ],
+      "repeatableAfterDestroy": [
+        true
+      ],
+      "adapterVendorArch": [
+        "intel/gen-12lp"
+      ],
+      "highPerfVendorArch": [
+        "intel/gen-12lp"
+      ],
+      "requestAdapterMs_default": [
+        507.9,
+        1121.5,
+        3737.8
+      ],
+      "requestDeviceMs": [
+        122.4,
+        1789,
+        89
+      ],
+      "coldDispatchMs": [
+        12.2,
+        127.2,
+        28.2
+      ],
+      "warmP50Ms": [
+        11.1,
+        13.9,
+        7
+      ],
+      "warmP95Ms": [
+        2358.6,
+        430,
+        63.6
+      ],
+      "warmMinMs": [
+        4.3,
+        4.9,
+        5.4
+      ],
+      "uncapturedErrorCount": 0
+    },
+    "offscreen-document": {
+      "runs": 3,
+      "navigatorGpuPresent": [
+        true
+      ],
+      "adapterAvailable": [
+        true
+      ],
+      "deviceCreated": [
+        true
+      ],
+      "computeOutputCorrect": [
+        true
+      ],
+      "repeatableAfterDestroy": [
+        true
+      ],
+      "adapterVendorArch": [
+        "intel/gen-12lp"
+      ],
+      "highPerfVendorArch": [
+        "intel/gen-12lp"
+      ],
+      "requestAdapterMs_default": [
+        22.4,
+        13.2,
+        24.2
+      ],
+      "requestDeviceMs": [
+        16.7,
+        10.5,
+        17.5
+      ],
+      "coldDispatchMs": [
+        6.5,
+        5.6,
+        6.4
+      ],
+      "warmP50Ms": [
+        4.9,
+        3.8,
+        4.3
+      ],
+      "warmP95Ms": [
+        6.2,
+        4.7,
+        5.5
+      ],
+      "warmMinMs": [
+        3.6,
+        1.8,
+        3.7
+      ],
+      "uncapturedErrorCount": 0
+    },
+    "offscreen-dedicated-worker": {
+      "runs": 3,
+      "navigatorGpuPresent": [
+        true
+      ],
+      "adapterAvailable": [
+        true
+      ],
+      "deviceCreated": [
+        true
+      ],
+      "computeOutputCorrect": [
+        true
+      ],
+      "repeatableAfterDestroy": [
+        true
+      ],
+      "adapterVendorArch": [
+        "intel/gen-12lp"
+      ],
+      "highPerfVendorArch": [
+        "intel/gen-12lp"
+      ],
+      "requestAdapterMs_default": [
+        17.5,
+        17.8,
+        22.9
+      ],
+      "requestDeviceMs": [
+        9.3,
+        9.8,
+        18.7
+      ],
+      "coldDispatchMs": [
+        6.2,
+        6.3,
+        5.8
+      ],
+      "warmP50Ms": [
+        4.6,
+        4.8,
+        5
+      ],
+      "warmP95Ms": [
+        6.2,
+        5.7,
+        6
+      ],
+      "warmMinMs": [
+        3.4,
+        3.5,
+        3.8
+      ],
+      "uncapturedErrorCount": 0
+    }
+  }
+}

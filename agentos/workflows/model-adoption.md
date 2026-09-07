@@ -1,7 +1,7 @@
 # Workflow: Model Adoption
 
 > **No model is accepted merely because documentation says it should work.**
-> Exit gate: `agentos/gates/QG-03-model-feasibility.md`
+> Exit gate: [QG-03](../gates/README.md#qg-03--model-feasibility)
 > Owning reviewer: `ml-engineer`
 
 ---
