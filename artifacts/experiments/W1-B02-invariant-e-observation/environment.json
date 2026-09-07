@@ -1,0 +1,36 @@
+{
+  "experiment": "W1-B02-invariant-e-observation",
+  "recorded_at": "2026-09-07T22:40:33+05:30",
+  "scope_warning": "One machine, Windows, branded Edge. The egress suite's CI target is ubuntu-latest with Playwright's own Chromium. Nothing here is a fact about that cell. See S-01b-1.",
+  "host": {
+    "machine": "HP OMEN Gaming Laptop 16-ap0xxx (LAPTOP-SRCINK2B) — workstation 2",
+    "os": "Windows 11 Home Single Language",
+    "os_version": "10.0.26200",
+    "arch": "AMD64",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M (16 logical)",
+    "node": "v26.4.0"
+  },
+  "gpu": {
+    "integrated": "AMD Radeon 860M Graphics, driver 32.0.22042.29001",
+    "discrete": "NVIDIA GeForce RTX 5050 Laptop GPU, 8151 MiB, driver 592.82"
+  },
+  "automation": {
+    "playwright": "1.63.0",
+    "browser_channel": "msedge",
+    "browser_version": "152.0.4191.66",
+    "mode": "headful",
+    "cdp": "raw CDP over Node built-in WebSocket, --remote-debugging-port=9444",
+    "why_edge": "S-01b measured that branded Chrome 152 silently ignores --load-extension while branded Edge 152 honours it. Edge is the only branded browser on this workstation that can load the unpacked MV3 extension at all. Playwright's own Chromium could not be executed here (its CDN returns HTTP 400; the Chrome for Testing build it names fails with a side-by-side configuration error)."
+  },
+  "execution_context_under_test": "MV3 offscreen document — the context docs/architecture/constitution.md section 5 assigns payload assembly and inference to",
+  "collector": {
+    "endpoint": "http://127.0.0.1:8902",
+    "role": "GROUND TRUTH — records what actually arrived and recomputes SHA-256 over the received bytes, independently of every instrumentation mechanism under evaluation",
+    "external_hosts_contacted_by_harness": "none"
+  },
+  "data": {
+    "payloads": "synthetic, deterministic: {\"marker\":\"...\",\"frame\":\"SYNTHETIC\",\"n\":4242}",
+    "pii": "none",
+    "secrets": "none"
+  }
+}
