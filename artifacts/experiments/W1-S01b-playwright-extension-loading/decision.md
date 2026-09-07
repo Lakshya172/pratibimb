@@ -78,12 +78,12 @@ Deliberately, and this is the point of the spike stopping here:
 
 ## Registry effect
 
-- **`agentos/registry/feasibility-matrix.md` is deliberately NOT edited by this PR.** PR #1
-  rewrites the prerequisite-spike table in that same file and is still unmerged; editing it
-  here would hand the maintainer an avoidable textual conflict between two spike PRs. The
-  row lands in a follow-up once PR #1 is merged, and that follow-up is tracked as an issue.
-  **This means QG-01 is not yet fully signed off for S-01b** — the registry-update checkbox
-  is outstanding by design, not by oversight.
+- **`agentos/registry/feasibility-matrix.md` is updated by this PR.** The row was initially
+  held back because PR #1 rewrote the prerequisite-spike table in that same file and was
+  unmerged; editing it from a second branch would have handed the maintainer an avoidable
+  conflict between two spike PRs. **PR #1 merged at `2fb4e82`, so that reason has gone** and
+  the rows now land here, with `upstream/main` merged into this branch first.
+  **QG-01's registry checkbox is therefore satisfied for S-01b.**
 - **S-01b remains `UNKNOWN` for its literal question** (Playwright's *bundled* Chromium).
   What this PR promotes to `FACT` is the interception-coverage result, scoped to the cell
   measured: Playwright 1.63.0 + branded Edge 152 + Windows 11 + this machine.
