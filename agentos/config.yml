@@ -1,0 +1,97 @@
+# PratiBimb AgentOS — project configuration
+# Adapted from Raptor's Way / AgentOS. See docs/adr/README.md C-03 for adoption scope.
+
+project:
+  name: PratiBimb
+  competition: Smart India Hackathon 2026
+  problem_statement: "26171"
+  organization: ISRO / Department of Space
+  title: On-device Visual Perception for Light-weight Browser Agents
+  phase: "0 — Initialization"
+  status: INITIALIZED
+  product_code_written: false
+
+governing_document:
+  path: docs/dossier/PratiBimb-Engineering-Dossier-v4.0.pdf
+  version: "4.0"
+  status: "final — implementation baseline, supersedes v3.0"
+  sha256_pdf: ae8d99c72981a1cb543d189f9bac8eefa76fae4055bf67a86c363306af9b6bba
+  extracted_text: docs/dossier/PratiBimb-Engineering-Dossier-v4.0.txt
+  sha256_text: 0328966b9cf43b0d54f9f4861f5dadfcf13ebbecdb2e6a5f61b04645c87ef348
+  authority: >
+    Authoritative unless a factual implementation issue is discovered and clearly
+    documented in an ADR approved by the human architect.
+
+# AgentOS governs development only. It is NOT part of the PratiBimb runtime product.
+agentos_scope:
+  applies_to: [planning, review, decisions, gates, state, documentation, reproducibility]
+  never_applies_to: [extension_runtime, server_runtime, shipped_artifacts]
+
+contracts_frozen:
+  - docs/security/security-invariants.md
+  - docs/security/threat-model.md
+  - docs/architecture/coordinate-contract.md
+  - docs/architecture/manifest-schema.md
+  - docs/architecture/action-schema.md
+  - docs/testing/benchmark-contract.md
+
+registries:
+  - agentos/registry/model-registry.md
+  - agentos/registry/feasibility-matrix.md
+
+agents:
+  - agentos/agents/pratibimb-architect.md
+  - agentos/agents/browser-engineer.md
+  - agentos/agents/ml-engineer.md
+  - agentos/agents/privacy-security-engineer.md
+  - agentos/agents/evaluation-qa-engineer.md
+  - agentos/agents/performance-engineer.md
+  - agentos/agents/integration-release-engineer.md
+
+workflows:
+  - agentos/workflows/spike.md
+  - agentos/workflows/implementation.md
+  - agentos/workflows/model-adoption.md
+  - agentos/workflows/release.md
+
+quality_gates:
+  - QG-01  # capability spike complete
+  - QG-02  # coordinate contract
+  - QG-03  # model feasibility
+  - QG-04  # egress invariant
+  - QG-05  # evaluation harness
+  - QG-06  # release
+
+# Additions require an ADR.
+stack_frozen:
+  client:
+    framework: WXT (Vite)
+    language: TypeScript strict
+    ui: React + Tailwind + Side Panel API
+    inference: [ONNX Runtime Web, Transformers.js]
+    acceleration: [WebGPU (validated only), WASM/SIMD (always)]
+    targets: [Chrome MV3, Firefox MV3]
+  server:
+    api: FastAPI + Pydantic v2
+    inference: vLLM
+    model_default: Qwen3-VL-4B-Instruct
+    model_upgrade: Qwen3-VL-8B-Instruct
+    session_store: in-process dict
+    deployment: Docker Compose + CUDA
+  testing: [Vitest, Playwright, custom benchmark harness]
+
+banned_without_adr:
+  - LangChain
+  - CrewAI
+  - AutoGen
+  - Redis
+  - model ensembles
+  - multi-model routing
+  - streaming action execution
+  - large local VLM in the normal path
+
+epistemic_policy:
+  labels: [FACT, INFERENCE, UNKNOWN]
+  promotion_requires: artifact under artifacts/experiments/
+  rule: >
+    Documentation asserting a capability is UNKNOWN until observed in this environment.
