@@ -29,8 +29,10 @@ documentation asserting a thing is fixed is not evidence that it is fixed.
 
 | Field | Value |
 |---|---|
-| **Status** | `BLOCKED` |
+| **Status** | **`RESOLVED` 2026-09-07** |
 | **Owner** | Human — workstation owner |
+| **Resolution evidence** | Firefox **155.0.1** installed via `winget Mozilla.Firefox` on workstation 2. **S-02 executed against real Firefox** — no simulation, no inference from Chrome. Verdict **ACCEPT**, 3 runs of 3, artifact `artifacts/experiments/W1-S02-firefox-webgpu-context/`. Acceptance criteria were **not** altered after seeing results; the pre-registered protocol is preserved in the same file. |
+| **Residual** | **Firefox on LINUX is still `UNKNOWN`** — a separate cell, and the one the risk register rates High. Tracked as **S-02a**, not as part of B-01. |
 | **Dependency** | Mozilla Firefox installed on a workstation available to the project |
 | **Impact** | **Critical, on the critical path.** `agentos/workflows/spike.md` states *"Nothing else in the project starts until S-01 and S-02 resolve."* S-01 has an answer; S-02 has none, and cannot be attempted. By the project's own gating rule, downstream implementation does not begin. |
 | **Evidence** | `artifacts/environment/ENV-0002-workstation-omen-audit.md` — Firefox not installed; Chrome 152 and Edge 152 present |
@@ -59,6 +61,8 @@ documentation asserting a thing is fixed is not evidence that it is fixed.
 | **Impact** | **Major, not yet on the critical path.** The dossier schedules the first server round trip in week one (S-07) and closes the loop in week four. vLLM's supported platform is Linux. The second workstation has **neither Docker nor WSL**, so it has no vLLM path at all; the first workstation has Docker but 8 GB of VRAM, which ENV-0001 assesses as tight for Qwen3-VL-4B before KV cache. |
 | **Evidence** | `artifacts/environment/ENV-0002-workstation-omen-audit.md` (no Docker, no WSL); `artifacts/experiments/ENV-0001-workspace-environment.md` (E-01…E-04) |
 | **Resolution path** | Name the GPU host, then run E-01 (does vLLM run there at all) and E-02 (does Qwen3-VL-4B fit, at what quantisation and context) on a dedicated branch. |
+| **Update 2026-09-07** | **A Linux host with GPU passthrough now exists on workstation 2 — and B-03 still stays `BLOCKED`.** WSL2 + Ubuntu 26.04 were installed (kernel `6.18.33.2-microsoft-standard-WSL2`), **no reboot required**, and `nvidia-smi` works inside the distribution: RTX 5050, 8151 MiB, CUDA 13.1, with `/usr/lib/wsl/lib/libcuda.so` present. Evidence: `artifacts/environment/ENV-0003-wsl2-linux-gpu-host.md`. **The host existing is not vLLM running on it.** The next obstacle is named rather than guessed: Ubuntu 26.04 ships **only Python 3.14**, with no `python3.12` in apt and no `pip`, which is outside the interpreter range vLLM publishes wheels for. A pinned Python toolchain is required before E-01 can even be attempted. The 8 GB VRAM question (E-02) is unchanged. |
+| **Wider value** | This is the project's first Linux environment, so it also bears on two p1 items that have nothing to do with the server: **B-02-1** (does the Invariant E interception result hold on the real CI cell?) and **S-02a** (Firefox on Linux, rated High by the risk register). Both may now be runnable for the first time. **WSL2 is not `ubuntu-latest`** — different kernel, different graphics stack, no GPU on a hosted runner — so it narrows the gap without closing it. |
 | **Explicitly not done** | No model weights downloaded. No attempt to force a vLLM deployment onto a machine that cannot host it. **The current workstation is not described anywhere as the server host.** |
 
 ### B-04 · Fork-topology contributors cannot merge their own pull requests
