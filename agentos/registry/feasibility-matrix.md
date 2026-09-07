@@ -43,12 +43,46 @@ artifact path under `artifacts/experiments/`.
 
 | # | Question | Status | Evidence |
 |---|---|---|---|
-| S-01 | Does `navigator.gpu.requestAdapter()` return a **real adapter** inside a Chrome `chrome.offscreen` document? | `UNKNOWN` | — |
+| S-01 | Does `navigator.gpu.requestAdapter()` return a **real adapter** inside a Chrome `chrome.offscreen` document? | **`FACT` — YES** | [`W1-S01`](../../artifacts/experiments/W1-S01-chrome-webgpu-context/README.md) |
 | S-02 | Does `navigator.gpu.requestAdapter()` return a **real adapter** inside a Firefox MV3 event page? | `UNKNOWN` | — |
 | S-03 | Can an ONNX Runtime Web session be **created and run** in each context, on each backend? | `UNKNOWN` | — |
 | S-04 | Can **three ORT Web sessions coexist** in one WebAssembly heap inside an extension offscreen document, and does teardown reclaim memory? | `UNKNOWN` | — |
 | S-05 | What are the **real `tabs.captureVisibleTab` rate limits** under `activeTab`? | `UNKNOWN` | — |
 | S-06 | Does the coordinate contract hold at DPR 1.0 / 1.5 / 2.0 and 100% / 125% zoom? | `UNKNOWN` | — |
+
+### S-01 result — recorded 2026-09-07
+
+**ACCEPT.** Chrome **152.0.7977.82** (stable, headful, Windows 11). WebGPU is fully
+functional in all four probed contexts — ordinary page (control), MV3 background service
+worker, `chrome.offscreen` document, and a **dedicated Worker inside the offscreen
+document**, which is PratiBimb's real inference context. Adapter returned, device created,
+WGSL compute shader output **element-exact against a CPU reference**, device destroyed and
+re-acquired cleanly. Identical across **3 runs**, zero uncaptured GPU errors.
+
+Target context (offscreen dedicated worker), min/median/max over 3 runs:
+`requestAdapter` 17.5 / 17.8 / 22.9 ms · `requestDevice` 9.3 / 9.8 / 18.7 ms ·
+cold dispatch 5.8 / 6.2 / 6.3 ms · warm p50 4.6 / 4.8 / 5.0 ms · warm p95 5.7 / 6.0 / 6.2 ms.
+End-to-end submit-to-readback on a trivial shader, **not** a model and **not** kernel time.
+
+Two constraints attached to the acceptance:
+
+1. **Integrated graphics only.** Chrome returned `intel / gen-12lp` in every context and
+   run, under both default and `high-performance` power preferences, despite an NVIDIA
+   RTX 5050 Laptop GPU being present. Every WebGPU figure measured on this machine is an
+   integrated-graphics figure. → **S-01a**
+2. **Chrome 152 stable refuses `--load-extension`.** Extensions load only via CDP
+   `Extensions.loadUnpacked`. Affects the CI plan for the Playwright egress interception
+   suite. → **S-01b**
+
+**S-01 does NOT fill any of the twenty model cells, and does not answer S-03.** Raw WebGPU
+working is not ONNX Runtime Web's WebGPU backend working.
+
+| # | New question raised by S-01 | Status | Blocks |
+|---|---|---|---|
+| S-01a | Can Chrome be made to select the discrete NVIDIA adapter, and what does that do to the numbers? | `UNKNOWN` | Nothing; affects labelling |
+| S-01b | Does Playwright's bundled Chromium still honour `--load-extension`, so the egress suite can run in CI? | `UNKNOWN` | QG-04 enforcement plan |
+
+---
 
 > **GPU adapter availability from extension background contexts has been inconsistent.**
 > If S-01 or S-02 returns null, **every WebGPU number in the dossier becomes the WASM

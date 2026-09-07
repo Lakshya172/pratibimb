@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "PratiBimb S-01 WebGPU context probe",
+  "version": "1.0.0",
+  "description": "Throwaway spike harness. Probes WebGPU availability in the exact MV3 contexts PratiBimb intends to use.",
+  "minimum_chrome_version": "116",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "offscreen"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8899/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

@@ -203,7 +203,9 @@ def check_experiments() -> None:
             fail("experiments", f"{d.name}/ has no README.md")
             continue
         body = readme.read_text(encoding="utf-8", errors="ignore").lower()
-        for section in ("hypothesis", "environment", "actual result", "conclusion"):
+        # The sections an experiment log must state (per the spike workflow):
+        for section in ("hypothesis", "environment", "expected result",
+                        "actual result", "conclusion", "reproducib"):
             if section not in body:
                 warn("experiments", f"{d.name}/README.md has no '{section}' section")
         if not (d / "decision.md").is_file():

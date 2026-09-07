@@ -1,0 +1,540 @@
+{
+  "collected_at": "2026-09-07T20:04:07+0530",
+  "complete": true,
+  "timed_out": false,
+  "logs": [
+    {
+      "stage": "start",
+      "detail": {
+        "chromeVersion": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+        "manifestVersion": 3,
+        "extensionId": "ldhncamjeodalamhbbbomleedodpncco"
+      },
+      "at": "2026-09-07T14:33:58.959Z"
+    },
+    {
+      "stage": "probing",
+      "detail": "mv3-service-worker",
+      "at": "2026-09-07T14:33:59.762Z"
+    },
+    {
+      "stage": "offscreen",
+      "detail": "created",
+      "at": "2026-09-07T14:34:06.380Z"
+    }
+  ],
+  "results": [
+    {
+      "context": "ordinary-web-page-CONTROL",
+      "globalKind": "Window",
+      "href": "http://127.0.0.1:8899/control",
+      "isSecureContext": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+      "hardwareConcurrency": 16,
+      "startedAt": "2026-09-07T14:34:00.938Z",
+      "navigatorGpuPresent": true,
+      "adapterAvailable": true,
+      "deviceCreated": true,
+      "computeRan": true,
+      "repeatable": true,
+      "error": null,
+      "preferredCanvasFormat": "bgra8unorm",
+      "wgslLanguageFeatures": [
+        "packed_4x8_integer_dot_product",
+        "subgroup_uniformity",
+        "immediate_address_space",
+        "linear_indexing",
+        "subgroup_id",
+        "readonly_and_readwrite_storage_textures",
+        "unrestricted_pointer_parameters",
+        "pointer_composite_access",
+        "texture_and_sampler_let",
+        "uniform_buffer_standard_layout"
+      ],
+      "adapterDefault": {
+        "powerPreference": "default",
+        "requestAdapterMs": 63.7,
+        "adapterAvailable": true,
+        "info": {
+          "source": "adapter.info",
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": "",
+          "subgroupMinSize": 8,
+          "subgroupMaxSize": 16
+        }
+      },
+      "adapterHighPerformance": {
+        "powerPreference": "high-performance",
+        "requestAdapterMs": 2.8,
+        "adapterAvailable": true,
+        "info": {
+          "source": "adapter.info",
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": "",
+          "subgroupMinSize": 8,
+          "subgroupMaxSize": 16
+        }
+      },
+      "adapterUsedForDevice": "default",
+      "adapterInfo": {
+        "source": "adapter.info",
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "device": "",
+        "description": "",
+        "subgroupMinSize": 8,
+        "subgroupMaxSize": 16
+      },
+      "adapterFeatures": [
+        "bgra8unorm-storage",
+        "clip-distances",
+        "core-features-and-limits",
+        "depth-clip-control",
+        "depth32float-stencil8",
+        "dual-source-blending",
+        "float32-blendable",
+        "float32-filterable",
+        "indirect-first-instance",
+        "primitive-index",
+        "rg11b10ufloat-renderable",
+        "shader-f16",
+        "subgroup-size-control",
+        "subgroups",
+        "texture-component-swizzle",
+        "texture-compression-bc",
+        "texture-compression-bc-sliced-3d",
+        "texture-formats-tier1",
+        "texture-formats-tier2",
+        "timestamp-query"
+      ],
+      "adapterLimits": {
+        "maxBufferSize": 2147483648,
+        "maxStorageBufferBindingSize": 2147483644,
+        "maxComputeWorkgroupsPerDimension": 65535,
+        "maxComputeInvocationsPerWorkgroup": 1024,
+        "maxTextureDimension2D": 16384
+      },
+      "isFallbackAdapter": null,
+      "requestDeviceMs": 19.1,
+      "compute": {
+        "elements": 262144,
+        "iterations": 20,
+        "outputCorrect": true,
+        "checksum": 262020736,
+        "shaderCompileErrors": [],
+        "coldDispatchMs": 6.7,
+        "warmDispatchMs": {
+          "count": 19,
+          "p50": 4.1,
+          "p95": 7.8,
+          "min": 2.2,
+          "max": 7.8
+        }
+      },
+      "uncapturedErrors": [],
+      "teardown": {
+        "destroyMs": 0.4,
+        "lost": {
+          "reason": "destroyed",
+          "message": "Device was destroyed."
+        }
+      },
+      "repeat": {
+        "adapterAvailable": true,
+        "outputCorrect": true,
+        "coldDispatchMs": 3.8,
+        "warmP50Ms": 5.3
+      },
+      "conclusion": "WebGPU fully functional in this context",
+      "finishedAt": "2026-09-07T14:34:01.231Z"
+    },
+    {
+      "context": "mv3-service-worker",
+      "globalKind": "ServiceWorkerGlobalScope",
+      "href": "chrome-extension://ldhncamjeodalamhbbbomleedodpncco/background.js",
+      "isSecureContext": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+      "hardwareConcurrency": 16,
+      "startedAt": "2026-09-07T14:33:59.790Z",
+      "navigatorGpuPresent": true,
+      "adapterAvailable": true,
+      "deviceCreated": true,
+      "computeRan": true,
+      "repeatable": true,
+      "error": null,
+      "preferredCanvasFormat": "bgra8unorm",
+      "wgslLanguageFeatures": [
+        "packed_4x8_integer_dot_product",
+        "subgroup_uniformity",
+        "immediate_address_space",
+        "linear_indexing",
+        "subgroup_id",
+        "readonly_and_readwrite_storage_textures",
+        "unrestricted_pointer_parameters",
+        "texture_and_sampler_let",
+        "pointer_composite_access",
+        "uniform_buffer_standard_layout"
+      ],
+      "adapterDefault": {
+        "powerPreference": "default",
+        "requestAdapterMs": 507.9,
+        "adapterAvailable": true,
+        "info": {
+          "source": "adapter.info",
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": "",
+          "subgroupMinSize": 8,
+          "subgroupMaxSize": 16
+        }
+      },
+      "adapterHighPerformance": {
+        "powerPreference": "high-performance",
+        "requestAdapterMs": 1.5,
+        "adapterAvailable": true,
+        "info": {
+          "source": "adapter.info",
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": "",
+          "subgroupMinSize": 8,
+          "subgroupMaxSize": 16
+        }
+      },
+      "adapterUsedForDevice": "default",
+      "adapterInfo": {
+        "source": "adapter.info",
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "device": "",
+        "description": "",
+        "subgroupMinSize": 8,
+        "subgroupMaxSize": 16
+      },
+      "adapterFeatures": [
+        "bgra8unorm-storage",
+        "clip-distances",
+        "core-features-and-limits",
+        "depth-clip-control",
+        "depth32float-stencil8",
+        "dual-source-blending",
+        "float32-blendable",
+        "float32-filterable",
+        "indirect-first-instance",
+        "primitive-index",
+        "rg11b10ufloat-renderable",
+        "shader-f16",
+        "subgroup-size-control",
+        "subgroups",
+        "texture-component-swizzle",
+        "texture-compression-bc",
+        "texture-compression-bc-sliced-3d",
+        "texture-formats-tier1",
+        "texture-formats-tier2",
+        "timestamp-query"
+      ],
+      "adapterLimits": {
+        "maxBufferSize": 2147483648,
+        "maxStorageBufferBindingSize": 2147483644,
+        "maxComputeWorkgroupsPerDimension": 65535,
+        "maxComputeInvocationsPerWorkgroup": 1024,
+        "maxTextureDimension2D": 16384
+      },
+      "isFallbackAdapter": null,
+      "requestDeviceMs": 122.4,
+      "compute": {
+        "elements": 262144,
+        "iterations": 20,
+        "outputCorrect": true,
+        "checksum": 262020736,
+        "shaderCompileErrors": [],
+        "coldDispatchMs": 12.2,
+        "warmDispatchMs": {
+          "count": 19,
+          "p50": 11.1,
+          "p95": 2358.6,
+          "min": 4.3,
+          "max": 2358.6
+        }
+      },
+      "uncapturedErrors": [],
+      "teardown": {
+        "destroyMs": 1.1,
+        "lost": {
+          "reason": "destroyed",
+          "message": "Device was destroyed."
+        }
+      },
+      "repeat": {
+        "adapterAvailable": true,
+        "outputCorrect": true,
+        "coldDispatchMs": 11.3,
+        "warmP50Ms": 28.2
+      },
+      "conclusion": "WebGPU fully functional in this context",
+      "finishedAt": "2026-09-07T14:34:06.332Z"
+    },
+    {
+      "context": "offscreen-document",
+      "globalKind": "Window",
+      "href": "chrome-extension://ldhncamjeodalamhbbbomleedodpncco/offscreen.html",
+      "isSecureContext": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+      "hardwareConcurrency": 16,
+      "startedAt": "2026-09-07T14:34:06.373Z",
+      "navigatorGpuPresent": true,
+      "adapterAvailable": true,
+      "deviceCreated": true,
+      "computeRan": true,
+      "repeatable": true,
+      "error": null,
+      "preferredCanvasFormat": "bgra8unorm",
+      "wgslLanguageFeatures": [
+        "packed_4x8_integer_dot_product",
+        "subgroup_uniformity",
+        "immediate_address_space",
+        "linear_indexing",
+        "subgroup_id",
+        "readonly_and_readwrite_storage_textures",
+        "unrestricted_pointer_parameters",
+        "pointer_composite_access",
+        "texture_and_sampler_let",
+        "uniform_buffer_standard_layout"
+      ],
+      "adapterDefault": {
+        "powerPreference": "default",
+        "requestAdapterMs": 22.4,
+        "adapterAvailable": true,
+        "info": {
+          "source": "adapter.info",
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": "",
+          "subgroupMinSize": 8,
+          "subgroupMaxSize": 16
+        }
+      },
+      "adapterHighPerformance": {
+        "powerPreference": "high-performance",
+        "requestAdapterMs": 0.7,
+        "adapterAvailable": true,
+        "info": {
+          "source": "adapter.info",
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": "",
+          "subgroupMinSize": 8,
+          "subgroupMaxSize": 16
+        }
+      },
+      "adapterUsedForDevice": "default",
+      "adapterInfo": {
+        "source": "adapter.info",
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "device": "",
+        "description": "",
+        "subgroupMinSize": 8,
+        "subgroupMaxSize": 16
+      },
+      "adapterFeatures": [
+        "bgra8unorm-storage",
+        "clip-distances",
+        "core-features-and-limits",
+        "depth-clip-control",
+        "depth32float-stencil8",
+        "dual-source-blending",
+        "float32-blendable",
+        "float32-filterable",
+        "indirect-first-instance",
+        "primitive-index",
+        "rg11b10ufloat-renderable",
+        "shader-f16",
+        "subgroup-size-control",
+        "subgroups",
+        "texture-component-swizzle",
+        "texture-compression-bc",
+        "texture-compression-bc-sliced-3d",
+        "texture-formats-tier1",
+        "texture-formats-tier2",
+        "timestamp-query"
+      ],
+      "adapterLimits": {
+        "maxBufferSize": 2147483648,
+        "maxStorageBufferBindingSize": 2147483644,
+        "maxComputeWorkgroupsPerDimension": 65535,
+        "maxComputeInvocationsPerWorkgroup": 1024,
+        "maxTextureDimension2D": 16384
+      },
+      "isFallbackAdapter": null,
+      "requestDeviceMs": 16.7,
+      "compute": {
+        "elements": 262144,
+        "iterations": 20,
+        "outputCorrect": true,
+        "checksum": 262020736,
+        "shaderCompileErrors": [],
+        "coldDispatchMs": 6.5,
+        "warmDispatchMs": {
+          "count": 19,
+          "p50": 4.9,
+          "p95": 6.2,
+          "min": 3.6,
+          "max": 6.2
+        }
+      },
+      "uncapturedErrors": [],
+      "teardown": {
+        "destroyMs": 0.4,
+        "lost": {
+          "reason": "destroyed",
+          "message": "Device was destroyed."
+        }
+      },
+      "repeat": {
+        "adapterAvailable": true,
+        "outputCorrect": true,
+        "coldDispatchMs": 4.4,
+        "warmP50Ms": 5.6
+      },
+      "conclusion": "WebGPU fully functional in this context",
+      "finishedAt": "2026-09-07T14:34:06.591Z"
+    },
+    {
+      "context": "offscreen-dedicated-worker",
+      "globalKind": "DedicatedWorkerGlobalScope",
+      "href": "chrome-extension://ldhncamjeodalamhbbbomleedodpncco/probe-worker.js",
+      "isSecureContext": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+      "hardwareConcurrency": 16,
+      "startedAt": "2026-09-07T14:34:06.617Z",
+      "navigatorGpuPresent": true,
+      "adapterAvailable": true,
+      "deviceCreated": true,
+      "computeRan": true,
+      "repeatable": true,
+      "error": null,
+      "preferredCanvasFormat": "bgra8unorm",
+      "wgslLanguageFeatures": [
+        "packed_4x8_integer_dot_product",
+        "subgroup_uniformity",
+        "immediate_address_space",
+        "linear_indexing",
+        "subgroup_id",
+        "readonly_and_readwrite_storage_textures",
+        "unrestricted_pointer_parameters",
+        "texture_and_sampler_let",
+        "pointer_composite_access",
+        "uniform_buffer_standard_layout"
+      ],
+      "adapterDefault": {
+        "powerPreference": "default",
+        "requestAdapterMs": 17.5,
+        "adapterAvailable": true,
+        "info": {
+          "source": "adapter.info",
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": "",
+          "subgroupMinSize": 8,
+          "subgroupMaxSize": 16
+        }
+      },
+      "adapterHighPerformance": {
+        "powerPreference": "high-performance",
+        "requestAdapterMs": 0.5,
+        "adapterAvailable": true,
+        "info": {
+          "source": "adapter.info",
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": "",
+          "subgroupMinSize": 8,
+          "subgroupMaxSize": 16
+        }
+      },
+      "adapterUsedForDevice": "default",
+      "adapterInfo": {
+        "source": "adapter.info",
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "device": "",
+        "description": "",
+        "subgroupMinSize": 8,
+        "subgroupMaxSize": 16
+      },
+      "adapterFeatures": [
+        "bgra8unorm-storage",
+        "clip-distances",
+        "core-features-and-limits",
+        "depth-clip-control",
+        "depth32float-stencil8",
+        "dual-source-blending",
+        "float32-blendable",
+        "float32-filterable",
+        "indirect-first-instance",
+        "primitive-index",
+        "rg11b10ufloat-renderable",
+        "shader-f16",
+        "subgroup-size-control",
+        "subgroups",
+        "texture-component-swizzle",
+        "texture-compression-bc",
+        "texture-compression-bc-sliced-3d",
+        "texture-formats-tier1",
+        "texture-formats-tier2",
+        "timestamp-query"
+      ],
+      "adapterLimits": {
+        "maxBufferSize": 2147483648,
+        "maxStorageBufferBindingSize": 2147483644,
+        "maxComputeWorkgroupsPerDimension": 65535,
+        "maxComputeInvocationsPerWorkgroup": 1024,
+        "maxTextureDimension2D": 16384
+      },
+      "isFallbackAdapter": null,
+      "requestDeviceMs": 9.3,
+      "compute": {
+        "elements": 262144,
+        "iterations": 20,
+        "outputCorrect": true,
+        "checksum": 262020736,
+        "shaderCompileErrors": [],
+        "coldDispatchMs": 6.2,
+        "warmDispatchMs": {
+          "count": 19,
+          "p50": 4.6,
+          "p95": 6.2,
+          "min": 3.4,
+          "max": 6.2
+        }
+      },
+      "uncapturedErrors": [],
+      "teardown": {
+        "destroyMs": 0.1,
+        "lost": {
+          "reason": "destroyed",
+          "message": "Device was destroyed."
+        }
+      },
+      "repeat": {
+        "adapterAvailable": true,
+        "outputCorrect": true,
+        "coldDispatchMs": 6.4,
+        "warmP50Ms": 5.9
+      },
+      "conclusion": "WebGPU fully functional in this context",
+      "finishedAt": "2026-09-07T14:34:06.818Z"
+    }
+  ]
+}
