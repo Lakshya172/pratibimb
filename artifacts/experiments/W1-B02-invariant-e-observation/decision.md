@@ -98,7 +98,9 @@ Specifically, an ADR would need to settle:
 |---|---|---|---|
 | B-02-1 | Re-run this matrix on **`ubuntu-latest` with Playwright's own Chromium** | **p1** | QG-04 sign-off |
 | B-02-2 | **ADR** adopting (or rejecting) M2 + M3 as Invariant E mechanism (2) | **p1** | QG-04 sign-off |
-| B-02-3 | Close M2's target-discovery race with `Target.setAutoAttach` + `waitForDebuggerOnStart`, and measure it | p2 | Confidence in M2 |
+| ~~B-02-3~~ | ~~Close M2's target-discovery race~~ **CLOSED — see `PHASE2.md`.** The race is real (`late-attach` lost the request **10/10**, on both browsers) and `Target.setAutoAttach` + `waitForDebuggerOnStart` closes it (`BLOCKED_CONFIRMED` **10/10**). **Late attachment is now named as an unsafe implementation** — it reproduces the false green. | ✅ | — |
+| ~~S-01b literal~~ | ~~Does Playwright's bundled Chromium honour `--load-extension`?~~ **ANSWERED — YES**, 15/15 runs on Chrome for Testing 153.0.8010.12, the build Playwright names for chromium v1243. **Branded Chrome 152 is the outlier, not Chromium.** Also removes the concern that phase 1 was an Edge quirk: the bundled build behaves identically, cell for cell. | ✅ | — |
+| B-02-6 | **Headless is `UNKNOWN`.** Every run in both phases is headful; `chrome-headless-shell` sits behind the same failing Playwright CDN. CI runners are headless. | **p1** | QG-04 sign-off |
 | B-02-4 | Promote `false-green-guard.js` into the real suite once product code and a test runner exist | p2 | — |
 | B-02-5 | Bound M3's blind spot: CSP `connect-src` pin plus host-level containment for non-collector destinations | p2 | Completeness of mechanism (3) |
 
