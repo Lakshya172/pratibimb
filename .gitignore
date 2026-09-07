@@ -17,10 +17,17 @@
 credentials.json
 service-account*.json
 *token*.txt
-*secret*
-!**/secret*.md
 .hf_token
 .huggingface/
+# Secret-bearing files, named narrowly on purpose. A broad `*secret*` glob also
+# swallows our own tooling (scripts/check-secrets.sh) and legitimate source such as
+# packages/security/secret-scan.ts -- an ignore rule that hides real source is worse
+# than no rule, because the omission is silent.
+secrets.json
+secrets.yml
+secrets.yaml
+*.secret
+.secrets/
 
 # ── Real user / PII data — never commit ─────────────────────
 # Only synthetic fixtures belong in this repository.
