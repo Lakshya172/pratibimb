@@ -1,0 +1,51 @@
+{
+  "experiment": "W1-B02-invariant-e-observation (phase 2)",
+  "recorded_at": "2026-09-07",
+  "host": "workstation 2 — HP OMEN 16-ap0xxx, AMD Ryzen AI 7 350 / Radeon 860M + RTX 5050, Windows 11 10.0.26200",
+  "scope_warning": "Both browsers are Windows builds and every run is HEADFUL. CI is ubuntu-latest and headless. Neither is measured here.",
+  "browsers": {
+    "msedge": "branded Microsoft Edge 152.0.4191.66, headful, Playwright channel msedge",
+    "chromium-bundled": "Chrome for Testing 153.0.8010.12 — the exact build Playwright 1.63.0 names for chromium v1243, driven via executablePath"
+  },
+  "system_changes_made": [
+    {
+      "package": "Microsoft Visual C++ Redistributable (x64)",
+      "version": "14.51.36247.0",
+      "source": "winget Microsoft.VCRedist.2015+.x64 (Microsoft)",
+      "reason": "Suspected cause of the Chrome for Testing side-by-side start failure recorded in phase 1",
+      "system_impact": "System-wide C++ runtime. Standard, widely present, no project coupling.",
+      "rollback": "winget uninstall Microsoft.VCRedist.2015+.x64",
+      "outcome": "Did NOT fix the failure on its own. Retained because it is a normal prerequisite; recorded honestly as not the root cause."
+    },
+    {
+      "package": "Chrome for Testing 153.0.8010.12",
+      "version": "153.0.8010.12",
+      "source": "https://storage.googleapis.com/chrome-for-testing-public/153.0.8010.12/win64/chrome-win64.zip (Google official)",
+      "sha256_zip": "415968b02065d4a9e2c10b85f0ae9f489b8fba500e94d9d0a7b7c4852a7234c1",
+      "reason": "Playwright's own browser CDN returns HTTP 400 on this network, so its bundled Chromium could not be installed the normal way. This is the build Playwright itself names.",
+      "installed_to": "C:\\Users\\OMEN\\cft",
+      "system_impact": "Self-contained directory in the user profile. Not on PATH. Not registered as a browser. Not the system default.",
+      "rollback": "Remove-Item -Recurse -Force C:\\Users\\OMEN\\cft"
+    },
+    {
+      "package": "AppContainer ACL grant on C:\\Users\\OMEN\\cft",
+      "version": "n/a",
+      "source": "icacls, built-in Windows",
+      "reason": "Chromium sandbox reported 'Sandbox cannot access executable ... Access is denied (0x5)'",
+      "command": "icacls C:\\Users\\OMEN\\cft /grant *S-1-15-2-1:(OI)(CI)(RX) /T",
+      "system_impact": "Read+execute for ALL APPLICATION PACKAGES on ONE user-profile directory. No system directory touched, no security policy changed, sandbox NOT disabled.",
+      "rollback": "icacls C:\\Users\\OMEN\\cft /remove *S-1-15-2-1 /T, or delete the directory"
+    }
+  ],
+  "root_cause_of_phase1_start_failure": {
+    "symptom": "The application has failed to start because its side-by-side configuration is incorrect",
+    "event_log": "Dependent Assembly 153.0.8010.12 could not be found — SxS could not resolve the private assembly manifest next to chrome.exe under the ms-playwright path",
+    "resolution": "Copying the same files to a shorter user-profile path (C:\\Users\\OMEN\\cft) resolved the assembly; a second, separate AppContainer ACL grant resolved the sandbox denial. The VC++ redistributable was NOT the cause.",
+    "label": "FACT"
+  },
+  "still_unavailable": {
+    "headless": "chrome-headless-shell-1243 sits behind the same failing Playwright CDN. Every phase-2 run is HEADFUL. Headless behaviour is UNKNOWN, and CI runners are headless.",
+    "linux": "No WSL and no Docker on this workstation. The ubuntu-latest CI cell remains UNKNOWN — B-02-1."
+  },
+  "data": { "payloads": "synthetic deterministic", "pii": "none", "secrets": "none" }
+}

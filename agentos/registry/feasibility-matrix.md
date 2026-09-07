@@ -44,8 +44,50 @@ artifact path under `artifacts/experiments/`.
 | # | Question | Status | Evidence |
 |---|---|---|---|
 | S-01 | Does `navigator.gpu.requestAdapter()` return a **real adapter** inside a Chrome `chrome.offscreen` document? | **`FACT` — YES** | [`W1-S01`](../../artifacts/experiments/W1-S01-chrome-webgpu-context/README.md) |
-| S-02 | Does `navigator.gpu.requestAdapter()` return a **real adapter** inside a Firefox MV3 event page? | **Windows: see PR #10. Linux: `CONDITIONAL`** | [`W1-S02a`](../../artifacts/experiments/W1-S02a-firefox-linux-webgpu/README.md) |
-
+| S-02 | Does `navigator.gpu.requestAdapter()` return a **real adapter** inside a Firefox MV3 event page? | **Windows: `FACT` — YES. Linux (WSL2): `CONDITIONAL`. Native Linux: `UNKNOWN`.** | [`W1-S02`](../../artifacts/experiments/W1-S02-firefox-webgpu-context/README.md) · [`W1-S02a`](../../artifacts/experiments/W1-S02a-firefox-linux-webgpu/README.md) |
+
+### S-02 result — recorded 2026-09-07
+
+**ACCEPT.** Firefox **155.0.1** release, headful, Windows 11, **workstation 2**.
+`dom.webgpu.enabled` was **not** touched — release defaults.
+
+Adapter returned, device created, WGSL compute shader output **element-exact against a CPU
+reference over 262,144 elements**, device destroyed and re-acquired cleanly. **3 runs of 3**,
+**zero uncaptured GPU errors**, **zero shader compilation errors**. The ordinary-page control
+passed on the same machine.
+
+Timings (event page, min/median/max over 3 runs): `requestAdapter` 376 / 409 / 1864 ms -
+`requestDevice` 111 / 127 / 146 ms - cold dispatch 99 / 99 / 100 ms - warm p50 100 ms.
+End-to-end submit-to-readback on a trivial shader, **not** a model and **not** kernel time.
+**These must not be compared with S-01's Chrome figures — different browser AND different
+machine.**
+
+Two constraints attached to the acceptance:
+
+1. **The adapter cannot be identified.** Firefox returns an **empty `adapterInfo`**. Unlike
+   the Chrome cell, no Firefox figure can be attributed to a specific GPU. Every Firefox
+   WebGPU number must be labelled **"adapter unidentified"**.
+2. **Windows only.** **Firefox on Linux remains `UNKNOWN`** — WebGPU is off by default there
+   behind `dom.webgpu.enabled`, and it is the configuration the risk register rates **High**.
+   No Linux environment exists on this workstation.
+
+   > **Superseded in part, 2026-09-07.** The sentences above are preserved as written.
+   > A Linux environment now exists (WSL2, `ENV-0003`) and **S-02a has been executed** —
+   > see the S-02a section below. **The Windows verdict is unchanged**; only the
+   > statement that no Linux environment exists is out of date. Firefox on **native**
+   > Linux remains `UNKNOWN` (S-02a-1).
+
+**S-01 and S-02 both now have answers, so the gate in `agentos/workflows/spike.md` is
+satisfied for the cells measured.** S-02 does **not** answer S-03: ORT Web's WebGPU backend
+was **not tested**, and raw WebGPU working is not ORT Web working.
+
+| # | New question raised by S-02 | Status | Blocks |
+|---|---|---|---|
+| S-02a | **Firefox on Linux** — the likely judging configuration | **ANSWERED — `CONDITIONAL`**, see below | [`W1-S02a`](../../artifacts/experiments/W1-S02a-firefox-linux-webgpu/README.md) |
+| S-02b | **ADR:** per-browser execution context. Chrome needs an offscreen document; Firefox's MV3 background is already a `window` with DOM. | `UNKNOWN` | Perception tier |
+| S-02c | **ADR/spike:** Firefox MV3 gates `host_permissions` behind user-granted origin controls, and the extension `fetch` was refused. What does that mean for the egress path, Invariant E and the CSP `connect-src` pin? | `UNKNOWN` | **QG-04** |
+| S-02d | How are Firefox figures labelled when no adapter identity is available? | `UNKNOWN` | Reporting discipline |
+
 ### S-02a result (Firefox on LINUX) — recorded 2026-09-07
 
 **CONDITIONAL.** Firefox **155.0.1** release — the same version as the Windows cell — inside
@@ -156,6 +198,52 @@ Evidence: [`W1-S01b`](../../artifacts/experiments/W1-S01b-playwright-extension-l
 | S-01b-1 | Does the interception gap reproduce on **`ubuntu-latest` with Playwright's own Chromium** — the real CI cell? | `UNKNOWN` | **QG-04 enforcement plan** |
 | S-01b-2 | Which vehicle enforces Invariant E mechanism (2)? **Requires an ADR.** | `UNKNOWN` | **QG-04 sign-off** |
 | S-01b-3 | Is the gap a Playwright limitation or specific to Edge? | `UNKNOWN` | Scope of S-01b-2 |
+
+### B-02 result — recorded 2026-09-07
+
+**CONDITIONAL.** Same machine and browser as S-01b (workstation 2, Playwright 1.63.0,
+branded Edge 152, MV3 offscreen document). Answers the question S-01b left open: *what
+mechanism can this project actually trust?*
+
+Four mechanisms, five cases, checked against a loopback collector that recomputes SHA-256
+over the bytes it actually received:
+
+| Mechanism | Observes offscreen egress | Blocks it | Proves bytes on the wire |
+|---|---|---|---|
+| **M1** Playwright `context.route()` | **NO** — 0 of 5 | **NO** — blocked 0 while the payload arrived | no |
+| **M2** CDP `Fetch` on the offscreen target | **YES** — 5 of 5 | **YES** — collector confirmed zero arrivals | attempt only |
+| **M3** independent loopback collector | **YES** — 8 of 8 arrivals | no (cannot block) | **YES — recomputed hash** |
+| **M5** extension self-audit log | self-reported | no | no |
+
+Three results carry the finding:
+
+- An **unauthorised sender** that bypassed the egress module arrived with **no correlation id
+  and no declared hash**. Absent provenance is detectable from outside the browser.
+- A **tampered send** — declaring the verified artifact's hash but transmitting different
+  bytes — was caught by the collector as **`hashMatches: false`**. **The payload pin
+  (INV-02/INV-03) is externally checkable, not merely an internal control.**
+- **Playwright, told to abort every request, blocked none and the payload reached the wire.**
+
+**No single mechanism answers all five sub-questions (A–E). `M2 + M3` does**, and their
+failure modes are independent — M2 is instrumentation inside the process under test, M3
+adjudicates from outside it.
+
+A deterministic **regression guard** now encodes the exact false-green failure mode
+(3 of 3 runs, verdict PASS): *Playwright reports no offscreen request while the independent
+arrival check sees it reach the wire.*
+
+**`docs/security/security-invariants.md` is unchanged. Invariant E is not weakened. QG-04
+remains unsigned** — adopting a mechanism changes how a frozen invariant is enforced and
+requires an ADR. See issue #5.
+
+Evidence: [`W1-B02`](../../artifacts/experiments/W1-B02-invariant-e-observation/README.md)
+
+| # | New question raised by B-02 | Status | Blocks |
+|---|---|---|---|
+| B-02-1 | Does this reproduce on **`ubuntu-latest` with Playwright's own Chromium** — the real CI cell? | `UNKNOWN` | **QG-04 sign-off** |
+| B-02-2 | **ADR** adopting or rejecting M2 + M3 as Invariant E mechanism (2) | `UNKNOWN` | **QG-04 sign-off** |
+| B-02-3 | Does `Target.setAutoAttach` + `waitForDebuggerOnStart` close M2's target-discovery race? | `UNKNOWN` | Confidence in M2 |
+| B-02-4 | What bounds M3's blind spot for destinations it does not host? | `UNKNOWN` | Completeness of mechanism (3) |
 
 ---
 

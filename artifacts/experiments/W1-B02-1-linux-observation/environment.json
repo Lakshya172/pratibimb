@@ -1,0 +1,46 @@
+{
+  "experiment": "W1-B02-1-linux-observation",
+  "recorded_at": "2026-09-07",
+  "machine_boundary": {
+    "windows_host": "HP OMEN 16-ap0xxx (LAPTOP-SRCINK2B) — workstation 2, Windows 11 10.0.26200, AMD Ryzen AI 7 350 / Radeon 860M + NVIDIA RTX 5050",
+    "linux_guest": "WSL2 Ubuntu 26.04 (Resolute Raccoon), kernel 6.18.33.2-microsoft-standard-WSL2",
+    "note": "EVERY result in this experiment was produced INSIDE the WSL2 Linux guest. Nothing here is a Windows measurement. The earlier B-02 phases were Windows-host measurements and are a different cell."
+  },
+  "linux_guest_detail": {
+    "cpus_visible": 16,
+    "ram_visible": "11 GiB (WSL default allocation; host has ~23 GiB)",
+    "nvidia_smi": "WORKS — NVIDIA GeForce RTX 5050 Laptop GPU, 8151 MiB, driver 592.82",
+    "dev_dri": "ABSENT — /dev/dri does not exist",
+    "dev_dxg": "present (WSL D3D12 paravirtualisation device)",
+    "vulkan_icds": 0,
+    "opengl_renderer": "llvmpipe (LLVM 21.1.8, 256 bits) — SOFTWARE rasterisation",
+    "gpu_conclusion": "CUDA compute is available; the GRAPHICS stack is software-only. These are different paths and B-02-1 needs neither."
+  },
+  "browser": {
+    "name": "Chrome for Testing",
+    "version": "153.0.8010.12",
+    "why": "the exact build Playwright 1.63.0 names for its chromium v1243",
+    "source": "https://storage.googleapis.com/chrome-for-testing-public/153.0.8010.12/linux64/chrome-linux64.zip (Google official)",
+    "path": "/opt/chrome-linux64/chrome",
+    "modes_tested": ["headful (WSLg, DISPLAY=:0)", "headless"],
+    "extra_args": ["--no-sandbox (required for running as root inside WSL2)"]
+  },
+  "automation": { "playwright": "1.63.0", "node": "v22.22.1", "cdp": "raw CDP over Node built-in WebSocket, port 9446" },
+  "collector": {
+    "endpoint": "http://127.0.0.1:8902",
+    "role": "GROUND TRUTH — an independent process that records what actually arrived and recomputes SHA-256 over the received bytes. It is deliberately not told anything by Playwright or CDP.",
+    "external_hosts_contacted": "none"
+  },
+  "ci_equivalence": {
+    "github_actions_runs_on": "ubuntu-latest",
+    "resolved_image_observed_in_our_own_run": "ubuntu-24.04, image 20260831.293",
+    "this_experiment_ran_on": "Ubuntu 26.04 under WSL2",
+    "verdict": "NOT EQUIVALENT. Different Ubuntu release, different kernel, and a hosted runner has no GPU and no WSLg. Treated as CI-RELEVANT EVIDENCE, never as a CI result."
+  },
+  "system_changes": [
+    { "package": "nodejs / npm", "version": "22.22.1 / 9.2.0", "source": "Ubuntu apt", "why": "run the harness", "rollback": "apt-get remove nodejs npm" },
+    { "package": "Chrome for Testing", "version": "153.0.8010.12", "source": "Google chrome-for-testing-public bucket", "why": "Playwright browser CDN returns HTTP 400 on this network", "rollback": "rm -rf /opt/chrome-linux64 /opt/chrome-headless-shell-linux64" },
+    { "package": "xvfb, mesa-utils, vulkan-tools, browser runtime libs", "version": "distro", "source": "Ubuntu apt", "why": "headless display option and GPU diagnostics", "rollback": "apt-get remove" }
+  ],
+  "data": { "payloads": "synthetic deterministic", "pii": "none", "secrets": "none" }
+}

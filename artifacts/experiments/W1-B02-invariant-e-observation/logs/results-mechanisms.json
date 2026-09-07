@@ -1,0 +1,361 @@
+{
+  "experiment": "W1-B02-invariant-e-observation",
+  "startedAt": "2026-09-07T17:08:16.280Z",
+  "cases": [
+    {
+      "case": "A-observe-authorised",
+      "scenario": {
+        "egress": true
+      },
+      "block": null,
+      "m1_playwright": {
+        "observed": [],
+        "blocked": [],
+        "surfacesOffscreenTarget": false,
+        "pages": [
+          "about:blank"
+        ]
+      },
+      "m2_cdp": {
+        "attachedToOffscreen": true,
+        "observed": [
+          {
+            "url": "http://127.0.0.1:8902/egress",
+            "method": "POST",
+            "correlationId": "cid-A-observe-authorised-1788800899942",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "hasPostData": true
+          }
+        ],
+        "blocked": [],
+        "attachError": null,
+        "offscreenTargetSeen": true,
+        "offscreenTargetType": "background_page",
+        "sessionId": "EBFC8E8874297A3EC688278DD25C1895"
+      },
+      "m3_collector": {
+        "arrivals": [
+          {
+            "at": 1788800899966,
+            "method": "POST",
+            "url": "/egress",
+            "bytes": 52,
+            "correlationId": "cid-A-observe-authorised-1788800899942",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "actualHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "hashMatches": true,
+            "declaredAtAll": true
+          }
+        ]
+      },
+      "m5_extension_audit": [
+        {
+          "path": "egress",
+          "correlationId": "cid-A-observe-authorised-1788800899942",
+          "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+          "at": 1788800899950
+        }
+      ],
+      "probe": {
+        "correlationId": "cid-A-observe-authorised-1788800899942",
+        "sends": [
+          {
+            "path": "egress",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 52
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "cid-A-observe-authorised-1788800899942",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788800899950
+          }
+        ]
+      },
+      "extensionId": "lkllpoacaaelkdjoekojcnbefpnaolnl",
+      "correlationId": "cid-A-observe-authorised-1788800899942"
+    },
+    {
+      "case": "B-observe-unauthorised",
+      "scenario": {
+        "rogue": true
+      },
+      "block": null,
+      "m1_playwright": {
+        "observed": [],
+        "blocked": [],
+        "surfacesOffscreenTarget": false,
+        "pages": [
+          "about:blank"
+        ]
+      },
+      "m2_cdp": {
+        "attachedToOffscreen": true,
+        "observed": [
+          {
+            "url": "http://127.0.0.1:8902/rogue",
+            "method": "POST",
+            "correlationId": null,
+            "declaredHash": null,
+            "hasPostData": true
+          }
+        ],
+        "blocked": [],
+        "attachError": null,
+        "offscreenTargetSeen": true,
+        "offscreenTargetType": "background_page",
+        "sessionId": "65CD124D1BE773045966E1E3A0295A57"
+      },
+      "m3_collector": {
+        "arrivals": [
+          {
+            "at": 1788800904338,
+            "method": "POST",
+            "url": "/rogue",
+            "bytes": 54,
+            "correlationId": null,
+            "declaredHash": null,
+            "actualHash": "bebe69d672459723fe8ae9a474f9325dff13a8e500c110f68735c6a3ac20a856",
+            "hashMatches": null,
+            "declaredAtAll": false
+          }
+        ]
+      },
+      "m5_extension_audit": [],
+      "probe": {
+        "correlationId": "cid-B-observe-unauthorised-1788800904323",
+        "sends": [
+          {
+            "path": "rogue",
+            "status": 200,
+            "sentLength": 54
+          }
+        ],
+        "auditLog": []
+      },
+      "extensionId": "lkllpoacaaelkdjoekojcnbefpnaolnl",
+      "correlationId": "cid-B-observe-unauthorised-1788800904323"
+    },
+    {
+      "case": "C-observe-tampered",
+      "scenario": {
+        "tamper": true
+      },
+      "block": null,
+      "m1_playwright": {
+        "observed": [],
+        "blocked": [],
+        "surfacesOffscreenTarget": false,
+        "pages": [
+          "about:blank"
+        ]
+      },
+      "m2_cdp": {
+        "attachedToOffscreen": true,
+        "observed": [
+          {
+            "url": "http://127.0.0.1:8902/egress",
+            "method": "POST",
+            "correlationId": "cid-C-observe-tampered-1788800908524",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "hasPostData": true
+          }
+        ],
+        "blocked": [],
+        "attachError": null,
+        "offscreenTargetSeen": true,
+        "offscreenTargetType": "background_page",
+        "sessionId": "DF7475FA94DE2476B1E049E304B351FE"
+      },
+      "m3_collector": {
+        "arrivals": [
+          {
+            "at": 1788800908537,
+            "method": "POST",
+            "url": "/egress",
+            "bytes": 60,
+            "correlationId": "cid-C-observe-tampered-1788800908524",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "actualHash": "d6b88177d7632f9e7c6eb053249a110353ae2df74223b555eff95bbbf2636c11",
+            "hashMatches": false,
+            "declaredAtAll": true
+          }
+        ]
+      },
+      "m5_extension_audit": [
+        {
+          "path": "tamper",
+          "correlationId": "cid-C-observe-tampered-1788800908524",
+          "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+          "at": 1788800908530
+        }
+      ],
+      "probe": {
+        "correlationId": "cid-C-observe-tampered-1788800908524",
+        "sends": [
+          {
+            "path": "tamper",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 60
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "tamper",
+            "correlationId": "cid-C-observe-tampered-1788800908524",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788800908530
+          }
+        ]
+      },
+      "extensionId": "lkllpoacaaelkdjoekojcnbefpnaolnl",
+      "correlationId": "cid-C-observe-tampered-1788800908524"
+    },
+    {
+      "case": "D-block-with-playwright",
+      "scenario": {
+        "egress": true
+      },
+      "block": "m1",
+      "m1_playwright": {
+        "observed": [],
+        "blocked": [],
+        "surfacesOffscreenTarget": false,
+        "pages": [
+          "about:blank"
+        ]
+      },
+      "m2_cdp": {
+        "attachedToOffscreen": true,
+        "observed": [
+          {
+            "url": "http://127.0.0.1:8902/egress",
+            "method": "POST",
+            "correlationId": "cid-D-block-with-playwright-1788800912753",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "hasPostData": true
+          }
+        ],
+        "blocked": [],
+        "attachError": null,
+        "offscreenTargetSeen": true,
+        "offscreenTargetType": "background_page",
+        "sessionId": "F6938BBCCCD6B58E4765F43A1CCA2C99"
+      },
+      "m3_collector": {
+        "arrivals": [
+          {
+            "at": 1788800912764,
+            "method": "POST",
+            "url": "/egress",
+            "bytes": 52,
+            "correlationId": "cid-D-block-with-playwright-1788800912753",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "actualHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "hashMatches": true,
+            "declaredAtAll": true
+          }
+        ]
+      },
+      "m5_extension_audit": [
+        {
+          "path": "egress",
+          "correlationId": "cid-D-block-with-playwright-1788800912753",
+          "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+          "at": 1788800912758
+        }
+      ],
+      "probe": {
+        "correlationId": "cid-D-block-with-playwright-1788800912753",
+        "sends": [
+          {
+            "path": "egress",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 52
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "cid-D-block-with-playwright-1788800912753",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788800912758
+          }
+        ]
+      },
+      "extensionId": "lkllpoacaaelkdjoekojcnbefpnaolnl",
+      "correlationId": "cid-D-block-with-playwright-1788800912753"
+    },
+    {
+      "case": "E-block-with-cdp",
+      "scenario": {
+        "egress": true
+      },
+      "block": "m2",
+      "m1_playwright": {
+        "observed": [],
+        "blocked": [],
+        "surfacesOffscreenTarget": false,
+        "pages": [
+          "about:blank"
+        ]
+      },
+      "m2_cdp": {
+        "attachedToOffscreen": true,
+        "observed": [
+          {
+            "url": "http://127.0.0.1:8902/egress",
+            "method": "POST",
+            "correlationId": "cid-E-block-with-cdp-1788800916902",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "hasPostData": true
+          }
+        ],
+        "blocked": [
+          "http://127.0.0.1:8902/egress"
+        ],
+        "attachError": null,
+        "offscreenTargetSeen": true,
+        "offscreenTargetType": "background_page",
+        "sessionId": "475AD88BB50301E5C2836AB1E5FB9517"
+      },
+      "m3_collector": {
+        "arrivals": []
+      },
+      "m5_extension_audit": [
+        {
+          "path": "egress",
+          "correlationId": "cid-E-block-with-cdp-1788800916902",
+          "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+          "at": 1788800916907
+        }
+      ],
+      "probe": {
+        "correlationId": "cid-E-block-with-cdp-1788800916902",
+        "sends": [
+          {
+            "path": "egressSend",
+            "ok": false,
+            "error": "TypeError: Failed to fetch"
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "cid-E-block-with-cdp-1788800916902",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788800916907
+          }
+        ]
+      },
+      "extensionId": "lkllpoacaaelkdjoekojcnbefpnaolnl",
+      "correlationId": "cid-E-block-with-cdp-1788800916902"
+    }
+  ],
+  "finishedAt": "2026-09-07T17:08:39.972Z"
+}

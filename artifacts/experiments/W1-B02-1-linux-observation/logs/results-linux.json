@@ -1,0 +1,3737 @@
+{
+  "experiment": "W1-B02-1-linux",
+  "startedAt": "2026-09-07T20:46:57.990Z",
+  "host": "WSL2 Ubuntu 26.04 guest on Windows 11 host",
+  "chrome": "/opt/chrome-linux64/chrome",
+  "runs": [
+    {
+      "run": 1,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "observe",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 1142,
+        "armedMs": 1192,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 1246,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-1",
+        "sends": [
+          {
+            "path": "egress",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 52
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-1",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814019234
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "A-authorised"
+    },
+    {
+      "run": 2,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "observe",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 313,
+        "armedMs": 337,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 405,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-2",
+        "sends": [
+          {
+            "path": "egress",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 52
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-2",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814022333
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "A-authorised"
+    },
+    {
+      "run": 3,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "observe",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 310,
+        "armedMs": 324,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 393,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-3",
+        "sends": [
+          {
+            "path": "egress",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 52
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-3",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814025338
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "A-authorised"
+    },
+    {
+      "run": 1,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "observe",
+      "scenario": {
+        "rogue": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 325,
+        "armedMs": 342,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 410,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-1",
+        "sends": [
+          {
+            "path": "rogue",
+            "status": 200,
+            "sentLength": 54
+          }
+        ],
+        "auditLog": []
+      },
+      "arrivals": [
+        {
+          "url": "/rogue",
+          "bytes": 54,
+          "declared": false,
+          "hashMatches": null
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "B-unauthorised"
+    },
+    {
+      "run": 2,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "observe",
+      "scenario": {
+        "rogue": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 319,
+        "armedMs": 339,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 403,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-2",
+        "sends": [
+          {
+            "path": "rogue",
+            "status": 200,
+            "sentLength": 54
+          }
+        ],
+        "auditLog": []
+      },
+      "arrivals": [
+        {
+          "url": "/rogue",
+          "bytes": 54,
+          "declared": false,
+          "hashMatches": null
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "B-unauthorised"
+    },
+    {
+      "run": 3,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "observe",
+      "scenario": {
+        "rogue": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 408,
+        "armedMs": 427,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 501,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-3",
+        "sends": [
+          {
+            "path": "rogue",
+            "status": 200,
+            "sentLength": 54
+          }
+        ],
+        "auditLog": []
+      },
+      "arrivals": [
+        {
+          "url": "/rogue",
+          "bytes": 54,
+          "declared": false,
+          "hashMatches": null
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "B-unauthorised"
+    },
+    {
+      "run": 1,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "observe",
+      "scenario": {
+        "tamper": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 326,
+        "armedMs": 343,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 408,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-1",
+        "sends": [
+          {
+            "path": "tamper",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 60
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "tamper",
+            "correlationId": "lin-1",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814037545
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 60,
+          "declared": true,
+          "hashMatches": false
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "C-tampered"
+    },
+    {
+      "run": 2,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "observe",
+      "scenario": {
+        "tamper": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 348,
+        "armedMs": 363,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 427,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-2",
+        "sends": [
+          {
+            "path": "tamper",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 60
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "tamper",
+            "correlationId": "lin-2",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814040568
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 60,
+          "declared": true,
+          "hashMatches": false
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "C-tampered"
+    },
+    {
+      "run": 3,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "observe",
+      "scenario": {
+        "tamper": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 320,
+        "armedMs": 339,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 397,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-3",
+        "sends": [
+          {
+            "path": "tamper",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 60
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "tamper",
+            "correlationId": "lin-3",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814043596
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 60,
+          "declared": true,
+          "hashMatches": false
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "C-tampered"
+    },
+    {
+      "run": 1,
+      "mode": "no-attach",
+      "headless": false,
+      "enforcement": "playwright",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 348,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-1",
+        "sends": [
+          {
+            "path": "egress",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 52
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-1",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814046596
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "D-playwright-enforcing"
+    },
+    {
+      "run": 2,
+      "mode": "no-attach",
+      "headless": false,
+      "enforcement": "playwright",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 391,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-2",
+        "sends": [
+          {
+            "path": "egress",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 52
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-2",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814049634
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "D-playwright-enforcing"
+    },
+    {
+      "run": 3,
+      "mode": "no-attach",
+      "headless": false,
+      "enforcement": "playwright",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 353,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-3",
+        "sends": [
+          {
+            "path": "egress",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 52
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-3",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814052668
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "D-playwright-enforcing"
+    },
+    {
+      "run": 1,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 335,
+        "armedMs": 352,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 418,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-1",
+        "sends": [
+          {
+            "path": "egressSend",
+            "ok": false,
+            "error": "TypeError: Failed to fetch"
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-1",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814055713
+          }
+        ]
+      },
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "E-cdp-enforcing"
+    },
+    {
+      "run": 2,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 335,
+        "armedMs": 349,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 421,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-2",
+        "sends": [
+          {
+            "path": "egressSend",
+            "ok": false,
+            "error": "TypeError: Failed to fetch"
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-2",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814058756
+          }
+        ]
+      },
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "E-cdp-enforcing"
+    },
+    {
+      "run": 3,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 313,
+        "armedMs": 328,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 395,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-3",
+        "sends": [
+          {
+            "path": "egressSend",
+            "ok": false,
+            "error": "TypeError: Failed to fetch"
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-3",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814061745
+          }
+        ]
+      },
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "E-cdp-enforcing"
+    },
+    {
+      "run": 1,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "observe",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 254,
+        "armedMs": 265,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 318,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-1",
+        "sends": [
+          {
+            "path": "egress",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 52
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-1",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814064655
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "A-authorised"
+    },
+    {
+      "run": 2,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "observe",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 254,
+        "armedMs": 265,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 326,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-2",
+        "sends": [
+          {
+            "path": "egress",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 52
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-2",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814067590
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "A-authorised"
+    },
+    {
+      "run": 3,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "observe",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 287,
+        "armedMs": 300,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 352,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-3",
+        "sends": [
+          {
+            "path": "egress",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 52
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-3",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814070547
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "A-authorised"
+    },
+    {
+      "run": 1,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "observe",
+      "scenario": {
+        "rogue": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 252,
+        "armedMs": 265,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 319,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-1",
+        "sends": [
+          {
+            "path": "rogue",
+            "status": 200,
+            "sentLength": 54
+          }
+        ],
+        "auditLog": []
+      },
+      "arrivals": [
+        {
+          "url": "/rogue",
+          "bytes": 54,
+          "declared": false,
+          "hashMatches": null
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "B-unauthorised"
+    },
+    {
+      "run": 2,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "observe",
+      "scenario": {
+        "rogue": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 269,
+        "armedMs": 282,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 332,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-2",
+        "sends": [
+          {
+            "path": "rogue",
+            "status": 200,
+            "sentLength": 54
+          }
+        ],
+        "auditLog": []
+      },
+      "arrivals": [
+        {
+          "url": "/rogue",
+          "bytes": 54,
+          "declared": false,
+          "hashMatches": null
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "B-unauthorised"
+    },
+    {
+      "run": 3,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "observe",
+      "scenario": {
+        "rogue": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 227,
+        "armedMs": 239,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 291,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-3",
+        "sends": [
+          {
+            "path": "rogue",
+            "status": 200,
+            "sentLength": 54
+          }
+        ],
+        "auditLog": []
+      },
+      "arrivals": [
+        {
+          "url": "/rogue",
+          "bytes": 54,
+          "declared": false,
+          "hashMatches": null
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "B-unauthorised"
+    },
+    {
+      "run": 1,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "observe",
+      "scenario": {
+        "tamper": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 259,
+        "armedMs": 273,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 324,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-1",
+        "sends": [
+          {
+            "path": "tamper",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 60
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "tamper",
+            "correlationId": "lin-1",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814082152
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 60,
+          "declared": true,
+          "hashMatches": false
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "C-tampered"
+    },
+    {
+      "run": 2,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "observe",
+      "scenario": {
+        "tamper": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 261,
+        "armedMs": 279,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 329,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-2",
+        "sends": [
+          {
+            "path": "tamper",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 60
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "tamper",
+            "correlationId": "lin-2",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814085082
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 60,
+          "declared": true,
+          "hashMatches": false
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "C-tampered"
+    },
+    {
+      "run": 3,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "observe",
+      "scenario": {
+        "tamper": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 268,
+        "armedMs": 281,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 335,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-3",
+        "sends": [
+          {
+            "path": "tamper",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 60
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "tamper",
+            "correlationId": "lin-3",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814088001
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 60,
+          "declared": true,
+          "hashMatches": false
+        }
+      ],
+      "observedCount": 1,
+      "blockedCount": 0,
+      "mechanismState": "OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "C-tampered"
+    },
+    {
+      "run": 1,
+      "mode": "no-attach",
+      "headless": true,
+      "enforcement": "playwright",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 287,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-1",
+        "sends": [
+          {
+            "path": "egress",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 52
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-1",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814090918
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "D-playwright-enforcing"
+    },
+    {
+      "run": 2,
+      "mode": "no-attach",
+      "headless": true,
+      "enforcement": "playwright",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 286,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-2",
+        "sends": [
+          {
+            "path": "egress",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 52
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-2",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814093810
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "D-playwright-enforcing"
+    },
+    {
+      "run": 3,
+      "mode": "no-attach",
+      "headless": true,
+      "enforcement": "playwright",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 288,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-3",
+        "sends": [
+          {
+            "path": "egress",
+            "status": 200,
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "sentLength": 52
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-3",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814096730
+          }
+        ]
+      },
+      "arrivals": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "D-playwright-enforcing"
+    },
+    {
+      "run": 1,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 233,
+        "armedMs": 243,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 299,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-1",
+        "sends": [
+          {
+            "path": "egressSend",
+            "ok": false,
+            "error": "TypeError: Failed to fetch"
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-1",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814099607
+          }
+        ]
+      },
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "E-cdp-enforcing"
+    },
+    {
+      "run": 2,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 231,
+        "armedMs": 248,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 298,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-2",
+        "sends": [
+          {
+            "path": "egressSend",
+            "ok": false,
+            "error": "TypeError: Failed to fetch"
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-2",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814102486
+          }
+        ]
+      },
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "E-cdp-enforcing"
+    },
+    {
+      "run": 3,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": {
+        "egress": true
+      },
+      "extension": "extension",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://bgjgiaadilkcljffkbnklnhopgdmhjme/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 275,
+        "armedMs": 288,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 337,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "probe": {
+        "correlationId": "lin-3",
+        "sends": [
+          {
+            "path": "egressSend",
+            "ok": false,
+            "error": "TypeError: Failed to fetch"
+          }
+        ],
+        "auditLog": [
+          {
+            "path": "egress",
+            "correlationId": "lin-3",
+            "declaredHash": "620a9f368c5f0a108522372793f01a488272c3ca5f48a016e95ed215aaf25ca5",
+            "at": 1788814105404
+          }
+        ]
+      },
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "E-cdp-enforcing"
+    },
+    {
+      "run": 1,
+      "mode": "no-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": false,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 336,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-no-attach"
+    },
+    {
+      "run": 2,
+      "mode": "no-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": false,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 321,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-no-attach"
+    },
+    {
+      "run": 3,
+      "mode": "no-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": false,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 320,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-no-attach"
+    },
+    {
+      "run": 4,
+      "mode": "no-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": false,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 303,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-no-attach"
+    },
+    {
+      "run": 5,
+      "mode": "no-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": false,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 323,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-no-attach"
+    },
+    {
+      "run": 1,
+      "mode": "late-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 321,
+        "armedMs": null,
+        "offscreenAttachedMs": 500,
+        "fetchEnabledMs": 502,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": 499,
+        "instrumentationBeforeSend": true
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "race-late-attach"
+    },
+    {
+      "run": 2,
+      "mode": "late-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 292,
+        "armedMs": null,
+        "offscreenAttachedMs": 467,
+        "fetchEnabledMs": 468,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": 465,
+        "instrumentationBeforeSend": true
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "race-late-attach"
+    },
+    {
+      "run": 3,
+      "mode": "late-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 334,
+        "armedMs": null,
+        "offscreenAttachedMs": 510,
+        "fetchEnabledMs": 511,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": 509,
+        "instrumentationBeforeSend": true
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "race-late-attach"
+    },
+    {
+      "run": 4,
+      "mode": "late-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 311,
+        "armedMs": null,
+        "offscreenAttachedMs": 489,
+        "fetchEnabledMs": 490,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": 487,
+        "instrumentationBeforeSend": true
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "race-late-attach"
+    },
+    {
+      "run": 5,
+      "mode": "late-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 306,
+        "armedMs": null,
+        "offscreenAttachedMs": 486,
+        "fetchEnabledMs": 487,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": 484,
+        "instrumentationBeforeSend": true
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "race-late-attach"
+    },
+    {
+      "run": 1,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://fbmkifpenjegnkjiecfdfnmoabdeeogp/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 359,
+        "armedMs": 373,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 437,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-auto-attach"
+    },
+    {
+      "run": 2,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://fbmkifpenjegnkjiecfdfnmoabdeeogp/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 304,
+        "armedMs": 320,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 384,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-auto-attach"
+    },
+    {
+      "run": 3,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://fbmkifpenjegnkjiecfdfnmoabdeeogp/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 345,
+        "armedMs": 360,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 422,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-auto-attach"
+    },
+    {
+      "run": 4,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://fbmkifpenjegnkjiecfdfnmoabdeeogp/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 310,
+        "armedMs": 324,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 388,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-auto-attach"
+    },
+    {
+      "run": 5,
+      "mode": "auto-attach",
+      "headless": false,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://fbmkifpenjegnkjiecfdfnmoabdeeogp/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 320,
+        "armedMs": 331,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 392,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-auto-attach"
+    },
+    {
+      "run": 1,
+      "mode": "no-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": false,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 243,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-no-attach"
+    },
+    {
+      "run": 2,
+      "mode": "no-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": false,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 248,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-no-attach"
+    },
+    {
+      "run": 3,
+      "mode": "no-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": false,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 300,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-no-attach"
+    },
+    {
+      "run": 4,
+      "mode": "no-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": false,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 252,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-no-attach"
+    },
+    {
+      "run": 5,
+      "mode": "no-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": false,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 264,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-no-attach"
+    },
+    {
+      "run": 1,
+      "mode": "late-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 223,
+        "armedMs": null,
+        "offscreenAttachedMs": 389,
+        "fetchEnabledMs": 390,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": 387,
+        "instrumentationBeforeSend": true
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "race-late-attach"
+    },
+    {
+      "run": 2,
+      "mode": "late-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 251,
+        "armedMs": null,
+        "offscreenAttachedMs": 422,
+        "fetchEnabledMs": 423,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": 420,
+        "instrumentationBeforeSend": true
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "race-late-attach"
+    },
+    {
+      "run": 3,
+      "mode": "late-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 269,
+        "armedMs": null,
+        "offscreenAttachedMs": 440,
+        "fetchEnabledMs": 441,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": 438,
+        "instrumentationBeforeSend": true
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "race-late-attach"
+    },
+    {
+      "run": 4,
+      "mode": "late-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 264,
+        "armedMs": null,
+        "offscreenAttachedMs": 435,
+        "fetchEnabledMs": 436,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": 432,
+        "instrumentationBeforeSend": true
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "race-late-attach"
+    },
+    {
+      "run": 5,
+      "mode": "late-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 252,
+        "armedMs": null,
+        "offscreenAttachedMs": 420,
+        "fetchEnabledMs": 421,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": 418,
+        "instrumentationBeforeSend": true
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "race-late-attach"
+    },
+    {
+      "run": 1,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://fbmkifpenjegnkjiecfdfnmoabdeeogp/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 263,
+        "armedMs": 277,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 325,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-auto-attach"
+    },
+    {
+      "run": 2,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://fbmkifpenjegnkjiecfdfnmoabdeeogp/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 281,
+        "armedMs": 295,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 351,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-auto-attach"
+    },
+    {
+      "run": 3,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://fbmkifpenjegnkjiecfdfnmoabdeeogp/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 264,
+        "armedMs": 283,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 339,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-auto-attach"
+    },
+    {
+      "run": 4,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://fbmkifpenjegnkjiecfdfnmoabdeeogp/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 277,
+        "armedMs": 291,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 339,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-auto-attach"
+    },
+    {
+      "run": 5,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": null,
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://fbmkifpenjegnkjiecfdfnmoabdeeogp/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 242,
+        "armedMs": 253,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": 303,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [],
+      "observedCount": 1,
+      "blockedCount": 1,
+      "mechanismState": "BLOCKED_CONFIRMED",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": false,
+      "case": "race-auto-attach"
+    },
+    {
+      "run": 1,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": "bad-cdp-endpoint",
+      "attachable": false,
+      "attachError": "Error: injected: CDP endpoint unreachable",
+      "senderAttempted": false,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 237,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": true,
+      "case": "fail-cdp-endpoint"
+    },
+    {
+      "run": 2,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": "bad-cdp-endpoint",
+      "attachable": false,
+      "attachError": "Error: injected: CDP endpoint unreachable",
+      "senderAttempted": false,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 268,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": true,
+      "case": "fail-cdp-endpoint"
+    },
+    {
+      "run": 3,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": "bad-cdp-endpoint",
+      "attachable": false,
+      "attachError": "Error: injected: CDP endpoint unreachable",
+      "senderAttempted": false,
+      "autoAttachedTargets": [],
+      "timings": {
+        "swReadyMs": 253,
+        "armedMs": null,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVABLE",
+      "groundTruth": "GROUND_TRUTH_NO_ARRIVAL",
+      "falseGreen": false,
+      "didNotOccur": true,
+      "case": "fail-cdp-endpoint"
+    },
+    {
+      "run": 1,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": "fetch-enable-fails",
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://fbmkifpenjegnkjiecfdfnmoabdeeogp/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 270,
+        "armedMs": 276,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "fail-fetch-enable"
+    },
+    {
+      "run": 2,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": "fetch-enable-fails",
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://fbmkifpenjegnkjiecfdfnmoabdeeogp/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 253,
+        "armedMs": 267,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "fail-fetch-enable"
+    },
+    {
+      "run": 3,
+      "mode": "auto-attach",
+      "headless": true,
+      "enforcement": "cdp",
+      "scenario": null,
+      "extension": "extension-race",
+      "injectFailure": "fetch-enable-fails",
+      "attachable": true,
+      "attachError": null,
+      "senderAttempted": true,
+      "autoAttachedTargets": [
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/omnibox_popup_aim.html"
+        },
+        {
+          "type": "browser_ui",
+          "url": "chrome://omnibox-popup.top-chrome/"
+        },
+        {
+          "type": "page",
+          "url": "about:blank"
+        },
+        {
+          "type": "service_worker",
+          "url": "chrome-extension://fbmkifpenjegnkjiecfdfnmoabdeeogp/background.js"
+        },
+        {
+          "type": "other",
+          "url": ""
+        }
+      ],
+      "timings": {
+        "swReadyMs": 251,
+        "armedMs": 264,
+        "offscreenAttachedMs": null,
+        "fetchEnabledMs": null,
+        "firstPausedMs": null,
+        "targetDiscoveredMs": null,
+        "instrumentationBeforeSend": null
+      },
+      "extensionLoaded": true,
+      "arrivals": [
+        {
+          "url": "/egress-immediate",
+          "bytes": 56,
+          "declared": true,
+          "hashMatches": true
+        }
+      ],
+      "observedCount": 0,
+      "blockedCount": 0,
+      "mechanismState": "NOT_OBSERVED",
+      "groundTruth": "GROUND_TRUTH_ARRIVED",
+      "falseGreen": true,
+      "didNotOccur": false,
+      "case": "fail-fetch-enable"
+    }
+  ],
+  "finishedAt": "2026-09-07T20:50:17.188Z"
+}
