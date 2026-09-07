@@ -1,0 +1,36 @@
+name: Security / privacy concern
+description: A trust-boundary, invariant, licence or data-handling concern
+title: "security(<scope>): <summary>"
+labels: ["type:security", "area:security", "priority:p0"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Do not paste secrets, tokens, or real PII into this issue.**
+        If a secret has already been committed, report it before any history rewrite.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Category
+      options:
+        - Egress can bypass the single egress module
+        - Data can leave before verification
+        - Payload can be mutated after verification
+        - Arbitrary execution path required
+        - Secret required in source control
+        - Experiment requires real PII
+        - Dependency / model licence risk
+        - Other
+    validations: { required: true }
+  - type: textarea
+    id: detail
+    attributes:
+      label: Detail
+      description: What you observed. Cite the invariant (INV-nn) if one applies.
+    validations: { required: true }
+  - type: dropdown
+    id: stop
+    attributes:
+      label: Is this a STOP condition?
+      options: ["Yes - work halted", "No", "Unsure - escalating"]
+    validations: { required: true }

@@ -1,0 +1,52 @@
+name: Capability spike
+description: Resolve an UNKNOWN with reproducible evidence
+title: "spike(<area>): <question being answered>"
+labels: ["type:spike", "status:experimental"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A spike answers **exactly one question**. If it needs to answer two, open two.
+        Throwaway code, permanent evidence. See `agentos/workflows/spike.md`.
+  - type: input
+    id: spike-id
+    attributes:
+      label: Spike ID
+      description: From agentos/registry/feasibility-matrix.md (e.g. S-01, E-02)
+      placeholder: S-01
+    validations: { required: true }
+  - type: textarea
+    id: question
+    attributes:
+      label: The question
+      description: One question, precisely stated.
+    validations: { required: true }
+  - type: textarea
+    id: unblocks
+    attributes:
+      label: What this unblocks
+      description: Which decision, gate or dependent work is waiting on the answer?
+    validations: { required: true }
+  - type: textarea
+    id: context
+    attributes:
+      label: Exact execution context
+      description: |
+        Browser + version, OS, extension manifest version, and the precise context
+        (service worker / offscreen document / dedicated worker inside offscreen / page).
+        "In a browser" is not an execution context.
+    validations: { required: true }
+  - type: textarea
+    id: success
+    attributes:
+      label: What counts as ACCEPT, REJECT, CONDITIONAL, INCONCLUSIVE
+    validations: { required: true }
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Spike rules
+      options:
+        - label: This uses synthetic data only — no real PII
+          required: true
+        - label: A null result will be recorded and merged, not discarded
+          required: true

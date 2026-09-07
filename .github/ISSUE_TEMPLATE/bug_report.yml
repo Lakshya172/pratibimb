@@ -1,0 +1,29 @@
+name: Bug report
+description: Something behaves incorrectly
+title: "fix(<scope>): <summary>"
+labels: ["type:bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+    validations: { required: true }
+  - type: textarea
+    id: expected
+    attributes:
+      label: What should have happened
+      description: Cite the contract or dossier section it violates, if any.
+    validations: { required: true }
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: Exact commands, browser + version, OS, execution context.
+      render: shell
+    validations: { required: true }
+  - type: dropdown
+    id: invariant
+    attributes:
+      label: Does this touch a security invariant?
+      options: ["No", "Yes - INV-.. (state which)", "Unsure"]
+    validations: { required: true }

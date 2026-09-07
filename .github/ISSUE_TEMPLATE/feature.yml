@@ -1,0 +1,33 @@
+name: Feature / implementation task
+description: Build something that ships
+title: "feat(<scope>): <summary>"
+labels: ["type:feature"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What is being built
+    validations: { required: true }
+  - type: input
+    id: dossier
+    attributes:
+      label: Dossier section it implements
+      placeholder: "§08 - the differential verifier"
+    validations: { required: true }
+  - type: textarea
+    id: contract
+    attributes:
+      label: Frozen contracts it must satisfy
+      description: List the contract files and the specific invariants.
+    validations: { required: true }
+  - type: textarea
+    id: unknowns
+    attributes:
+      label: UNKNOWNs this depends on
+      description: If any are unresolved, this task is BLOCKED until the spike lands.
+    validations: { required: true }
+  - type: input
+    id: gate
+    attributes:
+      label: Exit gate
+      placeholder: "QG-04"

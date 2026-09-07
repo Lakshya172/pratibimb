@@ -1,0 +1,43 @@
+# PratiBimb — CODEOWNERS
+#
+# TRUTHFULNESS RULE: only real, verified GitHub accounts appear in this file.
+# @ronitsaha11 is the authenticated repository owner (verified via `gh auth status`).
+#
+# The dossier assumes a team of six across five roles (client perception, privacy,
+# server/agent, evaluation/data, integration/demo). Those engineers' GitHub usernames
+# are NOT yet known to this repository, so role-based ownership is DEFERRED rather
+# than invented. When usernames are known, replace the blanket rule below with the
+# role mapping sketched in the comment block at the end of this file.
+
+# Default owner for everything
+*                                   @ronitsaha11
+
+# ── Trust boundary — highest review bar ──────────────────────
+# These paths require the privacy-security-engineer role review
+# (agentos/agents/privacy-security-engineer.md), which holds a standing veto.
+/docs/security/                     @ronitsaha11
+/SECURITY.md                        @ronitsaha11
+
+# ── Frozen contracts — architect review required ─────────────
+/docs/architecture/                 @ronitsaha11
+/docs/adr/                          @ronitsaha11
+/agentos/                           @ronitsaha11
+
+# ── Governing artifact — changes only via ADR ────────────────
+/docs/dossier/                      @ronitsaha11
+
+# ── Repository governance and automation ─────────────────────
+/.github/                           @ronitsaha11
+/scripts/                           @ronitsaha11
+
+# ─────────────────────────────────────────────────────────────
+# DEFERRED role mapping — activate when real usernames are known.
+# Do NOT uncomment with placeholder handles; fabricated ownership is worse
+# than no ownership because it creates a false audit trail.
+#
+# /apps/extension/perception/   @<client-perception-owner>
+# /packages/security/           @<privacy-engineer>
+# /apps/server/                 @<server-agent-owner>
+# /packages/verification/       @<privacy-engineer> @<evaluation-owner>
+# /tests/                       @<evaluation-owner>
+# /.github/workflows/           @<integration-release-owner>

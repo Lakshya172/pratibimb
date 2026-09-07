@@ -1,0 +1,119 @@
+name: CI
+
+# PratiBimb CI foundation.
+#
+# SCOPE NOTE — read before adding jobs:
+# There is no product code in this repository yet. These jobs therefore check what
+# actually exists: governance, secret hygiene, link integrity, and the integrity of
+# the governing dossier. Build / lint / typecheck / unit-test jobs for the extension
+# and the server are added in the same PR that introduces that code, using that
+# code's real tooling. We do not add jobs that run invented commands.
+#
+# LIMITATION — browser-context experiments do not run here.
+# Capability spikes (S-01..S-07) require a real headful browser with a loaded MV3
+# extension and a real GPU adapter. GitHub-hosted runners have no GPU and their
+# software rasteriser does not answer the question we are asking. Those experiments
+# are run locally and their evidence is committed under artifacts/experiments/.
+# CI verifies the artifact is well-formed; it does not reproduce the measurement.
+# See docs/operations/git-workflow.md §CI limitations.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  governance:
+    name: Governance and secret hygiene
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install verifier dependencies
+        run: python -m pip install --quiet pyyaml
+
+      - name: Verify repository governance
+        run: python scripts/verify-repo.py
+
+      - name: Assert no product code has silently appeared
+        # Sprint gate: while the project is in the spike phase, apps/ and packages/
+        # must not exist. When Sprint 2 starts, this step is removed in the PR that
+        # creates them - deliberately, and visibly in the diff.
+        run: |
+          if [ -d apps ] || [ -d packages ]; then
+            echo "::error::apps/ or packages/ exists but the repository is still in the"
+            echo "::error::spike phase. If this is intended, remove this CI step in the"
+            echo "::error::same PR, so the transition is explicit and reviewable."
+            exit 1
+          fi
+          echo "OK - no product code; repository is in the spike phase."
+
+  history:
+    name: Commit and branch hygiene
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Conventional commit subjects
+        run: |
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+          pattern='^(feat|fix|security|test|perf|refactor|docs|build|ci|chore|spike|revert)(\([a-z0-9._/-]+\))?!?: .{1,90}$'
+          bad=0
+          while IFS= read -r subject; do
+            [ -z "$subject" ] && continue
+            case "$subject" in
+              "Merge "*) continue ;;
+            esac
+            if ! echo "$subject" | grep -qE "$pattern"; then
+              echo "::error::non-conventional commit subject: $subject"
+              bad=1
+            fi
+          done < <(git log --format=%s "$base..$head")
+          [ "$bad" -eq 0 ] && echo "OK - all commit subjects are conventional."
+          exit $bad
+
+      - name: Branch name communicates intent
+        run: |
+          branch="${{ github.event.pull_request.head.ref }}"
+          if echo "$branch" | grep -qE '^(feature|fix|security|perf|refactor|docs|ci|spike|chore)/[a-z0-9][a-z0-9-]*(/[a-z0-9-]+)*$'; then
+            echo "OK - branch '$branch'"
+          else
+            echo "::error::branch '$branch' does not match <type>/<short-description>."
+            echo "::error::See CONTRIBUTING.md section 2."
+            exit 1
+          fi
+
+      - name: No large binaries introduced
+        run: |
+          base="${{ github.event.pull_request.base.sha }}"
+          head="${{ github.event.pull_request.head.sha }}"
+          bad=0
+          while IFS= read -r f; do
+            [ -f "$f" ] || continue
+            size=$(wc -c < "$f")
+            if [ "$size" -gt 5242880 ]; then
+              echo "::error::$f is $size bytes. Model weights and large binaries are"
+              echo "::error::referenced by pinned revision, never vendored. See SECURITY.md."
+              bad=1
+            fi
+          done < <(git diff --name-only --diff-filter=ACM "$base..$head")
+          [ "$bad" -eq 0 ] && echo "OK - no oversized files added."
+          exit $bad
