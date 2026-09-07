@@ -1,0 +1,98 @@
+# ─────────────────────────────────────────────────────────────
+# PratiBimb — .gitignore
+# This is a privacy/security product. Git history is part of the
+# threat surface. See SECURITY.md before adding an exception.
+# ─────────────────────────────────────────────────────────────
+
+# ── Secrets — never commit ──────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+credentials.json
+service-account*.json
+*token*.txt
+*secret*
+!**/secret*.md
+.hf_token
+.huggingface/
+
+# ── Real user / PII data — never commit ─────────────────────
+# Only synthetic fixtures belong in this repository.
+**/real-data/
+**/user-data/
+**/pii/
+**/*.pii.*
+captures/
+screenshots/real/
+**/browsing-history*
+**/vault-dump*
+
+# ── Model weights and large binaries — reference, don't vendor ──
+*.onnx
+*.onnx_data
+*.safetensors
+*.gguf
+*.bin
+*.pt
+*.pth
+*.tflite
+models/
+!models/**/*.md
+!models/**/*.json
+
+# ── Browser profiles produced by spikes ─────────────────────
+# Chrome user-data-dirs contain profile state; never commit them.
+**/chrome-profile/
+**/firefox-profile/
+**/.wdm/
+**/user-data-dir/
+
+# ── Node ────────────────────────────────────────────────────
+node_modules/
+dist/
+build/
+.output/
+.wxt/
+*.tsbuildinfo
+.pnpm-store/
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+
+# ── Python ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# ── Test / coverage output ──────────────────────────────────
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+blob-report/
+
+# ── OS / editor ─────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.shared.json
+
+# ── Scratch ─────────────────────────────────────────────────
+tmp/
+.tmp/
+scratch/
+*.local
