@@ -1,0 +1,41 @@
+{
+  "experiment": "W1-S02-firefox-webgpu-context",
+  "recorded_at": "2026-09-07T23:18:08+05:30",
+  "scope_warning": "Firefox on WINDOWS. The dossier calls Firefox-on-LINUX the most likely judging configuration, and on Linux WebGPU is off by default behind dom.webgpu.enabled. That is a SEPARATE CELL and remains UNKNOWN.",
+  "host": {
+    "machine": "HP OMEN Gaming Laptop 16-ap0xxx (LAPTOP-SRCINK2B) — workstation 2",
+    "os": "Windows 11 Home Single Language 10.0.26200",
+    "arch": "AMD64",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M (16 logical)",
+    "node": "v26.4.0"
+  },
+  "gpu": {
+    "integrated": "AMD Radeon 860M Graphics, driver 32.0.22042.29001",
+    "discrete": "NVIDIA GeForce RTX 5050 Laptop GPU, 8151 MiB, driver 592.82",
+    "which_one_firefox_used": "UNKNOWN — Firefox reports an EMPTY adapterInfo (vendor/architecture/device/description all \"\"). Unlike Chrome, the adapter cannot be identified from inside the page."
+  },
+  "browser": {
+    "name": "Mozilla Firefox",
+    "version": "155.0.1",
+    "channel": "release",
+    "source": "winget Mozilla.Firefox — installed by this spike on 2026-09-07, resolving blocker B-01",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+    "mode": "headful",
+    "profile": "fresh temporary profile per run, created under the system temp directory and deleted afterwards"
+  },
+  "extension_loading": {
+    "tool": "web-ext 10.6.0",
+    "method": "temporary add-on (web-ext run --source-dir)",
+    "manifest_version": 3,
+    "background": "background.scripts — the Firefox MV3 EVENT PAGE"
+  },
+  "webgpu_preferences": {
+    "dom.webgpu.enabled": "NOT CHANGED. No about:config or --pref modification was made to any WebGPU preference. The result below is Firefox 155 release defaults on Windows.",
+    "label": "FACT"
+  },
+  "harness_preferences": {
+    "extensions.originControls.grantByDefault": "set to true via --pref, and it did NOT take effect — the extension's fetch still failed with NetworkError. Retained in the runner for transparency. This affects only how the probe REPORTS its result, never what is measured.",
+    "note": "Because the fetch was refused, the event page reports through a tab-navigation beacon carrying the full payload. See findings."
+  },
+  "data": { "payloads": "synthetic — an Int32Array of i % 1024, verified against a CPU reference", "pii": "none", "secrets": "none" }
+}

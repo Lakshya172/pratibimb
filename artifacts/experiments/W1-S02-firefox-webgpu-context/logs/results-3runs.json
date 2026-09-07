@@ -1,0 +1,529 @@
+{
+  "experiment": "W1-S02-firefox-webgpu-context",
+  "startedAt": "2026-09-07T17:44:25.887Z",
+  "runs": [
+    {
+      "run": 1,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "startedAt": "2026-09-07T17:44:28.090Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": true,
+          "adapterDefault": {
+            "powerPreference": "default",
+            "adapterAvailable": true,
+            "requestAdapterMs": 1864,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterHighPerformance": {
+            "powerPreference": "high-performance",
+            "adapterAvailable": true,
+            "requestAdapterMs": 256,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterAvailable": true,
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": ""
+          },
+          "isFallbackAdapter": null,
+          "deviceCreated": true,
+          "requestDeviceMs": 127,
+          "computeRan": true,
+          "compute": {
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "shaderCompileErrors": [],
+            "coldDispatchMs": 99,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 100,
+              "min": 99,
+              "max": 101
+            }
+          },
+          "teardown": {
+            "destroyMs": 100,
+            "lost": {
+              "reason": "destroyed",
+              "message": "Device destroyed"
+            }
+          },
+          "reacquire": {
+            "adapterAvailable": true,
+            "deviceCreated": true
+          },
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "adapter + device + correct compute output in this context",
+          "finishedAt": "2026-09-07T17:44:31.838Z",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        },
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "startedAt": "2026-09-07T17:44:28.016Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": true,
+          "adapterDefault": {
+            "powerPreference": "default",
+            "adapterAvailable": true,
+            "requestAdapterMs": 1815,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterHighPerformance": {
+            "powerPreference": "high-performance",
+            "adapterAvailable": true,
+            "requestAdapterMs": 249,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterAvailable": true,
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": ""
+          },
+          "isFallbackAdapter": null,
+          "deviceCreated": true,
+          "requestDeviceMs": 199,
+          "computeRan": true,
+          "compute": {
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "shaderCompileErrors": [],
+            "coldDispatchMs": 101,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 100,
+              "min": 99,
+              "max": 101
+            }
+          },
+          "teardown": {
+            "destroyMs": 100,
+            "lost": {
+              "reason": "destroyed",
+              "message": "Device destroyed"
+            }
+          },
+          "reacquire": {
+            "adapterAvailable": true,
+            "deviceCreated": true
+          },
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "adapter + device + correct compute output in this context",
+          "finishedAt": "2026-09-07T17:44:31.893Z",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "firefox-mv3-event-page",
+        "ordinary-web-page-CONTROL"
+      ],
+      "timedOut": false,
+      "webExtLogTail": [
+        "Running web extension from C:\\Users\\OMEN\\AppData\\Local\\Temp\\claude\\C--Users-OMEN-Desktop-PratiBimb\\85c3d834-196c-4f1d-8a77-058200f1f5b1\\scratchpad\\s02\\extension",
+        "Profile directory C:\\Users\\OMEN\\AppData\\Local\\Temp\\pratibimb-s02-ffprofile-49z7PG already exists",
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed C:\\Users\\OMEN\\AppData\\Local\\Temp\\claude\\C--Users-OMEN-Desktop-PratiBimb\\85c3d834-196c-4f1d-8a77-058200f1f5b1\\scratchpad\\s02\\extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "run": 2,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "startedAt": "2026-09-07T17:44:35.553Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": true,
+          "adapterDefault": {
+            "powerPreference": "default",
+            "adapterAvailable": true,
+            "requestAdapterMs": 376,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterHighPerformance": {
+            "powerPreference": "high-performance",
+            "adapterAvailable": true,
+            "requestAdapterMs": 293,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterAvailable": true,
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": ""
+          },
+          "isFallbackAdapter": null,
+          "deviceCreated": true,
+          "requestDeviceMs": 146,
+          "computeRan": true,
+          "compute": {
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "shaderCompileErrors": [],
+            "coldDispatchMs": 99,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 100,
+              "min": 99,
+              "max": 101
+            }
+          },
+          "teardown": {
+            "destroyMs": 100,
+            "lost": {
+              "reason": "destroyed",
+              "message": "Device destroyed"
+            }
+          },
+          "reacquire": {
+            "adapterAvailable": true,
+            "deviceCreated": true
+          },
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "adapter + device + correct compute output in this context",
+          "finishedAt": "2026-09-07T17:44:37.877Z",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        },
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "startedAt": "2026-09-07T17:44:35.486Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": true,
+          "adapterDefault": {
+            "powerPreference": "default",
+            "adapterAvailable": true,
+            "requestAdapterMs": 299,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterHighPerformance": {
+            "powerPreference": "high-performance",
+            "adapterAvailable": true,
+            "requestAdapterMs": 299,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterAvailable": true,
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": ""
+          },
+          "isFallbackAdapter": null,
+          "deviceCreated": true,
+          "requestDeviceMs": 222,
+          "computeRan": true,
+          "compute": {
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "shaderCompileErrors": [],
+            "coldDispatchMs": 100,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 100,
+              "min": 98,
+              "max": 101
+            }
+          },
+          "teardown": {
+            "destroyMs": 101,
+            "lost": {
+              "reason": "destroyed",
+              "message": "Device destroyed"
+            }
+          },
+          "reacquire": {
+            "adapterAvailable": true,
+            "deviceCreated": true
+          },
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "adapter + device + correct compute output in this context",
+          "finishedAt": "2026-09-07T17:44:37.932Z",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "firefox-mv3-event-page",
+        "ordinary-web-page-CONTROL"
+      ],
+      "timedOut": false,
+      "webExtLogTail": [
+        "Running web extension from C:\\Users\\OMEN\\AppData\\Local\\Temp\\claude\\C--Users-OMEN-Desktop-PratiBimb\\85c3d834-196c-4f1d-8a77-058200f1f5b1\\scratchpad\\s02\\extension",
+        "Profile directory C:\\Users\\OMEN\\AppData\\Local\\Temp\\pratibimb-s02-ffprofile-WimBOX already exists",
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed C:\\Users\\OMEN\\AppData\\Local\\Temp\\claude\\C--Users-OMEN-Desktop-PratiBimb\\85c3d834-196c-4f1d-8a77-058200f1f5b1\\scratchpad\\s02\\extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "run": 3,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "startedAt": "2026-09-07T17:44:41.635Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": true,
+          "adapterDefault": {
+            "powerPreference": "default",
+            "adapterAvailable": true,
+            "requestAdapterMs": 409,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterHighPerformance": {
+            "powerPreference": "high-performance",
+            "adapterAvailable": true,
+            "requestAdapterMs": 283,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterAvailable": true,
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": ""
+          },
+          "isFallbackAdapter": null,
+          "deviceCreated": true,
+          "requestDeviceMs": 111,
+          "computeRan": true,
+          "compute": {
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "shaderCompileErrors": [],
+            "coldDispatchMs": 100,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 100,
+              "min": 99,
+              "max": 101
+            }
+          },
+          "teardown": {
+            "destroyMs": 99,
+            "lost": {
+              "reason": "destroyed",
+              "message": "Device destroyed"
+            }
+          },
+          "reacquire": {
+            "adapterAvailable": true,
+            "deviceCreated": true
+          },
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "adapter + device + correct compute output in this context",
+          "finishedAt": "2026-09-07T17:44:43.951Z",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        },
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "startedAt": "2026-09-07T17:44:41.574Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": true,
+          "adapterDefault": {
+            "powerPreference": "default",
+            "adapterAvailable": true,
+            "requestAdapterMs": 314,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterHighPerformance": {
+            "powerPreference": "high-performance",
+            "adapterAvailable": true,
+            "requestAdapterMs": 309,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterAvailable": true,
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": ""
+          },
+          "isFallbackAdapter": null,
+          "deviceCreated": true,
+          "requestDeviceMs": 187,
+          "computeRan": true,
+          "compute": {
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "shaderCompileErrors": [],
+            "coldDispatchMs": 100,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 100,
+              "min": 98,
+              "max": 101
+            }
+          },
+          "teardown": {
+            "destroyMs": 101,
+            "lost": {
+              "reason": "destroyed",
+              "message": "Device destroyed"
+            }
+          },
+          "reacquire": {
+            "adapterAvailable": true,
+            "deviceCreated": true
+          },
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "adapter + device + correct compute output in this context",
+          "finishedAt": "2026-09-07T17:44:44.007Z",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "firefox-mv3-event-page",
+        "ordinary-web-page-CONTROL"
+      ],
+      "timedOut": false,
+      "webExtLogTail": [
+        "Running web extension from C:\\Users\\OMEN\\AppData\\Local\\Temp\\claude\\C--Users-OMEN-Desktop-PratiBimb\\85c3d834-196c-4f1d-8a77-058200f1f5b1\\scratchpad\\s02\\extension",
+        "Profile directory C:\\Users\\OMEN\\AppData\\Local\\Temp\\pratibimb-s02-ffprofile-HgHfsc already exists",
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed C:\\Users\\OMEN\\AppData\\Local\\Temp\\claude\\C--Users-OMEN-Desktop-PratiBimb\\85c3d834-196c-4f1d-8a77-058200f1f5b1\\scratchpad\\s02\\extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-07T17:44:45.707Z"
+}
