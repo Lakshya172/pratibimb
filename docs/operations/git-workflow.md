@@ -143,10 +143,79 @@ compatibility claim `ENGINEERING_PRINCIPLES.md` §9 forbids.
 CI becomes a **required** merge gate for security-critical and product branches once
 product code lands and the suite includes the egress interception tests.
 
-## 8. Repository hosting note
+## 8. Repository topology — direct push or fork
 
-The working tree lives under a **OneDrive-synced path**. OneDrive can race with Git on
-`.git/` internals during a sync, producing lock errors or, rarely, index corruption.
-This has not caused a problem yet and is recorded as a known operational risk in
-`agentos/state.md`. The mitigation, if it bites: move the working tree outside the
-OneDrive root. The remote is the durable copy either way.
+Two contribution topologies are in use, because not every contributor has push access to
+the canonical repository. **Both end in a pull request; neither permits committing to
+`main`.**
+
+### 8.1 Direct topology — contributors with push access
+
+```
+origin = https://github.com/ronitsaha11/pratibimb
+```
+
+Branch from `origin/main`, push the branch to `origin`, open the PR. Sections 2–7 above
+describe this case.
+
+### 8.2 Fork topology — contributors with read access
+
+A contributor without push access forks the canonical repository and works from the fork.
+This is the standard open-source model and it changes nothing about branch naming, commit
+discipline, the PR template or the gates.
+
+```
+origin   = https://github.com/<contributor>/pratibimb   your fork      (push here)
+upstream = https://github.com/ronitsaha11/pratibimb     canonical      (never push here)
+```
+
+Setup, once:
+
+```bash
+gh repo fork ronitsaha11/pratibimb --clone=false
+git clone https://github.com/<contributor>/pratibimb.git
+cd pratibimb
+git remote add upstream https://github.com/ronitsaha11/pratibimb.git
+git remote set-url --push upstream DISABLED_no_push_to_upstream   # fail loudly, not silently
+git fetch upstream --tags
+```
+
+Per change:
+
+```bash
+git fetch upstream
+git switch -c <type>/<description> upstream/main    # branch from upstream, not from your fork
+# ... commits ...
+git push -u origin <type>/<description>
+gh pr create -R ronitsaha11/pratibimb --base main --head <contributor>:<type>/<description>
+```
+
+**Branch from `upstream/main`, not from your fork's `main`.** A fork's `main` goes stale
+the moment anything merges upstream, and branching from a stale base produces a PR whose
+diff contains other people's reverted work.
+
+**Do not detect the default branch by assumption.** `git remote show upstream | grep 'HEAD
+branch'` reports it. It is currently `main`.
+
+### 8.3 Who can merge
+
+**A contributor on the fork topology cannot merge their own PR**, because merging requires
+write access to the canonical repository. `gh pr merge` returns:
+
+```
+GraphQL: <user> does not have the correct permissions to execute `MergePullRequest`
+```
+
+This is a property of the permission model, not a workflow choice, and it is not something
+a contributor can or should work around. A fork-topology PR is **prepared, evidenced and
+reviewed by its author, and merged by a maintainer.** See `agentos/blockers.md`.
+
+### 8.4 Working-tree location
+
+A working tree on a **cloud-synced path** (OneDrive, Dropbox, Google Drive) can race with
+Git on `.git/` internals during a sync, producing lock errors or, rarely, index
+corruption. **This is a property of an individual workstation, not of the project**, and
+it applies only to contributors whose checkout is under such a path. The mitigation is to
+move the working tree outside the synced root. The remote is the durable copy either way.
+
+Each workstation records its own layout under `artifacts/environment/`.

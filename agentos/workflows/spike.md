@@ -2,7 +2,7 @@
 
 > **Purpose: turn an `UNKNOWN` into a `FACT`.**
 > **Throwaway code. Permanent evidence.**
-> Exit gate: `agentos/gates/QG-01-capability-spike.md`
+> Exit gate: [QG-01](../gates/README.md#qg-01--capability-spike-complete)
 
 ---
 

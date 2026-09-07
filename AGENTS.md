@@ -35,7 +35,7 @@ AGENTS.md  →  docs/architecture/vision.md  →  docs/architecture/constitution
 
 **Returning session:**
 ```
-AGENTS.md  →  agentos/state.md  →  docs/adr/README.md (recent)  →  task
+AGENTS.md  →  agentos/state.md  →  agentos/blockers.md  →  docs/adr/README.md (recent)  →  task
 ```
 
 **Before any implementation task:**
@@ -47,7 +47,7 @@ agentos/state.md  →  the relevant docs/architecture/*.md  →  agentos/workflo
 **Before adopting or changing a model:**
 ```
 agentos/registry/model-registry.md  →  agentos/registry/feasibility-matrix.md
-                            →  agentos/workflows/model-adoption.md  →  agentos/gates/QG-03-model-feasibility.md
+                            →  agentos/workflows/model-adoption.md  →  agentos/gates/README.md (QG-03)
 ```
 
 Load on demand. Do not read the whole repository into context.
@@ -99,6 +99,7 @@ that names the machine, browser, browser version, backend and date.
 | `docs/architecture/vision.md` | The problem, the thesis, the rubric, what winning means |
 | `docs/architecture/constitution.md` | **The architecture constitution** — frozen vs replaceable |
 | `agentos/state.md` | Live project state. Updated every session. |
+| `agentos/blockers.md` | **Blocker register** — what is currently stopping defined work, and why. Read after `state.md`. |
 | `docs/adr/README.md` | ADR index |
 | `docs/architecture/glossary.md` | Viva glossary — shared vocabulary |
 | `docs/architecture/` | Frozen contracts: coordinate, manifest v1.1, action schema |

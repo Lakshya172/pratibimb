@@ -1,7 +1,7 @@
 # Agent Contract: integration-release-engineer
 
 > **Authority: L2 — domain reviewer. Blocking on release (QG-06).**
-> **Cross-refs:** `agentos/workflows/release.md` · `agentos/gates/QG-06-release.md`
+> **Cross-refs:** `agentos/workflows/release.md` · [QG-06](../gates/README.md#qg-06--release)
 
 ---
 

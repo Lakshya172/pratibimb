@@ -1,7 +1,7 @@
 # Agent Contract: browser-engineer
 
 > **Authority: L2 — domain reviewer. Blocking on the coordinate contract and execution context.**
-> **Cross-refs:** `docs/architecture/coordinate-contract.md` · `docs/architecture/action-schema.md` · `agentos/gates/QG-02-coordinate-contract.md`
+> **Cross-refs:** `docs/architecture/coordinate-contract.md` · `docs/architecture/action-schema.md` · [QG-02](../gates/README.md#qg-02--coordinate-contract)
 
 ---
 

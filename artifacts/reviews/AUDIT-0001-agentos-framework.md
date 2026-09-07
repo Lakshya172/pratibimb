@@ -74,6 +74,8 @@ Two independent leaks of the author's local filesystem into a distributed templa
 ### Finding 3 — the "runtime" is a heuristic simulator, not an execution engine
 
 Total runtime source: **~1,330 lines across 23 files**, most of them 14–48 lines.
+*(This figure is wrong. The original wording is preserved; see **Correction C-1** at the
+end of this document for the re-measurement.)*
 
 - `runtime/harness/classifier.py` (55 lines) classifies a task by **substring matching**
   on the task description and file extensions: `if "perf" in task or "optimize" in task
@@ -84,7 +86,7 @@ Total runtime source: **~1,330 lines across 23 files**, most of them 14–48 lin
 - `runtime/loop/quality_evaluator.py` computes `score = 100`, minus 30 if validation
   failed, minus `15 * error_count`; its confidence field is annotated in the source as
   `# Mock confidence formula`.
-- `runtime/kernel/*` — five files of 14–21 lines each (event bus, logger, scheduler, state
+- `runtime/kernel/*` — five files of 14–21 lines each *(six; see **Correction C-1**)* (event bus, logger, scheduler, state
   manager, policy loader).
 
 `AGENTOS.md` section 7 states "The Harness will: … Route to appropriate specialist
@@ -159,3 +161,72 @@ label — and it must resolve its root relative to `__file__`. That is a real ga
 also **not** something to build before Sprint 1.
 
 This audit is the evidence base for ADR candidate **C-03**.
+
+---
+
+# Correction C-1 — recorded 2026-09-07
+
+> **The original audit above is preserved unaltered except for two inline pointers to this
+> section.** Nothing has been rewritten to make the error look as though it never happened.
+> See `docs/operations/git-workflow.md` and `AGENTS.md` §5 — evidence is corrected forward,
+> not edited away.
+
+## What was claimed
+
+> *"Total runtime source: **~1,330 lines across 23 files**, most of them 14–48 lines."*
+> *"`runtime/kernel/*` — five files of 14–21 lines each."*
+
+## What was re-measured
+
+Independently re-measured during the second-workstation reconstruction, on the same commit
+the original audit names (`2cf150f`):
+
+```bash
+git clone https://github.com/Rexy-5097/raptors-way
+cd raptors-way && git rev-parse --short HEAD          # 2cf150f
+find runtime -type f -name "*.py" | wc -l             # 24
+find runtime -type f -name "*.py" -exec wc -l {} + | tail -1   # 734 total
+find runtime -type f | wc -l                          # 34
+find runtime -type f -exec wc -l {} + | tail -1       # 947 total
+```
+
+| Claim | Original audit | Re-measured | Status |
+|---|---|---|---|
+| Runtime Python files | 23 | **24** | corrected |
+| Runtime Python lines | ~1,330 | **734** | **corrected — overstated by ~1.8x** |
+| All files under `runtime/` | — | 34 | added |
+| All lines under `runtime/` | — | 947 | added |
+| `runtime/kernel/*` file count | five | **six** (`event_bus`, `logger`, `policy_loader`, `scheduler`, `state_manager`, `health`) | corrected |
+| `runtime/kernel/*` line range | 14–21 | 14–21 | **confirmed** |
+
+Largest files, for reference: `loop/runtime.py` 96 · `harness/runtime.py` 86 ·
+`harness/classifier.py` 55 · `harness/context_optimizer.py` 48.
+
+## What was confirmed unchanged
+
+Every other observation in the audit re-measured exactly:
+
+| Claim | Status |
+|---|---|
+| Commit `2cf150f`, `VERSION` = `1.0.0` | **confirmed** |
+| 337 files · 202 Markdown · 43 JSON · 31 Python | **confirmed** |
+| 45 YAML | **confirmed** (`.yaml` only; there are 6 further `.yml`) |
+| `validate_agentos.py` line 16 hardcodes `REPO_ROOT = "/Users/soumyadebtripathy/WorkFlow/agentos-template"` | **confirmed verbatim** |
+| `quality_evaluator.py` carries `# Mock confidence formula` | **confirmed verbatim** |
+| `classifier.py` classifies by substring matching on task text and file extensions | **confirmed** |
+
+## Why it matters, and why it does not change the decision
+
+It matters because this repository's own rule (`AGENTS.md` §5, `ENGINEERING_PRINCIPLES.md`)
+is that **no number is asserted without a source**. An unsourced figure inside the project's
+own evidence base is exactly the defect the rule exists to prevent, and finding it in our
+own audit rather than in someone else's work is the point of re-verifying.
+
+It does not change the decision, and it does not weaken it. The audit's conclusion was that
+the Raptor's Way runtime is a heuristic simulator rather than an execution engine, and that
+AgentOS's value is its Markdown conventions rather than its Python. **A runtime of 734 lines
+supports that conclusion more strongly than one of 1,330.** The adoption table in the audit
+stands unchanged, and no file adopted or rejected on the strength of it is revisited.
+
+**Label:** FACT (both the original observations and this re-measurement are direct
+observations; the corrected rows supersede the originals as the figure of record).

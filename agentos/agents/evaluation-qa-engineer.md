@@ -1,7 +1,7 @@
 # Agent Contract: evaluation-qa-engineer
 
 > **Authority: L2 — domain reviewer. Blocking on any reported metric.**
-> **Cross-refs:** `docs/testing/benchmark-contract.md` · `agentos/gates/QG-05-evaluation-harness.md`
+> **Cross-refs:** `docs/testing/benchmark-contract.md` · [QG-05](../gates/README.md#qg-05--evaluation-harness)
 
 ---
 
