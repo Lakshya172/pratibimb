@@ -122,6 +122,52 @@ Evidence: [`W1-S01b`](../../artifacts/experiments/W1-S01b-playwright-extension-l
 | S-01b-2 | Which vehicle enforces Invariant E mechanism (2)? **Requires an ADR.** | `UNKNOWN` | **QG-04 sign-off** |
 | S-01b-3 | Is the gap a Playwright limitation or specific to Edge? | `UNKNOWN` | Scope of S-01b-2 |
 
+### B-02 result — recorded 2026-09-07
+
+**CONDITIONAL.** Same machine and browser as S-01b (workstation 2, Playwright 1.63.0,
+branded Edge 152, MV3 offscreen document). Answers the question S-01b left open: *what
+mechanism can this project actually trust?*
+
+Four mechanisms, five cases, checked against a loopback collector that recomputes SHA-256
+over the bytes it actually received:
+
+| Mechanism | Observes offscreen egress | Blocks it | Proves bytes on the wire |
+|---|---|---|---|
+| **M1** Playwright `context.route()` | **NO** — 0 of 5 | **NO** — blocked 0 while the payload arrived | no |
+| **M2** CDP `Fetch` on the offscreen target | **YES** — 5 of 5 | **YES** — collector confirmed zero arrivals | attempt only |
+| **M3** independent loopback collector | **YES** — 8 of 8 arrivals | no (cannot block) | **YES — recomputed hash** |
+| **M5** extension self-audit log | self-reported | no | no |
+
+Three results carry the finding:
+
+- An **unauthorised sender** that bypassed the egress module arrived with **no correlation id
+  and no declared hash**. Absent provenance is detectable from outside the browser.
+- A **tampered send** — declaring the verified artifact's hash but transmitting different
+  bytes — was caught by the collector as **`hashMatches: false`**. **The payload pin
+  (INV-02/INV-03) is externally checkable, not merely an internal control.**
+- **Playwright, told to abort every request, blocked none and the payload reached the wire.**
+
+**No single mechanism answers all five sub-questions (A–E). `M2 + M3` does**, and their
+failure modes are independent — M2 is instrumentation inside the process under test, M3
+adjudicates from outside it.
+
+A deterministic **regression guard** now encodes the exact false-green failure mode
+(3 of 3 runs, verdict PASS): *Playwright reports no offscreen request while the independent
+arrival check sees it reach the wire.*
+
+**`docs/security/security-invariants.md` is unchanged. Invariant E is not weakened. QG-04
+remains unsigned** — adopting a mechanism changes how a frozen invariant is enforced and
+requires an ADR. See issue #5.
+
+Evidence: [`W1-B02`](../../artifacts/experiments/W1-B02-invariant-e-observation/README.md)
+
+| # | New question raised by B-02 | Status | Blocks |
+|---|---|---|---|
+| B-02-1 | Does this reproduce on **`ubuntu-latest` with Playwright's own Chromium** — the real CI cell? | `UNKNOWN` | **QG-04 sign-off** |
+| B-02-2 | **ADR** adopting or rejecting M2 + M3 as Invariant E mechanism (2) | `UNKNOWN` | **QG-04 sign-off** |
+| B-02-3 | Does `Target.setAutoAttach` + `waitForDebuggerOnStart` close M2's target-discovery race? | `UNKNOWN` | Confidence in M2 |
+| B-02-4 | What bounds M3's blind spot for destinations it does not host? | `UNKNOWN` | Completeness of mechanism (3) |
+
 ---
 
 > **GPU adapter availability from extension background contexts has been inconsistent.**
