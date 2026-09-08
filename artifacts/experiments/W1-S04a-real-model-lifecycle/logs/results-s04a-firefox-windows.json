@@ -1,0 +1,35 @@
+{
+  "experiment": "W1-S04a-real-model-lifecycle",
+  "browser": "firefox",
+  "startedAt": "2026-09-08T15:26:11.115Z",
+  "firefox": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+  "host": "WSL2 Ubuntu 26.04 guest on a Windows 11 host",
+  "runs": [
+    {
+      "variant": "firefox-mv3-event-page",
+      "prefs": [],
+      "headless": false,
+      "run": 1,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        }
+      ],
+      "contextsReported": [
+        "__alive__"
+      ],
+      "livenessSeen": true,
+      "timedOut": true,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed C:\\Users\\OMEN\\AppData\\Local\\Temp\\claude\\C--Users-OMEN-Desktop-PratiBimb\\85c3d834-196c-4f1d-8a77-058200f1f5b1\\scratchpad\\s04a\\ext-firefox as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-08T15:41:13.129Z"
+}
