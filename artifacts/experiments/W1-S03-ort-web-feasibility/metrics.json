@@ -1,0 +1,563 @@
+{
+  "experiment": "W1-S03-ort-web-feasibility",
+  "question": "Does a real ONNX Runtime Web session initialise and RUN in PratiBimb's extension contexts?",
+  "ort_web": "1.29.0 (npm, pinned)",
+  "model": {
+    "bytes": 174,
+    "sha256": "2718406b3ef228c72455dea388cd26569d462102f5a642a3bcbba1cedafe49b4",
+    "graph": "y = x*2 + 1 over float32[1,262144], opset 13, ir_version 9",
+    "note": "Two elementwise ops. A viability fixture, NOT a workload and NOT a registry model. Not committed - reproducible from build_model.py."
+  },
+  "csp_dependency": "Every result required the harness extension to declare 'wasm-unsafe-eval'. Without it nothing runs on either browser (S-02a-2, S-02a-2b). Harness only - NOT adopted.",
+  "cells": {
+    "chrome | windows | chrome-mv3-service-worker | wasm | headful": {
+      "runs": 3,
+      "succeeded": 0,
+      "conclusions": [
+        "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://gi"
+      ]
+    },
+    "chrome | windows | chrome-mv3-service-worker | webgpu | headful": {
+      "runs": 3,
+      "succeeded": 0,
+      "conclusions": [
+        "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed."
+      ]
+    },
+    "chrome | windows | chrome-offscreen-document | wasm | headful": {
+      "runs": 3,
+      "succeeded": 3,
+      "conclusions": [
+        "ORT session created and ran correctly on wasm"
+      ],
+      "sessionCreateMs": [
+        290.1,
+        300.9,
+        301.1
+      ],
+      "coldRunMs": [
+        7.3,
+        8,
+        7.8
+      ],
+      "warmRunP50Ms": [
+        0.3,
+        0.3,
+        0.4
+      ],
+      "releaseMs": [
+        1.5,
+        1.7,
+        1.7
+      ],
+      "mismatches": [
+        0,
+        0,
+        0
+      ],
+      "sharedArrayBuffer": true,
+      "numThreads": 1
+    },
+    "chrome | windows | chrome-offscreen-document | webgpu | headful": {
+      "runs": 3,
+      "succeeded": 3,
+      "conclusions": [
+        "ORT session created and ran correctly on webgpu"
+      ],
+      "sessionCreateMs": [
+        160,
+        115.6,
+        115.2
+      ],
+      "coldRunMs": [
+        27,
+        24.9,
+        25.7
+      ],
+      "warmRunP50Ms": [
+        5.5,
+        5.2,
+        6.4
+      ],
+      "releaseMs": [
+        0.5,
+        0.6,
+        0.6
+      ],
+      "mismatches": [
+        0,
+        0,
+        0
+      ],
+      "sharedArrayBuffer": true,
+      "numThreads": 1
+    },
+    "chrome | windows | chrome-offscreen-dedicated-worker | wasm | headful": {
+      "runs": 3,
+      "succeeded": 3,
+      "conclusions": [
+        "ORT session created and ran correctly on wasm"
+      ],
+      "sessionCreateMs": [
+        76.5,
+        74.6,
+        76.4
+      ],
+      "coldRunMs": [
+        2.1,
+        2,
+        1.8
+      ],
+      "warmRunP50Ms": [
+        0.4,
+        0.3,
+        0.3
+      ],
+      "releaseMs": [
+        0.4,
+        0.2,
+        0.3
+      ],
+      "mismatches": [
+        0,
+        0,
+        0
+      ],
+      "sharedArrayBuffer": true,
+      "numThreads": 1
+    },
+    "chrome | windows | chrome-offscreen-dedicated-worker | webgpu | headful": {
+      "runs": 3,
+      "succeeded": 3,
+      "conclusions": [
+        "ORT session created and ran correctly on webgpu"
+      ],
+      "sessionCreateMs": [
+        34.6,
+        36.6,
+        34
+      ],
+      "coldRunMs": [
+        11.1,
+        11.3,
+        11.9
+      ],
+      "warmRunP50Ms": [
+        5.7,
+        4.9,
+        6.1
+      ],
+      "releaseMs": [
+        0.4,
+        0.5,
+        0.6
+      ],
+      "mismatches": [
+        0,
+        0,
+        0
+      ],
+      "sharedArrayBuffer": true,
+      "numThreads": 1
+    },
+    "chrome | windows | chrome-mv3-service-worker | wasm | headless": {
+      "runs": 3,
+      "succeeded": 0,
+      "conclusions": [
+        "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://gi"
+      ]
+    },
+    "chrome | windows | chrome-mv3-service-worker | webgpu | headless": {
+      "runs": 3,
+      "succeeded": 0,
+      "conclusions": [
+        "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed."
+      ]
+    },
+    "chrome | windows | chrome-offscreen-document | wasm | headless": {
+      "runs": 3,
+      "succeeded": 3,
+      "conclusions": [
+        "ORT session created and ran correctly on wasm"
+      ],
+      "sessionCreateMs": [
+        300.6,
+        301.8,
+        290.4
+      ],
+      "coldRunMs": [
+        8.4,
+        7.9,
+        8.4
+      ],
+      "warmRunP50Ms": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "releaseMs": [
+        1.6,
+        1.8,
+        1.6
+      ],
+      "mismatches": [
+        0,
+        0,
+        0
+      ],
+      "sharedArrayBuffer": true,
+      "numThreads": 1
+    },
+    "chrome | windows | chrome-offscreen-document | webgpu | headless": {
+      "runs": 3,
+      "succeeded": 3,
+      "conclusions": [
+        "ORT session created and ran correctly on webgpu"
+      ],
+      "sessionCreateMs": [
+        120.6,
+        124.6,
+        118.9
+      ],
+      "coldRunMs": [
+        27,
+        30.2,
+        27.4
+      ],
+      "warmRunP50Ms": [
+        5.3,
+        5,
+        5.2
+      ],
+      "releaseMs": [
+        0.8,
+        0.7,
+        0.6
+      ],
+      "mismatches": [
+        0,
+        0,
+        0
+      ],
+      "sharedArrayBuffer": true,
+      "numThreads": 1
+    },
+    "chrome | windows | chrome-offscreen-dedicated-worker | wasm | headless": {
+      "runs": 3,
+      "succeeded": 3,
+      "conclusions": [
+        "ORT session created and ran correctly on wasm"
+      ],
+      "sessionCreateMs": [
+        75,
+        78.2,
+        74.2
+      ],
+      "coldRunMs": [
+        2,
+        1.9,
+        1.8
+      ],
+      "warmRunP50Ms": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "releaseMs": [
+        0.2,
+        0.3,
+        0.3
+      ],
+      "mismatches": [
+        0,
+        0,
+        0
+      ],
+      "sharedArrayBuffer": true,
+      "numThreads": 1
+    },
+    "chrome | windows | chrome-offscreen-dedicated-worker | webgpu | headless": {
+      "runs": 3,
+      "succeeded": 3,
+      "conclusions": [
+        "ORT session created and ran correctly on webgpu"
+      ],
+      "sessionCreateMs": [
+        34.6,
+        32.5,
+        34.5
+      ],
+      "coldRunMs": [
+        11.3,
+        12,
+        11
+      ],
+      "warmRunP50Ms": [
+        6.4,
+        5.3,
+        5.6
+      ],
+      "releaseMs": [
+        0.7,
+        0.6,
+        0.5
+      ],
+      "mismatches": [
+        0,
+        0,
+        0
+      ],
+      "sharedArrayBuffer": true,
+      "numThreads": 1
+    },
+    "chrome | linux-wsl2 | chrome-mv3-service-worker | wasm | headful": {
+      "runs": 1,
+      "succeeded": 0,
+      "conclusions": [
+        "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://gi"
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-mv3-service-worker | webgpu | headful": {
+      "runs": 1,
+      "succeeded": 0,
+      "conclusions": [
+        "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed."
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-document | wasm | headful": {
+      "runs": 1,
+      "succeeded": 1,
+      "conclusions": [
+        "ORT session created and ran correctly on wasm"
+      ],
+      "sessionCreateMs": [
+        578.2
+      ],
+      "coldRunMs": [
+        11.4
+      ],
+      "warmRunP50Ms": [
+        0.6
+      ],
+      "releaseMs": [
+        1.7
+      ],
+      "mismatches": [
+        0
+      ],
+      "sharedArrayBuffer": true,
+      "numThreads": 1
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-document | webgpu | headful": {
+      "runs": 1,
+      "succeeded": 0,
+      "conclusions": [
+        "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are usi"
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-dedicated-worker | wasm | headful": {
+      "runs": 1,
+      "succeeded": 1,
+      "conclusions": [
+        "ORT session created and ran correctly on wasm"
+      ],
+      "sessionCreateMs": [
+        165.6
+      ],
+      "coldRunMs": [
+        3.7
+      ],
+      "warmRunP50Ms": [
+        0.6
+      ],
+      "releaseMs": [
+        0.2
+      ],
+      "mismatches": [
+        0
+      ],
+      "sharedArrayBuffer": true,
+      "numThreads": 1
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-dedicated-worker | webgpu | headful": {
+      "runs": 1,
+      "succeeded": 0,
+      "conclusions": [
+        "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are usi"
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-mv3-service-worker | wasm | headless": {
+      "runs": 1,
+      "succeeded": 0,
+      "conclusions": [
+        "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://gi"
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-mv3-service-worker | webgpu | headless": {
+      "runs": 1,
+      "succeeded": 0,
+      "conclusions": [
+        "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed."
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-document | wasm | headless": {
+      "runs": 1,
+      "succeeded": 1,
+      "conclusions": [
+        "ORT session created and ran correctly on wasm"
+      ],
+      "sessionCreateMs": [
+        490.1
+      ],
+      "coldRunMs": [
+        13.1
+      ],
+      "warmRunP50Ms": [
+        0.7
+      ],
+      "releaseMs": [
+        1.7
+      ],
+      "mismatches": [
+        0
+      ],
+      "sharedArrayBuffer": true,
+      "numThreads": 1
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-document | webgpu | headless": {
+      "runs": 1,
+      "succeeded": 0,
+      "conclusions": [
+        "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are usi"
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-dedicated-worker | wasm | headless": {
+      "runs": 1,
+      "succeeded": 1,
+      "conclusions": [
+        "ORT session created and ran correctly on wasm"
+      ],
+      "sessionCreateMs": [
+        149.2
+      ],
+      "coldRunMs": [
+        2.9
+      ],
+      "warmRunP50Ms": [
+        0.6
+      ],
+      "releaseMs": [
+        0.4
+      ],
+      "mismatches": [
+        0
+      ],
+      "sharedArrayBuffer": true,
+      "numThreads": 1
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-dedicated-worker | webgpu | headless": {
+      "runs": 1,
+      "succeeded": 0,
+      "conclusions": [
+        "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are usi"
+      ]
+    },
+    "firefox | windows | firefox-mv3-event-page | wasm | headful": {
+      "runs": 2,
+      "succeeded": 2,
+      "conclusions": [
+        "ORT session created and ran correctly on wasm"
+      ],
+      "sessionCreateMs": [
+        293,
+        265
+      ],
+      "coldRunMs": [
+        2,
+        2
+      ],
+      "warmRunP50Ms": [
+        1,
+        1
+      ],
+      "mismatches": [
+        0,
+        0
+      ],
+      "sharedArrayBuffer": false,
+      "numThreads": 1
+    },
+    "firefox | windows | firefox-mv3-event-page | webgpu | headful": {
+      "runs": 2,
+      "succeeded": 2,
+      "conclusions": [
+        "ORT session created and ran correctly on webgpu"
+      ],
+      "sessionCreateMs": [
+        3135,
+        427
+      ],
+      "coldRunMs": [
+        102,
+        39
+      ],
+      "warmRunP50Ms": [
+        100,
+        100
+      ],
+      "mismatches": [
+        0,
+        0
+      ],
+      "sharedArrayBuffer": false,
+      "numThreads": 1
+    },
+    "firefox | linux-wsl2 | firefox-mv3-event-page | wasm | headful": {
+      "runs": 2,
+      "succeeded": 2,
+      "conclusions": [
+        "ORT session created and ran correctly on wasm"
+      ],
+      "sessionCreateMs": [
+        426,
+        416
+      ],
+      "coldRunMs": [
+        5,
+        2
+      ],
+      "warmRunP50Ms": [
+        1,
+        1
+      ],
+      "mismatches": [
+        0,
+        0
+      ],
+      "sharedArrayBuffer": false,
+      "numThreads": 1
+    },
+    "firefox | linux-wsl2 | firefox-mv3-event-page | webgpu | headful": {
+      "runs": 2,
+      "succeeded": 0,
+      "conclusions": [
+        "threw: no available backend found. ERR: [webgpu] Error: WebGPU is not supported in current environment"
+      ]
+    }
+  },
+  "headline": [
+    "ORT Web CANNOT run in an MV3 service worker: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. Specification-level, not configuration. Independently validates constitution section 5.",
+    "ORT Web DOES work in the chrome.offscreen document AND in a dedicated worker inside it - both backends, headful and headless, output element-exact.",
+    "Firefox MV3 event page runs ORT on both backends (Windows) and on WASM (Linux).",
+    "ORT Web runs entirely from PACKAGED LOCAL FILES - no network fetch for runtime or model. This answers an open S-02a-2a question: packaged-only origin is feasible.",
+    "Linux WebGPU failures are environmental (WSL2 has no /dev/dri, 0 Vulkan ICDs; Firefox Linux has dom.webgpu.enabled off) - the same code succeeds on Windows.",
+    "WASM measured faster than WebGPU here. The model is TWO elementwise ops, so GPU transfer cannot amortise. NOT a backend comparison and must not be quoted as one."
+  ],
+  "not_established": [
+    "the twenty model cells - QG-03 stands entirely open",
+    "S-04: three concurrent sessions in one WASM heap",
+    "any backend ranking or latency budget",
+    "threaded WASM (numThreads pinned to 1 throughout)",
+    "native Linux with a real GPU"
+  ]
+}

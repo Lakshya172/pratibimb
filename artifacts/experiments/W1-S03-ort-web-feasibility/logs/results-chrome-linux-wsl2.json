@@ -1,0 +1,486 @@
+{
+  "experiment": "W1-S03-ort-web",
+  "browser": "chrome",
+  "startedAt": "2026-09-07T22:09:06.890Z",
+  "platform": "linux-wsl2",
+  "chrome": "/opt/chrome-linux64/chrome",
+  "runs": [
+    {
+      "headless": false,
+      "run": 1,
+      "platform": "linux-wsl2",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:09:08.092Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.",
+            "stack": "Error: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.\n    at Ll (chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/ort.all.min.js:6:2149)\n    at async r.create (c"
+          },
+          "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+          "finishedAt": "2026-09-07T22:09:08.094Z"
+        },
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:09:08.094Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+            "stack": "Error: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.\n    at Ll (chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/ort.all.min.js:6:2149)\n    at async r.create (chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/ort.all.min.js:6:20194)\n    at async runOrtPr"
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+          "finishedAt": "2026-09-07T22:09:08.094Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:09:08.157Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 578.2,
+            "coldRunMs": 11.4,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.6,
+              "min": 0.4,
+              "max": 1.1
+            },
+            "releaseMs": 1.7
+          },
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 3
+            },
+            "afterSession": {
+              "usedJSHeapMB": 4
+            },
+            "afterRuns": {
+              "usedJSHeapMB": 4
+            },
+            "afterRelease": {
+              "usedJSHeapMB": 4
+            }
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:09:08.759Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:09:08.759Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 4
+            }
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+            "stack": "Error: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.\n    at Ll (chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/ort.all.min.js:6:2149)\n    at async r.create (chrome-extension://pnbpbkilagi"
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+          "finishedAt": "2026-09-07T22:09:08.764Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:09:08.828Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 165.6,
+            "coldRunMs": 3.7,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.6,
+              "min": 0.5,
+              "max": 1.1
+            },
+            "releaseMs": 0.2
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:09:09.008Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:09:09.008Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+            "stack": "Error: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.\n    at Ll (chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/ort.all.min.js:6:2149)\n    at async r.create (chrome-extension://pnbpbkilagi"
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+          "finishedAt": "2026-09-07T22:09:09.020Z"
+        }
+      ]
+    },
+    {
+      "headless": true,
+      "run": 1,
+      "platform": "linux-wsl2",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:09:09.619Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.",
+            "stack": "Error: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.\n    at Ll (chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/ort.all.min.js:6:2149)\n    at async r.create (c"
+          },
+          "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+          "finishedAt": "2026-09-07T22:09:09.620Z"
+        },
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:09:09.620Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+            "stack": "Error: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.\n    at Ll (chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/ort.all.min.js:6:2149)\n    at async r.create (chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/ort.all.min.js:6:20194)\n    at async runOrtPr"
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+          "finishedAt": "2026-09-07T22:09:09.620Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:09:09.671Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 490.1,
+            "coldRunMs": 13.1,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.7,
+              "min": 0.5,
+              "max": 1.4
+            },
+            "releaseMs": 1.7
+          },
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 3
+            },
+            "afterSession": {
+              "usedJSHeapMB": 4
+            },
+            "afterRuns": {
+              "usedJSHeapMB": 4
+            },
+            "afterRelease": {
+              "usedJSHeapMB": 4
+            }
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:09:10.188Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:09:10.188Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 4
+            }
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+            "stack": "Error: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.\n    at Ll (chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/ort.all.min.js:6:2149)\n    at async r.create (chrome-extension://pnbpbkilagi"
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+          "finishedAt": "2026-09-07T22:09:10.192Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:09:10.237Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 149.2,
+            "coldRunMs": 2.9,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.6,
+              "min": 0.3,
+              "max": 0.9
+            },
+            "releaseMs": 0.4
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:09:10.400Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:09:10.400Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+            "stack": "Error: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.\n    at Ll (chrome-extension://pnbpbkilagilggihegdlenomcefhjphp/ort.all.min.js:6:2149)\n    at async r.create (chrome-extension://pnbpbkilagi"
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+          "finishedAt": "2026-09-07T22:09:10.410Z"
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-07T22:09:10.488Z"
+}
