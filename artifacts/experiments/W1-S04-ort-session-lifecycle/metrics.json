@@ -1,0 +1,2127 @@
+{
+  "experiment": "W1-S04-ort-session-lifecycle",
+  "question": "Can three ORT Web sessions coexist in one WebAssembly heap, and does teardown reclaim?",
+  "measurement_rule": "WebAssembly.Memory cannot shrink. Heap staying put after teardown is CORRECT, not a leak. The leak question lives in repeated cycles.",
+  "ort_web": "1.29.0 (MIT, npm pinned)",
+  "model": "174-byte two-op fixture, sha256 2718406b...",
+  "cells": {
+    "chrome | linux-wsl2 | chrome-mv3-service-worker | wasm | threads=1 | headful": {
+      "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+      "concurrentSessions": null,
+      "cycles": 5,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-mv3-service-worker | webgpu | threads=1 | headful": {
+      "conclusion": "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+      "concurrentSessions": null,
+      "cycles": 5,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-document | wasm | threads=1 | headful": {
+      "conclusion": "3 concurrent sessions on wasm; 5 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 5,
+      "inferences": 18,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": 3.5
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 9.1
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 9.1
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 9.1
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 9.1
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 9.1
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 15.5
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 15.5
+        },
+        {
+          "label": "after-cycle-4",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 15.5
+        },
+        {
+          "label": "after-cycle-5",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 24.7
+        }
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-document | webgpu | threads=1 | headful": {
+      "conclusion": "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+      "concurrentSessions": null,
+      "cycles": 5,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 24.7
+        }
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-dedicated-worker | wasm | threads=1 | headful": {
+      "conclusion": "3 concurrent sessions on wasm; 5 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 5,
+      "inferences": 18,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-4",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-5",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-dedicated-worker | webgpu | threads=1 | headful": {
+      "conclusion": "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+      "concurrentSessions": null,
+      "cycles": 5,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-mv3-service-worker | wasm | threads=1 | headless": {
+      "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+      "concurrentSessions": null,
+      "cycles": 5,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-mv3-service-worker | webgpu | threads=1 | headless": {
+      "conclusion": "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+      "concurrentSessions": null,
+      "cycles": 5,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-document | wasm | threads=1 | headless": {
+      "conclusion": "3 concurrent sessions on wasm; 5 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 5,
+      "inferences": 18,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": 3.5
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 8.9
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 8.9
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 8.9
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 8.9
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 8.9
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 15.3
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 15.3
+        },
+        {
+          "label": "after-cycle-4",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 15.3
+        },
+        {
+          "label": "after-cycle-5",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 24.4
+        }
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-document | webgpu | threads=1 | headless": {
+      "conclusion": "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+      "concurrentSessions": null,
+      "cycles": 5,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 24.4
+        }
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-dedicated-worker | wasm | threads=1 | headless": {
+      "conclusion": "3 concurrent sessions on wasm; 5 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 5,
+      "inferences": 18,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-4",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-5",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | linux-wsl2 | chrome-offscreen-dedicated-worker | webgpu | threads=1 | headless": {
+      "conclusion": "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+      "concurrentSessions": null,
+      "cycles": 5,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows-threads | chrome-mv3-service-worker | wasm | threads=1 | headful": {
+      "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+      "concurrentSessions": null,
+      "cycles": 3,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows-threads | chrome-mv3-service-worker | wasm | threads=4 | headful": {
+      "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+      "concurrentSessions": null,
+      "cycles": 3,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows-threads | chrome-offscreen-document | wasm | threads=1 | headful": {
+      "conclusion": "3 concurrent sessions on wasm; 3 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 3,
+      "inferences": 12,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": 3.5
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.4
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.4
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.4
+        }
+      ]
+    },
+    "chrome | windows-threads | chrome-offscreen-document | wasm | threads=4 | headful": {
+      "conclusion": "3 concurrent sessions on wasm; 3 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 3,
+      "inferences": 12,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.4
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.4
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.4
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.4
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.4
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.4
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.4
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.4
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 25.7
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 25.7
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 25.7
+        }
+      ]
+    },
+    "chrome | windows-threads | chrome-offscreen-dedicated-worker | wasm | threads=1 | headful": {
+      "conclusion": "3 concurrent sessions on wasm; 3 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 3,
+      "inferences": 12,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows-threads | chrome-offscreen-dedicated-worker | wasm | threads=4 | headful": {
+      "conclusion": "3 concurrent sessions on wasm; 3 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 3,
+      "inferences": 12,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows-threads | chrome-mv3-service-worker | wasm | threads=1 | headless": {
+      "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+      "concurrentSessions": null,
+      "cycles": 3,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows-threads | chrome-mv3-service-worker | wasm | threads=4 | headless": {
+      "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+      "concurrentSessions": null,
+      "cycles": 3,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows-threads | chrome-offscreen-document | wasm | threads=1 | headless": {
+      "conclusion": "3 concurrent sessions on wasm; 3 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 3,
+      "inferences": 12,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": 3.5
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.6
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.6
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.6
+        }
+      ]
+    },
+    "chrome | windows-threads | chrome-offscreen-document | wasm | threads=4 | headless": {
+      "conclusion": "3 concurrent sessions on wasm; 3 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 3,
+      "inferences": 12,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.6
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.6
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.6
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.6
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.6
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.6
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.6
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.6
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 25.9
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 25.9
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 25.9
+        }
+      ]
+    },
+    "chrome | windows-threads | chrome-offscreen-dedicated-worker | wasm | threads=1 | headless": {
+      "conclusion": "3 concurrent sessions on wasm; 3 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 3,
+      "inferences": 12,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows-threads | chrome-offscreen-dedicated-worker | wasm | threads=4 | headless": {
+      "conclusion": "3 concurrent sessions on wasm; 3 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 3,
+      "inferences": 12,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows | chrome-mv3-service-worker | wasm | threads=1 | headful": {
+      "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+      "concurrentSessions": null,
+      "cycles": 5,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows | chrome-mv3-service-worker | webgpu | threads=1 | headful": {
+      "conclusion": "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+      "concurrentSessions": null,
+      "cycles": 5,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows | chrome-offscreen-document | wasm | threads=1 | headful": {
+      "conclusion": "3 concurrent sessions on wasm; 5 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 5,
+      "inferences": 18,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": 3.5
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.4
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.4
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.4
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.4
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.4
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.4
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.4
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.4
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.4
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.4
+        },
+        {
+          "label": "after-cycle-4",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.4
+        },
+        {
+          "label": "after-cycle-5",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 24.7
+        }
+      ]
+    },
+    "chrome | windows | chrome-offscreen-document | webgpu | threads=1 | headful": {
+      "conclusion": "3 concurrent sessions on webgpu; 5 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 5,
+      "inferences": 18,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 24.7
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 25.9
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 25.9
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 25.9
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 10.8
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 10.8
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 10.8
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 10.8
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 10.8
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 17.1
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 17.1
+        },
+        {
+          "label": "after-cycle-4",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 23.3
+        },
+        {
+          "label": "after-cycle-5",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 23.3
+        }
+      ]
+    },
+    "chrome | windows | chrome-offscreen-dedicated-worker | wasm | threads=1 | headful": {
+      "conclusion": "3 concurrent sessions on wasm; 5 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 5,
+      "inferences": 18,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-4",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-5",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows | chrome-offscreen-dedicated-worker | webgpu | threads=1 | headful": {
+      "conclusion": "3 concurrent sessions on webgpu; 5 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 5,
+      "inferences": 18,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-4",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-5",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows | chrome-mv3-service-worker | wasm | threads=1 | headless": {
+      "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+      "concurrentSessions": null,
+      "cycles": 5,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows | chrome-mv3-service-worker | webgpu | threads=1 | headless": {
+      "conclusion": "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+      "concurrentSessions": null,
+      "cycles": 5,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows | chrome-offscreen-document | wasm | threads=1 | headless": {
+      "conclusion": "3 concurrent sessions on wasm; 5 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 5,
+      "inferences": 18,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": 3.5
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 5.3
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.1
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.1
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.1
+        },
+        {
+          "label": "after-cycle-4",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 12.1
+        },
+        {
+          "label": "after-cycle-5",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 24.4
+        }
+      ]
+    },
+    "chrome | windows | chrome-offscreen-document | webgpu | threads=1 | headless": {
+      "conclusion": "3 concurrent sessions on webgpu; 5 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 5,
+      "inferences": 18,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 24.4
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 25.7
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 25.7
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 25.7
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 10.2
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 10.2
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 10.2
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 10.2
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 10.2
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 16.5
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 16.5
+        },
+        {
+          "label": "after-cycle-4",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 22.7
+        },
+        {
+          "label": "after-cycle-5",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": 22.7
+        }
+      ]
+    },
+    "chrome | windows | chrome-offscreen-dedicated-worker | wasm | threads=1 | headless": {
+      "conclusion": "3 concurrent sessions on wasm; 5 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 5,
+      "inferences": 18,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-4",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-5",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "chrome | windows | chrome-offscreen-dedicated-worker | webgpu | threads=1 | headless": {
+      "conclusion": "3 concurrent sessions on webgpu; 5 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 5,
+      "inferences": 18,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-4",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-5",
+          "wasmInstances": 1,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "firefox | None | firefox-mv3-event-page | wasm | threads=1 | headful": {
+      "conclusion": "3 concurrent sessions on wasm; 5 create/infer/destroy cycles; all output correct",
+      "concurrentSessions": 3,
+      "cycles": 5,
+      "inferences": 18,
+      "allCorrect": true,
+      "totalMismatches": 0,
+      "sharedArrayBuffer": false,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 0,
+          "wasmMB": 0,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-1",
+          "wasmInstances": 2,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-2",
+          "wasmInstances": 2,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-create-3",
+          "wasmInstances": 2,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-infer-all-3",
+          "wasmInstances": 2,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-1",
+          "wasmInstances": 2,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-2",
+          "wasmInstances": 2,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-destroy-3",
+          "wasmInstances": 2,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-1",
+          "wasmInstances": 2,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-2",
+          "wasmInstances": 2,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-3",
+          "wasmInstances": 2,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-4",
+          "wasmInstances": 2,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        },
+        {
+          "label": "after-cycle-5",
+          "wasmInstances": 2,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        }
+      ]
+    },
+    "firefox | None | firefox-mv3-event-page | webgpu | threads=1 | headful": {
+      "conclusion": "threw: no available backend found. ERR: [webgpu] Error: WebGPU is not supported in current environment",
+      "concurrentSessions": null,
+      "cycles": 5,
+      "inferences": 0,
+      "allCorrect": null,
+      "totalMismatches": null,
+      "sharedArrayBuffer": false,
+      "crossOriginIsolated": false,
+      "snapshots": [
+        {
+          "label": "baseline",
+          "wasmInstances": 2,
+          "wasmMB": 16,
+          "jsUsedMB": null
+        }
+      ]
+    }
+  },
+  "headline": [
+    "Three ORT sessions coexist in EVERY context where ORT runs. All 18 inferences per cell element-exact, 0 mismatches of 262,144.",
+    "All sessions SHARE ONE WebAssembly.Memory (two on Firefox, same 16 MB total). Sessions 2 and 3 added ZERO bytes.",
+    "Teardown does not shrink the heap - that is spec-correct, NOT a leak.",
+    "Repeated create/infer/destroy cycles produced NO WASM heap growth: flat at 16 MB across 15 further lifecycles per cell, both backends, both platforms.",
+    "JS heap is INCONCLUSIVE and reported UNKNOWN: it rose 12.4->24.7 MB in one cell and FELL 25.9->10.8 MB in a single step in another. GC-timing dominated.",
+    "WebGPU shares the same WASM heap - the JSEP backend does not allocate a second one. GPU-side memory is not visible to this instrumentation.",
+    "S-03b: multi-threaded WASM (numThreads=4) is FEASIBLE on Chrome where SharedArrayBuffer exists. Feasibility only - no performance claim.",
+    "NOT CLEARED: 16 MB is almost certainly ORT's initial arena and three trivial sessions never forced a grow(). The dossier's ~120 MB resident-model risk is untouched."
+  ],
+  "not_established": [
+    "real models / QG-03",
+    "heap exhaustion (no grow() was ever forced)",
+    "JS-heap retention",
+    "GPU memory",
+    "threading performance",
+    "any latency budget"
+  ]
+}
