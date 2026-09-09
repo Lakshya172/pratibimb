@@ -59,8 +59,7 @@ Full record: [`environment.json`](environment.json).
 |---|---|
 | Workstation | **1** — `LAPTOP-6E14K34L`, Win 11 `10.0.26200` |
 | **ORT Web** | **`onnxruntime-web@1.29.0`**, bundle **`ort.all.min.js`** |
-| Browser measured | unbranded **Chromium 151.0.7922.34** (Playwright, headful) |
-| Browser **NOT** measured | **Firefox 155.0.1** — see *Firefox coverage* below. **No Firefox result is claimed.** |
+| Browsers measured | unbranded **Chromium 151.0.7922.34** (Playwright, headful) · **Firefox 155.0.1** (web-ext, headful) |
 | Origins | `127.0.0.1:8910` collector *(in `connect-src`)* · `127.0.0.1:8911` foreign *(not in `connect-src`)* |
 | Harness CSP | `script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8910` |
 | Model | the **same 174-byte model as W1-S03**, `y = x*2+1` over `float32[1,262144]`, verified element-by-element |
@@ -121,7 +120,7 @@ inference is element-exact. **3/3 runs, both Chromium contexts.**
 | ORT re-fetch despite `wasmBinary` | uncertain |
 | Silent fallback on missing artifact | uncertain, and security-relevant |
 
-## Actual result — Chromium 151, 3 runs, unanimous
+## Actual result — Chromium 151 and Firefox 155, 3 runs each, unanimous
 
 | # | Scenario | Session | Ground truth |
 |---|---|---|---|
@@ -174,36 +173,46 @@ determined the outcome.
 
 ---
 
-## Firefox coverage — NOT MEASURED, and not inferred
+## Firefox 155.0.1 — measured, and it matches
 
-**This experiment's result is a Chromium result. Firefox is `UNKNOWN` for S-02a-2a-3.**
+**3 runs, both Firefox MV3 contexts (event page and a dedicated worker spawned from it),
+unanimous — and identical to Chromium on every scenario.**
 
-A Firefox runner exists (`harness/run-s02a2a3-firefox.js`, reusing the W1-S02a-2 `web-ext`
-pattern) and the Firefox extension is built, but **no valid Firefox measurement was
-obtained in this session.** The committed
-`logs/results-s02a2a3-windows-ws1-firefox-155.json` records a **failed** attempt —
-`aliveBeacon: false`, zero contexts reporting, zero arrivals — and is kept as evidence of
-that failure rather than deleted.
+| # | Scenario | Firefox | Chromium |
+|---|---|---|---|
+| s1 | fetch + hash | `matchesPin: true` | same |
+| **s2** | **pinned `wasmBinary`** | **created, `correct: true`** — event page **and** worker | same |
+| **s3** | **tampered `wasmBinary`** | **FAILED** | same |
+| s4 | ORT owns the fetch | created, correct | same |
+| s5 | missing artifact | FAILED, **`fellBackSilently: false`** | same |
+| s6 | foreign origin | FAILED, **0 foreign arrivals** | same |
+| s7 | second load | both succeeded | same |
 
-Two causes were found and fixed, and they are the reason the record is preserved:
+### The anomaly that had to be resolved before claiming parity
 
-1. **`web-ext` was copied between harness directories instead of installed**, so its
-   transitive dependencies were missing:
-   `Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'camelcase'`. The add-on therefore
-   never installed, and the event page never ran. Fixed by a real
-   `npm install web-ext@8.3.0`.
-2. **Leaked Firefox processes.** `web-ext` spawns Firefox as a grandchild, so killing the
-   wrapper left it running — **189 live processes** were observed accumulating across
-   runs. The runner now issues an explicit `taskkill /F /IM firefox.exe /T`.
+The first Firefox run appeared to show ORT fetching far more than on Chromium — **7**
+untagged requests for the real artifact (Chromium: 3) and **3 untagged `/tampered.wasm`**
+(Chromium: **0**). Read naively, that says *ORT re-fetched despite `wasmBinary`, and the
+binding leaks on Firefox.*
 
-**`aliveBeacon: false` is exactly why that beacon exists.** Without it, "the extension
-never installed" would have been indistinguishable from "ORT could not load WebAssembly in
-Firefox" — and the second reading would have been a fabricated limitation.
+**It does not.** The harness attributed requests by header alone, and **a CORS preflight
+carries no custom header**, so every preflight of *our own* tagged fetch was being counted
+as ORT's. Recording the HTTP **method** separates them:
 
-> **The Chromium result is NOT generalised to Firefox.** Firefox has a different CSP
-> failure mode (W1-S02a-2a-2), no `chrome.offscreen`, and its own dynamic-`import()`
-> behaviour. Whether the `wasmBinary` binding holds there is **`UNKNOWN`** and is tracked
-> as **S-02a-2a-3d**.
+| Method | URL | Count (3 runs) | Whose |
+|---|---|---|---|
+| **GET** | `/ort-wasm-simd-threaded.jsep.wasm` | **3** | **ORT — s4 only, 1 per run** |
+| **GET** | `/no-such-file.wasm` | 9 | ORT — s5, 3 retries per run |
+| OPTIONS | `/ort-wasm-simd-threaded.jsep.wasm` | 4 | preflight of our fetch |
+| OPTIONS | `/tampered.wasm` | 3 | preflight of our fetch |
+
+> **ORT's real-artifact GETs on Firefox: 3 — all from the ORT-owned-fetch scenario, and
+> ZERO in the pinned scenarios s2, s3 and s7. Identical to Chromium.**
+
+**Incidental cross-browser finding:** Firefox MV3 **preflights** an extension `fetch`
+carrying a custom header to a host in `host_permissions`; **Chromium does not**. Harmless
+here once separated, but it is exactly the kind of asymmetry that can turn an arrival log
+into a false positive, and it nearly did.
 
 ## Corrections made during the experiment
 
@@ -220,6 +229,17 @@ can be attributed rather than assumed.
 own error revealed that `ort.all.min.js` loads the **jsep** build. Had this gone unnoticed
 the experiment would have pinned a file the runtime never loads — a pin that verifies
 nothing while appearing to work.
+
+**C4 — the Firefox probe entrypoint was never renamed.** A restructure renamed the probe
+function `runPinProbe` → `runPinScenario` and updated the **Chrome** generators but not the
+**Firefox** ones. The event page installed and ran (`aliveBeacon: true`) and then reported
+nothing. The beacon is what made this diagnosable: without it, *"the extension never
+installed"* and *"ORT cannot run WebAssembly in Firefox"* would have been the same
+observation, and the second reading would have been a fabricated limitation.
+
+**C5 — header-only attribution misread CORS preflights as ORT fetches.** See *Firefox
+155.0.1* above. Fixed by recording the HTTP method. **Before the fix, Firefox would have
+been reported as breaking the binding.**
 
 **C3 — a deleted worker generator.** A patch removed the Chrome `worker.js` builder, so
 `new Worker()` 404'd and every worker scenario reported `fatal: "undefined"`. It looked
@@ -249,7 +269,7 @@ per-realm property, not a per-extension one.
 
 See [`commands.md`](commands.md). 3 runs, unanimous.
 
-**Limits:** **Chromium only — Firefox is `UNKNOWN` (S-02a-2a-3d)**; one machine; `numThreads = 1` throughout (multi-threaded ORT spawns workers
+**Limits:** one machine; Windows only (**Firefox on Linux remains `UNKNOWN`**); `numThreads = 1` throughout (multi-threaded ORT spawns workers
 that may fetch additional assets — **not covered**); the **`wasm` EP only**, not WebGPU;
 origins differ by **port**, not host.
 
@@ -260,4 +280,4 @@ origins differ by **port**, not host.
 | S-02a-2a-3a | Does the binding hold with `numThreads > 1`, where ORT spawns its own workers? | Threaded WASM performance path |
 | S-02a-2a-3b | Does the **WebGPU** EP touch additional resources beyond the jsep artifact? | Pinning the WebGPU path |
 | S-02a-2a-3c | Can the `.mjs` glue's integrity be assured beyond packaging — SRI, or a build-time hash check? | Completeness of runtime provenance |
-| **S-02a-2a-3d** | **Does the `wasmBinary` binding hold in Firefox MV3?** Harness ready; not measured this session. | Cross-browser parity of the pin |
+| ~~S-02a-2a-3d~~ | ~~Does the `wasmBinary` binding hold in Firefox MV3?~~ | **ANSWERED — YES**, 3 runs, both contexts, identical to Chromium |
