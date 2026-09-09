@@ -1,0 +1,999 @@
+{
+  "experiment": "W1-S02a-firefox-linux-webgpu",
+  "startedAt": "2026-09-07T20:50:49.370Z",
+  "firefox": "/opt/firefox/firefox",
+  "host": "WSL2 Ubuntu 26.04 guest on a Windows 11 host",
+  "runs": [
+    {
+      "variant": "defaults-headful",
+      "prefs": [],
+      "headless": false,
+      "run": 1,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "startedAt": "2026-09-07T20:50:52.292Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": false,
+          "adapterDefault": null,
+          "adapterHighPerformance": null,
+          "adapterAvailable": false,
+          "adapterInfo": null,
+          "isFallbackAdapter": null,
+          "deviceCreated": false,
+          "requestDeviceMs": null,
+          "computeRan": false,
+          "compute": null,
+          "teardown": null,
+          "reacquire": null,
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "navigator.gpu ABSENT in this context",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "startedAt": "2026-09-07T20:50:52.266Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": false,
+          "adapterDefault": null,
+          "adapterHighPerformance": null,
+          "adapterAvailable": false,
+          "adapterInfo": null,
+          "isFallbackAdapter": null,
+          "deviceCreated": false,
+          "requestDeviceMs": null,
+          "computeRan": false,
+          "compute": null,
+          "teardown": null,
+          "reacquire": null,
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "navigator.gpu ABSENT in this context",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "ordinary-web-page-CONTROL",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02/extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "defaults-headful",
+      "prefs": [],
+      "headless": false,
+      "run": 2,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "startedAt": "2026-09-07T20:50:56.293Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": false,
+          "adapterDefault": null,
+          "adapterHighPerformance": null,
+          "adapterAvailable": false,
+          "adapterInfo": null,
+          "isFallbackAdapter": null,
+          "deviceCreated": false,
+          "requestDeviceMs": null,
+          "computeRan": false,
+          "compute": null,
+          "teardown": null,
+          "reacquire": null,
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "navigator.gpu ABSENT in this context",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "startedAt": "2026-09-07T20:50:56.308Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": false,
+          "adapterDefault": null,
+          "adapterHighPerformance": null,
+          "adapterAvailable": false,
+          "adapterInfo": null,
+          "isFallbackAdapter": null,
+          "deviceCreated": false,
+          "requestDeviceMs": null,
+          "computeRan": false,
+          "compute": null,
+          "teardown": null,
+          "reacquire": null,
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "navigator.gpu ABSENT in this context",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "ordinary-web-page-CONTROL",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02/extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "defaults-headful",
+      "prefs": [],
+      "headless": false,
+      "run": 3,
+      "reported": [
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "startedAt": "2026-09-07T20:51:00.401Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": false,
+          "adapterDefault": null,
+          "adapterHighPerformance": null,
+          "adapterAvailable": false,
+          "adapterInfo": null,
+          "isFallbackAdapter": null,
+          "deviceCreated": false,
+          "requestDeviceMs": null,
+          "computeRan": false,
+          "compute": null,
+          "teardown": null,
+          "reacquire": null,
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "navigator.gpu ABSENT in this context",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        },
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "startedAt": "2026-09-07T20:51:00.498Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": false,
+          "adapterDefault": null,
+          "adapterHighPerformance": null,
+          "adapterAvailable": false,
+          "adapterInfo": null,
+          "isFallbackAdapter": null,
+          "deviceCreated": false,
+          "requestDeviceMs": null,
+          "computeRan": false,
+          "compute": null,
+          "teardown": null,
+          "reacquire": null,
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "navigator.gpu ABSENT in this context",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        }
+      ],
+      "contextsReported": [
+        "ordinary-web-page-CONTROL",
+        "__alive__",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02/extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "defaults-headless",
+      "prefs": [],
+      "headless": true,
+      "run": 1,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "startedAt": "2026-09-07T20:51:04.310Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": false,
+          "adapterDefault": null,
+          "adapterHighPerformance": null,
+          "adapterAvailable": false,
+          "adapterInfo": null,
+          "isFallbackAdapter": null,
+          "deviceCreated": false,
+          "requestDeviceMs": null,
+          "computeRan": false,
+          "compute": null,
+          "teardown": null,
+          "reacquire": null,
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "navigator.gpu ABSENT in this context",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "startedAt": "2026-09-07T20:51:04.324Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": false,
+          "adapterDefault": null,
+          "adapterHighPerformance": null,
+          "adapterAvailable": false,
+          "adapterInfo": null,
+          "isFallbackAdapter": null,
+          "deviceCreated": false,
+          "requestDeviceMs": null,
+          "computeRan": false,
+          "compute": null,
+          "teardown": null,
+          "reacquire": null,
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "navigator.gpu ABSENT in this context",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "ordinary-web-page-CONTROL",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02/extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "defaults-headless",
+      "prefs": [],
+      "headless": true,
+      "run": 2,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "startedAt": "2026-09-07T20:51:08.035Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": false,
+          "adapterDefault": null,
+          "adapterHighPerformance": null,
+          "adapterAvailable": false,
+          "adapterInfo": null,
+          "isFallbackAdapter": null,
+          "deviceCreated": false,
+          "requestDeviceMs": null,
+          "computeRan": false,
+          "compute": null,
+          "teardown": null,
+          "reacquire": null,
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "navigator.gpu ABSENT in this context",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "startedAt": "2026-09-07T20:51:08.049Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": false,
+          "adapterDefault": null,
+          "adapterHighPerformance": null,
+          "adapterAvailable": false,
+          "adapterInfo": null,
+          "isFallbackAdapter": null,
+          "deviceCreated": false,
+          "requestDeviceMs": null,
+          "computeRan": false,
+          "compute": null,
+          "teardown": null,
+          "reacquire": null,
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "navigator.gpu ABSENT in this context",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "ordinary-web-page-CONTROL",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02/extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "defaults-headless",
+      "prefs": [],
+      "headless": true,
+      "run": 3,
+      "reported": [
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "startedAt": "2026-09-07T20:51:11.748Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": false,
+          "adapterDefault": null,
+          "adapterHighPerformance": null,
+          "adapterAvailable": false,
+          "adapterInfo": null,
+          "isFallbackAdapter": null,
+          "deviceCreated": false,
+          "requestDeviceMs": null,
+          "computeRan": false,
+          "compute": null,
+          "teardown": null,
+          "reacquire": null,
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "navigator.gpu ABSENT in this context",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        },
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "startedAt": "2026-09-07T20:51:11.815Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": false,
+          "adapterDefault": null,
+          "adapterHighPerformance": null,
+          "adapterAvailable": false,
+          "adapterInfo": null,
+          "isFallbackAdapter": null,
+          "deviceCreated": false,
+          "requestDeviceMs": null,
+          "computeRan": false,
+          "compute": null,
+          "teardown": null,
+          "reacquire": null,
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "navigator.gpu ABSENT in this context",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        }
+      ],
+      "contextsReported": [
+        "ordinary-web-page-CONTROL",
+        "__alive__",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02/extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "webgpu-forced-headful",
+      "prefs": [
+        "dom.webgpu.enabled=true"
+      ],
+      "headless": false,
+      "run": 1,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "startedAt": "2026-09-07T20:51:16.424Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": true,
+          "adapterDefault": {
+            "powerPreference": "default",
+            "adapterAvailable": true,
+            "requestAdapterMs": 250,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterHighPerformance": {
+            "powerPreference": "high-performance",
+            "adapterAvailable": true,
+            "requestAdapterMs": 289,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterAvailable": true,
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": ""
+          },
+          "isFallbackAdapter": null,
+          "deviceCreated": true,
+          "requestDeviceMs": 104,
+          "computeRan": true,
+          "compute": {
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "shaderCompileErrors": [],
+            "coldDispatchMs": 99,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 101,
+              "min": 97,
+              "max": 157
+            }
+          },
+          "teardown": {
+            "destroyMs": 103,
+            "lost": {
+              "reason": "destroyed",
+              "message": "Device destroyed"
+            }
+          },
+          "reacquire": {
+            "adapterAvailable": true,
+            "deviceCreated": true
+          },
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "adapter + device + correct compute output in this context",
+          "finishedAt": "2026-09-07T20:51:18.601Z",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "startedAt": "2026-09-07T20:51:16.556Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": true,
+          "adapterDefault": {
+            "powerPreference": "default",
+            "adapterAvailable": true,
+            "requestAdapterMs": 404,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterHighPerformance": {
+            "powerPreference": "high-performance",
+            "adapterAvailable": true,
+            "requestAdapterMs": 3,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterAvailable": true,
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": ""
+          },
+          "isFallbackAdapter": null,
+          "deviceCreated": true,
+          "requestDeviceMs": 141,
+          "computeRan": true,
+          "compute": {
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "shaderCompileErrors": [],
+            "coldDispatchMs": 93,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 101,
+              "min": 98,
+              "max": 157
+            }
+          },
+          "teardown": {
+            "destroyMs": 103,
+            "lost": {
+              "reason": "destroyed",
+              "message": "Device destroyed"
+            }
+          },
+          "reacquire": {
+            "adapterAvailable": true,
+            "deviceCreated": true
+          },
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "adapter + device + correct compute output in this context",
+          "finishedAt": "2026-09-07T20:51:18.635Z",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "ordinary-web-page-CONTROL",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "  \"extensions.originControls.grantByDefault\": true,",
+        "  \"dom.webgpu.enabled\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02/extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "webgpu-forced-headful",
+      "prefs": [
+        "dom.webgpu.enabled=true"
+      ],
+      "headless": false,
+      "run": 2,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "startedAt": "2026-09-07T20:51:23.342Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": true,
+          "adapterDefault": {
+            "powerPreference": "default",
+            "adapterAvailable": true,
+            "requestAdapterMs": 621,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterHighPerformance": {
+            "powerPreference": "high-performance",
+            "adapterAvailable": true,
+            "requestAdapterMs": 5,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterAvailable": true,
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": ""
+          },
+          "isFallbackAdapter": null,
+          "deviceCreated": true,
+          "requestDeviceMs": 96,
+          "computeRan": true,
+          "compute": {
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "shaderCompileErrors": [],
+            "coldDispatchMs": 97,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 100,
+              "min": 98,
+              "max": 102
+            }
+          },
+          "teardown": {
+            "destroyMs": 99,
+            "lost": {
+              "reason": "destroyed",
+              "message": "Device destroyed"
+            }
+          },
+          "reacquire": {
+            "adapterAvailable": true,
+            "deviceCreated": true
+          },
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "adapter + device + correct compute output in this context",
+          "finishedAt": "2026-09-07T20:51:25.357Z",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "startedAt": "2026-09-07T20:51:23.300Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": true,
+          "adapterDefault": {
+            "powerPreference": "default",
+            "adapterAvailable": true,
+            "requestAdapterMs": 265,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterHighPerformance": {
+            "powerPreference": "high-performance",
+            "adapterAvailable": true,
+            "requestAdapterMs": 396,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterAvailable": true,
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": ""
+          },
+          "isFallbackAdapter": null,
+          "deviceCreated": true,
+          "requestDeviceMs": 37,
+          "computeRan": true,
+          "compute": {
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "shaderCompileErrors": [],
+            "coldDispatchMs": 98,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 101,
+              "min": 95,
+              "max": 101
+            }
+          },
+          "teardown": {
+            "destroyMs": 101,
+            "lost": {
+              "reason": "destroyed",
+              "message": "Device destroyed"
+            }
+          },
+          "reacquire": {
+            "adapterAvailable": true,
+            "deviceCreated": true
+          },
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "adapter + device + correct compute output in this context",
+          "finishedAt": "2026-09-07T20:51:25.396Z",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "ordinary-web-page-CONTROL",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "  \"extensions.originControls.grantByDefault\": true,",
+        "  \"dom.webgpu.enabled\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02/extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "webgpu-forced-headful",
+      "prefs": [
+        "dom.webgpu.enabled=true"
+      ],
+      "headless": false,
+      "run": 3,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "startedAt": "2026-09-07T20:51:33.246Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": true,
+          "adapterDefault": {
+            "powerPreference": "default",
+            "adapterAvailable": true,
+            "requestAdapterMs": 1645,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterHighPerformance": {
+            "powerPreference": "high-performance",
+            "adapterAvailable": true,
+            "requestAdapterMs": 504,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterAvailable": true,
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": ""
+          },
+          "isFallbackAdapter": null,
+          "deviceCreated": true,
+          "requestDeviceMs": 96,
+          "computeRan": true,
+          "compute": {
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "shaderCompileErrors": [],
+            "coldDispatchMs": 102,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 102,
+              "min": 86,
+              "max": 117
+            }
+          },
+          "teardown": {
+            "destroyMs": 110,
+            "lost": {
+              "reason": "destroyed",
+              "message": "Device destroyed"
+            }
+          },
+          "reacquire": {
+            "adapterAvailable": true,
+            "deviceCreated": true
+          },
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "adapter + device + correct compute output in this context",
+          "finishedAt": "2026-09-07T20:51:36.810Z",
+          "manifestVersion": 3,
+          "backgroundKind": "event-page (background.scripts)",
+          "fetchError": "TypeError: NetworkError when attempting to fetch resource."
+        },
+        {
+          "context": "ordinary-web-page-CONTROL",
+          "startedAt": "2026-09-07T20:51:33.182Z",
+          "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "isSecureContext": true,
+          "globalKind": "window",
+          "navigatorGpuPresent": true,
+          "adapterDefault": {
+            "powerPreference": "default",
+            "adapterAvailable": true,
+            "requestAdapterMs": 1162,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterHighPerformance": {
+            "powerPreference": "high-performance",
+            "adapterAvailable": true,
+            "requestAdapterMs": 1053,
+            "info": {
+              "vendor": "",
+              "architecture": "",
+              "device": "",
+              "description": ""
+            },
+            "error": null
+          },
+          "adapterAvailable": true,
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": ""
+          },
+          "isFallbackAdapter": null,
+          "deviceCreated": true,
+          "requestDeviceMs": 55,
+          "computeRan": true,
+          "compute": {
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "shaderCompileErrors": [],
+            "coldDispatchMs": 105,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 101,
+              "min": 98,
+              "max": 108
+            }
+          },
+          "teardown": {
+            "destroyMs": 111,
+            "lost": {
+              "reason": "destroyed",
+              "message": "Device destroyed"
+            }
+          },
+          "reacquire": {
+            "adapterAvailable": true,
+            "deviceCreated": true
+          },
+          "uncapturedErrors": [],
+          "error": null,
+          "conclusion": "adapter + device + correct compute output in this context",
+          "finishedAt": "2026-09-07T20:51:36.872Z",
+          "manifestVersion": null,
+          "backgroundKind": "ordinary page"
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "firefox-mv3-event-page",
+        "ordinary-web-page-CONTROL"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "  \"extensions.originControls.grantByDefault\": true,",
+        "  \"dom.webgpu.enabled\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s02/extension as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-07T20:51:38.495Z"
+}

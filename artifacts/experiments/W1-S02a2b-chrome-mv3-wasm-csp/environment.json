@@ -1,0 +1,38 @@
+{
+  "experiment": "W1-S02a-2b-chrome-mv3-wasm-csp",
+  "recorded_at": "2026-09-07",
+  "question": "Does Chrome MV3's extension CSP block WebAssembly compilation, as Firefox MV3's does?",
+  "scope": "WASM SUBSTRATE and the extension CSP only. NOT ONNX Runtime Web, NOT a model. S-03 remains separate and untested.",
+  "platforms_measured": {
+    "linux-wsl2": {
+      "guest": "WSL2 Ubuntu 26.04, kernel 6.18.33.2-microsoft-standard-WSL2",
+      "host": "workstation 2, Windows 11 10.0.26200",
+      "browser": "Chrome for Testing 153.0.8010.12 at /opt/chrome-linux64/chrome",
+      "runs": "4 variants x 3 runs x 3 contexts"
+    },
+    "windows": {
+      "host": "workstation 2, Windows 11 10.0.26200 (native, not WSL)",
+      "browser": "Chrome for Testing 153.0.8010.12 at C:/Users/OMEN/cft/chrome.exe",
+      "runs": "4 variants x 2 runs x 3 contexts",
+      "why": "to establish the result is a Chrome MV3 behaviour, not something peculiar to WSL2"
+    }
+  },
+  "contexts_probed": [
+    "chrome-mv3-service-worker",
+    "chrome-offscreen-document",
+    "chrome-offscreen-dedicated-worker — PratiBimb's real inference target per docs/architecture/constitution.md section 5"
+  ],
+  "variants": {
+    "default-csp": "manifest declares NO content_security_policy — Chrome MV3 default",
+    "wasm-unsafe-eval": "manifest declares script-src 'self' 'wasm-unsafe-eval'; object-src 'self'. Measured to establish a remedy EXISTS. Not adopted anywhere."
+  },
+  "modes": ["headful", "headless"],
+  "automation": { "playwright": "1.63.0", "node": "v22.22.1 (linux) / v26.4.0 (windows)" },
+  "kernel": {
+    "workload": "out[i] = in[i]*2 + 1 over 262,144 i32",
+    "source": "identical probe and kernel bytes as S-02a-2, so Firefox and Chrome are directly comparable",
+    "verification": "element-by-element against a CPU reference"
+  },
+  "collector": { "endpoint": "http://127.0.0.1:8905", "external_hosts_contacted": "none" },
+  "data": { "payloads": "synthetic", "pii": "none", "secrets": "none", "profiles": "temporary, deleted after each run" }
+}

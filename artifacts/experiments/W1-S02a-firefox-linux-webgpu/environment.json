@@ -1,0 +1,40 @@
+{
+  "experiment": "W1-S02a-firefox-linux-webgpu",
+  "recorded_at": "2026-09-07",
+  "machine_boundary": {
+    "windows_host": "HP OMEN 16-ap0xxx — workstation 2, Windows 11 10.0.26200. Only the machine WSL2 runs on; no Windows browser was involved.",
+    "linux_guest": "WSL2 Ubuntu 26.04 (Resolute Raccoon), kernel 6.18.33.2-microsoft-standard-WSL2",
+    "note": "EVERY result here was measured INSIDE the Linux guest. S-02 (Windows Firefox) is a SEPARATE CELL and its ACCEPT is not extended by this experiment."
+  },
+  "browser": {
+    "name": "Mozilla Firefox",
+    "version_string": "Mozilla Firefox 155.0.1",
+    "channel": "release",
+    "source": "Mozilla official linux64 tarball (download.mozilla.org, product=firefox-latest-ssl) — deliberately NOT the Ubuntu apt package, which on 26.04 is a snap transitional stub that does not work well under WSL2",
+    "path": "/opt/firefox/firefox",
+    "same_version_as_windows_cell": "yes — Firefox 155.0.1 on both, which makes the Windows/Linux comparison a platform comparison rather than a version comparison"
+  },
+  "display": {
+    "headful": "WSLg, DISPLAY=:0, WAYLAND_DISPLAY=wayland-0",
+    "headless": "firefox --headless"
+  },
+  "extension_loading": {
+    "tool": "web-ext 10.6.0",
+    "method": "temporary add-on",
+    "manifest_version": 3,
+    "background": "background.scripts — the Firefox MV3 EVENT PAGE"
+  },
+  "gpu_state": {
+    "nvidia_smi_in_guest": "WORKS — NVIDIA GeForce RTX 5050 Laptop GPU, 8151 MiB, driver 592.82",
+    "dev_dri": "ABSENT — /dev/dri does not exist in this WSL2 guest",
+    "dev_dxg": "present (WSL D3D12 paravirtualisation device)",
+    "vulkan_icds": 0,
+    "opengl_renderer": "llvmpipe (LLVM 21.1.8, 256 bits) — SOFTWARE rasterisation",
+    "critical_note": "nvidia-smi working is the CUDA COMPUTE path. The GRAPHICS stack in this guest is software-only. These are separate measurements and must not be conflated — see the experiment README."
+  },
+  "preferences": {
+    "dom.webgpu.enabled": "variant 1 leaves it UNTOUCHED (release defaults) and that variant alone decides ACCEPT/REJECT. Variant 3 sets it to true and is recorded SEPARATELY, because the pre-registered criteria say a result requiring an about:config change on the release channel is CONDITIONAL, never ACCEPT.",
+    "extensions.originControls.grantByDefault": "set to true in all variants. Affects only how the probe REPORTS (Firefox MV3 gates host_permissions), never what is measured."
+  },
+  "data": { "payloads": "synthetic Int32Array of i % 1024, verified against a CPU reference", "pii": "none", "secrets": "none", "profiles": "fresh temporary profile per run, deleted afterwards" }
+}

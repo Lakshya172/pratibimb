@@ -1,0 +1,270 @@
+{
+  "experiment": "W1-S02a2-firefox-linux-wasm",
+  "question": "Does the WASM path carry Firefox-on-Linux, given WebGPU is off by default there?",
+  "scope": "WASM SUBSTRATE only. NOT ONNX Runtime Web, NOT a model. S-03 remains separate.",
+  "machine_boundary": {
+    "windows_host": "workstation 2 (host only)",
+    "linux_guest": "WSL2 Ubuntu 26.04",
+    "all_results_measured_in": "linux_guest"
+  },
+  "browser": "Mozilla Firefox 155.0.1 release",
+  "kernel": "out[i] = in[i]*2 + 1 over 262,144 i32 \u2014 identical to the WebGPU probe",
+  "cells": {
+    "defaults-headful :: firefox-mv3-event-page": {
+      "runs": 3,
+      "features": {
+        "webAssembly": true,
+        "sharedArrayBuffer": false,
+        "crossOriginIsolated": false,
+        "atomics": true,
+        "hardwareConcurrency": 16,
+        "bigInt64Array": true,
+        "simd": true,
+        "threadsUsable": false
+      },
+      "conclusions": [
+        "threw: call to WebAssembly.compile() blocked by CSP"
+      ],
+      "error": {
+        "name": "CompileError",
+        "message": "call to WebAssembly.compile() blocked by CSP",
+        "stack": "benchmark@moz-extension://7c855f3c-ef8e-40b5-92a6-bd57e6737d8c/probe.js:78:40\nrunWasmProbe@moz-extension://7c855f3c-ef8e-40b5-92a6-bd57e6737d8c/probe.js:120:24\n@moz-extension://7c855f3c-ef8e-40b5-92a6-bd57e6737d8c/background.js:44:32\n"
+      },
+      "scalar_outputCorrect": [],
+      "scalar_mismatches": [],
+      "scalar_compileMs": [],
+      "scalar_coldMs": [],
+      "scalar_warm_p50Ms": [],
+      "simd_outputCorrect": []
+    },
+    "defaults-headful :: ordinary-web-page-CONTROL": {
+      "runs": 3,
+      "features": {
+        "webAssembly": true,
+        "sharedArrayBuffer": false,
+        "crossOriginIsolated": false,
+        "atomics": true,
+        "hardwareConcurrency": 16,
+        "bigInt64Array": true,
+        "simd": true,
+        "threadsUsable": false
+      },
+      "conclusions": [
+        "WASM available and correct in this context"
+      ],
+      "error": null,
+      "scalar_outputCorrect": [
+        true,
+        true,
+        true
+      ],
+      "scalar_mismatches": [
+        0,
+        0,
+        0
+      ],
+      "scalar_compileMs": [
+        4,
+        6,
+        6
+      ],
+      "scalar_coldMs": [
+        2,
+        2,
+        2
+      ],
+      "scalar_warm_p50Ms": [
+        0,
+        0,
+        0
+      ],
+      "simd_outputCorrect": [
+        true,
+        true,
+        true
+      ]
+    },
+    "defaults-headless :: firefox-mv3-event-page": {
+      "runs": 3,
+      "features": {
+        "webAssembly": true,
+        "sharedArrayBuffer": false,
+        "crossOriginIsolated": false,
+        "atomics": true,
+        "hardwareConcurrency": 16,
+        "bigInt64Array": true,
+        "simd": true,
+        "threadsUsable": false
+      },
+      "conclusions": [
+        "threw: call to WebAssembly.compile() blocked by CSP"
+      ],
+      "error": {
+        "name": "CompileError",
+        "message": "call to WebAssembly.compile() blocked by CSP",
+        "stack": "benchmark@moz-extension://3f7dcfda-6584-4f28-85fa-442282a3901b/probe.js:78:40\nrunWasmProbe@moz-extension://3f7dcfda-6584-4f28-85fa-442282a3901b/probe.js:120:24\n@moz-extension://3f7dcfda-6584-4f28-85fa-442282a3901b/background.js:44:32\n"
+      },
+      "scalar_outputCorrect": [],
+      "scalar_mismatches": [],
+      "scalar_compileMs": [],
+      "scalar_coldMs": [],
+      "scalar_warm_p50Ms": [],
+      "simd_outputCorrect": []
+    },
+    "defaults-headless :: ordinary-web-page-CONTROL": {
+      "runs": 3,
+      "features": {
+        "webAssembly": true,
+        "sharedArrayBuffer": false,
+        "crossOriginIsolated": false,
+        "atomics": true,
+        "hardwareConcurrency": 16,
+        "bigInt64Array": true,
+        "simd": true,
+        "threadsUsable": false
+      },
+      "conclusions": [
+        "WASM available and correct in this context"
+      ],
+      "error": null,
+      "scalar_outputCorrect": [
+        true,
+        true,
+        true
+      ],
+      "scalar_mismatches": [
+        0,
+        0,
+        0
+      ],
+      "scalar_compileMs": [
+        5,
+        3,
+        5
+      ],
+      "scalar_coldMs": [
+        0,
+        1,
+        2
+      ],
+      "scalar_warm_p50Ms": [
+        0,
+        0,
+        0
+      ],
+      "simd_outputCorrect": [
+        true,
+        true,
+        true
+      ]
+    },
+    "wasm-unsafe-eval-headful :: firefox-mv3-event-page": {
+      "runs": 3,
+      "features": {
+        "webAssembly": true,
+        "sharedArrayBuffer": false,
+        "crossOriginIsolated": false,
+        "atomics": true,
+        "hardwareConcurrency": 16,
+        "bigInt64Array": true,
+        "simd": true,
+        "threadsUsable": false
+      },
+      "conclusions": [
+        "WASM available and correct in this context"
+      ],
+      "error": null,
+      "scalar_outputCorrect": [
+        true,
+        true,
+        true
+      ],
+      "scalar_mismatches": [
+        0,
+        0,
+        0
+      ],
+      "scalar_compileMs": [
+        1,
+        2,
+        1
+      ],
+      "scalar_coldMs": [
+        0,
+        2,
+        2
+      ],
+      "scalar_warm_p50Ms": [
+        0,
+        0,
+        0
+      ],
+      "simd_outputCorrect": [
+        true,
+        true,
+        true
+      ]
+    },
+    "wasm-unsafe-eval-headful :: ordinary-web-page-CONTROL": {
+      "runs": 3,
+      "features": {
+        "webAssembly": true,
+        "sharedArrayBuffer": false,
+        "crossOriginIsolated": false,
+        "atomics": true,
+        "hardwareConcurrency": 16,
+        "bigInt64Array": true,
+        "simd": true,
+        "threadsUsable": false
+      },
+      "conclusions": [
+        "WASM available and correct in this context"
+      ],
+      "error": null,
+      "scalar_outputCorrect": [
+        true,
+        true,
+        true
+      ],
+      "scalar_mismatches": [
+        0,
+        0,
+        0
+      ],
+      "scalar_compileMs": [
+        3,
+        3,
+        4
+      ],
+      "scalar_coldMs": [
+        3,
+        4,
+        2
+      ],
+      "scalar_warm_p50Ms": [
+        0,
+        0,
+        0
+      ],
+      "simd_outputCorrect": [
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "headline": [
+    "Firefox MV3 event page at DEFAULTS: WebAssembly.compile() is BLOCKED BY CSP, 3/3, headful and headless.",
+    "The ordinary-page control compiles the identical bytes correctly \u2014 it is the extension CSP, not the browser.",
+    "Declaring 'wasm-unsafe-eval' in the extension CSP unblocks it fully: scalar and SIMD element-exact, 0 mismatches, 3/3.",
+    "SharedArrayBuffer=false and crossOriginIsolated=false: WASM THREADS ARE NOT USABLE in this context.",
+    "SIMD validates and runs correctly.",
+    "Combined with S-02a: at stock settings, in the extension context on Firefox Linux, NEITHER acceleration path is available."
+  ],
+  "not_established": [
+    "ORT Web (S-03)",
+    "Chrome MV3's equivalent CSP behaviour",
+    "native Linux",
+    "any WASM-vs-WebGPU ranking (the WebGPU path measured was almost certainly software-backed)"
+  ]
+}
