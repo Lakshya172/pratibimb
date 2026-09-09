@@ -1,0 +1,104 @@
+{
+  "experiment": "W1-S04a1-four-model-residency",
+  "date": "2026-09-09",
+  "runtime": {
+    "ort_web": "1.29.0",
+    "ort_web_licence": "MIT",
+    "backends_exercised": [
+      "wasm",
+      "webgpu"
+    ],
+    "wasm_num_threads_requested": 1,
+    "reference_runtime": "onnxruntime 1.29.0 (Python, CPUExecutionProvider)",
+    "reference_rationale": "same version as ORT Web, so a comparison isolates the web runtime rather than a version delta"
+  },
+  "conversion_toolchain": {
+    "paddle2onnx": "2.1.0",
+    "paddlepaddle": "3.1.0",
+    "pin_reason": "paddlepaddle 3.3.1 + paddle2onnx 2.1.0 fails with 'DLL load failed while importing paddle2onnx_cpp2py_export'; 3.1.0 matches the extension ABI",
+    "platform_note": "no paddlepaddle wheel exists for the WSL2 guest's Python, so conversion runs on Windows",
+    "opset_version": 16
+  },
+  "hosts": [
+    {
+      "label": "windows",
+      "os": "Windows 11 Home Single Language 10.0.26200",
+      "browser": "Chrome for Testing 153.0.8010.12",
+      "modes": [
+        "headful",
+        "headless"
+      ],
+      "ram_total_gb": 23.0,
+      "ram_free_gb_at_run": 4.1
+    },
+    {
+      "label": "linux-wsl2",
+      "os": "WSL2 Ubuntu 26.04 guest on the same Windows 11 host",
+      "browser": "Chrome for Testing 153.0.8010.12",
+      "modes": [
+        "headful (DISPLAY=:0)",
+        "headless"
+      ]
+    },
+    {
+      "label": "firefox-windows",
+      "os": "Windows 11 Home Single Language 10.0.26200",
+      "browser": "Firefox 155.0.1",
+      "modes": [
+        "headful"
+      ]
+    }
+  ],
+  "contexts_exercised": [
+    "chrome-mv3-service-worker",
+    "chrome-offscreen-document",
+    "chrome-offscreen-dedicated-worker",
+    "firefox-mv3-event-page"
+  ],
+  "threading": {
+    "chrome": {
+      "sharedArrayBuffer": true,
+      "crossOriginIsolated": false,
+      "threadsUsed": 1
+    },
+    "firefox": {
+      "sharedArrayBuffer": false,
+      "crossOriginIsolated": false,
+      "threadsUsed": 1
+    },
+    "note": "threading was not forced and no performance claim is made"
+  },
+  "model_loading": {
+    "method": "extension packaged resource read via runtime.getURL()",
+    "why": "110.49 MB of weights cannot be base64-inlined; ~155 MB of JS string literal",
+    "network": "none - same-origin extension read, not egress"
+  },
+  "instrumentation": {
+    "method": "WebAssembly.Memory constructor AND Memory.prototype.grow wrapped before ORT loads",
+    "wasm_memory": "measured directly, pages before and after each grow",
+    "js_heap": "recorded SEPARATELY via performance.memory where available; never used as evidence about the WASM heap (S-04 showed it is GC-timing-dominated)",
+    "gpu_memory": "NOT measured - no VRAM claim is made"
+  },
+  "network": {
+    "endpoints": [
+      "http://127.0.0.1:8908"
+    ],
+    "egress": "none"
+  },
+  "data": {
+    "input": "synthetic deterministic, x[i] = ((i*37) % 255) / 255",
+    "pii": "none",
+    "secrets": "none",
+    "profiles": "temporary, deleted after each run"
+  },
+  "excluded_models": [
+    {
+      "role": "UI element detection",
+      "model": "microsoft/OmniParser-v2.0 icon_detect",
+      "revision": "6600256cb0f1b07651e3bc86166196307bad7e2d",
+      "licence_read_at_revision": "GNU AFFERO GENERAL PUBLIC LICENSE Version 3",
+      "reason": "AGPL-3.0 at the pinned revision; registry rule says do not use an inadequately licensed candidate",
+      "onnx_reexports": "onnx-community/OmniParser-icon_detect* declare no licence at all"
+    }
+  ]
+}

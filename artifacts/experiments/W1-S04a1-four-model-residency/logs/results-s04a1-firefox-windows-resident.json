@@ -1,0 +1,2276 @@
+{
+  "experiment": "W1-S04a1-four-model-residency",
+  "browser": "firefox",
+  "startedAt": "2026-09-09T15:14:11.428Z",
+  "firefox": "C:/Program Files/Mozilla Firefox/firefox.exe",
+  "host": "WSL2 Ubuntu 26.04 guest on a Windows 11 host",
+  "runs": [
+    {
+      "variant": "firefox-mv3-event-page",
+      "prefs": [],
+      "headless": false,
+      "run": 1,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "s04a1-four-model",
+          "backend": "wasm",
+          "cycles": 3,
+          "phase": "resident",
+          "startedAt": "2026-09-09T15:14:13.820Z",
+          "requestedNumThreads": 1,
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "modelOrder": [
+            "face",
+            "ocr_det",
+            "ocr_rec",
+            "vlm_vision"
+          ],
+          "baselines": {},
+          "residentSnapshots": [
+            {
+              "label": "resident-0-none",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "js": null,
+              "at": 990
+            },
+            {
+              "label": "resident-1-face",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": null,
+              "at": 1203
+            },
+            {
+              "label": "resident-2-face+ocr_det",
+              "wasm": {
+                "instances": 2,
+                "bytes": 24248320,
+                "mb": 23.1,
+                "pages": 370,
+                "growCount": 2
+              },
+              "js": null,
+              "at": 1264
+            },
+            {
+              "label": "resident-3-face+ocr_det+ocr_rec",
+              "wasm": {
+                "instances": 2,
+                "bytes": 84344832,
+                "mb": 80.4,
+                "pages": 1287,
+                "growCount": 7
+              },
+              "js": null,
+              "at": 1410
+            },
+            {
+              "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+              "wasm": {
+                "instances": 2,
+                "bytes": 286457856,
+                "mb": 273.2,
+                "pages": 4371,
+                "growCount": 11
+              },
+              "js": null,
+              "at": 1725
+            },
+            {
+              "label": "resident-4-after-infer-all",
+              "wasm": {
+                "instances": 2,
+                "bytes": 286457856,
+                "mb": 273.2,
+                "pages": 4371,
+                "growCount": 11
+              },
+              "js": null,
+              "at": 5346
+            }
+          ],
+          "lifecycleSnapshots": [
+            {
+              "label": "lifecycle-start",
+              "wasm": {
+                "instances": 2,
+                "bytes": 286457856,
+                "mb": 273.2,
+                "pages": 4371,
+                "growCount": 11
+              },
+              "js": null,
+              "at": 5346
+            },
+            {
+              "label": "after-destroy-vlm_vision",
+              "wasm": {
+                "instances": 2,
+                "bytes": 286457856,
+                "mb": 273.2,
+                "pages": 4371,
+                "growCount": 11
+              },
+              "js": null,
+              "at": 5349
+            },
+            {
+              "label": "after-infer-remaining-3",
+              "wasm": {
+                "instances": 2,
+                "bytes": 286457856,
+                "mb": 273.2,
+                "pages": 4371,
+                "growCount": 11
+              },
+              "js": null,
+              "at": 5601
+            },
+            {
+              "label": "after-destroy-ocr_rec",
+              "wasm": {
+                "instances": 2,
+                "bytes": 286457856,
+                "mb": 273.2,
+                "pages": 4371,
+                "growCount": 11
+              },
+              "js": null,
+              "at": 5603
+            },
+            {
+              "label": "after-infer-remaining-2",
+              "wasm": {
+                "instances": 2,
+                "bytes": 286457856,
+                "mb": 273.2,
+                "pages": 4371,
+                "growCount": 11
+              },
+              "js": null,
+              "at": 5805
+            },
+            {
+              "label": "after-destroy-ocr_det",
+              "wasm": {
+                "instances": 2,
+                "bytes": 286457856,
+                "mb": 273.2,
+                "pages": 4371,
+                "growCount": 11
+              },
+              "js": null,
+              "at": 5807
+            },
+            {
+              "label": "after-infer-remaining-1",
+              "wasm": {
+                "instances": 2,
+                "bytes": 286457856,
+                "mb": 273.2,
+                "pages": 4371,
+                "growCount": 11
+              },
+              "js": null,
+              "at": 5835
+            },
+            {
+              "label": "after-destroy-face",
+              "wasm": {
+                "instances": 2,
+                "bytes": 286457856,
+                "mb": 273.2,
+                "pages": 4371,
+                "growCount": 11
+              },
+              "js": null,
+              "at": 5836
+            },
+            {
+              "label": "lifecycle-all-destroyed",
+              "wasm": {
+                "instances": 2,
+                "bytes": 286457856,
+                "mb": 273.2,
+                "pages": 4371,
+                "growCount": 11
+              },
+              "js": null,
+              "at": 5836
+            }
+          ],
+          "cycleSnapshots": [
+            {
+              "label": "after-cycle-1",
+              "wasm": {
+                "instances": 2,
+                "bytes": 286457856,
+                "mb": 273.2,
+                "pages": 4371,
+                "growCount": 11
+              },
+              "js": null,
+              "at": 9460
+            },
+            {
+              "label": "after-cycle-2",
+              "wasm": {
+                "instances": 2,
+                "bytes": 286457856,
+                "mb": 273.2,
+                "pages": 4371,
+                "growCount": 11
+              },
+              "js": null,
+              "at": 13066
+            },
+            {
+              "label": "after-cycle-3",
+              "wasm": {
+                "instances": 2,
+                "bytes": 286457856,
+                "mb": 273.2,
+                "pages": 4371,
+                "growCount": 11
+              },
+              "js": null,
+              "at": 16719
+            }
+          ],
+          "growthEvents": [
+            {
+              "delta": 52,
+              "beforePages": 256,
+              "afterPages": 308,
+              "beforeMB": 16,
+              "afterMB": 19.3,
+              "at": 1210
+            },
+            {
+              "delta": 62,
+              "beforePages": 308,
+              "afterPages": 370,
+              "beforeMB": 19.3,
+              "afterMB": 23.1,
+              "at": 1211
+            },
+            {
+              "delta": 250,
+              "beforePages": 370,
+              "afterPages": 620,
+              "beforeMB": 23.1,
+              "afterMB": 38.8,
+              "at": 1289
+            },
+            {
+              "delta": 124,
+              "beforePages": 620,
+              "afterPages": 744,
+              "beforeMB": 38.8,
+              "afterMB": 46.5,
+              "at": 1298
+            },
+            {
+              "delta": 149,
+              "beforePages": 744,
+              "afterPages": 893,
+              "beforeMB": 46.5,
+              "afterMB": 55.8,
+              "at": 1300
+            },
+            {
+              "delta": 179,
+              "beforePages": 893,
+              "afterPages": 1072,
+              "beforeMB": 55.8,
+              "afterMB": 67,
+              "at": 1315
+            },
+            {
+              "delta": 215,
+              "beforePages": 1072,
+              "afterPages": 1287,
+              "beforeMB": 67,
+              "afterMB": 80.4,
+              "at": 1403
+            },
+            {
+              "delta": 1242,
+              "beforePages": 1287,
+              "afterPages": 2529,
+              "beforeMB": 80.4,
+              "afterMB": 158.1,
+              "at": 1525
+            },
+            {
+              "delta": 506,
+              "beforePages": 2529,
+              "afterPages": 3035,
+              "beforeMB": 158.1,
+              "afterMB": 189.7,
+              "at": 1546
+            },
+            {
+              "delta": 607,
+              "beforePages": 3035,
+              "afterPages": 3642,
+              "beforeMB": 189.7,
+              "afterMB": 227.6,
+              "at": 1561
+            },
+            {
+              "delta": 729,
+              "beforePages": 3642,
+              "afterPages": 4371,
+              "beforeMB": 227.6,
+              "afterMB": 273.2,
+              "at": 1595
+            }
+          ],
+          "correctness": [
+            {
+              "model": "face",
+              "tag": "all-resident",
+              "correct": true,
+              "worstRelErr": 0.01592966802256922,
+              "outputs": {
+                "cls_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 4766.893946051598,
+                  "refSumAbs": 4766.8949937820435,
+                  "relErrSumAbs": 2.1979306177888965e-7,
+                  "min": 0.4304600656032562,
+                  "refMin": 0.4304600656032562,
+                  "max": 0.8986254930496216,
+                  "refMax": 0.8986255526542664,
+                  "sum": 4766.893946051598,
+                  "refSum": 4766.8949937820435,
+                  "relErrSum": 2.1979306177888965e-7
+                },
+                "cls_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 868.1269334554672,
+                  "refSumAbs": 868.127041310072,
+                  "relErrSumAbs": 1.2423827341941598e-7,
+                  "min": 0.4344068169593811,
+                  "refMin": 0.4344068765640259,
+                  "max": 0.6535899043083191,
+                  "refMax": 0.6535900235176086,
+                  "sum": 868.1269334554672,
+                  "refSum": 868.127041310072,
+                  "relErrSum": 1.2423827341941598e-7
+                },
+                "cls_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 286.6702365875244,
+                  "refSumAbs": 286.6702564358711,
+                  "relErrSumAbs": 6.923755173270027e-8,
+                  "min": 0.5219483971595764,
+                  "refMin": 0.5219483375549316,
+                  "max": 0.8232485055923462,
+                  "refMax": 0.8232486248016357,
+                  "sum": 286.6702365875244,
+                  "refSum": 286.6702564358711,
+                  "relErrSum": 6.923755173270027e-8
+                },
+                "obj_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.0003218650817871094,
+                  "refSumAbs": 0.00032326579093933105,
+                  "relErrSumAbs": 0.004332995298239144,
+                  "min": 0,
+                  "refMin": 0,
+                  "max": 0.000007718801498413086,
+                  "refMax": 0.000007659196853637695,
+                  "sum": 0.0003218650817871094,
+                  "refSum": 0.00032326579093933105,
+                  "relErrSum": 0.004332995298239144
+                },
+                "obj_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.0022350549697875977,
+                  "refSumAbs": 0.0022712349891662598,
+                  "relErrSumAbs": 0.01592966802256922,
+                  "min": 0,
+                  "refMin": 0,
+                  "max": 0.000045359134674072266,
+                  "refMax": 0.000045359134674072266,
+                  "sum": 0.0022350549697875977,
+                  "refSum": 0.0022712349891662598,
+                  "relErrSum": 0.01592966802256922
+                },
+                "obj_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.6216259896755219,
+                  "refSumAbs": 0.6216224431991577,
+                  "relErrSumAbs": 0.0000057051935671497445,
+                  "min": 5.960464477539063e-8,
+                  "refMin": 5.960464477539063e-8,
+                  "max": 0.006015211343765259,
+                  "refMax": 0.006015270948410034,
+                  "sum": 0.6216259896755219,
+                  "refSum": 0.6216224431991577,
+                  "relErrSum": 0.0000057051935671497445
+                },
+                "bbox_8": {
+                  "count": 25600,
+                  "expectedCount": 25600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 18685.661481693387,
+                  "refSumAbs": 18685.653301879764,
+                  "relErrSumAbs": 4.377590385135456e-7,
+                  "min": -0.8456814885139465,
+                  "refMin": -0.845681369304657,
+                  "max": 2.4748458862304688,
+                  "refMax": 2.4748454093933105,
+                  "sum": 18580.864360883832,
+                  "refSum": 18580.856178984046,
+                  "relErrSum": 4.4034030010143745e-7
+                },
+                "bbox_16": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 1992.4264996601269,
+                  "refSumAbs": 1992.4261772036552,
+                  "relErrSumAbs": 1.6184111376942145e-7,
+                  "min": -0.452486515045166,
+                  "refMin": -0.45248696208000183,
+                  "max": 0.6001286506652832,
+                  "refMax": 0.6001283526420593,
+                  "sum": 1827.932305037044,
+                  "refSum": 1827.9316511005163,
+                  "relErrSum": 3.5774670638025427e-7
+                },
+                "bbox_32": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 2769.6431105285883,
+                  "refSumAbs": 2769.643374249339,
+                  "relErrSumAbs": 9.521830617640168e-8,
+                  "min": -1.5719656944274902,
+                  "refMin": -1.5719666481018066,
+                  "max": 3.1431379318237305,
+                  "refMax": 3.1431379318237305,
+                  "sum": 2490.217959240079,
+                  "refSum": 2490.2180549949408,
+                  "relErrSum": 3.845240043922964e-8
+                },
+                "kps_8": {
+                  "count": 64000,
+                  "expectedCount": 64000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 49957.678250130266,
+                  "refSumAbs": 49957.660932330415,
+                  "relErrSumAbs": 3.4664953338700067e-7,
+                  "min": -2.315141201019287,
+                  "refMin": -2.315140724182129,
+                  "max": 3.1894776821136475,
+                  "refMax": 3.1894781589508057,
+                  "sum": 35094.302922703326,
+                  "refSum": 35094.30569296889,
+                  "relErrSum": 7.893775100037075e-8
+                },
+                "kps_16": {
+                  "count": 16000,
+                  "expectedCount": 16000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 7979.03768170625,
+                  "refSumAbs": 7979.038049712777,
+                  "relErrSumAbs": 4.612166593654806e-8,
+                  "min": -0.016331732273101807,
+                  "refMin": -0.016331762075424194,
+                  "max": 0.9844926595687866,
+                  "refMax": 0.9844925403594971,
+                  "sum": 7978.383528448641,
+                  "refSum": 7978.383896186948,
+                  "relErrSum": 4.609182903546669e-8
+                },
+                "kps_32": {
+                  "count": 4000,
+                  "expectedCount": 4000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 12652.131119277328,
+                  "refSumAbs": 12652.133768871427,
+                  "relErrSumAbs": 2.09418754712225e-7,
+                  "min": -5.047429084777832,
+                  "refMin": -5.0474324226379395,
+                  "max": 8.583505630493164,
+                  "refMax": 8.583503723144531,
+                  "sum": 3960.6872387863696,
+                  "refSum": 3960.6838461458683,
+                  "relErrSum": 8.565794779510432e-7
+                }
+              }
+            },
+            {
+              "model": "ocr_det",
+              "tag": "all-resident",
+              "correct": false,
+              "worstRelErr": 0.0411859623729846,
+              "outputs": {
+                "fetch_name_0": {
+                  "count": 409600,
+                  "expectedCount": 409600,
+                  "countOk": true,
+                  "ok": false,
+                  "sumAbs": 0.2135320007801056,
+                  "refSumAbs": 0.22270429134368896,
+                  "relErrSumAbs": 0.0411859623729846,
+                  "min": 8.940696716308594e-8,
+                  "refMin": 1.1920928955078125e-7,
+                  "max": 0.0000014901161193847656,
+                  "refMax": 0.000001519918441772461,
+                  "sum": 0.2135320007801056,
+                  "refSum": 0.22270429134368896,
+                  "relErrSum": 0.0411859623729846
+                }
+              }
+            },
+            {
+              "model": "ocr_rec",
+              "tag": "all-resident",
+              "correct": true,
+              "worstRelErr": 0.000005504858568963427,
+              "outputs": {
+                "fetch_name_0": {
+                  "count": 735400,
+                  "expectedCount": 735400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 39.99971841392736,
+                  "refSumAbs": 39.999938607932165,
+                  "relErrSumAbs": 0.000005504858568963427,
+                  "min": 8.324556599603739e-10,
+                  "refMin": 8.324514966240315e-10,
+                  "max": 0.7749318480491638,
+                  "refMax": 0.7749353051185608,
+                  "sum": 39.99971841392736,
+                  "refSum": 39.999938607932165,
+                  "relErrSum": 0.000005504858568963427
+                }
+              }
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "all-resident",
+              "correct": true,
+              "worstRelErr": 0.019572124235385065,
+              "outputs": {
+                "image_features": {
+                  "count": 36864,
+                  "expectedCount": 36864,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 131419.463006598,
+                  "refSumAbs": 128896.68114960904,
+                  "relErrSumAbs": 0.019572124235385065,
+                  "min": -51.10542297363281,
+                  "refMin": -46.665714263916016,
+                  "max": 92.97940063476562,
+                  "refMax": 91.19464874267578,
+                  "sum": 1050.8697502962896,
+                  "refSum": 915.2065631601727,
+                  "relErrSum": 0.14823231453637875
+                }
+              }
+            },
+            {
+              "model": "face",
+              "tag": "after-destroy-vlm_vision",
+              "correct": true,
+              "worstRelErr": 0.01592966802256922,
+              "outputs": {
+                "cls_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 4766.893946051598,
+                  "refSumAbs": 4766.8949937820435,
+                  "relErrSumAbs": 2.1979306177888965e-7,
+                  "min": 0.4304600656032562,
+                  "refMin": 0.4304600656032562,
+                  "max": 0.8986254930496216,
+                  "refMax": 0.8986255526542664,
+                  "sum": 4766.893946051598,
+                  "refSum": 4766.8949937820435,
+                  "relErrSum": 2.1979306177888965e-7
+                },
+                "cls_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 868.1269334554672,
+                  "refSumAbs": 868.127041310072,
+                  "relErrSumAbs": 1.2423827341941598e-7,
+                  "min": 0.4344068169593811,
+                  "refMin": 0.4344068765640259,
+                  "max": 0.6535899043083191,
+                  "refMax": 0.6535900235176086,
+                  "sum": 868.1269334554672,
+                  "refSum": 868.127041310072,
+                  "relErrSum": 1.2423827341941598e-7
+                },
+                "cls_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 286.6702365875244,
+                  "refSumAbs": 286.6702564358711,
+                  "relErrSumAbs": 6.923755173270027e-8,
+                  "min": 0.5219483971595764,
+                  "refMin": 0.5219483375549316,
+                  "max": 0.8232485055923462,
+                  "refMax": 0.8232486248016357,
+                  "sum": 286.6702365875244,
+                  "refSum": 286.6702564358711,
+                  "relErrSum": 6.923755173270027e-8
+                },
+                "obj_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.0003218650817871094,
+                  "refSumAbs": 0.00032326579093933105,
+                  "relErrSumAbs": 0.004332995298239144,
+                  "min": 0,
+                  "refMin": 0,
+                  "max": 0.000007718801498413086,
+                  "refMax": 0.000007659196853637695,
+                  "sum": 0.0003218650817871094,
+                  "refSum": 0.00032326579093933105,
+                  "relErrSum": 0.004332995298239144
+                },
+                "obj_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.0022350549697875977,
+                  "refSumAbs": 0.0022712349891662598,
+                  "relErrSumAbs": 0.01592966802256922,
+                  "min": 0,
+                  "refMin": 0,
+                  "max": 0.000045359134674072266,
+                  "refMax": 0.000045359134674072266,
+                  "sum": 0.0022350549697875977,
+                  "refSum": 0.0022712349891662598,
+                  "relErrSum": 0.01592966802256922
+                },
+                "obj_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.6216259896755219,
+                  "refSumAbs": 0.6216224431991577,
+                  "relErrSumAbs": 0.0000057051935671497445,
+                  "min": 5.960464477539063e-8,
+                  "refMin": 5.960464477539063e-8,
+                  "max": 0.006015211343765259,
+                  "refMax": 0.006015270948410034,
+                  "sum": 0.6216259896755219,
+                  "refSum": 0.6216224431991577,
+                  "relErrSum": 0.0000057051935671497445
+                },
+                "bbox_8": {
+                  "count": 25600,
+                  "expectedCount": 25600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 18685.661481693387,
+                  "refSumAbs": 18685.653301879764,
+                  "relErrSumAbs": 4.377590385135456e-7,
+                  "min": -0.8456814885139465,
+                  "refMin": -0.845681369304657,
+                  "max": 2.4748458862304688,
+                  "refMax": 2.4748454093933105,
+                  "sum": 18580.864360883832,
+                  "refSum": 18580.856178984046,
+                  "relErrSum": 4.4034030010143745e-7
+                },
+                "bbox_16": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 1992.4264996601269,
+                  "refSumAbs": 1992.4261772036552,
+                  "relErrSumAbs": 1.6184111376942145e-7,
+                  "min": -0.452486515045166,
+                  "refMin": -0.45248696208000183,
+                  "max": 0.6001286506652832,
+                  "refMax": 0.6001283526420593,
+                  "sum": 1827.932305037044,
+                  "refSum": 1827.9316511005163,
+                  "relErrSum": 3.5774670638025427e-7
+                },
+                "bbox_32": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 2769.6431105285883,
+                  "refSumAbs": 2769.643374249339,
+                  "relErrSumAbs": 9.521830617640168e-8,
+                  "min": -1.5719656944274902,
+                  "refMin": -1.5719666481018066,
+                  "max": 3.1431379318237305,
+                  "refMax": 3.1431379318237305,
+                  "sum": 2490.217959240079,
+                  "refSum": 2490.2180549949408,
+                  "relErrSum": 3.845240043922964e-8
+                },
+                "kps_8": {
+                  "count": 64000,
+                  "expectedCount": 64000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 49957.678250130266,
+                  "refSumAbs": 49957.660932330415,
+                  "relErrSumAbs": 3.4664953338700067e-7,
+                  "min": -2.315141201019287,
+                  "refMin": -2.315140724182129,
+                  "max": 3.1894776821136475,
+                  "refMax": 3.1894781589508057,
+                  "sum": 35094.302922703326,
+                  "refSum": 35094.30569296889,
+                  "relErrSum": 7.893775100037075e-8
+                },
+                "kps_16": {
+                  "count": 16000,
+                  "expectedCount": 16000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 7979.03768170625,
+                  "refSumAbs": 7979.038049712777,
+                  "relErrSumAbs": 4.612166593654806e-8,
+                  "min": -0.016331732273101807,
+                  "refMin": -0.016331762075424194,
+                  "max": 0.9844926595687866,
+                  "refMax": 0.9844925403594971,
+                  "sum": 7978.383528448641,
+                  "refSum": 7978.383896186948,
+                  "relErrSum": 4.609182903546669e-8
+                },
+                "kps_32": {
+                  "count": 4000,
+                  "expectedCount": 4000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 12652.131119277328,
+                  "refSumAbs": 12652.133768871427,
+                  "relErrSumAbs": 2.09418754712225e-7,
+                  "min": -5.047429084777832,
+                  "refMin": -5.0474324226379395,
+                  "max": 8.583505630493164,
+                  "refMax": 8.583503723144531,
+                  "sum": 3960.6872387863696,
+                  "refSum": 3960.6838461458683,
+                  "relErrSum": 8.565794779510432e-7
+                }
+              }
+            },
+            {
+              "model": "ocr_det",
+              "tag": "after-destroy-vlm_vision",
+              "correct": false,
+              "worstRelErr": 0.0411859623729846,
+              "outputs": {
+                "fetch_name_0": {
+                  "count": 409600,
+                  "expectedCount": 409600,
+                  "countOk": true,
+                  "ok": false,
+                  "sumAbs": 0.2135320007801056,
+                  "refSumAbs": 0.22270429134368896,
+                  "relErrSumAbs": 0.0411859623729846,
+                  "min": 8.940696716308594e-8,
+                  "refMin": 1.1920928955078125e-7,
+                  "max": 0.0000014901161193847656,
+                  "refMax": 0.000001519918441772461,
+                  "sum": 0.2135320007801056,
+                  "refSum": 0.22270429134368896,
+                  "relErrSum": 0.0411859623729846
+                }
+              }
+            },
+            {
+              "model": "ocr_rec",
+              "tag": "after-destroy-vlm_vision",
+              "correct": true,
+              "worstRelErr": 0.000005504858568963427,
+              "outputs": {
+                "fetch_name_0": {
+                  "count": 735400,
+                  "expectedCount": 735400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 39.99971841392736,
+                  "refSumAbs": 39.999938607932165,
+                  "relErrSumAbs": 0.000005504858568963427,
+                  "min": 8.324556599603739e-10,
+                  "refMin": 8.324514966240315e-10,
+                  "max": 0.7749318480491638,
+                  "refMax": 0.7749353051185608,
+                  "sum": 39.99971841392736,
+                  "refSum": 39.999938607932165,
+                  "relErrSum": 0.000005504858568963427
+                }
+              }
+            },
+            {
+              "model": "face",
+              "tag": "after-destroy-ocr_rec",
+              "correct": true,
+              "worstRelErr": 0.01592966802256922,
+              "outputs": {
+                "cls_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 4766.893946051598,
+                  "refSumAbs": 4766.8949937820435,
+                  "relErrSumAbs": 2.1979306177888965e-7,
+                  "min": 0.4304600656032562,
+                  "refMin": 0.4304600656032562,
+                  "max": 0.8986254930496216,
+                  "refMax": 0.8986255526542664,
+                  "sum": 4766.893946051598,
+                  "refSum": 4766.8949937820435,
+                  "relErrSum": 2.1979306177888965e-7
+                },
+                "cls_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 868.1269334554672,
+                  "refSumAbs": 868.127041310072,
+                  "relErrSumAbs": 1.2423827341941598e-7,
+                  "min": 0.4344068169593811,
+                  "refMin": 0.4344068765640259,
+                  "max": 0.6535899043083191,
+                  "refMax": 0.6535900235176086,
+                  "sum": 868.1269334554672,
+                  "refSum": 868.127041310072,
+                  "relErrSum": 1.2423827341941598e-7
+                },
+                "cls_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 286.6702365875244,
+                  "refSumAbs": 286.6702564358711,
+                  "relErrSumAbs": 6.923755173270027e-8,
+                  "min": 0.5219483971595764,
+                  "refMin": 0.5219483375549316,
+                  "max": 0.8232485055923462,
+                  "refMax": 0.8232486248016357,
+                  "sum": 286.6702365875244,
+                  "refSum": 286.6702564358711,
+                  "relErrSum": 6.923755173270027e-8
+                },
+                "obj_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.0003218650817871094,
+                  "refSumAbs": 0.00032326579093933105,
+                  "relErrSumAbs": 0.004332995298239144,
+                  "min": 0,
+                  "refMin": 0,
+                  "max": 0.000007718801498413086,
+                  "refMax": 0.000007659196853637695,
+                  "sum": 0.0003218650817871094,
+                  "refSum": 0.00032326579093933105,
+                  "relErrSum": 0.004332995298239144
+                },
+                "obj_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.0022350549697875977,
+                  "refSumAbs": 0.0022712349891662598,
+                  "relErrSumAbs": 0.01592966802256922,
+                  "min": 0,
+                  "refMin": 0,
+                  "max": 0.000045359134674072266,
+                  "refMax": 0.000045359134674072266,
+                  "sum": 0.0022350549697875977,
+                  "refSum": 0.0022712349891662598,
+                  "relErrSum": 0.01592966802256922
+                },
+                "obj_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.6216259896755219,
+                  "refSumAbs": 0.6216224431991577,
+                  "relErrSumAbs": 0.0000057051935671497445,
+                  "min": 5.960464477539063e-8,
+                  "refMin": 5.960464477539063e-8,
+                  "max": 0.006015211343765259,
+                  "refMax": 0.006015270948410034,
+                  "sum": 0.6216259896755219,
+                  "refSum": 0.6216224431991577,
+                  "relErrSum": 0.0000057051935671497445
+                },
+                "bbox_8": {
+                  "count": 25600,
+                  "expectedCount": 25600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 18685.661481693387,
+                  "refSumAbs": 18685.653301879764,
+                  "relErrSumAbs": 4.377590385135456e-7,
+                  "min": -0.8456814885139465,
+                  "refMin": -0.845681369304657,
+                  "max": 2.4748458862304688,
+                  "refMax": 2.4748454093933105,
+                  "sum": 18580.864360883832,
+                  "refSum": 18580.856178984046,
+                  "relErrSum": 4.4034030010143745e-7
+                },
+                "bbox_16": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 1992.4264996601269,
+                  "refSumAbs": 1992.4261772036552,
+                  "relErrSumAbs": 1.6184111376942145e-7,
+                  "min": -0.452486515045166,
+                  "refMin": -0.45248696208000183,
+                  "max": 0.6001286506652832,
+                  "refMax": 0.6001283526420593,
+                  "sum": 1827.932305037044,
+                  "refSum": 1827.9316511005163,
+                  "relErrSum": 3.5774670638025427e-7
+                },
+                "bbox_32": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 2769.6431105285883,
+                  "refSumAbs": 2769.643374249339,
+                  "relErrSumAbs": 9.521830617640168e-8,
+                  "min": -1.5719656944274902,
+                  "refMin": -1.5719666481018066,
+                  "max": 3.1431379318237305,
+                  "refMax": 3.1431379318237305,
+                  "sum": 2490.217959240079,
+                  "refSum": 2490.2180549949408,
+                  "relErrSum": 3.845240043922964e-8
+                },
+                "kps_8": {
+                  "count": 64000,
+                  "expectedCount": 64000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 49957.678250130266,
+                  "refSumAbs": 49957.660932330415,
+                  "relErrSumAbs": 3.4664953338700067e-7,
+                  "min": -2.315141201019287,
+                  "refMin": -2.315140724182129,
+                  "max": 3.1894776821136475,
+                  "refMax": 3.1894781589508057,
+                  "sum": 35094.302922703326,
+                  "refSum": 35094.30569296889,
+                  "relErrSum": 7.893775100037075e-8
+                },
+                "kps_16": {
+                  "count": 16000,
+                  "expectedCount": 16000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 7979.03768170625,
+                  "refSumAbs": 7979.038049712777,
+                  "relErrSumAbs": 4.612166593654806e-8,
+                  "min": -0.016331732273101807,
+                  "refMin": -0.016331762075424194,
+                  "max": 0.9844926595687866,
+                  "refMax": 0.9844925403594971,
+                  "sum": 7978.383528448641,
+                  "refSum": 7978.383896186948,
+                  "relErrSum": 4.609182903546669e-8
+                },
+                "kps_32": {
+                  "count": 4000,
+                  "expectedCount": 4000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 12652.131119277328,
+                  "refSumAbs": 12652.133768871427,
+                  "relErrSumAbs": 2.09418754712225e-7,
+                  "min": -5.047429084777832,
+                  "refMin": -5.0474324226379395,
+                  "max": 8.583505630493164,
+                  "refMax": 8.583503723144531,
+                  "sum": 3960.6872387863696,
+                  "refSum": 3960.6838461458683,
+                  "relErrSum": 8.565794779510432e-7
+                }
+              }
+            },
+            {
+              "model": "ocr_det",
+              "tag": "after-destroy-ocr_rec",
+              "correct": false,
+              "worstRelErr": 0.0411859623729846,
+              "outputs": {
+                "fetch_name_0": {
+                  "count": 409600,
+                  "expectedCount": 409600,
+                  "countOk": true,
+                  "ok": false,
+                  "sumAbs": 0.2135320007801056,
+                  "refSumAbs": 0.22270429134368896,
+                  "relErrSumAbs": 0.0411859623729846,
+                  "min": 8.940696716308594e-8,
+                  "refMin": 1.1920928955078125e-7,
+                  "max": 0.0000014901161193847656,
+                  "refMax": 0.000001519918441772461,
+                  "sum": 0.2135320007801056,
+                  "refSum": 0.22270429134368896,
+                  "relErrSum": 0.0411859623729846
+                }
+              }
+            },
+            {
+              "model": "face",
+              "tag": "after-destroy-ocr_det",
+              "correct": true,
+              "worstRelErr": 0.01592966802256922,
+              "outputs": {
+                "cls_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 4766.893946051598,
+                  "refSumAbs": 4766.8949937820435,
+                  "relErrSumAbs": 2.1979306177888965e-7,
+                  "min": 0.4304600656032562,
+                  "refMin": 0.4304600656032562,
+                  "max": 0.8986254930496216,
+                  "refMax": 0.8986255526542664,
+                  "sum": 4766.893946051598,
+                  "refSum": 4766.8949937820435,
+                  "relErrSum": 2.1979306177888965e-7
+                },
+                "cls_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 868.1269334554672,
+                  "refSumAbs": 868.127041310072,
+                  "relErrSumAbs": 1.2423827341941598e-7,
+                  "min": 0.4344068169593811,
+                  "refMin": 0.4344068765640259,
+                  "max": 0.6535899043083191,
+                  "refMax": 0.6535900235176086,
+                  "sum": 868.1269334554672,
+                  "refSum": 868.127041310072,
+                  "relErrSum": 1.2423827341941598e-7
+                },
+                "cls_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 286.6702365875244,
+                  "refSumAbs": 286.6702564358711,
+                  "relErrSumAbs": 6.923755173270027e-8,
+                  "min": 0.5219483971595764,
+                  "refMin": 0.5219483375549316,
+                  "max": 0.8232485055923462,
+                  "refMax": 0.8232486248016357,
+                  "sum": 286.6702365875244,
+                  "refSum": 286.6702564358711,
+                  "relErrSum": 6.923755173270027e-8
+                },
+                "obj_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.0003218650817871094,
+                  "refSumAbs": 0.00032326579093933105,
+                  "relErrSumAbs": 0.004332995298239144,
+                  "min": 0,
+                  "refMin": 0,
+                  "max": 0.000007718801498413086,
+                  "refMax": 0.000007659196853637695,
+                  "sum": 0.0003218650817871094,
+                  "refSum": 0.00032326579093933105,
+                  "relErrSum": 0.004332995298239144
+                },
+                "obj_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.0022350549697875977,
+                  "refSumAbs": 0.0022712349891662598,
+                  "relErrSumAbs": 0.01592966802256922,
+                  "min": 0,
+                  "refMin": 0,
+                  "max": 0.000045359134674072266,
+                  "refMax": 0.000045359134674072266,
+                  "sum": 0.0022350549697875977,
+                  "refSum": 0.0022712349891662598,
+                  "relErrSum": 0.01592966802256922
+                },
+                "obj_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.6216259896755219,
+                  "refSumAbs": 0.6216224431991577,
+                  "relErrSumAbs": 0.0000057051935671497445,
+                  "min": 5.960464477539063e-8,
+                  "refMin": 5.960464477539063e-8,
+                  "max": 0.006015211343765259,
+                  "refMax": 0.006015270948410034,
+                  "sum": 0.6216259896755219,
+                  "refSum": 0.6216224431991577,
+                  "relErrSum": 0.0000057051935671497445
+                },
+                "bbox_8": {
+                  "count": 25600,
+                  "expectedCount": 25600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 18685.661481693387,
+                  "refSumAbs": 18685.653301879764,
+                  "relErrSumAbs": 4.377590385135456e-7,
+                  "min": -0.8456814885139465,
+                  "refMin": -0.845681369304657,
+                  "max": 2.4748458862304688,
+                  "refMax": 2.4748454093933105,
+                  "sum": 18580.864360883832,
+                  "refSum": 18580.856178984046,
+                  "relErrSum": 4.4034030010143745e-7
+                },
+                "bbox_16": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 1992.4264996601269,
+                  "refSumAbs": 1992.4261772036552,
+                  "relErrSumAbs": 1.6184111376942145e-7,
+                  "min": -0.452486515045166,
+                  "refMin": -0.45248696208000183,
+                  "max": 0.6001286506652832,
+                  "refMax": 0.6001283526420593,
+                  "sum": 1827.932305037044,
+                  "refSum": 1827.9316511005163,
+                  "relErrSum": 3.5774670638025427e-7
+                },
+                "bbox_32": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 2769.6431105285883,
+                  "refSumAbs": 2769.643374249339,
+                  "relErrSumAbs": 9.521830617640168e-8,
+                  "min": -1.5719656944274902,
+                  "refMin": -1.5719666481018066,
+                  "max": 3.1431379318237305,
+                  "refMax": 3.1431379318237305,
+                  "sum": 2490.217959240079,
+                  "refSum": 2490.2180549949408,
+                  "relErrSum": 3.845240043922964e-8
+                },
+                "kps_8": {
+                  "count": 64000,
+                  "expectedCount": 64000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 49957.678250130266,
+                  "refSumAbs": 49957.660932330415,
+                  "relErrSumAbs": 3.4664953338700067e-7,
+                  "min": -2.315141201019287,
+                  "refMin": -2.315140724182129,
+                  "max": 3.1894776821136475,
+                  "refMax": 3.1894781589508057,
+                  "sum": 35094.302922703326,
+                  "refSum": 35094.30569296889,
+                  "relErrSum": 7.893775100037075e-8
+                },
+                "kps_16": {
+                  "count": 16000,
+                  "expectedCount": 16000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 7979.03768170625,
+                  "refSumAbs": 7979.038049712777,
+                  "relErrSumAbs": 4.612166593654806e-8,
+                  "min": -0.016331732273101807,
+                  "refMin": -0.016331762075424194,
+                  "max": 0.9844926595687866,
+                  "refMax": 0.9844925403594971,
+                  "sum": 7978.383528448641,
+                  "refSum": 7978.383896186948,
+                  "relErrSum": 4.609182903546669e-8
+                },
+                "kps_32": {
+                  "count": 4000,
+                  "expectedCount": 4000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 12652.131119277328,
+                  "refSumAbs": 12652.133768871427,
+                  "relErrSumAbs": 2.09418754712225e-7,
+                  "min": -5.047429084777832,
+                  "refMin": -5.0474324226379395,
+                  "max": 8.583505630493164,
+                  "refMax": 8.583503723144531,
+                  "sum": 3960.6872387863696,
+                  "refSum": 3960.6838461458683,
+                  "relErrSum": 8.565794779510432e-7
+                }
+              }
+            },
+            {
+              "model": "face",
+              "tag": "cycle-1",
+              "correct": true,
+              "worstRelErr": 0.01592966802256922,
+              "outputs": {
+                "cls_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 4766.893946051598,
+                  "refSumAbs": 4766.8949937820435,
+                  "relErrSumAbs": 2.1979306177888965e-7,
+                  "min": 0.4304600656032562,
+                  "refMin": 0.4304600656032562,
+                  "max": 0.8986254930496216,
+                  "refMax": 0.8986255526542664,
+                  "sum": 4766.893946051598,
+                  "refSum": 4766.8949937820435,
+                  "relErrSum": 2.1979306177888965e-7
+                },
+                "cls_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 868.1269334554672,
+                  "refSumAbs": 868.127041310072,
+                  "relErrSumAbs": 1.2423827341941598e-7,
+                  "min": 0.4344068169593811,
+                  "refMin": 0.4344068765640259,
+                  "max": 0.6535899043083191,
+                  "refMax": 0.6535900235176086,
+                  "sum": 868.1269334554672,
+                  "refSum": 868.127041310072,
+                  "relErrSum": 1.2423827341941598e-7
+                },
+                "cls_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 286.6702365875244,
+                  "refSumAbs": 286.6702564358711,
+                  "relErrSumAbs": 6.923755173270027e-8,
+                  "min": 0.5219483971595764,
+                  "refMin": 0.5219483375549316,
+                  "max": 0.8232485055923462,
+                  "refMax": 0.8232486248016357,
+                  "sum": 286.6702365875244,
+                  "refSum": 286.6702564358711,
+                  "relErrSum": 6.923755173270027e-8
+                },
+                "obj_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.0003218650817871094,
+                  "refSumAbs": 0.00032326579093933105,
+                  "relErrSumAbs": 0.004332995298239144,
+                  "min": 0,
+                  "refMin": 0,
+                  "max": 0.000007718801498413086,
+                  "refMax": 0.000007659196853637695,
+                  "sum": 0.0003218650817871094,
+                  "refSum": 0.00032326579093933105,
+                  "relErrSum": 0.004332995298239144
+                },
+                "obj_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.0022350549697875977,
+                  "refSumAbs": 0.0022712349891662598,
+                  "relErrSumAbs": 0.01592966802256922,
+                  "min": 0,
+                  "refMin": 0,
+                  "max": 0.000045359134674072266,
+                  "refMax": 0.000045359134674072266,
+                  "sum": 0.0022350549697875977,
+                  "refSum": 0.0022712349891662598,
+                  "relErrSum": 0.01592966802256922
+                },
+                "obj_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.6216259896755219,
+                  "refSumAbs": 0.6216224431991577,
+                  "relErrSumAbs": 0.0000057051935671497445,
+                  "min": 5.960464477539063e-8,
+                  "refMin": 5.960464477539063e-8,
+                  "max": 0.006015211343765259,
+                  "refMax": 0.006015270948410034,
+                  "sum": 0.6216259896755219,
+                  "refSum": 0.6216224431991577,
+                  "relErrSum": 0.0000057051935671497445
+                },
+                "bbox_8": {
+                  "count": 25600,
+                  "expectedCount": 25600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 18685.661481693387,
+                  "refSumAbs": 18685.653301879764,
+                  "relErrSumAbs": 4.377590385135456e-7,
+                  "min": -0.8456814885139465,
+                  "refMin": -0.845681369304657,
+                  "max": 2.4748458862304688,
+                  "refMax": 2.4748454093933105,
+                  "sum": 18580.864360883832,
+                  "refSum": 18580.856178984046,
+                  "relErrSum": 4.4034030010143745e-7
+                },
+                "bbox_16": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 1992.4264996601269,
+                  "refSumAbs": 1992.4261772036552,
+                  "relErrSumAbs": 1.6184111376942145e-7,
+                  "min": -0.452486515045166,
+                  "refMin": -0.45248696208000183,
+                  "max": 0.6001286506652832,
+                  "refMax": 0.6001283526420593,
+                  "sum": 1827.932305037044,
+                  "refSum": 1827.9316511005163,
+                  "relErrSum": 3.5774670638025427e-7
+                },
+                "bbox_32": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 2769.6431105285883,
+                  "refSumAbs": 2769.643374249339,
+                  "relErrSumAbs": 9.521830617640168e-8,
+                  "min": -1.5719656944274902,
+                  "refMin": -1.5719666481018066,
+                  "max": 3.1431379318237305,
+                  "refMax": 3.1431379318237305,
+                  "sum": 2490.217959240079,
+                  "refSum": 2490.2180549949408,
+                  "relErrSum": 3.845240043922964e-8
+                },
+                "kps_8": {
+                  "count": 64000,
+                  "expectedCount": 64000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 49957.678250130266,
+                  "refSumAbs": 49957.660932330415,
+                  "relErrSumAbs": 3.4664953338700067e-7,
+                  "min": -2.315141201019287,
+                  "refMin": -2.315140724182129,
+                  "max": 3.1894776821136475,
+                  "refMax": 3.1894781589508057,
+                  "sum": 35094.302922703326,
+                  "refSum": 35094.30569296889,
+                  "relErrSum": 7.893775100037075e-8
+                },
+                "kps_16": {
+                  "count": 16000,
+                  "expectedCount": 16000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 7979.03768170625,
+                  "refSumAbs": 7979.038049712777,
+                  "relErrSumAbs": 4.612166593654806e-8,
+                  "min": -0.016331732273101807,
+                  "refMin": -0.016331762075424194,
+                  "max": 0.9844926595687866,
+                  "refMax": 0.9844925403594971,
+                  "sum": 7978.383528448641,
+                  "refSum": 7978.383896186948,
+                  "relErrSum": 4.609182903546669e-8
+                },
+                "kps_32": {
+                  "count": 4000,
+                  "expectedCount": 4000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 12652.131119277328,
+                  "refSumAbs": 12652.133768871427,
+                  "relErrSumAbs": 2.09418754712225e-7,
+                  "min": -5.047429084777832,
+                  "refMin": -5.0474324226379395,
+                  "max": 8.583505630493164,
+                  "refMax": 8.583503723144531,
+                  "sum": 3960.6872387863696,
+                  "refSum": 3960.6838461458683,
+                  "relErrSum": 8.565794779510432e-7
+                }
+              }
+            },
+            {
+              "model": "ocr_det",
+              "tag": "cycle-1",
+              "correct": false,
+              "worstRelErr": 0.0411859623729846,
+              "outputs": {
+                "fetch_name_0": {
+                  "count": 409600,
+                  "expectedCount": 409600,
+                  "countOk": true,
+                  "ok": false,
+                  "sumAbs": 0.2135320007801056,
+                  "refSumAbs": 0.22270429134368896,
+                  "relErrSumAbs": 0.0411859623729846,
+                  "min": 8.940696716308594e-8,
+                  "refMin": 1.1920928955078125e-7,
+                  "max": 0.0000014901161193847656,
+                  "refMax": 0.000001519918441772461,
+                  "sum": 0.2135320007801056,
+                  "refSum": 0.22270429134368896,
+                  "relErrSum": 0.0411859623729846
+                }
+              }
+            },
+            {
+              "model": "ocr_rec",
+              "tag": "cycle-1",
+              "correct": true,
+              "worstRelErr": 0.000005504858568963427,
+              "outputs": {
+                "fetch_name_0": {
+                  "count": 735400,
+                  "expectedCount": 735400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 39.99971841392736,
+                  "refSumAbs": 39.999938607932165,
+                  "relErrSumAbs": 0.000005504858568963427,
+                  "min": 8.324556599603739e-10,
+                  "refMin": 8.324514966240315e-10,
+                  "max": 0.7749318480491638,
+                  "refMax": 0.7749353051185608,
+                  "sum": 39.99971841392736,
+                  "refSum": 39.999938607932165,
+                  "relErrSum": 0.000005504858568963427
+                }
+              }
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "cycle-1",
+              "correct": true,
+              "worstRelErr": 0.019572124235385065,
+              "outputs": {
+                "image_features": {
+                  "count": 36864,
+                  "expectedCount": 36864,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 131419.463006598,
+                  "refSumAbs": 128896.68114960904,
+                  "relErrSumAbs": 0.019572124235385065,
+                  "min": -51.10542297363281,
+                  "refMin": -46.665714263916016,
+                  "max": 92.97940063476562,
+                  "refMax": 91.19464874267578,
+                  "sum": 1050.8697502962896,
+                  "refSum": 915.2065631601727,
+                  "relErrSum": 0.14823231453637875
+                }
+              }
+            },
+            {
+              "model": "face",
+              "tag": "cycle-2",
+              "correct": true,
+              "worstRelErr": 0.01592966802256922,
+              "outputs": {
+                "cls_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 4766.893946051598,
+                  "refSumAbs": 4766.8949937820435,
+                  "relErrSumAbs": 2.1979306177888965e-7,
+                  "min": 0.4304600656032562,
+                  "refMin": 0.4304600656032562,
+                  "max": 0.8986254930496216,
+                  "refMax": 0.8986255526542664,
+                  "sum": 4766.893946051598,
+                  "refSum": 4766.8949937820435,
+                  "relErrSum": 2.1979306177888965e-7
+                },
+                "cls_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 868.1269334554672,
+                  "refSumAbs": 868.127041310072,
+                  "relErrSumAbs": 1.2423827341941598e-7,
+                  "min": 0.4344068169593811,
+                  "refMin": 0.4344068765640259,
+                  "max": 0.6535899043083191,
+                  "refMax": 0.6535900235176086,
+                  "sum": 868.1269334554672,
+                  "refSum": 868.127041310072,
+                  "relErrSum": 1.2423827341941598e-7
+                },
+                "cls_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 286.6702365875244,
+                  "refSumAbs": 286.6702564358711,
+                  "relErrSumAbs": 6.923755173270027e-8,
+                  "min": 0.5219483971595764,
+                  "refMin": 0.5219483375549316,
+                  "max": 0.8232485055923462,
+                  "refMax": 0.8232486248016357,
+                  "sum": 286.6702365875244,
+                  "refSum": 286.6702564358711,
+                  "relErrSum": 6.923755173270027e-8
+                },
+                "obj_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.0003218650817871094,
+                  "refSumAbs": 0.00032326579093933105,
+                  "relErrSumAbs": 0.004332995298239144,
+                  "min": 0,
+                  "refMin": 0,
+                  "max": 0.000007718801498413086,
+                  "refMax": 0.000007659196853637695,
+                  "sum": 0.0003218650817871094,
+                  "refSum": 0.00032326579093933105,
+                  "relErrSum": 0.004332995298239144
+                },
+                "obj_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.0022350549697875977,
+                  "refSumAbs": 0.0022712349891662598,
+                  "relErrSumAbs": 0.01592966802256922,
+                  "min": 0,
+                  "refMin": 0,
+                  "max": 0.000045359134674072266,
+                  "refMax": 0.000045359134674072266,
+                  "sum": 0.0022350549697875977,
+                  "refSum": 0.0022712349891662598,
+                  "relErrSum": 0.01592966802256922
+                },
+                "obj_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.6216259896755219,
+                  "refSumAbs": 0.6216224431991577,
+                  "relErrSumAbs": 0.0000057051935671497445,
+                  "min": 5.960464477539063e-8,
+                  "refMin": 5.960464477539063e-8,
+                  "max": 0.006015211343765259,
+                  "refMax": 0.006015270948410034,
+                  "sum": 0.6216259896755219,
+                  "refSum": 0.6216224431991577,
+                  "relErrSum": 0.0000057051935671497445
+                },
+                "bbox_8": {
+                  "count": 25600,
+                  "expectedCount": 25600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 18685.661481693387,
+                  "refSumAbs": 18685.653301879764,
+                  "relErrSumAbs": 4.377590385135456e-7,
+                  "min": -0.8456814885139465,
+                  "refMin": -0.845681369304657,
+                  "max": 2.4748458862304688,
+                  "refMax": 2.4748454093933105,
+                  "sum": 18580.864360883832,
+                  "refSum": 18580.856178984046,
+                  "relErrSum": 4.4034030010143745e-7
+                },
+                "bbox_16": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 1992.4264996601269,
+                  "refSumAbs": 1992.4261772036552,
+                  "relErrSumAbs": 1.6184111376942145e-7,
+                  "min": -0.452486515045166,
+                  "refMin": -0.45248696208000183,
+                  "max": 0.6001286506652832,
+                  "refMax": 0.6001283526420593,
+                  "sum": 1827.932305037044,
+                  "refSum": 1827.9316511005163,
+                  "relErrSum": 3.5774670638025427e-7
+                },
+                "bbox_32": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 2769.6431105285883,
+                  "refSumAbs": 2769.643374249339,
+                  "relErrSumAbs": 9.521830617640168e-8,
+                  "min": -1.5719656944274902,
+                  "refMin": -1.5719666481018066,
+                  "max": 3.1431379318237305,
+                  "refMax": 3.1431379318237305,
+                  "sum": 2490.217959240079,
+                  "refSum": 2490.2180549949408,
+                  "relErrSum": 3.845240043922964e-8
+                },
+                "kps_8": {
+                  "count": 64000,
+                  "expectedCount": 64000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 49957.678250130266,
+                  "refSumAbs": 49957.660932330415,
+                  "relErrSumAbs": 3.4664953338700067e-7,
+                  "min": -2.315141201019287,
+                  "refMin": -2.315140724182129,
+                  "max": 3.1894776821136475,
+                  "refMax": 3.1894781589508057,
+                  "sum": 35094.302922703326,
+                  "refSum": 35094.30569296889,
+                  "relErrSum": 7.893775100037075e-8
+                },
+                "kps_16": {
+                  "count": 16000,
+                  "expectedCount": 16000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 7979.03768170625,
+                  "refSumAbs": 7979.038049712777,
+                  "relErrSumAbs": 4.612166593654806e-8,
+                  "min": -0.016331732273101807,
+                  "refMin": -0.016331762075424194,
+                  "max": 0.9844926595687866,
+                  "refMax": 0.9844925403594971,
+                  "sum": 7978.383528448641,
+                  "refSum": 7978.383896186948,
+                  "relErrSum": 4.609182903546669e-8
+                },
+                "kps_32": {
+                  "count": 4000,
+                  "expectedCount": 4000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 12652.131119277328,
+                  "refSumAbs": 12652.133768871427,
+                  "relErrSumAbs": 2.09418754712225e-7,
+                  "min": -5.047429084777832,
+                  "refMin": -5.0474324226379395,
+                  "max": 8.583505630493164,
+                  "refMax": 8.583503723144531,
+                  "sum": 3960.6872387863696,
+                  "refSum": 3960.6838461458683,
+                  "relErrSum": 8.565794779510432e-7
+                }
+              }
+            },
+            {
+              "model": "ocr_det",
+              "tag": "cycle-2",
+              "correct": false,
+              "worstRelErr": 0.0411859623729846,
+              "outputs": {
+                "fetch_name_0": {
+                  "count": 409600,
+                  "expectedCount": 409600,
+                  "countOk": true,
+                  "ok": false,
+                  "sumAbs": 0.2135320007801056,
+                  "refSumAbs": 0.22270429134368896,
+                  "relErrSumAbs": 0.0411859623729846,
+                  "min": 8.940696716308594e-8,
+                  "refMin": 1.1920928955078125e-7,
+                  "max": 0.0000014901161193847656,
+                  "refMax": 0.000001519918441772461,
+                  "sum": 0.2135320007801056,
+                  "refSum": 0.22270429134368896,
+                  "relErrSum": 0.0411859623729846
+                }
+              }
+            },
+            {
+              "model": "ocr_rec",
+              "tag": "cycle-2",
+              "correct": true,
+              "worstRelErr": 0.000005504858568963427,
+              "outputs": {
+                "fetch_name_0": {
+                  "count": 735400,
+                  "expectedCount": 735400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 39.99971841392736,
+                  "refSumAbs": 39.999938607932165,
+                  "relErrSumAbs": 0.000005504858568963427,
+                  "min": 8.324556599603739e-10,
+                  "refMin": 8.324514966240315e-10,
+                  "max": 0.7749318480491638,
+                  "refMax": 0.7749353051185608,
+                  "sum": 39.99971841392736,
+                  "refSum": 39.999938607932165,
+                  "relErrSum": 0.000005504858568963427
+                }
+              }
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "cycle-2",
+              "correct": true,
+              "worstRelErr": 0.019572124235385065,
+              "outputs": {
+                "image_features": {
+                  "count": 36864,
+                  "expectedCount": 36864,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 131419.463006598,
+                  "refSumAbs": 128896.68114960904,
+                  "relErrSumAbs": 0.019572124235385065,
+                  "min": -51.10542297363281,
+                  "refMin": -46.665714263916016,
+                  "max": 92.97940063476562,
+                  "refMax": 91.19464874267578,
+                  "sum": 1050.8697502962896,
+                  "refSum": 915.2065631601727,
+                  "relErrSum": 0.14823231453637875
+                }
+              }
+            },
+            {
+              "model": "face",
+              "tag": "cycle-3",
+              "correct": true,
+              "worstRelErr": 0.01592966802256922,
+              "outputs": {
+                "cls_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 4766.893946051598,
+                  "refSumAbs": 4766.8949937820435,
+                  "relErrSumAbs": 2.1979306177888965e-7,
+                  "min": 0.4304600656032562,
+                  "refMin": 0.4304600656032562,
+                  "max": 0.8986254930496216,
+                  "refMax": 0.8986255526542664,
+                  "sum": 4766.893946051598,
+                  "refSum": 4766.8949937820435,
+                  "relErrSum": 2.1979306177888965e-7
+                },
+                "cls_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 868.1269334554672,
+                  "refSumAbs": 868.127041310072,
+                  "relErrSumAbs": 1.2423827341941598e-7,
+                  "min": 0.4344068169593811,
+                  "refMin": 0.4344068765640259,
+                  "max": 0.6535899043083191,
+                  "refMax": 0.6535900235176086,
+                  "sum": 868.1269334554672,
+                  "refSum": 868.127041310072,
+                  "relErrSum": 1.2423827341941598e-7
+                },
+                "cls_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 286.6702365875244,
+                  "refSumAbs": 286.6702564358711,
+                  "relErrSumAbs": 6.923755173270027e-8,
+                  "min": 0.5219483971595764,
+                  "refMin": 0.5219483375549316,
+                  "max": 0.8232485055923462,
+                  "refMax": 0.8232486248016357,
+                  "sum": 286.6702365875244,
+                  "refSum": 286.6702564358711,
+                  "relErrSum": 6.923755173270027e-8
+                },
+                "obj_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.0003218650817871094,
+                  "refSumAbs": 0.00032326579093933105,
+                  "relErrSumAbs": 0.004332995298239144,
+                  "min": 0,
+                  "refMin": 0,
+                  "max": 0.000007718801498413086,
+                  "refMax": 0.000007659196853637695,
+                  "sum": 0.0003218650817871094,
+                  "refSum": 0.00032326579093933105,
+                  "relErrSum": 0.004332995298239144
+                },
+                "obj_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.0022350549697875977,
+                  "refSumAbs": 0.0022712349891662598,
+                  "relErrSumAbs": 0.01592966802256922,
+                  "min": 0,
+                  "refMin": 0,
+                  "max": 0.000045359134674072266,
+                  "refMax": 0.000045359134674072266,
+                  "sum": 0.0022350549697875977,
+                  "refSum": 0.0022712349891662598,
+                  "relErrSum": 0.01592966802256922
+                },
+                "obj_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 0.6216259896755219,
+                  "refSumAbs": 0.6216224431991577,
+                  "relErrSumAbs": 0.0000057051935671497445,
+                  "min": 5.960464477539063e-8,
+                  "refMin": 5.960464477539063e-8,
+                  "max": 0.006015211343765259,
+                  "refMax": 0.006015270948410034,
+                  "sum": 0.6216259896755219,
+                  "refSum": 0.6216224431991577,
+                  "relErrSum": 0.0000057051935671497445
+                },
+                "bbox_8": {
+                  "count": 25600,
+                  "expectedCount": 25600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 18685.661481693387,
+                  "refSumAbs": 18685.653301879764,
+                  "relErrSumAbs": 4.377590385135456e-7,
+                  "min": -0.8456814885139465,
+                  "refMin": -0.845681369304657,
+                  "max": 2.4748458862304688,
+                  "refMax": 2.4748454093933105,
+                  "sum": 18580.864360883832,
+                  "refSum": 18580.856178984046,
+                  "relErrSum": 4.4034030010143745e-7
+                },
+                "bbox_16": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 1992.4264996601269,
+                  "refSumAbs": 1992.4261772036552,
+                  "relErrSumAbs": 1.6184111376942145e-7,
+                  "min": -0.452486515045166,
+                  "refMin": -0.45248696208000183,
+                  "max": 0.6001286506652832,
+                  "refMax": 0.6001283526420593,
+                  "sum": 1827.932305037044,
+                  "refSum": 1827.9316511005163,
+                  "relErrSum": 3.5774670638025427e-7
+                },
+                "bbox_32": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 2769.6431105285883,
+                  "refSumAbs": 2769.643374249339,
+                  "relErrSumAbs": 9.521830617640168e-8,
+                  "min": -1.5719656944274902,
+                  "refMin": -1.5719666481018066,
+                  "max": 3.1431379318237305,
+                  "refMax": 3.1431379318237305,
+                  "sum": 2490.217959240079,
+                  "refSum": 2490.2180549949408,
+                  "relErrSum": 3.845240043922964e-8
+                },
+                "kps_8": {
+                  "count": 64000,
+                  "expectedCount": 64000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 49957.678250130266,
+                  "refSumAbs": 49957.660932330415,
+                  "relErrSumAbs": 3.4664953338700067e-7,
+                  "min": -2.315141201019287,
+                  "refMin": -2.315140724182129,
+                  "max": 3.1894776821136475,
+                  "refMax": 3.1894781589508057,
+                  "sum": 35094.302922703326,
+                  "refSum": 35094.30569296889,
+                  "relErrSum": 7.893775100037075e-8
+                },
+                "kps_16": {
+                  "count": 16000,
+                  "expectedCount": 16000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 7979.03768170625,
+                  "refSumAbs": 7979.038049712777,
+                  "relErrSumAbs": 4.612166593654806e-8,
+                  "min": -0.016331732273101807,
+                  "refMin": -0.016331762075424194,
+                  "max": 0.9844926595687866,
+                  "refMax": 0.9844925403594971,
+                  "sum": 7978.383528448641,
+                  "refSum": 7978.383896186948,
+                  "relErrSum": 4.609182903546669e-8
+                },
+                "kps_32": {
+                  "count": 4000,
+                  "expectedCount": 4000,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 12652.131119277328,
+                  "refSumAbs": 12652.133768871427,
+                  "relErrSumAbs": 2.09418754712225e-7,
+                  "min": -5.047429084777832,
+                  "refMin": -5.0474324226379395,
+                  "max": 8.583505630493164,
+                  "refMax": 8.583503723144531,
+                  "sum": 3960.6872387863696,
+                  "refSum": 3960.6838461458683,
+                  "relErrSum": 8.565794779510432e-7
+                }
+              }
+            },
+            {
+              "model": "ocr_det",
+              "tag": "cycle-3",
+              "correct": false,
+              "worstRelErr": 0.0411859623729846,
+              "outputs": {
+                "fetch_name_0": {
+                  "count": 409600,
+                  "expectedCount": 409600,
+                  "countOk": true,
+                  "ok": false,
+                  "sumAbs": 0.2135320007801056,
+                  "refSumAbs": 0.22270429134368896,
+                  "relErrSumAbs": 0.0411859623729846,
+                  "min": 8.940696716308594e-8,
+                  "refMin": 1.1920928955078125e-7,
+                  "max": 0.0000014901161193847656,
+                  "refMax": 0.000001519918441772461,
+                  "sum": 0.2135320007801056,
+                  "refSum": 0.22270429134368896,
+                  "relErrSum": 0.0411859623729846
+                }
+              }
+            },
+            {
+              "model": "ocr_rec",
+              "tag": "cycle-3",
+              "correct": true,
+              "worstRelErr": 0.000005504858568963427,
+              "outputs": {
+                "fetch_name_0": {
+                  "count": 735400,
+                  "expectedCount": 735400,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 39.99971841392736,
+                  "refSumAbs": 39.999938607932165,
+                  "relErrSumAbs": 0.000005504858568963427,
+                  "min": 8.324556599603739e-10,
+                  "refMin": 8.324514966240315e-10,
+                  "max": 0.7749318480491638,
+                  "refMax": 0.7749353051185608,
+                  "sum": 39.99971841392736,
+                  "refSum": 39.999938607932165,
+                  "relErrSum": 0.000005504858568963427
+                }
+              }
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "cycle-3",
+              "correct": true,
+              "worstRelErr": 0.019572124235385065,
+              "outputs": {
+                "image_features": {
+                  "count": 36864,
+                  "expectedCount": 36864,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 131419.463006598,
+                  "refSumAbs": 128896.68114960904,
+                  "relErrSumAbs": 0.019572124235385065,
+                  "min": -51.10542297363281,
+                  "refMin": -46.665714263916016,
+                  "max": 92.97940063476562,
+                  "refMax": 91.19464874267578,
+                  "sum": 1050.8697502962896,
+                  "refSum": 915.2065631601727,
+                  "relErrSum": 0.14823231453637875
+                }
+              }
+            }
+          ],
+          "timings": [
+            {
+              "model": "face",
+              "tag": "all-resident",
+              "phase": "infer",
+              "ms": 36
+            },
+            {
+              "model": "ocr_det",
+              "tag": "all-resident",
+              "phase": "infer",
+              "ms": 189
+            },
+            {
+              "model": "ocr_rec",
+              "tag": "all-resident",
+              "phase": "infer",
+              "ms": 51
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "all-resident",
+              "phase": "infer",
+              "ms": 3341
+            },
+            {
+              "model": "face",
+              "tag": "after-destroy-vlm_vision",
+              "phase": "infer",
+              "ms": 30
+            },
+            {
+              "model": "ocr_det",
+              "tag": "after-destroy-vlm_vision",
+              "phase": "infer",
+              "ms": 173
+            },
+            {
+              "model": "ocr_rec",
+              "tag": "after-destroy-vlm_vision",
+              "phase": "infer",
+              "ms": 48
+            },
+            {
+              "model": "face",
+              "tag": "after-destroy-ocr_rec",
+              "phase": "infer",
+              "ms": 29
+            },
+            {
+              "model": "ocr_det",
+              "tag": "after-destroy-ocr_rec",
+              "phase": "infer",
+              "ms": 172
+            },
+            {
+              "model": "face",
+              "tag": "after-destroy-ocr_det",
+              "phase": "infer",
+              "ms": 28
+            },
+            {
+              "model": "face",
+              "tag": "cycle-1",
+              "phase": "infer",
+              "ms": 29
+            },
+            {
+              "model": "ocr_det",
+              "tag": "cycle-1",
+              "phase": "infer",
+              "ms": 170
+            },
+            {
+              "model": "ocr_rec",
+              "tag": "cycle-1",
+              "phase": "infer",
+              "ms": 48
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "cycle-1",
+              "phase": "infer",
+              "ms": 3092
+            },
+            {
+              "model": "face",
+              "tag": "cycle-2",
+              "phase": "infer",
+              "ms": 29
+            },
+            {
+              "model": "ocr_det",
+              "tag": "cycle-2",
+              "phase": "infer",
+              "ms": 166
+            },
+            {
+              "model": "ocr_rec",
+              "tag": "cycle-2",
+              "phase": "infer",
+              "ms": 47
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "cycle-2",
+              "phase": "infer",
+              "ms": 3075
+            },
+            {
+              "model": "face",
+              "tag": "cycle-3",
+              "phase": "infer",
+              "ms": 29
+            },
+            {
+              "model": "ocr_det",
+              "tag": "cycle-3",
+              "phase": "infer",
+              "ms": 167
+            },
+            {
+              "model": "ocr_rec",
+              "tag": "cycle-3",
+              "phase": "infer",
+              "ms": 45
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "cycle-3",
+              "phase": "infer",
+              "ms": 3126
+            }
+          ],
+          "error": null,
+          "notes": [],
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": false,
+            "configuredNumThreads": 1,
+            "crossOriginIsolated": false
+          },
+          "allCorrect": false,
+          "conclusion": "OUTPUT INCORRECT; 11 grow() call(s); final 273.2 MB",
+          "finishedAt": "2026-09-09T15:14:29.549Z"
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed C:\\Users\\OMEN\\AppData\\Local\\Temp\\claude\\C--Users-OMEN-Desktop-PratiBimb\\85c3d834-196c-4f1d-8a77-058200f1f5b1\\scratchpad\\s04a1\\ext-firefox as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ],
+      "incompleteChunkSets": []
+    }
+  ],
+  "finishedAt": "2026-09-09T15:29:13.332Z"
+}

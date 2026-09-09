@@ -1,0 +1,950 @@
+{
+  "experiment": "W1-S04a1-four-model-residency",
+  "browser": "chrome",
+  "startedAt": "2026-09-09T15:11:57.711Z",
+  "platform": "windows-solo-ocr_det",
+  "chrome": "C:/Users/OMEN/cft/chrome.exe",
+  "runs": [
+    {
+      "headless": false,
+      "run": 1,
+      "platform": "windows-solo-ocr_det",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "s04a1-four-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "phase": "baselines",
+          "startedAt": "2026-09-09T15:11:58.378Z",
+          "requestedNumThreads": 1,
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "modelOrder": [
+            "ocr_det"
+          ],
+          "baselines": {
+            "ocr_det": {
+              "error": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.",
+              "correct": null,
+              "modelBytes": 4819576,
+              "before": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterCreate": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterInfer": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterDestroy": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "growsAdded": 0,
+              "createMs": 15.3,
+              "destroyMs": 0,
+              "js": {
+                "before": null,
+                "afterInfer": null
+              }
+            }
+          },
+          "residentSnapshots": [],
+          "lifecycleSnapshots": [],
+          "cycleSnapshots": [],
+          "growthEvents": [],
+          "correctness": [],
+          "timings": [
+            {
+              "model": "ocr_det",
+              "tag": "baseline",
+              "phase": "create",
+              "ms": 15.3
+            },
+            {
+              "model": "ocr_det",
+              "tag": "baseline",
+              "phase": "destroy",
+              "ms": 0
+            }
+          ],
+          "error": null,
+          "notes": [
+            "baseline ocr_det failed: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356."
+          ],
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1,
+            "crossOriginIsolated": false
+          },
+          "allCorrect": true,
+          "conclusion": "baselines only",
+          "finishedAt": "2026-09-09T15:11:58.394Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1-four-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "phase": "baselines",
+          "startedAt": "2026-09-09T15:11:58.441Z",
+          "requestedNumThreads": 1,
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "modelOrder": [
+            "ocr_det"
+          ],
+          "baselines": {
+            "ocr_det": {
+              "error": null,
+              "correct": false,
+              "modelBytes": 4819576,
+              "before": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterCreate": {
+                "instances": 1,
+                "bytes": 24248320,
+                "mb": 23.1,
+                "pages": 370,
+                "growCount": 2
+              },
+              "afterInfer": {
+                "instances": 1,
+                "bytes": 72548352,
+                "mb": 69.2,
+                "pages": 1107,
+                "growCount": 8
+              },
+              "afterDestroy": {
+                "instances": 1,
+                "bytes": 72548352,
+                "mb": 69.2,
+                "pages": 1107,
+                "growCount": 8
+              },
+              "growsAdded": 8,
+              "createMs": 473.6,
+              "destroyMs": 4,
+              "js": {
+                "before": {
+                  "usedMB": 2.5
+                },
+                "afterInfer": {
+                  "usedMB": 16.7
+                }
+              }
+            }
+          },
+          "residentSnapshots": [],
+          "lifecycleSnapshots": [],
+          "cycleSnapshots": [],
+          "growthEvents": [
+            {
+              "delta": 52,
+              "beforePages": 256,
+              "afterPages": 308,
+              "beforeMB": 16,
+              "afterMB": 19.3,
+              "at": 246
+            },
+            {
+              "delta": 62,
+              "beforePages": 308,
+              "afterPages": 370,
+              "beforeMB": 19.3,
+              "afterMB": 23.1,
+              "at": 250
+            },
+            {
+              "delta": 74,
+              "beforePages": 370,
+              "afterPages": 444,
+              "beforeMB": 23.1,
+              "afterMB": 27.8,
+              "at": 523
+            },
+            {
+              "delta": 89,
+              "beforePages": 444,
+              "afterPages": 533,
+              "beforeMB": 27.8,
+              "afterMB": 33.3,
+              "at": 534
+            },
+            {
+              "delta": 107,
+              "beforePages": 533,
+              "afterPages": 640,
+              "beforeMB": 33.3,
+              "afterMB": 40,
+              "at": 543
+            },
+            {
+              "delta": 128,
+              "beforePages": 640,
+              "afterPages": 768,
+              "beforeMB": 40,
+              "afterMB": 48,
+              "at": 553
+            },
+            {
+              "delta": 154,
+              "beforePages": 768,
+              "afterPages": 922,
+              "beforeMB": 48,
+              "afterMB": 57.6,
+              "at": 561
+            },
+            {
+              "delta": 185,
+              "beforePages": 922,
+              "afterPages": 1107,
+              "beforeMB": 57.6,
+              "afterMB": 69.2,
+              "at": 567
+            }
+          ],
+          "correctness": [
+            {
+              "model": "ocr_det",
+              "tag": "baseline-ocr_det",
+              "correct": false,
+              "worstRelErr": 0.0411859623729846,
+              "outputs": {
+                "fetch_name_0": {
+                  "count": 409600,
+                  "expectedCount": 409600,
+                  "countOk": true,
+                  "ok": false,
+                  "sumAbs": 0.2135320007801056,
+                  "refSumAbs": 0.22270429134368896,
+                  "relErrSumAbs": 0.0411859623729846,
+                  "min": 8.940696716308594e-8,
+                  "refMin": 1.1920928955078125e-7,
+                  "max": 0.0000014901161193847656,
+                  "refMax": 0.000001519918441772461,
+                  "sum": 0.2135320007801056,
+                  "refSum": 0.22270429134368896,
+                  "relErrSum": 0.0411859623729846
+                }
+              }
+            }
+          ],
+          "timings": [
+            {
+              "model": "ocr_det",
+              "tag": "baseline-ocr_det",
+              "phase": "infer",
+              "ms": 234
+            },
+            {
+              "model": "ocr_det",
+              "tag": "baseline",
+              "phase": "create",
+              "ms": 473.6
+            },
+            {
+              "model": "ocr_det",
+              "tag": "baseline",
+              "phase": "destroy",
+              "ms": 4
+            }
+          ],
+          "error": null,
+          "notes": [],
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1,
+            "crossOriginIsolated": false
+          },
+          "allCorrect": false,
+          "conclusion": "baselines only",
+          "finishedAt": "2026-09-09T15:11:59.154Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "s04a1-four-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "phase": "baselines",
+          "startedAt": "2026-09-09T15:11:59.188Z",
+          "requestedNumThreads": 1,
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "modelOrder": [
+            "ocr_det"
+          ],
+          "baselines": {
+            "ocr_det": {
+              "error": null,
+              "correct": false,
+              "modelBytes": 4819576,
+              "before": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterCreate": {
+                "instances": 1,
+                "bytes": 24248320,
+                "mb": 23.1,
+                "pages": 370,
+                "growCount": 2
+              },
+              "afterInfer": {
+                "instances": 1,
+                "bytes": 72548352,
+                "mb": 69.2,
+                "pages": 1107,
+                "growCount": 8
+              },
+              "afterDestroy": {
+                "instances": 1,
+                "bytes": 72548352,
+                "mb": 69.2,
+                "pages": 1107,
+                "growCount": 8
+              },
+              "growsAdded": 8,
+              "createMs": 153.1,
+              "destroyMs": 1.8,
+              "js": {
+                "before": null,
+                "afterInfer": null
+              }
+            }
+          },
+          "residentSnapshots": [],
+          "lifecycleSnapshots": [],
+          "cycleSnapshots": [],
+          "growthEvents": [
+            {
+              "delta": 52,
+              "beforePages": 256,
+              "afterPages": 308,
+              "beforeMB": 16,
+              "afterMB": 19.3,
+              "at": 115
+            },
+            {
+              "delta": 62,
+              "beforePages": 308,
+              "afterPages": 370,
+              "beforeMB": 19.3,
+              "afterMB": 23.1,
+              "at": 116
+            },
+            {
+              "delta": 74,
+              "beforePages": 370,
+              "afterPages": 444,
+              "beforeMB": 23.1,
+              "afterMB": 27.8,
+              "at": 189
+            },
+            {
+              "delta": 89,
+              "beforePages": 444,
+              "afterPages": 533,
+              "beforeMB": 27.8,
+              "afterMB": 33.3,
+              "at": 191
+            },
+            {
+              "delta": 107,
+              "beforePages": 533,
+              "afterPages": 640,
+              "beforeMB": 33.3,
+              "afterMB": 40,
+              "at": 195
+            },
+            {
+              "delta": 128,
+              "beforePages": 640,
+              "afterPages": 768,
+              "beforeMB": 40,
+              "afterMB": 48,
+              "at": 199
+            },
+            {
+              "delta": 154,
+              "beforePages": 768,
+              "afterPages": 922,
+              "beforeMB": 48,
+              "afterMB": 57.6,
+              "at": 206
+            },
+            {
+              "delta": 185,
+              "beforePages": 922,
+              "afterPages": 1107,
+              "beforeMB": 57.6,
+              "afterMB": 69.2,
+              "at": 212
+            }
+          ],
+          "correctness": [
+            {
+              "model": "ocr_det",
+              "tag": "baseline-ocr_det",
+              "correct": false,
+              "worstRelErr": 0.0411859623729846,
+              "outputs": {
+                "fetch_name_0": {
+                  "count": 409600,
+                  "expectedCount": 409600,
+                  "countOk": true,
+                  "ok": false,
+                  "sumAbs": 0.2135320007801056,
+                  "refSumAbs": 0.22270429134368896,
+                  "relErrSumAbs": 0.0411859623729846,
+                  "min": 8.940696716308594e-8,
+                  "refMin": 1.1920928955078125e-7,
+                  "max": 0.0000014901161193847656,
+                  "refMax": 0.000001519918441772461,
+                  "sum": 0.2135320007801056,
+                  "refSum": 0.22270429134368896,
+                  "relErrSum": 0.0411859623729846
+                }
+              }
+            }
+          ],
+          "timings": [
+            {
+              "model": "ocr_det",
+              "tag": "baseline-ocr_det",
+              "phase": "infer",
+              "ms": 200.2
+            },
+            {
+              "model": "ocr_det",
+              "tag": "baseline",
+              "phase": "create",
+              "ms": 153.1
+            },
+            {
+              "model": "ocr_det",
+              "tag": "baseline",
+              "phase": "destroy",
+              "ms": 1.8
+            }
+          ],
+          "error": null,
+          "notes": [],
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1,
+            "crossOriginIsolated": false
+          },
+          "allCorrect": false,
+          "conclusion": "baselines only",
+          "finishedAt": "2026-09-09T15:11:59.546Z"
+        }
+      ]
+    },
+    {
+      "headless": true,
+      "run": 1,
+      "platform": "windows-solo-ocr_det",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "s04a1-four-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "phase": "baselines",
+          "startedAt": "2026-09-09T15:12:00.325Z",
+          "requestedNumThreads": 1,
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "modelOrder": [
+            "ocr_det"
+          ],
+          "baselines": {
+            "ocr_det": {
+              "error": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.",
+              "correct": null,
+              "modelBytes": 4819576,
+              "before": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterCreate": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterInfer": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterDestroy": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "growsAdded": 0,
+              "createMs": 14.5,
+              "destroyMs": 0,
+              "js": {
+                "before": null,
+                "afterInfer": null
+              }
+            }
+          },
+          "residentSnapshots": [],
+          "lifecycleSnapshots": [],
+          "cycleSnapshots": [],
+          "growthEvents": [],
+          "correctness": [],
+          "timings": [
+            {
+              "model": "ocr_det",
+              "tag": "baseline",
+              "phase": "create",
+              "ms": 14.5
+            },
+            {
+              "model": "ocr_det",
+              "tag": "baseline",
+              "phase": "destroy",
+              "ms": 0
+            }
+          ],
+          "error": null,
+          "notes": [
+            "baseline ocr_det failed: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356."
+          ],
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1,
+            "crossOriginIsolated": false
+          },
+          "allCorrect": true,
+          "conclusion": "baselines only",
+          "finishedAt": "2026-09-09T15:12:00.340Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1-four-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "phase": "baselines",
+          "startedAt": "2026-09-09T15:12:00.386Z",
+          "requestedNumThreads": 1,
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "modelOrder": [
+            "ocr_det"
+          ],
+          "baselines": {
+            "ocr_det": {
+              "error": null,
+              "correct": false,
+              "modelBytes": 4819576,
+              "before": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterCreate": {
+                "instances": 1,
+                "bytes": 24248320,
+                "mb": 23.1,
+                "pages": 370,
+                "growCount": 2
+              },
+              "afterInfer": {
+                "instances": 1,
+                "bytes": 72548352,
+                "mb": 69.2,
+                "pages": 1107,
+                "growCount": 8
+              },
+              "afterDestroy": {
+                "instances": 1,
+                "bytes": 72548352,
+                "mb": 69.2,
+                "pages": 1107,
+                "growCount": 8
+              },
+              "growsAdded": 8,
+              "createMs": 474.7,
+              "destroyMs": 3.6,
+              "js": {
+                "before": {
+                  "usedMB": 2.5
+                },
+                "afterInfer": {
+                  "usedMB": 15.7
+                }
+              }
+            }
+          },
+          "residentSnapshots": [],
+          "lifecycleSnapshots": [],
+          "cycleSnapshots": [],
+          "growthEvents": [
+            {
+              "delta": 52,
+              "beforePages": 256,
+              "afterPages": 308,
+              "beforeMB": 16,
+              "afterMB": 19.3,
+              "at": 253
+            },
+            {
+              "delta": 62,
+              "beforePages": 308,
+              "afterPages": 370,
+              "beforeMB": 19.3,
+              "afterMB": 23.1,
+              "at": 257
+            },
+            {
+              "delta": 74,
+              "beforePages": 370,
+              "afterPages": 444,
+              "beforeMB": 23.1,
+              "afterMB": 27.8,
+              "at": 525
+            },
+            {
+              "delta": 89,
+              "beforePages": 444,
+              "afterPages": 533,
+              "beforeMB": 27.8,
+              "afterMB": 33.3,
+              "at": 536
+            },
+            {
+              "delta": 107,
+              "beforePages": 533,
+              "afterPages": 640,
+              "beforeMB": 33.3,
+              "afterMB": 40,
+              "at": 543
+            },
+            {
+              "delta": 128,
+              "beforePages": 640,
+              "afterPages": 768,
+              "beforeMB": 40,
+              "afterMB": 48,
+              "at": 552
+            },
+            {
+              "delta": 154,
+              "beforePages": 768,
+              "afterPages": 922,
+              "beforeMB": 48,
+              "afterMB": 57.6,
+              "at": 560
+            },
+            {
+              "delta": 185,
+              "beforePages": 922,
+              "afterPages": 1107,
+              "beforeMB": 57.6,
+              "afterMB": 69.2,
+              "at": 566
+            }
+          ],
+          "correctness": [
+            {
+              "model": "ocr_det",
+              "tag": "baseline-ocr_det",
+              "correct": false,
+              "worstRelErr": 0.0411859623729846,
+              "outputs": {
+                "fetch_name_0": {
+                  "count": 409600,
+                  "expectedCount": 409600,
+                  "countOk": true,
+                  "ok": false,
+                  "sumAbs": 0.2135320007801056,
+                  "refSumAbs": 0.22270429134368896,
+                  "relErrSumAbs": 0.0411859623729846,
+                  "min": 8.940696716308594e-8,
+                  "refMin": 1.1920928955078125e-7,
+                  "max": 0.0000014901161193847656,
+                  "refMax": 0.000001519918441772461,
+                  "sum": 0.2135320007801056,
+                  "refSum": 0.22270429134368896,
+                  "relErrSum": 0.0411859623729846
+                }
+              }
+            }
+          ],
+          "timings": [
+            {
+              "model": "ocr_det",
+              "tag": "baseline-ocr_det",
+              "phase": "infer",
+              "ms": 236.2
+            },
+            {
+              "model": "ocr_det",
+              "tag": "baseline",
+              "phase": "create",
+              "ms": 474.7
+            },
+            {
+              "model": "ocr_det",
+              "tag": "baseline",
+              "phase": "destroy",
+              "ms": 3.6
+            }
+          ],
+          "error": null,
+          "notes": [],
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1,
+            "crossOriginIsolated": false
+          },
+          "allCorrect": false,
+          "conclusion": "baselines only",
+          "finishedAt": "2026-09-09T15:12:01.104Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "s04a1-four-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "phase": "baselines",
+          "startedAt": "2026-09-09T15:12:01.136Z",
+          "requestedNumThreads": 1,
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "modelOrder": [
+            "ocr_det"
+          ],
+          "baselines": {
+            "ocr_det": {
+              "error": null,
+              "correct": false,
+              "modelBytes": 4819576,
+              "before": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterCreate": {
+                "instances": 1,
+                "bytes": 24248320,
+                "mb": 23.1,
+                "pages": 370,
+                "growCount": 2
+              },
+              "afterInfer": {
+                "instances": 1,
+                "bytes": 72548352,
+                "mb": 69.2,
+                "pages": 1107,
+                "growCount": 8
+              },
+              "afterDestroy": {
+                "instances": 1,
+                "bytes": 72548352,
+                "mb": 69.2,
+                "pages": 1107,
+                "growCount": 8
+              },
+              "growsAdded": 8,
+              "createMs": 196.6,
+              "destroyMs": 2.3,
+              "js": {
+                "before": null,
+                "afterInfer": null
+              }
+            }
+          },
+          "residentSnapshots": [],
+          "lifecycleSnapshots": [],
+          "cycleSnapshots": [],
+          "growthEvents": [
+            {
+              "delta": 52,
+              "beforePages": 256,
+              "afterPages": 308,
+              "beforeMB": 16,
+              "afterMB": 19.3,
+              "at": 148
+            },
+            {
+              "delta": 62,
+              "beforePages": 308,
+              "afterPages": 370,
+              "beforeMB": 19.3,
+              "afterMB": 23.1,
+              "at": 150
+            },
+            {
+              "delta": 74,
+              "beforePages": 370,
+              "afterPages": 444,
+              "beforeMB": 23.1,
+              "afterMB": 27.8,
+              "at": 233
+            },
+            {
+              "delta": 89,
+              "beforePages": 444,
+              "afterPages": 533,
+              "beforeMB": 27.8,
+              "afterMB": 33.3,
+              "at": 235
+            },
+            {
+              "delta": 107,
+              "beforePages": 533,
+              "afterPages": 640,
+              "beforeMB": 33.3,
+              "afterMB": 40,
+              "at": 240
+            },
+            {
+              "delta": 128,
+              "beforePages": 640,
+              "afterPages": 768,
+              "beforeMB": 40,
+              "afterMB": 48,
+              "at": 245
+            },
+            {
+              "delta": 154,
+              "beforePages": 768,
+              "afterPages": 922,
+              "beforeMB": 48,
+              "afterMB": 57.6,
+              "at": 254
+            },
+            {
+              "delta": 185,
+              "beforePages": 922,
+              "afterPages": 1107,
+              "beforeMB": 57.6,
+              "afterMB": 69.2,
+              "at": 259
+            }
+          ],
+          "correctness": [
+            {
+              "model": "ocr_det",
+              "tag": "baseline-ocr_det",
+              "correct": false,
+              "worstRelErr": 0.0411859623729846,
+              "outputs": {
+                "fetch_name_0": {
+                  "count": 409600,
+                  "expectedCount": 409600,
+                  "countOk": true,
+                  "ok": false,
+                  "sumAbs": 0.2135320007801056,
+                  "refSumAbs": 0.22270429134368896,
+                  "relErrSumAbs": 0.0411859623729846,
+                  "min": 8.940696716308594e-8,
+                  "refMin": 1.1920928955078125e-7,
+                  "max": 0.0000014901161193847656,
+                  "refMax": 0.000001519918441772461,
+                  "sum": 0.2135320007801056,
+                  "refSum": 0.22270429134368896,
+                  "relErrSum": 0.0411859623729846
+                }
+              }
+            }
+          ],
+          "timings": [
+            {
+              "model": "ocr_det",
+              "tag": "baseline-ocr_det",
+              "phase": "infer",
+              "ms": 200.4
+            },
+            {
+              "model": "ocr_det",
+              "tag": "baseline",
+              "phase": "create",
+              "ms": 196.6
+            },
+            {
+              "model": "ocr_det",
+              "tag": "baseline",
+              "phase": "destroy",
+              "ms": 2.3
+            }
+          ],
+          "error": null,
+          "notes": [],
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1,
+            "crossOriginIsolated": false
+          },
+          "allCorrect": false,
+          "conclusion": "baselines only",
+          "finishedAt": "2026-09-09T15:12:01.539Z"
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-09T15:12:01.721Z"
+}
