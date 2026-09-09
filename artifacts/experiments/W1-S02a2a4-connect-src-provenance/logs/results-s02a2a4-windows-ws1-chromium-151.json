@@ -1,0 +1,1784 @@
+{
+  "experiment": "W1-S02a-2a-4",
+  "platform": "windows-ws1",
+  "browserLabel": "chromium-151",
+  "chromeExecutable": "C:\\Users\\RONIT\\AppData\\Local\\ms-playwright\\chromium-1234\\chrome-win64\\chrome.exe",
+  "allowedOrigin": "http://127.0.0.1:8907",
+  "foreignOrigin": "http://127.0.0.1:8908",
+  "wasmSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+  "runs": 3,
+  "variants": [
+    "ext-pinned",
+    "ext-unpinned"
+  ],
+  "collectedAt": "2026-09-09T18:29:28.575Z",
+  "records": [
+    {
+      "variant": "ext-pinned",
+      "run": 1,
+      "browser": "chromium-151",
+      "extensionLoaded": true,
+      "extensionOrigin": "null",
+      "results": [
+        {
+          "context": "mv3-service-worker",
+          "globalKind": "ServiceWorkerGlobalScope",
+          "href": "chrome-extension://gekopefkfigjdnhkphggkbkmehlgegon/background.js",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8907",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:28:41.705Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "mv3-service-worker::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "mv3-service-worker::foreign",
+            "networkRetrieval": {
+              "resolved": false,
+              "error": {
+                "name": "TypeError",
+                "message": "Failed to fetch"
+              },
+              "byteLength": null
+            },
+            "wasmCompilation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "instantiation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "digest": null,
+            "digestMatchesPin": null
+          },
+          "b2_foreignStreaming": {
+            "allowed": false,
+            "value": null,
+            "error": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            }
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": null,
+            "bytesIdenticalAcrossOrigins": "foreign bytes never retrieved - cannot compare",
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": false,
+            "foreignRetrievalError": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            },
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:28:41.784Z"
+        },
+        {
+          "context": "offscreen-document",
+          "globalKind": "Window",
+          "href": "chrome-extension://gekopefkfigjdnhkphggkbkmehlgegon/offscreen.html",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8907",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:28:41.850Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "offscreen-document::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "offscreen-document::foreign",
+            "networkRetrieval": {
+              "resolved": false,
+              "error": {
+                "name": "TypeError",
+                "message": "Failed to fetch"
+              },
+              "byteLength": null
+            },
+            "wasmCompilation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "instantiation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "digest": null,
+            "digestMatchesPin": null
+          },
+          "b2_foreignStreaming": {
+            "allowed": false,
+            "value": null,
+            "error": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            }
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": null,
+            "bytesIdenticalAcrossOrigins": "foreign bytes never retrieved - cannot compare",
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": false,
+            "foreignRetrievalError": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            },
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:28:41.864Z"
+        },
+        {
+          "context": "offscreen-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "href": "chrome-extension://gekopefkfigjdnhkphggkbkmehlgegon/worker.js",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8907",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:28:41.896Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "offscreen-dedicated-worker::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "offscreen-dedicated-worker::foreign",
+            "networkRetrieval": {
+              "resolved": false,
+              "error": {
+                "name": "TypeError",
+                "message": "Failed to fetch"
+              },
+              "byteLength": null
+            },
+            "wasmCompilation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "instantiation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "digest": null,
+            "digestMatchesPin": null
+          },
+          "b2_foreignStreaming": {
+            "allowed": false,
+            "value": null,
+            "error": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            }
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": null,
+            "bytesIdenticalAcrossOrigins": "foreign bytes never retrieved - cannot compare",
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": false,
+            "foreignRetrievalError": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            },
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:28:41.904Z"
+        }
+      ],
+      "logs": [
+        {
+          "stage": "alive",
+          "detail": {
+            "id": "gekopefkfigjdnhkphggkbkmehlgegon",
+            "csp": {
+              "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8907"
+            }
+          },
+          "at": "2026-09-09T18:28:41.671Z"
+        }
+      ],
+      "aliveBeacon": true,
+      "contextsReporting": [
+        "mv3-service-worker",
+        "offscreen-dedicated-worker",
+        "offscreen-document"
+      ],
+      "groundTruth": {
+        "allowedOriginArrivals": 8,
+        "allowedWasmArrivals": 3,
+        "foreignOriginArrivals": 0,
+        "foreignWasmArrivals": 0,
+        "foreignArrivalDetail": []
+      },
+      "crossCheck": {
+        "probeSaysForeignBlockedInEveryContext": true,
+        "foreignServerSawRequests": false,
+        "verdict": "CONSISTENT_BLOCKED - refused before the wire"
+      }
+    },
+    {
+      "variant": "ext-unpinned",
+      "run": 1,
+      "browser": "chromium-151",
+      "extensionLoaded": true,
+      "extensionOrigin": "null",
+      "results": [
+        {
+          "context": "mv3-service-worker",
+          "globalKind": "ServiceWorkerGlobalScope",
+          "href": "chrome-extension://ikkefjmndphipfkloioejogjofnjokid/background.js",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:28:48.533Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "mv3-service-worker::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "mv3-service-worker::foreign",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b2_foreignStreaming": {
+            "allowed": true,
+            "value": 5,
+            "error": null
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "bytesIdenticalAcrossOrigins": true,
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": true,
+            "foreignRetrievalError": null,
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:28:48.628Z"
+        },
+        {
+          "context": "offscreen-document",
+          "globalKind": "Window",
+          "href": "chrome-extension://ikkefjmndphipfkloioejogjofnjokid/offscreen.html",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:28:48.739Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "offscreen-document::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "offscreen-document::foreign",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b2_foreignStreaming": {
+            "allowed": true,
+            "value": 5,
+            "error": null
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "bytesIdenticalAcrossOrigins": true,
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": true,
+            "foreignRetrievalError": null,
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:28:48.791Z"
+        },
+        {
+          "context": "offscreen-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "href": "chrome-extension://ikkefjmndphipfkloioejogjofnjokid/worker.js",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:28:48.813Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "offscreen-dedicated-worker::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "offscreen-dedicated-worker::foreign",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b2_foreignStreaming": {
+            "allowed": true,
+            "value": 5,
+            "error": null
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "bytesIdenticalAcrossOrigins": true,
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": true,
+            "foreignRetrievalError": null,
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:28:48.828Z"
+        }
+      ],
+      "logs": [
+        {
+          "stage": "alive",
+          "detail": {
+            "id": "ikkefjmndphipfkloioejogjofnjokid",
+            "csp": {
+              "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+            }
+          },
+          "at": "2026-09-09T18:28:48.510Z"
+        }
+      ],
+      "aliveBeacon": true,
+      "contextsReporting": [
+        "mv3-service-worker",
+        "offscreen-dedicated-worker",
+        "offscreen-document"
+      ],
+      "groundTruth": {
+        "allowedOriginArrivals": 8,
+        "allowedWasmArrivals": 3,
+        "foreignOriginArrivals": 6,
+        "foreignWasmArrivals": 6,
+        "foreignArrivalDetail": [
+          {
+            "at": "2026-09-09T18:28:48.611Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "mv3-service-worker::foreign",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          },
+          {
+            "at": "2026-09-09T18:28:48.621Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "mv3-service-worker::foreign-streaming",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          },
+          {
+            "at": "2026-09-09T18:28:48.746Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "offscreen-document::foreign",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          },
+          {
+            "at": "2026-09-09T18:28:48.787Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "offscreen-document::foreign-streaming",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          },
+          {
+            "at": "2026-09-09T18:28:48.821Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "offscreen-dedicated-worker::foreign",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          },
+          {
+            "at": "2026-09-09T18:28:48.826Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "offscreen-dedicated-worker::foreign-streaming",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          }
+        ]
+      },
+      "crossCheck": {
+        "probeSaysForeignBlockedInEveryContext": false,
+        "foreignServerSawRequests": true,
+        "verdict": "CONSISTENT_ALLOWED - request reached the far end, as reported"
+      }
+    },
+    {
+      "variant": "ext-pinned",
+      "run": 2,
+      "browser": "chromium-151",
+      "extensionLoaded": true,
+      "extensionOrigin": "null",
+      "results": [
+        {
+          "context": "mv3-service-worker",
+          "globalKind": "ServiceWorkerGlobalScope",
+          "href": "chrome-extension://gekopefkfigjdnhkphggkbkmehlgegon/background.js",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8907",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:28:57.300Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "mv3-service-worker::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "mv3-service-worker::foreign",
+            "networkRetrieval": {
+              "resolved": false,
+              "error": {
+                "name": "TypeError",
+                "message": "Failed to fetch"
+              },
+              "byteLength": null
+            },
+            "wasmCompilation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "instantiation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "digest": null,
+            "digestMatchesPin": null
+          },
+          "b2_foreignStreaming": {
+            "allowed": false,
+            "value": null,
+            "error": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            }
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": null,
+            "bytesIdenticalAcrossOrigins": "foreign bytes never retrieved - cannot compare",
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": false,
+            "foreignRetrievalError": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            },
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:28:57.328Z"
+        },
+        {
+          "context": "offscreen-document",
+          "globalKind": "Window",
+          "href": "chrome-extension://gekopefkfigjdnhkphggkbkmehlgegon/offscreen.html",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8907",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:28:57.395Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "offscreen-document::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "offscreen-document::foreign",
+            "networkRetrieval": {
+              "resolved": false,
+              "error": {
+                "name": "TypeError",
+                "message": "Failed to fetch"
+              },
+              "byteLength": null
+            },
+            "wasmCompilation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "instantiation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "digest": null,
+            "digestMatchesPin": null
+          },
+          "b2_foreignStreaming": {
+            "allowed": false,
+            "value": null,
+            "error": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            }
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": null,
+            "bytesIdenticalAcrossOrigins": "foreign bytes never retrieved - cannot compare",
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": false,
+            "foreignRetrievalError": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            },
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:28:57.402Z"
+        },
+        {
+          "context": "offscreen-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "href": "chrome-extension://gekopefkfigjdnhkphggkbkmehlgegon/worker.js",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8907",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:28:57.433Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "offscreen-dedicated-worker::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "offscreen-dedicated-worker::foreign",
+            "networkRetrieval": {
+              "resolved": false,
+              "error": {
+                "name": "TypeError",
+                "message": "Failed to fetch"
+              },
+              "byteLength": null
+            },
+            "wasmCompilation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "instantiation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "digest": null,
+            "digestMatchesPin": null
+          },
+          "b2_foreignStreaming": {
+            "allowed": false,
+            "value": null,
+            "error": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            }
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": null,
+            "bytesIdenticalAcrossOrigins": "foreign bytes never retrieved - cannot compare",
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": false,
+            "foreignRetrievalError": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            },
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:28:57.441Z"
+        }
+      ],
+      "logs": [
+        {
+          "stage": "alive",
+          "detail": {
+            "id": "gekopefkfigjdnhkphggkbkmehlgegon",
+            "csp": {
+              "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8907"
+            }
+          },
+          "at": "2026-09-09T18:28:57.269Z"
+        }
+      ],
+      "aliveBeacon": true,
+      "contextsReporting": [
+        "mv3-service-worker",
+        "offscreen-dedicated-worker",
+        "offscreen-document"
+      ],
+      "groundTruth": {
+        "allowedOriginArrivals": 8,
+        "allowedWasmArrivals": 3,
+        "foreignOriginArrivals": 0,
+        "foreignWasmArrivals": 0,
+        "foreignArrivalDetail": []
+      },
+      "crossCheck": {
+        "probeSaysForeignBlockedInEveryContext": true,
+        "foreignServerSawRequests": false,
+        "verdict": "CONSISTENT_BLOCKED - refused before the wire"
+      }
+    },
+    {
+      "variant": "ext-unpinned",
+      "run": 2,
+      "browser": "chromium-151",
+      "extensionLoaded": true,
+      "extensionOrigin": "null",
+      "results": [
+        {
+          "context": "mv3-service-worker",
+          "globalKind": "ServiceWorkerGlobalScope",
+          "href": "chrome-extension://ikkefjmndphipfkloioejogjofnjokid/background.js",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:29:04.331Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "mv3-service-worker::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "mv3-service-worker::foreign",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b2_foreignStreaming": {
+            "allowed": true,
+            "value": 5,
+            "error": null
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "bytesIdenticalAcrossOrigins": true,
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": true,
+            "foreignRetrievalError": null,
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:29:04.472Z"
+        },
+        {
+          "context": "offscreen-document",
+          "globalKind": "Window",
+          "href": "chrome-extension://ikkefjmndphipfkloioejogjofnjokid/offscreen.html",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:29:04.534Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "offscreen-document::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "offscreen-document::foreign",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b2_foreignStreaming": {
+            "allowed": true,
+            "value": 5,
+            "error": null
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "bytesIdenticalAcrossOrigins": true,
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": true,
+            "foreignRetrievalError": null,
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:29:04.554Z"
+        },
+        {
+          "context": "offscreen-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "href": "chrome-extension://ikkefjmndphipfkloioejogjofnjokid/worker.js",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:29:04.584Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "offscreen-dedicated-worker::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "offscreen-dedicated-worker::foreign",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b2_foreignStreaming": {
+            "allowed": true,
+            "value": 5,
+            "error": null
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "bytesIdenticalAcrossOrigins": true,
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": true,
+            "foreignRetrievalError": null,
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:29:04.600Z"
+        }
+      ],
+      "logs": [
+        {
+          "stage": "alive",
+          "detail": {
+            "id": "ikkefjmndphipfkloioejogjofnjokid",
+            "csp": {
+              "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+            }
+          },
+          "at": "2026-09-09T18:29:04.055Z"
+        }
+      ],
+      "aliveBeacon": true,
+      "contextsReporting": [
+        "mv3-service-worker",
+        "offscreen-dedicated-worker",
+        "offscreen-document"
+      ],
+      "groundTruth": {
+        "allowedOriginArrivals": 8,
+        "allowedWasmArrivals": 3,
+        "foreignOriginArrivals": 6,
+        "foreignWasmArrivals": 6,
+        "foreignArrivalDetail": [
+          {
+            "at": "2026-09-09T18:29:04.350Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "mv3-service-worker::foreign",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          },
+          {
+            "at": "2026-09-09T18:29:04.455Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "mv3-service-worker::foreign-streaming",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          },
+          {
+            "at": "2026-09-09T18:29:04.544Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "offscreen-document::foreign",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          },
+          {
+            "at": "2026-09-09T18:29:04.550Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "offscreen-document::foreign-streaming",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          },
+          {
+            "at": "2026-09-09T18:29:04.592Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "offscreen-dedicated-worker::foreign",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          },
+          {
+            "at": "2026-09-09T18:29:04.596Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "offscreen-dedicated-worker::foreign-streaming",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          }
+        ]
+      },
+      "crossCheck": {
+        "probeSaysForeignBlockedInEveryContext": false,
+        "foreignServerSawRequests": true,
+        "verdict": "CONSISTENT_ALLOWED - request reached the far end, as reported"
+      }
+    },
+    {
+      "variant": "ext-pinned",
+      "run": 3,
+      "browser": "chromium-151",
+      "extensionLoaded": true,
+      "extensionOrigin": "null",
+      "results": [
+        {
+          "context": "mv3-service-worker",
+          "globalKind": "ServiceWorkerGlobalScope",
+          "href": "chrome-extension://gekopefkfigjdnhkphggkbkmehlgegon/background.js",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8907",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:29:13.970Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "mv3-service-worker::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "mv3-service-worker::foreign",
+            "networkRetrieval": {
+              "resolved": false,
+              "error": {
+                "name": "TypeError",
+                "message": "Failed to fetch"
+              },
+              "byteLength": null
+            },
+            "wasmCompilation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "instantiation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "digest": null,
+            "digestMatchesPin": null
+          },
+          "b2_foreignStreaming": {
+            "allowed": false,
+            "value": null,
+            "error": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            }
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": null,
+            "bytesIdenticalAcrossOrigins": "foreign bytes never retrieved - cannot compare",
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": false,
+            "foreignRetrievalError": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            },
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:29:13.991Z"
+        },
+        {
+          "context": "offscreen-document",
+          "globalKind": "Window",
+          "href": "chrome-extension://gekopefkfigjdnhkphggkbkmehlgegon/offscreen.html",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8907",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:29:14.061Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "offscreen-document::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "offscreen-document::foreign",
+            "networkRetrieval": {
+              "resolved": false,
+              "error": {
+                "name": "TypeError",
+                "message": "Failed to fetch"
+              },
+              "byteLength": null
+            },
+            "wasmCompilation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "instantiation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "digest": null,
+            "digestMatchesPin": null
+          },
+          "b2_foreignStreaming": {
+            "allowed": false,
+            "value": null,
+            "error": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            }
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": null,
+            "bytesIdenticalAcrossOrigins": "foreign bytes never retrieved - cannot compare",
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": false,
+            "foreignRetrievalError": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            },
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:29:14.073Z"
+        },
+        {
+          "context": "offscreen-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "href": "chrome-extension://gekopefkfigjdnhkphggkbkmehlgegon/worker.js",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8907",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:29:14.104Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "offscreen-dedicated-worker::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "offscreen-dedicated-worker::foreign",
+            "networkRetrieval": {
+              "resolved": false,
+              "error": {
+                "name": "TypeError",
+                "message": "Failed to fetch"
+              },
+              "byteLength": null
+            },
+            "wasmCompilation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "instantiation": {
+              "attempted": false,
+              "allowed": null,
+              "error": null,
+              "note": "not attempted - retrieval did not resolve"
+            },
+            "digest": null,
+            "digestMatchesPin": null
+          },
+          "b2_foreignStreaming": {
+            "allowed": false,
+            "value": null,
+            "error": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            }
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": null,
+            "bytesIdenticalAcrossOrigins": "foreign bytes never retrieved - cannot compare",
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": false,
+            "foreignRetrievalError": {
+              "name": "TypeError",
+              "message": "Failed to fetch"
+            },
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:29:14.113Z"
+        }
+      ],
+      "logs": [
+        {
+          "stage": "alive",
+          "detail": {
+            "id": "gekopefkfigjdnhkphggkbkmehlgegon",
+            "csp": {
+              "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8907"
+            }
+          },
+          "at": "2026-09-09T18:29:13.944Z"
+        }
+      ],
+      "aliveBeacon": true,
+      "contextsReporting": [
+        "mv3-service-worker",
+        "offscreen-dedicated-worker",
+        "offscreen-document"
+      ],
+      "groundTruth": {
+        "allowedOriginArrivals": 8,
+        "allowedWasmArrivals": 3,
+        "foreignOriginArrivals": 0,
+        "foreignWasmArrivals": 0,
+        "foreignArrivalDetail": []
+      },
+      "crossCheck": {
+        "probeSaysForeignBlockedInEveryContext": true,
+        "foreignServerSawRequests": false,
+        "verdict": "CONSISTENT_BLOCKED - refused before the wire"
+      }
+    },
+    {
+      "variant": "ext-unpinned",
+      "run": 3,
+      "browser": "chromium-151",
+      "extensionLoaded": true,
+      "extensionOrigin": "null",
+      "results": [
+        {
+          "context": "mv3-service-worker",
+          "globalKind": "ServiceWorkerGlobalScope",
+          "href": "chrome-extension://ikkefjmndphipfkloioejogjofnjokid/background.js",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:29:22.337Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "mv3-service-worker::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "mv3-service-worker::foreign",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b2_foreignStreaming": {
+            "allowed": true,
+            "value": 5,
+            "error": null
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "bytesIdenticalAcrossOrigins": true,
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": true,
+            "foreignRetrievalError": null,
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:29:22.403Z"
+        },
+        {
+          "context": "offscreen-document",
+          "globalKind": "Window",
+          "href": "chrome-extension://ikkefjmndphipfkloioejogjofnjokid/offscreen.html",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:29:22.482Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "offscreen-document::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "offscreen-document::foreign",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b2_foreignStreaming": {
+            "allowed": true,
+            "value": 5,
+            "error": null
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "bytesIdenticalAcrossOrigins": true,
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": true,
+            "foreignRetrievalError": null,
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:29:22.500Z"
+        },
+        {
+          "context": "offscreen-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "href": "chrome-extension://ikkefjmndphipfkloioejogjofnjokid/worker.js",
+          "manifestCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+          "allowedOrigin": "http://127.0.0.1:8907",
+          "foreignOrigin": "http://127.0.0.1:8908",
+          "startedAt": "2026-09-09T18:29:22.530Z",
+          "a_allowedOrigin": {
+            "label": "allowed",
+            "url": "http://127.0.0.1:8907/allowed.wasm",
+            "tag": "offscreen-dedicated-worker::allowed",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b_foreignOrigin": {
+            "label": "foreign",
+            "url": "http://127.0.0.1:8908/foreign.wasm",
+            "tag": "offscreen-dedicated-worker::foreign",
+            "networkRetrieval": {
+              "resolved": true,
+              "error": null,
+              "byteLength": 41
+            },
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "digestMatchesPin": true,
+            "wasmCompilation": {
+              "attempted": true,
+              "allowed": true,
+              "error": null
+            },
+            "instantiation": {
+              "attempted": true,
+              "allowed": true,
+              "computedValue": 5,
+              "error": null
+            }
+          },
+          "b2_foreignStreaming": {
+            "allowed": true,
+            "value": 5,
+            "error": null
+          },
+          "c_pinInteraction": {
+            "allowedDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "foreignDigest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "bytesIdenticalAcrossOrigins": true,
+            "interpretation": "A matching digest proves content integrity, NOT origin. Whether the foreign bytes were reachable at all is decided by connect-src, not by the hash."
+          },
+          "d_blockShape": {
+            "foreignRetrievalResolved": true,
+            "foreignRetrievalError": null,
+            "note": "Authoritative signal is the foreign server's ARRIVAL LOG, not this field."
+          },
+          "finishedAt": "2026-09-09T18:29:22.546Z"
+        }
+      ],
+      "logs": [
+        {
+          "stage": "alive",
+          "detail": {
+            "id": "ikkefjmndphipfkloioejogjofnjokid",
+            "csp": {
+              "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+            }
+          },
+          "at": "2026-09-09T18:29:22.327Z"
+        }
+      ],
+      "aliveBeacon": true,
+      "contextsReporting": [
+        "mv3-service-worker",
+        "offscreen-dedicated-worker",
+        "offscreen-document"
+      ],
+      "groundTruth": {
+        "allowedOriginArrivals": 8,
+        "allowedWasmArrivals": 3,
+        "foreignOriginArrivals": 6,
+        "foreignWasmArrivals": 6,
+        "foreignArrivalDetail": [
+          {
+            "at": "2026-09-09T18:29:22.382Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "mv3-service-worker::foreign",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          },
+          {
+            "at": "2026-09-09T18:29:22.392Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "mv3-service-worker::foreign-streaming",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          },
+          {
+            "at": "2026-09-09T18:29:22.492Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "offscreen-document::foreign",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          },
+          {
+            "at": "2026-09-09T18:29:22.497Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "offscreen-document::foreign-streaming",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          },
+          {
+            "at": "2026-09-09T18:29:22.539Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "offscreen-dedicated-worker::foreign",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          },
+          {
+            "at": "2026-09-09T18:29:22.542Z",
+            "method": "GET",
+            "url": "/foreign.wasm",
+            "probeTag": "offscreen-dedicated-worker::foreign-streaming",
+            "origin": null,
+            "sec_fetch_mode": "cors"
+          }
+        ]
+      },
+      "crossCheck": {
+        "probeSaysForeignBlockedInEveryContext": false,
+        "foreignServerSawRequests": true,
+        "verdict": "CONSISTENT_ALLOWED - request reached the far end, as reported"
+      }
+    }
+  ]
+}

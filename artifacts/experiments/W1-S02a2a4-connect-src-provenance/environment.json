@@ -1,0 +1,63 @@
+{
+  "experiment": "W1-S02a-2a-4",
+  "title": "Does a pinned connect-src stop execution-capable WASM from a foreign origin, and at which layer?",
+  "recorded_at": "2026-09-10T00:15:07+0530",
+  "workstation": {
+    "label": "workstation 1",
+    "hostname": "LAPTOP-6E14K34L",
+    "model": "OMEN Gaming Laptop 16-am0xxx",
+    "os": "Windows 11 build 10.0.26200",
+    "cpu": "Intel(R) Core(TM) 7 240H"
+  },
+  "browsers": {
+    "chromium-151": {
+      "kind": "unbranded Chromium (Playwright cache build 1234)",
+      "version": "151.0.7922.34"
+    },
+    "edge-152": {
+      "kind": "branded Microsoft Edge via Playwright channel msedge",
+      "version": "152.0.4191.66"
+    }
+  },
+  "not_used": {
+    "branded Google Chrome": {
+      "version": "152.0.7977.83",
+      "reason": "Chrome 152 stable refuses --load-extension (W1-S01 finding C1)."
+    }
+  },
+  "toolchain": {
+    "node": "v24.19.0",
+    "playwright": "1.63.0",
+    "python": "3.13.14"
+  },
+  "mode": "headful (the headless shell cannot load extensions)",
+  "origins": {
+    "allowed": "http://127.0.0.1:8907",
+    "foreign": "http://127.0.0.1:8908",
+    "note": "Different ports are different origins. BOTH are in host_permissions in EVERY variant, so any difference is attributable to connect-src and not to host permissions."
+  },
+  "manifest_csp": {
+    "ext-pinned": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8907",
+    "ext-unpinned": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "requested_resource": {
+    "allowed": "/allowed.wasm",
+    "foreign": "/foreign.wasm",
+    "bytes": 41,
+    "sha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+    "note": "BYTE-IDENTICAL from both origins; origin is the only variable."
+  },
+  "contexts": [
+    "mv3-service-worker",
+    "offscreen-document",
+    "offscreen-dedicated-worker"
+  ],
+  "runs_per_browser": 3,
+  "ground_truth": "Each origin keeps its own arrival log. The FOREIGN server's log is authoritative: a probe reporting 'blocked' while the server logged an arrival is a false green, and is asserted against. ext-unpinned is the positive control proving the foreign log can record arrivals at all.",
+  "machine_changes": [],
+  "known_limitations": [
+    "One machine, one OS, Chromium-family only.",
+    "Loopback origins differ by PORT. A cross-host or https origin was not tested.",
+    "Neither browser is the CI binary."
+  ]
+}
