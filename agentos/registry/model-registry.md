@@ -51,7 +51,7 @@ status.** A model can be licence-verified and runtime-validated and still have n
 | Faces | YuNet @ `47534e27` | **YES — Apache-2.0** (2026-09-08) | **YES** — ORT Web 1.29.0, wasm + webgpu | **YES** — Chrome (Win + WSL2), Firefox Win | **NO** |
 | OCR detection | PP-OCRv5_mobile_det @ `0d63e78e` | **YES — Apache-2.0** (2026-09-09) | **PARTIAL** — runs; **fails the S-04a-1 correctness criterion on wasm** (4.12e-02 vs 2e-02) | **PARTIAL** — passes on webgpu, fails on wasm | **NO** |
 | OCR recognition | PP-OCRv5_mobile_rec @ `682f2053` | **YES — Apache-2.0** (2026-09-09) | **YES** — best agreement of the four (5.51e-06) | **YES** — Chrome, Firefox | **NO** |
-| Local VLM (vision tower only) | SmolVLM-256M-Instruct `vision_encoder_int8` @ `7e3e67ed` | **YES — Apache-2.0** (2026-09-09) | **PARTIAL** — correct on wasm (1.96e-02); **INCORRECT on WebGPU (2.18)** | **PARTIAL** — wasm only | **NO** |
+| Local VLM (vision tower only) | SmolVLM-256M-Instruct `vision_encoder_int8` @ `7e3e67ed` | **YES — Apache-2.0** (2026-09-09) | **wasm YES** (1.96e-02) · **WebGPU REJECT** — root-caused, see below | **PARTIAL** — wasm only | **NO** |
 
 Hashes, sizes and the acquisition script:
 [`W1-S04a-1`](../../artifacts/experiments/W1-S04a1-four-model-residency/README.md). **No
@@ -61,6 +61,45 @@ weights are committed.**
 via `https://huggingface.co/<repo>/raw/<revision>/README.md`. None of the three HF repositories
 carries a separate `LICENSE` file; the declaration in-repo at the revision is the strongest
 available evidence and is recorded as such rather than as a stronger claim.
+
+### Backend correctness is per model, per backend — S-04a-1b, recorded 2026-09-09
+
+**A REJECT here is a `model x backend` cell and nothing wider.** In S-04a-1 the same WebGPU
+backend ran three of the four models correctly, and `PP-OCRv5_mobile_det` actually passed on
+WebGPU while failing on WASM. Neither backend is globally good or globally broken.
+
+| Model | CPU (native) | WASM | WebGPU |
+|---|---|---|---|
+| YuNet | ACCEPT | ACCEPT | ACCEPT |
+| PP-OCRv5_mobile_det | ACCEPT | **fails S-04a-1 criterion** (4.12e-02) | ACCEPT (4.96e-03) |
+| PP-OCRv5_mobile_rec | ACCEPT | ACCEPT (5.51e-06) | ACCEPT |
+| **SmolVLM-256M `vision_encoder_int8`** | ACCEPT | **ACCEPT** (1.96e-02) | **REJECT** |
+
+#### Why SmolVLM is REJECT on WebGPU
+
+Evidence: [`W1-S04a-1b`](../../artifacts/experiments/W1-S04a1b-webgpu-int8-root-cause/README.md)
+
+**It is not an int8 problem.** Every int8 operator the model uses — `MatMulInteger`,
+`DynamicQuantizeLinear`, `ConvInteger` — is **exact on WebGPU** in isolation, because ORT Web's
+WebGPU EP **partitions them back to CPU**. That was proven, not assumed: at 256×512×256 an fp32
+`MatMul` rounds *differently* on WebGPU while the same-sized int8 graph is bit-identical.
+
+Layer-wise bisection found **two independent WebGPU defects**:
+
+1. **`DequantizeLinear` returns wrong values.** Minimal reproducer is a **single node**; fails
+   at every rank, size, dtype and parameter form (scalar, rank-1, omitted zero-point,
+   per-channel), at both `graphOptimizationLevel` settings, on ORT Web **1.27.0, 1.29.0 and
+   1.30.0-dev**. A `Cast → Sub → Mul` rewrite is bit-exact on both backends and fixes this
+   defect — validated, **not adopted**, because:
+2. **A second defect at `self_attn/out_proj`** in every encoder layer. **Root cause `UNKNOWN`** —
+   the quantised-Linear pattern is exact on WebGPU at the model's own shapes, so it is not the
+   matmul.
+
+**Product decision: use WASM for this model.** Not "avoid WebGPU" — three of four models are
+fine on it.
+
+**`onnxruntime` pin unchanged at 1.29.0.** Other versions were tested in a scratch directory
+and the pin was restored and verified.
 
 ### UI element detection — BLOCKED on licence
 

@@ -1,0 +1,8 @@
+{
+ "source": "vision_encoder_int8_instrumented.onnx",
+ "output": "vision_encoder_int8_instr_fixed.onnx",
+ "nodes_rewritten": 1,
+ "remaining_dequantizelinear": 0,
+ "transform": "DequantizeLinear(x,scale,zp) -> Mul(Sub(Cast(x,float32), float(zp)), scale)",
+ "scope": "per-tensor only; per-channel nodes are refused, not guessed"
+}

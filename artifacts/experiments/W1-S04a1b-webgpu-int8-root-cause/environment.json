@@ -1,0 +1,81 @@
+{
+  "experiment": "W1-S04a1b-webgpu-int8-root-cause",
+  "date": "2026-09-09",
+  "model": {
+    "name": "SmolVLM-256M-Instruct vision_encoder_int8",
+    "repo": "HuggingFaceTB/SmolVLM-256M-Instruct",
+    "revision": "7e3e67edbbed1bf9888184d9df282b700a323964",
+    "licence": "Apache-2.0",
+    "bytes": 94247927,
+    "sha256": "d534ab668d3563e6d1d809bbbf1ff18308ded48651178614dbcc4a1de13d16f7",
+    "hash_reverified_against_s04a1_pin": true,
+    "committed_to_git": false
+  },
+  "runtimes_tested": [
+    {
+      "ort_web": "1.29.0",
+      "role": "project pin",
+      "dequantizelinear_webgpu": "FAIL"
+    },
+    {
+      "ort_web": "1.27.0",
+      "role": "version variation",
+      "dequantizelinear_webgpu": "FAIL"
+    },
+    {
+      "ort_web": "1.30.0-dev.20260904-d47fd8824",
+      "reported_internal_version": "1.30.0-dev.20260813-72e1c9c9b8",
+      "role": "version variation",
+      "dequantizelinear_webgpu": "FAIL"
+    }
+  ],
+  "pin_restored_after_testing": "1.29.0 (verified)",
+  "reference_runtime": "onnxruntime 1.29.0 CPUExecutionProvider",
+  "hosts": [
+    {
+      "label": "windows",
+      "os": "Windows 11 Home Single Language 10.0.26200",
+      "browser": "Chrome for Testing 153.0.8010.12",
+      "modes": [
+        "headful",
+        "headless"
+      ]
+    },
+    {
+      "label": "linux-wsl2",
+      "os": "WSL2 Ubuntu 26.04",
+      "browser": "Chrome for Testing 153.0.8010.12",
+      "webgpu": "NOT TESTABLE - Failed to get GPU adapter (no /dev/dri, 0 Vulkan ICDs; see S-02a)"
+    }
+  ],
+  "context": "chrome MV3 offscreen document",
+  "input": {
+    "pixel_values": [
+      1,
+      1,
+      3,
+      512,
+      512
+    ],
+    "pixel_attention_mask": [
+      1,
+      1,
+      512,
+      512
+    ],
+    "mask_dtype": "bool",
+    "formula": "x[i] = ((i*37) % 255) / 255"
+  },
+  "network": {
+    "endpoints": [
+      "http://127.0.0.1:8909"
+    ],
+    "egress": "none"
+  },
+  "data": {
+    "pii": "none",
+    "secrets": "none",
+    "profiles": "temporary, deleted"
+  },
+  "csp": "unchanged; 'wasm-unsafe-eval' appears only in the throwaway harness manifest"
+}

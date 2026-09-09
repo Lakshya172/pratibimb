@@ -1,0 +1,4798 @@
+{
+  "experiment": "W1-S04a1b-webgpu-int8-root-cause",
+  "browser": "chrome",
+  "startedAt": "2026-09-09T15:59:29.908Z",
+  "platform": "windows-layerwise",
+  "chrome": "C:/Users/OMEN/cft/chrome.exe",
+  "runs": [
+    {
+      "headless": false,
+      "run": 1,
+      "platform": "windows-layerwise",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "wasm",
+          "startedAt": "2026-09-09T15:59:30.499Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 276.6
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.8
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 6.6
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.3
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.6
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 9671,
+                  "exactMatchPct": 14.8,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 4.937123266637735e-7,
+                  "worstIdx": 63868,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202640295028687,
+                    -1.6376341581344604,
+                    2.093518018722534,
+                    -2.2167797088623047,
+                    2.1480748653411865,
+                    -1.2590160369873047,
+                    1.9877556562423706,
+                    -0.949522078037262
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.5
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.6
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.29.0",
+          "conclusion": "all 7 micro graphs correct",
+          "finishedAt": "2026-09-09T15:59:30.844Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-layerwise",
+          "backend": "wasm",
+          "startedAt": "2026-09-09T15:59:30.844Z",
+          "checkpoints": {
+            "image_features": {
+              "label": "final",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                64,
+                576
+              ],
+              "shapeRef": [
+                1,
+                64,
+                576
+              ],
+              "countOk": true,
+              "count": 36864,
+              "expectedCount": 36864,
+              "min": -51.10541915893555,
+              "refMin": -46.66571044921875,
+              "max": 92.9793930053711,
+              "refMax": 91.19464111328125,
+              "mean": 0.028506664525577225,
+              "refMean": 0.024826565025782718,
+              "sum": 1050.8696810708789,
+              "refSum": 915.2064931104542,
+              "sumAbs": 131419.44903258947,
+              "refSumAbs": 128896.66748152644,
+              "relErrSumAbs": 0.019572123937374862,
+              "relErrMinOverScale": 0.04868387720504132,
+              "relErrMaxOverScale": 0.019570797914241905,
+              "worstSampleAbs": 0.42293739318847656,
+              "worstSampleRelOverScale": 0.004637743929087973,
+              "samples": [
+                7.257699012756348,
+                -1.671398639678955,
+                -3.1866941452026367,
+                2.8796913623809814,
+                0.19197943806648254,
+                -4.726911544799805
+              ],
+              "refSamples": [
+                7.22178316116333,
+                -1.6385443210601807,
+                -2.76375675201416,
+                3.1044225692749023,
+                0.2366267740726471,
+                -4.786064624786377
+              ]
+            },
+            "/vision_model/embeddings/Add_3_output_0": {
+              "label": "embeddings",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -10.433222770690918,
+              "refMin": -10.433222770690918,
+              "max": 11.857562065124512,
+              "refMax": 11.857562065124512,
+              "mean": -0.031733051776108155,
+              "refMean": -0.031733051776108155,
+              "sum": -24955.887374388287,
+              "refSum": -24955.887374388287,
+              "sumAbs": 75493.65780957643,
+              "refSumAbs": 75493.65780957643,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                0.2365395724773407
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                0.2365395724773407
+              ]
+            },
+            "/vision_model/encoder/layers.0/Add_1_output_0": {
+              "label": "layer_00",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -4.187150001525879,
+              "refMin": -4.187150001525879,
+              "max": 10.768128395080566,
+              "refMax": 10.76812744140625,
+              "mean": -0.03957780451135351,
+              "refMean": -0.03957780459154744,
+              "sum": -31125.251957472763,
+              "refSum": -31125.252020539832,
+              "sumAbs": 166801.8121275931,
+              "refSumAbs": 166801.81258235674,
+              "relErrSumAbs": 2.726371146638379e-9,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 8.856454584100893e-8,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                0.18209892511367798,
+                -0.06594130396842957,
+                -0.22503164410591125,
+                0.21231377124786377,
+                -0.006097443401813507,
+                0.1681302934885025
+              ],
+              "refSamples": [
+                0.18209892511367798,
+                -0.06594130396842957,
+                -0.22503164410591125,
+                0.21231377124786377,
+                -0.006097443401813507,
+                0.1681302934885025
+              ]
+            },
+            "/vision_model/encoder/layers.1/Add_1_output_0": {
+              "label": "layer_01",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -2.8376035690307617,
+              "refMin": -2.8376035690307617,
+              "max": 8.132027626037598,
+              "refMax": 8.132026672363281,
+              "mean": -0.032105935973828416,
+              "refMean": -0.032105957419779806,
+              "sum": -25249.13543976983,
+              "refSum": -25249.15230555227,
+              "sumAbs": 139191.46310166456,
+              "refSumAbs": 139191.65431644768,
+              "relErrSumAbs": 0.000001373751781715695,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 1.1727387954190008e-7,
+              "worstSampleAbs": 1.4901161193847656e-8,
+              "worstSampleRelOverScale": 1.8324043678421888e-9,
+              "samples": [
+                0.10296289622783661,
+                0.03195531666278839,
+                -0.0821792483329773,
+                0.20484128594398499,
+                0.37185245752334595,
+                0.054601967334747314
+              ],
+              "refSamples": [
+                0.10296288132667542,
+                0.031955331563949585,
+                -0.0821792334318161,
+                0.20484128594398499,
+                0.37185245752334595,
+                0.054601967334747314
+              ]
+            },
+            "/vision_model/encoder/layers.2/Add_1_output_0": {
+              "label": "layer_02",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -3.9407334327697754,
+              "refMin": -3.9407052993774414,
+              "max": 7.626970291137695,
+              "refMax": 7.62718391418457,
+              "mean": -0.028670794422842743,
+              "refMean": -0.028670975301129904,
+              "sum": -22547.630199545063,
+              "refSum": -22547.772448018193,
+              "sumAbs": 137816.1461578803,
+              "refSumAbs": 137810.06795155397,
+              "relErrSumAbs": 0.000044105676868859754,
+              "relErrMinOverScale": 0.000003688568762799021,
+              "relErrMaxOverScale": 0.000028008115351423075,
+              "worstSampleAbs": 0.005350485444068909,
+              "worstSampleRelOverScale": 0.0007015020883551009,
+              "samples": [
+                0.20987284183502197,
+                0.17908990383148193,
+                -0.02409517765045166,
+                0.27216631174087524,
+                0.20882898569107056,
+                0.1708327680826187
+              ],
+              "refSamples": [
+                0.2074575424194336,
+                0.18444038927555084,
+                -0.02901589125394821,
+                0.2707948684692383,
+                0.20444078743457794,
+                0.1709951013326645
+              ]
+            },
+            "/vision_model/encoder/layers.3/Add_1_output_0": {
+              "label": "layer_03",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -4.639920711517334,
+              "refMin": -4.634237289428711,
+              "max": 6.989525318145752,
+              "refMax": 6.985799789428711,
+              "mean": -0.028183922605350853,
+              "refMean": -0.028175133828545047,
+              "sum": -22164.738622371282,
+              "refSum": -22157.82684705034,
+              "sumAbs": 128772.55384598445,
+              "refSumAbs": 128749.396333938,
+              "relErrSumAbs": 0.0001798650145620192,
+              "relErrMinOverScale": 0.0008135678461932888,
+              "relErrMaxOverScale": 0.0005333002418246636,
+              "worstSampleAbs": 0.02473769709467888,
+              "worstSampleRelOverScale": 0.0035411402903520505,
+              "samples": [
+                -0.010289579629898071,
+                0.23092299699783325,
+                -0.008202053606510162,
+                0.02257058024406433,
+                0.03886459395289421,
+                0.001752469688653946
+              ],
+              "refSamples": [
+                -0.01971888542175293,
+                0.22750616073608398,
+                -0.0063768960535526276,
+                0.014269888401031494,
+                0.038259848952293396,
+                -0.022985227406024933
+              ]
+            },
+            "/vision_model/encoder/layers.4/Add_1_output_0": {
+              "label": "layer_04",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -11.673250198364258,
+              "refMin": -12.009203910827637,
+              "max": 9.579617500305176,
+              "refMax": 9.882884979248047,
+              "mean": -0.026444934892944822,
+              "refMean": -0.02642531061593978,
+              "sum": -20797.143037728383,
+              "refSum": -20781.709878314752,
+              "sumAbs": 124904.58530641801,
+              "refSumAbs": 124914.14400578756,
+              "relErrSumAbs": 0.0000765221540412916,
+              "relErrMinOverScale": 0.027974686328748166,
+              "relErrMaxOverScale": 0.02525292110907049,
+              "worstSampleAbs": 0.03062078356742859,
+              "worstSampleRelOverScale": 0.0025497763044743157,
+              "samples": [
+                -0.09644468128681183,
+                0.07172743231058121,
+                -0.17242054641246796,
+                -0.0018032640218734741,
+                0.11055532097816467,
+                -0.11131209135055542
+              ],
+              "refSamples": [
+                -0.10183675587177277,
+                0.0885659009218216,
+                -0.18722060322761536,
+                -0.004927381873130798,
+                0.10374324023723602,
+                -0.141932874917984
+              ]
+            },
+            "/vision_model/encoder/layers.5/Add_1_output_0": {
+              "label": "layer_05",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -100.86772918701172,
+              "refMin": -100.69922637939453,
+              "max": 49.529022216796875,
+              "refMax": 49.74259948730469,
+              "mean": -0.02686306242897259,
+              "refMean": -0.02691845494519048,
+              "sum": -21125.971912141773,
+              "refSum": -21169.53435945604,
+              "sumAbs": 116839.86816478695,
+              "refSumAbs": 117013.10357342102,
+              "relErrSumAbs": 0.001480478710022126,
+              "relErrMinOverScale": 0.0016733277272889477,
+              "relErrMaxOverScale": 0.0021209425155178305,
+              "worstSampleAbs": 0.07751008123159409,
+              "worstSampleRelOverScale": 0.0007697187358676124,
+              "samples": [
+                0.009251829236745834,
+                -0.07929598540067673,
+                0.1486031711101532,
+                0.11554092913866043,
+                -0.07055804133415222,
+                -0.13721072673797607
+              ],
+              "refSamples": [
+                0.07303179800510406,
+                -0.05847325921058655,
+                0.1263861358165741,
+                0.038030847907066345,
+                -0.04031520336866379,
+                -0.1654047667980194
+              ]
+            },
+            "/vision_model/encoder/layers.6/Add_1_output_0": {
+              "label": "layer_06",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -119.79847717285156,
+              "refMin": -119.72552490234375,
+              "max": 54.50266647338867,
+              "refMax": 54.71815872192383,
+              "mean": -0.027811635782780453,
+              "refMean": -0.027869385228476744,
+              "sum": -21871.960351923597,
+              "refSum": -21917.376364001422,
+              "sumAbs": 133085.92705465702,
+              "refSumAbs": 133187.66017687402,
+              "relErrSumAbs": 0.000763832941294269,
+              "relErrMinOverScale": 0.000609329301895459,
+              "relErrMaxOverScale": 0.001799885602597494,
+              "worstSampleAbs": 0.09087593108415604,
+              "worstSampleRelOverScale": 0.0007590355620347508,
+              "samples": [
+                -0.030683182179927826,
+                -0.18520717322826385,
+                0.11164969205856323,
+                -0.010104194283485413,
+                -0.10073154419660568,
+                0.24180181324481964
+              ],
+              "refSamples": [
+                0.06019274890422821,
+                -0.15540969371795654,
+                0.1314775049686432,
+                -0.045062024146318436,
+                -0.043693140149116516,
+                0.19977271556854248
+              ]
+            },
+            "/vision_model/encoder/layers.7/Add_1_output_0": {
+              "label": "layer_07",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -128.27671813964844,
+              "refMin": -128.2147216796875,
+              "max": 55.935203552246094,
+              "refMax": 56.135459899902344,
+              "mean": -0.029254778093904015,
+              "refMean": -0.029308639357871275,
+              "sum": -23006.89364594512,
+              "refSum": -23049.251867489424,
+              "sumAbs": 147843.03792362136,
+              "refSumAbs": 148238.74292340223,
+              "relErrSumAbs": 0.0026693763855332527,
+              "relErrMinOverScale": 0.00048353620511551074,
+              "relErrMaxOverScale": 0.001561882637444244,
+              "worstSampleAbs": 0.1002679169178009,
+              "worstSampleRelOverScale": 0.000782031233264268,
+              "samples": [
+                -0.23240888118743896,
+                0.047074317932128906,
+                0.13405197858810425,
+                0.09182627499103546,
+                -0.15325714647769928,
+                0.3423520624637604
+              ],
+              "refSamples": [
+                -0.13214096426963806,
+                0.09652625024318695,
+                0.18322136998176575,
+                0.06434740126132965,
+                -0.08008888363838196,
+                0.3966987729072571
+              ]
+            },
+            "/vision_model/encoder/layers.8/Add_1_output_0": {
+              "label": "layer_08",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -133.71316528320312,
+              "refMin": -133.6926727294922,
+              "max": 55.59727478027344,
+              "refMax": 55.79255676269531,
+              "mean": -0.029305406498360664,
+              "refMean": -0.029393682627465445,
+              "sum": -23046.709443318774,
+              "refSum": -23116.132616082905,
+              "sumAbs": 188335.69393626752,
+              "refSumAbs": 188443.7511301015,
+              "relErrSumAbs": 0.0005734188222531333,
+              "relErrMinOverScale": 0.00015328105342318364,
+              "relErrMaxOverScale": 0.001460678273797397,
+              "worstSampleAbs": 0.138117253780365,
+              "worstSampleRelOverScale": 0.0010330951649072445,
+              "samples": [
+                0.1092558354139328,
+                0.24491439759731293,
+                0.17134812474250793,
+                0.5533161163330078,
+                -0.48863649368286133,
+                0.3027009963989258
+              ],
+              "refSamples": [
+                0.22431935369968414,
+                0.27984222769737244,
+                0.2214139997959137,
+                0.4151988625526428,
+                -0.43419864773750305,
+                0.32640159130096436
+              ]
+            },
+            "/vision_model/encoder/layers.9/Add_1_output_0": {
+              "label": "layer_09",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -136.0458526611328,
+              "refMin": -136.05841064453125,
+              "max": 55.68980407714844,
+              "refMax": 55.86793518066406,
+              "mean": -0.031222196276522673,
+              "refMean": -0.03130448113151907,
+              "sum": -24554.13426213828,
+              "refSum": -24618.845705222804,
+              "sumAbs": 252780.85090115038,
+              "refSumAbs": 253010.20669983095,
+              "relErrSumAbs": 0.0009065080878443524,
+              "relErrMinOverScale": 0.00009229847195001213,
+              "relErrMaxOverScale": 0.0013092252266639632,
+              "worstSampleAbs": 0.16212284564971924,
+              "worstSampleRelOverScale": 0.0011915679808526091,
+              "samples": [
+                0.19503062963485718,
+                -0.0649452805519104,
+                0.11536185443401337,
+                0.5662843585014343,
+                -0.413043737411499,
+                0.6388680338859558
+              ],
+              "refSamples": [
+                0.3571534752845764,
+                -0.07435190677642822,
+                0.1358584612607956,
+                0.4486657977104187,
+                -0.4382109045982361,
+                0.5461401343345642
+              ]
+            },
+            "/vision_model/encoder/layers.10/Add_1_output_0": {
+              "label": "layer_10",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -140.29754638671875,
+              "refMin": -140.2944793701172,
+              "max": 55.671993255615234,
+              "refMax": 55.84575653076172,
+              "mean": -0.033176833987870115,
+              "refMean": -0.033216950474283934,
+              "sum": -26091.323906748672,
+              "refSum": -26122.87279539206,
+              "sumAbs": 322411.16932941705,
+              "refSumAbs": 322520.9736493409,
+              "relErrSumAbs": 0.0003404563699576454,
+              "relErrMinOverScale": 0.000021861277901543547,
+              "relErrMaxOverScale": 0.001238561031956729,
+              "worstSampleAbs": 0.14265450090169907,
+              "worstSampleRelOverScale": 0.001016821913037332,
+              "samples": [
+                -0.06362702697515488,
+                -0.5016831159591675,
+                -0.2460988461971283,
+                -0.09791922569274902,
+                -0.6088836193084717,
+                0.9650368690490723
+              ],
+              "refSamples": [
+                0.07902747392654419,
+                -0.5934563875198364,
+                -0.22903741896152496,
+                -0.10413509607315063,
+                -0.5931698083877563,
+                0.9109429121017456
+              ]
+            },
+            "/vision_model/encoder/layers.11/Add_1_output_0": {
+              "label": "layer_11",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -446.092529296875,
+              "refMin": -432.036865234375,
+              "max": 415.166015625,
+              "refMax": 401.36041259765625,
+              "mean": 0.04373589977181543,
+              "refMean": 0.0456939660497054,
+              "sum": 34395.31112934835,
+              "refSum": 35935.19710840192,
+              "sumAbs": 1468224.2809153534,
+              "refSumAbs": 1495716.935925833,
+              "relErrSumAbs": 0.018380921115573143,
+              "relErrMinOverScale": 0.03253348312041604,
+              "relErrMaxOverScale": 0.03195468752383982,
+              "worstSampleAbs": 0.3452094793319702,
+              "worstSampleRelOverScale": 0.0007990278309808078,
+              "samples": [
+                0.09785494208335876,
+                -0.6533498764038086,
+                -0.022046029567718506,
+                -0.9030035734176636,
+                0.7248984575271606,
+                0.6308770179748535
+              ],
+              "refSamples": [
+                0.3404749929904938,
+                -0.9985593557357788,
+                -0.013208568096160889,
+                -0.7723509073257446,
+                0.8082537651062012,
+                0.5319268107414246
+              ]
+            },
+            "/vision_model/post_layernorm/Add_1_output_0": {
+              "label": "post_layernorm",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -26.98986053466797,
+              "refMin": -26.902713775634766,
+              "max": 21.062942504882812,
+              "refMax": 21.263071060180664,
+              "mean": 0.007186037427675688,
+              "refMean": 0.007335907558929766,
+              "sum": 5651.329786321847,
+              "refSum": 5769.192453384254,
+              "sumAbs": 286972.15809615795,
+              "refSumAbs": 280057.04664303886,
+              "relErrSumAbs": 0.02469179596088898,
+              "relErrMinOverScale": 0.003239329673578513,
+              "relErrMaxOverScale": 0.007438972773040609,
+              "worstSampleAbs": 0.8456509709358215,
+              "worstSampleRelOverScale": 0.031433667918725365,
+              "samples": [
+                0.29290571808815,
+                -0.6138058304786682,
+                -0.025186091661453247,
+                -0.26303398609161377,
+                0.17609257996082306,
+                1.0586754083633423
+              ],
+              "refSamples": [
+                0.44568565487861633,
+                -1.4594568014144897,
+                -0.018636861816048622,
+                -0.13568583130836487,
+                0.18476533889770508,
+                0.8964626789093018
+              ]
+            },
+            "/connector/Reshape_3_output_0": {
+              "label": "connector_reshape3",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                64,
+                12288
+              ],
+              "shapeRef": [
+                1,
+                64,
+                12288
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -26.98986053466797,
+              "refMin": -26.902713775634766,
+              "max": 21.062942504882812,
+              "refMax": 21.263071060180664,
+              "mean": 0.007186037427675688,
+              "refMean": 0.007335907558929766,
+              "sum": 5651.329786321847,
+              "refSum": 5769.192453384254,
+              "sumAbs": 286972.15809615795,
+              "refSumAbs": 280057.04664303886,
+              "relErrSumAbs": 0.02469179596088898,
+              "relErrMinOverScale": 0.003239329673578513,
+              "relErrMaxOverScale": 0.007438972773040609,
+              "worstSampleAbs": 0.6168813705444336,
+              "worstSampleRelOverScale": 0.02293007968226352,
+              "samples": [
+                0.29290571808815,
+                -2.123631000518799,
+                -0.023181816563010216,
+                -0.26303398609161377,
+                0.020620964467525482,
+                1.0586754083633423
+              ],
+              "refSamples": [
+                0.44568565487861633,
+                -1.5067496299743652,
+                -0.034637510776519775,
+                -0.13568583130836487,
+                -0.024147510528564453,
+                0.8964626789093018
+              ]
+            }
+          },
+          "order": [
+            "image_features",
+            "/vision_model/embeddings/Add_3_output_0",
+            "/vision_model/encoder/layers.0/Add_1_output_0",
+            "/vision_model/encoder/layers.1/Add_1_output_0",
+            "/vision_model/encoder/layers.2/Add_1_output_0",
+            "/vision_model/encoder/layers.3/Add_1_output_0",
+            "/vision_model/encoder/layers.4/Add_1_output_0",
+            "/vision_model/encoder/layers.5/Add_1_output_0",
+            "/vision_model/encoder/layers.6/Add_1_output_0",
+            "/vision_model/encoder/layers.7/Add_1_output_0",
+            "/vision_model/encoder/layers.8/Add_1_output_0",
+            "/vision_model/encoder/layers.9/Add_1_output_0",
+            "/vision_model/encoder/layers.10/Add_1_output_0",
+            "/vision_model/encoder/layers.11/Add_1_output_0",
+            "/vision_model/post_layernorm/Add_1_output_0",
+            "/connector/Reshape_3_output_0"
+          ],
+          "error": null,
+          "ortVersion": "1.29.0",
+          "createMs": 381.3,
+          "inferMs": 3202.8,
+          "conclusion": "layerwise complete, 16 checkpoints",
+          "finishedAt": "2026-09-09T15:59:34.494Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "webgpu",
+          "startedAt": "2026-09-09T15:59:34.494Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 135
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.8
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 7
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.9
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.7
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 4960,
+                  "exactMatchPct": 7.6,
+                  "worstAbs": 0.000003337860107421875,
+                  "worstRel": 8.639965716616036e-7,
+                  "worstIdx": 2143,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202648639678955,
+                    -1.637634515762329,
+                    2.0935184955596924,
+                    -2.216779947280884,
+                    2.148073434829712,
+                    -1.259015440940857,
+                    1.9877560138702393,
+                    -0.9495219588279724
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.3
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 5.1
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.29.0",
+          "conclusion": "all 7 micro graphs correct",
+          "finishedAt": "2026-09-09T15:59:34.728Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-layerwise",
+          "backend": "webgpu",
+          "startedAt": "2026-09-09T15:59:34.728Z",
+          "checkpoints": {
+            "image_features": {
+              "label": "final",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                64,
+                576
+              ],
+              "shapeRef": [
+                1,
+                64,
+                576
+              ],
+              "countOk": true,
+              "count": 36864,
+              "expectedCount": 36864,
+              "min": -58.25596618652344,
+              "refMin": -46.66571044921875,
+              "max": 63.44045639038086,
+              "refMax": 91.19464111328125,
+              "mean": 0.5514184782602266,
+              "refMean": 0.024826565025782718,
+              "sum": 20327.490782584995,
+              "refSum": 915.2064931104542,
+              "sumAbs": 410517.88494666293,
+              "refSumAbs": 128896.66748152644,
+              "relErrSumAbs": 2.1848603456369315,
+              "relErrMinOverScale": 0.1270936054554715,
+              "relErrMaxOverScale": 0.3043400838479573,
+              "worstSampleAbs": 20.627668857574463,
+              "worstSampleRelOverScale": 0.22619387066780533,
+              "samples": [
+                1.3706334829330444,
+                18.421920776367188,
+                -17.6502685546875,
+                -7.667821884155273,
+                -12.569367408752441,
+                15.841604232788086
+              ],
+              "refSamples": [
+                7.22178316116333,
+                -1.6385443210601807,
+                -2.76375675201416,
+                3.1044225692749023,
+                0.2366267740726471,
+                -4.786064624786377
+              ]
+            },
+            "/vision_model/embeddings/Add_3_output_0": {
+              "label": "embeddings",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -0.6253548264503479,
+              "refMin": -10.433222770690918,
+              "max": 369493504,
+              "refMax": 11.857562065124512,
+              "mean": 54936900.36982828,
+              "refMean": -0.031733051776108155,
+              "sum": 43204136431644.79,
+              "refSum": -24955.887374388287,
+              "sumAbs": 43204136494367.35,
+              "refSumAbs": 75493.65780957643,
+              "relErrSumAbs": 572288291.128387,
+              "relErrMinOverScale": 0.8271403422030144,
+              "relErrMaxOverScale": 31161000.05322283,
+              "worstSampleAbs": 369493503.7634604,
+              "worstSampleRelOverScale": 31161001.033274412,
+              "samples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                369493504
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                0.2365395724773407
+              ]
+            },
+            "/vision_model/encoder/layers.0/Add_1_output_0": {
+              "label": "layer_00",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -199803.6875,
+              "refMin": -4.187150001525879,
+              "max": 369756256,
+              "refMax": 10.76812744140625,
+              "mean": 54936588.923467614,
+              "refMean": -0.03957780459154744,
+              "sum": 43203891500260.484,
+              "refSum": -31125.252020539832,
+              "sumAbs": 43214349824062.5,
+              "refSumAbs": 166801.81258235674,
+              "relErrSumAbs": 259076019.54819304,
+              "relErrMinOverScale": 18554.711711686978,
+              "relErrMaxOverScale": 34338026.48082188,
+              "worstSampleAbs": 369478399.8318697,
+              "worstSampleRelOverScale": 34312223.90729972,
+              "samples": [
+                -35688.87890625,
+                13214.96875,
+                18173.083984375,
+                14374.8349609375,
+                -2805.976318359375,
+                369478400
+              ],
+              "refSamples": [
+                0.18209892511367798,
+                -0.06594130396842957,
+                -0.22503164410591125,
+                0.21231377124786377,
+                -0.006097443401813507,
+                0.1681302934885025
+              ]
+            },
+            "/vision_model/encoder/layers.1/Add_1_output_0": {
+              "label": "layer_01",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -260271.390625,
+              "refMin": -2.8376035690307617,
+              "max": 369740736,
+              "refMax": 8.132026672363281,
+              "mean": 54936661.33469364,
+              "refMean": -0.032105957419779806,
+              "sum": 43203948446765.79,
+              "refSum": -25249.15230555227,
+              "sumAbs": 43219714344680.77,
+              "refSumAbs": 139191.65431644768,
+              "relErrSumAbs": 310505068.84005064,
+              "relErrMinOverScale": 32005.37375337866,
+              "relErrMaxOverScale": 45467230.09708495,
+              "worstSampleAbs": 369454143.94539803,
+              "worstSampleRelOverScale": 45431988.70719265,
+              "samples": [
+                -17502.298828125,
+                21938.2109375,
+                -250.46942138671875,
+                28715.912109375,
+                -13243.099609375,
+                369454144
+              ],
+              "refSamples": [
+                0.10296288132667542,
+                0.031955331563949585,
+                -0.0821792334318161,
+                0.20484128594398499,
+                0.37185245752334595,
+                0.054601967334747314
+              ]
+            },
+            "/vision_model/encoder/layers.2/Add_1_output_0": {
+              "label": "layer_02",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -277968.71875,
+              "refMin": -3.9407052993774414,
+              "max": 369737696,
+              "refMax": 7.62718391418457,
+              "mean": 54936396.893182576,
+              "refMean": -0.028670975301129904,
+              "sum": 43203740481499.36,
+              "refSum": -22547.772448018193,
+              "sumAbs": 43221232679682.28,
+              "refSumAbs": 137810.06795155397,
+              "relErrSumAbs": 313628990.859117,
+              "relErrMinOverScale": 36443.95902500249,
+              "relErrMaxOverScale": 48476304.29957255,
+              "worstSampleAbs": 369408959.8290049,
+              "worstSampleRelOverScale": 48433204.70377024,
+              "samples": [
+                -15016.908203125,
+                48899.546875,
+                17693.76953125,
+                41471.57421875,
+                -39029.2578125,
+                369408960
+              ],
+              "refSamples": [
+                0.2074575424194336,
+                0.18444038927555084,
+                -0.02901589125394821,
+                0.2707948684692383,
+                0.20444078743457794,
+                0.1709951013326645
+              ]
+            },
+            "/vision_model/encoder/layers.3/Add_1_output_0": {
+              "label": "layer_03",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -275852.1875,
+              "refMin": -4.634237289428711,
+              "max": 369749600,
+              "refMax": 6.985799789428711,
+              "mean": 54936123.37890124,
+              "refMean": -0.028175133828545047,
+              "sum": 43203525381116.06,
+              "refSum": -22157.82684705034,
+              "sumAbs": 43225725083087.92,
+              "refSumAbs": 128749.396333938,
+              "relErrSumAbs": 335735360.20490324,
+              "relErrMinOverScale": 39486.89650111902,
+              "relErrMaxOverScale": 52928741.756058514,
+              "worstSampleAbs": 369420256.0229852,
+              "worstSampleRelOverScale": 52881597.97851806,
+              "samples": [
+                47345.1328125,
+                106043.109375,
+                -2777.843994140625,
+                90475.984375,
+                -106909.5546875,
+                369420256
+              ],
+              "refSamples": [
+                -0.01971888542175293,
+                0.22750616073608398,
+                -0.0063768960535526276,
+                0.014269888401031494,
+                0.038259848952293396,
+                -0.022985227406024933
+              ]
+            },
+            "/vision_model/encoder/layers.4/Add_1_output_0": {
+              "label": "layer_04",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -277285.9375,
+              "refMin": -12.009203910827637,
+              "max": 369748992,
+              "refMax": 9.882884979248047,
+              "mean": 54936095.3260726,
+              "refMean": -0.02642531061593978,
+              "sum": 43203503319473.93,
+              "refSum": -20781.709878314752,
+              "sumAbs": 43226115794374.13,
+              "refSumAbs": 124914.14400578756,
+              "relErrSumAbs": 346046606.7594173,
+              "relErrMinOverScale": 23088.452020212248,
+              "relErrMaxOverScale": 30788800.395315554,
+              "worstSampleAbs": 369397792.14193285,
+              "worstSampleRelOverScale": 30759556.993522238,
+              "samples": [
+                63651.96484375,
+                102353.890625,
+                -6496.55224609375,
+                101651.015625,
+                -102924.5859375,
+                369397792
+              ],
+              "refSamples": [
+                -0.10183675587177277,
+                0.0885659009218216,
+                -0.18722060322761536,
+                -0.004927381873130798,
+                0.10374324023723602,
+                -0.141932874917984
+              ]
+            },
+            "/vision_model/encoder/layers.5/Add_1_output_0": {
+              "label": "layer_05",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -290851.71875,
+              "refMin": -100.69922637939453,
+              "max": 369730656,
+              "refMax": 49.74259948730469,
+              "mean": 54936080.553528614,
+              "refMean": -0.02691845494519048,
+              "sum": 43203491701872.62,
+              "refSum": -21169.53435945604,
+              "sumAbs": 43226120339756.74,
+              "refSumAbs": 117013.10357342102,
+              "relErrSumAbs": 369412646.1283115,
+              "relErrMinOverScale": 2887.3212831664337,
+              "relErrMaxOverScale": 3671633.0358328973,
+              "worstSampleAbs": 369402528.1654048,
+              "worstSampleRelOverScale": 3668375.0357092456,
+              "samples": [
+                75933.875,
+                115372.703125,
+                8277.5126953125,
+                108846.78125,
+                -108609.921875,
+                369402528
+              ],
+              "refSamples": [
+                0.07303179800510406,
+                -0.05847325921058655,
+                0.1263861358165741,
+                0.038030847907066345,
+                -0.04031520336866379,
+                -0.1654047667980194
+              ]
+            },
+            "/vision_model/encoder/layers.6/Add_1_output_0": {
+              "label": "layer_06",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -295268.03125,
+              "refMin": -119.72552490234375,
+              "max": 369732256,
+              "refMax": 54.71815872192383,
+              "mean": 54936080.70329275,
+              "refMean": -0.027869385228476744,
+              "sum": 43203491819651.92,
+              "refSum": -21917.376364001422,
+              "sumAbs": 43226274460299.19,
+              "refSumAbs": 133187.66017687402,
+              "relErrSumAbs": 324551645.92355454,
+              "relErrMinOverScale": 2465.207865790028,
+              "relErrMaxOverScale": 3088165.21442207,
+              "worstSampleAbs": 369405439.8002273,
+              "worstSampleRelOverScale": 3085435.95947096,
+              "samples": [
+                62714.65234375,
+                123527.90625,
+                10668.984375,
+                109488.2734375,
+                -110179.3515625,
+                369405440
+              ],
+              "refSamples": [
+                0.06019274890422821,
+                -0.15540969371795654,
+                0.1314775049686432,
+                -0.045062024146318436,
+                -0.043693140149116516,
+                0.19977271556854248
+              ]
+            },
+            "/vision_model/encoder/layers.7/Add_1_output_0": {
+              "label": "layer_07",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -279784.65625,
+              "refMin": -128.2147216796875,
+              "max": 369721152,
+              "refMax": 56.135459899902344,
+              "mean": 54936093.35739881,
+              "refMean": -0.029308639357871275,
+              "sum": 43203501771245.86,
+              "refSum": -23049.251867489424,
+              "sumAbs": 43226379719071.95,
+              "refSumAbs": 148238.74292340223,
+              "relErrSumAbs": 291599744.56319493,
+              "relErrMinOverScale": 2181.157029899984,
+              "relErrMaxOverScale": 2883608.769889904,
+              "worstSampleAbs": 369411903.6033012,
+              "worstSampleRelOverScale": 2881197.250704055,
+              "samples": [
+                67650.640625,
+                141088.875,
+                15371.38671875,
+                113716.75,
+                -111094.6328125,
+                369411904
+              ],
+              "refSamples": [
+                -0.13214096426963806,
+                0.09652625024318695,
+                0.18322136998176575,
+                0.06434740126132965,
+                -0.08008888363838196,
+                0.3966987729072571
+              ]
+            },
+            "/vision_model/encoder/layers.8/Add_1_output_0": {
+              "label": "layer_08",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -285176.25,
+              "refMin": -133.6926727294922,
+              "max": 369729472,
+              "refMax": 55.79255676269531,
+              "mean": 54936117.37417183,
+              "refMean": -0.029393682627465445,
+              "sum": 43203520658804.7,
+              "refSum": -23116.132616082905,
+              "sumAbs": 43226592230768.31,
+              "refSumAbs": 188443.7511301015,
+              "relErrSumAbs": 229387240.39982063,
+              "relErrMinOverScale": 2132.0731458784803,
+              "relErrMaxOverScale": 2765517.4263404645,
+              "worstSampleAbs": 369419775.6735984,
+              "worstSampleRelOverScale": 2763201.3642293317,
+              "samples": [
+                65633.21875,
+                134343.609375,
+                27236.322265625,
+                120004.828125,
+                -123584.265625,
+                369419776
+              ],
+              "refSamples": [
+                0.22431935369968414,
+                0.27984222769737244,
+                0.2214139997959137,
+                0.4151988625526428,
+                -0.43419864773750305,
+                0.32640159130096436
+              ]
+            },
+            "/vision_model/encoder/layers.9/Add_1_output_0": {
+              "label": "layer_09",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -314876.09375,
+              "refMin": -136.05841064453125,
+              "max": 369742144,
+              "refMax": 55.86793518066406,
+              "mean": 54936204.336695075,
+              "refMean": -0.03130448113151907,
+              "sum": 43203589048915.78,
+              "refSum": -24618.845705222804,
+              "sumAbs": 43227939368489.516,
+              "refSumAbs": 253010.20669983095,
+              "relErrSumAbs": 170854526.6980654,
+              "relErrMinOverScale": 2313.2714387032725,
+              "relErrMaxOverScale": 2717524.6747373813,
+              "worstSampleAbs": 369410751.45385987,
+              "worstSampleRelOverScale": 2715089.4215499056,
+              "samples": [
+                80092.859375,
+                142729.96875,
+                50676.11328125,
+                140683.5625,
+                -113297.40625,
+                369410752
+              ],
+              "refSamples": [
+                0.3571534752845764,
+                -0.07435190677642822,
+                0.1358584612607956,
+                0.4486657977104187,
+                -0.4382109045982361,
+                0.5461401343345642
+              ]
+            },
+            "/vision_model/encoder/layers.10/Add_1_output_0": {
+              "label": "layer_10",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -314721.8125,
+              "refMin": -140.2944793701172,
+              "max": 369760416,
+              "refMax": 55.84575653076172,
+              "mean": 54936395.6000744,
+              "refMean": -0.033216950474283934,
+              "sum": 43203739464557.71,
+              "refSum": -26122.87279539206,
+              "sumAbs": 43229799711184.586,
+              "refSumAbs": 322520.9736493409,
+              "relErrSumAbs": 134037172.52715775,
+              "relErrMinOverScale": 2242.294347097709,
+              "relErrMaxOverScale": 2635601.641735039,
+              "worstSampleAbs": 369398687.0890571,
+              "worstSampleRelOverScale": 2633023.685233756,
+              "samples": [
+                75688.8203125,
+                152786.5,
+                86354.4140625,
+                166610.328125,
+                -129651.625,
+                369398688
+              ],
+              "refSamples": [
+                0.07902747392654419,
+                -0.5934563875198364,
+                -0.22903741896152496,
+                -0.10413509607315063,
+                -0.5931698083877563,
+                0.9109429121017456
+              ]
+            },
+            "/vision_model/encoder/layers.11/Add_1_output_0": {
+              "label": "layer_11",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -329394.9375,
+              "refMin": -432.036865234375,
+              "max": 369846432,
+              "refMax": 401.36041259765625,
+              "mean": 54936485.702490866,
+              "refMean": 0.0456939660497054,
+              "sum": 43203810323981.3,
+              "refSum": 35935.19710840192,
+              "sumAbs": 43234177102517.69,
+              "refSumAbs": 1495716.935925833,
+              "relErrSumAbs": 28905319.29428161,
+              "relErrMinOverScale": 761.4232189568061,
+              "relErrMaxOverScale": 856052.018706668,
+              "worstSampleAbs": 369417183.4680732,
+              "worstSampleRelOverScale": 855059.4016269159,
+              "samples": [
+                142286.21875,
+                163874.5,
+                117484.4375,
+                184893.359375,
+                -68110.6953125,
+                369417184
+              ],
+              "refSamples": [
+                0.3404749929904938,
+                -0.9985593557357788,
+                -0.013208568096160889,
+                -0.7723509073257446,
+                0.8082537651062012,
+                0.5319268107414246
+              ]
+            },
+            "/vision_model/post_layernorm/Add_1_output_0": {
+              "label": "post_layernorm",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -3.3762104511260986,
+              "refMin": -26.902713775634766,
+              "max": 11.106117248535156,
+              "refMax": 21.263071060180664,
+              "mean": -0.03277980808396327,
+              "refMean": 0.007335907558929766,
+              "sum": -25779.0900310874,
+              "refSum": 5769.192453384254,
+              "sumAbs": 1472121.1369532943,
+              "refSumAbs": 280057.04664303886,
+              "relErrSumAbs": 4.256504539340023,
+              "relErrMinOverScale": 0.8745029784250292,
+              "relErrMaxOverScale": 0.3775438380065751,
+              "worstSampleAbs": 2.9261553287506104,
+              "worstSampleRelOverScale": 0.10876803556527331,
+              "samples": [
+                -1.0037003755569458,
+                -0.8201628923416138,
+                -1.0241466760635376,
+                -0.9178658723831177,
+                -0.9681360721588135,
+                3.822618007659912
+              ],
+              "refSamples": [
+                0.44568565487861633,
+                -1.4594568014144897,
+                -0.018636861816048622,
+                -0.13568583130836487,
+                0.18476533889770508,
+                0.8964626789093018
+              ]
+            },
+            "/connector/Reshape_3_output_0": {
+              "label": "connector_reshape3",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                64,
+                12288
+              ],
+              "shapeRef": [
+                1,
+                64,
+                12288
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -3.3762104511260986,
+              "refMin": -26.902713775634766,
+              "max": 11.106117248535156,
+              "refMax": 21.263071060180664,
+              "mean": -0.03277980808396327,
+              "refMean": 0.007335907558929766,
+              "sum": -25779.0900310874,
+              "refSum": 5769.192453384254,
+              "sumAbs": 1472121.1369532943,
+              "refSumAbs": 280057.04664303886,
+              "relErrSumAbs": 4.256504539340023,
+              "relErrMinOverScale": 0.8745029784250292,
+              "relErrMaxOverScale": 0.3775438380065751,
+              "worstSampleAbs": 2.9261553287506104,
+              "worstSampleRelOverScale": 0.10876803556527331,
+              "samples": [
+                -1.0037003755569458,
+                -0.9518725872039795,
+                -1.0258697271347046,
+                -0.9178658723831177,
+                -0.9611313343048096,
+                3.822618007659912
+              ],
+              "refSamples": [
+                0.44568565487861633,
+                -1.5067496299743652,
+                -0.034637510776519775,
+                -0.13568583130836487,
+                -0.024147510528564453,
+                0.8964626789093018
+              ]
+            }
+          },
+          "order": [
+            "image_features",
+            "/vision_model/embeddings/Add_3_output_0",
+            "/vision_model/encoder/layers.0/Add_1_output_0",
+            "/vision_model/encoder/layers.1/Add_1_output_0",
+            "/vision_model/encoder/layers.2/Add_1_output_0",
+            "/vision_model/encoder/layers.3/Add_1_output_0",
+            "/vision_model/encoder/layers.4/Add_1_output_0",
+            "/vision_model/encoder/layers.5/Add_1_output_0",
+            "/vision_model/encoder/layers.6/Add_1_output_0",
+            "/vision_model/encoder/layers.7/Add_1_output_0",
+            "/vision_model/encoder/layers.8/Add_1_output_0",
+            "/vision_model/encoder/layers.9/Add_1_output_0",
+            "/vision_model/encoder/layers.10/Add_1_output_0",
+            "/vision_model/encoder/layers.11/Add_1_output_0",
+            "/vision_model/post_layernorm/Add_1_output_0",
+            "/connector/Reshape_3_output_0"
+          ],
+          "error": null,
+          "ortVersion": "1.29.0",
+          "createMs": 286,
+          "inferMs": 2915.2,
+          "conclusion": "layerwise complete, 16 checkpoints",
+          "finishedAt": "2026-09-09T15:59:38.020Z"
+        }
+      ]
+    },
+    {
+      "headless": true,
+      "run": 1,
+      "platform": "windows-layerwise",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "wasm",
+          "startedAt": "2026-09-09T15:59:38.811Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 276.6
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.6
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 7.3
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.6
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.3
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 9671,
+                  "exactMatchPct": 14.8,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 4.937123266637735e-7,
+                  "worstIdx": 63868,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202640295028687,
+                    -1.6376341581344604,
+                    2.093518018722534,
+                    -2.2167797088623047,
+                    2.1480748653411865,
+                    -1.2590160369873047,
+                    1.9877556562423706,
+                    -0.949522078037262
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 5.2
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.3
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.29.0",
+          "conclusion": "all 7 micro graphs correct",
+          "finishedAt": "2026-09-09T15:59:39.156Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-layerwise",
+          "backend": "wasm",
+          "startedAt": "2026-09-09T15:59:39.156Z",
+          "checkpoints": {
+            "image_features": {
+              "label": "final",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                64,
+                576
+              ],
+              "shapeRef": [
+                1,
+                64,
+                576
+              ],
+              "countOk": true,
+              "count": 36864,
+              "expectedCount": 36864,
+              "min": -51.10541915893555,
+              "refMin": -46.66571044921875,
+              "max": 92.9793930053711,
+              "refMax": 91.19464111328125,
+              "mean": 0.028506664525577225,
+              "refMean": 0.024826565025782718,
+              "sum": 1050.8696810708789,
+              "refSum": 915.2064931104542,
+              "sumAbs": 131419.44903258947,
+              "refSumAbs": 128896.66748152644,
+              "relErrSumAbs": 0.019572123937374862,
+              "relErrMinOverScale": 0.04868387720504132,
+              "relErrMaxOverScale": 0.019570797914241905,
+              "worstSampleAbs": 0.42293739318847656,
+              "worstSampleRelOverScale": 0.004637743929087973,
+              "samples": [
+                7.257699012756348,
+                -1.671398639678955,
+                -3.1866941452026367,
+                2.8796913623809814,
+                0.19197943806648254,
+                -4.726911544799805
+              ],
+              "refSamples": [
+                7.22178316116333,
+                -1.6385443210601807,
+                -2.76375675201416,
+                3.1044225692749023,
+                0.2366267740726471,
+                -4.786064624786377
+              ]
+            },
+            "/vision_model/embeddings/Add_3_output_0": {
+              "label": "embeddings",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -10.433222770690918,
+              "refMin": -10.433222770690918,
+              "max": 11.857562065124512,
+              "refMax": 11.857562065124512,
+              "mean": -0.031733051776108155,
+              "refMean": -0.031733051776108155,
+              "sum": -24955.887374388287,
+              "refSum": -24955.887374388287,
+              "sumAbs": 75493.65780957643,
+              "refSumAbs": 75493.65780957643,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                0.2365395724773407
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                0.2365395724773407
+              ]
+            },
+            "/vision_model/encoder/layers.0/Add_1_output_0": {
+              "label": "layer_00",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -4.187150001525879,
+              "refMin": -4.187150001525879,
+              "max": 10.768128395080566,
+              "refMax": 10.76812744140625,
+              "mean": -0.03957780451135351,
+              "refMean": -0.03957780459154744,
+              "sum": -31125.251957472763,
+              "refSum": -31125.252020539832,
+              "sumAbs": 166801.8121275931,
+              "refSumAbs": 166801.81258235674,
+              "relErrSumAbs": 2.726371146638379e-9,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 8.856454584100893e-8,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                0.18209892511367798,
+                -0.06594130396842957,
+                -0.22503164410591125,
+                0.21231377124786377,
+                -0.006097443401813507,
+                0.1681302934885025
+              ],
+              "refSamples": [
+                0.18209892511367798,
+                -0.06594130396842957,
+                -0.22503164410591125,
+                0.21231377124786377,
+                -0.006097443401813507,
+                0.1681302934885025
+              ]
+            },
+            "/vision_model/encoder/layers.1/Add_1_output_0": {
+              "label": "layer_01",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -2.8376035690307617,
+              "refMin": -2.8376035690307617,
+              "max": 8.132027626037598,
+              "refMax": 8.132026672363281,
+              "mean": -0.032105935973828416,
+              "refMean": -0.032105957419779806,
+              "sum": -25249.13543976983,
+              "refSum": -25249.15230555227,
+              "sumAbs": 139191.46310166456,
+              "refSumAbs": 139191.65431644768,
+              "relErrSumAbs": 0.000001373751781715695,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 1.1727387954190008e-7,
+              "worstSampleAbs": 1.4901161193847656e-8,
+              "worstSampleRelOverScale": 1.8324043678421888e-9,
+              "samples": [
+                0.10296289622783661,
+                0.03195531666278839,
+                -0.0821792483329773,
+                0.20484128594398499,
+                0.37185245752334595,
+                0.054601967334747314
+              ],
+              "refSamples": [
+                0.10296288132667542,
+                0.031955331563949585,
+                -0.0821792334318161,
+                0.20484128594398499,
+                0.37185245752334595,
+                0.054601967334747314
+              ]
+            },
+            "/vision_model/encoder/layers.2/Add_1_output_0": {
+              "label": "layer_02",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -3.9407334327697754,
+              "refMin": -3.9407052993774414,
+              "max": 7.626970291137695,
+              "refMax": 7.62718391418457,
+              "mean": -0.028670794422842743,
+              "refMean": -0.028670975301129904,
+              "sum": -22547.630199545063,
+              "refSum": -22547.772448018193,
+              "sumAbs": 137816.1461578803,
+              "refSumAbs": 137810.06795155397,
+              "relErrSumAbs": 0.000044105676868859754,
+              "relErrMinOverScale": 0.000003688568762799021,
+              "relErrMaxOverScale": 0.000028008115351423075,
+              "worstSampleAbs": 0.005350485444068909,
+              "worstSampleRelOverScale": 0.0007015020883551009,
+              "samples": [
+                0.20987284183502197,
+                0.17908990383148193,
+                -0.02409517765045166,
+                0.27216631174087524,
+                0.20882898569107056,
+                0.1708327680826187
+              ],
+              "refSamples": [
+                0.2074575424194336,
+                0.18444038927555084,
+                -0.02901589125394821,
+                0.2707948684692383,
+                0.20444078743457794,
+                0.1709951013326645
+              ]
+            },
+            "/vision_model/encoder/layers.3/Add_1_output_0": {
+              "label": "layer_03",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -4.639920711517334,
+              "refMin": -4.634237289428711,
+              "max": 6.989525318145752,
+              "refMax": 6.985799789428711,
+              "mean": -0.028183922605350853,
+              "refMean": -0.028175133828545047,
+              "sum": -22164.738622371282,
+              "refSum": -22157.82684705034,
+              "sumAbs": 128772.55384598445,
+              "refSumAbs": 128749.396333938,
+              "relErrSumAbs": 0.0001798650145620192,
+              "relErrMinOverScale": 0.0008135678461932888,
+              "relErrMaxOverScale": 0.0005333002418246636,
+              "worstSampleAbs": 0.02473769709467888,
+              "worstSampleRelOverScale": 0.0035411402903520505,
+              "samples": [
+                -0.010289579629898071,
+                0.23092299699783325,
+                -0.008202053606510162,
+                0.02257058024406433,
+                0.03886459395289421,
+                0.001752469688653946
+              ],
+              "refSamples": [
+                -0.01971888542175293,
+                0.22750616073608398,
+                -0.0063768960535526276,
+                0.014269888401031494,
+                0.038259848952293396,
+                -0.022985227406024933
+              ]
+            },
+            "/vision_model/encoder/layers.4/Add_1_output_0": {
+              "label": "layer_04",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -11.673250198364258,
+              "refMin": -12.009203910827637,
+              "max": 9.579617500305176,
+              "refMax": 9.882884979248047,
+              "mean": -0.026444934892944822,
+              "refMean": -0.02642531061593978,
+              "sum": -20797.143037728383,
+              "refSum": -20781.709878314752,
+              "sumAbs": 124904.58530641801,
+              "refSumAbs": 124914.14400578756,
+              "relErrSumAbs": 0.0000765221540412916,
+              "relErrMinOverScale": 0.027974686328748166,
+              "relErrMaxOverScale": 0.02525292110907049,
+              "worstSampleAbs": 0.03062078356742859,
+              "worstSampleRelOverScale": 0.0025497763044743157,
+              "samples": [
+                -0.09644468128681183,
+                0.07172743231058121,
+                -0.17242054641246796,
+                -0.0018032640218734741,
+                0.11055532097816467,
+                -0.11131209135055542
+              ],
+              "refSamples": [
+                -0.10183675587177277,
+                0.0885659009218216,
+                -0.18722060322761536,
+                -0.004927381873130798,
+                0.10374324023723602,
+                -0.141932874917984
+              ]
+            },
+            "/vision_model/encoder/layers.5/Add_1_output_0": {
+              "label": "layer_05",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -100.86772918701172,
+              "refMin": -100.69922637939453,
+              "max": 49.529022216796875,
+              "refMax": 49.74259948730469,
+              "mean": -0.02686306242897259,
+              "refMean": -0.02691845494519048,
+              "sum": -21125.971912141773,
+              "refSum": -21169.53435945604,
+              "sumAbs": 116839.86816478695,
+              "refSumAbs": 117013.10357342102,
+              "relErrSumAbs": 0.001480478710022126,
+              "relErrMinOverScale": 0.0016733277272889477,
+              "relErrMaxOverScale": 0.0021209425155178305,
+              "worstSampleAbs": 0.07751008123159409,
+              "worstSampleRelOverScale": 0.0007697187358676124,
+              "samples": [
+                0.009251829236745834,
+                -0.07929598540067673,
+                0.1486031711101532,
+                0.11554092913866043,
+                -0.07055804133415222,
+                -0.13721072673797607
+              ],
+              "refSamples": [
+                0.07303179800510406,
+                -0.05847325921058655,
+                0.1263861358165741,
+                0.038030847907066345,
+                -0.04031520336866379,
+                -0.1654047667980194
+              ]
+            },
+            "/vision_model/encoder/layers.6/Add_1_output_0": {
+              "label": "layer_06",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -119.79847717285156,
+              "refMin": -119.72552490234375,
+              "max": 54.50266647338867,
+              "refMax": 54.71815872192383,
+              "mean": -0.027811635782780453,
+              "refMean": -0.027869385228476744,
+              "sum": -21871.960351923597,
+              "refSum": -21917.376364001422,
+              "sumAbs": 133085.92705465702,
+              "refSumAbs": 133187.66017687402,
+              "relErrSumAbs": 0.000763832941294269,
+              "relErrMinOverScale": 0.000609329301895459,
+              "relErrMaxOverScale": 0.001799885602597494,
+              "worstSampleAbs": 0.09087593108415604,
+              "worstSampleRelOverScale": 0.0007590355620347508,
+              "samples": [
+                -0.030683182179927826,
+                -0.18520717322826385,
+                0.11164969205856323,
+                -0.010104194283485413,
+                -0.10073154419660568,
+                0.24180181324481964
+              ],
+              "refSamples": [
+                0.06019274890422821,
+                -0.15540969371795654,
+                0.1314775049686432,
+                -0.045062024146318436,
+                -0.043693140149116516,
+                0.19977271556854248
+              ]
+            },
+            "/vision_model/encoder/layers.7/Add_1_output_0": {
+              "label": "layer_07",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -128.27671813964844,
+              "refMin": -128.2147216796875,
+              "max": 55.935203552246094,
+              "refMax": 56.135459899902344,
+              "mean": -0.029254778093904015,
+              "refMean": -0.029308639357871275,
+              "sum": -23006.89364594512,
+              "refSum": -23049.251867489424,
+              "sumAbs": 147843.03792362136,
+              "refSumAbs": 148238.74292340223,
+              "relErrSumAbs": 0.0026693763855332527,
+              "relErrMinOverScale": 0.00048353620511551074,
+              "relErrMaxOverScale": 0.001561882637444244,
+              "worstSampleAbs": 0.1002679169178009,
+              "worstSampleRelOverScale": 0.000782031233264268,
+              "samples": [
+                -0.23240888118743896,
+                0.047074317932128906,
+                0.13405197858810425,
+                0.09182627499103546,
+                -0.15325714647769928,
+                0.3423520624637604
+              ],
+              "refSamples": [
+                -0.13214096426963806,
+                0.09652625024318695,
+                0.18322136998176575,
+                0.06434740126132965,
+                -0.08008888363838196,
+                0.3966987729072571
+              ]
+            },
+            "/vision_model/encoder/layers.8/Add_1_output_0": {
+              "label": "layer_08",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -133.71316528320312,
+              "refMin": -133.6926727294922,
+              "max": 55.59727478027344,
+              "refMax": 55.79255676269531,
+              "mean": -0.029305406498360664,
+              "refMean": -0.029393682627465445,
+              "sum": -23046.709443318774,
+              "refSum": -23116.132616082905,
+              "sumAbs": 188335.69393626752,
+              "refSumAbs": 188443.7511301015,
+              "relErrSumAbs": 0.0005734188222531333,
+              "relErrMinOverScale": 0.00015328105342318364,
+              "relErrMaxOverScale": 0.001460678273797397,
+              "worstSampleAbs": 0.138117253780365,
+              "worstSampleRelOverScale": 0.0010330951649072445,
+              "samples": [
+                0.1092558354139328,
+                0.24491439759731293,
+                0.17134812474250793,
+                0.5533161163330078,
+                -0.48863649368286133,
+                0.3027009963989258
+              ],
+              "refSamples": [
+                0.22431935369968414,
+                0.27984222769737244,
+                0.2214139997959137,
+                0.4151988625526428,
+                -0.43419864773750305,
+                0.32640159130096436
+              ]
+            },
+            "/vision_model/encoder/layers.9/Add_1_output_0": {
+              "label": "layer_09",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -136.0458526611328,
+              "refMin": -136.05841064453125,
+              "max": 55.68980407714844,
+              "refMax": 55.86793518066406,
+              "mean": -0.031222196276522673,
+              "refMean": -0.03130448113151907,
+              "sum": -24554.13426213828,
+              "refSum": -24618.845705222804,
+              "sumAbs": 252780.85090115038,
+              "refSumAbs": 253010.20669983095,
+              "relErrSumAbs": 0.0009065080878443524,
+              "relErrMinOverScale": 0.00009229847195001213,
+              "relErrMaxOverScale": 0.0013092252266639632,
+              "worstSampleAbs": 0.16212284564971924,
+              "worstSampleRelOverScale": 0.0011915679808526091,
+              "samples": [
+                0.19503062963485718,
+                -0.0649452805519104,
+                0.11536185443401337,
+                0.5662843585014343,
+                -0.413043737411499,
+                0.6388680338859558
+              ],
+              "refSamples": [
+                0.3571534752845764,
+                -0.07435190677642822,
+                0.1358584612607956,
+                0.4486657977104187,
+                -0.4382109045982361,
+                0.5461401343345642
+              ]
+            },
+            "/vision_model/encoder/layers.10/Add_1_output_0": {
+              "label": "layer_10",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -140.29754638671875,
+              "refMin": -140.2944793701172,
+              "max": 55.671993255615234,
+              "refMax": 55.84575653076172,
+              "mean": -0.033176833987870115,
+              "refMean": -0.033216950474283934,
+              "sum": -26091.323906748672,
+              "refSum": -26122.87279539206,
+              "sumAbs": 322411.16932941705,
+              "refSumAbs": 322520.9736493409,
+              "relErrSumAbs": 0.0003404563699576454,
+              "relErrMinOverScale": 0.000021861277901543547,
+              "relErrMaxOverScale": 0.001238561031956729,
+              "worstSampleAbs": 0.14265450090169907,
+              "worstSampleRelOverScale": 0.001016821913037332,
+              "samples": [
+                -0.06362702697515488,
+                -0.5016831159591675,
+                -0.2460988461971283,
+                -0.09791922569274902,
+                -0.6088836193084717,
+                0.9650368690490723
+              ],
+              "refSamples": [
+                0.07902747392654419,
+                -0.5934563875198364,
+                -0.22903741896152496,
+                -0.10413509607315063,
+                -0.5931698083877563,
+                0.9109429121017456
+              ]
+            },
+            "/vision_model/encoder/layers.11/Add_1_output_0": {
+              "label": "layer_11",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -446.092529296875,
+              "refMin": -432.036865234375,
+              "max": 415.166015625,
+              "refMax": 401.36041259765625,
+              "mean": 0.04373589977181543,
+              "refMean": 0.0456939660497054,
+              "sum": 34395.31112934835,
+              "refSum": 35935.19710840192,
+              "sumAbs": 1468224.2809153534,
+              "refSumAbs": 1495716.935925833,
+              "relErrSumAbs": 0.018380921115573143,
+              "relErrMinOverScale": 0.03253348312041604,
+              "relErrMaxOverScale": 0.03195468752383982,
+              "worstSampleAbs": 0.3452094793319702,
+              "worstSampleRelOverScale": 0.0007990278309808078,
+              "samples": [
+                0.09785494208335876,
+                -0.6533498764038086,
+                -0.022046029567718506,
+                -0.9030035734176636,
+                0.7248984575271606,
+                0.6308770179748535
+              ],
+              "refSamples": [
+                0.3404749929904938,
+                -0.9985593557357788,
+                -0.013208568096160889,
+                -0.7723509073257446,
+                0.8082537651062012,
+                0.5319268107414246
+              ]
+            },
+            "/vision_model/post_layernorm/Add_1_output_0": {
+              "label": "post_layernorm",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -26.98986053466797,
+              "refMin": -26.902713775634766,
+              "max": 21.062942504882812,
+              "refMax": 21.263071060180664,
+              "mean": 0.007186037427675688,
+              "refMean": 0.007335907558929766,
+              "sum": 5651.329786321847,
+              "refSum": 5769.192453384254,
+              "sumAbs": 286972.15809615795,
+              "refSumAbs": 280057.04664303886,
+              "relErrSumAbs": 0.02469179596088898,
+              "relErrMinOverScale": 0.003239329673578513,
+              "relErrMaxOverScale": 0.007438972773040609,
+              "worstSampleAbs": 0.8456509709358215,
+              "worstSampleRelOverScale": 0.031433667918725365,
+              "samples": [
+                0.29290571808815,
+                -0.6138058304786682,
+                -0.025186091661453247,
+                -0.26303398609161377,
+                0.17609257996082306,
+                1.0586754083633423
+              ],
+              "refSamples": [
+                0.44568565487861633,
+                -1.4594568014144897,
+                -0.018636861816048622,
+                -0.13568583130836487,
+                0.18476533889770508,
+                0.8964626789093018
+              ]
+            },
+            "/connector/Reshape_3_output_0": {
+              "label": "connector_reshape3",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                64,
+                12288
+              ],
+              "shapeRef": [
+                1,
+                64,
+                12288
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -26.98986053466797,
+              "refMin": -26.902713775634766,
+              "max": 21.062942504882812,
+              "refMax": 21.263071060180664,
+              "mean": 0.007186037427675688,
+              "refMean": 0.007335907558929766,
+              "sum": 5651.329786321847,
+              "refSum": 5769.192453384254,
+              "sumAbs": 286972.15809615795,
+              "refSumAbs": 280057.04664303886,
+              "relErrSumAbs": 0.02469179596088898,
+              "relErrMinOverScale": 0.003239329673578513,
+              "relErrMaxOverScale": 0.007438972773040609,
+              "worstSampleAbs": 0.6168813705444336,
+              "worstSampleRelOverScale": 0.02293007968226352,
+              "samples": [
+                0.29290571808815,
+                -2.123631000518799,
+                -0.023181816563010216,
+                -0.26303398609161377,
+                0.020620964467525482,
+                1.0586754083633423
+              ],
+              "refSamples": [
+                0.44568565487861633,
+                -1.5067496299743652,
+                -0.034637510776519775,
+                -0.13568583130836487,
+                -0.024147510528564453,
+                0.8964626789093018
+              ]
+            }
+          },
+          "order": [
+            "image_features",
+            "/vision_model/embeddings/Add_3_output_0",
+            "/vision_model/encoder/layers.0/Add_1_output_0",
+            "/vision_model/encoder/layers.1/Add_1_output_0",
+            "/vision_model/encoder/layers.2/Add_1_output_0",
+            "/vision_model/encoder/layers.3/Add_1_output_0",
+            "/vision_model/encoder/layers.4/Add_1_output_0",
+            "/vision_model/encoder/layers.5/Add_1_output_0",
+            "/vision_model/encoder/layers.6/Add_1_output_0",
+            "/vision_model/encoder/layers.7/Add_1_output_0",
+            "/vision_model/encoder/layers.8/Add_1_output_0",
+            "/vision_model/encoder/layers.9/Add_1_output_0",
+            "/vision_model/encoder/layers.10/Add_1_output_0",
+            "/vision_model/encoder/layers.11/Add_1_output_0",
+            "/vision_model/post_layernorm/Add_1_output_0",
+            "/connector/Reshape_3_output_0"
+          ],
+          "error": null,
+          "ortVersion": "1.29.0",
+          "createMs": 377.3,
+          "inferMs": 3211.4,
+          "conclusion": "layerwise complete, 16 checkpoints",
+          "finishedAt": "2026-09-09T15:59:42.813Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "webgpu",
+          "startedAt": "2026-09-09T15:59:42.813Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 136.7
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.3
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 6.2
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.2
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.1
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 4960,
+                  "exactMatchPct": 7.6,
+                  "worstAbs": 0.000003337860107421875,
+                  "worstRel": 8.639965716616036e-7,
+                  "worstIdx": 2143,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202648639678955,
+                    -1.637634515762329,
+                    2.0935184955596924,
+                    -2.216779947280884,
+                    2.148073434829712,
+                    -1.259015440940857,
+                    1.9877560138702393,
+                    -0.9495219588279724
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.2
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.2
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.29.0",
+          "conclusion": "all 7 micro graphs correct",
+          "finishedAt": "2026-09-09T15:59:43.052Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-layerwise",
+          "backend": "webgpu",
+          "startedAt": "2026-09-09T15:59:43.052Z",
+          "checkpoints": {
+            "image_features": {
+              "label": "final",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                64,
+                576
+              ],
+              "shapeRef": [
+                1,
+                64,
+                576
+              ],
+              "countOk": true,
+              "count": 36864,
+              "expectedCount": 36864,
+              "min": -58.25596618652344,
+              "refMin": -46.66571044921875,
+              "max": 63.44045639038086,
+              "refMax": 91.19464111328125,
+              "mean": 0.5514184782602266,
+              "refMean": 0.024826565025782718,
+              "sum": 20327.490782584995,
+              "refSum": 915.2064931104542,
+              "sumAbs": 410517.88494666293,
+              "refSumAbs": 128896.66748152644,
+              "relErrSumAbs": 2.1848603456369315,
+              "relErrMinOverScale": 0.1270936054554715,
+              "relErrMaxOverScale": 0.3043400838479573,
+              "worstSampleAbs": 20.627668857574463,
+              "worstSampleRelOverScale": 0.22619387066780533,
+              "samples": [
+                1.3706334829330444,
+                18.421920776367188,
+                -17.6502685546875,
+                -7.667821884155273,
+                -12.569367408752441,
+                15.841604232788086
+              ],
+              "refSamples": [
+                7.22178316116333,
+                -1.6385443210601807,
+                -2.76375675201416,
+                3.1044225692749023,
+                0.2366267740726471,
+                -4.786064624786377
+              ]
+            },
+            "/vision_model/embeddings/Add_3_output_0": {
+              "label": "embeddings",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -0.6253548264503479,
+              "refMin": -10.433222770690918,
+              "max": 369493504,
+              "refMax": 11.857562065124512,
+              "mean": 54936900.36982828,
+              "refMean": -0.031733051776108155,
+              "sum": 43204136431644.79,
+              "refSum": -24955.887374388287,
+              "sumAbs": 43204136494367.35,
+              "refSumAbs": 75493.65780957643,
+              "relErrSumAbs": 572288291.128387,
+              "relErrMinOverScale": 0.8271403422030144,
+              "relErrMaxOverScale": 31161000.05322283,
+              "worstSampleAbs": 369493503.7634604,
+              "worstSampleRelOverScale": 31161001.033274412,
+              "samples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                369493504
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                0.2365395724773407
+              ]
+            },
+            "/vision_model/encoder/layers.0/Add_1_output_0": {
+              "label": "layer_00",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -199803.6875,
+              "refMin": -4.187150001525879,
+              "max": 369756256,
+              "refMax": 10.76812744140625,
+              "mean": 54936588.923467614,
+              "refMean": -0.03957780459154744,
+              "sum": 43203891500260.484,
+              "refSum": -31125.252020539832,
+              "sumAbs": 43214349824062.5,
+              "refSumAbs": 166801.81258235674,
+              "relErrSumAbs": 259076019.54819304,
+              "relErrMinOverScale": 18554.711711686978,
+              "relErrMaxOverScale": 34338026.48082188,
+              "worstSampleAbs": 369478399.8318697,
+              "worstSampleRelOverScale": 34312223.90729972,
+              "samples": [
+                -35688.87890625,
+                13214.96875,
+                18173.083984375,
+                14374.8349609375,
+                -2805.976318359375,
+                369478400
+              ],
+              "refSamples": [
+                0.18209892511367798,
+                -0.06594130396842957,
+                -0.22503164410591125,
+                0.21231377124786377,
+                -0.006097443401813507,
+                0.1681302934885025
+              ]
+            },
+            "/vision_model/encoder/layers.1/Add_1_output_0": {
+              "label": "layer_01",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -260271.390625,
+              "refMin": -2.8376035690307617,
+              "max": 369740736,
+              "refMax": 8.132026672363281,
+              "mean": 54936661.33469364,
+              "refMean": -0.032105957419779806,
+              "sum": 43203948446765.79,
+              "refSum": -25249.15230555227,
+              "sumAbs": 43219714344680.77,
+              "refSumAbs": 139191.65431644768,
+              "relErrSumAbs": 310505068.84005064,
+              "relErrMinOverScale": 32005.37375337866,
+              "relErrMaxOverScale": 45467230.09708495,
+              "worstSampleAbs": 369454143.94539803,
+              "worstSampleRelOverScale": 45431988.70719265,
+              "samples": [
+                -17502.298828125,
+                21938.2109375,
+                -250.46942138671875,
+                28715.912109375,
+                -13243.099609375,
+                369454144
+              ],
+              "refSamples": [
+                0.10296288132667542,
+                0.031955331563949585,
+                -0.0821792334318161,
+                0.20484128594398499,
+                0.37185245752334595,
+                0.054601967334747314
+              ]
+            },
+            "/vision_model/encoder/layers.2/Add_1_output_0": {
+              "label": "layer_02",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -277968.71875,
+              "refMin": -3.9407052993774414,
+              "max": 369737696,
+              "refMax": 7.62718391418457,
+              "mean": 54936396.893182576,
+              "refMean": -0.028670975301129904,
+              "sum": 43203740481499.36,
+              "refSum": -22547.772448018193,
+              "sumAbs": 43221232679682.28,
+              "refSumAbs": 137810.06795155397,
+              "relErrSumAbs": 313628990.859117,
+              "relErrMinOverScale": 36443.95902500249,
+              "relErrMaxOverScale": 48476304.29957255,
+              "worstSampleAbs": 369408959.8290049,
+              "worstSampleRelOverScale": 48433204.70377024,
+              "samples": [
+                -15016.908203125,
+                48899.546875,
+                17693.76953125,
+                41471.57421875,
+                -39029.2578125,
+                369408960
+              ],
+              "refSamples": [
+                0.2074575424194336,
+                0.18444038927555084,
+                -0.02901589125394821,
+                0.2707948684692383,
+                0.20444078743457794,
+                0.1709951013326645
+              ]
+            },
+            "/vision_model/encoder/layers.3/Add_1_output_0": {
+              "label": "layer_03",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -275852.1875,
+              "refMin": -4.634237289428711,
+              "max": 369749600,
+              "refMax": 6.985799789428711,
+              "mean": 54936123.37890124,
+              "refMean": -0.028175133828545047,
+              "sum": 43203525381116.06,
+              "refSum": -22157.82684705034,
+              "sumAbs": 43225725083087.92,
+              "refSumAbs": 128749.396333938,
+              "relErrSumAbs": 335735360.20490324,
+              "relErrMinOverScale": 39486.89650111902,
+              "relErrMaxOverScale": 52928741.756058514,
+              "worstSampleAbs": 369420256.0229852,
+              "worstSampleRelOverScale": 52881597.97851806,
+              "samples": [
+                47345.1328125,
+                106043.109375,
+                -2777.843994140625,
+                90475.984375,
+                -106909.5546875,
+                369420256
+              ],
+              "refSamples": [
+                -0.01971888542175293,
+                0.22750616073608398,
+                -0.0063768960535526276,
+                0.014269888401031494,
+                0.038259848952293396,
+                -0.022985227406024933
+              ]
+            },
+            "/vision_model/encoder/layers.4/Add_1_output_0": {
+              "label": "layer_04",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -277285.9375,
+              "refMin": -12.009203910827637,
+              "max": 369748992,
+              "refMax": 9.882884979248047,
+              "mean": 54936095.3260726,
+              "refMean": -0.02642531061593978,
+              "sum": 43203503319473.93,
+              "refSum": -20781.709878314752,
+              "sumAbs": 43226115794374.13,
+              "refSumAbs": 124914.14400578756,
+              "relErrSumAbs": 346046606.7594173,
+              "relErrMinOverScale": 23088.452020212248,
+              "relErrMaxOverScale": 30788800.395315554,
+              "worstSampleAbs": 369397792.14193285,
+              "worstSampleRelOverScale": 30759556.993522238,
+              "samples": [
+                63651.96484375,
+                102353.890625,
+                -6496.55224609375,
+                101651.015625,
+                -102924.5859375,
+                369397792
+              ],
+              "refSamples": [
+                -0.10183675587177277,
+                0.0885659009218216,
+                -0.18722060322761536,
+                -0.004927381873130798,
+                0.10374324023723602,
+                -0.141932874917984
+              ]
+            },
+            "/vision_model/encoder/layers.5/Add_1_output_0": {
+              "label": "layer_05",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -290851.71875,
+              "refMin": -100.69922637939453,
+              "max": 369730656,
+              "refMax": 49.74259948730469,
+              "mean": 54936080.553528614,
+              "refMean": -0.02691845494519048,
+              "sum": 43203491701872.62,
+              "refSum": -21169.53435945604,
+              "sumAbs": 43226120339756.74,
+              "refSumAbs": 117013.10357342102,
+              "relErrSumAbs": 369412646.1283115,
+              "relErrMinOverScale": 2887.3212831664337,
+              "relErrMaxOverScale": 3671633.0358328973,
+              "worstSampleAbs": 369402528.1654048,
+              "worstSampleRelOverScale": 3668375.0357092456,
+              "samples": [
+                75933.875,
+                115372.703125,
+                8277.5126953125,
+                108846.78125,
+                -108609.921875,
+                369402528
+              ],
+              "refSamples": [
+                0.07303179800510406,
+                -0.05847325921058655,
+                0.1263861358165741,
+                0.038030847907066345,
+                -0.04031520336866379,
+                -0.1654047667980194
+              ]
+            },
+            "/vision_model/encoder/layers.6/Add_1_output_0": {
+              "label": "layer_06",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -295268.03125,
+              "refMin": -119.72552490234375,
+              "max": 369732256,
+              "refMax": 54.71815872192383,
+              "mean": 54936080.70329275,
+              "refMean": -0.027869385228476744,
+              "sum": 43203491819651.92,
+              "refSum": -21917.376364001422,
+              "sumAbs": 43226274460299.19,
+              "refSumAbs": 133187.66017687402,
+              "relErrSumAbs": 324551645.92355454,
+              "relErrMinOverScale": 2465.207865790028,
+              "relErrMaxOverScale": 3088165.21442207,
+              "worstSampleAbs": 369405439.8002273,
+              "worstSampleRelOverScale": 3085435.95947096,
+              "samples": [
+                62714.65234375,
+                123527.90625,
+                10668.984375,
+                109488.2734375,
+                -110179.3515625,
+                369405440
+              ],
+              "refSamples": [
+                0.06019274890422821,
+                -0.15540969371795654,
+                0.1314775049686432,
+                -0.045062024146318436,
+                -0.043693140149116516,
+                0.19977271556854248
+              ]
+            },
+            "/vision_model/encoder/layers.7/Add_1_output_0": {
+              "label": "layer_07",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -279784.65625,
+              "refMin": -128.2147216796875,
+              "max": 369721152,
+              "refMax": 56.135459899902344,
+              "mean": 54936093.35739881,
+              "refMean": -0.029308639357871275,
+              "sum": 43203501771245.86,
+              "refSum": -23049.251867489424,
+              "sumAbs": 43226379719071.95,
+              "refSumAbs": 148238.74292340223,
+              "relErrSumAbs": 291599744.56319493,
+              "relErrMinOverScale": 2181.157029899984,
+              "relErrMaxOverScale": 2883608.769889904,
+              "worstSampleAbs": 369411903.6033012,
+              "worstSampleRelOverScale": 2881197.250704055,
+              "samples": [
+                67650.640625,
+                141088.875,
+                15371.38671875,
+                113716.75,
+                -111094.6328125,
+                369411904
+              ],
+              "refSamples": [
+                -0.13214096426963806,
+                0.09652625024318695,
+                0.18322136998176575,
+                0.06434740126132965,
+                -0.08008888363838196,
+                0.3966987729072571
+              ]
+            },
+            "/vision_model/encoder/layers.8/Add_1_output_0": {
+              "label": "layer_08",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -285176.25,
+              "refMin": -133.6926727294922,
+              "max": 369729472,
+              "refMax": 55.79255676269531,
+              "mean": 54936117.37417183,
+              "refMean": -0.029393682627465445,
+              "sum": 43203520658804.7,
+              "refSum": -23116.132616082905,
+              "sumAbs": 43226592230768.31,
+              "refSumAbs": 188443.7511301015,
+              "relErrSumAbs": 229387240.39982063,
+              "relErrMinOverScale": 2132.0731458784803,
+              "relErrMaxOverScale": 2765517.4263404645,
+              "worstSampleAbs": 369419775.6735984,
+              "worstSampleRelOverScale": 2763201.3642293317,
+              "samples": [
+                65633.21875,
+                134343.609375,
+                27236.322265625,
+                120004.828125,
+                -123584.265625,
+                369419776
+              ],
+              "refSamples": [
+                0.22431935369968414,
+                0.27984222769737244,
+                0.2214139997959137,
+                0.4151988625526428,
+                -0.43419864773750305,
+                0.32640159130096436
+              ]
+            },
+            "/vision_model/encoder/layers.9/Add_1_output_0": {
+              "label": "layer_09",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -314876.09375,
+              "refMin": -136.05841064453125,
+              "max": 369742144,
+              "refMax": 55.86793518066406,
+              "mean": 54936204.336695075,
+              "refMean": -0.03130448113151907,
+              "sum": 43203589048915.78,
+              "refSum": -24618.845705222804,
+              "sumAbs": 43227939368489.516,
+              "refSumAbs": 253010.20669983095,
+              "relErrSumAbs": 170854526.6980654,
+              "relErrMinOverScale": 2313.2714387032725,
+              "relErrMaxOverScale": 2717524.6747373813,
+              "worstSampleAbs": 369410751.45385987,
+              "worstSampleRelOverScale": 2715089.4215499056,
+              "samples": [
+                80092.859375,
+                142729.96875,
+                50676.11328125,
+                140683.5625,
+                -113297.40625,
+                369410752
+              ],
+              "refSamples": [
+                0.3571534752845764,
+                -0.07435190677642822,
+                0.1358584612607956,
+                0.4486657977104187,
+                -0.4382109045982361,
+                0.5461401343345642
+              ]
+            },
+            "/vision_model/encoder/layers.10/Add_1_output_0": {
+              "label": "layer_10",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -314721.8125,
+              "refMin": -140.2944793701172,
+              "max": 369760416,
+              "refMax": 55.84575653076172,
+              "mean": 54936395.6000744,
+              "refMean": -0.033216950474283934,
+              "sum": 43203739464557.71,
+              "refSum": -26122.87279539206,
+              "sumAbs": 43229799711184.586,
+              "refSumAbs": 322520.9736493409,
+              "relErrSumAbs": 134037172.52715775,
+              "relErrMinOverScale": 2242.294347097709,
+              "relErrMaxOverScale": 2635601.641735039,
+              "worstSampleAbs": 369398687.0890571,
+              "worstSampleRelOverScale": 2633023.685233756,
+              "samples": [
+                75688.8203125,
+                152786.5,
+                86354.4140625,
+                166610.328125,
+                -129651.625,
+                369398688
+              ],
+              "refSamples": [
+                0.07902747392654419,
+                -0.5934563875198364,
+                -0.22903741896152496,
+                -0.10413509607315063,
+                -0.5931698083877563,
+                0.9109429121017456
+              ]
+            },
+            "/vision_model/encoder/layers.11/Add_1_output_0": {
+              "label": "layer_11",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -329394.9375,
+              "refMin": -432.036865234375,
+              "max": 369846432,
+              "refMax": 401.36041259765625,
+              "mean": 54936485.702490866,
+              "refMean": 0.0456939660497054,
+              "sum": 43203810323981.3,
+              "refSum": 35935.19710840192,
+              "sumAbs": 43234177102517.69,
+              "refSumAbs": 1495716.935925833,
+              "relErrSumAbs": 28905319.29428161,
+              "relErrMinOverScale": 761.4232189568061,
+              "relErrMaxOverScale": 856052.018706668,
+              "worstSampleAbs": 369417183.4680732,
+              "worstSampleRelOverScale": 855059.4016269159,
+              "samples": [
+                142286.21875,
+                163874.5,
+                117484.4375,
+                184893.359375,
+                -68110.6953125,
+                369417184
+              ],
+              "refSamples": [
+                0.3404749929904938,
+                -0.9985593557357788,
+                -0.013208568096160889,
+                -0.7723509073257446,
+                0.8082537651062012,
+                0.5319268107414246
+              ]
+            },
+            "/vision_model/post_layernorm/Add_1_output_0": {
+              "label": "post_layernorm",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -3.3762104511260986,
+              "refMin": -26.902713775634766,
+              "max": 11.106117248535156,
+              "refMax": 21.263071060180664,
+              "mean": -0.03277980808396327,
+              "refMean": 0.007335907558929766,
+              "sum": -25779.0900310874,
+              "refSum": 5769.192453384254,
+              "sumAbs": 1472121.1369532943,
+              "refSumAbs": 280057.04664303886,
+              "relErrSumAbs": 4.256504539340023,
+              "relErrMinOverScale": 0.8745029784250292,
+              "relErrMaxOverScale": 0.3775438380065751,
+              "worstSampleAbs": 2.9261553287506104,
+              "worstSampleRelOverScale": 0.10876803556527331,
+              "samples": [
+                -1.0037003755569458,
+                -0.8201628923416138,
+                -1.0241466760635376,
+                -0.9178658723831177,
+                -0.9681360721588135,
+                3.822618007659912
+              ],
+              "refSamples": [
+                0.44568565487861633,
+                -1.4594568014144897,
+                -0.018636861816048622,
+                -0.13568583130836487,
+                0.18476533889770508,
+                0.8964626789093018
+              ]
+            },
+            "/connector/Reshape_3_output_0": {
+              "label": "connector_reshape3",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                64,
+                12288
+              ],
+              "shapeRef": [
+                1,
+                64,
+                12288
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -3.3762104511260986,
+              "refMin": -26.902713775634766,
+              "max": 11.106117248535156,
+              "refMax": 21.263071060180664,
+              "mean": -0.03277980808396327,
+              "refMean": 0.007335907558929766,
+              "sum": -25779.0900310874,
+              "refSum": 5769.192453384254,
+              "sumAbs": 1472121.1369532943,
+              "refSumAbs": 280057.04664303886,
+              "relErrSumAbs": 4.256504539340023,
+              "relErrMinOverScale": 0.8745029784250292,
+              "relErrMaxOverScale": 0.3775438380065751,
+              "worstSampleAbs": 2.9261553287506104,
+              "worstSampleRelOverScale": 0.10876803556527331,
+              "samples": [
+                -1.0037003755569458,
+                -0.9518725872039795,
+                -1.0258697271347046,
+                -0.9178658723831177,
+                -0.9611313343048096,
+                3.822618007659912
+              ],
+              "refSamples": [
+                0.44568565487861633,
+                -1.5067496299743652,
+                -0.034637510776519775,
+                -0.13568583130836487,
+                -0.024147510528564453,
+                0.8964626789093018
+              ]
+            }
+          },
+          "order": [
+            "image_features",
+            "/vision_model/embeddings/Add_3_output_0",
+            "/vision_model/encoder/layers.0/Add_1_output_0",
+            "/vision_model/encoder/layers.1/Add_1_output_0",
+            "/vision_model/encoder/layers.2/Add_1_output_0",
+            "/vision_model/encoder/layers.3/Add_1_output_0",
+            "/vision_model/encoder/layers.4/Add_1_output_0",
+            "/vision_model/encoder/layers.5/Add_1_output_0",
+            "/vision_model/encoder/layers.6/Add_1_output_0",
+            "/vision_model/encoder/layers.7/Add_1_output_0",
+            "/vision_model/encoder/layers.8/Add_1_output_0",
+            "/vision_model/encoder/layers.9/Add_1_output_0",
+            "/vision_model/encoder/layers.10/Add_1_output_0",
+            "/vision_model/encoder/layers.11/Add_1_output_0",
+            "/vision_model/post_layernorm/Add_1_output_0",
+            "/connector/Reshape_3_output_0"
+          ],
+          "error": null,
+          "ortVersion": "1.29.0",
+          "createMs": 286.7,
+          "inferMs": 2721.2,
+          "conclusion": "layerwise complete, 16 checkpoints",
+          "finishedAt": "2026-09-09T15:59:46.147Z"
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-09T15:59:46.353Z"
+}
