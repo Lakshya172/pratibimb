@@ -120,6 +120,37 @@ environment may be quoted as a hardware number.**
 |---|---|---|---|
 | S-02a-1 | Firefox on **native** Linux with a real GPU and `/dev/dri`. WSL2 cannot answer it. | `UNKNOWN` | The judging-configuration story |
 | S-02a-2 | Does the **WASM path** carry Firefox-on-Linux, given WebGPU is off by default? | `UNKNOWN` | Firefox parity |
+
+### S-02a-2a-1 result — recorded 2026-09-09 (workstation 1)
+
+**ANSWERED — measurement only. The CSP ADR is prepared, not approved.**
+
+Two browsers (unbranded **Chromium 151.0.7922.34**, branded **Edge 152.0.4191.66**), three
+MV3 contexts, two manifest variants, 3 runs each — **36/36 context-observations
+unanimous**. Evidence:
+[`W1-S02a-2a-1`](../../artifacts/experiments/W1-S02a2a1-csp-attack-surface/README.md).
+
+| # | Question | Answer |
+|---|---|---|
+| Q1 | Does `'wasm-unsafe-eval'` widen JavaScript execution? | **NO.** `eval`, `new Function` and string-`setTimeout` remain blocked, identically to the default CSP. It unlocks WebAssembly compilation and nothing else. **Adopting it does not breach INV-15 or INV-16.** |
+| Q2 | Does it constrain WASM **provenance**? | **NO.** Under the directive, network-origin bytes compile *and* `instantiateStreaming` exactly as freely as packaged bytes. Under the default CSP the fetch still succeeds — **compilation** is what is blocked, not retrieval. |
+| Q3 | Can the bytes be **hash-pinned**, and does the pin refuse? | **YES**, all three contexts, both browsers. The refused module is one the browser would otherwise have executed (it computes `-1` if the pin is bypassed). |
+
+**Consequence for Invariant E:** because the CSP token does not restrict provenance, the
+only manifest-level control that does is **`connect-src`** — Invariant E enforcement
+mechanism (3). **The CSP decision and Invariant E are coupled through one file.**
+
+**Incidental FACT for the perception tier:** `chrome.*` is **not exposed inside a dedicated
+worker** (`chromeApiAvailable: false`, 36/36), so `chrome.runtime.getURL()` is unavailable
+in PratiBimb's actual inference context. Packaged assets must be addressed by relative URL,
+or the URL passed in from the offscreen document.
+
+| # | New question raised | Status | Blocks |
+|---|---|---|---|
+| S-02a-2a-2 | Does Firefox accept `'wasm-unsafe-eval'`, and is it equally narrow there? | `UNKNOWN` | Cross-browser parity of the ADR |
+| S-02a-2a-3 | Does ORT Web expose its `.wasm` URL, so a pin can precede its own instantiation without patching the library? | `UNKNOWN` | Whether the pinning recommendation is implementable |
+| S-02a-2a-4 | Does a pinned `connect-src` actually block WASM fetched from another origin, in all three contexts? | `UNKNOWN` | Whether mechanism (3) really is the provenance control |
+
 | S-02a-3 | Mozilla's 2026 ship status for `dom.webgpu.enabled` on Linux release | `UNKNOWN` | Slide accuracy |
 | S-02a-4 | Confirm the backend is software by a route other than `adapterInfo` | `UNKNOWN` | Labelling of Linux figures |
 | S-03 | Can an ONNX Runtime Web session be **created and run** in each context, on each backend? | `UNKNOWN` | — |
@@ -240,8 +271,10 @@ Evidence: [`W1-B02`](../../artifacts/experiments/W1-B02-invariant-e-observation/
 
 | # | New question raised by B-02 | Status | Blocks |
 |---|---|---|---|
-| B-02-1 | Does this reproduce on **`ubuntu-latest` with Playwright's own Chromium** — the real CI cell? | **PARTLY ANSWERED — see below** | **QG-04 sign-off** |
-
+| B-02-1 | Does this reproduce on **`ubuntu-latest` with Playwright's own Chromium** — the real CI cell? | **PARTLY ANSWERED — see below** | **QG-04 sign-off** |
+
+
+
 ### B-02-1 result (Linux) — recorded 2026-09-07
 
 **CONDITIONAL.** Re-run inside **WSL2 Ubuntu 26.04** against **Chrome for Testing
