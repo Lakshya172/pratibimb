@@ -1,0 +1,40 @@
+{
+  "models": [
+    {
+      "role": "face-detection",
+      "file": "yunet.onnx",
+      "url": "https://media.githubusercontent.com/media/opencv/opencv_zoo/47534e27c9851bb1128ccc0102f1145e27f23f98/models/face_detection_yunet/face_detection_yunet_2023mar.onnx",
+      "bytes": 232589,
+      "sha256": "8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4",
+      "hash_pinned_in_advance": true
+    },
+    {
+      "role": "vlm-vision-encoder",
+      "file": "smolvlm_vision_encoder_int8.onnx",
+      "url": "https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct/resolve/7e3e67edbbed1bf9888184d9df282b700a323964/onnx/vision_encoder_int8.onnx",
+      "bytes": 94247927,
+      "sha256": "d534ab668d3563e6d1d809bbbf1ff18308ded48651178614dbcc4a1de13d16f7",
+      "hash_pinned_in_advance": false
+    },
+    {
+      "role": "ocr-detection",
+      "file": "ppocrv5_mobile_det.onnx",
+      "source_repo": "PaddlePaddle/PP-OCRv5_mobile_det",
+      "revision": "0d63e78e2b680928f6b1747d76a08db6e645efb7",
+      "converted_by": "paddle2onnx",
+      "bytes": 4819576,
+      "sha256": "5f353dec11fcfc7c6dc35e066eff2a047b584d9d1ed61b3deb8c0d31e164705b",
+      "hash_pinned_in_advance": false
+    },
+    {
+      "role": "ocr-recognition",
+      "file": "ppocrv5_mobile_rec.onnx",
+      "source_repo": "PaddlePaddle/PP-OCRv5_mobile_rec",
+      "revision": "682f20538d8c086cb2128e5cfac775e6c4904e85",
+      "converted_by": "paddle2onnx",
+      "bytes": 16557298,
+      "sha256": "e0c89a163abe16e1d6b2bda5b29dc09703037f437de302f571da10e4070152d6",
+      "hash_pinned_in_advance": false
+    }
+  ]
+}

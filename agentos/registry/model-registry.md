@@ -18,6 +18,12 @@
 | `ADOPTED` | `PINNED` + passed QG-03 + benchmark artifact exists |
 | `REJECTED` | Failed feasibility or benchmark. Reason and artifact recorded. |
 
+> **Superseded in part, 2026-09-09 (S-04a-1).** The sentence below is preserved as written.
+> **Four models have now been downloaded, revision-pinned, licence-verified at that revision,
+> and run in a browser.** See the S-04a-1 rows and the evidence table beneath the registry.
+> **No model has been ADOPTED** — adoption still requires QG-03 and a benchmark artifact, and
+> none exists.
+
 **Every row below is currently `PINNED-UNVERIFIED`. No model has been downloaded,
 pinned, licence-verified, or run.**
 
@@ -34,6 +40,42 @@ pinned, licence-verified, or run.**
 | Local VLM | `LocalVLM` | SmolVLM-256M-Instruct | Apache-2.0 | **NO — UNKNOWN** | *not pinned* | Transformers.js | ONNX | — | `PINNED-UNVERIFIED` |
 | Server VLM | `ServerPlanner` | Qwen3-VL-4B-Instruct | Apache-2.0 | **NO — UNKNOWN** | *not pinned* | vLLM | HF weights | — | `PINNED-UNVERIFIED` |
 | Server VLM (upgrade) | `ServerPlanner` | Qwen3-VL-8B-Instruct | Apache-2.0 | **NO — UNKNOWN** | *not pinned* | vLLM | HF weights | — | `PINNED-UNVERIFIED` |
+
+### S-04a-1 evidence — recorded 2026-09-09
+
+**These are four SEPARATE evidence dimensions and are deliberately not merged into one
+status.** A model can be licence-verified and runtime-validated and still have no benchmark.
+
+| Role | Model @ revision | Licence verified at revision? | Runtime validated? | Browser validated? | Performance validated? |
+|---|---|---|---|---|---|
+| Faces | YuNet @ `47534e27` | **YES — Apache-2.0** (2026-09-08) | **YES** — ORT Web 1.29.0, wasm + webgpu | **YES** — Chrome (Win + WSL2), Firefox Win | **NO** |
+| OCR detection | PP-OCRv5_mobile_det @ `0d63e78e` | **YES — Apache-2.0** (2026-09-09) | **PARTIAL** — runs; **fails the S-04a-1 correctness criterion on wasm** (4.12e-02 vs 2e-02) | **PARTIAL** — passes on webgpu, fails on wasm | **NO** |
+| OCR recognition | PP-OCRv5_mobile_rec @ `682f2053` | **YES — Apache-2.0** (2026-09-09) | **YES** — best agreement of the four (5.51e-06) | **YES** — Chrome, Firefox | **NO** |
+| Local VLM (vision tower only) | SmolVLM-256M-Instruct `vision_encoder_int8` @ `7e3e67ed` | **YES — Apache-2.0** (2026-09-09) | **PARTIAL** — correct on wasm (1.96e-02); **INCORRECT on WebGPU (2.18)** | **PARTIAL** — wasm only | **NO** |
+
+Hashes, sizes and the acquisition script:
+[`W1-S04a-1`](../../artifacts/experiments/W1-S04a1-four-model-residency/README.md). **No
+weights are committed.**
+
+**Licence verification method:** the model card front-matter was read at the pinned revision
+via `https://huggingface.co/<repo>/raw/<revision>/README.md`. None of the three HF repositories
+carries a separate `LICENSE` file; the declaration in-repo at the revision is the strongest
+available evidence and is recorded as such rather than as a stronger claim.
+
+### UI element detection — BLOCKED on licence
+
+**`microsoft/OmniParser-v2.0` `icon_detect` is AGPL-3.0.** Read at revision
+`6600256cb0f1b07651e3bc86166196307bad7e2d`, the file `icon_detect/LICENSE` begins
+`GNU AFFERO GENERAL PUBLIC LICENSE Version 3`. **This confirms the defect recorded below, at
+the revision rather than from a model card.**
+
+The dossier's intended MIT replacement, `icon_detect_v3`, **could not be found as a pinnable
+ONNX artifact**, and the `onnx-community/OmniParser-icon_detect*` re-exports **declare no
+licence at all**, so they inherit an unresolved AGPL question rather than escaping it.
+
+**No AGPL model was downloaded or run.** S-04a-1 used the VLM vision tower in this slot
+instead. **A licensed UI-element detector is an open p1 item (S-04a-1c)** and the
+`UIElementDetector` role has no viable pinned implementation today.
 
 ### Notes carried from the dossier
 

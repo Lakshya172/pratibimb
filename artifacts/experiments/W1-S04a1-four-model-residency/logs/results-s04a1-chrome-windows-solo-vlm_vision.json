@@ -1,0 +1,886 @@
+{
+  "experiment": "W1-S04a1-four-model-residency",
+  "browser": "chrome",
+  "startedAt": "2026-09-09T15:12:05.894Z",
+  "platform": "windows-solo-vlm_vision",
+  "chrome": "C:/Users/OMEN/cft/chrome.exe",
+  "runs": [
+    {
+      "headless": false,
+      "run": 1,
+      "platform": "windows-solo-vlm_vision",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "s04a1-four-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "phase": "baselines",
+          "startedAt": "2026-09-09T15:12:06.526Z",
+          "requestedNumThreads": 1,
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "modelOrder": [
+            "vlm_vision"
+          ],
+          "baselines": {
+            "vlm_vision": {
+              "error": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.",
+              "correct": null,
+              "modelBytes": 94247927,
+              "before": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterCreate": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterInfer": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterDestroy": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "growsAdded": 0,
+              "createMs": 116.1,
+              "destroyMs": 0,
+              "js": {
+                "before": null,
+                "afterInfer": null
+              }
+            }
+          },
+          "residentSnapshots": [],
+          "lifecycleSnapshots": [],
+          "cycleSnapshots": [],
+          "growthEvents": [],
+          "correctness": [],
+          "timings": [
+            {
+              "model": "vlm_vision",
+              "tag": "baseline",
+              "phase": "create",
+              "ms": 116.1
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "baseline",
+              "phase": "destroy",
+              "ms": 0
+            }
+          ],
+          "error": null,
+          "notes": [
+            "baseline vlm_vision failed: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356."
+          ],
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1,
+            "crossOriginIsolated": false
+          },
+          "allCorrect": true,
+          "conclusion": "baselines only",
+          "finishedAt": "2026-09-09T15:12:06.643Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1-four-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "phase": "baselines",
+          "startedAt": "2026-09-09T15:12:06.694Z",
+          "requestedNumThreads": 1,
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "modelOrder": [
+            "vlm_vision"
+          ],
+          "baselines": {
+            "vlm_vision": {
+              "error": null,
+              "correct": true,
+              "modelBytes": 94247927,
+              "before": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterCreate": {
+                "instances": 1,
+                "bytes": 216072192,
+                "mb": 206.1,
+                "pages": 3297,
+                "growCount": 5
+              },
+              "afterInfer": {
+                "instances": 1,
+                "bytes": 259325952,
+                "mb": 247.3,
+                "pages": 3957,
+                "growCount": 6
+              },
+              "afterDestroy": {
+                "instances": 1,
+                "bytes": 259325952,
+                "mb": 247.3,
+                "pages": 3957,
+                "growCount": 6
+              },
+              "growsAdded": 6,
+              "createMs": 673.8,
+              "destroyMs": 4.3,
+              "js": {
+                "before": {
+                  "usedMB": 2.5
+                },
+                "afterInfer": {
+                  "usedMB": 97.7
+                }
+              }
+            }
+          },
+          "residentSnapshots": [],
+          "lifecycleSnapshots": [],
+          "cycleSnapshots": [],
+          "growthEvents": [
+            {
+              "delta": 1333,
+              "beforePages": 256,
+              "afterPages": 1589,
+              "beforeMB": 16,
+              "afterMB": 99.3,
+              "at": 326
+            },
+            {
+              "delta": 318,
+              "beforePages": 1589,
+              "afterPages": 1907,
+              "beforeMB": 99.3,
+              "afterMB": 119.2,
+              "at": 345
+            },
+            {
+              "delta": 382,
+              "beforePages": 1907,
+              "afterPages": 2289,
+              "beforeMB": 119.2,
+              "afterMB": 143.1,
+              "at": 349
+            },
+            {
+              "delta": 458,
+              "beforePages": 2289,
+              "afterPages": 2747,
+              "beforeMB": 143.1,
+              "afterMB": 171.7,
+              "at": 353
+            },
+            {
+              "delta": 550,
+              "beforePages": 2747,
+              "afterPages": 3297,
+              "beforeMB": 171.7,
+              "afterMB": 206.1,
+              "at": 360
+            },
+            {
+              "delta": 660,
+              "beforePages": 3297,
+              "afterPages": 3957,
+              "beforeMB": 206.1,
+              "afterMB": 247.3,
+              "at": 1220
+            }
+          ],
+          "correctness": [
+            {
+              "model": "vlm_vision",
+              "tag": "baseline-vlm_vision",
+              "correct": true,
+              "worstRelErr": 0.019572124235385065,
+              "outputs": {
+                "image_features": {
+                  "count": 36864,
+                  "expectedCount": 36864,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 131419.463006598,
+                  "refSumAbs": 128896.68114960904,
+                  "relErrSumAbs": 0.019572124235385065,
+                  "min": -51.10542297363281,
+                  "refMin": -46.665714263916016,
+                  "max": 92.97940063476562,
+                  "refMax": 91.19464874267578,
+                  "sum": 1050.8697502962896,
+                  "refSum": 915.2065631601727,
+                  "relErrSum": 0.14823231453637875
+                }
+              }
+            }
+          ],
+          "timings": [
+            {
+              "model": "vlm_vision",
+              "tag": "baseline-vlm_vision",
+              "phase": "infer",
+              "ms": 3366
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "baseline",
+              "phase": "create",
+              "ms": 673.8
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "baseline",
+              "phase": "destroy",
+              "ms": 4.3
+            }
+          ],
+          "error": null,
+          "notes": [],
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1,
+            "crossOriginIsolated": false
+          },
+          "allCorrect": true,
+          "conclusion": "baselines only",
+          "finishedAt": "2026-09-09T15:12:10.740Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "s04a1-four-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "phase": "baselines",
+          "startedAt": "2026-09-09T15:12:10.782Z",
+          "requestedNumThreads": 1,
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "modelOrder": [
+            "vlm_vision"
+          ],
+          "baselines": {
+            "vlm_vision": {
+              "error": null,
+              "correct": true,
+              "modelBytes": 94247927,
+              "before": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterCreate": {
+                "instances": 1,
+                "bytes": 216072192,
+                "mb": 206.1,
+                "pages": 3297,
+                "growCount": 5
+              },
+              "afterInfer": {
+                "instances": 1,
+                "bytes": 259325952,
+                "mb": 247.3,
+                "pages": 3957,
+                "growCount": 6
+              },
+              "afterDestroy": {
+                "instances": 1,
+                "bytes": 259325952,
+                "mb": 247.3,
+                "pages": 3957,
+                "growCount": 6
+              },
+              "growsAdded": 6,
+              "createMs": 360.8,
+              "destroyMs": 2.5,
+              "js": {
+                "before": null,
+                "afterInfer": null
+              }
+            }
+          },
+          "residentSnapshots": [],
+          "lifecycleSnapshots": [],
+          "cycleSnapshots": [],
+          "growthEvents": [
+            {
+              "delta": 1333,
+              "beforePages": 256,
+              "afterPages": 1589,
+              "beforeMB": 16,
+              "afterMB": 99.3,
+              "at": 203
+            },
+            {
+              "delta": 318,
+              "beforePages": 1589,
+              "afterPages": 1907,
+              "beforeMB": 99.3,
+              "afterMB": 119.2,
+              "at": 221
+            },
+            {
+              "delta": 382,
+              "beforePages": 1907,
+              "afterPages": 2289,
+              "beforeMB": 119.2,
+              "afterMB": 143.1,
+              "at": 228
+            },
+            {
+              "delta": 458,
+              "beforePages": 2289,
+              "afterPages": 2747,
+              "beforeMB": 143.1,
+              "afterMB": 171.7,
+              "at": 232
+            },
+            {
+              "delta": 550,
+              "beforePages": 2747,
+              "afterPages": 3297,
+              "beforeMB": 171.7,
+              "afterMB": 206.1,
+              "at": 238
+            },
+            {
+              "delta": 660,
+              "beforePages": 3297,
+              "afterPages": 3957,
+              "beforeMB": 206.1,
+              "afterMB": 247.3,
+              "at": 738
+            }
+          ],
+          "correctness": [
+            {
+              "model": "vlm_vision",
+              "tag": "baseline-vlm_vision",
+              "correct": true,
+              "worstRelErr": 0.019572124235385065,
+              "outputs": {
+                "image_features": {
+                  "count": 36864,
+                  "expectedCount": 36864,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 131419.463006598,
+                  "refSumAbs": 128896.68114960904,
+                  "relErrSumAbs": 0.019572124235385065,
+                  "min": -51.10542297363281,
+                  "refMin": -46.665714263916016,
+                  "max": 92.97940063476562,
+                  "refMax": 91.19464874267578,
+                  "sum": 1050.8697502962896,
+                  "refSum": 915.2065631601727,
+                  "relErrSum": 0.14823231453637875
+                }
+              }
+            }
+          ],
+          "timings": [
+            {
+              "model": "vlm_vision",
+              "tag": "baseline-vlm_vision",
+              "phase": "infer",
+              "ms": 3049.8
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "baseline",
+              "phase": "create",
+              "ms": 360.8
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "baseline",
+              "phase": "destroy",
+              "ms": 2.5
+            }
+          ],
+          "error": null,
+          "notes": [],
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1,
+            "crossOriginIsolated": false
+          },
+          "allCorrect": true,
+          "conclusion": "baselines only",
+          "finishedAt": "2026-09-09T15:12:14.198Z"
+        }
+      ]
+    },
+    {
+      "headless": true,
+      "run": 1,
+      "platform": "windows-solo-vlm_vision",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "s04a1-four-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "phase": "baselines",
+          "startedAt": "2026-09-09T15:12:14.975Z",
+          "requestedNumThreads": 1,
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "modelOrder": [
+            "vlm_vision"
+          ],
+          "baselines": {
+            "vlm_vision": {
+              "error": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.",
+              "correct": null,
+              "modelBytes": 94247927,
+              "before": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterCreate": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterInfer": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterDestroy": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "growsAdded": 0,
+              "createMs": 112.5,
+              "destroyMs": 0,
+              "js": {
+                "before": null,
+                "afterInfer": null
+              }
+            }
+          },
+          "residentSnapshots": [],
+          "lifecycleSnapshots": [],
+          "cycleSnapshots": [],
+          "growthEvents": [],
+          "correctness": [],
+          "timings": [
+            {
+              "model": "vlm_vision",
+              "tag": "baseline",
+              "phase": "create",
+              "ms": 112.5
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "baseline",
+              "phase": "destroy",
+              "ms": 0
+            }
+          ],
+          "error": null,
+          "notes": [
+            "baseline vlm_vision failed: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356."
+          ],
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1,
+            "crossOriginIsolated": false
+          },
+          "allCorrect": true,
+          "conclusion": "baselines only",
+          "finishedAt": "2026-09-09T15:12:15.087Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1-four-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "phase": "baselines",
+          "startedAt": "2026-09-09T15:12:15.138Z",
+          "requestedNumThreads": 1,
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "modelOrder": [
+            "vlm_vision"
+          ],
+          "baselines": {
+            "vlm_vision": {
+              "error": null,
+              "correct": true,
+              "modelBytes": 94247927,
+              "before": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterCreate": {
+                "instances": 1,
+                "bytes": 216072192,
+                "mb": 206.1,
+                "pages": 3297,
+                "growCount": 5
+              },
+              "afterInfer": {
+                "instances": 1,
+                "bytes": 259325952,
+                "mb": 247.3,
+                "pages": 3957,
+                "growCount": 6
+              },
+              "afterDestroy": {
+                "instances": 1,
+                "bytes": 259325952,
+                "mb": 247.3,
+                "pages": 3957,
+                "growCount": 6
+              },
+              "growsAdded": 6,
+              "createMs": 671.3,
+              "destroyMs": 4,
+              "js": {
+                "before": {
+                  "usedMB": 2.5
+                },
+                "afterInfer": {
+                  "usedMB": 97.7
+                }
+              }
+            }
+          },
+          "residentSnapshots": [],
+          "lifecycleSnapshots": [],
+          "cycleSnapshots": [],
+          "growthEvents": [
+            {
+              "delta": 1333,
+              "beforePages": 256,
+              "afterPages": 1589,
+              "beforeMB": 16,
+              "afterMB": 99.3,
+              "at": 319
+            },
+            {
+              "delta": 318,
+              "beforePages": 1589,
+              "afterPages": 1907,
+              "beforeMB": 99.3,
+              "afterMB": 119.2,
+              "at": 338
+            },
+            {
+              "delta": 382,
+              "beforePages": 1907,
+              "afterPages": 2289,
+              "beforeMB": 119.2,
+              "afterMB": 143.1,
+              "at": 342
+            },
+            {
+              "delta": 458,
+              "beforePages": 2289,
+              "afterPages": 2747,
+              "beforeMB": 143.1,
+              "afterMB": 171.7,
+              "at": 346
+            },
+            {
+              "delta": 550,
+              "beforePages": 2747,
+              "afterPages": 3297,
+              "beforeMB": 171.7,
+              "afterMB": 206.1,
+              "at": 352
+            },
+            {
+              "delta": 660,
+              "beforePages": 3297,
+              "afterPages": 3957,
+              "beforeMB": 206.1,
+              "afterMB": 247.3,
+              "at": 1182
+            }
+          ],
+          "correctness": [
+            {
+              "model": "vlm_vision",
+              "tag": "baseline-vlm_vision",
+              "correct": true,
+              "worstRelErr": 0.019572124235385065,
+              "outputs": {
+                "image_features": {
+                  "count": 36864,
+                  "expectedCount": 36864,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 131419.463006598,
+                  "refSumAbs": 128896.68114960904,
+                  "relErrSumAbs": 0.019572124235385065,
+                  "min": -51.10542297363281,
+                  "refMin": -46.665714263916016,
+                  "max": 92.97940063476562,
+                  "refMax": 91.19464874267578,
+                  "sum": 1050.8697502962896,
+                  "refSum": 915.2065631601727,
+                  "relErrSum": 0.14823231453637875
+                }
+              }
+            }
+          ],
+          "timings": [
+            {
+              "model": "vlm_vision",
+              "tag": "baseline-vlm_vision",
+              "phase": "infer",
+              "ms": 3249.3
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "baseline",
+              "phase": "create",
+              "ms": 671.3
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "baseline",
+              "phase": "destroy",
+              "ms": 4
+            }
+          ],
+          "error": null,
+          "notes": [],
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1,
+            "crossOriginIsolated": false
+          },
+          "allCorrect": true,
+          "conclusion": "baselines only",
+          "finishedAt": "2026-09-09T15:12:19.065Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "s04a1-four-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "phase": "baselines",
+          "startedAt": "2026-09-09T15:12:19.106Z",
+          "requestedNumThreads": 1,
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "modelOrder": [
+            "vlm_vision"
+          ],
+          "baselines": {
+            "vlm_vision": {
+              "error": null,
+              "correct": true,
+              "modelBytes": 94247927,
+              "before": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "afterCreate": {
+                "instances": 1,
+                "bytes": 216072192,
+                "mb": 206.1,
+                "pages": 3297,
+                "growCount": 5
+              },
+              "afterInfer": {
+                "instances": 1,
+                "bytes": 259325952,
+                "mb": 247.3,
+                "pages": 3957,
+                "growCount": 6
+              },
+              "afterDestroy": {
+                "instances": 1,
+                "bytes": 259325952,
+                "mb": 247.3,
+                "pages": 3957,
+                "growCount": 6
+              },
+              "growsAdded": 6,
+              "createMs": 343.2,
+              "destroyMs": 2.8,
+              "js": {
+                "before": null,
+                "afterInfer": null
+              }
+            }
+          },
+          "residentSnapshots": [],
+          "lifecycleSnapshots": [],
+          "cycleSnapshots": [],
+          "growthEvents": [
+            {
+              "delta": 1333,
+              "beforePages": 256,
+              "afterPages": 1589,
+              "beforeMB": 16,
+              "afterMB": 99.3,
+              "at": 197
+            },
+            {
+              "delta": 318,
+              "beforePages": 1589,
+              "afterPages": 1907,
+              "beforeMB": 99.3,
+              "afterMB": 119.2,
+              "at": 213
+            },
+            {
+              "delta": 382,
+              "beforePages": 1907,
+              "afterPages": 2289,
+              "beforeMB": 119.2,
+              "afterMB": 143.1,
+              "at": 219
+            },
+            {
+              "delta": 458,
+              "beforePages": 2289,
+              "afterPages": 2747,
+              "beforeMB": 143.1,
+              "afterMB": 171.7,
+              "at": 223
+            },
+            {
+              "delta": 550,
+              "beforePages": 2747,
+              "afterPages": 3297,
+              "beforeMB": 171.7,
+              "afterMB": 206.1,
+              "at": 228
+            },
+            {
+              "delta": 660,
+              "beforePages": 3297,
+              "afterPages": 3957,
+              "beforeMB": 206.1,
+              "afterMB": 247.3,
+              "at": 694
+            }
+          ],
+          "correctness": [
+            {
+              "model": "vlm_vision",
+              "tag": "baseline-vlm_vision",
+              "correct": true,
+              "worstRelErr": 0.019572124235385065,
+              "outputs": {
+                "image_features": {
+                  "count": 36864,
+                  "expectedCount": 36864,
+                  "countOk": true,
+                  "ok": true,
+                  "sumAbs": 131419.463006598,
+                  "refSumAbs": 128896.68114960904,
+                  "relErrSumAbs": 0.019572124235385065,
+                  "min": -51.10542297363281,
+                  "refMin": -46.665714263916016,
+                  "max": 92.97940063476562,
+                  "refMax": 91.19464874267578,
+                  "sum": 1050.8697502962896,
+                  "refSum": 915.2065631601727,
+                  "relErrSum": 0.14823231453637875
+                }
+              }
+            }
+          ],
+          "timings": [
+            {
+              "model": "vlm_vision",
+              "tag": "baseline-vlm_vision",
+              "phase": "infer",
+              "ms": 3062.8
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "baseline",
+              "phase": "create",
+              "ms": 343.2
+            },
+            {
+              "model": "vlm_vision",
+              "tag": "baseline",
+              "phase": "destroy",
+              "ms": 2.8
+            }
+          ],
+          "error": null,
+          "notes": [],
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1,
+            "crossOriginIsolated": false
+          },
+          "allCorrect": true,
+          "conclusion": "baselines only",
+          "finishedAt": "2026-09-09T15:12:22.517Z"
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-09T15:12:22.681Z"
+}

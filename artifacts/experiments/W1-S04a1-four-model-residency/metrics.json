@@ -1,0 +1,6987 @@
+{
+  "experiment": "W1-S04a1-four-model-residency",
+  "date": "2026-09-09",
+  "verdict": "CONDITIONAL",
+  "models": [
+    {
+      "role": "face-detection",
+      "file": "yunet.onnx",
+      "url": "https://media.githubusercontent.com/media/opencv/opencv_zoo/47534e27c9851bb1128ccc0102f1145e27f23f98/models/face_detection_yunet/face_detection_yunet_2023mar.onnx",
+      "bytes": 232589,
+      "sha256": "8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4",
+      "hash_pinned_in_advance": true
+    },
+    {
+      "role": "vlm-vision-encoder",
+      "file": "smolvlm_vision_encoder_int8.onnx",
+      "url": "https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct/resolve/7e3e67edbbed1bf9888184d9df282b700a323964/onnx/vision_encoder_int8.onnx",
+      "bytes": 94247927,
+      "sha256": "d534ab668d3563e6d1d809bbbf1ff18308ded48651178614dbcc4a1de13d16f7",
+      "hash_pinned_in_advance": false
+    },
+    {
+      "role": "ocr-detection",
+      "file": "ppocrv5_mobile_det.onnx",
+      "source_repo": "PaddlePaddle/PP-OCRv5_mobile_det",
+      "revision": "0d63e78e2b680928f6b1747d76a08db6e645efb7",
+      "converted_by": "paddle2onnx",
+      "bytes": 4819576,
+      "sha256": "5f353dec11fcfc7c6dc35e066eff2a047b584d9d1ed61b3deb8c0d31e164705b",
+      "hash_pinned_in_advance": false
+    },
+    {
+      "role": "ocr-recognition",
+      "file": "ppocrv5_mobile_rec.onnx",
+      "source_repo": "PaddlePaddle/PP-OCRv5_mobile_rec",
+      "revision": "682f20538d8c086cb2128e5cfac775e6c4904e85",
+      "converted_by": "paddle2onnx",
+      "bytes": 16557298,
+      "sha256": "e0c89a163abe16e1d6b2bda5b29dc09703037f437de302f571da10e4070152d6",
+      "hash_pinned_in_advance": false
+    }
+  ],
+  "totalWeightsBytes": 115857390,
+  "headline": {
+    "four_different_models": true,
+    "growth_regime_reached": true,
+    "grows_wasm": 11,
+    "resident_peak_mb_wasm": 273.2,
+    "grows_webgpu": 10,
+    "resident_peak_mb_webgpu": 236.9,
+    "sum_of_solo_peaks_mb": 407.7,
+    "sub_additive_saving_pct": 33.0,
+    "peak_over_weights_ratio": 2.47,
+    "incremental_cost_mb": {
+      "face": 16.0,
+      "ocr_det": 7.1,
+      "ocr_rec": 57.3,
+      "vlm_vision": 192.8
+    },
+    "s04a_identical_model_incremental_cost_mb": {
+      "session2": 0.0,
+      "session3": 0.0
+    },
+    "additional_grows_over_3_full_cycles": 0,
+    "chrome_firefox_agree": true,
+    "chrome_memory_instances": 1,
+    "firefox_memory_instances": 2
+  },
+  "correctness_criterion": {
+    "statistic": "exact output count + cancellation-free sumAbs",
+    "rtol_sumAbs": 0.02,
+    "why": "raw sum is dominated by cancellation for vlm_vision (sum is 0.027% of n*scale); measured conditioning under a 1e-6 input perturbation reaches 9.8e-2 per element and 1.0e-1 on raw sum, but at most 2.9e-3 on sumAbs",
+    "conditioning_1e_minus_6_input_perturbation": {
+      "face": {
+        "maxElemOverScale": 3.3e-07,
+        "sum": 7.7e-08,
+        "sumAbs": 1.5e-08
+      },
+      "ocr_rec": {
+        "maxElemOverScale": 1.4e-06,
+        "sum": 1.5e-08,
+        "sumAbs": 1.5e-08
+      },
+      "ocr_det": {
+        "maxElemOverScale": 0.098,
+        "sum": 2.7e-06,
+        "sumAbs": 2.7e-06
+      },
+      "vlm_vision": {
+        "maxElemOverScale": 0.05,
+        "sum": 0.1,
+        "sumAbs": 0.0029
+      }
+    },
+    "recorded_as_data_not_criteria": [
+      "min",
+      "max",
+      "raw sum",
+      "sampled values"
+    ]
+  },
+  "known_failures": {
+    "ocr_det_wasm": {
+      "relErrSumAbs": 0.04119,
+      "criterion": 0.02,
+      "status": "FAILS the stated criterion",
+      "analysis": "sigmoid probability map driven into saturation by synthetic input; in pre-sigmoid logit space web=-14.4669 vs native=-14.4248, a 0.29% difference amplified by exp(); reported as a failure regardless; follow-up S-04a-1a"
+    },
+    "vlm_vision_webgpu": {
+      "relErrSumAbs": 2.18,
+      "criterion": 0.02,
+      "status": "BROKEN, not rounding",
+      "analysis": "int8 MatMulInteger path on ORT Web WebGPU (JSEP) returns sumAbs off by ~3x while the same model is correct on wasm; follow-up S-04a-1b"
+    }
+  },
+  "section10_failure_behaviour": {
+    "real_exhaustion": "UNKNOWN - not safely reproducible (23 GB host, only ~4.1 GB free; wasm32 ceiling is 4 GB, so a real workload would exhaust host RAM first)",
+    "bounded_escalation": {
+      "rounds": 8,
+      "liveSessions": 32,
+      "peakMB": 1118.1,
+      "grows": 20,
+      "failure": "none",
+      "stoppedBecause": "max rounds reached without failure",
+      "perRoundCostMB": "~110-120 after the first round"
+    },
+    "impossible_allocations": {
+      "wasm_memory_65537_pages": "RangeError: value 65537 is above the upper bound 65536",
+      "float32array_2_pow_31": "RangeError: Array buffer allocation failed",
+      "verdict": "EXPLICIT failure; no silent truncation, no corruption, no crash"
+    }
+  },
+  "unknowns": {
+    "gpu_side_memory": "UNKNOWN - not visible to this instrumentation",
+    "real_heap_exhaustion": "UNKNOWN - see section10_failure_behaviour",
+    "fifth_model": "UNTESTED",
+    "ui_element_detector": "EXCLUDED - OmniParser icon_detect is AGPL-3.0 at the pinned revision",
+    "latency": "not claimed; timings are feasibility data only"
+  },
+  "cells": [
+    {
+      "log": "results-s04a1-chrome-linux-wsl2-resident.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "all output correct; 0 grow() call(s); final 0 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-linux-wsl2-resident.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 11,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          38.8,
+          250
+        ],
+        [
+          38.8,
+          46.5,
+          124
+        ],
+        [
+          46.5,
+          55.8,
+          149
+        ],
+        [
+          55.8,
+          67,
+          179
+        ],
+        [
+          67,
+          80.4,
+          215
+        ],
+        [
+          80.4,
+          158.1,
+          1242
+        ],
+        [
+          158.1,
+          189.7,
+          506
+        ],
+        [
+          189.7,
+          227.6,
+          607
+        ],
+        [
+          227.6,
+          273.2,
+          729
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 80.4,
+          "grows": 7,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 7,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 6,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 4,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 11 grow() call(s); final 273.2 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-linux-wsl2-resident.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 11,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          38.8,
+          250
+        ],
+        [
+          38.8,
+          46.5,
+          124
+        ],
+        [
+          46.5,
+          55.8,
+          149
+        ],
+        [
+          55.8,
+          67,
+          179
+        ],
+        [
+          67,
+          80.4,
+          215
+        ],
+        [
+          80.4,
+          158.1,
+          1242
+        ],
+        [
+          158.1,
+          189.7,
+          506
+        ],
+        [
+          189.7,
+          227.6,
+          607
+        ],
+        [
+          227.6,
+          273.2,
+          729
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 80.4,
+          "grows": 7,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 7,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 6,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 4,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 11 grow() call(s); final 273.2 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-linux-wsl2-resident.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "all output correct; 0 grow() call(s); final 0 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-linux-wsl2-resident.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 11,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          38.8,
+          250
+        ],
+        [
+          38.8,
+          46.5,
+          124
+        ],
+        [
+          46.5,
+          55.8,
+          149
+        ],
+        [
+          55.8,
+          67,
+          179
+        ],
+        [
+          67,
+          80.4,
+          215
+        ],
+        [
+          80.4,
+          158.1,
+          1242
+        ],
+        [
+          158.1,
+          189.7,
+          506
+        ],
+        [
+          189.7,
+          227.6,
+          607
+        ],
+        [
+          227.6,
+          273.2,
+          729
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 80.4,
+          "grows": 7,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 7,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 6,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 4,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 11 grow() call(s); final 273.2 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-linux-wsl2-resident.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 11,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          38.8,
+          250
+        ],
+        [
+          38.8,
+          46.5,
+          124
+        ],
+        [
+          46.5,
+          55.8,
+          149
+        ],
+        [
+          55.8,
+          67,
+          179
+        ],
+        [
+          67,
+          80.4,
+          215
+        ],
+        [
+          80.4,
+          158.1,
+          1242
+        ],
+        [
+          158.1,
+          189.7,
+          506
+        ],
+        [
+          189.7,
+          227.6,
+          607
+        ],
+        [
+          227.6,
+          273.2,
+          729
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 80.4,
+          "grows": 7,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 7,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 6,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 4,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 11 grow() call(s); final 273.2 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-pressure.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "all output correct; 0 grow() call(s); final 0 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-pressure.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 11,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          38.8,
+          250
+        ],
+        [
+          38.8,
+          46.5,
+          124
+        ],
+        [
+          46.5,
+          55.8,
+          149
+        ],
+        [
+          55.8,
+          67,
+          179
+        ],
+        [
+          67,
+          80.4,
+          215
+        ],
+        [
+          80.4,
+          158.1,
+          1242
+        ],
+        [
+          158.1,
+          189.7,
+          506
+        ],
+        [
+          189.7,
+          227.6,
+          607
+        ],
+        [
+          227.6,
+          273.2,
+          729
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 80.4,
+          "grows": 7,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 4,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 3,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 2,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 11 grow() call(s); final 273.2 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-pressure.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "pressure",
+      "stoppedBecause": "max rounds reached without failure",
+      "impossibleAlloc": {
+        "memory4gb": {
+          "threw": true,
+          "name": "RangeError",
+          "message": "WebAssembly.Memory(): Property 'initial': value 65537 is above the upper bound 65536"
+        },
+        "tensorSanity": {
+          "ok": true,
+          "dims": [
+            1,
+            2,
+            2,
+            2
+          ]
+        },
+        "typedArray8gb": {
+          "threw": true,
+          "name": "RangeError",
+          "message": "Array buffer allocation failed"
+        }
+      },
+      "escalation": [
+        {
+          "round": 1,
+          "made": 4,
+          "before": {
+            "mb": 273.2,
+            "pages": 4371,
+            "grows": 11
+          },
+          "after": {
+            "mb": 273.2,
+            "pages": 4371,
+            "grows": 11
+          },
+          "error": null,
+          "liveSessions": 4
+        },
+        {
+          "round": 2,
+          "made": 4,
+          "before": {
+            "mb": 273.2,
+            "pages": 4371,
+            "grows": 11
+          },
+          "after": {
+            "mb": 393.5,
+            "pages": 6296,
+            "grows": 13
+          },
+          "error": null,
+          "liveSessions": 8
+        },
+        {
+          "round": 3,
+          "made": 4,
+          "before": {
+            "mb": 393.5,
+            "pages": 6296,
+            "grows": 13
+          },
+          "after": {
+            "mb": 472.3,
+            "pages": 7556,
+            "grows": 14
+          },
+          "error": null,
+          "liveSessions": 12
+        },
+        {
+          "round": 4,
+          "made": 4,
+          "before": {
+            "mb": 472.3,
+            "pages": 7556,
+            "grows": 14
+          },
+          "after": {
+            "mb": 664.1,
+            "pages": 10626,
+            "grows": 16
+          },
+          "error": null,
+          "liveSessions": 16
+        },
+        {
+          "round": 5,
+          "made": 4,
+          "before": {
+            "mb": 664.1,
+            "pages": 10626,
+            "grows": 16
+          },
+          "after": {
+            "mb": 775.6,
+            "pages": 12409,
+            "grows": 17
+          },
+          "error": null,
+          "liveSessions": 20
+        },
+        {
+          "round": 6,
+          "made": 4,
+          "before": {
+            "mb": 775.6,
+            "pages": 12409,
+            "grows": 17
+          },
+          "after": {
+            "mb": 884,
+            "pages": 14144,
+            "grows": 18
+          },
+          "error": null,
+          "liveSessions": 24
+        },
+        {
+          "round": 7,
+          "made": 4,
+          "before": {
+            "mb": 884,
+            "pages": 14144,
+            "grows": 18
+          },
+          "after": {
+            "mb": 1006.7,
+            "pages": 16107,
+            "grows": 19
+          },
+          "error": null,
+          "liveSessions": 28
+        },
+        {
+          "round": 8,
+          "made": 4,
+          "before": {
+            "mb": 1006.7,
+            "pages": 16107,
+            "grows": 19
+          },
+          "after": {
+            "mb": 1118.1,
+            "pages": 17890,
+            "grows": 20
+          },
+          "error": null,
+          "liveSessions": 32
+        }
+      ],
+      "afterRelease": {
+        "mb": 1118.1,
+        "pages": 17890,
+        "grows": 20
+      }
+    },
+    {
+      "log": "results-s04a1-chrome-windows-pressure.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 11,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          38.8,
+          250
+        ],
+        [
+          38.8,
+          46.5,
+          124
+        ],
+        [
+          46.5,
+          55.8,
+          149
+        ],
+        [
+          55.8,
+          67,
+          179
+        ],
+        [
+          67,
+          80.4,
+          215
+        ],
+        [
+          80.4,
+          158.1,
+          1242
+        ],
+        [
+          158.1,
+          189.7,
+          506
+        ],
+        [
+          189.7,
+          227.6,
+          607
+        ],
+        [
+          227.6,
+          273.2,
+          729
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 80.4,
+          "grows": 7,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 4,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 3,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 2,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 11 grow() call(s); final 273.2 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-pressure.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "all output correct; 0 grow() call(s); final 0 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-pressure.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 11,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          38.8,
+          250
+        ],
+        [
+          38.8,
+          46.5,
+          124
+        ],
+        [
+          46.5,
+          55.8,
+          149
+        ],
+        [
+          55.8,
+          67,
+          179
+        ],
+        [
+          67,
+          80.4,
+          215
+        ],
+        [
+          80.4,
+          158.1,
+          1242
+        ],
+        [
+          158.1,
+          189.7,
+          506
+        ],
+        [
+          189.7,
+          227.6,
+          607
+        ],
+        [
+          227.6,
+          273.2,
+          729
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 80.4,
+          "grows": 7,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 4,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 3,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 2,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 11 grow() call(s); final 273.2 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-pressure.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "pressure",
+      "stoppedBecause": "max rounds reached without failure",
+      "impossibleAlloc": {
+        "memory4gb": {
+          "threw": true,
+          "name": "RangeError",
+          "message": "WebAssembly.Memory(): Property 'initial': value 65537 is above the upper bound 65536"
+        },
+        "tensorSanity": {
+          "ok": true,
+          "dims": [
+            1,
+            2,
+            2,
+            2
+          ]
+        },
+        "typedArray8gb": {
+          "threw": true,
+          "name": "RangeError",
+          "message": "Array buffer allocation failed"
+        }
+      },
+      "escalation": [
+        {
+          "round": 1,
+          "made": 4,
+          "before": {
+            "mb": 273.2,
+            "pages": 4371,
+            "grows": 11
+          },
+          "after": {
+            "mb": 273.2,
+            "pages": 4371,
+            "grows": 11
+          },
+          "error": null,
+          "liveSessions": 4
+        },
+        {
+          "round": 2,
+          "made": 4,
+          "before": {
+            "mb": 273.2,
+            "pages": 4371,
+            "grows": 11
+          },
+          "after": {
+            "mb": 393.5,
+            "pages": 6296,
+            "grows": 13
+          },
+          "error": null,
+          "liveSessions": 8
+        },
+        {
+          "round": 3,
+          "made": 4,
+          "before": {
+            "mb": 393.5,
+            "pages": 6296,
+            "grows": 13
+          },
+          "after": {
+            "mb": 472.3,
+            "pages": 7556,
+            "grows": 14
+          },
+          "error": null,
+          "liveSessions": 12
+        },
+        {
+          "round": 4,
+          "made": 4,
+          "before": {
+            "mb": 472.3,
+            "pages": 7556,
+            "grows": 14
+          },
+          "after": {
+            "mb": 664.1,
+            "pages": 10626,
+            "grows": 16
+          },
+          "error": null,
+          "liveSessions": 16
+        },
+        {
+          "round": 5,
+          "made": 4,
+          "before": {
+            "mb": 664.1,
+            "pages": 10626,
+            "grows": 16
+          },
+          "after": {
+            "mb": 775.6,
+            "pages": 12409,
+            "grows": 17
+          },
+          "error": null,
+          "liveSessions": 20
+        },
+        {
+          "round": 6,
+          "made": 4,
+          "before": {
+            "mb": 775.6,
+            "pages": 12409,
+            "grows": 17
+          },
+          "after": {
+            "mb": 884,
+            "pages": 14144,
+            "grows": 18
+          },
+          "error": null,
+          "liveSessions": 24
+        },
+        {
+          "round": 7,
+          "made": 4,
+          "before": {
+            "mb": 884,
+            "pages": 14144,
+            "grows": 18
+          },
+          "after": {
+            "mb": 1006.7,
+            "pages": 16107,
+            "grows": 19
+          },
+          "error": null,
+          "liveSessions": 28
+        },
+        {
+          "round": 8,
+          "made": 4,
+          "before": {
+            "mb": 1006.7,
+            "pages": 16107,
+            "grows": 19
+          },
+          "after": {
+            "mb": 1118.1,
+            "pages": 17890,
+            "grows": 20
+          },
+          "error": null,
+          "liveSessions": 32
+        }
+      ],
+      "afterRelease": {
+        "mb": 1118.1,
+        "pages": 17890,
+        "grows": 20
+      }
+    },
+    {
+      "log": "results-s04a1-chrome-windows-pressure.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 11,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          38.8,
+          250
+        ],
+        [
+          38.8,
+          46.5,
+          124
+        ],
+        [
+          46.5,
+          55.8,
+          149
+        ],
+        [
+          55.8,
+          67,
+          179
+        ],
+        [
+          67,
+          80.4,
+          215
+        ],
+        [
+          80.4,
+          158.1,
+          1242
+        ],
+        [
+          158.1,
+          189.7,
+          506
+        ],
+        [
+          189.7,
+          227.6,
+          607
+        ],
+        [
+          227.6,
+          273.2,
+          729
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 80.4,
+          "grows": 7,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 4,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 3,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 2,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 11 grow() call(s); final 273.2 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-resident-coldstart.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "all output correct; 0 grow() call(s); final 0 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-resident-coldstart.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 11,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          38.8,
+          250
+        ],
+        [
+          38.8,
+          46.5,
+          124
+        ],
+        [
+          46.5,
+          55.8,
+          149
+        ],
+        [
+          55.8,
+          67,
+          179
+        ],
+        [
+          67,
+          80.4,
+          215
+        ],
+        [
+          80.4,
+          158.1,
+          1242
+        ],
+        [
+          158.1,
+          189.7,
+          506
+        ],
+        [
+          189.7,
+          227.6,
+          607
+        ],
+        [
+          227.6,
+          273.2,
+          729
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 80.4,
+          "grows": 7,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 7,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 6,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 4,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 11 grow() call(s); final 273.2 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-resident-coldstart.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 11,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          38.8,
+          250
+        ],
+        [
+          38.8,
+          46.5,
+          124
+        ],
+        [
+          46.5,
+          55.8,
+          149
+        ],
+        [
+          55.8,
+          67,
+          179
+        ],
+        [
+          67,
+          80.4,
+          215
+        ],
+        [
+          80.4,
+          158.1,
+          1242
+        ],
+        [
+          158.1,
+          189.7,
+          506
+        ],
+        [
+          189.7,
+          227.6,
+          607
+        ],
+        [
+          227.6,
+          273.2,
+          729
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 80.4,
+          "grows": 7,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 7,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 6,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 4,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 11 grow() call(s); final 273.2 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-resident-coldstart.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "all output correct; 0 grow() call(s); final 0 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-resident-coldstart.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 11,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          38.8,
+          250
+        ],
+        [
+          38.8,
+          46.5,
+          124
+        ],
+        [
+          46.5,
+          55.8,
+          149
+        ],
+        [
+          55.8,
+          67,
+          179
+        ],
+        [
+          67,
+          80.4,
+          215
+        ],
+        [
+          80.4,
+          158.1,
+          1242
+        ],
+        [
+          158.1,
+          189.7,
+          506
+        ],
+        [
+          189.7,
+          227.6,
+          607
+        ],
+        [
+          227.6,
+          273.2,
+          729
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 80.4,
+          "grows": 7,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 7,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 6,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 4,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 11 grow() call(s); final 273.2 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-resident-coldstart.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 11,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          38.8,
+          250
+        ],
+        [
+          38.8,
+          46.5,
+          124
+        ],
+        [
+          46.5,
+          55.8,
+          149
+        ],
+        [
+          55.8,
+          67,
+          179
+        ],
+        [
+          67,
+          80.4,
+          215
+        ],
+        [
+          80.4,
+          158.1,
+          1242
+        ],
+        [
+          158.1,
+          189.7,
+          506
+        ],
+        [
+          189.7,
+          227.6,
+          607
+        ],
+        [
+          227.6,
+          273.2,
+          729
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 80.4,
+          "grows": 7,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 7,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 6,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 4,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 11 grow() call(s); final 273.2 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-face.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {
+        "face": {
+          "weightsBytes": 232589,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 4.9,
+          "destroyMs": 0,
+          "correct": null
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-face.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 2,
+      "growthEvents": [
+        [
+          16,
+          22,
+          96
+        ],
+        [
+          22,
+          28.3,
+          100
+        ]
+      ],
+      "baselines": {
+        "face": {
+          "weightsBytes": 232589,
+          "afterCreateMB": 16,
+          "afterInferMB": 28.3,
+          "growsAdded": 2,
+          "createMs": 316.4,
+          "destroyMs": 2.6,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        }
+      },
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-face.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 2,
+      "growthEvents": [
+        [
+          16,
+          22,
+          96
+        ],
+        [
+          22,
+          28.3,
+          100
+        ]
+      ],
+      "baselines": {
+        "face": {
+          "weightsBytes": 232589,
+          "afterCreateMB": 16,
+          "afterInferMB": 28.3,
+          "growsAdded": 2,
+          "createMs": 117.5,
+          "destroyMs": 0.9,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        }
+      },
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-face.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {
+        "face": {
+          "weightsBytes": 232589,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 5.2,
+          "destroyMs": 0,
+          "correct": null
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-face.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 2,
+      "growthEvents": [
+        [
+          16,
+          22,
+          96
+        ],
+        [
+          22,
+          28.3,
+          100
+        ]
+      ],
+      "baselines": {
+        "face": {
+          "weightsBytes": 232589,
+          "afterCreateMB": 16,
+          "afterInferMB": 28.3,
+          "growsAdded": 2,
+          "createMs": 320.4,
+          "destroyMs": 3.5,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        }
+      },
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-face.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 2,
+      "growthEvents": [
+        [
+          16,
+          22,
+          96
+        ],
+        [
+          22,
+          28.3,
+          100
+        ]
+      ],
+      "baselines": {
+        "face": {
+          "weightsBytes": 232589,
+          "afterCreateMB": 16,
+          "afterInferMB": 28.3,
+          "growsAdded": 2,
+          "createMs": 106,
+          "destroyMs": 1,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        }
+      },
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-ocr_det.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {
+        "ocr_det": {
+          "weightsBytes": 4819576,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 15.3,
+          "destroyMs": 0,
+          "correct": null
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-ocr_det.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 8,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          27.8,
+          74
+        ],
+        [
+          27.8,
+          33.3,
+          89
+        ],
+        [
+          33.3,
+          40,
+          107
+        ],
+        [
+          40,
+          48,
+          128
+        ],
+        [
+          48,
+          57.6,
+          154
+        ],
+        [
+          57.6,
+          69.2,
+          185
+        ]
+      ],
+      "baselines": {
+        "ocr_det": {
+          "weightsBytes": 4819576,
+          "afterCreateMB": 23.1,
+          "afterInferMB": 69.2,
+          "growsAdded": 8,
+          "createMs": 473.6,
+          "destroyMs": 4,
+          "correct": false
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "ocr_det": {
+          "pass": 0,
+          "fail": 1,
+          "worstRelErrSumAbs": 0.0411859623729846
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-ocr_det.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 8,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          27.8,
+          74
+        ],
+        [
+          27.8,
+          33.3,
+          89
+        ],
+        [
+          33.3,
+          40,
+          107
+        ],
+        [
+          40,
+          48,
+          128
+        ],
+        [
+          48,
+          57.6,
+          154
+        ],
+        [
+          57.6,
+          69.2,
+          185
+        ]
+      ],
+      "baselines": {
+        "ocr_det": {
+          "weightsBytes": 4819576,
+          "afterCreateMB": 23.1,
+          "afterInferMB": 69.2,
+          "growsAdded": 8,
+          "createMs": 153.1,
+          "destroyMs": 1.8,
+          "correct": false
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "ocr_det": {
+          "pass": 0,
+          "fail": 1,
+          "worstRelErrSumAbs": 0.0411859623729846
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-ocr_det.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {
+        "ocr_det": {
+          "weightsBytes": 4819576,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 14.5,
+          "destroyMs": 0,
+          "correct": null
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-ocr_det.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 8,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          27.8,
+          74
+        ],
+        [
+          27.8,
+          33.3,
+          89
+        ],
+        [
+          33.3,
+          40,
+          107
+        ],
+        [
+          40,
+          48,
+          128
+        ],
+        [
+          48,
+          57.6,
+          154
+        ],
+        [
+          57.6,
+          69.2,
+          185
+        ]
+      ],
+      "baselines": {
+        "ocr_det": {
+          "weightsBytes": 4819576,
+          "afterCreateMB": 23.1,
+          "afterInferMB": 69.2,
+          "growsAdded": 8,
+          "createMs": 474.7,
+          "destroyMs": 3.6,
+          "correct": false
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "ocr_det": {
+          "pass": 0,
+          "fail": 1,
+          "worstRelErrSumAbs": 0.0411859623729846
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-ocr_det.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 8,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          27.8,
+          74
+        ],
+        [
+          27.8,
+          33.3,
+          89
+        ],
+        [
+          33.3,
+          40,
+          107
+        ],
+        [
+          40,
+          48,
+          128
+        ],
+        [
+          48,
+          57.6,
+          154
+        ],
+        [
+          57.6,
+          69.2,
+          185
+        ]
+      ],
+      "baselines": {
+        "ocr_det": {
+          "weightsBytes": 4819576,
+          "afterCreateMB": 23.1,
+          "afterInferMB": 69.2,
+          "growsAdded": 8,
+          "createMs": 196.6,
+          "destroyMs": 2.3,
+          "correct": false
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "ocr_det": {
+          "pass": 0,
+          "fail": 1,
+          "worstRelErrSumAbs": 0.0411859623729846
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-ocr_rec.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {
+        "ocr_rec": {
+          "weightsBytes": 16557298,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 39,
+          "destroyMs": 0,
+          "correct": null
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-ocr_rec.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 6,
+      "growthEvents": [
+        [
+          16,
+          25.3,
+          148
+        ],
+        [
+          25.3,
+          30.3,
+          81
+        ],
+        [
+          30.3,
+          36.4,
+          97
+        ],
+        [
+          36.4,
+          43.7,
+          117
+        ],
+        [
+          43.7,
+          52.4,
+          140
+        ],
+        [
+          52.4,
+          62.9,
+          168
+        ]
+      ],
+      "baselines": {
+        "ocr_rec": {
+          "weightsBytes": 16557298,
+          "afterCreateMB": 62.9,
+          "afterInferMB": 62.9,
+          "growsAdded": 6,
+          "createMs": 526.7,
+          "destroyMs": 4.3,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "ocr_rec": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        }
+      },
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-ocr_rec.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 6,
+      "growthEvents": [
+        [
+          16,
+          25.3,
+          148
+        ],
+        [
+          25.3,
+          30.3,
+          81
+        ],
+        [
+          30.3,
+          36.4,
+          97
+        ],
+        [
+          36.4,
+          43.7,
+          117
+        ],
+        [
+          43.7,
+          52.4,
+          140
+        ],
+        [
+          52.4,
+          62.9,
+          168
+        ]
+      ],
+      "baselines": {
+        "ocr_rec": {
+          "weightsBytes": 16557298,
+          "afterCreateMB": 62.9,
+          "afterInferMB": 62.9,
+          "growsAdded": 6,
+          "createMs": 205.2,
+          "destroyMs": 1.9,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "ocr_rec": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        }
+      },
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-ocr_rec.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {
+        "ocr_rec": {
+          "weightsBytes": 16557298,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 38,
+          "destroyMs": 0,
+          "correct": null
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-ocr_rec.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 6,
+      "growthEvents": [
+        [
+          16,
+          25.3,
+          148
+        ],
+        [
+          25.3,
+          30.3,
+          81
+        ],
+        [
+          30.3,
+          36.4,
+          97
+        ],
+        [
+          36.4,
+          43.7,
+          117
+        ],
+        [
+          43.7,
+          52.4,
+          140
+        ],
+        [
+          52.4,
+          62.9,
+          168
+        ]
+      ],
+      "baselines": {
+        "ocr_rec": {
+          "weightsBytes": 16557298,
+          "afterCreateMB": 62.9,
+          "afterInferMB": 62.9,
+          "growsAdded": 6,
+          "createMs": 525.7,
+          "destroyMs": 4.8,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "ocr_rec": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        }
+      },
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-ocr_rec.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 6,
+      "growthEvents": [
+        [
+          16,
+          25.3,
+          148
+        ],
+        [
+          25.3,
+          30.3,
+          81
+        ],
+        [
+          30.3,
+          36.4,
+          97
+        ],
+        [
+          36.4,
+          43.7,
+          117
+        ],
+        [
+          43.7,
+          52.4,
+          140
+        ],
+        [
+          52.4,
+          62.9,
+          168
+        ]
+      ],
+      "baselines": {
+        "ocr_rec": {
+          "weightsBytes": 16557298,
+          "afterCreateMB": 62.9,
+          "afterInferMB": 62.9,
+          "growsAdded": 6,
+          "createMs": 202,
+          "destroyMs": 2.1,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "ocr_rec": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        }
+      },
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-vlm_vision.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {
+        "vlm_vision": {
+          "weightsBytes": 94247927,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 116.1,
+          "destroyMs": 0,
+          "correct": null
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-vlm_vision.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 6,
+      "growthEvents": [
+        [
+          16,
+          99.3,
+          1333
+        ],
+        [
+          99.3,
+          119.2,
+          318
+        ],
+        [
+          119.2,
+          143.1,
+          382
+        ],
+        [
+          143.1,
+          171.7,
+          458
+        ],
+        [
+          171.7,
+          206.1,
+          550
+        ],
+        [
+          206.1,
+          247.3,
+          660
+        ]
+      ],
+      "baselines": {
+        "vlm_vision": {
+          "weightsBytes": 94247927,
+          "afterCreateMB": 206.1,
+          "afterInferMB": 247.3,
+          "growsAdded": 6,
+          "createMs": 673.8,
+          "destroyMs": 4.3,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "vlm_vision": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-vlm_vision.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 6,
+      "growthEvents": [
+        [
+          16,
+          99.3,
+          1333
+        ],
+        [
+          99.3,
+          119.2,
+          318
+        ],
+        [
+          119.2,
+          143.1,
+          382
+        ],
+        [
+          143.1,
+          171.7,
+          458
+        ],
+        [
+          171.7,
+          206.1,
+          550
+        ],
+        [
+          206.1,
+          247.3,
+          660
+        ]
+      ],
+      "baselines": {
+        "vlm_vision": {
+          "weightsBytes": 94247927,
+          "afterCreateMB": 206.1,
+          "afterInferMB": 247.3,
+          "growsAdded": 6,
+          "createMs": 360.8,
+          "destroyMs": 2.5,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "vlm_vision": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-vlm_vision.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {
+        "vlm_vision": {
+          "weightsBytes": 94247927,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 112.5,
+          "destroyMs": 0,
+          "correct": null
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-vlm_vision.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 6,
+      "growthEvents": [
+        [
+          16,
+          99.3,
+          1333
+        ],
+        [
+          99.3,
+          119.2,
+          318
+        ],
+        [
+          119.2,
+          143.1,
+          382
+        ],
+        [
+          143.1,
+          171.7,
+          458
+        ],
+        [
+          171.7,
+          206.1,
+          550
+        ],
+        [
+          206.1,
+          247.3,
+          660
+        ]
+      ],
+      "baselines": {
+        "vlm_vision": {
+          "weightsBytes": 94247927,
+          "afterCreateMB": 206.1,
+          "afterInferMB": 247.3,
+          "growsAdded": 6,
+          "createMs": 671.3,
+          "destroyMs": 4,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "vlm_vision": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-solo-vlm_vision.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "baselines",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 6,
+      "growthEvents": [
+        [
+          16,
+          99.3,
+          1333
+        ],
+        [
+          99.3,
+          119.2,
+          318
+        ],
+        [
+          119.2,
+          143.1,
+          382
+        ],
+        [
+          143.1,
+          171.7,
+          458
+        ],
+        [
+          171.7,
+          206.1,
+          550
+        ],
+        [
+          206.1,
+          247.3,
+          660
+        ]
+      ],
+      "baselines": {
+        "vlm_vision": {
+          "weightsBytes": 94247927,
+          "afterCreateMB": 206.1,
+          "afterInferMB": 247.3,
+          "growsAdded": 6,
+          "createMs": 343.2,
+          "destroyMs": 2.8,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [],
+      "lifecycleSnapshots": [],
+      "cycleSnapshots": [],
+      "perModelCorrectness": {
+        "vlm_vision": {
+          "pass": 1,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": true,
+      "conclusion": "baselines only"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-webgpu-resident.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "webgpu",
+      "phase": "resident",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "all output correct; 0 grow() call(s); final 0 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-webgpu-resident.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "webgpu",
+      "phase": "resident",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 10,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          37.6,
+          232
+        ],
+        [
+          37.6,
+          46,
+          134
+        ],
+        [
+          46,
+          55.3,
+          148
+        ],
+        [
+          55.3,
+          66.3,
+          177
+        ],
+        [
+          66.3,
+          137,
+          1131
+        ],
+        [
+          137,
+          164.4,
+          439
+        ],
+        [
+          164.4,
+          197.4,
+          527
+        ],
+        [
+          197.4,
+          236.9,
+          632
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 66.3,
+          "grows": 6,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 236.9,
+          "grows": 10,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 236.9,
+          "grows": 10,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 236.9,
+          "grows": 10
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 236.9,
+          "grows": 10
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 7,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.00466672097318113
+        },
+        "ocr_det": {
+          "pass": 6,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.004959095090630845
+        },
+        "ocr_rec": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 1.200084996876588e-06
+        },
+        "vlm_vision": {
+          "pass": 0,
+          "fail": 4,
+          "worstRelErrSumAbs": 2.184860007917342
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 10 grow() call(s); final 236.9 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-webgpu-resident.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "webgpu",
+      "phase": "resident",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 10,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          37.6,
+          232
+        ],
+        [
+          37.6,
+          46,
+          134
+        ],
+        [
+          46,
+          55.3,
+          148
+        ],
+        [
+          55.3,
+          66.3,
+          177
+        ],
+        [
+          66.3,
+          137,
+          1131
+        ],
+        [
+          137,
+          164.4,
+          439
+        ],
+        [
+          164.4,
+          197.4,
+          527
+        ],
+        [
+          197.4,
+          236.9,
+          632
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 66.3,
+          "grows": 6,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 236.9,
+          "grows": 10,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 236.9,
+          "grows": 10,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 236.9,
+          "grows": 10
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 236.9,
+          "grows": 10
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 7,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.00466672097318113
+        },
+        "ocr_det": {
+          "pass": 6,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.004959095090630845
+        },
+        "ocr_rec": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 1.200084996876588e-06
+        },
+        "vlm_vision": {
+          "pass": 0,
+          "fail": 4,
+          "worstRelErrSumAbs": 2.184860007917342
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 10 grow() call(s); final 236.9 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-webgpu-resident.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "webgpu",
+      "phase": "resident",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "all output correct; 0 grow() call(s); final 0 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-webgpu-resident.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "webgpu",
+      "phase": "resident",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 10,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          37.6,
+          232
+        ],
+        [
+          37.6,
+          46,
+          134
+        ],
+        [
+          46,
+          55.3,
+          148
+        ],
+        [
+          55.3,
+          66.3,
+          177
+        ],
+        [
+          66.3,
+          137,
+          1131
+        ],
+        [
+          137,
+          164.4,
+          439
+        ],
+        [
+          164.4,
+          197.4,
+          527
+        ],
+        [
+          197.4,
+          236.9,
+          632
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 66.3,
+          "grows": 6,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 236.9,
+          "grows": 10,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 236.9,
+          "grows": 10,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 236.9,
+          "grows": 10
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 236.9,
+          "grows": 10
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 7,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.00466672097318113
+        },
+        "ocr_det": {
+          "pass": 6,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.004959095090630845
+        },
+        "ocr_rec": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 1.200084996876588e-06
+        },
+        "vlm_vision": {
+          "pass": 0,
+          "fail": 4,
+          "worstRelErrSumAbs": 2.184860007917342
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 10 grow() call(s); final 236.9 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows-webgpu-resident.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "webgpu",
+      "phase": "resident",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 10,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          37.6,
+          232
+        ],
+        [
+          37.6,
+          46,
+          134
+        ],
+        [
+          46,
+          55.3,
+          148
+        ],
+        [
+          55.3,
+          66.3,
+          177
+        ],
+        [
+          66.3,
+          137,
+          1131
+        ],
+        [
+          137,
+          164.4,
+          439
+        ],
+        [
+          164.4,
+          197.4,
+          527
+        ],
+        [
+          197.4,
+          236.9,
+          632
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 66.3,
+          "grows": 6,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 236.9,
+          "grows": 10,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 236.9,
+          "grows": 10,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 236.9,
+          "grows": 10
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 236.9,
+          "grows": 10
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 236.9,
+          "grows": 10
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 7,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.00466672097318113
+        },
+        "ocr_det": {
+          "pass": 6,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.004959095090630845
+        },
+        "ocr_rec": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 1.200084996876588e-06
+        },
+        "vlm_vision": {
+          "pass": 0,
+          "fail": 4,
+          "worstRelErrSumAbs": 2.184860007917342
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 10 grow() call(s); final 236.9 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "full",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {
+        "face": {
+          "weightsBytes": 232589,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 12.3,
+          "destroyMs": 0,
+          "correct": null
+        },
+        "ocr_det": {
+          "weightsBytes": 4819576,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 36.6,
+          "destroyMs": 0,
+          "correct": null
+        },
+        "ocr_rec": {
+          "weightsBytes": 16557298,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 98,
+          "destroyMs": 0,
+          "correct": null
+        },
+        "vlm_vision": {
+          "weightsBytes": 94247927,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 218.3,
+          "destroyMs": 0,
+          "correct": null
+        }
+      },
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "all output correct; 0 grow() call(s); final 0 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "full",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 12,
+      "growthEvents": [
+        [
+          16,
+          22,
+          96
+        ],
+        [
+          22,
+          28.3,
+          100
+        ],
+        [
+          28.3,
+          33.9,
+          91
+        ],
+        [
+          33.9,
+          40.8,
+          109
+        ],
+        [
+          40.8,
+          48.9,
+          131
+        ],
+        [
+          48.9,
+          58.8,
+          157
+        ],
+        [
+          58.8,
+          70.5,
+          188
+        ],
+        [
+          70.5,
+          132.8,
+          997
+        ],
+        [
+          132.8,
+          159.4,
+          425
+        ],
+        [
+          159.4,
+          191.3,
+          510
+        ],
+        [
+          191.3,
+          229.5,
+          612
+        ],
+        [
+          229.5,
+          275.4,
+          735
+        ]
+      ],
+      "baselines": {
+        "face": {
+          "weightsBytes": 232589,
+          "afterCreateMB": 16,
+          "afterInferMB": 28.3,
+          "growsAdded": 2,
+          "createMs": 819.9,
+          "destroyMs": 7,
+          "correct": true
+        },
+        "ocr_det": {
+          "weightsBytes": 4819576,
+          "afterCreateMB": 28.3,
+          "afterInferMB": 70.5,
+          "growsAdded": 5,
+          "createMs": 302.2,
+          "destroyMs": 3.4,
+          "correct": false
+        },
+        "ocr_rec": {
+          "weightsBytes": 16557298,
+          "afterCreateMB": 70.5,
+          "afterInferMB": 70.5,
+          "growsAdded": 0,
+          "createMs": 341.2,
+          "destroyMs": 6.8,
+          "correct": true
+        },
+        "vlm_vision": {
+          "weightsBytes": 94247927,
+          "afterCreateMB": 229.5,
+          "afterInferMB": 229.5,
+          "growsAdded": 4,
+          "createMs": 770.1,
+          "destroyMs": 6.9,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 275.4,
+          "grows": 12,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 275.4,
+          "grows": 12,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 275.4,
+          "grows": 12
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 275.4,
+          "grows": 12
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 8,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 7,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 6,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 12 grow() call(s); final 275.4 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "full",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 12,
+      "growthEvents": [
+        [
+          16,
+          22,
+          96
+        ],
+        [
+          22,
+          28.3,
+          100
+        ],
+        [
+          28.3,
+          33.9,
+          91
+        ],
+        [
+          33.9,
+          40.8,
+          109
+        ],
+        [
+          40.8,
+          48.9,
+          131
+        ],
+        [
+          48.9,
+          58.8,
+          157
+        ],
+        [
+          58.8,
+          70.5,
+          188
+        ],
+        [
+          70.5,
+          132.8,
+          997
+        ],
+        [
+          132.8,
+          159.4,
+          425
+        ],
+        [
+          159.4,
+          191.3,
+          510
+        ],
+        [
+          191.3,
+          229.5,
+          612
+        ],
+        [
+          229.5,
+          275.4,
+          735
+        ]
+      ],
+      "baselines": {
+        "face": {
+          "weightsBytes": 232589,
+          "afterCreateMB": 16,
+          "afterInferMB": 28.3,
+          "growsAdded": 2,
+          "createMs": 247.4,
+          "destroyMs": 1.7,
+          "correct": true
+        },
+        "ocr_det": {
+          "weightsBytes": 4819576,
+          "afterCreateMB": 28.3,
+          "afterInferMB": 70.5,
+          "growsAdded": 5,
+          "createMs": 137.6,
+          "destroyMs": 4.2,
+          "correct": false
+        },
+        "ocr_rec": {
+          "weightsBytes": 16557298,
+          "afterCreateMB": 70.5,
+          "afterInferMB": 70.5,
+          "growsAdded": 0,
+          "createMs": 274.5,
+          "destroyMs": 5.1,
+          "correct": true
+        },
+        "vlm_vision": {
+          "weightsBytes": 94247927,
+          "afterCreateMB": 229.5,
+          "afterInferMB": 229.5,
+          "growsAdded": 4,
+          "createMs": 664.1,
+          "destroyMs": 7.2,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 275.4,
+          "grows": 12,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 275.4,
+          "grows": 12,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 275.4,
+          "grows": 12
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 275.4,
+          "grows": 12
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 8,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 7,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 6,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 12 grow() call(s); final 275.4 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows.json",
+      "browser": "chrome",
+      "context": "chrome-mv3-service-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "full",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 0,
+      "growthEvents": [],
+      "baselines": {
+        "face": {
+          "weightsBytes": 232589,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 11,
+          "destroyMs": 0,
+          "correct": null
+        },
+        "ocr_det": {
+          "weightsBytes": 4819576,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 30.2,
+          "destroyMs": 0,
+          "correct": null
+        },
+        "ocr_rec": {
+          "weightsBytes": 16557298,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 82.2,
+          "destroyMs": 0,
+          "correct": null
+        },
+        "vlm_vision": {
+          "weightsBytes": 94247927,
+          "afterCreateMB": 0,
+          "afterInferMB": 0,
+          "growsAdded": 0,
+          "createMs": 236.6,
+          "destroyMs": 0,
+          "correct": null
+        }
+      },
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 0,
+          "grows": 0
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 0,
+          "grows": 0
+        }
+      ],
+      "perModelCorrectness": {},
+      "allCorrect": true,
+      "conclusion": "all output correct; 0 grow() call(s); final 0 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-document",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "full",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 12,
+      "growthEvents": [
+        [
+          16,
+          22,
+          96
+        ],
+        [
+          22,
+          28.3,
+          100
+        ],
+        [
+          28.3,
+          33.9,
+          91
+        ],
+        [
+          33.9,
+          40.8,
+          109
+        ],
+        [
+          40.8,
+          48.9,
+          131
+        ],
+        [
+          48.9,
+          58.8,
+          157
+        ],
+        [
+          58.8,
+          70.5,
+          188
+        ],
+        [
+          70.5,
+          132.8,
+          997
+        ],
+        [
+          132.8,
+          159.4,
+          425
+        ],
+        [
+          159.4,
+          191.3,
+          510
+        ],
+        [
+          191.3,
+          229.5,
+          612
+        ],
+        [
+          229.5,
+          275.4,
+          735
+        ]
+      ],
+      "baselines": {
+        "face": {
+          "weightsBytes": 232589,
+          "afterCreateMB": 16,
+          "afterInferMB": 28.3,
+          "growsAdded": 2,
+          "createMs": 826.7,
+          "destroyMs": 7.3,
+          "correct": true
+        },
+        "ocr_det": {
+          "weightsBytes": 4819576,
+          "afterCreateMB": 28.3,
+          "afterInferMB": 70.5,
+          "growsAdded": 5,
+          "createMs": 297.5,
+          "destroyMs": 4.9,
+          "correct": false
+        },
+        "ocr_rec": {
+          "weightsBytes": 16557298,
+          "afterCreateMB": 70.5,
+          "afterInferMB": 70.5,
+          "growsAdded": 0,
+          "createMs": 324.2,
+          "destroyMs": 6.2,
+          "correct": true
+        },
+        "vlm_vision": {
+          "weightsBytes": 94247927,
+          "afterCreateMB": 229.5,
+          "afterInferMB": 229.5,
+          "growsAdded": 4,
+          "createMs": 822.8,
+          "destroyMs": 8.6,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 275.4,
+          "grows": 12,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 275.4,
+          "grows": 12,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 275.4,
+          "grows": 12
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 275.4,
+          "grows": 12
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 8,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 7,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 6,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 12 grow() call(s); final 275.4 MB"
+    },
+    {
+      "log": "results-s04a1-chrome-windows.json",
+      "browser": "chrome",
+      "context": "chrome-offscreen-dedicated-worker",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "full",
+      "headless": true,
+      "env": {
+        "sharedArrayBuffer": true,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 12,
+      "growthEvents": [
+        [
+          16,
+          22,
+          96
+        ],
+        [
+          22,
+          28.3,
+          100
+        ],
+        [
+          28.3,
+          33.9,
+          91
+        ],
+        [
+          33.9,
+          40.8,
+          109
+        ],
+        [
+          40.8,
+          48.9,
+          131
+        ],
+        [
+          48.9,
+          58.8,
+          157
+        ],
+        [
+          58.8,
+          70.5,
+          188
+        ],
+        [
+          70.5,
+          132.8,
+          997
+        ],
+        [
+          132.8,
+          159.4,
+          425
+        ],
+        [
+          159.4,
+          191.3,
+          510
+        ],
+        [
+          191.3,
+          229.5,
+          612
+        ],
+        [
+          229.5,
+          275.4,
+          735
+        ]
+      ],
+      "baselines": {
+        "face": {
+          "weightsBytes": 232589,
+          "afterCreateMB": 16,
+          "afterInferMB": 28.3,
+          "growsAdded": 2,
+          "createMs": 251.3,
+          "destroyMs": 1.7,
+          "correct": true
+        },
+        "ocr_det": {
+          "weightsBytes": 4819576,
+          "afterCreateMB": 28.3,
+          "afterInferMB": 70.5,
+          "growsAdded": 5,
+          "createMs": 235.9,
+          "destroyMs": 4.1,
+          "correct": false
+        },
+        "ocr_rec": {
+          "weightsBytes": 16557298,
+          "afterCreateMB": 70.5,
+          "afterInferMB": 70.5,
+          "growsAdded": 0,
+          "createMs": 242.8,
+          "destroyMs": 10,
+          "correct": true
+        },
+        "vlm_vision": {
+          "weightsBytes": 94247927,
+          "afterCreateMB": 229.5,
+          "afterInferMB": 229.5,
+          "growsAdded": 4,
+          "createMs": 633.1,
+          "destroyMs": 7.4,
+          "correct": true
+        }
+      },
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 229.5,
+          "grows": 11,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 275.4,
+          "grows": 12,
+          "instances": 1
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 275.4,
+          "grows": 12,
+          "instances": 1
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 275.4,
+          "grows": 12
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 275.4,
+          "grows": 12
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 275.4,
+          "grows": 12
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 8,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 7,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 6,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 12 grow() call(s); final 275.4 MB"
+    },
+    {
+      "log": "results-s04a1-firefox-windows-resident.json",
+      "browser": "firefox",
+      "context": "firefox-mv3-event-page",
+      "kind": "lifecycle",
+      "backend": "wasm",
+      "phase": "resident",
+      "headless": false,
+      "env": {
+        "sharedArrayBuffer": false,
+        "configuredNumThreads": 1,
+        "crossOriginIsolated": false
+      },
+      "grows": 11,
+      "growthEvents": [
+        [
+          16,
+          19.3,
+          52
+        ],
+        [
+          19.3,
+          23.1,
+          62
+        ],
+        [
+          23.1,
+          38.8,
+          250
+        ],
+        [
+          38.8,
+          46.5,
+          124
+        ],
+        [
+          46.5,
+          55.8,
+          149
+        ],
+        [
+          55.8,
+          67,
+          179
+        ],
+        [
+          67,
+          80.4,
+          215
+        ],
+        [
+          80.4,
+          158.1,
+          1242
+        ],
+        [
+          158.1,
+          189.7,
+          506
+        ],
+        [
+          189.7,
+          227.6,
+          607
+        ],
+        [
+          227.6,
+          273.2,
+          729
+        ]
+      ],
+      "baselines": {},
+      "residentSnapshots": [
+        {
+          "label": "resident-0-none",
+          "mb": 0,
+          "grows": 0,
+          "instances": 0
+        },
+        {
+          "label": "resident-1-face",
+          "mb": 16,
+          "grows": 0,
+          "instances": 2
+        },
+        {
+          "label": "resident-2-face+ocr_det",
+          "mb": 23.1,
+          "grows": 2,
+          "instances": 2
+        },
+        {
+          "label": "resident-3-face+ocr_det+ocr_rec",
+          "mb": 80.4,
+          "grows": 7,
+          "instances": 2
+        },
+        {
+          "label": "resident-4-face+ocr_det+ocr_rec+vlm_vision",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 2
+        },
+        {
+          "label": "resident-4-after-infer-all",
+          "mb": 273.2,
+          "grows": 11,
+          "instances": 2
+        }
+      ],
+      "lifecycleSnapshots": [
+        {
+          "label": "lifecycle-start",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-vlm_vision",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-3",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_rec",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-ocr_det",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-infer-remaining-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-destroy-face",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "lifecycle-all-destroyed",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "cycleSnapshots": [
+        {
+          "label": "after-cycle-1",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-2",
+          "mb": 273.2,
+          "grows": 11
+        },
+        {
+          "label": "after-cycle-3",
+          "mb": 273.2,
+          "grows": 11
+        }
+      ],
+      "perModelCorrectness": {
+        "face": {
+          "pass": 7,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.01592966802256922
+        },
+        "ocr_det": {
+          "pass": 0,
+          "fail": 6,
+          "worstRelErrSumAbs": 0.0411859623729846
+        },
+        "ocr_rec": {
+          "pass": 5,
+          "fail": 0,
+          "worstRelErrSumAbs": 5.504858568963427e-06
+        },
+        "vlm_vision": {
+          "pass": 4,
+          "fail": 0,
+          "worstRelErrSumAbs": 0.019572124235385065
+        }
+      },
+      "allCorrect": false,
+      "conclusion": "OUTPUT INCORRECT; 11 grow() call(s); final 273.2 MB"
+    }
+  ]
+}
