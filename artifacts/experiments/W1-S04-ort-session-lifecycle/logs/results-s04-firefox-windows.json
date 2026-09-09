@@ -1,0 +1,543 @@
+{
+  "experiment": "W1-S04-ort-session-lifecycle",
+  "browser": "firefox",
+  "startedAt": "2026-09-08T15:00:10.373Z",
+  "firefox": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+  "host": "WSL2 Ubuntu 26.04 guest on a Windows 11 host",
+  "runs": [
+    {
+      "variant": "firefox-mv3-event-page",
+      "prefs": [],
+      "headless": false,
+      "run": 1,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "s04-lifecycle",
+          "backend": "wasm",
+          "cycles": 5,
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-08T15:00:16.060Z",
+          "trackerError": null,
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0
+              },
+              "js": null,
+              "at": 2579
+            },
+            {
+              "label": "after-create-1",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 3064,
+              "createMs": 485
+            },
+            {
+              "label": "after-create-2",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 3067,
+              "createMs": 3
+            },
+            {
+              "label": "after-create-3",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 3069,
+              "createMs": 2
+            },
+            {
+              "label": "after-infer-all-3",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 3080
+            },
+            {
+              "label": "after-destroy-1",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 3080,
+              "releaseMs": 0
+            },
+            {
+              "label": "after-destroy-2",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 3080,
+              "releaseMs": 0
+            },
+            {
+              "label": "after-destroy-3",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 3080,
+              "releaseMs": 0
+            }
+          ],
+          "cycleSnapshots": [
+            {
+              "label": "after-cycle-1",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 3094
+            },
+            {
+              "label": "after-cycle-2",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 3106
+            },
+            {
+              "label": "after-cycle-3",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 3126
+            },
+            {
+              "label": "after-cycle-4",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 3154
+            },
+            {
+              "label": "after-cycle-5",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 3175
+            }
+          ],
+          "correctness": [
+            {
+              "tag": "concurrent-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "concurrent-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "concurrent-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-3",
+              "mismatches": 0,
+              "correct": true
+            }
+          ],
+          "errors": [],
+          "error": null,
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1
+          },
+          "concurrentSessions": 3,
+          "allCorrect": true,
+          "conclusion": "3 concurrent sessions on wasm; 5 create/infer/destroy cycles; all output correct",
+          "finishedAt": "2026-09-08T15:00:16.659Z"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "s04-lifecycle",
+          "backend": "webgpu",
+          "cycles": 5,
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-08T15:00:16.659Z",
+          "trackerError": null,
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 3176
+            },
+            {
+              "label": "after-create-1",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 4785,
+              "createMs": 1609
+            },
+            {
+              "label": "after-create-2",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 4789,
+              "createMs": 4
+            },
+            {
+              "label": "after-create-3",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 4790,
+              "createMs": 1
+            },
+            {
+              "label": "after-infer-all-3",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 5083
+            },
+            {
+              "label": "after-destroy-1",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 5083,
+              "releaseMs": 0
+            },
+            {
+              "label": "after-destroy-2",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 5083,
+              "releaseMs": 0
+            },
+            {
+              "label": "after-destroy-3",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 5083,
+              "releaseMs": 0
+            }
+          ],
+          "cycleSnapshots": [
+            {
+              "label": "after-cycle-1",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 5388
+            },
+            {
+              "label": "after-cycle-2",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 5690
+            },
+            {
+              "label": "after-cycle-3",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 5990
+            },
+            {
+              "label": "after-cycle-4",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 6291
+            },
+            {
+              "label": "after-cycle-5",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 6591
+            }
+          ],
+          "correctness": [
+            {
+              "tag": "concurrent-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "concurrent-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "concurrent-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-3",
+              "mismatches": 0,
+              "correct": true
+            }
+          ],
+          "errors": [],
+          "error": null,
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1
+          },
+          "concurrentSessions": 3,
+          "allCorrect": true,
+          "conclusion": "3 concurrent sessions on webgpu; 5 create/infer/destroy cycles; all output correct",
+          "finishedAt": "2026-09-08T15:00:20.075Z"
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "firefox-mv3-event-page",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed C:\\Users\\OMEN\\AppData\\Local\\Temp\\claude\\C--Users-OMEN-Desktop-PratiBimb\\85c3d834-196c-4f1d-8a77-058200f1f5b1\\scratchpad\\s04\\ext-firefox as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-08T15:00:22.101Z"
+}

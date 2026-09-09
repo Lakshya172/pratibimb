@@ -1,0 +1,1410 @@
+{
+  "experiment": "W1-S04-ort-session-lifecycle",
+  "browser": "chrome",
+  "startedAt": "2026-09-08T14:54:34.081Z",
+  "platform": "linux-wsl2",
+  "chrome": "/opt/chrome-linux64/chrome",
+  "runs": [
+    {
+      "headless": false,
+      "run": 1,
+      "platform": "linux-wsl2",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "s04-lifecycle",
+          "backend": "wasm",
+          "cycles": 5,
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-08T14:54:37.725Z",
+          "trackerError": null,
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0
+              },
+              "js": null,
+              "at": 460
+            }
+          ],
+          "cycleSnapshots": [],
+          "correctness": [],
+          "errors": [],
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356."
+          },
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1
+          },
+          "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+          "finishedAt": "2026-09-08T14:54:37.736Z"
+        },
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "s04-lifecycle",
+          "backend": "webgpu",
+          "cycles": 5,
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-08T14:54:37.736Z",
+          "trackerError": null,
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0
+              },
+              "js": null,
+              "at": 468
+            }
+          ],
+          "cycleSnapshots": [],
+          "correctness": [],
+          "errors": [],
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed."
+          },
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+          "finishedAt": "2026-09-08T14:54:37.740Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04-lifecycle",
+          "backend": "wasm",
+          "cycles": 5,
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-08T14:54:37.903Z",
+          "trackerError": null,
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0
+              },
+              "js": {
+                "usedMB": 3.5,
+                "totalMB": 4.5
+              },
+              "at": 161
+            },
+            {
+              "label": "after-create-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 5.3,
+                "totalMB": 8.5
+              },
+              "at": 1799,
+              "createMs": 1638.4
+            },
+            {
+              "label": "after-create-2",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 5.3,
+                "totalMB": 8.5
+              },
+              "at": 1805,
+              "createMs": 5.6
+            },
+            {
+              "label": "after-create-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 5.3,
+                "totalMB": 8.5
+              },
+              "at": 1811,
+              "createMs": 6.1
+            },
+            {
+              "label": "after-infer-all-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 9.1,
+                "totalMB": 11.7
+              },
+              "at": 1862
+            },
+            {
+              "label": "after-destroy-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 9.1,
+                "totalMB": 11.7
+              },
+              "at": 1868,
+              "releaseMs": 5.7
+            },
+            {
+              "label": "after-destroy-2",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 9.1,
+                "totalMB": 11.7
+              },
+              "at": 1868,
+              "releaseMs": 0.7
+            },
+            {
+              "label": "after-destroy-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 9.1,
+                "totalMB": 11.7
+              },
+              "at": 1869,
+              "releaseMs": 0.5
+            }
+          ],
+          "cycleSnapshots": [
+            {
+              "label": "after-cycle-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 9.1,
+                "totalMB": 11.7
+              },
+              "at": 1896
+            },
+            {
+              "label": "after-cycle-2",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 15.5,
+                "totalMB": 18
+              },
+              "at": 1929
+            },
+            {
+              "label": "after-cycle-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 15.5,
+                "totalMB": 18
+              },
+              "at": 1949
+            },
+            {
+              "label": "after-cycle-4",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 15.5,
+                "totalMB": 18
+              },
+              "at": 1972
+            },
+            {
+              "label": "after-cycle-5",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 24.7,
+                "totalMB": 27.2
+              },
+              "at": 1996
+            }
+          ],
+          "correctness": [
+            {
+              "tag": "concurrent-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "concurrent-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "concurrent-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-3",
+              "mismatches": 0,
+              "correct": true
+            }
+          ],
+          "errors": [],
+          "error": null,
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1
+          },
+          "concurrentSessions": 3,
+          "allCorrect": true,
+          "conclusion": "3 concurrent sessions on wasm; 5 create/infer/destroy cycles; all output correct",
+          "finishedAt": "2026-09-08T14:54:39.744Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04-lifecycle",
+          "backend": "webgpu",
+          "cycles": 5,
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-08T14:54:39.744Z",
+          "trackerError": null,
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 24.7,
+                "totalMB": 27.2
+              },
+              "at": 1998
+            }
+          ],
+          "cycleSnapshots": [],
+          "correctness": [],
+          "errors": [],
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome."
+          },
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+          "finishedAt": "2026-09-08T14:54:39.763Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "s04-lifecycle",
+          "backend": "wasm",
+          "cycles": 5,
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-08T14:54:39.929Z",
+          "trackerError": null,
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0
+              },
+              "js": null,
+              "at": 158
+            },
+            {
+              "label": "after-create-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 629,
+              "createMs": 470.7
+            },
+            {
+              "label": "after-create-2",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 632,
+              "createMs": 2.6
+            },
+            {
+              "label": "after-create-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 635,
+              "createMs": 3.3
+            },
+            {
+              "label": "after-infer-all-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 665
+            },
+            {
+              "label": "after-destroy-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 665,
+              "releaseMs": 0.8
+            },
+            {
+              "label": "after-destroy-2",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 666,
+              "releaseMs": 0.2
+            },
+            {
+              "label": "after-destroy-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 666,
+              "releaseMs": 0.1
+            }
+          ],
+          "cycleSnapshots": [
+            {
+              "label": "after-cycle-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 708
+            },
+            {
+              "label": "after-cycle-2",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 743
+            },
+            {
+              "label": "after-cycle-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 765
+            },
+            {
+              "label": "after-cycle-4",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 867
+            },
+            {
+              "label": "after-cycle-5",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 897
+            }
+          ],
+          "correctness": [
+            {
+              "tag": "concurrent-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "concurrent-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "concurrent-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-3",
+              "mismatches": 0,
+              "correct": true
+            }
+          ],
+          "errors": [],
+          "error": null,
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1
+          },
+          "concurrentSessions": 3,
+          "allCorrect": true,
+          "conclusion": "3 concurrent sessions on wasm; 5 create/infer/destroy cycles; all output correct",
+          "finishedAt": "2026-09-08T14:54:40.680Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "s04-lifecycle",
+          "backend": "webgpu",
+          "cycles": 5,
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-08T14:54:40.687Z",
+          "trackerError": null,
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 919
+            }
+          ],
+          "cycleSnapshots": [],
+          "correctness": [],
+          "errors": [],
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome."
+          },
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+          "finishedAt": "2026-09-08T14:54:40.734Z"
+        }
+      ]
+    },
+    {
+      "headless": true,
+      "run": 1,
+      "platform": "linux-wsl2",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "s04-lifecycle",
+          "backend": "wasm",
+          "cycles": 5,
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-08T14:54:42.204Z",
+          "trackerError": null,
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0
+              },
+              "js": null,
+              "at": 380
+            }
+          ],
+          "cycleSnapshots": [],
+          "correctness": [],
+          "errors": [],
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356."
+          },
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1
+          },
+          "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+          "finishedAt": "2026-09-08T14:54:42.215Z"
+        },
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "s04-lifecycle",
+          "backend": "webgpu",
+          "cycles": 5,
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-08T14:54:42.215Z",
+          "trackerError": null,
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0
+              },
+              "js": null,
+              "at": 387
+            }
+          ],
+          "cycleSnapshots": [],
+          "correctness": [],
+          "errors": [],
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed."
+          },
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+          "finishedAt": "2026-09-08T14:54:42.217Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04-lifecycle",
+          "backend": "wasm",
+          "cycles": 5,
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-08T14:54:42.368Z",
+          "trackerError": null,
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0
+              },
+              "js": {
+                "usedMB": 3.5,
+                "totalMB": 4.8
+              },
+              "at": 148
+            },
+            {
+              "label": "after-create-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 5.3,
+                "totalMB": 8.5
+              },
+              "at": 1552,
+              "createMs": 1403.9
+            },
+            {
+              "label": "after-create-2",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 5.3,
+                "totalMB": 8.5
+              },
+              "at": 1556,
+              "createMs": 3.5
+            },
+            {
+              "label": "after-create-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 5.3,
+                "totalMB": 8.5
+              },
+              "at": 1559,
+              "createMs": 3.5
+            },
+            {
+              "label": "after-infer-all-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 8.9,
+                "totalMB": 11.5
+              },
+              "at": 1613
+            },
+            {
+              "label": "after-destroy-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 8.9,
+                "totalMB": 11.5
+              },
+              "at": 1617,
+              "releaseMs": 4.4
+            },
+            {
+              "label": "after-destroy-2",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 8.9,
+                "totalMB": 11.5
+              },
+              "at": 1618,
+              "releaseMs": 0.6
+            },
+            {
+              "label": "after-destroy-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 8.9,
+                "totalMB": 11.5
+              },
+              "at": 1618,
+              "releaseMs": 0.3
+            }
+          ],
+          "cycleSnapshots": [
+            {
+              "label": "after-cycle-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 8.9,
+                "totalMB": 11.5
+              },
+              "at": 1644
+            },
+            {
+              "label": "after-cycle-2",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 15.3,
+                "totalMB": 18
+              },
+              "at": 1668
+            },
+            {
+              "label": "after-cycle-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 15.3,
+                "totalMB": 18
+              },
+              "at": 1687
+            },
+            {
+              "label": "after-cycle-4",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 15.3,
+                "totalMB": 18
+              },
+              "at": 1713
+            },
+            {
+              "label": "after-cycle-5",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 24.4,
+                "totalMB": 27
+              },
+              "at": 1732
+            }
+          ],
+          "correctness": [
+            {
+              "tag": "concurrent-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "concurrent-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "concurrent-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-3",
+              "mismatches": 0,
+              "correct": true
+            }
+          ],
+          "errors": [],
+          "error": null,
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1
+          },
+          "concurrentSessions": 3,
+          "allCorrect": true,
+          "conclusion": "3 concurrent sessions on wasm; 5 create/infer/destroy cycles; all output correct",
+          "finishedAt": "2026-09-08T14:54:43.957Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04-lifecycle",
+          "backend": "webgpu",
+          "cycles": 5,
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-08T14:54:43.957Z",
+          "trackerError": null,
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": {
+                "usedMB": 24.4,
+                "totalMB": 27
+              },
+              "at": 1734
+            }
+          ],
+          "cycleSnapshots": [],
+          "correctness": [],
+          "errors": [],
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome."
+          },
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+          "finishedAt": "2026-09-08T14:54:43.971Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "s04-lifecycle",
+          "backend": "wasm",
+          "cycles": 5,
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-08T14:54:44.119Z",
+          "trackerError": null,
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0
+              },
+              "js": null,
+              "at": 145
+            },
+            {
+              "label": "after-create-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 687,
+              "createMs": 543
+            },
+            {
+              "label": "after-create-2",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 692,
+              "createMs": 4.3
+            },
+            {
+              "label": "after-create-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 695,
+              "createMs": 3.6
+            },
+            {
+              "label": "after-infer-all-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 729
+            },
+            {
+              "label": "after-destroy-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 729,
+              "releaseMs": 0.7
+            },
+            {
+              "label": "after-destroy-2",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 729,
+              "releaseMs": 0.2
+            },
+            {
+              "label": "after-destroy-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 729,
+              "releaseMs": 0
+            }
+          ],
+          "cycleSnapshots": [
+            {
+              "label": "after-cycle-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 764
+            },
+            {
+              "label": "after-cycle-2",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 793
+            },
+            {
+              "label": "after-cycle-3",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 822
+            },
+            {
+              "label": "after-cycle-4",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 908
+            },
+            {
+              "label": "after-cycle-5",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 937
+            }
+          ],
+          "correctness": [
+            {
+              "tag": "concurrent-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "concurrent-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "concurrent-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-1-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-2-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-3-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-4-session-3",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-1",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-2",
+              "mismatches": 0,
+              "correct": true
+            },
+            {
+              "tag": "cycle-5-session-3",
+              "mismatches": 0,
+              "correct": true
+            }
+          ],
+          "errors": [],
+          "error": null,
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1
+          },
+          "concurrentSessions": 3,
+          "allCorrect": true,
+          "conclusion": "3 concurrent sessions on wasm; 5 create/infer/destroy cycles; all output correct",
+          "finishedAt": "2026-09-08T14:54:44.919Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "s04-lifecycle",
+          "backend": "webgpu",
+          "cycles": 5,
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-08T14:54:44.921Z",
+          "trackerError": null,
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16
+              },
+              "js": null,
+              "at": 951
+            }
+          ],
+          "cycleSnapshots": [],
+          "correctness": [],
+          "errors": [],
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome."
+          },
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+          "finishedAt": "2026-09-08T14:54:44.968Z"
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-08T14:54:45.277Z"
+}

@@ -1,0 +1,75 @@
+{
+  "experiment": "W1-S04-ort-session-lifecycle",
+  "recorded_at": "2026-09-08",
+  "question": "Can three ORT Web sessions coexist in one WebAssembly heap, and does teardown reclaim?",
+  "scope": "Lifecycle mechanics with ONE 174-byte two-op model. Does NOT exercise the ~120 MB resident-model case the dossier's risk is actually about.",
+  "measurement_rule": "A WebAssembly.Memory cannot shrink - the specification provides grow() and no inverse. The heap staying put after teardown is CORRECT behaviour and is not a leak. The leak question lives in repeated create/infer/destroy cycles.",
+  "wasm_heap_instrumentation": {
+    "method": "WebAssembly.Memory is wrapped before ORT loads; every constructed instance is retained and its buffer.byteLength summed.",
+    "why": "performance.memory is Chrome-only, JS-only, absent in workers, and GC-timing-dominated. This experiment contains its own proof of that: one cell shows the JS heap dropping 25.9 -> 10.8 MB in a single step."
+  },
+  "runtime": {
+    "package": "onnxruntime-web",
+    "version": "1.29.0",
+    "license": "MIT",
+    "source": "npm registry, pinned",
+    "npm_integrity_onnxruntime_web": "sha512-LuQlpX6MFLJZu756erwUeb1mNfoJGbs1kzDwJGNlf5RvfYMdqhcY3vNpDPK40CUV2HoWTkIj+uS0o36GFHjeYw==",
+    "npm_integrity_onnxruntime_common": "sha512-/F63/e2VJoaVXGGNu6S5QH7jivBThGO95OzAVXXQ8hTta/b1QxI8udHa6cI3+3mAb5WWIIaMMwfZw01oivjJ1g==",
+    "artifacts_sha256": {
+      "ort-wasm-simd-threaded.wasm": "ec8580a9d7b9476ceee52e10a7f94124e4dc71a019d666ed6d4726697c109a4d",
+      "ort-wasm-simd-threaded.jsep.wasm": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+      "ort-wasm-simd-threaded.mjs": "5a15f1fd086b3f6c2baf1f35105b8f502653b567e165cef80028870b39748747",
+      "ort-wasm-simd-threaded.jsep.mjs": "3d68fa7af88c48894d4b0c8629de12018ab73b77519bc0b05dc8d908ad82749f",
+      "ort.all.min.js": "292feb81eb47989f30d40e62e29e2373979e7588231c189e6dd494ff294f069d"
+    },
+    "artifact_sizes_bytes": {
+      "ort-wasm-simd-threaded.wasm": 13961845,
+      "ort-wasm-simd-threaded.jsep.wasm": 27797172,
+      "ort.all.min.js": 819591
+    },
+    "generated_or_transformed": "No. Copied byte-for-byte from the pinned npm package by harness/build-extension.js.",
+    "fetched_at_runtime": "No. ort.env.wasm.wasmPaths points at the extension's own packaged files. No network fetch for runtime or model.",
+    "committed": "No. CI blocks files over 5 MB and SECURITY.md requires large binaries be referenced by pinned revision."
+  },
+  "model": {
+    "file": "tiny.onnx",
+    "bytes": 174,
+    "sha256": "2718406b3ef228c72455dea388cd26569d462102f5a642a3bcbba1cedafe49b4",
+    "graph": "Mul by 2 then Add 1 over float32[1, 262144]; opset 13, ir_version 9",
+    "built_by": "harness/build_model.py (onnx 1.22.0)",
+    "committed": false,
+    "why_not_committed": "verify-repo.py bans .onnx and that rule is correct. Reproducible from the committed build_model.py and pinned by the sha256 above.",
+    "provenance": "generated synthetic. NOT a production model. No Qwen. Nothing downloaded."
+  },
+  "csp": {
+    "directive": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+    "status": "THROWAWAY HARNESS ONLY. Required because both Chrome MV3 and Firefox MV3 block WebAssembly without it (S-02a-2, S-02a-2b), and wasm-unsafe-eval is the only token Chrome MV3 accepts (S-02a-2b-1). NOT adopted. There is no product code. The decision remains ADR S-02a-2a.",
+    "multi_session_security_delta": "None found. Session count does not change the trust boundary: same packaged bytes, same origin, same CSP requirement, no additional network access, no new executable input."
+  },
+  "platforms": {
+    "windows": {
+      "host": "HP OMEN 16-ap0xxx, Windows 11 10.0.26200, AMD Ryzen AI 7 350, RTX 5050 + Radeon 860M",
+      "chrome": "Chrome for Testing 153.0.8010.12",
+      "firefox": "Mozilla Firefox 155.0.1 release",
+      "gpu": "real adapters - WebGPU works"
+    },
+    "linux-wsl2": {
+      "guest": "WSL2 Ubuntu 26.04, kernel 6.18.33.2-microsoft-standard-WSL2",
+      "chrome": "Chrome for Testing 153.0.8010.12 at /opt/chrome-linux64/chrome",
+      "firefox": "Mozilla Firefox 155.0.1 at /opt/firefox/firefox",
+      "gpu": "no /dev/dri, 0 Vulkan ICDs, llvmpipe. WebGPU failures here are ENVIRONMENTAL."
+    }
+  },
+  "session_counts": [1, 2, 3],
+  "cycles": "5 create-3/infer/destroy-3 cycles per cell (3 cycles in the threading run)",
+  "backends": ["wasm", "webgpu"],
+  "threading_run": "numThreads 1 vs 4, Chrome only, where SharedArrayBuffer is available",
+  "collector": { "endpoint": "http://127.0.0.1:8907", "external_hosts_contacted": "none" },
+  "data": {
+    "input": "synthetic Float32Array of i % 1024",
+    "verification": "element-by-element against a CPU reference on EVERY inference",
+    "pii": "none",
+    "secrets": "none",
+    "profiles": "temporary, deleted after each run"
+  }
+}
