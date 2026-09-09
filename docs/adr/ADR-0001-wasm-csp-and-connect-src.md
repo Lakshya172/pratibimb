@@ -6,7 +6,7 @@ status: PROPOSED — awaiting human architect approval
 owner: pratibimb-architect
 proposed_by: browser-engineer · ml-engineer · privacy-security-engineer
 created: 2026-09-10
-modified: 2026-09-10
+modified: 2026-09-10  # rev 2: S-02a-2a-3 measured; §7.3 reopened and rewritten
 supersedes: none
 related_issues: ["#17 (P0, CSP blocks WASM)", "#5 (Invariant E mechanism 2)"]
 related_blockers: ["B-02"]
@@ -39,7 +39,8 @@ Four experiments now bound the decision. All are merged evidence; none is infere
 | **S-02a-2b-1** | `'wasm-eval'` and `'unsafe-eval'` make the Chrome extension **fail to load at all**. `'wasm-unsafe-eval'` is the **only** token Chrome MV3 accepts |
 | **S-02a-2a-1** | `'wasm-unsafe-eval'` enables WebAssembly **only** — it does not widen `eval`, `new Function` or string-`setTimeout`. It places **no restriction on WASM provenance**: network-origin bytes compile as freely as packaged ones |
 | **S-02a-2a-4** *(new)* | A pinned `connect-src` **blocks foreign-origin WASM at the network layer, before the wire** — 0 arrivals at an independently instrumented foreign origin, 36/36 |
-| **S-02a-2a-2** *(new)* | **Firefox** reaches the same security conclusion by a **different failure mode** — 24/24 |
+| **S-02a-2a-2** | **Firefox** reaches the same security conclusion by a **different failure mode** — 24/24 |
+| **S-02a-2a-3** *(new)* | The ORT Web `.wasm` **can be hash-pinned with a provable byte-for-byte binding** to what executes — **CONDITIONAL** on three architecture constraints |
 
 ## 2 · What `'wasm-unsafe-eval'` permits — measured
 
@@ -170,16 +171,48 @@ connect-src 'self' <configured server origin>
 
 ### 7.3 Should WASM bytes be hash-pinned?
 
-**Proposed: YES, as a distinct application-level control**, because §5 shows `connect-src`
-and the hash pin are orthogonal. **Conditional on S-02a-2a-3** — whether ORT Web exposes its
-`.wasm` URL so a pin can precede its own instantiation without patching the library. **If
-S-02a-2a-3 comes back negative this sub-decision must be re-opened, not quietly dropped.**
+**Proposed: YES — and S-02a-2a-3 has now measured it. The sub-decision is REOPENED and
+rewritten, because the answer is CONDITIONAL rather than a clean yes.**
+
+**What was proven** (`artifacts/experiments/W1-S02a2a3-ort-wasm-hash-pin/`, ORT Web
+**1.29.0**, 3 runs, unanimous):
+
+> **EXACT BYTES HASHED == EXACT BYTES EXECUTED.** Demonstrated, not asserted.
+
+PratiBimb fetches the artifact, hashes it with `crypto.subtle.digest`, compares it to the
+pin, and only then hands the verified buffer to ORT via `ort.env.wasm.wasmBinary`. The
+binding rests on three independent observations, not on ORT's documentation:
+
+| Observation | Result |
+|---|---|
+| The `.wasm` is **not packaged** in the extension | ORT has nowhere else to obtain bytes |
+| ORT's own fetches in the pinned scenarios | **ZERO** (independent arrival log, not a self-report) |
+| **Tampered bytes handed to ORT** | Session **FAILS** with `CompileError: WebAssembly.instantiate()` |
+
+The tamper control is what closes it: had ORT ignored our buffer, corrupt bytes could not
+have caused a compile error. Scenarios s4/s5 produce arrivals on demand, proving the
+observer works.
+
+**Three constraints make this CONDITIONAL. They are requirements, not caveats:**
+
+| # | Constraint | If violated |
+|---|---|---|
+| **C-1** | `wasmBinary` **must be set before the first session in each JS realm.** ORT caches its module per realm. | That realm is **unpinned for its entire lifetime** |
+| **C-2** | The pin is **bundle- and artifact-specific.** `ort.all.min.js` loads `ort-wasm-simd-threaded.jsep.wasm` (`db816fad…`), **not** `ort-wasm-simd-threaded.wasm` (`ec8580a9…`). | A bundle change **silently pins a file the runtime never loads** — the check passes and verifies nothing |
+| **C-3** | The pin covers the **`.wasm` only.** The `.mjs` glue is loaded by dynamic `import()`, which MV3 governs through **`script-src`, not `connect-src`**, so it **must be packaged**. | Glue provenance rests on packaging alone — **it is not hash-pinned, and must not be described as if it were** |
+
+**Also measured, and relevant to §7.4:** ORT does **not** fall back silently. A missing
+artifact fails after three retries (`fellBackSilently: false`), and a second session reuses
+the pinned module without re-fetching.
 
 ### 7.4 Should WASM be packaged rather than fetched?
 
 **Proposed: YES.** Packaging removes the retrieval step entirely and makes `connect-src` a
 second line rather than the only one. S-03 already found ORT Web runs with runtime and model
-both packaged.
+both packaged, and **S-02a-2a-3 makes it partly mandatory rather than merely preferable**:
+the `.mjs` glue is loaded by dynamic `import()` under `script-src 'self'`, so it can only
+come from the extension package (C-3). Packaging is therefore the *only* available
+provenance control for the glue.
 
 ## 8 · Invariants — how each is preserved
 
@@ -200,7 +233,10 @@ Stated so approval is informed rather than implied.
 
 | # | Unknown | Effect if wrong |
 |---|---|---|
-| **S-02a-2a-3** | Does ORT Web expose its `.wasm` URL so a pin can precede instantiation? | §7.3 becomes unimplementable without patching the library |
+| ~~S-02a-2a-3~~ | ~~Does ORT Web expose its `.wasm` URL so a pin can precede instantiation?~~ | **ANSWERED — CONDITIONAL.** See §7.3. Binding proven; C-1..C-3 apply |
+| **S-02a-2a-3a** | Does the binding hold with `numThreads > 1`, where ORT spawns its own workers that may fetch further assets? | The threaded WASM performance path |
+| **S-02a-2a-3b** | Does the **WebGPU** execution provider touch resources beyond the jsep artifact? | Pinning the WebGPU path |
+| **S-02a-2a-3c** | Can the `.mjs` glue's integrity be assured beyond packaging (build-time hash, SRI)? | Completeness of runtime provenance |
 | **S-02a-2a-4a** | Does the result hold for a **cross-host / https** origin, not two loopback ports? | The provenance claim narrows to same-host |
 | **S-02a-2a-4b** | Does `connect-src` bound WASM provenance on **Firefox**? | §7.2 would be Chromium-only |
 | **S-02a-2a-4c** | Can a **redirect** from the allowed origin reach foreign bytes past the pin? | A hole in mechanism (3) |
@@ -237,7 +273,15 @@ egress pin, so a careless edit touches both; and on Firefox a mistake is silent.
 - [ ] **G3** — Automated test: `eval`, `new Function` and string-`setTimeout` remain blocked
       with the directive declared — a regression guard on INV-15/INV-16, checking the
       string **executed**, not that the call threw.
-- [ ] **G4** — S-02a-2a-3 answered; §7.3 confirmed implementable or explicitly re-opened.
+- [ ] **G4** — ~~S-02a-2a-3 answered~~ **DONE (CONDITIONAL).** §7.3 reopened and rewritten. G4 is replaced by G4a–G4c, which enforce its three constraints:
+- [ ] **G4a (C-1)** — a **runtime guard** that fails closed if an ORT session is created in a
+      JS realm where `wasmBinary` was not set first. "Set it before the first session" is an
+      ordering convention, and ordering conventions decay; this must be asserted, not documented.
+- [ ] **G4b (C-2)** — a **build-time check** deriving the expected artifact filename **and**
+      SHA-256 from the shipped ORT bundle, so changing the bundle **breaks the build** rather
+      than silently voiding the pin.
+- [ ] **G4c (C-3)** — the `.mjs` glue is packaged, and the residual risk that it is **not**
+      hash-pinned is recorded explicitly in the security documentation.
 - [ ] **G5** — Evidence that no model output can reach a WASM compilation path.
 - [ ] **G6** — `privacy-security-engineer` sign-off on the final manifest diff.
 - [ ] **G7** — Human architect approval recorded here.
@@ -259,7 +303,7 @@ egress pin, so a careless edit touches both; and on Firefox a mistake is silent.
 | Role | Position |
 |---|---|
 | `browser-engineer` | **PASS** — evidence sound; contexts are the ones the constitution names |
-| `ml-engineer` | **PASS, conditional on S-02a-2a-3** for §7.3 |
+| `ml-engineer` | **PASS.** The §7.3 condition is discharged by S-02a-2a-3 (CONDITIONAL). Conditions carried forward: the model registry must record the pinned artifact **per bundle**, not per package version (C-2), and S-02a-2a-3a (threads) remains uncovered |
 | `privacy-security-engineer` | **PASS on the evidence; standing veto NOT waived.** Requires G1–G3 and G6 before any manifest change |
 | `pratibimb-architect` | Prepared; recommends adoption subject to §12 |
 | **Human architect** | ☐ **PENDING — this ADR is not approved** |

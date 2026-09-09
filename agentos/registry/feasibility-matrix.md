@@ -121,6 +121,49 @@ environment may be quoted as a hardware number.**
 | S-02a-1 | Firefox on **native** Linux with a real GPU and `/dev/dri`. WSL2 cannot answer it. | `UNKNOWN` | The judging-configuration story |
 | S-02a-2 | Does the **WASM path** carry Firefox-on-Linux, given WebGPU is off by default? | `UNKNOWN` | Firefox parity |
 
+### S-02a-2a-3 result — recorded 2026-09-10 (workstation 1)
+
+**CONDITIONAL. The hash-pin binding is PROVEN; it holds under three named constraints.**
+ORT Web **1.29.0**, bundle `ort.all.min.js`, 3 runs, unanimous. Evidence:
+[`W1-S02a-2a-3`](../../artifacts/experiments/W1-S02a2a3-ort-wasm-hash-pin/README.md).
+
+> **EXACT BYTES HASHED == EXACT BYTES EXECUTED** — demonstrated, not asserted.
+
+| Artifact ORT actually loads | `ort-wasm-simd-threaded.jsep.wasm` |
+|---|---|
+| Bytes | 27,797,172 |
+| **SHA-256** | `db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea` |
+| Artifact **not** loaded by this bundle | `ort-wasm-simd-threaded.wasm` — `ec8580a9…c109a4d` |
+
+How the binding was established — three independent observations, none of them ORT's
+self-report:
+
+| Observation | Result |
+|---|---|
+| `.wasm` **not packaged** in the extension | ORT had nowhere else to obtain bytes |
+| ORT's own fetches in the pinned scenarios | **ZERO** (independent arrival log) |
+| **Tampered bytes handed to ORT** | Session **FAILS**, `CompileError: WebAssembly.instantiate()` |
+
+Negative controls: hash mismatch → **refused before ORT is invoked**; missing artifact →
+fails after 3 retries, **`fellBackSilently: false`**; foreign origin → **0 arrivals**;
+second session → pinned module reused, **no re-fetch**.
+
+**The three constraints — requirements, not caveats:**
+
+| # | Constraint | If violated |
+|---|---|---|
+| **C-1** | `wasmBinary` must be set **before the first session in each JS realm** (ORT caches per realm) | that realm is unpinned for its lifetime |
+| **C-2** | The pin is **bundle- and artifact-specific** | a bundle change silently pins a file the runtime never loads |
+| **C-3** | Pin covers the **`.wasm` only**; the `.mjs` glue is loaded by dynamic `import()` under **`script-src`**, so it must be **packaged** | glue provenance rests on packaging, unpinned |
+
+| # | New question raised | Status | Blocks |
+|---|---|---|---|
+| S-02a-2a-3a | Does the binding hold with `numThreads > 1`, where ORT spawns its own workers? | `UNKNOWN` | Threaded WASM path |
+| S-02a-2a-3b | Does the **WebGPU** EP touch resources beyond the jsep artifact? | `UNKNOWN` | Pinning the WebGPU path |
+| S-02a-2a-3c | Can the `.mjs` glue's integrity be assured beyond packaging? | `UNKNOWN` | Completeness of runtime provenance |
+
+---
+
 ### S-02a-2a-4 result — recorded 2026-09-10 (workstation 1)
 
 **ACCEPT. `connect-src` blocks foreign-origin WASM at the NETWORK layer, before the wire.**
@@ -208,7 +251,7 @@ or the URL passed in from the offscreen document.
 | # | New question raised | Status | Blocks |
 |---|---|---|---|
 | S-02a-2a-2 | Does Firefox accept `'wasm-unsafe-eval'`, and is it equally narrow there? | **`FACT` — ANSWERED**, see below | Cross-browser parity of the ADR |
-| S-02a-2a-3 | Does ORT Web expose its `.wasm` URL, so a pin can precede its own instantiation without patching the library? | `UNKNOWN` | Whether the pinning recommendation is implementable |
+| S-02a-2a-3 | Does ORT Web expose its `.wasm` URL, so a pin can precede its own instantiation without patching the library? | **`FACT` — CONDITIONAL**, see below | Whether the pinning recommendation is implementable |
 | S-02a-2a-4 | Does a pinned `connect-src` actually block WASM fetched from another origin, in all three contexts? | **`FACT` — YES, before the wire**, see below | Whether mechanism (3) really is the provenance control |
 
 | S-02a-3 | Mozilla's 2026 ship status for `dom.webgpu.enabled` on Linux release | `UNKNOWN` | Slide accuracy |
