@@ -1,0 +1,71 @@
+{
+  "experiment": "W1-S02a-2a-1",
+  "title": "What does 'wasm-unsafe-eval' actually enable, where may WASM bytes come from, and can they be hash-pinned?",
+  "recorded_at": "2026-09-09T23:43:54+0530",
+  "workstation": {
+    "label": "workstation 1",
+    "hostname": "LAPTOP-6E14K34L",
+    "model": "OMEN Gaming Laptop 16-am0xxx",
+    "os": "Windows 11 build 10.0.26200",
+    "cpu": "Intel(R) Core(TM) 7 240H",
+    "note": "Same machine as W1-S01/ENV-0001: identical OS build, CPU family and GPU driver versions. NOT a new evidence cell for S-01."
+  },
+  "browsers": {
+    "chromium-151": {
+      "kind": "unbranded Chromium (Playwright browser cache build 1234)",
+      "version": "151.0.7922.34",
+      "path": "C:\\Users\\RONIT\\AppData\\Local\\ms-playwright\\chromium-1234\\chrome-win64\\chrome.exe"
+    },
+    "edge-152": {
+      "kind": "branded Microsoft Edge, Playwright channel msedge",
+      "version": "152.0.4191.66"
+    }
+  },
+  "not_used": {
+    "branded Google Chrome": {
+      "version": "152.0.7977.83",
+      "reason": "Chrome 152 stable refuses --load-extension (W1-S01 finding C1)."
+    }
+  },
+  "toolchain": {
+    "node": "v24.19.0",
+    "playwright": "1.63.0 (npm, PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1)",
+    "python": "3.13.14"
+  },
+  "mode": "headful (the headless shell cannot load extensions at all)",
+  "runs_per_browser": 3,
+  "contexts": [
+    "mv3-service-worker",
+    "offscreen-document",
+    "offscreen-dedicated-worker"
+  ],
+  "variants": {
+    "ext-default": "no content_security_policy declared (browser default)",
+    "ext-wasm-unsafe-eval": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "fixtures": {
+    "add.wasm": {
+      "sha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+      "bytes": 41
+    },
+    "add-tampered.wasm": {
+      "sha256": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+      "bytes": 41
+    }
+  },
+  "machine_changes": [
+    {
+      "PACKAGE": "playwright",
+      "VERSION": "1.63.0",
+      "SOURCE": "npm registry",
+      "REASON": "Drive a Chromium build that honours --load-extension; matches the version used by W1-S01b and W1-S02a-2b.",
+      "IMPACT": "node_modules inside this experiment's harness directory only; gitignored. No global change, no browser downloaded.",
+      "ROLLBACK": "rm -rf artifacts/experiments/W1-S02a2a1-csp-attack-surface/harness/node_modules"
+    }
+  ],
+  "known_limitations": [
+    "One machine, one OS, two Chromium-family browsers. Nothing here generalises to Firefox.",
+    "Playwright's own browser download FAILED on this machine (npx playwright install chromium -> 'Download failure, code=1'), the same symptom W1-S01b recorded on workstation 2. Browsers already present were used instead.",
+    "The Chromium build is 151.0.7922.34, one major behind the Edge cell (152) and behind branded Chrome 152. Both agreed unanimously, but neither is the exact CI binary."
+  ]
+}

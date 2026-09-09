@@ -1,0 +1,443 @@
+{
+  "experiment": "W1-S02a-2a-1",
+  "platform": "windows-ws1",
+  "runs_per_browser": 3,
+  "browsers": {
+    "chromium-151": "unbranded Chromium 151.0.7922.34 (Playwright cache)",
+    "edge-152": "branded Microsoft Edge 152.0.4191.66"
+  },
+  "cells": {
+    "chromium-151|ext-default|mv3-service-worker|q1_attack_surface.eval": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|mv3-service-worker|q1_attack_surface.newFunction": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|mv3-service-worker|q1_attack_surface.setTimeoutString": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|mv3-service-worker|q2_provenance.packagedCompile": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|mv3-service-worker|q2_provenance.networkFetch": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-default|mv3-service-worker|q2_provenance.networkCompile": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|mv3-service-worker|q2_provenance.networkInstantiateStreaming": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|mv3-service-worker|q3_integrity.cleanBytes": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|mv3-service-worker|q3_integrity.tamperedBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-default|offscreen-document|q1_attack_surface.eval": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|offscreen-document|q1_attack_surface.newFunction": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|offscreen-document|q1_attack_surface.setTimeoutString": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|offscreen-document|q2_provenance.packagedCompile": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|offscreen-document|q2_provenance.networkFetch": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-default|offscreen-document|q2_provenance.networkCompile": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|offscreen-document|q2_provenance.networkInstantiateStreaming": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|offscreen-document|q3_integrity.cleanBytes": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|offscreen-document|q3_integrity.tamperedBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-default|offscreen-dedicated-worker|q1_attack_surface.eval": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|offscreen-dedicated-worker|q1_attack_surface.newFunction": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|offscreen-dedicated-worker|q1_attack_surface.setTimeoutString": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|offscreen-dedicated-worker|q2_provenance.packagedCompile": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|offscreen-dedicated-worker|q2_provenance.networkFetch": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-default|offscreen-dedicated-worker|q2_provenance.networkCompile": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|offscreen-dedicated-worker|q2_provenance.networkInstantiateStreaming": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|offscreen-dedicated-worker|q3_integrity.cleanBytes": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-default|offscreen-dedicated-worker|q3_integrity.tamperedBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|mv3-service-worker|q1_attack_surface.eval": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-wasm-unsafe-eval|mv3-service-worker|q1_attack_surface.newFunction": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-wasm-unsafe-eval|mv3-service-worker|q1_attack_surface.setTimeoutString": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-wasm-unsafe-eval|mv3-service-worker|q2_provenance.packagedCompile": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|mv3-service-worker|q2_provenance.networkFetch": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|mv3-service-worker|q2_provenance.networkCompile": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|mv3-service-worker|q2_provenance.networkInstantiateStreaming": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|mv3-service-worker|q3_integrity.cleanBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|mv3-service-worker|q3_integrity.tamperedBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-document|q1_attack_surface.eval": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-document|q1_attack_surface.newFunction": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-document|q1_attack_surface.setTimeoutString": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-document|q2_provenance.packagedCompile": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-document|q2_provenance.networkFetch": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-document|q2_provenance.networkCompile": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-document|q2_provenance.networkInstantiateStreaming": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-document|q3_integrity.cleanBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-document|q3_integrity.tamperedBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q1_attack_surface.eval": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q1_attack_surface.newFunction": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q1_attack_surface.setTimeoutString": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q2_provenance.packagedCompile": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q2_provenance.networkFetch": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q2_provenance.networkCompile": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q2_provenance.networkInstantiateStreaming": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q3_integrity.cleanBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "chromium-151|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q3_integrity.tamperedBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-default|mv3-service-worker|q1_attack_surface.eval": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|mv3-service-worker|q1_attack_surface.newFunction": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|mv3-service-worker|q1_attack_surface.setTimeoutString": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|mv3-service-worker|q2_provenance.packagedCompile": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|mv3-service-worker|q2_provenance.networkFetch": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-default|mv3-service-worker|q2_provenance.networkCompile": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|mv3-service-worker|q2_provenance.networkInstantiateStreaming": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|mv3-service-worker|q3_integrity.cleanBytes": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|mv3-service-worker|q3_integrity.tamperedBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-default|offscreen-document|q1_attack_surface.eval": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|offscreen-document|q1_attack_surface.newFunction": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|offscreen-document|q1_attack_surface.setTimeoutString": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|offscreen-document|q2_provenance.packagedCompile": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|offscreen-document|q2_provenance.networkFetch": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-default|offscreen-document|q2_provenance.networkCompile": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|offscreen-document|q2_provenance.networkInstantiateStreaming": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|offscreen-document|q3_integrity.cleanBytes": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|offscreen-document|q3_integrity.tamperedBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-default|offscreen-dedicated-worker|q1_attack_surface.eval": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|offscreen-dedicated-worker|q1_attack_surface.newFunction": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|offscreen-dedicated-worker|q1_attack_surface.setTimeoutString": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|offscreen-dedicated-worker|q2_provenance.packagedCompile": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|offscreen-dedicated-worker|q2_provenance.networkFetch": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-default|offscreen-dedicated-worker|q2_provenance.networkCompile": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|offscreen-dedicated-worker|q2_provenance.networkInstantiateStreaming": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|offscreen-dedicated-worker|q3_integrity.cleanBytes": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-default|offscreen-dedicated-worker|q3_integrity.tamperedBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|mv3-service-worker|q1_attack_surface.eval": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-wasm-unsafe-eval|mv3-service-worker|q1_attack_surface.newFunction": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-wasm-unsafe-eval|mv3-service-worker|q1_attack_surface.setTimeoutString": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-wasm-unsafe-eval|mv3-service-worker|q2_provenance.packagedCompile": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|mv3-service-worker|q2_provenance.networkFetch": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|mv3-service-worker|q2_provenance.networkCompile": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|mv3-service-worker|q2_provenance.networkInstantiateStreaming": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|mv3-service-worker|q3_integrity.cleanBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|mv3-service-worker|q3_integrity.tamperedBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-document|q1_attack_surface.eval": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-document|q1_attack_surface.newFunction": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-document|q1_attack_surface.setTimeoutString": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-document|q2_provenance.packagedCompile": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-document|q2_provenance.networkFetch": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-document|q2_provenance.networkCompile": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-document|q2_provenance.networkInstantiateStreaming": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-document|q3_integrity.cleanBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-document|q3_integrity.tamperedBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q1_attack_surface.eval": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q1_attack_surface.newFunction": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q1_attack_surface.setTimeoutString": {
+      "allowed_true": 0,
+      "allowed_false": 3
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q2_provenance.packagedCompile": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q2_provenance.networkFetch": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q2_provenance.networkCompile": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q2_provenance.networkInstantiateStreaming": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q3_integrity.cleanBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    },
+    "edge-152|ext-wasm-unsafe-eval|offscreen-dedicated-worker|q3_integrity.tamperedBytes": {
+      "allowed_true": 3,
+      "allowed_false": 0
+    }
+  }
+}
