@@ -1,0 +1,1563 @@
+{
+  "experiment": "W1-S02a-2a-2",
+  "platform": "windows-ws1",
+  "firefox": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+  "runs": 3,
+  "variants": [
+    "ext-default",
+    "ext-wasm-unsafe-eval",
+    "ext-wasm-eval",
+    "ext-unsafe-eval"
+  ],
+  "collectedAt": "2026-09-09T18:43:22.836Z",
+  "records": [
+    {
+      "variant": "ext-default",
+      "run": 1,
+      "aliveBeacon": true,
+      "contexts": [
+        {
+          "context": "firefox-mv3-event-page",
+          "globalKind": "Window",
+          "declaredCsp": null,
+          "href": "moz-extension://35231720-2238-4a65-869d-82a056a9bdc0/_generated_background_page.html",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:39:09.687Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:39:09.846Z",
+          "manifestVersion": 3,
+          "variant": "ext-default",
+          "__via": "fetch"
+        },
+        {
+          "context": "firefox-event-page-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "declaredCsp": null,
+          "href": "moz-extension://35231720-2238-4a65-869d-82a056a9bdc0/worker.js",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:39:09.873Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:39:10.032Z",
+          "variant": "ext-default",
+          "__via": "fetch"
+        }
+      ],
+      "webExtLogTail": "Running web extension from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-default\nProfile directory C:\\Users\\RONIT\\AppData\\Local\\Temp\\pratibimb-s02a2a2-ff-KatUBp already exists\nSetting custom Firefox preferences: {\n  \"extensions.originControls.grantByDefault\": true\n}\nUse --verbose or --devtools to see logging\nInstalled C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-default as a temporary add-on\nAutomatic extension reloading has been disabled\n"
+    },
+    {
+      "variant": "ext-wasm-unsafe-eval",
+      "run": 1,
+      "aliveBeacon": true,
+      "contexts": [
+        {
+          "context": "firefox-mv3-event-page",
+          "globalKind": "Window",
+          "declaredCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+          "href": "moz-extension://969b2835-ee78-4dbf-95a9-7458a841a05b/_generated_background_page.html",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:39:19.059Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": true,
+              "error": null
+            },
+            "instantiate": {
+              "allowed": true,
+              "value": 5,
+              "error": null
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compiles in this context",
+          "finishedAt": "2026-09-09T18:39:19.215Z",
+          "manifestVersion": 3,
+          "variant": "ext-wasm-unsafe-eval",
+          "__via": "fetch"
+        },
+        {
+          "context": "firefox-event-page-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "declaredCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+          "href": "moz-extension://969b2835-ee78-4dbf-95a9-7458a841a05b/worker.js",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:39:19.254Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": true,
+              "error": null
+            },
+            "instantiate": {
+              "allowed": true,
+              "value": 5,
+              "error": null
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compiles in this context",
+          "finishedAt": "2026-09-09T18:39:19.418Z",
+          "variant": "ext-wasm-unsafe-eval",
+          "__via": "fetch"
+        }
+      ],
+      "webExtLogTail": "Running web extension from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-wasm-unsafe-eval\nProfile directory C:\\Users\\RONIT\\AppData\\Local\\Temp\\pratibimb-s02a2a2-ff-FVkdUl already exists\nSetting custom Firefox preferences: {\n  \"extensions.originControls.grantByDefault\": true\n}\nUse --verbose or --devtools to see logging\nInstalled C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-wasm-unsafe-eval as a temporary add-on\nAutomatic extension reloading has been disabled\n"
+    },
+    {
+      "variant": "ext-wasm-eval",
+      "run": 1,
+      "aliveBeacon": true,
+      "contexts": [
+        {
+          "context": "firefox-mv3-event-page",
+          "globalKind": "Window",
+          "declaredCsp": "script-src 'self' 'wasm-eval'; object-src 'self'",
+          "href": "moz-extension://f81d3487-1d03-45c2-b8e8-32a48da81435/_generated_background_page.html",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:39:41.863Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:39:42.040Z",
+          "manifestVersion": 3,
+          "variant": "ext-wasm-eval",
+          "__via": "fetch"
+        },
+        {
+          "context": "firefox-event-page-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "declaredCsp": "script-src 'self' 'wasm-eval'; object-src 'self'",
+          "href": "moz-extension://f81d3487-1d03-45c2-b8e8-32a48da81435/worker.js",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:39:42.066Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:39:42.229Z",
+          "variant": "ext-wasm-eval",
+          "__via": "fetch"
+        }
+      ],
+      "webExtLogTail": "Running web extension from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-wasm-eval\nProfile directory C:\\Users\\RONIT\\AppData\\Local\\Temp\\pratibimb-s02a2a2-ff-NeecFi already exists\nSetting custom Firefox preferences: {\n  \"extensions.originControls.grantByDefault\": true\n}\nUse --verbose or --devtools to see logging\nInstalled C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-wasm-eval as a temporary add-on\nAutomatic extension reloading has been disabled\n"
+    },
+    {
+      "variant": "ext-unsafe-eval",
+      "run": 1,
+      "aliveBeacon": true,
+      "contexts": [
+        {
+          "context": "firefox-mv3-event-page",
+          "globalKind": "Window",
+          "declaredCsp": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+          "href": "moz-extension://84ab9f63-fc94-41b0-8533-974dbc46e48e/_generated_background_page.html",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:39:58.682Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:39:58.840Z",
+          "manifestVersion": 3,
+          "variant": "ext-unsafe-eval",
+          "__via": "fetch"
+        },
+        {
+          "context": "firefox-event-page-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "declaredCsp": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+          "href": "moz-extension://84ab9f63-fc94-41b0-8533-974dbc46e48e/worker.js",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:39:58.923Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:39:59.087Z",
+          "variant": "ext-unsafe-eval",
+          "__via": "fetch"
+        }
+      ],
+      "webExtLogTail": "Running web extension from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-unsafe-eval\nProfile directory C:\\Users\\RONIT\\AppData\\Local\\Temp\\pratibimb-s02a2a2-ff-ORoSTQ already exists\nSetting custom Firefox preferences: {\n  \"extensions.originControls.grantByDefault\": true\n}\nUse --verbose or --devtools to see logging\nInstalled C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-unsafe-eval as a temporary add-on\nAutomatic extension reloading has been disabled\n"
+    },
+    {
+      "variant": "ext-default",
+      "run": 2,
+      "aliveBeacon": true,
+      "contexts": [
+        {
+          "context": "firefox-mv3-event-page",
+          "globalKind": "Window",
+          "declaredCsp": null,
+          "href": "moz-extension://9d9a1e7e-6b9e-463d-a58e-776c48d0ec44/_generated_background_page.html",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:40:16.620Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:40:16.786Z",
+          "manifestVersion": 3,
+          "variant": "ext-default",
+          "__via": "fetch"
+        },
+        {
+          "context": "firefox-event-page-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "declaredCsp": null,
+          "href": "moz-extension://9d9a1e7e-6b9e-463d-a58e-776c48d0ec44/worker.js",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:40:20.368Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:40:20.526Z",
+          "variant": "ext-default",
+          "__via": "fetch"
+        }
+      ],
+      "webExtLogTail": "Running web extension from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-default\nProfile directory C:\\Users\\RONIT\\AppData\\Local\\Temp\\pratibimb-s02a2a2-ff-pfAKHW already exists\nSetting custom Firefox preferences: {\n  \"extensions.originControls.grantByDefault\": true\n}\nUse --verbose or --devtools to see logging\nInstalled C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-default as a temporary add-on\nAutomatic extension reloading has been disabled\n"
+    },
+    {
+      "variant": "ext-wasm-unsafe-eval",
+      "run": 2,
+      "aliveBeacon": true,
+      "contexts": [
+        {
+          "context": "firefox-mv3-event-page",
+          "globalKind": "Window",
+          "declaredCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+          "href": "moz-extension://264d071e-526a-49f0-af5a-49f57624e0b7/_generated_background_page.html",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:40:27.370Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": true,
+              "error": null
+            },
+            "instantiate": {
+              "allowed": true,
+              "value": 5,
+              "error": null
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compiles in this context",
+          "finishedAt": "2026-09-09T18:40:27.538Z",
+          "manifestVersion": 3,
+          "variant": "ext-wasm-unsafe-eval",
+          "__via": "fetch"
+        },
+        {
+          "context": "firefox-event-page-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "declaredCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+          "href": "moz-extension://264d071e-526a-49f0-af5a-49f57624e0b7/worker.js",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:40:27.569Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": true,
+              "error": null
+            },
+            "instantiate": {
+              "allowed": true,
+              "value": 5,
+              "error": null
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compiles in this context",
+          "finishedAt": "2026-09-09T18:40:27.738Z",
+          "variant": "ext-wasm-unsafe-eval",
+          "__via": "fetch"
+        }
+      ],
+      "webExtLogTail": "Running web extension from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-wasm-unsafe-eval\nProfile directory C:\\Users\\RONIT\\AppData\\Local\\Temp\\pratibimb-s02a2a2-ff-0jYHST already exists\nSetting custom Firefox preferences: {\n  \"extensions.originControls.grantByDefault\": true\n}\nUse --verbose or --devtools to see logging\nInstalled C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-wasm-unsafe-eval as a temporary add-on\nAutomatic extension reloading has been disabled\n"
+    },
+    {
+      "variant": "ext-wasm-eval",
+      "run": 2,
+      "aliveBeacon": true,
+      "contexts": [
+        {
+          "context": "firefox-mv3-event-page",
+          "globalKind": "Window",
+          "declaredCsp": "script-src 'self' 'wasm-eval'; object-src 'self'",
+          "href": "moz-extension://1a3e33f7-896f-4492-8a52-f99a6845c6f7/_generated_background_page.html",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:40:38.987Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:40:39.142Z",
+          "manifestVersion": 3,
+          "variant": "ext-wasm-eval",
+          "__via": "fetch"
+        },
+        {
+          "context": "firefox-event-page-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "declaredCsp": "script-src 'self' 'wasm-eval'; object-src 'self'",
+          "href": "moz-extension://1a3e33f7-896f-4492-8a52-f99a6845c6f7/worker.js",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:40:39.177Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:40:39.348Z",
+          "variant": "ext-wasm-eval",
+          "__via": "fetch"
+        }
+      ],
+      "webExtLogTail": "Running web extension from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-wasm-eval\nProfile directory C:\\Users\\RONIT\\AppData\\Local\\Temp\\pratibimb-s02a2a2-ff-zmvLuk already exists\nSetting custom Firefox preferences: {\n  \"extensions.originControls.grantByDefault\": true\n}\nUse --verbose or --devtools to see logging\nInstalled C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-wasm-eval as a temporary add-on\nAutomatic extension reloading has been disabled\n"
+    },
+    {
+      "variant": "ext-unsafe-eval",
+      "run": 2,
+      "aliveBeacon": true,
+      "contexts": [
+        {
+          "context": "firefox-mv3-event-page",
+          "globalKind": "Window",
+          "declaredCsp": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+          "href": "moz-extension://f1c35911-5282-4795-aa7a-850643507d7b/_generated_background_page.html",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:40:55.634Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:40:55.789Z",
+          "manifestVersion": 3,
+          "variant": "ext-unsafe-eval",
+          "__via": "fetch"
+        },
+        {
+          "context": "firefox-event-page-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "declaredCsp": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+          "href": "moz-extension://f1c35911-5282-4795-aa7a-850643507d7b/worker.js",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:40:55.822Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:40:55.978Z",
+          "variant": "ext-unsafe-eval",
+          "__via": "fetch"
+        }
+      ],
+      "webExtLogTail": "Running web extension from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-unsafe-eval\nProfile directory C:\\Users\\RONIT\\AppData\\Local\\Temp\\pratibimb-s02a2a2-ff-G21ijT already exists\nSetting custom Firefox preferences: {\n  \"extensions.originControls.grantByDefault\": true\n}\nUse --verbose or --devtools to see logging\nInstalled C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-unsafe-eval as a temporary add-on\nAutomatic extension reloading has been disabled\n"
+    },
+    {
+      "variant": "ext-default",
+      "run": 3,
+      "aliveBeacon": true,
+      "contexts": [
+        {
+          "context": "firefox-mv3-event-page",
+          "globalKind": "Window",
+          "declaredCsp": null,
+          "href": "moz-extension://e77806db-1978-49c9-962a-50b40101ba67/_generated_background_page.html",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:41:24.475Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:41:24.641Z",
+          "manifestVersion": 3,
+          "variant": "ext-default",
+          "__via": "fetch"
+        },
+        {
+          "context": "firefox-event-page-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "declaredCsp": null,
+          "href": "moz-extension://e77806db-1978-49c9-962a-50b40101ba67/worker.js",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:41:24.654Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:41:24.814Z",
+          "variant": "ext-default",
+          "__via": "fetch"
+        }
+      ],
+      "webExtLogTail": "Running web extension from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-default\nProfile directory C:\\Users\\RONIT\\AppData\\Local\\Temp\\pratibimb-s02a2a2-ff-0j4uB8 already exists\nSetting custom Firefox preferences: {\n  \"extensions.originControls.grantByDefault\": true\n}\nUse --verbose or --devtools to see logging\nInstalled C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-default as a temporary add-on\nAutomatic extension reloading has been disabled\n"
+    },
+    {
+      "variant": "ext-wasm-unsafe-eval",
+      "run": 3,
+      "aliveBeacon": true,
+      "contexts": [
+        {
+          "context": "firefox-mv3-event-page",
+          "globalKind": "Window",
+          "declaredCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+          "href": "moz-extension://103d36c2-a8b3-4265-8962-92b901646102/_generated_background_page.html",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:42:33.032Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": true,
+              "error": null
+            },
+            "instantiate": {
+              "allowed": true,
+              "value": 5,
+              "error": null
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compiles in this context",
+          "finishedAt": "2026-09-09T18:42:33.194Z",
+          "manifestVersion": 3,
+          "variant": "ext-wasm-unsafe-eval",
+          "__via": "fetch"
+        },
+        {
+          "context": "firefox-event-page-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "declaredCsp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+          "href": "moz-extension://103d36c2-a8b3-4265-8962-92b901646102/worker.js",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:42:36.075Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": true,
+              "error": null
+            },
+            "instantiate": {
+              "allowed": true,
+              "value": 5,
+              "error": null
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compiles in this context",
+          "finishedAt": "2026-09-09T18:42:36.240Z",
+          "variant": "ext-wasm-unsafe-eval",
+          "__via": "fetch"
+        }
+      ],
+      "webExtLogTail": "Running web extension from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-wasm-unsafe-eval\nProfile directory C:\\Users\\RONIT\\AppData\\Local\\Temp\\pratibimb-s02a2a2-ff-pkIp2h already exists\nSetting custom Firefox preferences: {\n  \"extensions.originControls.grantByDefault\": true\n}\nUse --verbose or --devtools to see logging\nInstalled C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-wasm-unsafe-eval as a temporary add-on\nAutomatic extension reloading has been disabled\n"
+    },
+    {
+      "variant": "ext-wasm-eval",
+      "run": 3,
+      "aliveBeacon": true,
+      "contexts": [
+        {
+          "context": "firefox-mv3-event-page",
+          "globalKind": "Window",
+          "declaredCsp": "script-src 'self' 'wasm-eval'; object-src 'self'",
+          "href": "moz-extension://91d2872d-b38d-46cc-a863-7f46dc4aee07/_generated_background_page.html",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:42:56.135Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:42:56.300Z",
+          "manifestVersion": 3,
+          "variant": "ext-wasm-eval",
+          "__via": "fetch"
+        },
+        {
+          "context": "firefox-event-page-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "declaredCsp": "script-src 'self' 'wasm-eval'; object-src 'self'",
+          "href": "moz-extension://91d2872d-b38d-46cc-a863-7f46dc4aee07/worker.js",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:42:56.330Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:42:56.489Z",
+          "variant": "ext-wasm-eval",
+          "__via": "fetch"
+        }
+      ],
+      "webExtLogTail": "Running web extension from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-wasm-eval\nProfile directory C:\\Users\\RONIT\\AppData\\Local\\Temp\\pratibimb-s02a2a2-ff-I6wxBh already exists\nSetting custom Firefox preferences: {\n  \"extensions.originControls.grantByDefault\": true\n}\nUse --verbose or --devtools to see logging\nInstalled C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-wasm-eval as a temporary add-on\nAutomatic extension reloading has been disabled\n"
+    },
+    {
+      "variant": "ext-unsafe-eval",
+      "run": 3,
+      "aliveBeacon": true,
+      "contexts": [
+        {
+          "context": "firefox-mv3-event-page",
+          "globalKind": "Window",
+          "declaredCsp": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+          "href": "moz-extension://d1722aab-5238-41bc-9026-8dd9f4d8de91/_generated_background_page.html",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:43:15.746Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:43:15.899Z",
+          "manifestVersion": 3,
+          "variant": "ext-unsafe-eval",
+          "__via": "fetch"
+        },
+        {
+          "context": "firefox-event-page-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "declaredCsp": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+          "href": "moz-extension://d1722aab-5238-41bc-9026-8dd9f4d8de91/worker.js",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+          "startedAt": "2026-09-09T18:43:17.918Z",
+          "js": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "wasm": {
+            "present": true,
+            "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "compile": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "call to WebAssembly.compile() blocked by CSP"
+              }
+            },
+            "instantiate": {
+              "allowed": null,
+              "value": null,
+              "error": null,
+              "note": "not attempted - compile failed"
+            },
+            "validate": {
+              "allowed": true,
+              "value": true,
+              "error": null
+            },
+            "digestMatchesPin": true
+          },
+          "conclusion": "WASM compilation BLOCKED in this context",
+          "finishedAt": "2026-09-09T18:43:18.224Z",
+          "variant": "ext-unsafe-eval",
+          "__via": "fetch"
+        }
+      ],
+      "webExtLogTail": "Running web extension from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-unsafe-eval\nProfile directory C:\\Users\\RONIT\\AppData\\Local\\Temp\\pratibimb-s02a2a2-ff-Y9zxTk already exists\nSetting custom Firefox preferences: {\n  \"extensions.originControls.grantByDefault\": true\n}\nUse --verbose or --devtools to see logging\nInstalled C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a2-firefox-csp-tokens\\harness\\ext-unsafe-eval as a temporary add-on\nAutomatic extension reloading has been disabled\n"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "experiment": "W1-S02a-2a-2",
+  "title": "Firefox MV3 CSP token vocabulary, measured in real extension contexts",
+  "recorded_at": "2026-09-10T00:15:08+0530",
+  "workstation": {
+    "label": "workstation 1",
+    "hostname": "LAPTOP-6E14K34L",
+    "model": "OMEN Gaming Laptop 16-am0xxx",
+    "os": "Windows 11 build 10.0.26200",
+    "cpu": "Intel(R) Core(TM) 7 240H"
+  },
+  "browser": {
+    "name": "Mozilla Firefox",
+    "version": "155.0.1",
+    "channel": "release",
+    "mode": "headful",
+    "driver": "web-ext 8.3.0, temporary add-on into a throwaway profile",
+    "note": "Same Firefox version (155.0.1) as the workstation-2 cell in W1-S02a, so the cells are comparable."
+  },
+  "toolchain": {
+    "node": "v24.19.0",
+    "web-ext": "8.3.0",
+    "python": "3.13.14"
+  },
+  "prefs": [
+    "extensions.originControls.grantByDefault=true  (reporting only - Firefox MV3 gates host_permissions behind origin controls)"
+  ],
+  "variants": {
+    "ext-default": null,
+    "ext-wasm-unsafe-eval": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+    "ext-wasm-eval": "script-src 'self' 'wasm-eval'; object-src 'self'",
+    "ext-unsafe-eval": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  },
+  "contexts": [
+    "firefox-mv3-event-page",
+    "firefox-event-page-dedicated-worker"
+  ],
+  "runs": 3,
+  "wasm_fixture": {
+    "bytes": 41,
+    "sha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+    "note": "INLINE in the probe, not fetched, so the CSP question is isolated from Firefox host_permissions gating."
+  },
+  "liveness": "An /alive tab beacon proves the event page executed. 'The extension did not load' and 'it loaded and the token blocked everything' are different results and must not be inferred from one another.",
+  "machine_changes": [
+    {
+      "PACKAGE": "Mozilla Firefox",
+      "VERSION": "155.0.1",
+      "SOURCE": "winget Mozilla.Firefox (installer hash verified by winget)",
+      "REASON": "S-02a-2a-2 requires real Firefox; workstation 1 had none. No Firefox result may be inferred from Chrome.",
+      "IMPACT": "System-wide install under C:\\Program Files\\Mozilla Firefox. Not set as default browser.",
+      "ROLLBACK": "winget uninstall --id Mozilla.Firefox"
+    },
+    {
+      "PACKAGE": "web-ext",
+      "VERSION": "8.3.0",
+      "SOURCE": "npm registry",
+      "REASON": "Install a temporary MV3 add-on into a throwaway Firefox profile; the same tool the existing W1-S02a-2 harness uses.",
+      "IMPACT": "node_modules inside this experiment's harness only; gitignored.",
+      "ROLLBACK": "rm -rf artifacts/experiments/W1-S02a2a2-firefox-csp-tokens/harness/node_modules"
+    }
+  ],
+  "known_limitations": [
+    "Windows only. Firefox on Linux is a separate cell (S-02a-1, still UNKNOWN).",
+    "Release channel only.",
+    "Payload field 'reportedVia' is always null: it is assigned after the payload is serialised. The collector's own '__via' tag carries the truth - all 24 reports arrived via fetch. Cosmetic; affects no finding."
+  ]
+}

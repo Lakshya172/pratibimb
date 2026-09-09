@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "PratiBimb S-02a-2a-2 ext-unsafe-eval",
+  "version": "1.0.0",
+  "description": "Throwaway spike harness. Measures Firefox MV3 CSP token behaviour.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "pratibimb-s02a2a2-unsafe-eval@example.invalid",
+      "strict_min_version": "128.0"
+    }
+  },
+  "background": {
+    "scripts": [
+      "shared/probe.js",
+      "background.js"
+    ]
+  },
+  "permissions": [
+    "tabs"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8909/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  }
+}
