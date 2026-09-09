@@ -175,7 +175,8 @@ connect-src 'self' <configured server origin>
 rewritten, because the answer is CONDITIONAL rather than a clean yes.**
 
 **What was proven** (`artifacts/experiments/W1-S02a2a3-ort-wasm-hash-pin/`, ORT Web
-**1.29.0**, 3 runs, unanimous):
+**1.29.0**, **Chromium 151 only**, 3 runs, unanimous — **Firefox is `UNKNOWN`, see
+S-02a-2a-3d**):
 
 > **EXACT BYTES HASHED == EXACT BYTES EXECUTED.** Demonstrated, not asserted.
 
@@ -237,6 +238,7 @@ Stated so approval is informed rather than implied.
 | **S-02a-2a-3a** | Does the binding hold with `numThreads > 1`, where ORT spawns its own workers that may fetch further assets? | The threaded WASM performance path |
 | **S-02a-2a-3b** | Does the **WebGPU** execution provider touch resources beyond the jsep artifact? | Pinning the WebGPU path |
 | **S-02a-2a-3c** | Can the `.mjs` glue's integrity be assured beyond packaging (build-time hash, SRI)? | Completeness of runtime provenance |
+| **S-02a-2a-3d** | **Does the `wasmBinary` binding hold in Firefox MV3?** Not measured. | Cross-browser parity of §7.3 |
 | **S-02a-2a-4a** | Does the result hold for a **cross-host / https** origin, not two loopback ports? | The provenance claim narrows to same-host |
 | **S-02a-2a-4b** | Does `connect-src` bound WASM provenance on **Firefox**? | §7.2 would be Chromium-only |
 | **S-02a-2a-4c** | Can a **redirect** from the allowed origin reach foreign bytes past the pin? | A hole in mechanism (3) |

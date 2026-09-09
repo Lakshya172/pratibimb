@@ -59,7 +59,8 @@ Full record: [`environment.json`](environment.json).
 |---|---|
 | Workstation | **1** — `LAPTOP-6E14K34L`, Win 11 `10.0.26200` |
 | **ORT Web** | **`onnxruntime-web@1.29.0`**, bundle **`ort.all.min.js`** |
-| Browsers | unbranded **Chromium 151.0.7922.34** (Playwright, headful) · **Firefox 155.0.1** (web-ext, headful) |
+| Browser measured | unbranded **Chromium 151.0.7922.34** (Playwright, headful) |
+| Browser **NOT** measured | **Firefox 155.0.1** — see *Firefox coverage* below. **No Firefox result is claimed.** |
 | Origins | `127.0.0.1:8910` collector *(in `connect-src`)* · `127.0.0.1:8911` foreign *(not in `connect-src`)* |
 | Harness CSP | `script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8910` |
 | Model | the **same 174-byte model as W1-S03**, `y = x*2+1` over `float32[1,262144]`, verified element-by-element |
@@ -173,6 +174,37 @@ determined the outcome.
 
 ---
 
+## Firefox coverage — NOT MEASURED, and not inferred
+
+**This experiment's result is a Chromium result. Firefox is `UNKNOWN` for S-02a-2a-3.**
+
+A Firefox runner exists (`harness/run-s02a2a3-firefox.js`, reusing the W1-S02a-2 `web-ext`
+pattern) and the Firefox extension is built, but **no valid Firefox measurement was
+obtained in this session.** The committed
+`logs/results-s02a2a3-windows-ws1-firefox-155.json` records a **failed** attempt —
+`aliveBeacon: false`, zero contexts reporting, zero arrivals — and is kept as evidence of
+that failure rather than deleted.
+
+Two causes were found and fixed, and they are the reason the record is preserved:
+
+1. **`web-ext` was copied between harness directories instead of installed**, so its
+   transitive dependencies were missing:
+   `Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'camelcase'`. The add-on therefore
+   never installed, and the event page never ran. Fixed by a real
+   `npm install web-ext@8.3.0`.
+2. **Leaked Firefox processes.** `web-ext` spawns Firefox as a grandchild, so killing the
+   wrapper left it running — **189 live processes** were observed accumulating across
+   runs. The runner now issues an explicit `taskkill /F /IM firefox.exe /T`.
+
+**`aliveBeacon: false` is exactly why that beacon exists.** Without it, "the extension
+never installed" would have been indistinguishable from "ORT could not load WebAssembly in
+Firefox" — and the second reading would have been a fabricated limitation.
+
+> **The Chromium result is NOT generalised to Firefox.** Firefox has a different CSP
+> failure mode (W1-S02a-2a-2), no `chrome.offscreen`, and its own dynamic-`import()`
+> behaviour. Whether the `wasmBinary` binding holds there is **`UNKNOWN`** and is tracked
+> as **S-02a-2a-3d**.
+
 ## Corrections made during the experiment
 
 Three, all recorded rather than tidied away. Each would have produced a wrong answer.
@@ -217,7 +249,7 @@ per-realm property, not a per-extension one.
 
 See [`commands.md`](commands.md). 3 runs, unanimous.
 
-**Limits:** one machine; `numThreads = 1` throughout (multi-threaded ORT spawns workers
+**Limits:** **Chromium only — Firefox is `UNKNOWN` (S-02a-2a-3d)**; one machine; `numThreads = 1` throughout (multi-threaded ORT spawns workers
 that may fetch additional assets — **not covered**); the **`wasm` EP only**, not WebGPU;
 origins differ by **port**, not host.
 
@@ -228,3 +260,4 @@ origins differ by **port**, not host.
 | S-02a-2a-3a | Does the binding hold with `numThreads > 1`, where ORT spawns its own workers? | Threaded WASM performance path |
 | S-02a-2a-3b | Does the **WebGPU** EP touch additional resources beyond the jsep artifact? | Pinning the WebGPU path |
 | S-02a-2a-3c | Can the `.mjs` glue's integrity be assured beyond packaging — SRI, or a build-time hash check? | Completeness of runtime provenance |
+| **S-02a-2a-3d** | **Does the `wasmBinary` binding hold in Firefox MV3?** Harness ready; not measured this session. | Cross-browser parity of the pin |

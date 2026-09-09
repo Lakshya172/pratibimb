@@ -56,6 +56,9 @@ pass.** The mechanism measured is ORT's own documented `wasmBinary` input, used 
 - Does not cover `numThreads > 1` (**S-02a-2a-3a**), the WebGPU EP (**S-02a-2a-3b**), or
   glue integrity beyond packaging (**S-02a-2a-3c**).
 - Does not convert any Firefox/Linux unknown into ACCEPT.
+- **Firefox is NOT measured.** The verdict is a **Chromium** verdict. A Firefox runner
+  exists and two toolchain defects were fixed, but no valid Firefox measurement was
+  obtained; the failed attempt is committed as evidence. Tracked as **S-02a-2a-3d**.
 
 ## AgentOS specialist review
 
