@@ -1,0 +1,241 @@
+{
+  "experiment": "W1-S02a-2b-chrome-mv3-wasm-csp",
+  "question": "Does Chrome MV3's extension CSP block WebAssembly, as Firefox MV3's does?",
+  "answer": "YES - all three extension contexts, both platforms, both display modes.",
+  "scope": "WASM substrate and the extension CSP only. NOT ORT Web. S-03 separate.",
+  "platforms": {
+    "linux-wsl2": {
+      "browser": "/opt/chrome-linux64/chrome",
+      "cells": {
+        "default-csp-headful :: chrome-mv3-service-worker": {
+          "runs": 3,
+          "conclusions": [
+            "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security poli"
+          ]
+        },
+        "default-csp-headful :: chrome-offscreen-document": {
+          "runs": 3,
+          "conclusions": [
+            "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security poli"
+          ]
+        },
+        "default-csp-headful :: chrome-offscreen-dedicated-worker": {
+          "runs": 3,
+          "conclusions": [
+            "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security poli"
+          ]
+        },
+        "default-csp-headless :: chrome-mv3-service-worker": {
+          "runs": 3,
+          "conclusions": [
+            "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security poli"
+          ]
+        },
+        "default-csp-headless :: chrome-offscreen-document": {
+          "runs": 3,
+          "conclusions": [
+            "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security poli"
+          ]
+        },
+        "default-csp-headless :: chrome-offscreen-dedicated-worker": {
+          "runs": 3,
+          "conclusions": [
+            "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security poli"
+          ]
+        },
+        "wasm-unsafe-eval-headful :: chrome-mv3-service-worker": {
+          "runs": 3,
+          "conclusions": [
+            "WASM available and correct in this context"
+          ]
+        },
+        "wasm-unsafe-eval-headful :: chrome-offscreen-document": {
+          "runs": 3,
+          "conclusions": [
+            "WASM available and correct in this context"
+          ]
+        },
+        "wasm-unsafe-eval-headful :: chrome-offscreen-dedicated-worker": {
+          "runs": 3,
+          "conclusions": [
+            "WASM available and correct in this context"
+          ]
+        },
+        "wasm-unsafe-eval-headless :: chrome-mv3-service-worker": {
+          "runs": 3,
+          "conclusions": [
+            "WASM available and correct in this context"
+          ]
+        },
+        "wasm-unsafe-eval-headless :: chrome-offscreen-document": {
+          "runs": 3,
+          "conclusions": [
+            "WASM available and correct in this context"
+          ]
+        },
+        "wasm-unsafe-eval-headless :: chrome-offscreen-dedicated-worker": {
+          "runs": 3,
+          "conclusions": [
+            "WASM available and correct in this context"
+          ]
+        }
+      },
+      "features_by_context": {
+        "chrome-mv3-service-worker": {
+          "webAssembly": true,
+          "sharedArrayBuffer": true,
+          "crossOriginIsolated": false,
+          "atomics": true,
+          "hardwareConcurrency": 16,
+          "bigInt64Array": true,
+          "simd": true,
+          "threadsUsable": true
+        },
+        "chrome-offscreen-document": {
+          "webAssembly": true,
+          "sharedArrayBuffer": true,
+          "crossOriginIsolated": false,
+          "atomics": true,
+          "hardwareConcurrency": 16,
+          "bigInt64Array": true,
+          "simd": true,
+          "threadsUsable": true
+        },
+        "chrome-offscreen-dedicated-worker": {
+          "webAssembly": true,
+          "sharedArrayBuffer": true,
+          "crossOriginIsolated": false,
+          "atomics": true,
+          "hardwareConcurrency": 16,
+          "bigInt64Array": true,
+          "simd": true,
+          "threadsUsable": true
+        }
+      }
+    },
+    "windows": {
+      "browser": "C:\\Users\\OMEN\\cft\\chrome.exe",
+      "cells": {
+        "default-csp-headful :: chrome-mv3-service-worker": {
+          "runs": 2,
+          "conclusions": [
+            "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security poli"
+          ]
+        },
+        "default-csp-headful :: chrome-offscreen-document": {
+          "runs": 2,
+          "conclusions": [
+            "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security poli"
+          ]
+        },
+        "default-csp-headful :: chrome-offscreen-dedicated-worker": {
+          "runs": 2,
+          "conclusions": [
+            "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security poli"
+          ]
+        },
+        "default-csp-headless :: chrome-mv3-service-worker": {
+          "runs": 2,
+          "conclusions": [
+            "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security poli"
+          ]
+        },
+        "default-csp-headless :: chrome-offscreen-document": {
+          "runs": 2,
+          "conclusions": [
+            "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security poli"
+          ]
+        },
+        "default-csp-headless :: chrome-offscreen-dedicated-worker": {
+          "runs": 2,
+          "conclusions": [
+            "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security poli"
+          ]
+        },
+        "wasm-unsafe-eval-headful :: chrome-mv3-service-worker": {
+          "runs": 2,
+          "conclusions": [
+            "WASM available and correct in this context"
+          ]
+        },
+        "wasm-unsafe-eval-headful :: chrome-offscreen-document": {
+          "runs": 2,
+          "conclusions": [
+            "WASM available and correct in this context"
+          ]
+        },
+        "wasm-unsafe-eval-headful :: chrome-offscreen-dedicated-worker": {
+          "runs": 2,
+          "conclusions": [
+            "WASM available and correct in this context"
+          ]
+        },
+        "wasm-unsafe-eval-headless :: chrome-mv3-service-worker": {
+          "runs": 2,
+          "conclusions": [
+            "WASM available and correct in this context"
+          ]
+        },
+        "wasm-unsafe-eval-headless :: chrome-offscreen-document": {
+          "runs": 2,
+          "conclusions": [
+            "WASM available and correct in this context"
+          ]
+        },
+        "wasm-unsafe-eval-headless :: chrome-offscreen-dedicated-worker": {
+          "runs": 2,
+          "conclusions": [
+            "WASM available and correct in this context"
+          ]
+        }
+      },
+      "features_by_context": {
+        "chrome-mv3-service-worker": {
+          "webAssembly": true,
+          "sharedArrayBuffer": true,
+          "crossOriginIsolated": false,
+          "atomics": true,
+          "hardwareConcurrency": 16,
+          "bigInt64Array": true,
+          "simd": true,
+          "threadsUsable": true
+        },
+        "chrome-offscreen-document": {
+          "webAssembly": true,
+          "sharedArrayBuffer": true,
+          "crossOriginIsolated": false,
+          "atomics": true,
+          "hardwareConcurrency": 16,
+          "bigInt64Array": true,
+          "simd": true,
+          "threadsUsable": true
+        },
+        "chrome-offscreen-dedicated-worker": {
+          "webAssembly": true,
+          "sharedArrayBuffer": true,
+          "crossOriginIsolated": false,
+          "atomics": true,
+          "hardwareConcurrency": 16,
+          "bigInt64Array": true,
+          "simd": true,
+          "threadsUsable": true
+        }
+      }
+    }
+  },
+  "headline": [
+    "Chrome MV3 blocks WebAssembly.compile() under the DEFAULT extension CSP in the service worker, the offscreen document, AND the dedicated worker inside it.",
+    "Identical on WSL2 Linux and on native Windows, headful and headless - a Chrome MV3 behaviour, not an environment artefact.",
+    "Declaring 'wasm-unsafe-eval' unblocks it completely: scalar and SIMD element-exact, 0 mismatches, everywhere.",
+    "Chrome's error names 'wasm-eval' as an alternative - NARROWER than 'unsafe-eval'. UNTESTED. Filed S-02a-2b-1 (p0), blocking the S-02a-2a ADR.",
+    "ASYMMETRY: SharedArrayBuffer is TRUE in Chrome extension contexts and FALSE in Firefox. WASM threads available on Chrome, unavailable on Firefox.",
+    "The WASM CSP restriction is CROSS-BROWSER, so S-02a-2a is a project-wide p0 rather than a Firefox workaround."
+  ],
+  "not_established": [
+    "ORT Web (S-03)",
+    "whether 'wasm-eval' is accepted or sufficient",
+    "whether threads actually help",
+    "native Linux",
+    "any model or latency budget"
+  ]
+}

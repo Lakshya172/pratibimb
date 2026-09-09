@@ -1,0 +1,1073 @@
+{
+  "experiment": "W1-S02a-2b-chrome-mv3-wasm-csp",
+  "startedAt": "2026-09-07T21:50:37.762Z",
+  "platform": "windows-s02a2b1",
+  "chrome": "C:\\Users\\OMEN\\cft\\chrome.exe",
+  "runs": [
+    {
+      "variant": "default-csp-headful",
+      "extDir": "ext-default",
+      "headless": false,
+      "run": 1,
+      "platform": "windows-s02a2b1",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:38.477Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".",
+            "stack": "CompileError: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".\n    at ben"
+          },
+          "conclusion": "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of scri",
+          "finishedAt": "2026-09-07T21:50:38.484Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:38.514Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".",
+            "stack": "CompileError: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".\n    at ben"
+          },
+          "conclusion": "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of scri",
+          "finishedAt": "2026-09-07T21:50:38.517Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:38.529Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".",
+            "stack": "CompileError: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".\n    at ben"
+          },
+          "conclusion": "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of scri",
+          "finishedAt": "2026-09-07T21:50:38.532Z"
+        }
+      ],
+      "collectorReceived": 1
+    },
+    {
+      "variant": "default-csp-headful",
+      "extDir": "ext-default",
+      "headless": false,
+      "run": 2,
+      "platform": "windows-s02a2b1",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:40.715Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".",
+            "stack": "CompileError: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".\n    at ben"
+          },
+          "conclusion": "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of scri",
+          "finishedAt": "2026-09-07T21:50:40.721Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:40.747Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".",
+            "stack": "CompileError: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".\n    at ben"
+          },
+          "conclusion": "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of scri",
+          "finishedAt": "2026-09-07T21:50:40.751Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:40.765Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".",
+            "stack": "CompileError: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".\n    at ben"
+          },
+          "conclusion": "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of scri",
+          "finishedAt": "2026-09-07T21:50:40.768Z"
+        }
+      ],
+      "collectorReceived": 1
+    },
+    {
+      "variant": "default-csp-headless",
+      "extDir": "ext-default",
+      "headless": true,
+      "run": 1,
+      "platform": "windows-s02a2b1",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:42.915Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".",
+            "stack": "CompileError: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".\n    at ben"
+          },
+          "conclusion": "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of scri",
+          "finishedAt": "2026-09-07T21:50:42.922Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:42.948Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".",
+            "stack": "CompileError: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".\n    at ben"
+          },
+          "conclusion": "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of scri",
+          "finishedAt": "2026-09-07T21:50:42.954Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:42.967Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".",
+            "stack": "CompileError: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".\n    at ben"
+          },
+          "conclusion": "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of scri",
+          "finishedAt": "2026-09-07T21:50:42.972Z"
+        }
+      ],
+      "collectorReceived": 1
+    },
+    {
+      "variant": "default-csp-headless",
+      "extDir": "ext-default",
+      "headless": true,
+      "run": 2,
+      "platform": "windows-s02a2b1",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:45.148Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".",
+            "stack": "CompileError: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".\n    at ben"
+          },
+          "conclusion": "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of scri",
+          "finishedAt": "2026-09-07T21:50:45.153Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:45.179Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".",
+            "stack": "CompileError: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".\n    at ben"
+          },
+          "conclusion": "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of scri",
+          "finishedAt": "2026-09-07T21:50:45.183Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:45.196Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": null,
+          "simd": null,
+          "error": {
+            "name": "CompileError",
+            "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".",
+            "stack": "CompileError: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\".\n    at ben"
+          },
+          "conclusion": "threw: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of scri",
+          "finishedAt": "2026-09-07T21:50:45.203Z"
+        }
+      ],
+      "collectorReceived": 1
+    },
+    {
+      "variant": "wasm-unsafe-eval-headful",
+      "extDir": "ext-wasm-csp",
+      "headless": false,
+      "run": 1,
+      "platform": "windows-s02a2b1",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:47.328Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 1.5,
+            "instantiateMs": 0.2,
+            "coldDispatchMs": 1.7,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.2,
+              "min": 0,
+              "max": 0.5
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.7,
+            "instantiateMs": 0.1,
+            "coldDispatchMs": 0.7,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.1,
+              "min": 0,
+              "max": 0.9
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:50:47.344Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:47.375Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.4,
+            "instantiateMs": 0,
+            "coldDispatchMs": 0.3,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.3,
+              "min": 0.2,
+              "max": 0.4
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.3,
+            "instantiateMs": 0.1,
+            "coldDispatchMs": 0.4,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.1,
+              "min": 0,
+              "max": 0.1
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:50:47.387Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:47.398Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.2,
+            "instantiateMs": 0.1,
+            "coldDispatchMs": 0.4,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.1,
+              "min": 0.1,
+              "max": 0.2
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.1,
+            "instantiateMs": 0.1,
+            "coldDispatchMs": 0.1,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 0.1
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:50:47.404Z"
+        }
+      ],
+      "collectorReceived": 1
+    },
+    {
+      "variant": "wasm-unsafe-eval-headful",
+      "extDir": "ext-wasm-csp",
+      "headless": false,
+      "run": 2,
+      "platform": "windows-s02a2b1",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:49.646Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.8,
+            "instantiateMs": 0.1,
+            "coldDispatchMs": 1.3,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.2,
+              "min": 0.1,
+              "max": 0.3
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.6,
+            "instantiateMs": 0.2,
+            "coldDispatchMs": 0.6,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.2,
+              "min": 0.1,
+              "max": 0.4
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:50:49.660Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:49.691Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.3,
+            "instantiateMs": 0.1,
+            "coldDispatchMs": 0.3,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.1,
+              "min": 0.1,
+              "max": 0.2
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.3,
+            "instantiateMs": 0.1,
+            "coldDispatchMs": 0.3,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.1,
+              "min": 0,
+              "max": 0.2
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:50:49.701Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:49.716Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.2,
+            "instantiateMs": 0.1,
+            "coldDispatchMs": 0.2,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.2,
+              "min": 0,
+              "max": 0.3
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.3,
+            "instantiateMs": 0.1,
+            "coldDispatchMs": 0.2,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 0.1
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:50:49.722Z"
+        }
+      ],
+      "collectorReceived": 1
+    },
+    {
+      "variant": "wasm-unsafe-eval-headless",
+      "extDir": "ext-wasm-csp",
+      "headless": true,
+      "run": 1,
+      "platform": "windows-s02a2b1",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:52.025Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.7,
+            "instantiateMs": 0.1,
+            "coldDispatchMs": 1.7,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.3,
+              "min": 0.2,
+              "max": 0.4
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.4,
+            "instantiateMs": 0.1,
+            "coldDispatchMs": 0.5,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.1,
+              "min": 0,
+              "max": 0.4
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:50:52.043Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:52.076Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.2,
+            "instantiateMs": 0.1,
+            "coldDispatchMs": 0.3,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.2,
+              "min": 0,
+              "max": 0.2
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.2,
+            "instantiateMs": 0.1,
+            "coldDispatchMs": 0.1,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 0.1
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:50:52.085Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:52.096Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.2,
+            "instantiateMs": 0,
+            "coldDispatchMs": 0.3,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.1,
+              "min": 0,
+              "max": 0.1
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.2,
+            "instantiateMs": 0,
+            "coldDispatchMs": 0.1,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0,
+              "min": 0,
+              "max": 0.1
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:50:52.101Z"
+        }
+      ],
+      "collectorReceived": 1
+    },
+    {
+      "variant": "wasm-unsafe-eval-headless",
+      "extDir": "ext-wasm-csp",
+      "headless": true,
+      "run": 2,
+      "platform": "windows-s02a2b1",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:54.371Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 1.4,
+            "instantiateMs": 0.3,
+            "coldDispatchMs": 1.3,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.2,
+              "min": 0.1,
+              "max": 0.4
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.5,
+            "instantiateMs": 0.1,
+            "coldDispatchMs": 0.5,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.3,
+              "min": 0.1,
+              "max": 0.4
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:50:54.390Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:54.432Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "globalKind": "window",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.5,
+            "instantiateMs": 0.2,
+            "coldDispatchMs": 0.5,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.3,
+              "min": 0.2,
+              "max": 0.3
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.4,
+            "instantiateMs": 0.3,
+            "coldDispatchMs": 0.4,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.2,
+              "min": 0.1,
+              "max": 0.2
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:50:54.448Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "wasm",
+          "startedAt": "2026-09-07T21:50:54.463Z",
+          "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+          "globalKind": "worker",
+          "features": {
+            "webAssembly": true,
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "atomics": true,
+            "hardwareConcurrency": 16,
+            "bigInt64Array": true,
+            "simd": true,
+            "threadsUsable": true
+          },
+          "scalar": {
+            "label": "scalar",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.3,
+            "instantiateMs": 0.2,
+            "coldDispatchMs": 0.3,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.1,
+              "min": 0.1,
+              "max": 0.2
+            }
+          },
+          "simd": {
+            "label": "simd-i32x4",
+            "elements": 262144,
+            "outputCorrect": true,
+            "mismatches": 0,
+            "firstMismatch": null,
+            "compileMs": 0.3,
+            "instantiateMs": 0.2,
+            "coldDispatchMs": 0.1,
+            "warmDispatchMs": {
+              "count": 10,
+              "p50": 0.1,
+              "min": 0,
+              "max": 0.2
+            }
+          },
+          "error": null,
+          "conclusion": "WASM available and correct in this context",
+          "finishedAt": "2026-09-07T21:50:54.471Z"
+        }
+      ],
+      "collectorReceived": 1
+    },
+    {
+      "variant": "wasm-eval-headless",
+      "extDir": "ext-wasm-eval",
+      "headless": true,
+      "run": 1,
+      "platform": "windows-s02a2b1",
+      "extensionLoaded": false,
+      "runError": "TimeoutError: browserContext.waitForEvent: Timeout 30000ms exceeded while waiting for event \"serviceworker\"",
+      "collectorReceived": 0
+    },
+    {
+      "variant": "wasm-eval-headless",
+      "extDir": "ext-wasm-eval",
+      "headless": true,
+      "run": 2,
+      "platform": "windows-s02a2b1",
+      "extensionLoaded": false,
+      "runError": "TimeoutError: browserContext.waitForEvent: Timeout 30000ms exceeded while waiting for event \"serviceworker\"",
+      "collectorReceived": 0
+    },
+    {
+      "variant": "unsafe-eval-headless",
+      "extDir": "ext-unsafe-eval",
+      "headless": true,
+      "run": 1,
+      "platform": "windows-s02a2b1",
+      "extensionLoaded": false,
+      "runError": "TimeoutError: browserContext.waitForEvent: Timeout 30000ms exceeded while waiting for event \"serviceworker\"",
+      "collectorReceived": 0
+    },
+    {
+      "variant": "unsafe-eval-headless",
+      "extDir": "ext-unsafe-eval",
+      "headless": true,
+      "run": 2,
+      "platform": "windows-s02a2b1",
+      "extensionLoaded": false,
+      "runError": "TimeoutError: browserContext.waitForEvent: Timeout 30000ms exceeded while waiting for event \"serviceworker\"",
+      "collectorReceived": 0
+    }
+  ],
+  "finishedAt": "2026-09-07T21:52:59.663Z"
+}

@@ -1,0 +1,242 @@
+{
+  "experiment": "W1-S02a-firefox-linux-webgpu",
+  "machine_boundary": {
+    "windows_host": "workstation 2 (host only)",
+    "linux_guest": "WSL2 Ubuntu 26.04",
+    "all_results_measured_in": "linux_guest"
+  },
+  "browser": "Mozilla Firefox 155.0.1 release (Mozilla official tarball) \u2014 same version as the Windows S-02 cell",
+  "gpu_state": {
+    "nvidia_smi": "works (CUDA compute path)",
+    "dev_dri": "absent",
+    "vulkan_icds": 0,
+    "opengl": "llvmpipe (software)",
+    "webgpu_backend": "UNKNOWN \u2014 Firefox exposes neither adapterInfo nor isFallbackAdapter. Software is INFERRED from the environment, not measured."
+  },
+  "variants": {
+    "defaults-headful": {
+      "runs": 3,
+      "contexts": {
+        "ordinary-web-page-CONTROL": {
+          "navigatorGpuPresent": [
+            false,
+            false,
+            false
+          ],
+          "adapterAvailable": [
+            false,
+            false,
+            false
+          ],
+          "deviceCreated": [
+            false,
+            false,
+            false
+          ],
+          "outputCorrect": [
+            null,
+            null,
+            null
+          ],
+          "mismatches": [
+            null,
+            null,
+            null
+          ],
+          "uncapturedErrors": [
+            0,
+            0,
+            0
+          ],
+          "adapterInfo": null
+        },
+        "firefox-mv3-event-page": {
+          "navigatorGpuPresent": [
+            false,
+            false,
+            false
+          ],
+          "adapterAvailable": [
+            false,
+            false,
+            false
+          ],
+          "deviceCreated": [
+            false,
+            false,
+            false
+          ],
+          "outputCorrect": [
+            null,
+            null,
+            null
+          ],
+          "mismatches": [
+            null,
+            null,
+            null
+          ],
+          "uncapturedErrors": [
+            0,
+            0,
+            0
+          ],
+          "adapterInfo": null
+        }
+      }
+    },
+    "defaults-headless": {
+      "runs": 3,
+      "contexts": {
+        "ordinary-web-page-CONTROL": {
+          "navigatorGpuPresent": [
+            false,
+            false,
+            false
+          ],
+          "adapterAvailable": [
+            false,
+            false,
+            false
+          ],
+          "deviceCreated": [
+            false,
+            false,
+            false
+          ],
+          "outputCorrect": [
+            null,
+            null,
+            null
+          ],
+          "mismatches": [
+            null,
+            null,
+            null
+          ],
+          "uncapturedErrors": [
+            0,
+            0,
+            0
+          ],
+          "adapterInfo": null
+        },
+        "firefox-mv3-event-page": {
+          "navigatorGpuPresent": [
+            false,
+            false,
+            false
+          ],
+          "adapterAvailable": [
+            false,
+            false,
+            false
+          ],
+          "deviceCreated": [
+            false,
+            false,
+            false
+          ],
+          "outputCorrect": [
+            null,
+            null,
+            null
+          ],
+          "mismatches": [
+            null,
+            null,
+            null
+          ],
+          "uncapturedErrors": [
+            0,
+            0,
+            0
+          ],
+          "adapterInfo": null
+        }
+      }
+    },
+    "webgpu-forced-headful": {
+      "runs": 3,
+      "contexts": {
+        "ordinary-web-page-CONTROL": {
+          "navigatorGpuPresent": [
+            true,
+            true,
+            true
+          ],
+          "adapterAvailable": [
+            true,
+            true,
+            true
+          ],
+          "deviceCreated": [
+            true,
+            true,
+            true
+          ],
+          "outputCorrect": [
+            true,
+            true,
+            true
+          ],
+          "mismatches": [
+            0,
+            0,
+            0
+          ],
+          "uncapturedErrors": [
+            0,
+            0,
+            0
+          ],
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": ""
+          }
+        },
+        "firefox-mv3-event-page": {
+          "navigatorGpuPresent": [
+            true,
+            true,
+            true
+          ],
+          "adapterAvailable": [
+            true,
+            true,
+            true
+          ],
+          "deviceCreated": [
+            true,
+            true,
+            true
+          ],
+          "outputCorrect": [
+            true,
+            true,
+            true
+          ],
+          "mismatches": [
+            0,
+            0,
+            0
+          ],
+          "uncapturedErrors": [
+            0,
+            0,
+            0
+          ],
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "verdict": "CONDITIONAL \u2014 works only with dom.webgpu.enabled=true, which is not the Linux release default. Pre-registered criteria make that CONDITIONAL, never ACCEPT."
+}

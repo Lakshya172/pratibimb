@@ -1,0 +1,256 @@
+{
+  "experiment": "W1-S03-ort-web",
+  "browser": "firefox",
+  "startedAt": "2026-09-07T22:12:35.132Z",
+  "firefox": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+  "host": "WSL2 Ubuntu 26.04 guest on a Windows 11 host",
+  "runs": [
+    {
+      "variant": "firefox-mv3-event-page",
+      "prefs": [],
+      "headless": false,
+      "run": 1,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:12:37.853Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "moz-extension://d6ec4fe9-a1af-426f-ab5a-5d2e2d00956e/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 293,
+            "coldRunMs": 2,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 1,
+              "min": 0,
+              "max": 1
+            },
+            "releaseMs": 0
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:12:38.155Z"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:12:38.155Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "moz-extension://d6ec4fe9-a1af-426f-ab5a-5d2e2d00956e/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 3135,
+            "coldRunMs": 102,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 100,
+              "min": 95,
+              "max": 105
+            },
+            "releaseMs": 0
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on webgpu",
+          "finishedAt": "2026-09-07T22:12:42.393Z"
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "firefox-mv3-event-page",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed C:\\Users\\OMEN\\AppData\\Local\\Temp\\claude\\C--Users-OMEN-Desktop-PratiBimb\\85c3d834-196c-4f1d-8a77-058200f1f5b1\\scratchpad\\s03\\ext-firefox as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "firefox-mv3-event-page",
+      "prefs": [],
+      "headless": false,
+      "run": 2,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:12:46.566Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "moz-extension://2653a275-25ef-4a98-af43-69e40e1d0369/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 265,
+            "coldRunMs": 2,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 1,
+              "min": 0,
+              "max": 1
+            },
+            "releaseMs": 0
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:12:46.840Z"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:12:46.840Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "moz-extension://2653a275-25ef-4a98-af43-69e40e1d0369/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 427,
+            "coldRunMs": 39,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 100,
+              "min": 95,
+              "max": 101
+            },
+            "releaseMs": 0
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on webgpu",
+          "finishedAt": "2026-09-07T22:12:48.306Z"
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "firefox-mv3-event-page",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed C:\\Users\\OMEN\\AppData\\Local\\Temp\\claude\\C--Users-OMEN-Desktop-PratiBimb\\85c3d834-196c-4f1d-8a77-058200f1f5b1\\scratchpad\\s03\\ext-firefox as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-07T22:12:49.914Z"
+}

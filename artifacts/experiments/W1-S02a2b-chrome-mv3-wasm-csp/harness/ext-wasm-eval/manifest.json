@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "PratiBimb S-02a-2b-1 probe (wasm-eval)",
+  "version": "1.0.0",
+  "description": "Throwaway spike harness. Determines whether Chrome MV3's default extension CSP blocks WebAssembly compilation in the service worker, the offscreen document, and a dedicated worker inside it.",
+  "minimum_chrome_version": "116",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "offscreen"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1:8905/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-eval'; object-src 'self'"
+  }
+}

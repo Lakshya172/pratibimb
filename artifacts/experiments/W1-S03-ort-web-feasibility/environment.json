@@ -1,0 +1,60 @@
+{
+  "experiment": "W1-S03-ort-web-feasibility",
+  "recorded_at": "2026-09-08",
+  "question": "Does a real ONNX Runtime Web session initialise and RUN in PratiBimb's extension contexts, on each backend?",
+  "scope": "ONE 174-byte two-op synthetic model. Establishes RUNTIME VIABILITY only. Does NOT satisfy QG-03, which needs the twenty model cells.",
+  "runtime": {
+    "package": "onnxruntime-web",
+    "version": "1.29.0",
+    "source": "npm, pinned",
+    "bundle_used": "ort.all.min.js (carries both wasm and webgpu backends)",
+    "wasm_artifacts": "ort-wasm-simd-threaded.wasm (13.9 MB) and ort-wasm-simd-threaded.jsep.wasm (27.8 MB) - NOT COMMITTED. harness/build-extension.js pulls them from the pinned package. CI blocks files over 5 MB and SECURITY.md requires large binaries be referenced by pinned revision.",
+    "wasmPaths": "set to the extension's own chrome.runtime.getURL('') - no CDN, no network fetch"
+  },
+  "model": {
+    "file": "tiny.onnx",
+    "bytes": 174,
+    "sha256": "2718406b3ef228c72455dea388cd26569d462102f5a642a3bcbba1cedafe49b4",
+    "graph": "Mul by 2 then Add 1, over float32[1, 262144]; opset 13, ir_version 9",
+    "built_by": "harness/build_model.py (onnx 1.22.0)",
+    "committed": false,
+    "why_not_committed": "scripts/verify-repo.py bans .onnx, and that rule is correct. The fixture needs no exception: it is fully reproducible from the committed build_model.py and pinned by the sha256 above.",
+    "embedded": "base64 inside the probe, so no fetch is performed for the model",
+    "provenance": "generated synthetic. NOT a production model. No Qwen. Nothing downloaded."
+  },
+  "csp_dependency": {
+    "directive": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
+    "why": "S-02a-2 and S-02a-2b measured that BOTH Chrome MV3 and Firefox MV3 block WebAssembly compilation without it, and S-02a-2b-1 measured that wasm-unsafe-eval is the only token Chrome MV3 accepts.",
+    "status": "Declared in the THROWAWAY HARNESS only, to make measurement possible. NOT adopted in any product manifest. There is no product code. The decision remains ADR S-02a-2a."
+  },
+  "platforms": {
+    "windows": {
+      "host": "HP OMEN 16-ap0xxx, Windows 11 10.0.26200, AMD Ryzen AI 7 350, RTX 5050 + Radeon 860M",
+      "chrome": "Chrome for Testing 153.0.8010.12 at C:/Users/OMEN/cft/chrome.exe",
+      "firefox": "Mozilla Firefox 155.0.1 release",
+      "gpu": "real adapters present - WebGPU works here"
+    },
+    "linux-wsl2": {
+      "guest": "WSL2 Ubuntu 26.04, kernel 6.18.33.2-microsoft-standard-WSL2",
+      "chrome": "Chrome for Testing 153.0.8010.12 at /opt/chrome-linux64/chrome",
+      "firefox": "Mozilla Firefox 155.0.1 release at /opt/firefox/firefox",
+      "gpu": "nvidia-smi works (CUDA compute) but NO /dev/dri, 0 Vulkan ICDs, OpenGL is llvmpipe. WebGPU failures here are ENVIRONMENTAL."
+    }
+  },
+  "contexts_probed": [
+    "chrome-mv3-service-worker",
+    "chrome-offscreen-document",
+    "chrome-offscreen-dedicated-worker - the target named by docs/architecture/constitution.md section 5",
+    "firefox-mv3-event-page"
+  ],
+  "backends": ["wasm (numThreads pinned to 1 throughout)", "webgpu"],
+  "modes": ["Chrome headful and headless", "Firefox headful"],
+  "collector": { "endpoint": "http://127.0.0.1:8906", "external_hosts_contacted": "none" },
+  "data": {
+    "input": "synthetic Float32Array of i % 1024",
+    "verification": "element-by-element against a CPU reference",
+    "pii": "none",
+    "secrets": "none",
+    "profiles": "temporary, deleted after each run"
+  }
+}
