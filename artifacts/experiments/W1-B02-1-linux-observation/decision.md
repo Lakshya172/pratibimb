@@ -73,6 +73,9 @@ Unchanged in substance from B-02, sharpened in three ways:
 
 - `agentos/blockers.md`: **B-02 stays `OPEN`.** Linux and headless are now measured, which
   closes two of its three gaps — **the CI cell and the ADR remain**.
-- `agentos/registry/feasibility-matrix.md`: B-02-1 recorded; **B-02-1a added as `UNKNOWN`**.
+- `agentos/registry/feasibility-matrix.md`: B-02-1 recorded, with B-02-1a, B-02-1b and
+  B-02-1c added as `UNKNOWN`. **This landed one PR late** — the original B-02-1 PR claimed
+  this registry effect but did not actually make the edit, so the matrix briefly carried
+  B-02-1 as `UNKNOWN` while its evidence was already merged. Corrected forward.
 - `docs/security/security-invariants.md`: **unchanged.**
 - No model cell affected. No model downloaded. No product code written.
