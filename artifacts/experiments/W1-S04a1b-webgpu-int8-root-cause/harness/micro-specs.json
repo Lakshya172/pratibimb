@@ -1,0 +1,305 @@
+{
+ "matmulinteger": {
+  "file": "matmulinteger.onnx",
+  "inputs": {
+   "A_u8": {
+    "kind": "u8",
+    "shape": [
+     8,
+     64
+    ]
+   }
+  }
+ },
+ "dynamicquantizelinear": {
+  "file": "dynamicquantizelinear.onnx",
+  "inputs": {
+   "X": {
+    "kind": "f32",
+    "shape": [
+     8,
+     64
+    ]
+   }
+  }
+ },
+ "dql_matmulinteger": {
+  "file": "dql_matmulinteger.onnx",
+  "inputs": {
+   "X": {
+    "kind": "f32",
+    "shape": [
+     8,
+     64
+    ]
+   }
+  }
+ },
+ "matmul_fp32": {
+  "file": "matmul_fp32.onnx",
+  "inputs": {
+   "X": {
+    "kind": "f32",
+    "shape": [
+     8,
+     64
+    ]
+   }
+  }
+ },
+ "convinteger": {
+  "file": "convinteger.onnx",
+  "inputs": {
+   "X_u8": {
+    "kind": "u8",
+    "shape": [
+     1,
+     3,
+     8,
+     8
+    ]
+   }
+  }
+ },
+ "matmul_fp32_large": {
+  "file": "matmul_fp32_large.onnx",
+  "inputs": {
+   "X": {
+    "kind": "f32",
+    "shape": [
+     256,
+     512
+    ]
+   }
+  }
+ },
+ "dql_matmulinteger_large": {
+  "file": "dql_matmulinteger_large.onnx",
+  "inputs": {
+   "X": {
+    "kind": "f32",
+    "shape": [
+     256,
+     512
+    ]
+   }
+  }
+ },
+ "dql_model_shape": {
+  "file": "dql_model_shape.onnx",
+  "inputs": {
+   "X_q": {
+    "kind": "u8",
+    "shape": [
+     1,
+     1024,
+     768
+    ]
+   }
+  }
+ },
+ "dql_1d_small": {
+  "file": "dql_1d_small.onnx",
+  "inputs": {
+   "X_q": {
+    "kind": "u8",
+    "shape": [
+     256
+    ]
+   }
+  }
+ },
+ "dql_2d_small": {
+  "file": "dql_2d_small.onnx",
+  "inputs": {
+   "X_q": {
+    "kind": "u8",
+    "shape": [
+     16,
+     16
+    ]
+   }
+  }
+ },
+ "dql_3d_small": {
+  "file": "dql_3d_small.onnx",
+  "inputs": {
+   "X_q": {
+    "kind": "u8",
+    "shape": [
+     1,
+     16,
+     16
+    ]
+   }
+  }
+ },
+ "dql_3d_medium": {
+  "file": "dql_3d_medium.onnx",
+  "inputs": {
+   "X_q": {
+    "kind": "u8",
+    "shape": [
+     1,
+     128,
+     128
+    ]
+   }
+  }
+ },
+ "dql_3d_small_int8": {
+  "file": "dql_3d_small_int8.onnx",
+  "inputs": {
+   "X_q": {
+    "kind": "i8",
+    "shape": [
+     1,
+     16,
+     16
+    ]
+   }
+  }
+ },
+ "dql_3d_small_zp0": {
+  "file": "dql_3d_small_zp0.onnx",
+  "inputs": {
+   "X_q": {
+    "kind": "u8",
+    "shape": [
+     1,
+     16,
+     16
+    ]
+   }
+  }
+ },
+ "dql_model_shape_zp0": {
+  "file": "dql_model_shape_zp0.onnx",
+  "inputs": {
+   "X_q": {
+    "kind": "u8",
+    "shape": [
+     1,
+     1024,
+     768
+    ]
+   }
+  }
+ },
+ "dqlv_scalar": {
+  "file": "dqlv_scalar.onnx",
+  "inputs": {
+   "X_q": {
+    "kind": "u8",
+    "shape": [
+     1,
+     128,
+     128
+    ]
+   }
+  }
+ },
+ "dqlv_rank1": {
+  "file": "dqlv_rank1.onnx",
+  "inputs": {
+   "X_q": {
+    "kind": "u8",
+    "shape": [
+     1,
+     128,
+     128
+    ]
+   }
+  }
+ },
+ "dqlv_noZeroPoint": {
+  "file": "dqlv_noZeroPoint.onnx",
+  "inputs": {
+   "X_q": {
+    "kind": "u8",
+    "shape": [
+     1,
+     128,
+     128
+    ]
+   }
+  }
+ },
+ "dqlv_perchannel": {
+  "file": "dqlv_perchannel.onnx",
+  "inputs": {
+   "X_q": {
+    "kind": "u8",
+    "shape": [
+     1,
+     128,
+     128
+    ]
+   }
+  }
+ },
+ "dqlv_rewrite_cast_sub_mul": {
+  "file": "dqlv_rewrite_cast_sub_mul.onnx",
+  "inputs": {
+   "X_q": {
+    "kind": "u8",
+    "shape": [
+     1,
+     128,
+     128
+    ]
+   }
+  }
+ },
+ "dqlv_cast_u8_only": {
+  "file": "dqlv_cast_u8_only.onnx",
+  "inputs": {
+   "X_q": {
+    "kind": "u8",
+    "shape": [
+     1,
+     128,
+     128
+    ]
+   }
+  }
+ },
+ "mmi3d_model_shape": {
+  "file": "mmi3d_model_shape.onnx",
+  "inputs": {
+   "X": {
+    "kind": "f32",
+    "shape": [
+     1,
+     1024,
+     768
+    ]
+   }
+  }
+ },
+ "mmi3d_small": {
+  "file": "mmi3d_small.onnx",
+  "inputs": {
+   "X": {
+    "kind": "f32",
+    "shape": [
+     1,
+     64,
+     64
+    ]
+   }
+  }
+ },
+ "mmi2d_small": {
+  "file": "mmi2d_small.onnx",
+  "inputs": {
+   "X": {
+    "kind": "f32",
+    "shape": [
+     64,
+     64
+    ]
+   }
+  }
+ }
+}

@@ -1,0 +1,2626 @@
+{
+  "experiment": "W1-S04a1b-webgpu-int8-root-cause",
+  "browser": "chrome",
+  "startedAt": "2026-09-09T16:01:29.446Z",
+  "platform": "windows-fine",
+  "chrome": "C:/Users/OMEN/cft/chrome.exe",
+  "runs": [
+    {
+      "headless": false,
+      "run": 1,
+      "platform": "windows-fine",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "wasm",
+          "startedAt": "2026-09-09T16:01:30.030Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 277.9
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.5
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 6.3
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.9
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.2
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 9671,
+                  "exactMatchPct": 14.8,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 4.937123266637735e-7,
+                  "worstIdx": 63868,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202640295028687,
+                    -1.6376341581344604,
+                    2.093518018722534,
+                    -2.2167797088623047,
+                    2.1480748653411865,
+                    -1.2590160369873047,
+                    1.9877556562423706,
+                    -0.949522078037262
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.9
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 5.4
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.29.0",
+          "conclusion": "all 7 micro graphs correct",
+          "finishedAt": "2026-09-09T16:01:30.376Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-layerwise",
+          "backend": "wasm",
+          "startedAt": "2026-09-09T16:01:30.377Z",
+          "checkpoints": {
+            "image_features": {
+              "label": "final",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                64,
+                576
+              ],
+              "shapeRef": [
+                1,
+                64,
+                576
+              ],
+              "countOk": true,
+              "count": 36864,
+              "expectedCount": 36864,
+              "min": -51.10542297363281,
+              "refMin": -46.665714263916016,
+              "max": 92.97940063476562,
+              "refMax": 91.19464874267578,
+              "mean": 0.028506666403436673,
+              "refMean": 0.02482656692600295,
+              "sum": 1050.8697502962896,
+              "refSum": 915.2065631601727,
+              "sumAbs": 131419.463006598,
+              "refSumAbs": 128896.68114960904,
+              "relErrSumAbs": 0.019572124235385065,
+              "relErrMinOverScale": 0.048683873132121344,
+              "relErrMaxOverScale": 0.019570796276938175,
+              "worstSampleAbs": 0.42293763160705566,
+              "worstSampleRelOverScale": 0.00463774615548397,
+              "samples": [
+                7.257699489593506,
+                -1.6713988780975342,
+                -3.186694622039795,
+                2.8796918392181396,
+                0.19197945296764374,
+                -4.726912021636963
+              ],
+              "refSamples": [
+                7.2217841148376465,
+                -1.6385444402694702,
+                -2.7637569904327393,
+                3.1044228076934814,
+                0.23662680387496948,
+                -4.786065101623535
+              ]
+            },
+            "/GatherND_output_0": {
+              "label": "A1_gathernd_pixels",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                3,
+                512,
+                512
+              ],
+              "shapeRef": [
+                1,
+                3,
+                512,
+                512
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": 0,
+              "refMin": 0,
+              "max": 0.9960784316062927,
+              "refMax": 0.9960784316062927,
+              "mean": 0.4980374454666692,
+              "refMean": 0.4980374454666692,
+              "sum": 391672.5843132436,
+              "refSum": 391672.5843132436,
+              "sumAbs": 391672.5843132436,
+              "refSumAbs": 391672.5843132436,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                0,
+                0.3294117748737335,
+                0.5803921818733215,
+                0.8705882430076599,
+                0.16078431904315948,
+                0.5960784554481506
+              ],
+              "refSamples": [
+                0,
+                0.3294117748737335,
+                0.5803921818733215,
+                0.8705882430076599,
+                0.16078431904315948,
+                0.5960784554481506
+              ]
+            },
+            "/vision_model/embeddings/patch_embedding/Conv_output_0": {
+              "label": "A2_conv_out",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                768,
+                32,
+                32
+              ],
+              "shapeRef": [
+                1,
+                768,
+                32,
+                32
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -0.6253548264503479,
+              "refMin": -0.6253548264503479,
+              "max": 0.6476550102233887,
+              "refMax": 0.6476550102233887,
+              "mean": -0.03172867609330058,
+              "refMean": -0.03172867609330058,
+              "sum": -24952.446197406563,
+              "refSum": -24952.446197406563,
+              "sumAbs": 60336.9104319482,
+              "refSumAbs": 60336.9104319482,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ]
+            },
+            "/vision_model/embeddings/Reshape_output_0": {
+              "label": "A3_reshape",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                768,
+                1024
+              ],
+              "shapeRef": [
+                1,
+                768,
+                1024
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -0.6253548264503479,
+              "refMin": -0.6253548264503479,
+              "max": 0.6476550102233887,
+              "refMax": 0.6476550102233887,
+              "mean": -0.03172867609330058,
+              "refMean": -0.03172867609330058,
+              "sum": -24952.446197406563,
+              "refSum": -24952.446197406563,
+              "sumAbs": 60336.9104319482,
+              "refSumAbs": 60336.9104319482,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ]
+            },
+            "/vision_model/embeddings/Transpose_output_0": {
+              "label": "A4_transpose",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -0.6253548264503479,
+              "refMin": -0.6253548264503479,
+              "max": 0.6476550102233887,
+              "refMax": 0.6476550102233887,
+              "mean": -0.03172867609330058,
+              "refMean": -0.03172867609330058,
+              "sum": -24952.446197406563,
+              "refSum": -24952.446197406563,
+              "sumAbs": 60336.9104319482,
+              "refSumAbs": 60336.9104319482,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                0.2365395724773407
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                0.2365395724773407
+              ]
+            }
+          },
+          "order": [
+            "image_features",
+            "/GatherND_output_0",
+            "/vision_model/embeddings/patch_embedding/Conv_output_0",
+            "/vision_model/embeddings/Reshape_output_0",
+            "/vision_model/embeddings/Transpose_output_0"
+          ],
+          "error": {
+            "name": "TypeError",
+            "message": "Cannot mix BigInt and other types, use explicit conversions"
+          },
+          "ortVersion": "1.29.0",
+          "createMs": 386.8,
+          "inferMs": 3256.4,
+          "conclusion": "threw: Cannot mix BigInt and other types, use explicit conversions",
+          "finishedAt": "2026-09-09T16:01:34.044Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "webgpu",
+          "startedAt": "2026-09-09T16:01:34.044Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 137.8
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.3
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 6.3
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.7
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.5
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 4960,
+                  "exactMatchPct": 7.6,
+                  "worstAbs": 0.000003337860107421875,
+                  "worstRel": 8.639965716616036e-7,
+                  "worstIdx": 2143,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202648639678955,
+                    -1.637634515762329,
+                    2.0935184955596924,
+                    -2.216779947280884,
+                    2.148073434829712,
+                    -1.259015440940857,
+                    1.9877560138702393,
+                    -0.9495219588279724
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.3
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.5
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.29.0",
+          "conclusion": "all 7 micro graphs correct",
+          "finishedAt": "2026-09-09T16:01:34.283Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-layerwise",
+          "backend": "webgpu",
+          "startedAt": "2026-09-09T16:01:34.283Z",
+          "checkpoints": {
+            "image_features": {
+              "label": "final",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                64,
+                576
+              ],
+              "shapeRef": [
+                1,
+                64,
+                576
+              ],
+              "countOk": true,
+              "count": 36864,
+              "expectedCount": 36864,
+              "min": -58.25596618652344,
+              "refMin": -46.665714263916016,
+              "max": 63.44045639038086,
+              "refMax": 91.19464874267578,
+              "mean": 0.5514184782602266,
+              "refMean": 0.02482656692600295,
+              "sum": 20327.490782584995,
+              "refSum": 915.2065631601727,
+              "sumAbs": 410517.88494666293,
+              "refSumAbs": 128896.68114960904,
+              "relErrSumAbs": 2.184860007917342,
+              "relErrMinOverScale": 0.12709355299247516,
+              "relErrMaxOverScale": 0.30434014204724896,
+              "worstSampleAbs": 20.62766933441162,
+              "worstSampleRelOverScale": 0.22619385697308597,
+              "samples": [
+                1.3706334829330444,
+                18.421920776367188,
+                -17.6502685546875,
+                -7.667821884155273,
+                -12.569367408752441,
+                15.841604232788086
+              ],
+              "refSamples": [
+                7.2217841148376465,
+                -1.6385444402694702,
+                -2.7637569904327393,
+                3.1044228076934814,
+                0.23662680387496948,
+                -4.786065101623535
+              ]
+            },
+            "/GatherND_output_0": {
+              "label": "A1_gathernd_pixels",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                3,
+                512,
+                512
+              ],
+              "shapeRef": [
+                1,
+                3,
+                512,
+                512
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": 0,
+              "refMin": 0,
+              "max": 0.9960784316062927,
+              "refMax": 0.9960784316062927,
+              "mean": 0.4980374454666692,
+              "refMean": 0.4980374454666692,
+              "sum": 391672.5843132436,
+              "refSum": 391672.5843132436,
+              "sumAbs": 391672.5843132436,
+              "refSumAbs": 391672.5843132436,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                0,
+                0.3294117748737335,
+                0.5803921818733215,
+                0.8705882430076599,
+                0.16078431904315948,
+                0.5960784554481506
+              ],
+              "refSamples": [
+                0,
+                0.3294117748737335,
+                0.5803921818733215,
+                0.8705882430076599,
+                0.16078431904315948,
+                0.5960784554481506
+              ]
+            },
+            "/vision_model/embeddings/patch_embedding/Conv_output_0": {
+              "label": "A2_conv_out",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                768,
+                32,
+                32
+              ],
+              "shapeRef": [
+                1,
+                768,
+                32,
+                32
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -0.6253548264503479,
+              "refMin": -0.6253548264503479,
+              "max": 0.6476550102233887,
+              "refMax": 0.6476550102233887,
+              "mean": -0.03172867609330058,
+              "refMean": -0.03172867609330058,
+              "sum": -24952.446197406563,
+              "refSum": -24952.446197406563,
+              "sumAbs": 60336.9104319482,
+              "refSumAbs": 60336.9104319482,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ]
+            },
+            "/vision_model/embeddings/Reshape_output_0": {
+              "label": "A3_reshape",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                768,
+                1024
+              ],
+              "shapeRef": [
+                1,
+                768,
+                1024
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -0.6253548264503479,
+              "refMin": -0.6253548264503479,
+              "max": 0.6476550102233887,
+              "refMax": 0.6476550102233887,
+              "mean": -0.03172867609330058,
+              "refMean": -0.03172867609330058,
+              "sum": -24952.446197406563,
+              "refSum": -24952.446197406563,
+              "sumAbs": 60336.9104319482,
+              "refSumAbs": 60336.9104319482,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ]
+            },
+            "/vision_model/embeddings/Transpose_output_0": {
+              "label": "A4_transpose",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -0.6253548264503479,
+              "refMin": -0.6253548264503479,
+              "max": 0.6476550102233887,
+              "refMax": 0.6476550102233887,
+              "mean": -0.03172867609330058,
+              "refMean": -0.03172867609330058,
+              "sum": -24952.446197406563,
+              "refSum": -24952.446197406563,
+              "sumAbs": 60336.9104319482,
+              "refSumAbs": 60336.9104319482,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                0.2365395724773407
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                0.2365395724773407
+              ]
+            }
+          },
+          "order": [
+            "image_features",
+            "/GatherND_output_0",
+            "/vision_model/embeddings/patch_embedding/Conv_output_0",
+            "/vision_model/embeddings/Reshape_output_0",
+            "/vision_model/embeddings/Transpose_output_0"
+          ],
+          "error": {
+            "name": "TypeError",
+            "message": "Cannot mix BigInt and other types, use explicit conversions"
+          },
+          "ortVersion": "1.29.0",
+          "createMs": 291.5,
+          "inferMs": 2649.1,
+          "conclusion": "threw: Cannot mix BigInt and other types, use explicit conversions",
+          "finishedAt": "2026-09-09T16:01:37.288Z"
+        }
+      ]
+    },
+    {
+      "headless": true,
+      "run": 1,
+      "platform": "windows-fine",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "wasm",
+          "startedAt": "2026-09-09T16:01:38.051Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 276.5
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.6
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 5
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.3
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.9
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 9671,
+                  "exactMatchPct": 14.8,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 4.937123266637735e-7,
+                  "worstIdx": 63868,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202640295028687,
+                    -1.6376341581344604,
+                    2.093518018722534,
+                    -2.2167797088623047,
+                    2.1480748653411865,
+                    -1.2590160369873047,
+                    1.9877556562423706,
+                    -0.949522078037262
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.2
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 5.1
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.29.0",
+          "conclusion": "all 7 micro graphs correct",
+          "finishedAt": "2026-09-09T16:01:38.392Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-layerwise",
+          "backend": "wasm",
+          "startedAt": "2026-09-09T16:01:38.393Z",
+          "checkpoints": {
+            "image_features": {
+              "label": "final",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                64,
+                576
+              ],
+              "shapeRef": [
+                1,
+                64,
+                576
+              ],
+              "countOk": true,
+              "count": 36864,
+              "expectedCount": 36864,
+              "min": -51.10542297363281,
+              "refMin": -46.665714263916016,
+              "max": 92.97940063476562,
+              "refMax": 91.19464874267578,
+              "mean": 0.028506666403436673,
+              "refMean": 0.02482656692600295,
+              "sum": 1050.8697502962896,
+              "refSum": 915.2065631601727,
+              "sumAbs": 131419.463006598,
+              "refSumAbs": 128896.68114960904,
+              "relErrSumAbs": 0.019572124235385065,
+              "relErrMinOverScale": 0.048683873132121344,
+              "relErrMaxOverScale": 0.019570796276938175,
+              "worstSampleAbs": 0.42293763160705566,
+              "worstSampleRelOverScale": 0.00463774615548397,
+              "samples": [
+                7.257699489593506,
+                -1.6713988780975342,
+                -3.186694622039795,
+                2.8796918392181396,
+                0.19197945296764374,
+                -4.726912021636963
+              ],
+              "refSamples": [
+                7.2217841148376465,
+                -1.6385444402694702,
+                -2.7637569904327393,
+                3.1044228076934814,
+                0.23662680387496948,
+                -4.786065101623535
+              ]
+            },
+            "/GatherND_output_0": {
+              "label": "A1_gathernd_pixels",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                3,
+                512,
+                512
+              ],
+              "shapeRef": [
+                1,
+                3,
+                512,
+                512
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": 0,
+              "refMin": 0,
+              "max": 0.9960784316062927,
+              "refMax": 0.9960784316062927,
+              "mean": 0.4980374454666692,
+              "refMean": 0.4980374454666692,
+              "sum": 391672.5843132436,
+              "refSum": 391672.5843132436,
+              "sumAbs": 391672.5843132436,
+              "refSumAbs": 391672.5843132436,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                0,
+                0.3294117748737335,
+                0.5803921818733215,
+                0.8705882430076599,
+                0.16078431904315948,
+                0.5960784554481506
+              ],
+              "refSamples": [
+                0,
+                0.3294117748737335,
+                0.5803921818733215,
+                0.8705882430076599,
+                0.16078431904315948,
+                0.5960784554481506
+              ]
+            },
+            "/vision_model/embeddings/patch_embedding/Conv_output_0": {
+              "label": "A2_conv_out",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                768,
+                32,
+                32
+              ],
+              "shapeRef": [
+                1,
+                768,
+                32,
+                32
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -0.6253548264503479,
+              "refMin": -0.6253548264503479,
+              "max": 0.6476550102233887,
+              "refMax": 0.6476550102233887,
+              "mean": -0.03172867609330058,
+              "refMean": -0.03172867609330058,
+              "sum": -24952.446197406563,
+              "refSum": -24952.446197406563,
+              "sumAbs": 60336.9104319482,
+              "refSumAbs": 60336.9104319482,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ]
+            },
+            "/vision_model/embeddings/Reshape_output_0": {
+              "label": "A3_reshape",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                768,
+                1024
+              ],
+              "shapeRef": [
+                1,
+                768,
+                1024
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -0.6253548264503479,
+              "refMin": -0.6253548264503479,
+              "max": 0.6476550102233887,
+              "refMax": 0.6476550102233887,
+              "mean": -0.03172867609330058,
+              "refMean": -0.03172867609330058,
+              "sum": -24952.446197406563,
+              "refSum": -24952.446197406563,
+              "sumAbs": 60336.9104319482,
+              "refSumAbs": 60336.9104319482,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ]
+            },
+            "/vision_model/embeddings/Transpose_output_0": {
+              "label": "A4_transpose",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -0.6253548264503479,
+              "refMin": -0.6253548264503479,
+              "max": 0.6476550102233887,
+              "refMax": 0.6476550102233887,
+              "mean": -0.03172867609330058,
+              "refMean": -0.03172867609330058,
+              "sum": -24952.446197406563,
+              "refSum": -24952.446197406563,
+              "sumAbs": 60336.9104319482,
+              "refSumAbs": 60336.9104319482,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                0.2365395724773407
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                0.2365395724773407
+              ]
+            }
+          },
+          "order": [
+            "image_features",
+            "/GatherND_output_0",
+            "/vision_model/embeddings/patch_embedding/Conv_output_0",
+            "/vision_model/embeddings/Reshape_output_0",
+            "/vision_model/embeddings/Transpose_output_0"
+          ],
+          "error": {
+            "name": "TypeError",
+            "message": "Cannot mix BigInt and other types, use explicit conversions"
+          },
+          "ortVersion": "1.29.0",
+          "createMs": 391.1,
+          "inferMs": 3214.9,
+          "conclusion": "threw: Cannot mix BigInt and other types, use explicit conversions",
+          "finishedAt": "2026-09-09T16:01:42.022Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "webgpu",
+          "startedAt": "2026-09-09T16:01:42.023Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 138.3
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.9
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 7.1
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.7
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 4960,
+                  "exactMatchPct": 7.6,
+                  "worstAbs": 0.000003337860107421875,
+                  "worstRel": 8.639965716616036e-7,
+                  "worstIdx": 2143,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202648639678955,
+                    -1.637634515762329,
+                    2.0935184955596924,
+                    -2.216779947280884,
+                    2.148073434829712,
+                    -1.259015440940857,
+                    1.9877560138702393,
+                    -0.9495219588279724
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.8
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.7
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.29.0",
+          "conclusion": "all 7 micro graphs correct",
+          "finishedAt": "2026-09-09T16:01:42.264Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-layerwise",
+          "backend": "webgpu",
+          "startedAt": "2026-09-09T16:01:42.264Z",
+          "checkpoints": {
+            "image_features": {
+              "label": "final",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                64,
+                576
+              ],
+              "shapeRef": [
+                1,
+                64,
+                576
+              ],
+              "countOk": true,
+              "count": 36864,
+              "expectedCount": 36864,
+              "min": -58.25596618652344,
+              "refMin": -46.665714263916016,
+              "max": 63.44045639038086,
+              "refMax": 91.19464874267578,
+              "mean": 0.5514184782602266,
+              "refMean": 0.02482656692600295,
+              "sum": 20327.490782584995,
+              "refSum": 915.2065631601727,
+              "sumAbs": 410517.88494666293,
+              "refSumAbs": 128896.68114960904,
+              "relErrSumAbs": 2.184860007917342,
+              "relErrMinOverScale": 0.12709355299247516,
+              "relErrMaxOverScale": 0.30434014204724896,
+              "worstSampleAbs": 20.62766933441162,
+              "worstSampleRelOverScale": 0.22619385697308597,
+              "samples": [
+                1.3706334829330444,
+                18.421920776367188,
+                -17.6502685546875,
+                -7.667821884155273,
+                -12.569367408752441,
+                15.841604232788086
+              ],
+              "refSamples": [
+                7.2217841148376465,
+                -1.6385444402694702,
+                -2.7637569904327393,
+                3.1044228076934814,
+                0.23662680387496948,
+                -4.786065101623535
+              ]
+            },
+            "/GatherND_output_0": {
+              "label": "A1_gathernd_pixels",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                3,
+                512,
+                512
+              ],
+              "shapeRef": [
+                1,
+                3,
+                512,
+                512
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": 0,
+              "refMin": 0,
+              "max": 0.9960784316062927,
+              "refMax": 0.9960784316062927,
+              "mean": 0.4980374454666692,
+              "refMean": 0.4980374454666692,
+              "sum": 391672.5843132436,
+              "refSum": 391672.5843132436,
+              "sumAbs": 391672.5843132436,
+              "refSumAbs": 391672.5843132436,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                0,
+                0.3294117748737335,
+                0.5803921818733215,
+                0.8705882430076599,
+                0.16078431904315948,
+                0.5960784554481506
+              ],
+              "refSamples": [
+                0,
+                0.3294117748737335,
+                0.5803921818733215,
+                0.8705882430076599,
+                0.16078431904315948,
+                0.5960784554481506
+              ]
+            },
+            "/vision_model/embeddings/patch_embedding/Conv_output_0": {
+              "label": "A2_conv_out",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                768,
+                32,
+                32
+              ],
+              "shapeRef": [
+                1,
+                768,
+                32,
+                32
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -0.6253548264503479,
+              "refMin": -0.6253548264503479,
+              "max": 0.6476550102233887,
+              "refMax": 0.6476550102233887,
+              "mean": -0.03172867609330058,
+              "refMean": -0.03172867609330058,
+              "sum": -24952.446197406563,
+              "refSum": -24952.446197406563,
+              "sumAbs": 60336.9104319482,
+              "refSumAbs": 60336.9104319482,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ]
+            },
+            "/vision_model/embeddings/Reshape_output_0": {
+              "label": "A3_reshape",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                768,
+                1024
+              ],
+              "shapeRef": [
+                1,
+                768,
+                1024
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -0.6253548264503479,
+              "refMin": -0.6253548264503479,
+              "max": 0.6476550102233887,
+              "refMax": 0.6476550102233887,
+              "mean": -0.03172867609330058,
+              "refMean": -0.03172867609330058,
+              "sum": -24952.446197406563,
+              "refSum": -24952.446197406563,
+              "sumAbs": 60336.9104319482,
+              "refSumAbs": 60336.9104319482,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.13050271570682526,
+                -0.018840594217181206,
+                0.0015649907290935516,
+                0.06467032432556152,
+                0.2365395724773407
+              ]
+            },
+            "/vision_model/embeddings/Transpose_output_0": {
+              "label": "A4_transpose",
+              "dtype": "float32",
+              "dtypeRef": "float32",
+              "shape": [
+                1,
+                1024,
+                768
+              ],
+              "shapeRef": [
+                1,
+                1024,
+                768
+              ],
+              "countOk": true,
+              "count": 786432,
+              "expectedCount": 786432,
+              "min": -0.6253548264503479,
+              "refMin": -0.6253548264503479,
+              "max": 0.6476550102233887,
+              "refMax": 0.6476550102233887,
+              "mean": -0.03172867609330058,
+              "refMean": -0.03172867609330058,
+              "sum": -24952.446197406563,
+              "refSum": -24952.446197406563,
+              "sumAbs": 60336.9104319482,
+              "refSumAbs": 60336.9104319482,
+              "relErrSumAbs": 0,
+              "relErrMinOverScale": 0,
+              "relErrMaxOverScale": 0,
+              "worstSampleAbs": 0,
+              "worstSampleRelOverScale": 0,
+              "samples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                0.2365395724773407
+              ],
+              "refSamples": [
+                -0.02144607901573181,
+                -0.029111191630363464,
+                -0.06546743214130402,
+                0.11320573091506958,
+                -0.07002600282430649,
+                0.2365395724773407
+              ]
+            }
+          },
+          "order": [
+            "image_features",
+            "/GatherND_output_0",
+            "/vision_model/embeddings/patch_embedding/Conv_output_0",
+            "/vision_model/embeddings/Reshape_output_0",
+            "/vision_model/embeddings/Transpose_output_0"
+          ],
+          "error": {
+            "name": "TypeError",
+            "message": "Cannot mix BigInt and other types, use explicit conversions"
+          },
+          "ortVersion": "1.29.0",
+          "createMs": 302.3,
+          "inferMs": 2753.8,
+          "conclusion": "threw: Cannot mix BigInt and other types, use explicit conversions",
+          "finishedAt": "2026-09-09T16:01:45.383Z"
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-09T16:01:45.565Z"
+}

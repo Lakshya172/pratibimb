@@ -1,0 +1,3694 @@
+{
+  "experiment": "W1-S04a1b-webgpu-int8-root-cause",
+  "browser": "chrome",
+  "startedAt": "2026-09-09T16:11:17.041Z",
+  "platform": "windows-ort127",
+  "chrome": "C:/Users/OMEN/cft/chrome.exe",
+  "runs": [
+    {
+      "headless": false,
+      "run": 1,
+      "platform": "windows-ort127",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "wasm",
+          "startedAt": "2026-09-09T16:11:17.803Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 266.9
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.5
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 5.6
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 5.2
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.9
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 9671,
+                  "exactMatchPct": 14.8,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 4.937123266637735e-7,
+                  "worstIdx": 63868,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202640295028687,
+                    -1.6376341581344604,
+                    2.093518018722534,
+                    -2.2167797088623047,
+                    2.1480748653411865,
+                    -1.2590160369873047,
+                    1.9877556562423706,
+                    -0.949522078037262
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.8
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.5
+            },
+            "dql_model_shape": {
+              "file": "dql_model_shape.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 786432,
+                  "expectedCount": 786432,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 786432,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3
+            },
+            "dql_1d_small": {
+              "file": "dql_1d_small.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.1
+            },
+            "dql_2d_small": {
+              "file": "dql_2d_small.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.3
+            },
+            "dql_3d_small": {
+              "file": "dql_3d_small.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 1.9
+            },
+            "dql_3d_medium": {
+              "file": "dql_3d_medium.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 16384,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 1.7
+            },
+            "dql_3d_small_int8": {
+              "file": "dql_3d_small_int8.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -20.73308753967285,
+                    -20.130882263183594,
+                    -19.528676986694336,
+                    -18.926469802856445,
+                    -18.324264526367188,
+                    -17.72205924987793,
+                    -17.11985206604004,
+                    -16.51764678955078
+                  ],
+                  "expHead": [
+                    -20.73308753967285,
+                    -20.130882263183594,
+                    -19.528676986694336,
+                    -18.926469802856445,
+                    -18.324264526367188,
+                    -17.72205924987793,
+                    -17.11985206604004,
+                    -16.51764678955078
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 1.8
+            },
+            "dql_3d_small_zp0": {
+              "file": "dql_3d_small_zp0.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "expHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.2
+            },
+            "dql_model_shape_zp0": {
+              "file": "dql_model_shape_zp0.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 786432,
+                  "expectedCount": 786432,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 786432,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "expHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 1.8
+            },
+            "dqlv_scalar": {
+              "file": "dqlv_scalar.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 16384,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 8.8
+            },
+            "dqlv_rank1": {
+              "file": "dqlv_rank1.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 16384,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.2
+            },
+            "dqlv_noZeroPoint": {
+              "file": "dqlv_noZeroPoint.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 16384,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "expHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.2
+            },
+            "dqlv_perchannel": {
+              "file": "dqlv_perchannel.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 16384,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.2
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.27.0",
+          "conclusion": "all 19 micro graphs correct",
+          "finishedAt": "2026-09-09T16:11:18.185Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "webgpu",
+          "startedAt": "2026-09-09T16:11:18.185Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 131.6
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.5
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 11.1
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.2
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.5
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 4960,
+                  "exactMatchPct": 7.6,
+                  "worstAbs": 0.000003337860107421875,
+                  "worstRel": 8.639965716616036e-7,
+                  "worstIdx": 2143,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202648639678955,
+                    -1.637634515762329,
+                    2.0935184955596924,
+                    -2.216779947280884,
+                    2.148073434829712,
+                    -1.259015440940857,
+                    1.9877560138702393,
+                    -0.9495219588279724
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.8
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 6.3
+            },
+            "dql_model_shape": {
+              "file": "dql_model_shape.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 786432,
+                  "expectedCount": 786432,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 6144,
+                  "exactMatchPct": 0.8,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 7
+            },
+            "dql_1d_small": {
+              "file": "dql_1d_small.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 0,
+                  "exactMatchPct": 0,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 5.2
+            },
+            "dql_2d_small": {
+              "file": "dql_2d_small.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 0,
+                  "exactMatchPct": 0,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 4.7
+            },
+            "dql_3d_small": {
+              "file": "dql_3d_small.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 0,
+                  "exactMatchPct": 0,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 4.8
+            },
+            "dql_3d_medium": {
+              "file": "dql_3d_medium.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 128,
+                  "exactMatchPct": 0.8,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 4.6
+            },
+            "dql_3d_small_int8": {
+              "file": "dql_3d_small_int8.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 4,
+                  "exactMatchPct": 1.6,
+                  "worstAbs": 16.345587730407715,
+                  "worstRel": 0.7883817448380692,
+                  "worstIdx": 251,
+                  "firstBadIdx": 4,
+                  "firstBadGot": -20.73308753967285,
+                  "firstBadExp": -18.324264526367188,
+                  "ok": false,
+                  "gotHead": [
+                    -20.73308753967285,
+                    -20.130882263183594,
+                    -19.528676986694336,
+                    -18.926469802856445,
+                    -20.73308753967285,
+                    -20.130882263183594,
+                    -19.528676986694336,
+                    -18.926469802856445
+                  ],
+                  "expHead": [
+                    -20.73308753967285,
+                    -20.130882263183594,
+                    -19.528676986694336,
+                    -18.926469802856445,
+                    -18.324264526367188,
+                    -17.72205924987793,
+                    -17.11985206604004,
+                    -16.51764678955078
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 4.6
+            },
+            "dql_3d_small_zp0": {
+              "file": "dql_3d_small_zp0.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 4,
+                  "exactMatchPct": 1.6,
+                  "worstAbs": 19.95882248878479,
+                  "worstRel": 0.90980387413264,
+                  "worstIdx": 94,
+                  "firstBadIdx": 4,
+                  "firstBadGot": 0,
+                  "firstBadExp": 3.7852940559387207,
+                  "ok": false,
+                  "gotHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333
+                  ],
+                  "expHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 4.1
+            },
+            "dql_model_shape_zp0": {
+              "file": "dql_model_shape_zp0.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 786432,
+                  "expectedCount": 786432,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 12288,
+                  "exactMatchPct": 1.6,
+                  "worstAbs": 21.335294365882874,
+                  "worstRel": 0.9725490309234358,
+                  "worstIdx": 651,
+                  "firstBadIdx": 4,
+                  "firstBadGot": 0,
+                  "firstBadExp": 3.7852940559387207,
+                  "ok": false,
+                  "gotHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333
+                  ],
+                  "expHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 4.2
+            },
+            "dqlv_scalar": {
+              "file": "dqlv_scalar.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 128,
+                  "exactMatchPct": 0.8,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 4.3
+            },
+            "dqlv_rank1": {
+              "file": "dqlv_rank1.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 128,
+                  "exactMatchPct": 0.8,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 3.9
+            },
+            "dqlv_noZeroPoint": {
+              "file": "dqlv_noZeroPoint.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 1.6,
+                  "worstAbs": 21.335294365882874,
+                  "worstRel": 0.9725490309234358,
+                  "worstIdx": 651,
+                  "firstBadIdx": 4,
+                  "firstBadGot": 0,
+                  "firstBadExp": 3.7852940559387207,
+                  "ok": false,
+                  "gotHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333
+                  ],
+                  "expHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 3.5
+            },
+            "dqlv_perchannel": {
+              "file": "dqlv_perchannel.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 128,
+                  "exactMatchPct": 0.8,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 4.1
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.27.0",
+          "conclusion": "INCORRECT or ERRORED: dql_model_shape, dql_1d_small, dql_2d_small, dql_3d_small, dql_3d_medium, dql_3d_small_int8, dql_3d_small_zp0, dql_model_shape_zp0, dqlv_scalar, dqlv_rank1, dqlv_noZeroPoint, dqlv_perchannel",
+          "finishedAt": "2026-09-09T16:11:18.617Z"
+        }
+      ]
+    },
+    {
+      "headless": true,
+      "run": 1,
+      "platform": "windows-ort127",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "wasm",
+          "startedAt": "2026-09-09T16:11:19.582Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 277
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.6
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 6.5
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.3
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.4
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 9671,
+                  "exactMatchPct": 14.8,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 4.937123266637735e-7,
+                  "worstIdx": 63868,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202640295028687,
+                    -1.6376341581344604,
+                    2.093518018722534,
+                    -2.2167797088623047,
+                    2.1480748653411865,
+                    -1.2590160369873047,
+                    1.9877556562423706,
+                    -0.949522078037262
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 5
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.8
+            },
+            "dql_model_shape": {
+              "file": "dql_model_shape.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 786432,
+                  "expectedCount": 786432,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 786432,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.4
+            },
+            "dql_1d_small": {
+              "file": "dql_1d_small.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.7
+            },
+            "dql_2d_small": {
+              "file": "dql_2d_small.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.3
+            },
+            "dql_3d_small": {
+              "file": "dql_3d_small.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.6
+            },
+            "dql_3d_medium": {
+              "file": "dql_3d_medium.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 16384,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.6
+            },
+            "dql_3d_small_int8": {
+              "file": "dql_3d_small_int8.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -20.73308753967285,
+                    -20.130882263183594,
+                    -19.528676986694336,
+                    -18.926469802856445,
+                    -18.324264526367188,
+                    -17.72205924987793,
+                    -17.11985206604004,
+                    -16.51764678955078
+                  ],
+                  "expHead": [
+                    -20.73308753967285,
+                    -20.130882263183594,
+                    -19.528676986694336,
+                    -18.926469802856445,
+                    -18.324264526367188,
+                    -17.72205924987793,
+                    -17.11985206604004,
+                    -16.51764678955078
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.4
+            },
+            "dql_3d_small_zp0": {
+              "file": "dql_3d_small_zp0.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "expHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 1.8
+            },
+            "dql_model_shape_zp0": {
+              "file": "dql_model_shape_zp0.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 786432,
+                  "expectedCount": 786432,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 786432,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "expHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 1.6
+            },
+            "dqlv_scalar": {
+              "file": "dqlv_scalar.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 16384,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 9.1
+            },
+            "dqlv_rank1": {
+              "file": "dqlv_rank1.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 16384,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.3
+            },
+            "dqlv_noZeroPoint": {
+              "file": "dqlv_noZeroPoint.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 16384,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "expHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.3
+            },
+            "dqlv_perchannel": {
+              "file": "dqlv_perchannel.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 16384,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.1
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.27.0",
+          "conclusion": "all 19 micro graphs correct",
+          "finishedAt": "2026-09-09T16:11:19.982Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "webgpu",
+          "startedAt": "2026-09-09T16:11:19.982Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 134.9
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.1
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 10.7
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 5
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.5
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 4960,
+                  "exactMatchPct": 7.6,
+                  "worstAbs": 0.000003337860107421875,
+                  "worstRel": 8.639965716616036e-7,
+                  "worstIdx": 2143,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202648639678955,
+                    -1.637634515762329,
+                    2.0935184955596924,
+                    -2.216779947280884,
+                    2.148073434829712,
+                    -1.259015440940857,
+                    1.9877560138702393,
+                    -0.9495219588279724
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.5
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 5.6
+            },
+            "dql_model_shape": {
+              "file": "dql_model_shape.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 786432,
+                  "expectedCount": 786432,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 6144,
+                  "exactMatchPct": 0.8,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 6.1
+            },
+            "dql_1d_small": {
+              "file": "dql_1d_small.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 0,
+                  "exactMatchPct": 0,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 4.5
+            },
+            "dql_2d_small": {
+              "file": "dql_2d_small.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 0,
+                  "exactMatchPct": 0,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 4.4
+            },
+            "dql_3d_small": {
+              "file": "dql_3d_small.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 0,
+                  "exactMatchPct": 0,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 4.1
+            },
+            "dql_3d_medium": {
+              "file": "dql_3d_medium.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 128,
+                  "exactMatchPct": 0.8,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 4.5
+            },
+            "dql_3d_small_int8": {
+              "file": "dql_3d_small_int8.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 4,
+                  "exactMatchPct": 1.6,
+                  "worstAbs": 16.345587730407715,
+                  "worstRel": 0.7883817448380692,
+                  "worstIdx": 251,
+                  "firstBadIdx": 4,
+                  "firstBadGot": -20.73308753967285,
+                  "firstBadExp": -18.324264526367188,
+                  "ok": false,
+                  "gotHead": [
+                    -20.73308753967285,
+                    -20.130882263183594,
+                    -19.528676986694336,
+                    -18.926469802856445,
+                    -20.73308753967285,
+                    -20.130882263183594,
+                    -19.528676986694336,
+                    -18.926469802856445
+                  ],
+                  "expHead": [
+                    -20.73308753967285,
+                    -20.130882263183594,
+                    -19.528676986694336,
+                    -18.926469802856445,
+                    -18.324264526367188,
+                    -17.72205924987793,
+                    -17.11985206604004,
+                    -16.51764678955078
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 4.6
+            },
+            "dql_3d_small_zp0": {
+              "file": "dql_3d_small_zp0.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 4,
+                  "exactMatchPct": 1.6,
+                  "worstAbs": 19.95882248878479,
+                  "worstRel": 0.90980387413264,
+                  "worstIdx": 94,
+                  "firstBadIdx": 4,
+                  "firstBadGot": 0,
+                  "firstBadExp": 3.7852940559387207,
+                  "ok": false,
+                  "gotHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333
+                  ],
+                  "expHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 3.8
+            },
+            "dql_model_shape_zp0": {
+              "file": "dql_model_shape_zp0.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 786432,
+                  "expectedCount": 786432,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 12288,
+                  "exactMatchPct": 1.6,
+                  "worstAbs": 21.335294365882874,
+                  "worstRel": 0.9725490309234358,
+                  "worstIdx": 651,
+                  "firstBadIdx": 4,
+                  "firstBadGot": 0,
+                  "firstBadExp": 3.7852940559387207,
+                  "ok": false,
+                  "gotHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333
+                  ],
+                  "expHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 4.9
+            },
+            "dqlv_scalar": {
+              "file": "dqlv_scalar.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 128,
+                  "exactMatchPct": 0.8,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 3.6
+            },
+            "dqlv_rank1": {
+              "file": "dqlv_rank1.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 128,
+                  "exactMatchPct": 0.8,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 3.7
+            },
+            "dqlv_noZeroPoint": {
+              "file": "dqlv_noZeroPoint.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 1.6,
+                  "worstAbs": 21.335294365882874,
+                  "worstRel": 0.9725490309234358,
+                  "worstIdx": 651,
+                  "firstBadIdx": 4,
+                  "firstBadGot": 0,
+                  "firstBadExp": 3.7852940559387207,
+                  "ok": false,
+                  "gotHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333
+                  ],
+                  "expHead": [
+                    0,
+                    0.9463235139846802,
+                    1.8926470279693604,
+                    2.83897066116333,
+                    3.7852940559387207,
+                    4.731617450714111,
+                    5.67794132232666,
+                    6.624264717102051
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 3.6
+            },
+            "dqlv_perchannel": {
+              "file": "dqlv_perchannel.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 16384,
+                  "expectedCount": 16384,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 128,
+                  "exactMatchPct": 0.8,
+                  "worstAbs": 369493513.9794121,
+                  "worstRel": 30899046.437526736,
+                  "worstIdx": 0,
+                  "firstBadIdx": 0,
+                  "firstBadGot": 369493504,
+                  "firstBadExp": -9.979412078857422,
+                  "ok": false,
+                  "gotHead": [
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504,
+                    369493504
+                  ],
+                  "expHead": [
+                    -9.979412078857422,
+                    -9.033087730407715,
+                    -8.086764335632324,
+                    -7.140440940856934,
+                    -6.194117546081543,
+                    -5.247794151306152,
+                    -4.301470756530762,
+                    -3.355146884918213
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": false,
+              "createMs": 3.7
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.27.0",
+          "conclusion": "INCORRECT or ERRORED: dql_model_shape, dql_1d_small, dql_2d_small, dql_3d_small, dql_3d_medium, dql_3d_small_int8, dql_3d_small_zp0, dql_model_shape_zp0, dqlv_scalar, dqlv_rank1, dqlv_noZeroPoint, dqlv_perchannel",
+          "finishedAt": "2026-09-09T16:11:20.429Z"
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-09T16:11:20.590Z"
+}

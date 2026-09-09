@@ -1,0 +1,1534 @@
+{
+  "experiment": "W1-S04a1b-webgpu-int8-root-cause",
+  "browser": "chrome",
+  "startedAt": "2026-09-09T15:57:24.433Z",
+  "platform": "windows-large",
+  "chrome": "C:/Users/OMEN/cft/chrome.exe",
+  "runs": [
+    {
+      "headless": false,
+      "run": 1,
+      "platform": "windows-large",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "wasm",
+          "startedAt": "2026-09-09T15:57:25.008Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 277.9
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.5
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 5.9
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.2
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.6
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 9671,
+                  "exactMatchPct": 14.8,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 4.937123266637735e-7,
+                  "worstIdx": 63868,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202640295028687,
+                    -1.6376341581344604,
+                    2.093518018722534,
+                    -2.2167797088623047,
+                    2.1480748653411865,
+                    -1.2590160369873047,
+                    1.9877556562423706,
+                    -0.949522078037262
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 5.1
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.4
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.29.0",
+          "conclusion": "all 7 micro graphs correct",
+          "finishedAt": "2026-09-09T15:57:25.352Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "webgpu",
+          "startedAt": "2026-09-09T15:57:25.352Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 116.8
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 2.7
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 6.8
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.3
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.4
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 4960,
+                  "exactMatchPct": 7.6,
+                  "worstAbs": 0.000003337860107421875,
+                  "worstRel": 8.639965716616036e-7,
+                  "worstIdx": 2143,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202648639678955,
+                    -1.637634515762329,
+                    2.0935184955596924,
+                    -2.216779947280884,
+                    2.148073434829712,
+                    -1.259015440940857,
+                    1.9877560138702393,
+                    -0.9495219588279724
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.7
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.7
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.29.0",
+          "conclusion": "all 7 micro graphs correct",
+          "finishedAt": "2026-09-09T15:57:25.636Z"
+        }
+      ]
+    },
+    {
+      "headless": true,
+      "run": 1,
+      "platform": "windows-large",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "wasm",
+          "startedAt": "2026-09-09T15:57:26.405Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 290.3
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.3
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 5.3
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.4
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.6
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 9671,
+                  "exactMatchPct": 14.8,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 4.937123266637735e-7,
+                  "worstIdx": 63868,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202640295028687,
+                    -1.6376341581344604,
+                    2.093518018722534,
+                    -2.2167797088623047,
+                    2.1480748653411865,
+                    -1.2590160369873047,
+                    1.9877556562423706,
+                    -0.949522078037262
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.6
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 4.4
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.29.0",
+          "conclusion": "all 7 micro graphs correct",
+          "finishedAt": "2026-09-09T15:57:26.764Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a1b-micro",
+          "backend": "webgpu",
+          "startedAt": "2026-09-09T15:57:26.764Z",
+          "graphs": {
+            "matmulinteger": {
+              "file": "matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "expHead": [
+                    -7471,
+                    -16881,
+                    3829,
+                    8224,
+                    -22772,
+                    8480,
+                    19401,
+                    26557
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 123.6
+            },
+            "dynamicquantizelinear": {
+              "file": "dynamicquantizelinear.onnx",
+              "error": null,
+              "outputs": {
+                "Q": {
+                  "count": 512,
+                  "expectedCount": 512,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 512,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "expHead": [
+                    0,
+                    37,
+                    74,
+                    111,
+                    149,
+                    186,
+                    223,
+                    4
+                  ],
+                  "dtypeGot": "uint8"
+                },
+                "S": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.0039061899296939373
+                  ],
+                  "expHead": [
+                    0.0039061899296939373
+                  ],
+                  "dtypeGot": "float32"
+                },
+                "ZP": {
+                  "count": 1,
+                  "expectedCount": 1,
+                  "countOk": true,
+                  "dtypeRef": "uint8",
+                  "isInt": true,
+                  "exactMatches": 1,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0
+                  ],
+                  "expHead": [
+                    0
+                  ],
+                  "dtypeGot": "uint8"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.1
+            },
+            "dql_matmulinteger": {
+              "file": "dql_matmulinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 256,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "expHead": [
+                    -6.801411151885986,
+                    -0.2107784003019333,
+                    -0.023782838135957718,
+                    -3.804388999938965,
+                    2.786243438720703,
+                    -5.999088287353516,
+                    0.5915440320968628,
+                    1.007671594619751
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 6.8
+            },
+            "matmul_fp32": {
+              "file": "matmul_fp32.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 256,
+                  "expectedCount": 256,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 76,
+                  "exactMatchPct": 29.7,
+                  "worstAbs": 0.0000019073486328125,
+                  "worstRel": 2.0575490290786203e-7,
+                  "worstIdx": 0,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    -6.801610469818115,
+                    -0.21127110719680786,
+                    -0.01345813274383545,
+                    -3.7988667488098145,
+                    2.7914724349975586,
+                    -5.9941511154174805,
+                    0.5961880087852478,
+                    1.0119279623031616
+                  ],
+                  "expHead": [
+                    -6.801612377166748,
+                    -0.21127083897590637,
+                    -0.013457494787871838,
+                    -3.798865795135498,
+                    2.791473388671875,
+                    -5.994151592254639,
+                    0.5961878895759583,
+                    1.0119279623031616
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.1
+            },
+            "convinteger": {
+              "file": "convinteger.onnx",
+              "error": null,
+              "outputs": {
+                "Y_i32": {
+                  "count": 144,
+                  "expectedCount": 144,
+                  "countOk": true,
+                  "dtypeRef": "int32",
+                  "isInt": true,
+                  "exactMatches": 144,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "expHead": [
+                    40382,
+                    40723,
+                    25448,
+                    15037,
+                    -12014,
+                    -28313,
+                    -45210,
+                    -44869
+                  ],
+                  "dtypeGot": "int32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.7
+            },
+            "matmul_fp32_large": {
+              "file": "matmul_fp32_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 4960,
+                  "exactMatchPct": 7.6,
+                  "worstAbs": 0.000003337860107421875,
+                  "worstRel": 8.639965716616036e-7,
+                  "worstIdx": 2143,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.5202648639678955,
+                    -1.637634515762329,
+                    2.0935184955596924,
+                    -2.216779947280884,
+                    2.148073434829712,
+                    -1.259015440940857,
+                    1.9877560138702393,
+                    -0.9495219588279724
+                  ],
+                  "expHead": [
+                    0.520264208316803,
+                    -1.63763427734375,
+                    2.0935182571411133,
+                    -2.2167792320251465,
+                    2.1480751037597656,
+                    -1.2590159177780151,
+                    1.9877560138702393,
+                    -0.9495217204093933
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 3.5
+            },
+            "dql_matmulinteger_large": {
+              "file": "dql_matmulinteger_large.onnx",
+              "error": null,
+              "outputs": {
+                "Y": {
+                  "count": 65536,
+                  "expectedCount": 65536,
+                  "countOk": true,
+                  "dtypeRef": "float32",
+                  "isInt": false,
+                  "exactMatches": 65536,
+                  "exactMatchPct": 100,
+                  "worstAbs": 0,
+                  "worstRel": 0,
+                  "worstIdx": -1,
+                  "firstBadIdx": -1,
+                  "firstBadGot": null,
+                  "firstBadExp": null,
+                  "ok": true,
+                  "gotHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "expHead": [
+                    0.34633490443229675,
+                    1.0328333377838135,
+                    0.7833907008171082,
+                    1.4408676624298096,
+                    -0.17983746528625488,
+                    -1.1765819787979126,
+                    -1.8141862154006958,
+                    -0.8882609605789185
+                  ],
+                  "dtypeGot": "float32"
+                }
+              },
+              "allOk": true,
+              "createMs": 5.4
+            }
+          },
+          "error": null,
+          "env": {
+            "sharedArrayBuffer": true,
+            "hasWebGPU": true
+          },
+          "ortVersion": "1.29.0",
+          "conclusion": "all 7 micro graphs correct",
+          "finishedAt": "2026-09-09T15:57:26.995Z"
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-09T15:57:27.146Z"
+}
