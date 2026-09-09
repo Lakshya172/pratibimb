@@ -1,0 +1,13 @@
+node v26.4.0 http.maxHeaderSize = 16384
+
+-- DEFAULT server options (what the S-04a collector used) --
+{"payloadBytes":1500,"handlerRan":true,"status":200}
+{"payloadBytes":16000,"handlerRan":true,"status":200}
+{"payloadBytes":80000,"handlerRan":false,"clientError":"HPE_HEADER_OVERFLOW"}
+{"payloadBytes":160000,"handlerRan":false,"clientError":"HPE_HEADER_OVERFLOW"}
+
+-- WITH maxHeaderSize: 2,000,000 (the fix) --
+{"payloadBytes":1500,"handlerRan":true,"status":200}
+{"payloadBytes":16000,"handlerRan":true,"status":200}
+{"payloadBytes":80000,"handlerRan":true,"status":200}
+{"payloadBytes":160000,"handlerRan":true,"status":200}
