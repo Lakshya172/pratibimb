@@ -123,8 +123,9 @@ environment may be quoted as a hardware number.**
 
 ### S-02a-2a-3 result — recorded 2026-09-10 (workstation 1)
 
-**CONDITIONAL. The hash-pin binding is PROVEN; it holds under three named constraints.**
-ORT Web **1.29.0**, bundle `ort.all.min.js`, 3 runs, unanimous. Evidence:
+**CONDITIONAL. The hash-pin binding is PROVEN on BOTH Chromium and Firefox; it holds under
+three named constraints.** ORT Web **1.29.0**, bundle `ort.all.min.js`, Chromium 151 and
+Firefox 155.0.1, 3 runs each, unanimous. Evidence:
 [`W1-S02a-2a-3`](../../artifacts/experiments/W1-S02a2a3-ort-wasm-hash-pin/README.md).
 
 > **EXACT BYTES HASHED == EXACT BYTES EXECUTED** — demonstrated, not asserted.
@@ -158,6 +159,7 @@ second session → pinned module reused, **no re-fetch**.
 
 | # | New question raised | Status | Blocks |
 |---|---|---|---|
+| S-02a-2a-3d | Does the binding hold in **Firefox MV3**? | **ANSWERED — YES**, identical to Chromium, 3 runs, both contexts | — |
 | S-02a-2a-3a | Does the binding hold with `numThreads > 1`, where ORT spawns its own workers? | `UNKNOWN` | Threaded WASM path |
 | S-02a-2a-3b | Does the **WebGPU** EP touch resources beyond the jsep artifact? | `UNKNOWN` | Pinning the WebGPU path |
 | S-02a-2a-3c | Can the `.mjs` glue's integrity be assured beyond packaging? | `UNKNOWN` | Completeness of runtime provenance |

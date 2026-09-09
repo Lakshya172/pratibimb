@@ -17,24 +17,770 @@
       "note": "The NON-jsep artifact. ort.all.min.js does NOT load this one - measured. A different ORT bundle would load it, and would need its own pin."
     }
   },
-  "runs": 1,
-  "collectedAt": "2026-09-09T19:43:43.029Z",
+  "runs": 3,
+  "collectedAt": "2026-09-09T20:04:14.593Z",
   "records": [
     {
       "run": 1,
       "browser": "firefox-155.0.1",
-      "aliveBeacon": false,
-      "results": [],
-      "contexts": [],
+      "aliveBeacon": true,
+      "results": [
+        {
+          "scenario": "s1_fetch_and_hash",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://d3fa6925-b66c-426b-a2c9-df688ce9b218/worker.js",
+          "startedAt": "2026-09-09T20:03:46.542Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "url": "http://127.0.0.1:8910/ort-wasm-simd-threaded.jsep.wasm",
+          "retrieved": true,
+          "error": null,
+          "byteLength": 27797172,
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "finishedAt": "2026-09-09T20:03:46.673Z"
+        },
+        {
+          "scenario": "s2_pinned_wasmBinary",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://d3fa6925-b66c-426b-a2c9-df688ce9b218/worker.js",
+          "startedAt": "2026-09-09T20:03:46.702Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "hashVerifiedBeforeCompile": true,
+          "sessionCreated": true,
+          "result": {
+            "label": "pinned-wasmBinary",
+            "createMs": 190,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T20:03:46.993Z"
+        },
+        {
+          "scenario": "s3_tampered_wasmBinary",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://d3fa6925-b66c-426b-a2c9-df688ce9b218/worker.js",
+          "startedAt": "2026-09-09T20:03:47.463Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "8785a8eebdd14966568301863c205c955038ea934e03ce7dea07f417fabdd12e",
+          "digestMatchesPin": false,
+          "pinWouldHaveRefused": true,
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(CompileError: wasm validation error: at offset 16678303: unrecognized opcode: df 0). Build with -sASSERTIONS for more info."
+          },
+          "finishedAt": "2026-09-09T20:03:47.688Z"
+        },
+        {
+          "scenario": "s4_ort_owned_fetch",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://d3fa6925-b66c-426b-a2c9-df688ce9b218/worker.js",
+          "startedAt": "2026-09-09T20:03:47.748Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "sessionCreated": true,
+          "result": {
+            "label": "ort-owned-fetch",
+            "createMs": 283,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T20:03:48.039Z"
+        },
+        {
+          "scenario": "s5_missing_artifact",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://d3fa6925-b66c-426b-a2c9-df688ce9b218/worker.js",
+          "startedAt": "2026-09-09T20:03:48.091Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(CompileError: wasm validation error: at offset 0: failed to match magic number). Build with -sASSERTIONS for more info."
+          },
+          "fellBackSilently": false,
+          "finishedAt": "2026-09-09T20:03:48.198Z"
+        },
+        {
+          "scenario": "s6_foreign_origin",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://d3fa6925-b66c-426b-a2c9-df688ce9b218/worker.js",
+          "startedAt": "2026-09-09T20:03:48.248Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "ourFetchResolved": false,
+          "ourFetchError": {
+            "name": "TypeError",
+            "message": "NetworkError when attempting to fetch resource."
+          },
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(NetworkError: A network error occurred.). Build with -sASSERTIONS for more info."
+          },
+          "note": "Authoritative signal is the FOREIGN origin's arrival log.",
+          "finishedAt": "2026-09-09T20:03:48.271Z"
+        },
+        {
+          "scenario": "s7_second_load",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://d3fa6925-b66c-426b-a2c9-df688ce9b218/worker.js",
+          "startedAt": "2026-09-09T20:03:48.325Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "first": {
+            "ok": true,
+            "result": {
+              "label": "second-load-1",
+              "createMs": 194,
+              "elements": 262144,
+              "mismatches": 0,
+              "correct": true,
+              "sample": [
+                1,
+                3,
+                5
+              ]
+            },
+            "error": null
+          },
+          "second": {
+            "ok": true,
+            "result": {
+              "label": "second-load-2",
+              "createMs": 2,
+              "elements": 262144,
+              "mismatches": 0,
+              "correct": true,
+              "sample": [
+                1,
+                3,
+                5
+              ]
+            },
+            "error": null
+          },
+          "finishedAt": "2026-09-09T20:03:48.654Z"
+        },
+        {
+          "scenario": "s2_pinned_wasmBinary",
+          "context": "firefox-mv3-event-page",
+          "href": "moz-extension://d3fa6925-b66c-426b-a2c9-df688ce9b218/_generated_background_page.html",
+          "startedAt": "2026-09-09T20:03:48.654Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "hashVerifiedBeforeCompile": true,
+          "sessionCreated": true,
+          "result": {
+            "label": "pinned-wasmBinary",
+            "createMs": 213,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T20:03:49.017Z"
+        }
+      ],
+      "contexts": [
+        "firefox-event-page-dedicated-worker",
+        "firefox-mv3-event-page"
+      ],
       "groundTruth": {
-        "totalArrivals": 0,
-        "wasmArrivals": 0,
-        "wasmArrivals_ours": 0,
-        "wasmArrivals_ORT": 0,
+        "totalArrivals": 17,
+        "wasmArrivals": 11,
+        "wasmArrivals_ours": 5,
+        "wasmArrivals_ORT": 6,
         "foreignOriginArrivals": 0,
-        "untaggedDetail": []
+        "untaggedDetail": [
+          {
+            "origin": "collector",
+            "url": "/ort-wasm-simd-threaded.jsep.wasm",
+            "method": "OPTIONS",
+            "at": "2026-09-09T20:03:46.552Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/tampered.wasm",
+            "method": "OPTIONS",
+            "at": "2026-09-09T20:03:47.467Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/ort-wasm-simd-threaded.jsep.wasm",
+            "method": "GET",
+            "at": "2026-09-09T20:03:47.779Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "method": "GET",
+            "at": "2026-09-09T20:03:48.116Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "method": "GET",
+            "at": "2026-09-09T20:03:48.161Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "method": "GET",
+            "at": "2026-09-09T20:03:48.193Z"
+          }
+        ],
+        "untaggedGET": 4,
+        "untaggedOPTIONS": 2
       },
-      "webExtLogTail": "node:internal/modules/package_json_reader:301\r\n  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);\r\n        ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find package 'camelcase' imported from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a3-ort-wasm-hash-pin\\harness\\node_modules\\web-ext\\lib\\program.js\r\n    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)\r\n    at packageResolve (node:internal/modules/esm/resolve:768:81)\r\n    at moduleResolve (node:internal/modules/esm/resolve:859:18)\r\n    at defaultResolve (node:internal/modules/esm/resolve:992:11)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:701:20)\r\n    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:721:38)\r\n    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:759:56)\r\n    at #resolve (node:internal/modules/esm/loader:683:17)\r\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:603:35)\r\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:163:33) {\r\n  code: 'ERR_MODULE_NOT_FOUND'\r\n}\r\n\r\nNode.js v24.19.0\r\n"
+      "webExtLogTail": "Running web extension from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a3-ort-wasm-hash-pin\\harness\\ext-firefox\nProfile directory C:\\Users\\RONIT\\AppData\\Local\\Temp\\pratibimb-s02a2a3-ff-7H8N2R already exists\nSetting custom Firefox preferences: {\n  \"extensions.originControls.grantByDefault\": true\n}\nUse --verbose or --devtools to see logging\nInstalled C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a3-ort-wasm-hash-pin\\harness\\ext-firefox as a temporary add-on\nAutomatic extension reloading has been disabled\n"
+    },
+    {
+      "run": 2,
+      "browser": "firefox-155.0.1",
+      "aliveBeacon": true,
+      "results": [
+        {
+          "scenario": "s1_fetch_and_hash",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://f07ee201-f7db-47d7-b7f3-b554c99b3d10/worker.js",
+          "startedAt": "2026-09-09T20:03:54.932Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "url": "http://127.0.0.1:8910/ort-wasm-simd-threaded.jsep.wasm",
+          "retrieved": true,
+          "error": null,
+          "byteLength": 27797172,
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "finishedAt": "2026-09-09T20:03:55.116Z"
+        },
+        {
+          "scenario": "s2_pinned_wasmBinary",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://f07ee201-f7db-47d7-b7f3-b554c99b3d10/worker.js",
+          "startedAt": "2026-09-09T20:03:55.179Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "hashVerifiedBeforeCompile": true,
+          "sessionCreated": true,
+          "result": {
+            "label": "pinned-wasmBinary",
+            "createMs": 160,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T20:03:55.455Z"
+        },
+        {
+          "scenario": "s3_tampered_wasmBinary",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://f07ee201-f7db-47d7-b7f3-b554c99b3d10/worker.js",
+          "startedAt": "2026-09-09T20:04:01.861Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "8785a8eebdd14966568301863c205c955038ea934e03ce7dea07f417fabdd12e",
+          "digestMatchesPin": false,
+          "pinWouldHaveRefused": true,
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(CompileError: wasm validation error: at offset 16678303: unrecognized opcode: df 0). Build with -sASSERTIONS for more info."
+          },
+          "finishedAt": "2026-09-09T20:04:02.064Z"
+        },
+        {
+          "scenario": "s4_ort_owned_fetch",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://f07ee201-f7db-47d7-b7f3-b554c99b3d10/worker.js",
+          "startedAt": "2026-09-09T20:04:02.094Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "sessionCreated": true,
+          "result": {
+            "label": "ort-owned-fetch",
+            "createMs": 235,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T20:04:02.334Z"
+        },
+        {
+          "scenario": "s5_missing_artifact",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://f07ee201-f7db-47d7-b7f3-b554c99b3d10/worker.js",
+          "startedAt": "2026-09-09T20:04:02.381Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(CompileError: wasm validation error: at offset 0: failed to match magic number). Build with -sASSERTIONS for more info."
+          },
+          "fellBackSilently": false,
+          "finishedAt": "2026-09-09T20:04:02.451Z"
+        },
+        {
+          "scenario": "s6_foreign_origin",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://f07ee201-f7db-47d7-b7f3-b554c99b3d10/worker.js",
+          "startedAt": "2026-09-09T20:04:02.490Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "ourFetchResolved": false,
+          "ourFetchError": {
+            "name": "TypeError",
+            "message": "NetworkError when attempting to fetch resource."
+          },
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(NetworkError: A network error occurred.). Build with -sASSERTIONS for more info."
+          },
+          "note": "Authoritative signal is the FOREIGN origin's arrival log.",
+          "finishedAt": "2026-09-09T20:04:02.516Z"
+        },
+        {
+          "scenario": "s7_second_load",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://f07ee201-f7db-47d7-b7f3-b554c99b3d10/worker.js",
+          "startedAt": "2026-09-09T20:04:02.557Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "first": {
+            "ok": true,
+            "result": {
+              "label": "second-load-1",
+              "createMs": 185,
+              "elements": 262144,
+              "mismatches": 0,
+              "correct": true,
+              "sample": [
+                1,
+                3,
+                5
+              ]
+            },
+            "error": null
+          },
+          "second": {
+            "ok": true,
+            "result": {
+              "label": "second-load-2",
+              "createMs": 0,
+              "elements": 262144,
+              "mismatches": 0,
+              "correct": true,
+              "sample": [
+                1,
+                3,
+                5
+              ]
+            },
+            "error": null
+          },
+          "finishedAt": "2026-09-09T20:04:02.888Z"
+        },
+        {
+          "scenario": "s2_pinned_wasmBinary",
+          "context": "firefox-mv3-event-page",
+          "href": "moz-extension://f07ee201-f7db-47d7-b7f3-b554c99b3d10/_generated_background_page.html",
+          "startedAt": "2026-09-09T20:04:02.888Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "hashVerifiedBeforeCompile": true,
+          "sessionCreated": true,
+          "result": {
+            "label": "pinned-wasmBinary",
+            "createMs": 162,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T20:04:03.160Z"
+        }
+      ],
+      "contexts": [
+        "firefox-event-page-dedicated-worker",
+        "firefox-mv3-event-page"
+      ],
+      "groundTruth": {
+        "totalArrivals": 19,
+        "wasmArrivals": 12,
+        "wasmArrivals_ours": 5,
+        "wasmArrivals_ORT": 7,
+        "foreignOriginArrivals": 0,
+        "untaggedDetail": [
+          {
+            "origin": "collector",
+            "url": "/ort-wasm-simd-threaded.jsep.wasm",
+            "method": "OPTIONS",
+            "at": "2026-09-09T20:03:54.964Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/tampered.wasm",
+            "method": "OPTIONS",
+            "at": "2026-09-09T20:04:01.861Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/ort-wasm-simd-threaded.jsep.wasm",
+            "method": "GET",
+            "at": "2026-09-09T20:04:02.101Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "method": "GET",
+            "at": "2026-09-09T20:04:02.428Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "method": "GET",
+            "at": "2026-09-09T20:04:02.434Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "method": "GET",
+            "at": "2026-09-09T20:04:02.447Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/ort-wasm-simd-threaded.jsep.wasm",
+            "method": "OPTIONS",
+            "at": "2026-09-09T20:04:02.564Z"
+          }
+        ],
+        "untaggedGET": 4,
+        "untaggedOPTIONS": 3
+      },
+      "webExtLogTail": "Running web extension from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a3-ort-wasm-hash-pin\\harness\\ext-firefox\nProfile directory C:\\Users\\RONIT\\AppData\\Local\\Temp\\pratibimb-s02a2a3-ff-z0u8Yu already exists\nSetting custom Firefox preferences: {\n  \"extensions.originControls.grantByDefault\": true\n}\nUse --verbose or --devtools to see logging\nInstalled C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a3-ort-wasm-hash-pin\\harness\\ext-firefox as a temporary add-on\nAutomatic extension reloading has been disabled\n"
+    },
+    {
+      "run": 3,
+      "browser": "firefox-155.0.1",
+      "aliveBeacon": true,
+      "results": [
+        {
+          "scenario": "s1_fetch_and_hash",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://8535a173-4a69-49fc-a480-490c1735417a/worker.js",
+          "startedAt": "2026-09-09T20:04:08.899Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "url": "http://127.0.0.1:8910/ort-wasm-simd-threaded.jsep.wasm",
+          "retrieved": true,
+          "error": null,
+          "byteLength": 27797172,
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "finishedAt": "2026-09-09T20:04:09.018Z"
+        },
+        {
+          "scenario": "s2_pinned_wasmBinary",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://8535a173-4a69-49fc-a480-490c1735417a/worker.js",
+          "startedAt": "2026-09-09T20:04:09.069Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "hashVerifiedBeforeCompile": true,
+          "sessionCreated": true,
+          "result": {
+            "label": "pinned-wasmBinary",
+            "createMs": 297,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T20:04:09.471Z"
+        },
+        {
+          "scenario": "s3_tampered_wasmBinary",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://8535a173-4a69-49fc-a480-490c1735417a/worker.js",
+          "startedAt": "2026-09-09T20:04:09.505Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "8785a8eebdd14966568301863c205c955038ea934e03ce7dea07f417fabdd12e",
+          "digestMatchesPin": false,
+          "pinWouldHaveRefused": true,
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(CompileError: wasm validation error: at offset 16678303: unrecognized opcode: df 0). Build with -sASSERTIONS for more info."
+          },
+          "finishedAt": "2026-09-09T20:04:09.706Z"
+        },
+        {
+          "scenario": "s4_ort_owned_fetch",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://8535a173-4a69-49fc-a480-490c1735417a/worker.js",
+          "startedAt": "2026-09-09T20:04:09.737Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "sessionCreated": true,
+          "result": {
+            "label": "ort-owned-fetch",
+            "createMs": 227,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T20:04:09.971Z"
+        },
+        {
+          "scenario": "s5_missing_artifact",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://8535a173-4a69-49fc-a480-490c1735417a/worker.js",
+          "startedAt": "2026-09-09T20:04:10.034Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(CompileError: wasm validation error: at offset 0: failed to match magic number). Build with -sASSERTIONS for more info."
+          },
+          "fellBackSilently": false,
+          "finishedAt": "2026-09-09T20:04:10.123Z"
+        },
+        {
+          "scenario": "s6_foreign_origin",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://8535a173-4a69-49fc-a480-490c1735417a/worker.js",
+          "startedAt": "2026-09-09T20:04:10.176Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "ourFetchResolved": false,
+          "ourFetchError": {
+            "name": "TypeError",
+            "message": "NetworkError when attempting to fetch resource."
+          },
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(NetworkError: A network error occurred.). Build with -sASSERTIONS for more info."
+          },
+          "note": "Authoritative signal is the FOREIGN origin's arrival log.",
+          "finishedAt": "2026-09-09T20:04:10.202Z"
+        },
+        {
+          "scenario": "s7_second_load",
+          "context": "firefox-event-page-dedicated-worker",
+          "href": "moz-extension://8535a173-4a69-49fc-a480-490c1735417a/worker.js",
+          "startedAt": "2026-09-09T20:04:10.243Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "first": {
+            "ok": true,
+            "result": {
+              "label": "second-load-1",
+              "createMs": 184,
+              "elements": 262144,
+              "mismatches": 0,
+              "correct": true,
+              "sample": [
+                1,
+                3,
+                5
+              ]
+            },
+            "error": null
+          },
+          "second": {
+            "ok": true,
+            "result": {
+              "label": "second-load-2",
+              "createMs": 1,
+              "elements": 262144,
+              "mismatches": 0,
+              "correct": true,
+              "sample": [
+                1,
+                3,
+                5
+              ]
+            },
+            "error": null
+          },
+          "finishedAt": "2026-09-09T20:04:10.564Z"
+        },
+        {
+          "scenario": "s2_pinned_wasmBinary",
+          "context": "firefox-mv3-event-page",
+          "href": "moz-extension://8535a173-4a69-49fc-a480-490c1735417a/_generated_background_page.html",
+          "startedAt": "2026-09-09T20:04:10.564Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "hashVerifiedBeforeCompile": true,
+          "sessionCreated": true,
+          "result": {
+            "label": "pinned-wasmBinary",
+            "createMs": 191,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T20:04:10.872Z"
+        }
+      ],
+      "contexts": [
+        "firefox-event-page-dedicated-worker",
+        "firefox-mv3-event-page"
+      ],
+      "groundTruth": {
+        "totalArrivals": 17,
+        "wasmArrivals": 11,
+        "wasmArrivals_ours": 5,
+        "wasmArrivals_ORT": 6,
+        "foreignOriginArrivals": 0,
+        "untaggedDetail": [
+          {
+            "origin": "collector",
+            "url": "/ort-wasm-simd-threaded.jsep.wasm",
+            "method": "OPTIONS",
+            "at": "2026-09-09T20:04:08.904Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/tampered.wasm",
+            "method": "OPTIONS",
+            "at": "2026-09-09T20:04:09.506Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/ort-wasm-simd-threaded.jsep.wasm",
+            "method": "GET",
+            "at": "2026-09-09T20:04:09.743Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "method": "GET",
+            "at": "2026-09-09T20:04:10.092Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "method": "GET",
+            "at": "2026-09-09T20:04:10.105Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "method": "GET",
+            "at": "2026-09-09T20:04:10.118Z"
+          }
+        ],
+        "untaggedGET": 4,
+        "untaggedOPTIONS": 2
+      },
+      "webExtLogTail": "Running web extension from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a3-ort-wasm-hash-pin\\harness\\ext-firefox\nProfile directory C:\\Users\\RONIT\\AppData\\Local\\Temp\\pratibimb-s02a2a3-ff-Zthfv1 already exists\nSetting custom Firefox preferences: {\n  \"extensions.originControls.grantByDefault\": true\n}\nUse --verbose or --devtools to see logging\nInstalled C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a3-ort-wasm-hash-pin\\harness\\ext-firefox as a temporary add-on\nAutomatic extension reloading has been disabled\n"
     }
   ]
 }

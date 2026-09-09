@@ -118,7 +118,13 @@ async function oneRun(runIndex) {
     wasmArrivals_ORT: wasmArrivals.filter((a) => !a.isOurs).length,
     foreignOriginArrivals: state.arrivals.filter((a) => a.origin === "foreign").length,
     untaggedDetail: wasmArrivals.filter((a) => !a.isOurs)
-      .map((a) => ({ origin: a.origin, url: a.url, at: a.at }))
+      .map((a) => ({ origin: a.origin, url: a.url, method: a.method, at: a.at })),
+    // A CORS preflight carries no custom header, so the header rule counts it as ORT's.
+    // Separating by METHOD is what distinguishes a real ORT GET from a preflight of our
+    // own tagged fetch - without it, "ORT re-fetched" and "the browser preflighted" are
+    // indistinguishable, and the binding claim would rest on an ambiguity.
+    untaggedGET: wasmArrivals.filter((a) => !a.isOurs && a.method === "GET").length,
+    untaggedOPTIONS: wasmArrivals.filter((a) => !a.isOurs && a.method === "OPTIONS").length
   };
   return rec;
 }

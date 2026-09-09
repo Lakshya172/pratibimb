@@ -12,7 +12,7 @@ decided_by: browser-engineer + ml-engineer + privacy-security-engineer (reviews 
 
 **CONDITIONAL.**
 
-**The binding is PROVEN.** `EXACT BYTES HASHED == EXACT BYTES EXECUTED` was demonstrated,
+**The binding is PROVEN on Chromium AND Firefox.** `EXACT BYTES HASHED == EXACT BYTES EXECUTED` was demonstrated,
 not asserted. **It is CONDITIONAL because it holds only under three architecture
 constraints that PratiBimb must actively adopt and keep.**
 
@@ -55,10 +55,12 @@ pass.** The mechanism measured is ORT's own documented `wasmBinary` input, used 
 - **QG-04 unsigned. B-02 `OPEN`** — untouched; this concerns provenance, not mechanism (2).
 - Does not cover `numThreads > 1` (**S-02a-2a-3a**), the WebGPU EP (**S-02a-2a-3b**), or
   glue integrity beyond packaging (**S-02a-2a-3c**).
-- Does not convert any Firefox/Linux unknown into ACCEPT.
-- **Firefox is NOT measured.** The verdict is a **Chromium** verdict. A Firefox runner
-  exists and two toolchain defects were fixed, but no valid Firefox measurement was
-  obtained; the failed attempt is committed as evidence. Tracked as **S-02a-2a-3d**.
+- Does not convert any Linux unknown into ACCEPT. **Firefox on Linux remains `UNKNOWN`.**
+- **Firefox 155.0.1 on Windows IS measured**, 3 runs, both MV3 contexts, and the binding
+  holds identically to Chromium (**S-02a-2a-3d answered**). Reaching that required
+  resolving an apparent Firefox-only leak that turned out to be **CORS preflights**
+  miscounted as ORT fetches — see the README. Had that gone unexamined, this decision
+  would have wrongly reported Firefox as breaking the binding.
 
 ## AgentOS specialist review
 

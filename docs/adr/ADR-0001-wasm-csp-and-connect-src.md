@@ -40,7 +40,7 @@ Four experiments now bound the decision. All are merged evidence; none is infere
 | **S-02a-2a-1** | `'wasm-unsafe-eval'` enables WebAssembly **only** — it does not widen `eval`, `new Function` or string-`setTimeout`. It places **no restriction on WASM provenance**: network-origin bytes compile as freely as packaged ones |
 | **S-02a-2a-4** *(new)* | A pinned `connect-src` **blocks foreign-origin WASM at the network layer, before the wire** — 0 arrivals at an independently instrumented foreign origin, 36/36 |
 | **S-02a-2a-2** | **Firefox** reaches the same security conclusion by a **different failure mode** — 24/24 |
-| **S-02a-2a-3** *(new)* | The ORT Web `.wasm` **can be hash-pinned with a provable byte-for-byte binding** to what executes — **CONDITIONAL** on three architecture constraints |
+| **S-02a-2a-3** *(new)* | The ORT Web `.wasm` **can be hash-pinned with a provable byte-for-byte binding** to what executes, on **both Chromium and Firefox** — **CONDITIONAL** on three architecture constraints |
 
 ## 2 · What `'wasm-unsafe-eval'` permits — measured
 
@@ -141,6 +141,12 @@ and keep on the path, not a browser guarantee. It is not INV-02/INV-03 — those
 misconfiguration that kills the Chrome extension outright leaves Firefox running with no
 perception tier and no load error.
 
+**A second cross-browser asymmetry, from S-02a-2a-3:** Firefox MV3 **preflights** an
+extension `fetch` carrying a custom header to a host in `host_permissions`; Chromium does
+not. Harmless in itself, but any security test that attributes requests by header alone
+will miscount those preflights — in S-02a-2a-3 that briefly made Firefox look as though it
+broke the WASM pin. **Attribute by method as well as header.**
+
 **Compounding trap:** `WebAssembly.validate()` **succeeds in every Firefox variant,
 including the default**, because validation does not compile to machine code. **A startup
 capability check that calls `validate` would report WebAssembly as available when
@@ -175,8 +181,8 @@ connect-src 'self' <configured server origin>
 rewritten, because the answer is CONDITIONAL rather than a clean yes.**
 
 **What was proven** (`artifacts/experiments/W1-S02a2a3-ort-wasm-hash-pin/`, ORT Web
-**1.29.0**, **Chromium 151 only**, 3 runs, unanimous — **Firefox is `UNKNOWN`, see
-S-02a-2a-3d**):
+**1.29.0**, **Chromium 151 and Firefox 155.0.1**, 3 runs each, unanimous — the binding
+holds identically on both):
 
 > **EXACT BYTES HASHED == EXACT BYTES EXECUTED.** Demonstrated, not asserted.
 
@@ -238,7 +244,7 @@ Stated so approval is informed rather than implied.
 | **S-02a-2a-3a** | Does the binding hold with `numThreads > 1`, where ORT spawns its own workers that may fetch further assets? | The threaded WASM performance path |
 | **S-02a-2a-3b** | Does the **WebGPU** execution provider touch resources beyond the jsep artifact? | Pinning the WebGPU path |
 | **S-02a-2a-3c** | Can the `.mjs` glue's integrity be assured beyond packaging (build-time hash, SRI)? | Completeness of runtime provenance |
-| **S-02a-2a-3d** | **Does the `wasmBinary` binding hold in Firefox MV3?** Not measured. | Cross-browser parity of §7.3 |
+| ~~S-02a-2a-3d~~ | ~~Does the `wasmBinary` binding hold in Firefox MV3?~~ | **ANSWERED — YES.** Identical to Chromium, 3 runs, both Firefox MV3 contexts |
 | **S-02a-2a-4a** | Does the result hold for a **cross-host / https** origin, not two loopback ports? | The provenance claim narrows to same-host |
 | **S-02a-2a-4b** | Does `connect-src` bound WASM provenance on **Firefox**? | §7.2 would be Chromium-only |
 | **S-02a-2a-4c** | Can a **redirect** from the allowed origin reach foreign bytes past the pin? | A hole in mechanism (3) |
