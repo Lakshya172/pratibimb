@@ -44,8 +44,8 @@ artifact path under `artifacts/experiments/`.
 | # | Question | Status | Evidence |
 |---|---|---|---|
 | S-01 | Does `navigator.gpu.requestAdapter()` return a **real adapter** inside a Chrome `chrome.offscreen` document? | **`FACT` — YES** | [`W1-S01`](../../artifacts/experiments/W1-S01-chrome-webgpu-context/README.md) |
-| S-02 | Does `navigator.gpu.requestAdapter()` return a **real adapter** inside a Firefox MV3 event page? | **`FACT` — YES (Windows only)** | [`W1-S02`](../../artifacts/experiments/W1-S02-firefox-webgpu-context/README.md) |
-
+| S-02 | Does `navigator.gpu.requestAdapter()` return a **real adapter** inside a Firefox MV3 event page? | **Windows: `FACT` — YES. Linux (WSL2): `CONDITIONAL`. Native Linux: `UNKNOWN`.** | [`W1-S02`](../../artifacts/experiments/W1-S02-firefox-webgpu-context/README.md) · [`W1-S02a`](../../artifacts/experiments/W1-S02a-firefox-linux-webgpu/README.md) |
+
 ### S-02 result — recorded 2026-09-07
 
 **ACCEPT.** Firefox **155.0.1** release, headful, Windows 11, **workstation 2**.
@@ -71,16 +71,57 @@ Two constraints attached to the acceptance:
    behind `dom.webgpu.enabled`, and it is the configuration the risk register rates **High**.
    No Linux environment exists on this workstation.
 
+   > **Superseded in part, 2026-09-07.** The sentences above are preserved as written.
+   > A Linux environment now exists (WSL2, `ENV-0003`) and **S-02a has been executed** —
+   > see the S-02a section below. **The Windows verdict is unchanged**; only the
+   > statement that no Linux environment exists is out of date. Firefox on **native**
+   > Linux remains `UNKNOWN` (S-02a-1).
+
 **S-01 and S-02 both now have answers, so the gate in `agentos/workflows/spike.md` is
 satisfied for the cells measured.** S-02 does **not** answer S-03: ORT Web's WebGPU backend
 was **not tested**, and raw WebGPU working is not ORT Web working.
 
 | # | New question raised by S-02 | Status | Blocks |
 |---|---|---|---|
-| S-02a | **Firefox on Linux** — the likely judging configuration | `UNKNOWN` | Firefox parity story |
+| S-02a | **Firefox on Linux** — the likely judging configuration | **ANSWERED — `CONDITIONAL`**, see below | [`W1-S02a`](../../artifacts/experiments/W1-S02a-firefox-linux-webgpu/README.md) |
 | S-02b | **ADR:** per-browser execution context. Chrome needs an offscreen document; Firefox's MV3 background is already a `window` with DOM. | `UNKNOWN` | Perception tier |
 | S-02c | **ADR/spike:** Firefox MV3 gates `host_permissions` behind user-granted origin controls, and the extension `fetch` was refused. What does that mean for the egress path, Invariant E and the CSP `connect-src` pin? | `UNKNOWN` | **QG-04** |
 | S-02d | How are Firefox figures labelled when no adapter identity is available? | `UNKNOWN` | Reporting discipline |
+
+### S-02a result (Firefox on LINUX) — recorded 2026-09-07
+
+**CONDITIONAL.** Firefox **155.0.1** release — the same version as the Windows cell — inside
+**WSL2 Ubuntu 26.04**, headful and headless.
+
+**At release defaults, `navigator.gpu` is ABSENT**, in the MV3 event page *and* in the
+ordinary-page control, 3/3 in both display modes. **This is a platform default, not an
+extension-context restriction** — the control proves it.
+
+With **`dom.webgpu.enabled=true`**: adapter returned, device created, compute output
+**element-exact against a CPU reference (0 mismatches)**, zero shader and zero uncaptured
+errors, clean destroy and re-acquire, 3/3, in both contexts.
+
+The pre-registered criteria settle it: *a result requiring an `about:config` change on the
+release channel is **CONDITIONAL, never ACCEPT***. **Not REJECT either** — nothing is broken
+behind the preference; the default is the obstacle.
+
+Two constraints: **the preference must be set**, and **the adapter is unidentified and
+probably software** — this guest has no `/dev/dri`, **0 Vulkan ICDs** and `llvmpipe` for
+OpenGL, while `nvidia-smi` works (that is the **CUDA compute** path, not graphics). Firefox
+exposes neither `adapterInfo` nor `isFallbackAdapter`. **No Linux WebGPU figure from this
+environment may be quoted as a hardware number.**
+
+**The cells stay separate: Windows `ACCEPT`, Linux (WSL2) `CONDITIONAL`, native Linux
+`UNKNOWN`.** The Windows result is not upgraded into a universal Firefox ACCEPT.
+
+**S-02a does not answer S-03.** ORT Web was not tested.
+
+| # | New question raised by S-02a | Status | Blocks |
+|---|---|---|---|
+| S-02a-1 | Firefox on **native** Linux with a real GPU and `/dev/dri`. WSL2 cannot answer it. | `UNKNOWN` | The judging-configuration story |
+| S-02a-2 | Does the **WASM path** carry Firefox-on-Linux, given WebGPU is off by default? | `UNKNOWN` | Firefox parity |
+| S-02a-3 | Mozilla's 2026 ship status for `dom.webgpu.enabled` on Linux release | `UNKNOWN` | Slide accuracy |
+| S-02a-4 | Confirm the backend is software by a route other than `adapterInfo` | `UNKNOWN` | Labelling of Linux figures |
 | S-03 | Can an ONNX Runtime Web session be **created and run** in each context, on each backend? | `UNKNOWN` | — |
 | S-04 | Can **three ORT Web sessions coexist** in one WebAssembly heap inside an extension offscreen document, and does teardown reclaim memory? | `UNKNOWN` | — |
 | S-05 | What are the **real `tabs.captureVisibleTab` rate limits** under `activeTab`? | `UNKNOWN` | — |

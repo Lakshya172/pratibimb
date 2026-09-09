@@ -1,0 +1,1020 @@
+{
+  "experiment": "W1-S04a-real-model-lifecycle",
+  "browser": "chrome",
+  "startedAt": "2026-09-08T15:21:44.432Z",
+  "platform": "linux-precheck",
+  "chrome": "/opt/chrome-linux64/chrome",
+  "runs": [
+    {
+      "headless": false,
+      "run": 1,
+      "platform": "linux-precheck",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "s04a-real-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "mode": "growth-only",
+          "model": "face_detection_yunet_2023mar.onnx",
+          "modelBytes": 232589,
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-08T15:21:46.211Z",
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "js": null,
+              "at": 203
+            }
+          ],
+          "cycleSnapshots": [],
+          "growthEvents": [],
+          "correctness": [],
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356."
+          },
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1
+          },
+          "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.",
+          "finishedAt": "2026-09-08T15:21:46.219Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a-real-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "mode": "growth-only",
+          "model": "face_detection_yunet_2023mar.onnx",
+          "modelBytes": 232589,
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-08T15:21:46.289Z",
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "js": {
+                "usedMB": 8.9
+              },
+              "at": 72
+            },
+            {
+              "label": "after-create-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": {
+                "usedMB": 10.6
+              },
+              "at": 797
+            },
+            {
+              "label": "after-infer-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 29622272,
+                "mb": 28.3,
+                "pages": 452,
+                "growCount": 2
+              },
+              "js": {
+                "usedMB": 12.4
+              },
+              "at": 907
+            },
+            {
+              "label": "after-destroy-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 29622272,
+                "mb": 28.3,
+                "pages": 452,
+                "growCount": 2
+              },
+              "js": {
+                "usedMB": 12.4
+              },
+              "at": 911
+            }
+          ],
+          "cycleSnapshots": [],
+          "growthEvents": [
+            {
+              "delta": 96,
+              "beforePages": 256,
+              "afterPages": 352,
+              "beforeMB": 16,
+              "afterMB": 22,
+              "at": 830
+            },
+            {
+              "delta": 100,
+              "beforePages": 352,
+              "afterPages": 452,
+              "beforeMB": 22,
+              "afterMB": 28.3,
+              "at": 841
+            }
+          ],
+          "correctness": [
+            {
+              "tag": "growth-check-session-1",
+              "outputs": {
+                "cls_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "ok": true,
+                  "min": 0.4304600656032562,
+                  "max": 0.8986254930496216,
+                  "sum": 4766.893946051598,
+                  "refSum": 4766.8949937820435,
+                  "relErrSum": 2.1979306177888965e-7
+                },
+                "cls_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "ok": true,
+                  "min": 0.4344068169593811,
+                  "max": 0.6535899043083191,
+                  "sum": 868.1269334554672,
+                  "refSum": 868.127041310072,
+                  "relErrSum": 1.2423827341941598e-7
+                },
+                "cls_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "ok": true,
+                  "min": 0.5219483971595764,
+                  "max": 0.8232485055923462,
+                  "sum": 286.6702365875244,
+                  "refSum": 286.6702564358711,
+                  "relErrSum": 6.923755173270027e-8
+                },
+                "obj_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "ok": true,
+                  "min": 0,
+                  "max": 0.000007718801498413086,
+                  "sum": 0.0003218650817871094,
+                  "refSum": 0.00032326579093933105,
+                  "relErrSum": 0.0000014007091522216797
+                },
+                "obj_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "ok": true,
+                  "min": 0,
+                  "max": 0.000045359134674072266,
+                  "sum": 0.0022350549697875977,
+                  "refSum": 0.0022712349891662598,
+                  "relErrSum": 0.00003618001937866211
+                },
+                "obj_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "ok": true,
+                  "min": 5.960464477539063e-8,
+                  "max": 0.006015211343765259,
+                  "sum": 0.6216259896755219,
+                  "refSum": 0.6216224431991577,
+                  "relErrSum": 0.000003546476364135742
+                },
+                "bbox_8": {
+                  "count": 25600,
+                  "expectedCount": 25600,
+                  "ok": true,
+                  "min": -0.8456814885139465,
+                  "max": 2.4748458862304688,
+                  "sum": 18580.864360883832,
+                  "refSum": 18580.856178984046,
+                  "relErrSum": 4.4034030010143745e-7
+                },
+                "bbox_16": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "ok": true,
+                  "min": -0.452486515045166,
+                  "max": 0.6001286506652832,
+                  "sum": 1827.932305037044,
+                  "refSum": 1827.9316511005163,
+                  "relErrSum": 3.5774670638025427e-7
+                },
+                "bbox_32": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "ok": true,
+                  "min": -1.5719656944274902,
+                  "max": 3.1431379318237305,
+                  "sum": 2490.217959240079,
+                  "refSum": 2490.2180549949408,
+                  "relErrSum": 3.845240043922964e-8
+                },
+                "kps_8": {
+                  "count": 64000,
+                  "expectedCount": 64000,
+                  "ok": true,
+                  "min": -2.315141201019287,
+                  "max": 3.1894776821136475,
+                  "sum": 35094.302922703326,
+                  "refSum": 35094.30569296889,
+                  "relErrSum": 7.893775100037075e-8
+                },
+                "kps_16": {
+                  "count": 16000,
+                  "expectedCount": 16000,
+                  "ok": true,
+                  "min": -0.016331732273101807,
+                  "max": 0.9844926595687866,
+                  "sum": 7978.383528448641,
+                  "refSum": 7978.383896186948,
+                  "relErrSum": 4.609182903546669e-8
+                },
+                "kps_32": {
+                  "count": 4000,
+                  "expectedCount": 4000,
+                  "ok": true,
+                  "min": -5.047429084777832,
+                  "max": 8.583505630493164,
+                  "sum": 3960.6872387863696,
+                  "refSum": 3960.6838461458683,
+                  "relErrSum": 8.565794779510432e-7
+                }
+              },
+              "correct": true,
+              "worstRelErr": 0.00003618001937866211
+            }
+          ],
+          "error": null,
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1
+          },
+          "growObserved": true,
+          "conclusion": "GROWTH REGIME REACHED: 2 grow() call(s)",
+          "allCorrect": true,
+          "finishedAt": "2026-09-08T15:21:47.134Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "s04a-real-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "mode": "growth-only",
+          "model": "face_detection_yunet_2023mar.onnx",
+          "modelBytes": 232589,
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-08T15:21:47.214Z",
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "js": null,
+              "at": 79
+            },
+            {
+              "label": "after-create-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": null,
+              "at": 284
+            },
+            {
+              "label": "after-infer-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 29622272,
+                "mb": 28.3,
+                "pages": 452,
+                "growCount": 2
+              },
+              "js": null,
+              "at": 356
+            },
+            {
+              "label": "after-destroy-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 29622272,
+                "mb": 28.3,
+                "pages": 452,
+                "growCount": 2
+              },
+              "js": null,
+              "at": 359
+            }
+          ],
+          "cycleSnapshots": [],
+          "growthEvents": [
+            {
+              "delta": 96,
+              "beforePages": 256,
+              "afterPages": 352,
+              "beforeMB": 16,
+              "afterMB": 22,
+              "at": 291
+            },
+            {
+              "delta": 100,
+              "beforePages": 352,
+              "afterPages": 452,
+              "beforeMB": 22,
+              "afterMB": 28.3,
+              "at": 299
+            }
+          ],
+          "correctness": [
+            {
+              "tag": "growth-check-session-1",
+              "outputs": {
+                "cls_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "ok": true,
+                  "min": 0.4304600656032562,
+                  "max": 0.8986254930496216,
+                  "sum": 4766.893946051598,
+                  "refSum": 4766.8949937820435,
+                  "relErrSum": 2.1979306177888965e-7
+                },
+                "cls_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "ok": true,
+                  "min": 0.4344068169593811,
+                  "max": 0.6535899043083191,
+                  "sum": 868.1269334554672,
+                  "refSum": 868.127041310072,
+                  "relErrSum": 1.2423827341941598e-7
+                },
+                "cls_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "ok": true,
+                  "min": 0.5219483971595764,
+                  "max": 0.8232485055923462,
+                  "sum": 286.6702365875244,
+                  "refSum": 286.6702564358711,
+                  "relErrSum": 6.923755173270027e-8
+                },
+                "obj_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "ok": true,
+                  "min": 0,
+                  "max": 0.000007718801498413086,
+                  "sum": 0.0003218650817871094,
+                  "refSum": 0.00032326579093933105,
+                  "relErrSum": 0.0000014007091522216797
+                },
+                "obj_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "ok": true,
+                  "min": 0,
+                  "max": 0.000045359134674072266,
+                  "sum": 0.0022350549697875977,
+                  "refSum": 0.0022712349891662598,
+                  "relErrSum": 0.00003618001937866211
+                },
+                "obj_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "ok": true,
+                  "min": 5.960464477539063e-8,
+                  "max": 0.006015211343765259,
+                  "sum": 0.6216259896755219,
+                  "refSum": 0.6216224431991577,
+                  "relErrSum": 0.000003546476364135742
+                },
+                "bbox_8": {
+                  "count": 25600,
+                  "expectedCount": 25600,
+                  "ok": true,
+                  "min": -0.8456814885139465,
+                  "max": 2.4748458862304688,
+                  "sum": 18580.864360883832,
+                  "refSum": 18580.856178984046,
+                  "relErrSum": 4.4034030010143745e-7
+                },
+                "bbox_16": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "ok": true,
+                  "min": -0.452486515045166,
+                  "max": 0.6001286506652832,
+                  "sum": 1827.932305037044,
+                  "refSum": 1827.9316511005163,
+                  "relErrSum": 3.5774670638025427e-7
+                },
+                "bbox_32": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "ok": true,
+                  "min": -1.5719656944274902,
+                  "max": 3.1431379318237305,
+                  "sum": 2490.217959240079,
+                  "refSum": 2490.2180549949408,
+                  "relErrSum": 3.845240043922964e-8
+                },
+                "kps_8": {
+                  "count": 64000,
+                  "expectedCount": 64000,
+                  "ok": true,
+                  "min": -2.315141201019287,
+                  "max": 3.1894776821136475,
+                  "sum": 35094.302922703326,
+                  "refSum": 35094.30569296889,
+                  "relErrSum": 7.893775100037075e-8
+                },
+                "kps_16": {
+                  "count": 16000,
+                  "expectedCount": 16000,
+                  "ok": true,
+                  "min": -0.016331732273101807,
+                  "max": 0.9844926595687866,
+                  "sum": 7978.383528448641,
+                  "refSum": 7978.383896186948,
+                  "relErrSum": 4.609182903546669e-8
+                },
+                "kps_32": {
+                  "count": 4000,
+                  "expectedCount": 4000,
+                  "ok": true,
+                  "min": -5.047429084777832,
+                  "max": 8.583505630493164,
+                  "sum": 3960.6872387863696,
+                  "refSum": 3960.6838461458683,
+                  "relErrSum": 8.565794779510432e-7
+                }
+              },
+              "correct": true,
+              "worstRelErr": 0.00003618001937866211
+            }
+          ],
+          "error": null,
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1
+          },
+          "growObserved": true,
+          "conclusion": "GROWTH REGIME REACHED: 2 grow() call(s)",
+          "allCorrect": true,
+          "finishedAt": "2026-09-08T15:21:47.499Z"
+        }
+      ]
+    },
+    {
+      "headless": true,
+      "run": 1,
+      "platform": "linux-precheck",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "s04a-real-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "mode": "growth-only",
+          "model": "face_detection_yunet_2023mar.onnx",
+          "modelBytes": 232589,
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-08T15:21:48.105Z",
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "js": null,
+              "at": 132
+            }
+          ],
+          "cycleSnapshots": [],
+          "growthEvents": [],
+          "correctness": [],
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356."
+          },
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1
+          },
+          "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.",
+          "finishedAt": "2026-09-08T15:21:48.111Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "s04a-real-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "mode": "growth-only",
+          "model": "face_detection_yunet_2023mar.onnx",
+          "modelBytes": 232589,
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-08T15:21:48.165Z",
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "js": {
+                "usedMB": 8.9
+              },
+              "at": 56
+            },
+            {
+              "label": "after-create-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": {
+                "usedMB": 10.6
+              },
+              "at": 613
+            },
+            {
+              "label": "after-infer-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 29622272,
+                "mb": 28.3,
+                "pages": 452,
+                "growCount": 2
+              },
+              "js": {
+                "usedMB": 12.4
+              },
+              "at": 715
+            },
+            {
+              "label": "after-destroy-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 29622272,
+                "mb": 28.3,
+                "pages": 452,
+                "growCount": 2
+              },
+              "js": {
+                "usedMB": 12.4
+              },
+              "at": 725
+            }
+          ],
+          "cycleSnapshots": [],
+          "growthEvents": [
+            {
+              "delta": 96,
+              "beforePages": 256,
+              "afterPages": 352,
+              "beforeMB": 16,
+              "afterMB": 22,
+              "at": 642
+            },
+            {
+              "delta": 100,
+              "beforePages": 352,
+              "afterPages": 452,
+              "beforeMB": 22,
+              "afterMB": 28.3,
+              "at": 653
+            }
+          ],
+          "correctness": [
+            {
+              "tag": "growth-check-session-1",
+              "outputs": {
+                "cls_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "ok": true,
+                  "min": 0.4304600656032562,
+                  "max": 0.8986254930496216,
+                  "sum": 4766.893946051598,
+                  "refSum": 4766.8949937820435,
+                  "relErrSum": 2.1979306177888965e-7
+                },
+                "cls_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "ok": true,
+                  "min": 0.4344068169593811,
+                  "max": 0.6535899043083191,
+                  "sum": 868.1269334554672,
+                  "refSum": 868.127041310072,
+                  "relErrSum": 1.2423827341941598e-7
+                },
+                "cls_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "ok": true,
+                  "min": 0.5219483971595764,
+                  "max": 0.8232485055923462,
+                  "sum": 286.6702365875244,
+                  "refSum": 286.6702564358711,
+                  "relErrSum": 6.923755173270027e-8
+                },
+                "obj_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "ok": true,
+                  "min": 0,
+                  "max": 0.000007718801498413086,
+                  "sum": 0.0003218650817871094,
+                  "refSum": 0.00032326579093933105,
+                  "relErrSum": 0.0000014007091522216797
+                },
+                "obj_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "ok": true,
+                  "min": 0,
+                  "max": 0.000045359134674072266,
+                  "sum": 0.0022350549697875977,
+                  "refSum": 0.0022712349891662598,
+                  "relErrSum": 0.00003618001937866211
+                },
+                "obj_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "ok": true,
+                  "min": 5.960464477539063e-8,
+                  "max": 0.006015211343765259,
+                  "sum": 0.6216259896755219,
+                  "refSum": 0.6216224431991577,
+                  "relErrSum": 0.000003546476364135742
+                },
+                "bbox_8": {
+                  "count": 25600,
+                  "expectedCount": 25600,
+                  "ok": true,
+                  "min": -0.8456814885139465,
+                  "max": 2.4748458862304688,
+                  "sum": 18580.864360883832,
+                  "refSum": 18580.856178984046,
+                  "relErrSum": 4.4034030010143745e-7
+                },
+                "bbox_16": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "ok": true,
+                  "min": -0.452486515045166,
+                  "max": 0.6001286506652832,
+                  "sum": 1827.932305037044,
+                  "refSum": 1827.9316511005163,
+                  "relErrSum": 3.5774670638025427e-7
+                },
+                "bbox_32": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "ok": true,
+                  "min": -1.5719656944274902,
+                  "max": 3.1431379318237305,
+                  "sum": 2490.217959240079,
+                  "refSum": 2490.2180549949408,
+                  "relErrSum": 3.845240043922964e-8
+                },
+                "kps_8": {
+                  "count": 64000,
+                  "expectedCount": 64000,
+                  "ok": true,
+                  "min": -2.315141201019287,
+                  "max": 3.1894776821136475,
+                  "sum": 35094.302922703326,
+                  "refSum": 35094.30569296889,
+                  "relErrSum": 7.893775100037075e-8
+                },
+                "kps_16": {
+                  "count": 16000,
+                  "expectedCount": 16000,
+                  "ok": true,
+                  "min": -0.016331732273101807,
+                  "max": 0.9844926595687866,
+                  "sum": 7978.383528448641,
+                  "refSum": 7978.383896186948,
+                  "relErrSum": 4.609182903546669e-8
+                },
+                "kps_32": {
+                  "count": 4000,
+                  "expectedCount": 4000,
+                  "ok": true,
+                  "min": -5.047429084777832,
+                  "max": 8.583505630493164,
+                  "sum": 3960.6872387863696,
+                  "refSum": 3960.6838461458683,
+                  "relErrSum": 8.565794779510432e-7
+                }
+              },
+              "correct": true,
+              "worstRelErr": 0.00003618001937866211
+            }
+          ],
+          "error": null,
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1
+          },
+          "growObserved": true,
+          "conclusion": "GROWTH REGIME REACHED: 2 grow() call(s)",
+          "allCorrect": true,
+          "finishedAt": "2026-09-08T15:21:48.839Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "s04a-real-model",
+          "backend": "wasm",
+          "cycles": 0,
+          "mode": "growth-only",
+          "model": "face_detection_yunet_2023mar.onnx",
+          "modelBytes": 232589,
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-08T15:21:48.918Z",
+          "hookErrors": {
+            "ctor": null,
+            "grow": null
+          },
+          "snapshots": [
+            {
+              "label": "baseline",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "js": null,
+              "at": 75
+            },
+            {
+              "label": "after-create-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": null,
+              "at": 288
+            },
+            {
+              "label": "after-infer-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 29622272,
+                "mb": 28.3,
+                "pages": 452,
+                "growCount": 2
+              },
+              "js": null,
+              "at": 399
+            },
+            {
+              "label": "after-destroy-1",
+              "wasm": {
+                "instances": 1,
+                "bytes": 29622272,
+                "mb": 28.3,
+                "pages": 452,
+                "growCount": 2
+              },
+              "js": null,
+              "at": 401
+            }
+          ],
+          "cycleSnapshots": [],
+          "growthEvents": [
+            {
+              "delta": 96,
+              "beforePages": 256,
+              "afterPages": 352,
+              "beforeMB": 16,
+              "afterMB": 22,
+              "at": 306
+            },
+            {
+              "delta": 100,
+              "beforePages": 352,
+              "afterPages": 452,
+              "beforeMB": 22,
+              "afterMB": 28.3,
+              "at": 322
+            }
+          ],
+          "correctness": [
+            {
+              "tag": "growth-check-session-1",
+              "outputs": {
+                "cls_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "ok": true,
+                  "min": 0.4304600656032562,
+                  "max": 0.8986254930496216,
+                  "sum": 4766.893946051598,
+                  "refSum": 4766.8949937820435,
+                  "relErrSum": 2.1979306177888965e-7
+                },
+                "cls_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "ok": true,
+                  "min": 0.4344068169593811,
+                  "max": 0.6535899043083191,
+                  "sum": 868.1269334554672,
+                  "refSum": 868.127041310072,
+                  "relErrSum": 1.2423827341941598e-7
+                },
+                "cls_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "ok": true,
+                  "min": 0.5219483971595764,
+                  "max": 0.8232485055923462,
+                  "sum": 286.6702365875244,
+                  "refSum": 286.6702564358711,
+                  "relErrSum": 6.923755173270027e-8
+                },
+                "obj_8": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "ok": true,
+                  "min": 0,
+                  "max": 0.000007718801498413086,
+                  "sum": 0.0003218650817871094,
+                  "refSum": 0.00032326579093933105,
+                  "relErrSum": 0.0000014007091522216797
+                },
+                "obj_16": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "ok": true,
+                  "min": 0,
+                  "max": 0.000045359134674072266,
+                  "sum": 0.0022350549697875977,
+                  "refSum": 0.0022712349891662598,
+                  "relErrSum": 0.00003618001937866211
+                },
+                "obj_32": {
+                  "count": 400,
+                  "expectedCount": 400,
+                  "ok": true,
+                  "min": 5.960464477539063e-8,
+                  "max": 0.006015211343765259,
+                  "sum": 0.6216259896755219,
+                  "refSum": 0.6216224431991577,
+                  "relErrSum": 0.000003546476364135742
+                },
+                "bbox_8": {
+                  "count": 25600,
+                  "expectedCount": 25600,
+                  "ok": true,
+                  "min": -0.8456814885139465,
+                  "max": 2.4748458862304688,
+                  "sum": 18580.864360883832,
+                  "refSum": 18580.856178984046,
+                  "relErrSum": 4.4034030010143745e-7
+                },
+                "bbox_16": {
+                  "count": 6400,
+                  "expectedCount": 6400,
+                  "ok": true,
+                  "min": -0.452486515045166,
+                  "max": 0.6001286506652832,
+                  "sum": 1827.932305037044,
+                  "refSum": 1827.9316511005163,
+                  "relErrSum": 3.5774670638025427e-7
+                },
+                "bbox_32": {
+                  "count": 1600,
+                  "expectedCount": 1600,
+                  "ok": true,
+                  "min": -1.5719656944274902,
+                  "max": 3.1431379318237305,
+                  "sum": 2490.217959240079,
+                  "refSum": 2490.2180549949408,
+                  "relErrSum": 3.845240043922964e-8
+                },
+                "kps_8": {
+                  "count": 64000,
+                  "expectedCount": 64000,
+                  "ok": true,
+                  "min": -2.315141201019287,
+                  "max": 3.1894776821136475,
+                  "sum": 35094.302922703326,
+                  "refSum": 35094.30569296889,
+                  "relErrSum": 7.893775100037075e-8
+                },
+                "kps_16": {
+                  "count": 16000,
+                  "expectedCount": 16000,
+                  "ok": true,
+                  "min": -0.016331732273101807,
+                  "max": 0.9844926595687866,
+                  "sum": 7978.383528448641,
+                  "refSum": 7978.383896186948,
+                  "relErrSum": 4.609182903546669e-8
+                },
+                "kps_32": {
+                  "count": 4000,
+                  "expectedCount": 4000,
+                  "ok": true,
+                  "min": -5.047429084777832,
+                  "max": 8.583505630493164,
+                  "sum": 3960.6872387863696,
+                  "refSum": 3960.6838461458683,
+                  "relErrSum": 8.565794779510432e-7
+                }
+              },
+              "correct": true,
+              "worstRelErr": 0.00003618001937866211
+            }
+          ],
+          "error": null,
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "configuredNumThreads": 1
+          },
+          "growObserved": true,
+          "conclusion": "GROWTH REGIME REACHED: 2 grow() call(s)",
+          "allCorrect": true,
+          "finishedAt": "2026-09-08T15:21:49.249Z"
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-08T15:21:49.396Z"
+}
