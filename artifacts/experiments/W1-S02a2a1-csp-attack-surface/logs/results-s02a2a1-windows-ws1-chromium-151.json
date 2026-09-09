@@ -1,0 +1,1859 @@
+{
+  "experiment": "W1-S02a-2a-1",
+  "platform": "windows-ws1",
+  "runs": 3,
+  "variants": [
+    "ext-default",
+    "ext-wasm-unsafe-eval"
+  ],
+  "browserLabel": "chromium-151",
+  "chromeExecutable": "C:\\Users\\RONIT\\AppData\\Local\\ms-playwright\\chromium-1234\\chrome-win64\\chrome.exe",
+  "collectedAt": "2026-09-09T18:10:07.119Z",
+  "records": [
+    {
+      "variant": "ext-default",
+      "run": 1,
+      "browser": "chromium-151",
+      "extensionLoaded": true,
+      "results": [
+        {
+          "context": "mv3-service-worker",
+          "globalKind": "ServiceWorkerGlobalScope",
+          "href": "chrome-extension://lfomligajggahdoigibepmhiladggkjo/background.js",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:09:23.788Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "chrome-extension://lfomligajggahdoigibepmhiladggkjo/fixtures/add.wasm",
+            "chromeApiAvailable": true,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkInstantiateStreaming": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.instantiateStreaming(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": "compile blocked: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:09:23.989Z"
+        },
+        {
+          "context": "offscreen-document",
+          "globalKind": "Window",
+          "href": "chrome-extension://lfomligajggahdoigibepmhiladggkjo/offscreen.html",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:09:24.067Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self'\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self'\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "chrome-extension://lfomligajggahdoigibepmhiladggkjo/fixtures/add.wasm",
+            "chromeApiAvailable": true,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkInstantiateStreaming": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.instantiateStreaming(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": "compile blocked: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:09:24.249Z"
+        },
+        {
+          "context": "offscreen-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "href": "chrome-extension://lfomligajggahdoigibepmhiladggkjo/worker.js",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:09:24.271Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "fixtures/add.wasm",
+            "chromeApiAvailable": false,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkInstantiateStreaming": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.instantiateStreaming(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": "compile blocked: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:09:24.443Z"
+        }
+      ],
+      "logs": [
+        {
+          "stage": "start",
+          "detail": {
+            "variant": "PratiBimb S-02a-2a-1 ext-default",
+            "id": "lfomligajggahdoigibepmhiladggkjo",
+            "csp": null
+          },
+          "at": "2026-09-09T18:09:23.769Z"
+        }
+      ],
+      "extensionOrigin": "null",
+      "contextsReporting": [
+        "mv3-service-worker",
+        "offscreen-dedicated-worker",
+        "offscreen-document"
+      ],
+      "wasmFixtureSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba"
+    },
+    {
+      "variant": "ext-wasm-unsafe-eval",
+      "run": 1,
+      "browser": "chromium-151",
+      "extensionLoaded": true,
+      "results": [
+        {
+          "context": "mv3-service-worker",
+          "globalKind": "ServiceWorkerGlobalScope",
+          "href": "chrome-extension://bcgdobmcaakloclfeodgiejlldeokjbo/background.js",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:09:33.627Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": true,
+              "error": null
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "chrome-extension://bcgdobmcaakloclfeodgiejlldeokjbo/fixtures/add.wasm",
+            "chromeApiAvailable": true,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": true,
+              "value": "instantiated, add(2,3)=5",
+              "error": null
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": true,
+              "value": "instantiated from NETWORK bytes, add(2,3)=5",
+              "error": null
+            },
+            "networkInstantiateStreaming": {
+              "allowed": true,
+              "value": "streaming-instantiated from NETWORK, add(2,3)=5",
+              "error": null
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+                "instantiated": true,
+                "add": 5
+              },
+              "error": null
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": -1
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:09:33.853Z"
+        },
+        {
+          "context": "offscreen-document",
+          "globalKind": "Window",
+          "href": "chrome-extension://bcgdobmcaakloclfeodgiejlldeokjbo/offscreen.html",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:09:33.936Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval'\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval'\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": true,
+              "error": null
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "chrome-extension://bcgdobmcaakloclfeodgiejlldeokjbo/fixtures/add.wasm",
+            "chromeApiAvailable": true,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": true,
+              "value": "instantiated, add(2,3)=5",
+              "error": null
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": true,
+              "value": "instantiated from NETWORK bytes, add(2,3)=5",
+              "error": null
+            },
+            "networkInstantiateStreaming": {
+              "allowed": true,
+              "value": "streaming-instantiated from NETWORK, add(2,3)=5",
+              "error": null
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+                "instantiated": true,
+                "add": 5
+              },
+              "error": null
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": -1
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:09:34.118Z"
+        },
+        {
+          "context": "offscreen-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "href": "chrome-extension://bcgdobmcaakloclfeodgiejlldeokjbo/worker.js",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:09:34.144Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": true,
+              "error": null
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "fixtures/add.wasm",
+            "chromeApiAvailable": false,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": true,
+              "value": "instantiated, add(2,3)=5",
+              "error": null
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": true,
+              "value": "instantiated from NETWORK bytes, add(2,3)=5",
+              "error": null
+            },
+            "networkInstantiateStreaming": {
+              "allowed": true,
+              "value": "streaming-instantiated from NETWORK, add(2,3)=5",
+              "error": null
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+                "instantiated": true,
+                "add": 5
+              },
+              "error": null
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": -1
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:09:34.327Z"
+        }
+      ],
+      "logs": [
+        {
+          "stage": "start",
+          "detail": {
+            "variant": "PratiBimb S-02a-2a-1 ext-wasm-unsafe-eval",
+            "id": "bcgdobmcaakloclfeodgiejlldeokjbo",
+            "csp": {
+              "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+            }
+          },
+          "at": "2026-09-09T18:09:33.600Z"
+        }
+      ],
+      "extensionOrigin": "null",
+      "contextsReporting": [
+        "mv3-service-worker",
+        "offscreen-dedicated-worker",
+        "offscreen-document"
+      ],
+      "wasmFixtureSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba"
+    },
+    {
+      "variant": "ext-default",
+      "run": 2,
+      "browser": "chromium-151",
+      "extensionLoaded": true,
+      "results": [
+        {
+          "context": "mv3-service-worker",
+          "globalKind": "ServiceWorkerGlobalScope",
+          "href": "chrome-extension://lfomligajggahdoigibepmhiladggkjo/background.js",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:09:38.435Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "chrome-extension://lfomligajggahdoigibepmhiladggkjo/fixtures/add.wasm",
+            "chromeApiAvailable": true,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkInstantiateStreaming": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.instantiateStreaming(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": "compile blocked: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:09:39.504Z"
+        },
+        {
+          "context": "offscreen-document",
+          "globalKind": "Window",
+          "href": "chrome-extension://lfomligajggahdoigibepmhiladggkjo/offscreen.html",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:09:39.629Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self'\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self'\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "chrome-extension://lfomligajggahdoigibepmhiladggkjo/fixtures/add.wasm",
+            "chromeApiAvailable": true,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkInstantiateStreaming": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.instantiateStreaming(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": "compile blocked: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:09:39.808Z"
+        },
+        {
+          "context": "offscreen-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "href": "chrome-extension://lfomligajggahdoigibepmhiladggkjo/worker.js",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:09:39.833Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "fixtures/add.wasm",
+            "chromeApiAvailable": false,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkInstantiateStreaming": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.instantiateStreaming(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": "compile blocked: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:09:40.011Z"
+        }
+      ],
+      "logs": [
+        {
+          "stage": "start",
+          "detail": {
+            "variant": "PratiBimb S-02a-2a-1 ext-default",
+            "id": "lfomligajggahdoigibepmhiladggkjo",
+            "csp": null
+          },
+          "at": "2026-09-09T18:09:38.424Z"
+        }
+      ],
+      "extensionOrigin": "null",
+      "contextsReporting": [
+        "mv3-service-worker",
+        "offscreen-dedicated-worker",
+        "offscreen-document"
+      ],
+      "wasmFixtureSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba"
+    },
+    {
+      "variant": "ext-wasm-unsafe-eval",
+      "run": 2,
+      "browser": "chromium-151",
+      "extensionLoaded": true,
+      "results": [
+        {
+          "context": "mv3-service-worker",
+          "globalKind": "ServiceWorkerGlobalScope",
+          "href": "chrome-extension://bcgdobmcaakloclfeodgiejlldeokjbo/background.js",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:09:46.036Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": true,
+              "error": null
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "chrome-extension://bcgdobmcaakloclfeodgiejlldeokjbo/fixtures/add.wasm",
+            "chromeApiAvailable": true,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": true,
+              "value": "instantiated, add(2,3)=5",
+              "error": null
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": true,
+              "value": "instantiated from NETWORK bytes, add(2,3)=5",
+              "error": null
+            },
+            "networkInstantiateStreaming": {
+              "allowed": true,
+              "value": "streaming-instantiated from NETWORK, add(2,3)=5",
+              "error": null
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+                "instantiated": true,
+                "add": 5
+              },
+              "error": null
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": -1
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:09:46.994Z"
+        },
+        {
+          "context": "offscreen-document",
+          "globalKind": "Window",
+          "href": "chrome-extension://bcgdobmcaakloclfeodgiejlldeokjbo/offscreen.html",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:09:47.113Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval'\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval'\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": true,
+              "error": null
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "chrome-extension://bcgdobmcaakloclfeodgiejlldeokjbo/fixtures/add.wasm",
+            "chromeApiAvailable": true,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": true,
+              "value": "instantiated, add(2,3)=5",
+              "error": null
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": true,
+              "value": "instantiated from NETWORK bytes, add(2,3)=5",
+              "error": null
+            },
+            "networkInstantiateStreaming": {
+              "allowed": true,
+              "value": "streaming-instantiated from NETWORK, add(2,3)=5",
+              "error": null
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+                "instantiated": true,
+                "add": 5
+              },
+              "error": null
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": -1
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:09:47.296Z"
+        },
+        {
+          "context": "offscreen-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "href": "chrome-extension://bcgdobmcaakloclfeodgiejlldeokjbo/worker.js",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:09:47.318Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": true,
+              "error": null
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "fixtures/add.wasm",
+            "chromeApiAvailable": false,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": true,
+              "value": "instantiated, add(2,3)=5",
+              "error": null
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": true,
+              "value": "instantiated from NETWORK bytes, add(2,3)=5",
+              "error": null
+            },
+            "networkInstantiateStreaming": {
+              "allowed": true,
+              "value": "streaming-instantiated from NETWORK, add(2,3)=5",
+              "error": null
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+                "instantiated": true,
+                "add": 5
+              },
+              "error": null
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": -1
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:09:47.502Z"
+        }
+      ],
+      "logs": [
+        {
+          "stage": "start",
+          "detail": {
+            "variant": "PratiBimb S-02a-2a-1 ext-wasm-unsafe-eval",
+            "id": "bcgdobmcaakloclfeodgiejlldeokjbo",
+            "csp": {
+              "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+            }
+          },
+          "at": "2026-09-09T18:09:45.926Z"
+        }
+      ],
+      "extensionOrigin": "null",
+      "contextsReporting": [
+        "mv3-service-worker",
+        "offscreen-dedicated-worker",
+        "offscreen-document"
+      ],
+      "wasmFixtureSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba"
+    },
+    {
+      "variant": "ext-default",
+      "run": 3,
+      "browser": "chromium-151",
+      "extensionLoaded": true,
+      "results": [
+        {
+          "context": "mv3-service-worker",
+          "globalKind": "ServiceWorkerGlobalScope",
+          "href": "chrome-extension://lfomligajggahdoigibepmhiladggkjo/background.js",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:09:55.180Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "chrome-extension://lfomligajggahdoigibepmhiladggkjo/fixtures/add.wasm",
+            "chromeApiAvailable": true,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkInstantiateStreaming": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.instantiateStreaming(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": "compile blocked: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:09:55.418Z"
+        },
+        {
+          "context": "offscreen-document",
+          "globalKind": "Window",
+          "href": "chrome-extension://lfomligajggahdoigibepmhiladggkjo/offscreen.html",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:09:55.539Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self'\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self'\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "chrome-extension://lfomligajggahdoigibepmhiladggkjo/fixtures/add.wasm",
+            "chromeApiAvailable": true,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkInstantiateStreaming": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.instantiateStreaming(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": "compile blocked: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:09:55.717Z"
+        },
+        {
+          "context": "offscreen-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "href": "chrome-extension://lfomligajggahdoigibepmhiladggkjo/worker.js",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:09:55.740Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": false,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "fixtures/add.wasm",
+            "chromeApiAvailable": false,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "networkInstantiateStreaming": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.instantiateStreaming(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "CompileError",
+                "message": "WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              }
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": "compile blocked: WebAssembly.compile(): Compiling or instantiating WebAssembly module violates the following Content Security policy directive because neither 'wasm-eval' nor 'unsafe-eval' is an allowed source of script in the following Content Security Policy directive: \"script-src 'self'\"."
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:09:55.918Z"
+        }
+      ],
+      "logs": [
+        {
+          "stage": "start",
+          "detail": {
+            "variant": "PratiBimb S-02a-2a-1 ext-default",
+            "id": "lfomligajggahdoigibepmhiladggkjo",
+            "csp": null
+          },
+          "at": "2026-09-09T18:09:55.143Z"
+        }
+      ],
+      "extensionOrigin": "null",
+      "contextsReporting": [
+        "mv3-service-worker",
+        "offscreen-dedicated-worker",
+        "offscreen-document"
+      ],
+      "wasmFixtureSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba"
+    },
+    {
+      "variant": "ext-wasm-unsafe-eval",
+      "run": 3,
+      "browser": "chromium-151",
+      "extensionLoaded": true,
+      "results": [
+        {
+          "context": "mv3-service-worker",
+          "globalKind": "ServiceWorkerGlobalScope",
+          "href": "chrome-extension://bcgdobmcaakloclfeodgiejlldeokjbo/background.js",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:10:02.685Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": true,
+              "error": null
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "chrome-extension://bcgdobmcaakloclfeodgiejlldeokjbo/fixtures/add.wasm",
+            "chromeApiAvailable": true,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": true,
+              "value": "instantiated, add(2,3)=5",
+              "error": null
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": true,
+              "value": "instantiated from NETWORK bytes, add(2,3)=5",
+              "error": null
+            },
+            "networkInstantiateStreaming": {
+              "allowed": true,
+              "value": "streaming-instantiated from NETWORK, add(2,3)=5",
+              "error": null
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+                "instantiated": true,
+                "add": 5
+              },
+              "error": null
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": -1
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:10:03.707Z"
+        },
+        {
+          "context": "offscreen-document",
+          "globalKind": "Window",
+          "href": "chrome-extension://bcgdobmcaakloclfeodgiejlldeokjbo/offscreen.html",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:10:03.774Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval'\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval'\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": true,
+              "error": null
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "chrome-extension://bcgdobmcaakloclfeodgiejlldeokjbo/fixtures/add.wasm",
+            "chromeApiAvailable": true,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": true,
+              "value": "instantiated, add(2,3)=5",
+              "error": null
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": true,
+              "value": "instantiated from NETWORK bytes, add(2,3)=5",
+              "error": null
+            },
+            "networkInstantiateStreaming": {
+              "allowed": true,
+              "value": "streaming-instantiated from NETWORK, add(2,3)=5",
+              "error": null
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+                "instantiated": true,
+                "add": 5
+              },
+              "error": null
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": -1
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:10:03.960Z"
+        },
+        {
+          "context": "offscreen-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "href": "chrome-extension://bcgdobmcaakloclfeodgiejlldeokjbo/worker.js",
+          "isSecureContext": true,
+          "startedAt": "2026-09-09T18:10:03.984Z",
+          "q1_attack_surface": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "Evaluating a string as JavaScript violates the following Content Security Policy directive because 'unsafe-eval' is not an allowed source of script: script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' http://localhost:* http://127.0.0.1:*\".\n"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            },
+            "wasmCompilePackaged": {
+              "allowed": true,
+              "error": null
+            }
+          },
+          "q2_provenance": {
+            "packagedUrl": "fixtures/add.wasm",
+            "chromeApiAvailable": false,
+            "networkUrl": "http://127.0.0.1:8907/remote.wasm",
+            "packagedFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "packagedCompile": {
+              "allowed": true,
+              "value": "instantiated, add(2,3)=5",
+              "error": null
+            },
+            "networkFetch": {
+              "allowed": true,
+              "error": null
+            },
+            "networkCompile": {
+              "allowed": true,
+              "value": "instantiated from NETWORK bytes, add(2,3)=5",
+              "error": null
+            },
+            "networkInstantiateStreaming": {
+              "allowed": true,
+              "value": "streaming-instantiated from NETWORK, add(2,3)=5",
+              "error": null
+            }
+          },
+          "q3_integrity": {
+            "pinnedSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+            "cleanBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba",
+                "instantiated": true,
+                "add": 5
+              },
+              "error": null
+            },
+            "tamperedBytes": {
+              "allowed": true,
+              "value": {
+                "digest": "51851cf8e54178b3161139f569e2d7ba60aa6433ef0a76dbcea897ff677a9e96",
+                "pinRefused": true,
+                "instantiatedUnderPin": false,
+                "bypassCheck_wouldHaveComputed": -1
+              },
+              "error": null
+            }
+          },
+          "finishedAt": "2026-09-09T18:10:04.162Z"
+        }
+      ],
+      "logs": [
+        {
+          "stage": "start",
+          "detail": {
+            "variant": "PratiBimb S-02a-2a-1 ext-wasm-unsafe-eval",
+            "id": "bcgdobmcaakloclfeodgiejlldeokjbo",
+            "csp": {
+              "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+            }
+          },
+          "at": "2026-09-09T18:10:02.636Z"
+        }
+      ],
+      "extensionOrigin": "null",
+      "contextsReporting": [
+        "mv3-service-worker",
+        "offscreen-dedicated-worker",
+        "offscreen-document"
+      ],
+      "wasmFixtureSha256": "f61fd62f57c41269c3c23f360eeaf1090b1db9c38651106674d48bc65dba88ba"
+    }
+  ]
+}
