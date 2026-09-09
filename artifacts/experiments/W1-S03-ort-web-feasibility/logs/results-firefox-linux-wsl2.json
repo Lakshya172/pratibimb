@@ -1,0 +1,222 @@
+{
+  "experiment": "W1-S03-ort-web",
+  "browser": "firefox",
+  "startedAt": "2026-09-07T22:11:46.762Z",
+  "firefox": "/opt/firefox/firefox",
+  "host": "WSL2 Ubuntu 26.04 guest on a Windows 11 host",
+  "runs": [
+    {
+      "variant": "firefox-mv3-event-page",
+      "prefs": [],
+      "headless": false,
+      "run": 1,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:11:49.408Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "moz-extension://76ef7a0d-ff01-4dea-8810-593b0944ab2b/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 426,
+            "coldRunMs": 5,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 1,
+              "min": 0,
+              "max": 2
+            },
+            "releaseMs": 0
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:11:49.853Z"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:11:49.854Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "moz-extension://76ef7a0d-ff01-4dea-8810-593b0944ab2b/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: WebGPU is not supported in current environment",
+            "stack": "Ll@moz-extension://76ef7a0d-ff01-4dea-8810-593b0944ab2b/ort.all.min.js:6:2149\n"
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: WebGPU is not supported in current environment",
+          "finishedAt": "2026-09-07T22:11:49.854Z"
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "firefox-mv3-event-page",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s03/ext-firefox as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "variant": "firefox-mv3-event-page",
+      "prefs": [],
+      "headless": false,
+      "run": 2,
+      "reported": [
+        {
+          "context": "__alive__",
+          "url": "/alive?stage=start"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:11:53.773Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "moz-extension://daa61200-f72c-4b80-aa4f-74dcedd5bd5b/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 416,
+            "coldRunMs": 2,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 1,
+              "min": 1,
+              "max": 2
+            },
+            "releaseMs": 0
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:11:54.204Z"
+        },
+        {
+          "context": "firefox-mv3-event-page",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:11:54.204Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": false,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "moz-extension://daa61200-f72c-4b80-aa4f-74dcedd5bd5b/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: WebGPU is not supported in current environment",
+            "stack": "Ll@moz-extension://daa61200-f72c-4b80-aa4f-74dcedd5bd5b/ort.all.min.js:6:2149\n"
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: WebGPU is not supported in current environment",
+          "finishedAt": "2026-09-07T22:11:54.204Z"
+        }
+      ],
+      "contextsReported": [
+        "__alive__",
+        "firefox-mv3-event-page",
+        "firefox-mv3-event-page"
+      ],
+      "livenessSeen": true,
+      "timedOut": false,
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed /root/spikes/s03/ext-firefox as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-07T22:11:56.286Z"
+}

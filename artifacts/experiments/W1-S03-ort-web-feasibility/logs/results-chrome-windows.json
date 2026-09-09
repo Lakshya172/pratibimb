@@ -1,0 +1,1678 @@
+{
+  "experiment": "W1-S03-ort-web",
+  "browser": "chrome",
+  "startedAt": "2026-09-07T22:10:26.987Z",
+  "platform": "windows",
+  "chrome": "C:\\Users\\OMEN\\cft\\chrome.exe",
+  "runs": [
+    {
+      "headless": false,
+      "run": 1,
+      "platform": "windows",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:27.838Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.",
+            "stack": "Error: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.\n    at Ll (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:2149)\n    at async r.create (c"
+          },
+          "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+          "finishedAt": "2026-09-07T22:10:27.841Z"
+        },
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:27.841Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+            "stack": "Error: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.\n    at Ll (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:2149)\n    at async r.create (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:20194)\n    at async runOrtPr"
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+          "finishedAt": "2026-09-07T22:10:27.841Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:27.900Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 290.1,
+            "coldRunMs": 7.3,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.3,
+              "min": 0.2,
+              "max": 0.6
+            },
+            "releaseMs": 1.5
+          },
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 3
+            },
+            "afterSession": {
+              "usedJSHeapMB": 4
+            },
+            "afterRuns": {
+              "usedJSHeapMB": 4
+            },
+            "afterRelease": {
+              "usedJSHeapMB": 4
+            }
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:10:28.206Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:28.206Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 160,
+            "coldRunMs": 27,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 5.5,
+              "min": 4.3,
+              "max": 9.3
+            },
+            "releaseMs": 0.5
+          },
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 4
+            },
+            "afterSession": {
+              "usedJSHeapMB": 5
+            },
+            "afterRuns": {
+              "usedJSHeapMB": 18
+            },
+            "afterRelease": {
+              "usedJSHeapMB": 18
+            }
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on webgpu",
+          "finishedAt": "2026-09-07T22:10:28.454Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:28.483Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 76.5,
+            "coldRunMs": 2.1,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.4,
+              "min": 0.2,
+              "max": 0.6
+            },
+            "releaseMs": 0.4
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:10:28.570Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:28.570Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 34.6,
+            "coldRunMs": 11.1,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 5.7,
+              "min": 3.5,
+              "max": 8.5
+            },
+            "releaseMs": 0.4
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on webgpu",
+          "finishedAt": "2026-09-07T22:10:28.679Z"
+        }
+      ]
+    },
+    {
+      "headless": false,
+      "run": 2,
+      "platform": "windows",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:29.762Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.",
+            "stack": "Error: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.\n    at Ll (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:2149)\n    at async r.create (c"
+          },
+          "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+          "finishedAt": "2026-09-07T22:10:29.765Z"
+        },
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:29.765Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+            "stack": "Error: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.\n    at Ll (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:2149)\n    at async r.create (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:20194)\n    at async runOrtPr"
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+          "finishedAt": "2026-09-07T22:10:29.765Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:29.823Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 300.9,
+            "coldRunMs": 8,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.3,
+              "min": 0.2,
+              "max": 1.1
+            },
+            "releaseMs": 1.7
+          },
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 3
+            },
+            "afterSession": {
+              "usedJSHeapMB": 4
+            },
+            "afterRuns": {
+              "usedJSHeapMB": 4
+            },
+            "afterRelease": {
+              "usedJSHeapMB": 4
+            }
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:10:30.142Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:30.142Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 115.6,
+            "coldRunMs": 24.9,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 5.2,
+              "min": 4.9,
+              "max": 8
+            },
+            "releaseMs": 0.6
+          },
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 4
+            },
+            "afterSession": {
+              "usedJSHeapMB": 14
+            },
+            "afterRuns": {
+              "usedJSHeapMB": 16
+            },
+            "afterRelease": {
+              "usedJSHeapMB": 16
+            }
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on webgpu",
+          "finishedAt": "2026-09-07T22:10:30.343Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:30.374Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 74.6,
+            "coldRunMs": 2,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.3,
+              "min": 0.2,
+              "max": 0.6
+            },
+            "releaseMs": 0.2
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:10:30.457Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:30.457Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 36.6,
+            "coldRunMs": 11.3,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 4.9,
+              "min": 4.2,
+              "max": 9.9
+            },
+            "releaseMs": 0.5
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on webgpu",
+          "finishedAt": "2026-09-07T22:10:30.565Z"
+        }
+      ]
+    },
+    {
+      "headless": false,
+      "run": 3,
+      "platform": "windows",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:31.530Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.",
+            "stack": "Error: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.\n    at Ll (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:2149)\n    at async r.create (c"
+          },
+          "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+          "finishedAt": "2026-09-07T22:10:31.534Z"
+        },
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:31.534Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+            "stack": "Error: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.\n    at Ll (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:2149)\n    at async r.create (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:20194)\n    at async runOrtPr"
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+          "finishedAt": "2026-09-07T22:10:31.534Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:31.588Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 301.1,
+            "coldRunMs": 7.8,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.4,
+              "min": 0.2,
+              "max": 1
+            },
+            "releaseMs": 1.7
+          },
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 3
+            },
+            "afterSession": {
+              "usedJSHeapMB": 4
+            },
+            "afterRuns": {
+              "usedJSHeapMB": 4
+            },
+            "afterRelease": {
+              "usedJSHeapMB": 4
+            }
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:10:31.906Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:31.906Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 115.2,
+            "coldRunMs": 25.7,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 6.4,
+              "min": 4.6,
+              "max": 7.7
+            },
+            "releaseMs": 0.6
+          },
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 4
+            },
+            "afterSession": {
+              "usedJSHeapMB": 17
+            },
+            "afterRuns": {
+              "usedJSHeapMB": 17
+            },
+            "afterRelease": {
+              "usedJSHeapMB": 17
+            }
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on webgpu",
+          "finishedAt": "2026-09-07T22:10:32.111Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:32.141Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 76.4,
+            "coldRunMs": 1.8,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.3,
+              "min": 0.2,
+              "max": 1.2
+            },
+            "releaseMs": 0.3
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:10:32.228Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:32.228Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 34,
+            "coldRunMs": 11.9,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 6.1,
+              "min": 4.9,
+              "max": 7.9
+            },
+            "releaseMs": 0.6
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on webgpu",
+          "finishedAt": "2026-09-07T22:10:32.339Z"
+        }
+      ]
+    },
+    {
+      "headless": true,
+      "run": 1,
+      "platform": "windows",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:33.272Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.",
+            "stack": "Error: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.\n    at Ll (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:2149)\n    at async r.create (c"
+          },
+          "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+          "finishedAt": "2026-09-07T22:10:33.275Z"
+        },
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:33.275Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+            "stack": "Error: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.\n    at Ll (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:2149)\n    at async r.create (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:20194)\n    at async runOrtPr"
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+          "finishedAt": "2026-09-07T22:10:33.275Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:33.331Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 300.6,
+            "coldRunMs": 8.4,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.3,
+              "min": 0.2,
+              "max": 0.7
+            },
+            "releaseMs": 1.6
+          },
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 3
+            },
+            "afterSession": {
+              "usedJSHeapMB": 4
+            },
+            "afterRuns": {
+              "usedJSHeapMB": 4
+            },
+            "afterRelease": {
+              "usedJSHeapMB": 4
+            }
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:10:33.648Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:33.648Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 120.6,
+            "coldRunMs": 27,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 5.3,
+              "min": 3.9,
+              "max": 8.7
+            },
+            "releaseMs": 0.8
+          },
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 4
+            },
+            "afterSession": {
+              "usedJSHeapMB": 5
+            },
+            "afterRuns": {
+              "usedJSHeapMB": 16
+            },
+            "afterRelease": {
+              "usedJSHeapMB": 16
+            }
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on webgpu",
+          "finishedAt": "2026-09-07T22:10:33.854Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:33.890Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 75,
+            "coldRunMs": 2,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.3,
+              "min": 0.2,
+              "max": 0.5
+            },
+            "releaseMs": 0.2
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:10:33.974Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:33.974Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 34.6,
+            "coldRunMs": 11.3,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 6.4,
+              "min": 4.8,
+              "max": 9.1
+            },
+            "releaseMs": 0.7
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on webgpu",
+          "finishedAt": "2026-09-07T22:10:34.091Z"
+        }
+      ]
+    },
+    {
+      "headless": true,
+      "run": 2,
+      "platform": "windows",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:35.069Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.",
+            "stack": "Error: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.\n    at Ll (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:2149)\n    at async r.create (c"
+          },
+          "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+          "finishedAt": "2026-09-07T22:10:35.072Z"
+        },
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:35.072Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+            "stack": "Error: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.\n    at Ll (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:2149)\n    at async r.create (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:20194)\n    at async runOrtPr"
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+          "finishedAt": "2026-09-07T22:10:35.072Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:35.126Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 301.8,
+            "coldRunMs": 7.9,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.3,
+              "min": 0.2,
+              "max": 0.6
+            },
+            "releaseMs": 1.8
+          },
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 3
+            },
+            "afterSession": {
+              "usedJSHeapMB": 4
+            },
+            "afterRuns": {
+              "usedJSHeapMB": 4
+            },
+            "afterRelease": {
+              "usedJSHeapMB": 4
+            }
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:10:35.445Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:35.445Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 124.6,
+            "coldRunMs": 30.2,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 5,
+              "min": 3.6,
+              "max": 7.9
+            },
+            "releaseMs": 0.7
+          },
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 4
+            },
+            "afterSession": {
+              "usedJSHeapMB": 17
+            },
+            "afterRuns": {
+              "usedJSHeapMB": 17
+            },
+            "afterRelease": {
+              "usedJSHeapMB": 17
+            }
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on webgpu",
+          "finishedAt": "2026-09-07T22:10:35.655Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:35.691Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 78.2,
+            "coldRunMs": 1.9,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.3,
+              "min": 0.2,
+              "max": 0.5
+            },
+            "releaseMs": 0.3
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:10:35.778Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:35.778Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 32.5,
+            "coldRunMs": 12,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 5.3,
+              "min": 4.2,
+              "max": 8.1
+            },
+            "releaseMs": 0.6
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on webgpu",
+          "finishedAt": "2026-09-07T22:10:35.883Z"
+        }
+      ]
+    },
+    {
+      "headless": true,
+      "run": 3,
+      "platform": "windows",
+      "extensionLoaded": true,
+      "contexts": [
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:36.830Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.",
+            "stack": "Error: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/1356.\n    at Ll (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:2149)\n    at async r.create (c"
+          },
+          "conclusion": "threw: no available backend found. ERR: [wasm] TypeError: import() is disallowed on ServiceWorkerGlobalScope by the HTML specification. See https://github.com/w3c/ServiceWorker/issues/135",
+          "finishedAt": "2026-09-07T22:10:36.833Z"
+        },
+        {
+          "context": "chrome-mv3-service-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:36.833Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": false,
+          "ran": false,
+          "outputCorrect": null,
+          "mismatches": null,
+          "timings": {},
+          "memory": {
+            "beforeSession": null
+          },
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+            "stack": "Error: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.\n    at Ll (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:2149)\n    at async r.create (chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/ort.all.min.js:6:20194)\n    at async runOrtPr"
+          },
+          "conclusion": "threw: no available backend found. ERR: [webgpu] Error: previous call to 'initWasm()' failed.",
+          "finishedAt": "2026-09-07T22:10:36.833Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:36.888Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 290.4,
+            "coldRunMs": 8.4,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.3,
+              "min": 0.2,
+              "max": 0.7
+            },
+            "releaseMs": 1.6
+          },
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 3
+            },
+            "afterSession": {
+              "usedJSHeapMB": 4
+            },
+            "afterRuns": {
+              "usedJSHeapMB": 4
+            },
+            "afterRelease": {
+              "usedJSHeapMB": 4
+            }
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:10:37.196Z"
+        },
+        {
+          "context": "chrome-offscreen-document",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:37.196Z",
+          "globalKind": "window",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 118.9,
+            "coldRunMs": 27.4,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 5.2,
+              "min": 4.4,
+              "max": 7.2
+            },
+            "releaseMs": 0.6
+          },
+          "memory": {
+            "beforeSession": {
+              "usedJSHeapMB": 4
+            },
+            "afterSession": {
+              "usedJSHeapMB": 5
+            },
+            "afterRuns": {
+              "usedJSHeapMB": 17
+            },
+            "afterRelease": {
+              "usedJSHeapMB": 17
+            }
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on webgpu",
+          "finishedAt": "2026-09-07T22:10:37.399Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "wasm",
+          "requestedNumThreads": 1,
+          "startedAt": "2026-09-07T22:10:37.438Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 74.2,
+            "coldRunMs": 1.8,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 0.3,
+              "min": 0.1,
+              "max": 0.8
+            },
+            "releaseMs": 0.3
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on wasm",
+          "finishedAt": "2026-09-07T22:10:37.521Z"
+        },
+        {
+          "context": "chrome-offscreen-dedicated-worker",
+          "probe": "ort-web",
+          "requestedBackend": "webgpu",
+          "requestedNumThreads": "default",
+          "startedAt": "2026-09-07T22:10:37.521Z",
+          "globalKind": "worker",
+          "ortVersion": "1.29.0",
+          "env": {
+            "sharedArrayBuffer": true,
+            "crossOriginIsolated": false,
+            "configuredNumThreads": 1,
+            "wasmPaths": "chrome-extension://jdfngpoimmbghbcbejkchonldiaobhaa/",
+            "hardwareConcurrency": 16
+          },
+          "sessionCreated": true,
+          "ran": true,
+          "outputCorrect": true,
+          "mismatches": 0,
+          "timings": {
+            "sessionCreateMs": 34.5,
+            "coldRunMs": 11,
+            "warmRunMs": {
+              "count": 10,
+              "p50": 5.6,
+              "min": 4.5,
+              "max": 7.6
+            },
+            "releaseMs": 0.5
+          },
+          "memory": {
+            "beforeSession": null,
+            "afterSession": null,
+            "afterRuns": null,
+            "afterRelease": null
+          },
+          "error": null,
+          "inputNames": [
+            "x"
+          ],
+          "outputNames": [
+            "y"
+          ],
+          "firstMismatch": null,
+          "released": true,
+          "conclusion": "ORT session created and ran correctly on webgpu",
+          "finishedAt": "2026-09-07T22:10:37.632Z"
+        }
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-07T22:10:37.911Z"
+}
