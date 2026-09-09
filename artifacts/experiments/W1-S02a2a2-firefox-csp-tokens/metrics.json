@@ -1,0 +1,94 @@
+{
+  "experiment": "W1-S02a-2a-2",
+  "platform": "windows-ws1",
+  "browser": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+  "firefox_version": "155.0.1",
+  "runs": 3,
+  "variants": [
+    "ext-default",
+    "ext-wasm-unsafe-eval",
+    "ext-wasm-eval",
+    "ext-unsafe-eval"
+  ],
+  "total_context_observations": 24,
+  "extension_loaded_alive_beacon": {
+    "ext-default": {
+      "True": 3
+    },
+    "ext-wasm-unsafe-eval": {
+      "True": 3
+    },
+    "ext-wasm-eval": {
+      "True": 3
+    },
+    "ext-unsafe-eval": {
+      "True": 3
+    }
+  },
+  "cells": {
+    "ext-default|firefox-mv3-event-page": {
+      "eval=False": 3,
+      "newFunction=False": 3,
+      "setTimeoutString=False": 3,
+      "wasm.validate=True": 3,
+      "wasm.compile=False": 3,
+      "wasm.instantiate=False": 3
+    },
+    "ext-default|firefox-event-page-dedicated-worker": {
+      "eval=False": 3,
+      "newFunction=False": 3,
+      "setTimeoutString=False": 3,
+      "wasm.validate=True": 3,
+      "wasm.compile=False": 3,
+      "wasm.instantiate=False": 3
+    },
+    "ext-wasm-unsafe-eval|firefox-mv3-event-page": {
+      "eval=False": 3,
+      "newFunction=False": 3,
+      "setTimeoutString=False": 3,
+      "wasm.validate=True": 3,
+      "wasm.compile=True": 3,
+      "wasm.instantiate=True": 3
+    },
+    "ext-wasm-unsafe-eval|firefox-event-page-dedicated-worker": {
+      "eval=False": 3,
+      "newFunction=False": 3,
+      "setTimeoutString=False": 3,
+      "wasm.validate=True": 3,
+      "wasm.compile=True": 3,
+      "wasm.instantiate=True": 3
+    },
+    "ext-wasm-eval|firefox-mv3-event-page": {
+      "eval=False": 3,
+      "newFunction=False": 3,
+      "setTimeoutString=False": 3,
+      "wasm.validate=True": 3,
+      "wasm.compile=False": 3,
+      "wasm.instantiate=False": 3
+    },
+    "ext-wasm-eval|firefox-event-page-dedicated-worker": {
+      "eval=False": 3,
+      "newFunction=False": 3,
+      "setTimeoutString=False": 3,
+      "wasm.validate=True": 3,
+      "wasm.compile=False": 3,
+      "wasm.instantiate=False": 3
+    },
+    "ext-unsafe-eval|firefox-mv3-event-page": {
+      "eval=False": 3,
+      "newFunction=False": 3,
+      "setTimeoutString=False": 3,
+      "wasm.validate=True": 3,
+      "wasm.compile=False": 3,
+      "wasm.instantiate=False": 3
+    },
+    "ext-unsafe-eval|firefox-event-page-dedicated-worker": {
+      "eval=False": 3,
+      "newFunction=False": 3,
+      "setTimeoutString=False": 3,
+      "wasm.validate=True": 3,
+      "wasm.compile=False": 3,
+      "wasm.instantiate=False": 3
+    }
+  }
+}

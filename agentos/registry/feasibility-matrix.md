@@ -121,6 +121,66 @@ environment may be quoted as a hardware number.**
 | S-02a-1 | Firefox on **native** Linux with a real GPU and `/dev/dri`. WSL2 cannot answer it. | `UNKNOWN` | The judging-configuration story |
 | S-02a-2 | Does the **WASM path** carry Firefox-on-Linux, given WebGPU is off by default? | `UNKNOWN` | Firefox parity |
 
+### S-02a-2a-4 result — recorded 2026-09-10 (workstation 1)
+
+**ACCEPT. `connect-src` blocks foreign-origin WASM at the NETWORK layer, before the wire.**
+Chromium 151.0.7922.34 and Edge 152.0.4191.66, three MV3 contexts, two variants, 3 runs
+each — **36/36 unanimous**. Evidence:
+[`W1-S02a-2a-4`](../../artifacts/experiments/W1-S02a2a4-connect-src-provenance/README.md).
+
+Two loopback origins served **byte-identical** WASM; `host_permissions` listed **both** in
+every variant, so the block is attributable to `connect-src` and not to host permissions.
+
+| | `ext-pinned` | `ext-unpinned` (positive control) |
+|---|---|---|
+| Network retrieval | **BLOCKED** — `TypeError: Failed to fetch` | resolved |
+| **Foreign-origin arrivals (ground truth)** | **0** per browser | **18** per browser |
+| WASM compilation | *never attempted* | allowed |
+| Instantiation | *never attempted* | `add(2,3)=5` |
+| Cross-check | **`CONSISTENT_BLOCKED`** | `CONSISTENT_ALLOWED` |
+
+**The finding that matters:** in the unpinned control the **SHA-256 pin ACCEPTED the
+foreign-origin bytes** (identical bytes → `digestMatchesPin: true`). A content hash cannot
+express provenance. **`connect-src` and hash-pinning are orthogonal and both are required.**
+
+| # | New question | Status | Blocks |
+|---|---|---|---|
+| S-02a-2a-4a | Cross-host / https origin rather than a second loopback port? | `UNKNOWN` | Generality of the claim |
+| S-02a-2a-4b | Does `connect-src` bound WASM provenance on **Firefox** too? | `UNKNOWN` | Cross-browser parity of mechanism (3) |
+| S-02a-2a-4c | Can a **redirect** from the allowed origin reach foreign bytes past the pin? | `UNKNOWN` | Completeness of mechanism (3) |
+
+---
+
+### S-02a-2a-2 result — recorded 2026-09-10 (workstation 1)
+
+**ACCEPT. Firefox reaches the same security conclusion as Chrome, by a different failure
+mode.** Real **Firefox 155.0.1** release, 4 variants x 3 runs x 2 contexts — **24/24
+unanimous**. Evidence:
+[`W1-S02a-2a-2`](../../artifacts/experiments/W1-S02a2a2-firefox-csp-tokens/README.md).
+
+| Token | Chrome MV3 | **Firefox MV3** |
+|---|---|---|
+| *(default)* | loads · WASM blocked | loads · WASM blocked |
+| **`'wasm-unsafe-eval'`** | loads · WASM allowed · JS sinks blocked | **same** |
+| `'wasm-eval'` | **DOES NOT LOAD** | **loads** · WASM still blocked |
+| `'unsafe-eval'` | **DOES NOT LOAD** | **loads** · WASM still blocked · `eval` still blocked |
+
+**Security conclusion identical — one policy serves both browsers.** `'wasm-unsafe-eval'`
+never widened `eval`, `new Function` or string-`setTimeout` in any variant or context.
+
+**Operationally they differ: Firefox fails SILENTLY.** A wrong token kills the Chrome
+extension outright but leaves Firefox running with no perception tier and no load error.
+**Compounding trap: `WebAssembly.validate()` succeeds in every Firefox variant including the
+default**, so a startup check using `validate` would report WASM available when compilation
+is blocked. It must use `compile`.
+
+| # | New question | Status | Blocks |
+|---|---|---|---|
+| S-02a-2a-2a | Same token behaviour on **Firefox for Linux**? | `UNKNOWN` | Judging-configuration story |
+| S-02a-2a-2b | Can a startup check reliably distinguish *WASM blocked* from *WASM absent*? | `UNKNOWN` | Fail-closed startup behaviour |
+
+---
+
 ### S-02a-2a-1 result — recorded 2026-09-09 (workstation 1)
 
 **ANSWERED — measurement only. The CSP ADR is prepared, not approved.**
@@ -147,9 +207,9 @@ or the URL passed in from the offscreen document.
 
 | # | New question raised | Status | Blocks |
 |---|---|---|---|
-| S-02a-2a-2 | Does Firefox accept `'wasm-unsafe-eval'`, and is it equally narrow there? | `UNKNOWN` | Cross-browser parity of the ADR |
+| S-02a-2a-2 | Does Firefox accept `'wasm-unsafe-eval'`, and is it equally narrow there? | **`FACT` — ANSWERED**, see below | Cross-browser parity of the ADR |
 | S-02a-2a-3 | Does ORT Web expose its `.wasm` URL, so a pin can precede its own instantiation without patching the library? | `UNKNOWN` | Whether the pinning recommendation is implementable |
-| S-02a-2a-4 | Does a pinned `connect-src` actually block WASM fetched from another origin, in all three contexts? | `UNKNOWN` | Whether mechanism (3) really is the provenance control |
+| S-02a-2a-4 | Does a pinned `connect-src` actually block WASM fetched from another origin, in all three contexts? | **`FACT` — YES, before the wire**, see below | Whether mechanism (3) really is the provenance control |
 
 | S-02a-3 | Mozilla's 2026 ship status for `dom.webgpu.enabled` on Linux release | `UNKNOWN` | Slide accuracy |
 | S-02a-4 | Confirm the backend is software by a route other than `adapterInfo` | `UNKNOWN` | Labelling of Linux figures |

@@ -10,11 +10,16 @@
 
 ## Recorded ADRs
 
-**Count: 0.**
+**Count: 1 proposed, 0 approved.**
 
 | ID | Title | Status | Date | Supersedes |
 |---|---|---|---|---|
-| — | *none yet* | — | — | — |
+| [ADR-0001](ADR-0001-wasm-csp-and-connect-src.md) | WebAssembly CSP directive and the `connect-src` provenance pin | **PROPOSED — awaiting human architect approval** | 2026-09-10 | — |
+
+> **ADR-0001 covers issues #17 and #5 in one decision**, because S-02a-2a-4 measured that
+> the CSP directive and the `connect-src` egress pin live in the same manifest and constrain
+> each other. It is a decision *package*: evidence, options, consequences, rollback and
+> seven verification gates. **Nothing in it has been applied.**
 
 ---
 
