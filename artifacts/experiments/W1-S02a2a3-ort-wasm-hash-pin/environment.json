@@ -1,0 +1,90 @@
+{
+  "experiment": "W1-S02a-2a-3",
+  "title": "Can PratiBimb's SHA-256 pin bind the exact ORT Web .wasm bytes to the bytes executed?",
+  "recorded_at": "2026-09-10T00:48:43+0530",
+  "workstation": {
+    "label": "workstation 1",
+    "hostname": "LAPTOP-6E14K34L",
+    "model": "OMEN Gaming Laptop 16-am0xxx",
+    "os": "Windows 11 build 10.0.26200",
+    "cpu": "Intel(R) Core(TM) 7 240H"
+  },
+  "ort": {
+    "package": "onnxruntime-web",
+    "version": "1.29.0",
+    "bundle": "ort.all.min.js",
+    "artifact_loaded": "ort-wasm-simd-threaded.jsep.wasm",
+    "artifact_bytes": 27797172,
+    "artifact_sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+    "tampered_sha256": "8785a8eebdd14966568301863c205c955038ea934e03ce7dea07f417fabdd12e",
+    "tampered_byte_offset": 16678303,
+    "artifact_not_loaded": {
+      "name": "ort-wasm-simd-threaded.wasm",
+      "bytes": 13961845,
+      "sha256": "ec8580a9d7b9476ceee52e10a7f94124e4dc71a019d666ed6d4726697c109a4d",
+      "note": "The NON-jsep artifact. ort.all.min.js does NOT load this one - measured. A different ORT bundle would load it, and would need its own pin."
+    },
+    "glue_packaged": "ort-wasm-simd-threaded.jsep.mjs",
+    "resolution_note": "ort.all.min.js selects the JSEP build even for the 'wasm' execution provider. Measured, not assumed: the first run failed with \"Failed to fetch dynamically imported module: .../ort-wasm-simd-threaded.jsep.mjs\". A different ORT bundle would load ort-wasm-simd-threaded.wasm and would need its own pin."
+  },
+  "browsers": {
+    "chromium-151": {
+      "version": "151.0.7922.34",
+      "kind": "unbranded Chromium (Playwright cache build 1234)",
+      "driver": "playwright 1.63.0, headful"
+    },
+    "firefox-155": {
+      "version": "155.0.1",
+      "kind": "Mozilla Firefox release",
+      "driver": "web-ext 8.3.0, temporary add-on, headful"
+    }
+  },
+  "origins": {
+    "collector": "http://127.0.0.1:8910 (serves the artifact + tampered copy; in connect-src)",
+    "foreign": "http://127.0.0.1:8911 (serves the same artifact; NOT in connect-src)"
+  },
+  "manifest_csp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8910",
+  "packaging": {
+    "packaged_in_extension": [
+      "ort.all.min.js",
+      "ort-wasm-simd-threaded.jsep.mjs"
+    ],
+    "deliberately_NOT_packaged": [
+      "ort-wasm-simd-threaded.jsep.wasm"
+    ],
+    "why": "The .wasm exists only on an arrival-logged origin. If ORT ever loads WebAssembly without our buffer it MUST fetch, and that fetch MUST appear in the arrival log. A packaged copy would make 'zero arrivals' ambiguous."
+  },
+  "attribution": "Our fetches carry x-pratibimb-probe; ORT's do not. An UNTAGGED artifact request is, by construction, ORT's.",
+  "isolation": "ONE scenario per FRESH dedicated worker. ORT caches its WebAssembly module per JS realm; an earlier version of this harness ran all scenarios in one realm and produced a FALSE 'binding supported'.",
+  "model": {
+    "file": "tiny.onnx (regenerated from W1-S03 build_model.py)",
+    "bytes": 174,
+    "sha256": "2718406b3ef228c72455dea388cd26569d462102f5a642a3bcbba1cedafe49b4",
+    "graph": "y = x*2 + 1 over float32[1, 262144], opset 13",
+    "verification": "element-by-element against a CPU reference"
+  },
+  "machine_changes": [
+    {
+      "PACKAGE": "onnxruntime-web",
+      "VERSION": "1.29.0",
+      "SOURCE": "npm registry",
+      "REASON": "The pinned runtime under test. Same version as W1-S03/S-04.",
+      "IMPACT": "node_modules in this harness only; gitignored. Artifacts are 14-28 MB and are NEVER committed.",
+      "ROLLBACK": "rm -rf artifacts/experiments/W1-S02a2a3-ort-wasm-hash-pin/harness/node_modules"
+    },
+    {
+      "PACKAGE": "onnx (python)",
+      "VERSION": "installed for build_model.py",
+      "SOURCE": "pip",
+      "REASON": "Regenerate the 174-byte W1-S03 model rather than invent a new one.",
+      "IMPACT": "User-site python package.",
+      "ROLLBACK": "pip uninstall onnx"
+    }
+  ],
+  "known_limitations": [
+    "One machine, one OS. Chromium 151 + Firefox 155 on Windows.",
+    "Origins differ by PORT, not host. Cross-host/https untested (S-02a-2a-4a).",
+    "numThreads=1 throughout: deterministic, and avoids the worker-spawn fetch path. Multi-threaded ORT spawns workers that may fetch additional assets - NOT covered here.",
+    "The WebGPU execution provider was not exercised; only the 'wasm' EP. The jsep artifact is shared, but a WebGPU session may touch additional resources."
+  ]
+}

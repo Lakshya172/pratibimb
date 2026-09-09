@@ -101,6 +101,25 @@ fine on it.
 **`onnxruntime` pin unchanged at 1.29.0.** Other versions were tested in a scratch directory
 and the pin was restored and verified.
 
+### Runtime artifact pins — recorded 2026-09-10 (S-02a-2a-3)
+
+**The WebAssembly runtime is a pinned artifact too, and it is pinned PER BUNDLE, not per
+package version.** S-02a-2a-3 measured that `ort.all.min.js` loads the **JSEP** build even
+for the `wasm` execution provider — so pinning the obvious file would pin one the runtime
+never loads, and the check would pass while verifying nothing.
+
+| Package | Version | Bundle shipped | Artifact actually loaded | Bytes | SHA-256 |
+|---|---|---|---|---|---|
+| `onnxruntime-web` | **1.29.0** | `ort.all.min.js` | **`ort-wasm-simd-threaded.jsep.wasm`** | 27,797,172 | `db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea` |
+| `onnxruntime-web` | 1.29.0 | *(not shipped)* | `ort-wasm-simd-threaded.wasm` | 13,961,845 | `ec8580a9d7b9476ceee52e10a7f94124e4dc71a019d666ed6d4726697c109a4d` |
+
+The Emscripten glue `ort-wasm-simd-threaded.jsep.mjs` is loaded by dynamic `import()`,
+governed by `script-src`, and **must be packaged**. It is **not** hash-pinned — see C-3 in
+[`W1-S02a-2a-3`](../../artifacts/experiments/W1-S02a2a3-ort-wasm-hash-pin/README.md).
+
+**No ORT artifact is committed.** They are 14–28 MB and are referenced by pinned revision,
+per the repository's no-weights rule.
+
 ### UI element detection — BLOCKED on licence
 
 **`microsoft/OmniParser-v2.0` `icon_detect` is AGPL-3.0.** Read at revision

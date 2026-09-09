@@ -1,0 +1,40 @@
+{
+  "experiment": "W1-S02a-2a-3",
+  "platform": "windows-ws1",
+  "browserLabel": "firefox-155.0.1",
+  "firefox": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+  "ort": {
+    "ortVersion": "1.29.0",
+    "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+    "bytes": 27797172,
+    "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+    "tamperedSha256": "8785a8eebdd14966568301863c205c955038ea934e03ce7dea07f417fabdd12e",
+    "tamperedByteOffset": 16678303,
+    "plainArtifact": {
+      "name": "ort-wasm-simd-threaded.wasm",
+      "bytes": 13961845,
+      "sha256": "ec8580a9d7b9476ceee52e10a7f94124e4dc71a019d666ed6d4726697c109a4d",
+      "note": "The NON-jsep artifact. ort.all.min.js does NOT load this one - measured. A different ORT bundle would load it, and would need its own pin."
+    }
+  },
+  "runs": 1,
+  "collectedAt": "2026-09-09T19:43:43.029Z",
+  "records": [
+    {
+      "run": 1,
+      "browser": "firefox-155.0.1",
+      "aliveBeacon": false,
+      "results": [],
+      "contexts": [],
+      "groundTruth": {
+        "totalArrivals": 0,
+        "wasmArrivals": 0,
+        "wasmArrivals_ours": 0,
+        "wasmArrivals_ORT": 0,
+        "foreignOriginArrivals": 0,
+        "untaggedDetail": []
+      },
+      "webExtLogTail": "node:internal/modules/package_json_reader:301\r\n  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);\r\n        ^\r\n\r\nError [ERR_MODULE_NOT_FOUND]: Cannot find package 'camelcase' imported from C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-S02a2a3-ort-wasm-hash-pin\\harness\\node_modules\\web-ext\\lib\\program.js\r\n    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)\r\n    at packageResolve (node:internal/modules/esm/resolve:768:81)\r\n    at moduleResolve (node:internal/modules/esm/resolve:859:18)\r\n    at defaultResolve (node:internal/modules/esm/resolve:992:11)\r\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:701:20)\r\n    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:721:38)\r\n    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:759:56)\r\n    at #resolve (node:internal/modules/esm/loader:683:17)\r\n    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:603:35)\r\n    at ModuleJob.syncLink (node:internal/modules/esm/module_job:163:33) {\r\n  code: 'ERR_MODULE_NOT_FOUND'\r\n}\r\n\r\nNode.js v24.19.0\r\n"
+    }
+  ]
+}

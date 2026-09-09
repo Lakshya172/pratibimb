@@ -1,0 +1,71 @@
+{
+  "experiment": "W1-S02a-2a-3",
+  "platform": "windows-ws1",
+  "runs_per_browser": 3,
+  "ort": {
+    "ortVersion": "1.29.0",
+    "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+    "bytes": 27797172,
+    "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+    "tamperedSha256": "8785a8eebdd14966568301863c205c955038ea934e03ce7dea07f417fabdd12e"
+  },
+  "browsers": {
+    "chromium-151": "151.0.7922.34 (Playwright cache, headful)"
+  },
+  "ground_truth_totals_chromium": {
+    "totalArrivals": 36,
+    "wasmArrivals": 27,
+    "wasmArrivals_ours": 15,
+    "wasmArrivals_ORT": 12,
+    "foreignOriginArrivals": 0
+  },
+  "ORT_untagged_fetches_by_url": {
+    "/ort-wasm-simd-threaded.jsep.wasm": 3,
+    "/no-such-file.wasm": 9
+  },
+  "binding_summary": {
+    "artifact_packaged_in_extension": false,
+    "ORT_untagged_fetches_of_real_artifact_in_pinned_scenarios": 0,
+    "tampered_bytes_cause_session_failure": true,
+    "conclusion": "EXACT BYTES HASHED == EXACT BYTES EXECUTED, on chromium-151"
+  },
+  "cells": {
+    "s1_fetch_and_hash|chrome-offscreen-dedicated-worker": {
+      "matchesPin=True": 3,
+      "retrieved=True": 3
+    },
+    "s2_pinned_wasmBinary|chrome-offscreen-dedicated-worker": {
+      "matchesPin=True": 3,
+      "hashVerifiedBeforeCompile=True": 3,
+      "sessionCreated=True": 3,
+      "correct=True": 3
+    },
+    "s2_pinned_wasmBinary|chrome-offscreen-document": {
+      "matchesPin=True": 3,
+      "hashVerifiedBeforeCompile=True": 3,
+      "sessionCreated=True": 3,
+      "correct=True": 3
+    },
+    "s3_tampered_wasmBinary|chrome-offscreen-dedicated-worker": {
+      "digestMatchesPin=False": 3,
+      "pinWouldHaveRefused=True": 3,
+      "sessionCreated=False": 3
+    },
+    "s4_ort_owned_fetch|chrome-offscreen-dedicated-worker": {
+      "sessionCreated=True": 3,
+      "correct=True": 3
+    },
+    "s5_missing_artifact|chrome-offscreen-dedicated-worker": {
+      "sessionCreated=False": 3,
+      "fellBackSilently=False": 3
+    },
+    "s6_foreign_origin|chrome-offscreen-dedicated-worker": {
+      "sessionCreated=False": 3,
+      "ourFetchResolved=False": 3
+    },
+    "s7_second_load|chrome-offscreen-dedicated-worker": {
+      "matchesPin=True": 3,
+      "secondLoad=True/True": 3
+    }
+  }
+}
