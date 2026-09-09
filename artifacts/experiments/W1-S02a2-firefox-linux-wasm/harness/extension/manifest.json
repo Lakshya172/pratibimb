@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "PratiBimb S-02a-2 Firefox WASM substrate probe",
+  "version": "1.0.0",
+  "description": "Throwaway spike harness. Probes the WebAssembly substrate inside a Firefox MV3 event page.",
+  "browser_specific_settings": {
+    "gecko": { "id": "pratibimb-s02a2@example.invalid", "strict_min_version": "128.0" }
+  },
+  "background": { "scripts": ["probe.js", "background.js"] },
+  "host_permissions": ["http://127.0.0.1:8904/*"]
+}
