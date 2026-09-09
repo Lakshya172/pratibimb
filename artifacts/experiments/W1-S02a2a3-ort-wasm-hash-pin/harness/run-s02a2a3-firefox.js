@@ -87,11 +87,18 @@ function oneRun(runIndex) {
     child.stdout.on("data", (d) => { log += d.toString(); });
     child.stderr.on("data", (d) => { log += d.toString(); });
 
-    const deadline = Date.now() + 420000;
+    const deadline = Date.now() + 300000;
     const tick = setInterval(() => {
       if (state.done || Date.now() > deadline) {
         clearInterval(tick);
         try { child.kill(); } catch (_) {}
+        // web-ext spawns Firefox as a GRANDCHILD; killing the wrapper leaves it running.
+        // Without this, instances accumulate across runs until the machine runs out of
+        // memory - observed at 189 live processes before this was added.
+        try {
+          require("child_process").execSync(
+            'taskkill /F /IM firefox.exe /T', { stdio: "ignore" });
+        } catch (_) { /* none running */ }
         setTimeout(() => {
           s1.close(); s2.close();
           try { fs.rmSync(profileDir, { recursive: true, force: true }); } catch (_) {}

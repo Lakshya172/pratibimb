@@ -1,0 +1,725 @@
+{
+  "experiment": "W1-S02a-2a-3",
+  "platform": "windows-ws1",
+  "browserLabel": "chromium-151",
+  "ort": {
+    "ortVersion": "1.29.0",
+    "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+    "bytes": 27797172,
+    "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+    "tamperedSha256": "8785a8eebdd14966568301863c205c955038ea934e03ce7dea07f417fabdd12e",
+    "tamperedByteOffset": 16678303,
+    "plainArtifact": {
+      "name": "ort-wasm-simd-threaded.wasm",
+      "bytes": 13961845,
+      "sha256": "ec8580a9d7b9476ceee52e10a7f94124e4dc71a019d666ed6d4726697c109a4d",
+      "note": "The NON-jsep artifact. ort.all.min.js does NOT load this one - measured. A different ORT bundle would load it, and would need its own pin."
+    }
+  },
+  "runs": 3,
+  "collectedAt": "2026-09-09T19:18:11.314Z",
+  "records": [
+    {
+      "run": 1,
+      "browser": "chromium-151",
+      "extensionLoaded": true,
+      "aliveBeacon": true,
+      "results": [
+        {
+          "scenario": "s1_fetch_and_hash",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:28.205Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "url": "http://127.0.0.1:8910/ort-wasm-simd-threaded.jsep.wasm",
+          "retrieved": true,
+          "error": null,
+          "byteLength": 27797172,
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "finishedAt": "2026-09-09T19:17:28.324Z"
+        },
+        {
+          "scenario": "s2_pinned_wasmBinary",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:28.373Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "hashVerifiedBeforeCompile": true,
+          "sessionCreated": true,
+          "result": {
+            "label": "pinned-wasmBinary",
+            "createMs": 273.1,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T19:17:28.800Z"
+        },
+        {
+          "scenario": "s3_tampered_wasmBinary",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:28.844Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "8785a8eebdd14966568301863c205c955038ea934e03ce7dea07f417fabdd12e",
+          "digestMatchesPin": false,
+          "pinWouldHaveRefused": true,
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(CompileError: WebAssembly.instantiate(): Compiling function #11471 failed: Invalid opcode 0xdf @+16678303). Build with -sASSERTIONS for more info."
+          },
+          "finishedAt": "2026-09-09T19:17:29.015Z"
+        },
+        {
+          "scenario": "s4_ort_owned_fetch",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:29.074Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "sessionCreated": true,
+          "result": {
+            "label": "ort-owned-fetch",
+            "createMs": 400.3,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T19:17:29.488Z"
+        },
+        {
+          "scenario": "s5_missing_artifact",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:29.535Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(CompileError: WebAssembly.instantiate(): expected magic word 00 61 73 6d, found 6e 6f 74 20 @+0). Build with -sASSERTIONS for more info."
+          },
+          "fellBackSilently": false,
+          "finishedAt": "2026-09-09T19:17:29.550Z"
+        },
+        {
+          "scenario": "s6_foreign_origin",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:29.608Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "ourFetchResolved": false,
+          "ourFetchError": {
+            "name": "TypeError",
+            "message": "Failed to fetch"
+          },
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(NetworkError: Failed to execute 'send' on 'XMLHttpRequest': Failed to load 'http://127.0.0.1:8911/ort-wasm-simd-threaded.jsep.wasm'.). Build with -sASSERTIONS for more info."
+          },
+          "note": "Authoritative signal is the FOREIGN origin's arrival log.",
+          "finishedAt": "2026-09-09T19:17:29.619Z"
+        },
+        {
+          "scenario": "s7_second_load",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:29.698Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "first": {
+            "ok": true,
+            "result": {
+              "label": "second-load-1",
+              "createMs": 1686.8,
+              "elements": 262144,
+              "mismatches": 0,
+              "correct": true,
+              "sample": [
+                1,
+                3,
+                5
+              ]
+            },
+            "error": null
+          },
+          "second": {
+            "ok": true,
+            "result": {
+              "label": "second-load-2",
+              "createMs": 3.1,
+              "elements": 262144,
+              "mismatches": 0,
+              "correct": true,
+              "sample": [
+                1,
+                3,
+                5
+              ]
+            },
+            "error": null
+          },
+          "finishedAt": "2026-09-09T19:17:31.766Z"
+        },
+        {
+          "scenario": "s2_pinned_wasmBinary",
+          "context": "chrome-offscreen-document",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/offscreen.html",
+          "startedAt": "2026-09-09T19:17:31.767Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "hashVerifiedBeforeCompile": true,
+          "sessionCreated": true,
+          "result": {
+            "label": "pinned-wasmBinary",
+            "createMs": 907.2,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T19:17:33.080Z"
+        }
+      ],
+      "contexts": [
+        "chrome-offscreen-dedicated-worker",
+        "chrome-offscreen-document"
+      ],
+      "groundTruth": {
+        "totalArrivals": 12,
+        "wasmArrivals": 9,
+        "wasmArrivals_ours": 5,
+        "wasmArrivals_ORT": 4,
+        "foreignOriginArrivals": 0,
+        "untaggedDetail": [
+          {
+            "origin": "collector",
+            "url": "/ort-wasm-simd-threaded.jsep.wasm",
+            "at": "2026-09-09T19:17:29.080Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "at": "2026-09-09T19:17:29.543Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "at": "2026-09-09T19:17:29.546Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "at": "2026-09-09T19:17:29.548Z"
+          }
+        ]
+      }
+    },
+    {
+      "run": 2,
+      "browser": "chromium-151",
+      "extensionLoaded": true,
+      "aliveBeacon": true,
+      "results": [
+        {
+          "scenario": "s1_fetch_and_hash",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:39.708Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "url": "http://127.0.0.1:8910/ort-wasm-simd-threaded.jsep.wasm",
+          "retrieved": true,
+          "error": null,
+          "byteLength": 27797172,
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "finishedAt": "2026-09-09T19:17:39.876Z"
+        },
+        {
+          "scenario": "s2_pinned_wasmBinary",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:39.914Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "hashVerifiedBeforeCompile": true,
+          "sessionCreated": true,
+          "result": {
+            "label": "pinned-wasmBinary",
+            "createMs": 279.2,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T19:17:40.344Z"
+        },
+        {
+          "scenario": "s3_tampered_wasmBinary",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:40.381Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "8785a8eebdd14966568301863c205c955038ea934e03ce7dea07f417fabdd12e",
+          "digestMatchesPin": false,
+          "pinWouldHaveRefused": true,
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(CompileError: WebAssembly.instantiate(): Compiling function #11471 failed: Invalid opcode 0xdf @+16678303). Build with -sASSERTIONS for more info."
+          },
+          "finishedAt": "2026-09-09T19:17:40.548Z"
+        },
+        {
+          "scenario": "s4_ort_owned_fetch",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:40.614Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "sessionCreated": true,
+          "result": {
+            "label": "ort-owned-fetch",
+            "createMs": 430.4,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T19:17:41.061Z"
+        },
+        {
+          "scenario": "s5_missing_artifact",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:41.114Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(CompileError: WebAssembly.instantiate(): expected magic word 00 61 73 6d, found 6e 6f 74 20 @+0). Build with -sASSERTIONS for more info."
+          },
+          "fellBackSilently": false,
+          "finishedAt": "2026-09-09T19:17:41.134Z"
+        },
+        {
+          "scenario": "s6_foreign_origin",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:41.204Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "ourFetchResolved": false,
+          "ourFetchError": {
+            "name": "TypeError",
+            "message": "Failed to fetch"
+          },
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(NetworkError: Failed to execute 'send' on 'XMLHttpRequest': Failed to load 'http://127.0.0.1:8911/ort-wasm-simd-threaded.jsep.wasm'.). Build with -sASSERTIONS for more info."
+          },
+          "note": "Authoritative signal is the FOREIGN origin's arrival log.",
+          "finishedAt": "2026-09-09T19:17:41.214Z"
+        },
+        {
+          "scenario": "s7_second_load",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:41.267Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "first": {
+            "ok": true,
+            "result": {
+              "label": "second-load-1",
+              "createMs": 1164.6,
+              "elements": 262144,
+              "mismatches": 0,
+              "correct": true,
+              "sample": [
+                1,
+                3,
+                5
+              ]
+            },
+            "error": null
+          },
+          "second": {
+            "ok": true,
+            "result": {
+              "label": "second-load-2",
+              "createMs": 2.8,
+              "elements": 262144,
+              "mismatches": 0,
+              "correct": true,
+              "sample": [
+                1,
+                3,
+                5
+              ]
+            },
+            "error": null
+          },
+          "finishedAt": "2026-09-09T19:17:42.749Z"
+        },
+        {
+          "scenario": "s2_pinned_wasmBinary",
+          "context": "chrome-offscreen-document",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/offscreen.html",
+          "startedAt": "2026-09-09T19:17:42.750Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "hashVerifiedBeforeCompile": true,
+          "sessionCreated": true,
+          "result": {
+            "label": "pinned-wasmBinary",
+            "createMs": 582,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T19:17:43.876Z"
+        }
+      ],
+      "contexts": [
+        "chrome-offscreen-dedicated-worker",
+        "chrome-offscreen-document"
+      ],
+      "groundTruth": {
+        "totalArrivals": 12,
+        "wasmArrivals": 9,
+        "wasmArrivals_ours": 5,
+        "wasmArrivals_ORT": 4,
+        "foreignOriginArrivals": 0,
+        "untaggedDetail": [
+          {
+            "origin": "collector",
+            "url": "/ort-wasm-simd-threaded.jsep.wasm",
+            "at": "2026-09-09T19:17:40.621Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "at": "2026-09-09T19:17:41.122Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "at": "2026-09-09T19:17:41.124Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "at": "2026-09-09T19:17:41.130Z"
+          }
+        ]
+      }
+    },
+    {
+      "run": 3,
+      "browser": "chromium-151",
+      "extensionLoaded": true,
+      "aliveBeacon": true,
+      "results": [
+        {
+          "scenario": "s1_fetch_and_hash",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:58.549Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "url": "http://127.0.0.1:8910/ort-wasm-simd-threaded.jsep.wasm",
+          "retrieved": true,
+          "error": null,
+          "byteLength": 27797172,
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "finishedAt": "2026-09-09T19:17:58.705Z"
+        },
+        {
+          "scenario": "s2_pinned_wasmBinary",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:58.760Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "hashVerifiedBeforeCompile": true,
+          "sessionCreated": true,
+          "result": {
+            "label": "pinned-wasmBinary",
+            "createMs": 295.6,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T19:17:59.244Z"
+        },
+        {
+          "scenario": "s3_tampered_wasmBinary",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:59.288Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "8785a8eebdd14966568301863c205c955038ea934e03ce7dea07f417fabdd12e",
+          "digestMatchesPin": false,
+          "pinWouldHaveRefused": true,
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(CompileError: WebAssembly.instantiate(): Compiling function #11471 failed: Invalid opcode 0xdf @+16678303). Build with -sASSERTIONS for more info."
+          },
+          "finishedAt": "2026-09-09T19:17:59.824Z"
+        },
+        {
+          "scenario": "s4_ort_owned_fetch",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:17:59.939Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "sessionCreated": true,
+          "result": {
+            "label": "ort-owned-fetch",
+            "createMs": 2179.1,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T19:18:02.161Z"
+        },
+        {
+          "scenario": "s5_missing_artifact",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:18:02.300Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(CompileError: WebAssembly.instantiate(): expected magic word 00 61 73 6d, found 6e 6f 74 20 @+0). Build with -sASSERTIONS for more info."
+          },
+          "fellBackSilently": false,
+          "finishedAt": "2026-09-09T19:18:02.328Z"
+        },
+        {
+          "scenario": "s6_foreign_origin",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:18:02.493Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "ourFetchResolved": false,
+          "ourFetchError": {
+            "name": "TypeError",
+            "message": "Failed to fetch"
+          },
+          "sessionCreated": false,
+          "error": {
+            "name": "Error",
+            "message": "no available backend found. ERR: [wasm] RuntimeError: Aborted(NetworkError: Failed to execute 'send' on 'XMLHttpRequest': Failed to load 'http://127.0.0.1:8911/ort-wasm-simd-threaded.jsep.wasm'.). Build with -sASSERTIONS for more info."
+          },
+          "note": "Authoritative signal is the FOREIGN origin's arrival log.",
+          "finishedAt": "2026-09-09T19:18:02.518Z"
+        },
+        {
+          "scenario": "s7_second_load",
+          "context": "chrome-offscreen-dedicated-worker",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/worker.js",
+          "startedAt": "2026-09-09T19:18:02.644Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "first": {
+            "ok": true,
+            "result": {
+              "label": "second-load-1",
+              "createMs": 1104.9,
+              "elements": 262144,
+              "mismatches": 0,
+              "correct": true,
+              "sample": [
+                1,
+                3,
+                5
+              ]
+            },
+            "error": null
+          },
+          "second": {
+            "ok": true,
+            "result": {
+              "label": "second-load-2",
+              "createMs": 1.3,
+              "elements": 262144,
+              "mismatches": 0,
+              "correct": true,
+              "sample": [
+                1,
+                3,
+                5
+              ]
+            },
+            "error": null
+          },
+          "finishedAt": "2026-09-09T19:18:04.136Z"
+        },
+        {
+          "scenario": "s2_pinned_wasmBinary",
+          "context": "chrome-offscreen-document",
+          "href": "chrome-extension://omjileopkechbdnlhhicniomhpfohbld/offscreen.html",
+          "startedAt": "2026-09-09T19:18:04.136Z",
+          "pinnedSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "ortVersion": "1.29.0",
+          "digest": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "matchesPin": true,
+          "hashVerifiedBeforeCompile": true,
+          "sessionCreated": true,
+          "result": {
+            "label": "pinned-wasmBinary",
+            "createMs": 868.3,
+            "elements": 262144,
+            "mismatches": 0,
+            "correct": true,
+            "sample": [
+              1,
+              3,
+              5
+            ]
+          },
+          "error": null,
+          "finishedAt": "2026-09-09T19:18:05.391Z"
+        }
+      ],
+      "contexts": [
+        "chrome-offscreen-dedicated-worker",
+        "chrome-offscreen-document"
+      ],
+      "groundTruth": {
+        "totalArrivals": 12,
+        "wasmArrivals": 9,
+        "wasmArrivals_ours": 5,
+        "wasmArrivals_ORT": 4,
+        "foreignOriginArrivals": 0,
+        "untaggedDetail": [
+          {
+            "origin": "collector",
+            "url": "/ort-wasm-simd-threaded.jsep.wasm",
+            "at": "2026-09-09T19:17:59.954Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "at": "2026-09-09T19:18:02.314Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "at": "2026-09-09T19:18:02.318Z"
+          },
+          {
+            "origin": "collector",
+            "url": "/no-such-file.wasm",
+            "at": "2026-09-09T19:18:02.321Z"
+          }
+        ]
+      }
+    }
+  ]
+}
