@@ -1,0 +1,228 @@
+{
+  "browser": "firefox",
+  "runs": 1,
+  "collectedAt": "2026-09-10T07:07:59.929Z",
+  "records": [
+    {
+      "run": 1,
+      "browser": "firefox",
+      "verdict": {
+        "contexts": [
+          "firefox-mv3-event-page",
+          "firefox-event-page-dedicated-worker"
+        ],
+        "G1_wasm_compiles": true,
+        "G1_validate_never_called": true,
+        "G2_foreign_origin_blocked": true,
+        "G3_js_sinks_blocked": true,
+        "groundTruth": {
+          "allowedOriginGETs": 2,
+          "foreignOriginGETs": 0,
+          "foreignOriginPreflights": 0,
+          "note": "Verdict uses GETs only. Preflights carry no custom header and must not be counted as real requests."
+        },
+        "findings": []
+      },
+      "results": [
+        {
+          "context": "firefox-mv3-event-page",
+          "globalKind": "Window",
+          "csp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8920",
+          "startedAt": "2026-09-10T07:07:55.527Z",
+          "g1_wasm_capability": {
+            "allowed": true,
+            "value": "compiled, instantiated, add(2,3)=5",
+            "error": null
+          },
+          "g1_validate_never_called": true,
+          "g3_js_sinks": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "g2_allowed_origin": {
+            "allowed": true,
+            "value": {
+              "byteLength": 41,
+              "add": 5
+            },
+            "error": null
+          },
+          "g2_foreign_origin": {
+            "allowed": false,
+            "value": null,
+            "error": {
+              "name": "TypeError",
+              "message": "NetworkError when attempting to fetch resource."
+            }
+          },
+          "g2_foreign_streaming": {
+            "allowed": false,
+            "value": null,
+            "error": {
+              "name": "TypeError",
+              "message": "NetworkError when attempting to fetch resource."
+            }
+          },
+          "finishedAt": "2026-09-10T07:07:55.705Z"
+        },
+        {
+          "context": "firefox-event-page-dedicated-worker",
+          "globalKind": "DedicatedWorkerGlobalScope",
+          "csp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8920",
+          "startedAt": "2026-09-10T07:07:55.759Z",
+          "g1_wasm_capability": {
+            "allowed": true,
+            "value": "compiled, instantiated, add(2,3)=5",
+            "error": null
+          },
+          "g1_validate_never_called": true,
+          "g3_js_sinks": {
+            "eval": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to eval() blocked by CSP"
+              }
+            },
+            "newFunction": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "EvalError",
+                "message": "call to Function() blocked by CSP"
+              }
+            },
+            "setTimeoutString": {
+              "allowed": false,
+              "value": null,
+              "error": {
+                "name": "Error",
+                "message": "string body did not execute (blocked, silently)"
+              }
+            }
+          },
+          "g2_allowed_origin": {
+            "allowed": true,
+            "value": {
+              "byteLength": 41,
+              "add": 5
+            },
+            "error": null
+          },
+          "g2_foreign_origin": {
+            "allowed": false,
+            "value": null,
+            "error": {
+              "name": "TypeError",
+              "message": "NetworkError when attempting to fetch resource."
+            }
+          },
+          "g2_foreign_streaming": {
+            "allowed": false,
+            "value": null,
+            "error": {
+              "name": "TypeError",
+              "message": "NetworkError when attempting to fetch resource."
+            }
+          },
+          "finishedAt": "2026-09-10T07:07:55.979Z"
+        }
+      ],
+      "arrivals": [
+        {
+          "origin": "allowed",
+          "method": "GET",
+          "url": "/log",
+          "gate": null,
+          "at": "2026-09-10T07:07:54.985Z"
+        },
+        {
+          "origin": "allowed",
+          "method": "GET",
+          "url": "/favicon.ico",
+          "gate": null,
+          "at": "2026-09-10T07:07:55.293Z"
+        },
+        {
+          "origin": "allowed",
+          "method": "GET",
+          "url": "/log",
+          "gate": null,
+          "at": "2026-09-10T07:07:55.578Z"
+        },
+        {
+          "origin": "allowed",
+          "method": "OPTIONS",
+          "url": "/probe.wasm",
+          "gate": null,
+          "at": "2026-09-10T07:07:55.701Z"
+        },
+        {
+          "origin": "allowed",
+          "method": "GET",
+          "url": "/probe.wasm",
+          "gate": "firefox-mv3-event-page::allowed",
+          "at": "2026-09-10T07:07:55.702Z"
+        },
+        {
+          "origin": "allowed",
+          "method": "OPTIONS",
+          "url": "/result",
+          "gate": null,
+          "at": "2026-09-10T07:07:55.718Z"
+        },
+        {
+          "origin": "allowed",
+          "method": "POST",
+          "url": "/result",
+          "gate": "firefox-mv3-event-page::result",
+          "at": "2026-09-10T07:07:55.721Z"
+        },
+        {
+          "origin": "allowed",
+          "method": "GET",
+          "url": "/probe.wasm",
+          "gate": "firefox-event-page-dedicated-worker::allowed",
+          "at": "2026-09-10T07:07:55.963Z"
+        },
+        {
+          "origin": "allowed",
+          "method": "POST",
+          "url": "/result",
+          "gate": "firefox-event-page-dedicated-worker::result",
+          "at": "2026-09-10T07:07:55.984Z"
+        },
+        {
+          "origin": "allowed",
+          "method": "GET",
+          "url": "/done",
+          "gate": null,
+          "at": "2026-09-10T07:07:56.028Z"
+        }
+      ]
+    }
+  ]
+}
