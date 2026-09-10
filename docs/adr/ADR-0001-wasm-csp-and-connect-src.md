@@ -1,12 +1,14 @@
 ---
 id: ADR-0001
 title: "WebAssembly CSP directive and the connect-src provenance pin"
-version: 1.0
-status: PROPOSED — awaiting human architect approval
+version: 1.1
+status: APPROVED — implemented; gates G1–G7 recorded in §12
 owner: pratibimb-architect
 proposed_by: browser-engineer · ml-engineer · privacy-security-engineer
+approved_by: human architect
+approved_on: 2026-09-10
 created: 2026-09-10
-modified: 2026-09-10  # rev 2: S-02a-2a-3 measured; §7.3 reopened and rewritten
+modified: 2026-09-10  # rev 3: approved, implemented, gate results recorded
 supersedes: none
 related_issues: ["#17 (P0, CSP blocks WASM)", "#5 (Invariant E mechanism 2)"]
 related_blockers: ["B-02"]
@@ -16,10 +18,16 @@ related_gates: ["QG-04"]
 
 # ADR-0001 — the WebAssembly CSP directive and the `connect-src` provenance pin
 
-> **STATUS: PROPOSED. NOT APPROVED. NOT IMPLEMENTED.**
-> No manifest, CSP, egress policy or security-critical runtime behaviour has been changed.
-> This ADR is a decision *package*: evidence, options, consequences and gates, assembled so
-> a human architect can decide. **The decision itself is a §26 boundary and is not taken here.**
+> **STATUS: APPROVED and IMPLEMENTED.**
+> Approved at the architectural decision level by the human architect on 2026-09-10, subject
+> to gates G1–G7 and all standing invariants (§12). Implemented on
+> `feature/adr-0001-wasm-csp-and-pin`; gate results are recorded in §12 and the raw evidence
+> in `artifacts/adr/ADR-0001/`.
+>
+> **Approval of the decision is not approval to weaken any gate.** The
+> `privacy-security-engineer` veto is **not** waived beyond the manifest/CSP diff signed off
+> at G6, **QG-04 remains UNSIGNED**, **B-02 remains OPEN**, and **Firefox on Linux remains
+> UNKNOWN**.
 
 ---
 
@@ -274,25 +282,50 @@ egress pin, so a careless edit touches both; and on Firefox a mistake is silent.
 
 **All must pass. This is the gate the ADR's approval is conditioned on.**
 
-- [ ] **G1** — Manifest CSP asserted at **runtime startup**, in every context, using
+- [x] **G1** — Manifest CSP asserted at **runtime startup**, in every context, using
       **`WebAssembly.compile`, never `validate`** (§6 trap). Failure is fail-closed.
-- [ ] **G2** — Automated test: `connect-src` blocks a foreign-origin WASM fetch, asserted
+- [x] **G2** — Automated test: `connect-src` blocks a foreign-origin WASM fetch, asserted
       against an **independent arrival log**, not the page's self-report (B-02 discipline).
-- [ ] **G3** — Automated test: `eval`, `new Function` and string-`setTimeout` remain blocked
+- [x] **G3** — Automated test: `eval`, `new Function` and string-`setTimeout` remain blocked
       with the directive declared — a regression guard on INV-15/INV-16, checking the
       string **executed**, not that the call threw.
-- [ ] **G4** — ~~S-02a-2a-3 answered~~ **DONE (CONDITIONAL).** §7.3 reopened and rewritten. G4 is replaced by G4a–G4c, which enforce its three constraints:
-- [ ] **G4a (C-1)** — a **runtime guard** that fails closed if an ORT session is created in a
+- [x] **G4** — ~~S-02a-2a-3 answered~~ **DONE (CONDITIONAL).** §7.3 reopened and rewritten. G4 is replaced by G4a–G4c, which enforce its three constraints:
+- [x] **G4a (C-1)** — a **runtime guard** that fails closed if an ORT session is created in a
       JS realm where `wasmBinary` was not set first. "Set it before the first session" is an
       ordering convention, and ordering conventions decay; this must be asserted, not documented.
-- [ ] **G4b (C-2)** — a **build-time check** deriving the expected artifact filename **and**
+- [x] **G4b (C-2)** — a **build-time check** deriving the expected artifact filename **and**
       SHA-256 from the shipped ORT bundle, so changing the bundle **breaks the build** rather
       than silently voiding the pin.
-- [ ] **G4c (C-3)** — the `.mjs` glue is packaged, and the residual risk that it is **not**
+- [x] **G4c (C-3)** — the `.mjs` glue is packaged, and the residual risk that it is **not**
       hash-pinned is recorded explicitly in the security documentation.
-- [ ] **G5** — Evidence that no model output can reach a WASM compilation path.
-- [ ] **G6** — `privacy-security-engineer` sign-off on the final manifest diff.
-- [ ] **G7** — Human architect approval recorded here.
+- [x] **G5** — Evidence that no model output can reach a WASM compilation path.
+- [x] **G6** — `privacy-security-engineer` sign-off on the final manifest diff.
+- [x] **G7** — Human architect approval recorded here.
+
+### 12.1 · Gate results — measured 2026-09-10
+
+Raw evidence: `artifacts/adr/ADR-0001/`. Review: `artifacts/adr/ADR-0001/agentos-review.md`.
+
+| Gate | Result | How it was established |
+|---|---|---|
+| **G1** | **PASS** | `assertWasmCompilationAllowed` compiles *and executes* a 41-byte module, checking `add(2,3) === 5`. Chromium 3/3 contexts, Firefox 2/2. The probe shadows `WebAssembly.validate` in every context and confirms it is **never called**; a unit test asserts the same. |
+| **G2** | **PASS** | Two arrival-logged origins, **both** in `host_permissions` so a block is attributable to `connect-src` and not to a missing permission. Foreign-origin GETs = **0** (Chromium and Firefox); allowed-origin GETs = 3 / 2 as the observer sanity control. Preflights counted separately and excluded — they carry no custom header. |
+| **G3** | **PASS** | `eval`, `new Function` and string-`setTimeout` all blocked in every context, asserted on whether the string **executed** rather than on the call throwing. |
+| **G4a** | **PASS** | Realm guard in `ortRuntimePin.ts`. 11 unit tests, every one asserting a refusal: `LATE_INSTALL`, `NOT_PINNED`, `ALREADY_INSTALLED`, `HASH_MISMATCH`, `ARTIFACT_UNAVAILABLE`, `DIGEST_UNAVAILABLE`. The realm is marked **before** the `await`, so a session that throws still blocks a later install. |
+| **G4b** | **PASS** | `npm run pin:check` against the installed `onnxruntime-web@1.29.0`. Artifact `ort-wasm-simd-threaded.jsep.wasm`, SHA-256 `db816fad…a44dea` — identical to the W1-S02a-2a-3 measurement. Also gates the ORT **API surface**, verified by negative control. Wired into CI ahead of typecheck and tests. |
+| **G4c** | **PASS** | Glue is packaged and pointed at by `wasmPaths.mjs`; no `wasm` key exists, so there is no second fetch path. `docs/security/wasm-runtime-provenance.md` §2 states C-3 is **mitigated, not eliminated**. |
+| **G5** | **PASS** | `docs/security/wasm-runtime-provenance.md` §3: a single entry point taking no model-derived input, the digest gate, and an action grammar admitting no compilation-capable action — plus two standing rules, since G5 is a property future code can break. |
+| **G6** | **CONDITIONAL PASS** | `privacy-security-engineer` sign-off on the CSP diff only. **The standing veto is not waived**, `residual_leakage` is `NOT MEASURED` (nothing exists yet that could leak), and QG-04 stays unsigned. |
+| **G7** | **PASS** | Human architect approved the decision on 2026-09-10, explicitly *not* as approval to weaken or bypass any gate. |
+
+**Deliberately NOT promoted by this work:**
+
+- **B-02 stays OPEN.** Its own required evidence is unchanged. The regression guard was re-run
+  and still passes — 3/3 runs reproduce the false green — which keeps the guard honest but
+  supplies none of what B-02 is waiting on.
+- **QG-04 stays UNSIGNED.**
+- **Firefox on Linux stays UNKNOWN.** Every run here is Windows.
+- **S-02a-2a-3a (multi-threaded ORT) stays uncovered.** Fenced by pinning `numThreads = 1`.
 
 **G2 and G3 are regression guards, not one-off checks: they belong in the permanent suite.**
 
@@ -314,4 +347,4 @@ egress pin, so a careless edit touches both; and on Firefox a mistake is silent.
 | `ml-engineer` | **PASS.** The §7.3 condition is discharged by S-02a-2a-3 (CONDITIONAL). Conditions carried forward: the model registry must record the pinned artifact **per bundle**, not per package version (C-2), and S-02a-2a-3a (threads) remains uncovered |
 | `privacy-security-engineer` | **PASS on the evidence; standing veto NOT waived.** Requires G1–G3 and G6 before any manifest change |
 | `pratibimb-architect` | Prepared; recommends adoption subject to §12 |
-| **Human architect** | ☐ **PENDING — this ADR is not approved** |
+| **Human architect** | ☑ **APPROVED 2026-09-10** — at the architectural decision level, subject to G1–G7 and all standing invariants. Recorded verbatim in intent: *"Do NOT interpret this as approval to weaken or bypass any security gate."* |

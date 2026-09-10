@@ -171,7 +171,15 @@ is unaffected. See `docs/operations/git-workflow.md` §8.4.
 
 ## Decisions log pointer
 
-`docs/adr/README.md` — **0 ADRs recorded.** 12 ADR candidates identified, none written.
+`docs/adr/README.md` — **1 ADR recorded, approved and implemented.** 12 ADR candidates
+identified, one written.
+
+- **ADR-0001** — WebAssembly CSP directive and the `connect-src` provenance pin.
+  **APPROVED 2026-09-10** by the human architect at the architectural decision level, subject
+  to G1–G7. Implemented; all nine gate cells recorded in §12.1, with **G6 a CONDITIONAL
+  PASS** (CSP diff only; the `privacy-security-engineer` veto is not waived). Approval was
+  explicitly not approval to weaken any gate — **QG-04 stays UNSIGNED, B-02 stays OPEN,
+  Firefox on Linux stays UNKNOWN.**
 
 ---
 
@@ -182,3 +190,4 @@ is unaffected. See `docs/operations/git-workflow.md` §8.4.
 | 2026-09-07 | Initialization / discovery pass | Dossier v4.0 read in full and recorded; Raptor's Way audited against its implementation, not its README; PratiBimb AgentOS layer created; contracts frozen; registries created empty. **No product implementation started.** |
 | 2026-09-07 | Reconstruction onto workstation 2 | Repository reconstructed from GitHub on a second machine via a fork. S-01 evidence re-verified independently — every headline figure recomputed from the raw run records and reproduced exactly. Raptor's Way audit re-measured; one figure corrected forward (`AUDIT-0001` Correction C-1). Five documentation defects fixed (PR #3, merged `09aa71b`). Blocker register created. **No product implementation started.** |
 | 2026-09-07 | S-01b executed | Invariant E's planned Playwright interception measured against the real send path. **CONDITIONAL** — `context.route()` is blind to the MV3 offscreen document, 3 runs of 3. Invariant unchanged, QG-04 unsigned, replacement vehicle deliberately left to an ADR. **No product implementation started.** |
+| 2026-09-10 | ADR-0001 approved and implemented | The project's **first production code**. `packages/security` implements the approved CSP builder, the G1 WebAssembly capability assertion (`compile`, never `validate`) and the ORT WASM byte pin with its C-1 realm guard; `scripts/generate-ort-pin.mjs` breaks the build on bundle **or ORT API** drift; `tests/browser/gates` carries G1–G3 as permanent regression guards across Chromium and Firefox. All nine gate cells recorded, G6 **CONDITIONAL**. B-02 guard re-run and still passing 3/3. **QG-04 unsigned, B-02 open, Firefox-on-Linux UNKNOWN — none promoted.** Perception/product work deliberately not started. |
