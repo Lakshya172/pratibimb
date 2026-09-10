@@ -1,0 +1,23 @@
+{
+  "name": "pratibimb",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "pin:generate": "node scripts/generate-ort-pin.mjs",
+    "pin:check": "node scripts/generate-ort-pin.mjs --check",
+    "test": "vitest run",
+    "typecheck": "tsc -b --force",
+    "verify": "python scripts/verify-repo.py && npm run pin:check && npm run typecheck && npm test"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vitest": "3.2.4"
+  },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ]
+}
