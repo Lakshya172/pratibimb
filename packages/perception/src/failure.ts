@@ -14,6 +14,22 @@
 export type PerceptionErrorCode =
   /** The capture mechanism did not produce a frame. */
   | "CAPTURE_FAILED"
+  /**
+   * The browser refused this capture because its own rate quota was exceeded.
+   *
+   * Distinct from `CAPTURE_FAILED` on measured grounds, not stylistic ones. W1-S05-rate
+   * established that on Chromium this state is **recoverable, self-identifying and
+   * short-lived** — the browser names the quota in its error text, and the next capture
+   * succeeded after ~1.15 s in both runs. `CAPTURE_FAILED` carries no such promise; a
+   * restricted URL or a torn-down tab will not fix itself.
+   *
+   * A scheduler must be able to tell "wait and this will work" from "this will not work",
+   * and collapsing both into one code destroys exactly that distinction.
+   *
+   * **The adapter does not act on this.** It does not retry, back off, sleep or queue. It
+   * reports the state and the refresh scheduler decides — see `capture.ts`.
+   */
+  | "CAPTURE_THROTTLED"
   /** Capture dimensions cannot describe the viewport with one scale factor. */
   | "CAPTURE_DIMENSION_MISMATCH"
   /** A transform was requested from geometry that does not determine one. */

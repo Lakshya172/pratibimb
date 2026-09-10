@@ -90,8 +90,10 @@ describe("the adapter fails closed", () => {
   });
 
   it("REFUSES rather than retrying when captureVisibleTab rejects", async () => {
-    // Throttling arrives here. S-05's rate limit is UNKNOWN, so there is deliberately no
-    // backoff policy to be found in this module.
+    // Throttling arrives here. W1-S05-rate has since MEASURED it, so it now classifies as
+    // CAPTURE_THROTTLED rather than CAPTURE_FAILED - see captureThrottle.test.ts. What has
+    // not changed, and is the point of this test, is that the adapter still contains no
+    // backoff, no retry and no queueing.
     const tabs: TabsCaptureApi = {
       captureVisibleTab: async () => {
         throw new Error("MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND quota exceeded");
@@ -100,7 +102,7 @@ describe("the adapter fails closed", () => {
     const r = await createTabCaptureAdapter(tabs, sizeOf(2048, 1280)).capture(measurement);
     expect(r.ok).toBe(false);
     if (!r.ok) {
-      expect(r.code).toBe("CAPTURE_FAILED");
+      expect(r.code).toBe("CAPTURE_THROTTLED");
       expect(r.detail).toMatch(/quota exceeded/);
     }
   });

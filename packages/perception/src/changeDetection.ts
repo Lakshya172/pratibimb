@@ -69,12 +69,71 @@ export interface ChangePolicy {
   readonly maxDynamicRegions: number;
 }
 
+/**
+ * Which of these are bounded by evidence, and which are still policy.
+ *
+ * W1-S05-rate measured `captureVisibleTab` on Chromium 151 and Firefox 155. It bounds
+ * exactly ONE of the four constants below. The others remain policy decisions, and saying
+ * so is the point — a benchmark can rule a value out, but it cannot choose a cadence.
+ *
+ *   minCaptureIntervalMs      BOUNDED BELOW BY EVIDENCE. Was 250 ms, which is 4 Hz.
+ *                             Chromium succeeded at only 50-67% at 4 Hz across 6 ladder
+ *                             passes in 2 runs, while 500 ms succeeded 12/12 in every
+ *                             pass and 40/40 sustained, twice. 250 ms was a value the
+ *                             browser refuses to honour. 500 ms is the measured floor,
+ *                             NOT a tuned optimum.
+ *
+ *   fullFrameHashIntervalMs   POLICY. 2000 ms is 0.5 Hz, far inside the safe envelope, so
+ *                             the measurement neither justifies nor forbids it. It is set
+ *                             by the cost of hashing and the tolerable blindness window.
+ *
+ *   dynamicRegionPollMs       POLICY, with a caveat. Polling a region is not itself a
+ *                             capture; it only becomes one when it drives a refresh. The
+ *                             debounce above is what keeps the resulting capture cadence
+ *                             legal, so this value must never be treated as a capture
+ *                             rate in its own right.
+ *
+ *   maxDynamicRegions         POLICY. Unrelated to capture rate; it bounds fan-out.
+ *
+ * Firefox showed no limit at or below 10 Hz, so nothing here is bound by Firefox. Tuning
+ * to Firefox's headroom would be throttled on Chromium; the floor is set by the stricter
+ * engine, which is the only way a single cadence can be correct on both.
+ */
 export const DEFAULT_CHANGE_POLICY: ChangePolicy = {
-  minCaptureIntervalMs: 250,
+  /** Measured floor, Chromium. See the note above — do not lower without new evidence. */
+  minCaptureIntervalMs: 500,
   fullFrameHashIntervalMs: 2_000,
   dynamicRegionPollMs: 500,
   maxDynamicRegions: 8,
 };
+
+/**
+ * The safe operating envelope W1-S05-rate observed, kept next to the policy that depends
+ * on it so the two cannot drift apart silently.
+ *
+ * `CONDITIONAL`: the `activeTab` permission path is NOT MEASURED, and the dossier states
+ * capture is rate-limited "particularly under activeTab". If PratiBimb ships under
+ * `activeTab` rather than a host permission, this envelope must be re-measured before it
+ * is relied upon.
+ */
+export const MEASURED_CAPTURE_ENVELOPE = {
+  experiment: "W1-S05-rate",
+  verdict: "CONDITIONAL",
+  chromium: {
+    version: "151",
+    safeIntervalMs: 500,
+    observedSuccessesPerSecond: 1.7,
+    onsetBetweenHz: [2, 3],
+    burstAllowanceObserved: 2,
+    recoveryMs: 1150,
+  },
+  firefox: {
+    version: "155",
+    note: "No throttle observed at or below 10 Hz, 8-deep bursts, 5-way concurrency. " +
+      "This is an absence of observation, not a proof of absence.",
+  },
+  notMeasured: ["activeTab permission path", "Linux", "macOS", "rates above 10 Hz"],
+} as const;
 
 export type RefreshDecision =
   | { readonly refresh: true; readonly signal: ChangeSignal }
