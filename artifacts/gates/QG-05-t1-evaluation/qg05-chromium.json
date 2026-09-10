@@ -1,0 +1,61 @@
+{
+  "gate": "QG-05 (T1 visual-context slice)",
+  "browser": "chromium",
+  "collectedAt": "2026-09-10T17:32:31.870Z",
+  "warning": "These are EVALUATOR VALIDATION baselines, not detector performance. The perfect baseline copies ground truth and scores 1.0 by construction. There is no admissible T1 detector; the UIElementDetector refuses with MODEL_ASSET_UNAVAILABLE.",
+  "scope": "QG-05 is the whole evaluation harness (five scored metrics plus task success after privacy). This covers ONE slice: visual context (25%) - element mAP@0.5, element recall, grounding accuracy. The gate is NOT claimed as passed.",
+  "findings": [],
+  "result": {
+    "browser": "chromium",
+    "geometry": {
+      "viewportCss": {
+        "w": 1024,
+        "h": 640
+      },
+      "captureSize": {
+        "w": 2048,
+        "h": 1280
+      },
+      "dpr": 2,
+      "zoom": 1
+    },
+    "dataset": {
+      "name": "qg05-browser-t1",
+      "version": "1.0.0",
+      "hash": "50cd89a2",
+      "samples": 3
+    },
+    "labelsValid": true,
+    "annotations": {
+      "total": 12,
+      "visible": 9,
+      "clipped": 1,
+      "offscreen": 2
+    },
+    "detector": {
+      "code": "MODEL_ASSET_UNAVAILABLE"
+    },
+    "baselines": {
+      "perfect": {
+        "mAP50": 1,
+        "recall": 1,
+        "grounding": 1
+      },
+      "empty": {
+        "mAP50": 0,
+        "recall": 0,
+        "grounding": null
+      },
+      "shift10": {
+        "mAP50": 0.6666666666666666,
+        "recall": 0.7
+      },
+      "shift400": {
+        "mAP50": 0,
+        "recall": 0
+      }
+    },
+    "excludedOffscreen": 2,
+    "evaluatable": 10
+  }
+}
