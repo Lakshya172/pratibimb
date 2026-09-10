@@ -1,0 +1,309 @@
+{
+  "gate": "T1 detector + fusion",
+  "browser": "firefox",
+  "collectedAt": "2026-09-10T15:30:16.489Z",
+  "note": "The detector has NO WEIGHTS. The 'synthetic' detections are derived from measured DOM boxes to exercise the fusion path and the model->capture->CSS chain on real geometry. They are NOT a detector and support NO accuracy claim.",
+  "findings": [],
+  "result": {
+    "browser": "firefox",
+    "viewportCss": {
+      "w": 1024,
+      "h": 640
+    },
+    "captureSize": {
+      "w": 2048,
+      "h": 1280
+    },
+    "dpr": 2,
+    "detectorRefusal": {
+      "code": "MODEL_ASSET_UNAVAILABLE",
+      "detail": "The UIElementDetector head has no weights. Option A (OmniParser icon_detect_v3) is licence-excluded and option B is untrained, so the admissible configuration is option C, the DOM-only floor. This is reported rather than returned as an empty detection list, which would be indistinguishable from a page with no controls."
+    },
+    "floor": {
+      "elements": 18,
+      "domOnly": 18,
+      "matched": 0,
+      "noDetector": 16
+    },
+    "synthetic": {
+      "detections": 5,
+      "matched": 5,
+      "visionOnly": 0,
+      "overlaySuspects": 0
+    },
+    "staleFrame": {
+      "refused": true,
+      "code": "STALE_FRAME"
+    },
+    "offscreen": {
+      "id": "e16",
+      "role": "button",
+      "name": "Submit application",
+      "source": "dom",
+      "visible": false,
+      "offscreen": true,
+      "enabled": true
+    },
+    "clippedKind": "CLIPPED",
+    "projected": [
+      {
+        "id": "e0",
+        "role": "generic",
+        "name": "Ration cardApply",
+        "source": "dom+vision",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          40,
+          80,
+          280,
+          96
+        ]
+      },
+      {
+        "id": "e1",
+        "role": "generic",
+        "name": "Income certificateApply",
+        "source": "dom",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          340,
+          80,
+          280,
+          96
+        ]
+      },
+      {
+        "id": "e2",
+        "role": "generic",
+        "name": "DomicileApply",
+        "source": "dom",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          640,
+          80,
+          280,
+          96
+        ]
+      },
+      {
+        "id": "e3",
+        "role": "button",
+        "name": "Save",
+        "source": "dom+vision",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          40,
+          240,
+          130,
+          36
+        ]
+      },
+      {
+        "id": "e4",
+        "role": "button",
+        "name": "Save as…",
+        "source": "dom",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          190,
+          240,
+          130,
+          36
+        ]
+      },
+      {
+        "id": "e5",
+        "role": "label",
+        "name": "Email address",
+        "source": "dom",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          40,
+          296,
+          320,
+          18
+        ]
+      },
+      {
+        "id": "e6",
+        "role": "textbox",
+        "name": "Email address",
+        "source": "dom+vision",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          40,
+          320,
+          320,
+          32
+        ]
+      },
+      {
+        "id": "e7",
+        "role": "label",
+        "name": "I consent to processing",
+        "source": "dom",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          40,
+          380,
+          420,
+          24
+        ]
+      },
+      {
+        "id": "e8",
+        "role": "checkbox",
+        "name": "Consent to processing",
+        "source": "dom+vision",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          48,
+          387,
+          16,
+          16
+        ]
+      },
+      {
+        "id": "e9",
+        "role": "link",
+        "name": "Terms of service",
+        "source": "dom+vision",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          40,
+          420,
+          200,
+          24
+        ]
+      },
+      {
+        "id": "e10",
+        "role": "radio",
+        "name": "Standard plan",
+        "source": "dom",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          45,
+          463,
+          16,
+          16
+        ]
+      },
+      {
+        "id": "e11",
+        "role": "radio",
+        "name": "Priority plan",
+        "source": "dom",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          145,
+          463,
+          16,
+          16
+        ]
+      },
+      {
+        "id": "e12",
+        "role": "select",
+        "name": "State",
+        "source": "dom",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          40,
+          500,
+          220,
+          32
+        ]
+      },
+      {
+        "id": "e13",
+        "role": "link",
+        "name": "Need help with this form?",
+        "source": "dom",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          40,
+          550,
+          180,
+          18
+        ]
+      },
+      {
+        "id": "e14",
+        "role": "generic",
+        "name": "Queue position: 0",
+        "source": "dom",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          500,
+          320,
+          300,
+          70
+        ]
+      },
+      {
+        "id": "e15",
+        "role": "button",
+        "name": "Straddles the fold",
+        "source": "dom",
+        "visible": true,
+        "offscreen": false,
+        "enabled": true,
+        "bbox": [
+          40,
+          620,
+          240,
+          44
+        ]
+      },
+      {
+        "id": "e16",
+        "role": "button",
+        "name": "Submit application",
+        "source": "dom",
+        "visible": false,
+        "offscreen": true,
+        "enabled": true
+      },
+      {
+        "id": "e17",
+        "role": "link",
+        "name": "Privacy policy",
+        "source": "dom",
+        "visible": false,
+        "offscreen": true,
+        "enabled": true
+      }
+    ]
+  }
+}
