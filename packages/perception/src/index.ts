@@ -18,6 +18,7 @@ export {
   type Box, type CssBox, type DeviceBox, type CaptureBox, type DocBox,
   cssPx, devicePx, capturePx, docPx,
   cssBox, deviceBox, captureBox, docBox, toBboxArray,
+  type ModelPx, type ModelBox, modelPx, modelBox,
 } from "./space.js";
 
 export {
@@ -58,7 +59,7 @@ export {
 export {
   type Provenance, type FusedElement, type FusionResult,
   FUSION_IOU_THRESHOLD, OVERLAY_SUSPICION_FLOOR,
-  iou, fuse, manifestSource,
+  iou, fuse, manifestSource, assertSameFrame,
 } from "./fusion.js";
 
 export {
@@ -71,3 +72,14 @@ export {
   type SanitizedHandoff, type SanitizedElement,
   projectElement, projectElements,
 } from "./perceptionState.js";
+
+export {
+  type LetterboxTransform,
+  computeLetterbox, modelToCapture, captureToModel, isInsideContent, clipToContent,
+} from "./letterbox.js";
+
+export {
+  type UiClass, type HeadTensorContract, type HeadOutput, type HeadRuntime,
+  UI_CLASSES, HEAD_CONTRACT, PROVISIONAL_THRESHOLDS, UI_DETECTOR_ROLE,
+  decodeHeadOutput, projectToCapture, createUiElementDetector,
+} from "./uiDetectorHead.js";

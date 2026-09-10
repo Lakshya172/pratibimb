@@ -59,6 +59,16 @@ export interface VisualDetection {
   readonly score: number;
   readonly role: DetectorRole;
   readonly frameId: CaptureFrame["id"];
+  /**
+   * WHICH MODEL SAID SO, pinned identity and revision.
+   *
+   * Provenance has to survive fusion, and "a detector said this" is not provenance - two
+   * different heads disagree in different ways, and a box from an untrained head must be
+   * distinguishable from one produced by a benchmarked model. Without this, swapping
+   * weights silently rewrites the meaning of every stored observation.
+   */
+  readonly modelId: string;
+  readonly revision: string;
 }
 
 /**
@@ -208,13 +218,15 @@ export function validateDetections(
 export function toVisualDetections(
   detections: readonly Detection[],
   frame: CaptureFrame,
-  role: DetectorRole
+  detector: Pick<Detector, "role" | "modelId" | "revision">
 ): readonly VisualDetection[] {
   return detections.map((d) => ({
     box: captureToCss(d.box, frame.geometry),
     label: d.label,
     score: d.score,
-    role,
+    role: detector.role,
     frameId: frame.id,
+    modelId: detector.modelId,
+    revision: detector.revision,
   }));
 }

@@ -94,3 +94,27 @@ export const toBboxArray = (b: CssBox): readonly [number, number, number, number
   b.w,
   b.h,
 ];
+
+/**
+ * Model-input pixels — the letterboxed square tensor a detector actually sees.
+ *
+ * A fifth space, and the only one that is not a view of the page: it is a view of a
+ * RESIZED AND PADDED copy of the frame. A box at model (320, 320) is the centre of the
+ * tensor, which is not the centre of the viewport whenever the frame is not square.
+ *
+ * It is branded like the rest precisely because the arithmetic looks so plausible without
+ * it. `box.x * scale` is correct for capture space and silently wrong for model space,
+ * where the padding offset must come off first.
+ */
+export type ModelPx = number & { readonly [SPACE]: "model-input" };
+
+export type ModelBox = Box<ModelPx>;
+
+export const modelPx = (n: number): ModelPx => n as ModelPx;
+
+export const modelBox = (x: number, y: number, w: number, h: number): ModelBox => ({
+  x: modelPx(x),
+  y: modelPx(y),
+  w: modelPx(w),
+  h: modelPx(h),
+});

@@ -164,12 +164,16 @@ describe("promotion into canonical space", () => {
     expect(validated.ok).toBe(true);
     if (!validated.ok) return;
 
-    const promoted = toVisualDetections(validated.value, frame, "FaceDetector");
+    const promoted = toVisualDetections(validated.value, frame, yunet);
     // scale_to_css = 1024/2048 = 0.5
     expect(promoted[0]!.box.x).toBeCloseTo(100, 9);
     expect(promoted[0]!.box.w).toBeCloseTo(200, 9);
     // Every visual claim carries the frame that justifies it.
     expect(promoted[0]!.frameId).toBe(frame.id);
     expect(promoted[0]!.role).toBe("FaceDetector");
+    // Model identity rides along, so a box from an untrained head is distinguishable from
+    // one produced by a benchmarked model after it has been stored.
+    expect(promoted[0]!.modelId).toBe("face_detection_yunet_2023mar");
+    expect(promoted[0]!.revision).toBe("47534e27");
   });
 });
