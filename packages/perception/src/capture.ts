@@ -152,6 +152,27 @@ export function decodeDataUrl(dataUrl: string): { bytes: Uint8Array; format: "pn
 }
 
 /**
+ * Recognise the browser's own rate-quota refusal.
+ *
+ * W1-S05-rate measured exactly one throttle error string on Chromium 151, and it names the
+ * quota itself:
+ *
+ *   "This request exceeds the MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND quota."
+ *
+ * Firefox 155 produced no throttle error at all within the tested envelope (100% success
+ * through 10 Hz, 8-deep bursts and 5-way concurrency), so there is no Firefox signature to
+ * match — and none is invented.
+ *
+ * MATCHING A STRING IS A WEAK TEST, AND IT FAILS IN THE SAFE DIRECTION. An unrecognised
+ * message yields `CAPTURE_FAILED`, which promises nothing. The dangerous mistake would be
+ * the reverse — labelling an unrecoverable failure as throttling, so a scheduler waits
+ * politely forever for something that will never succeed.
+ */
+export function isThrottleSignature(message: string): boolean {
+  return /MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND|exceeds the .* quota/i.test(message);
+}
+
+/**
  * Create the real capture adapter.
  *
  * `decodeSize` is injected because reading the intrinsic dimensions of an encoded image
@@ -173,12 +194,14 @@ export function createTabCaptureAdapter(
       try {
         dataUrl = await tabs.captureVisibleTab({ format: "png" });
       } catch (cause) {
-        // Throttling arrives here too. It is reported, never retried into: the real
-        // MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND behaviour is S-05's open question, and
-        // a retry loop would be a policy invented ahead of the measurement.
+        const message = String((cause as Error)?.message ?? cause);
+        // Throttling is now MEASURED rather than anticipated (W1-S05-rate), so it is
+        // classified. It is still never retried into here: the adapter reports, the
+        // refresh scheduler decides. A retry loop inside the adapter would make the
+        // capture cadence a property of the adapter, invisible to the tier that owns it.
         return refuse(
-          "CAPTURE_FAILED",
-          `captureVisibleTab rejected: ${String((cause as Error)?.message ?? cause)}`
+          isThrottleSignature(message) ? "CAPTURE_THROTTLED" : "CAPTURE_FAILED",
+          `captureVisibleTab rejected: ${message}`
         );
       }
 

@@ -41,7 +41,7 @@ export {
 export {
   type CaptureFrame, type ViewportMeasurement, type CaptureAdapter, type TabsCaptureApi,
   DEFAULT_FRAME_TTL_MS,
-  geometryFrom, isStale, assertFresh, decodeDataUrl, createTabCaptureAdapter,
+  geometryFrom, isStale, assertFresh, decodeDataUrl, createTabCaptureAdapter, isThrottleSignature,
 } from "./capture.js";
 
 export {
@@ -63,7 +63,7 @@ export {
 
 export {
   type ChangeSignal, type ChangePolicy, type RefreshDecision,
-  DEFAULT_CHANGE_POLICY, ChangeGate, frameHash,
+  DEFAULT_CHANGE_POLICY, MEASURED_CAPTURE_ENVELOPE, ChangeGate, frameHash,
 } from "./changeDetection.js";
 
 export {

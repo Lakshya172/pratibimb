@@ -93,9 +93,15 @@ describe("T0 is a debounce", () => {
     const gate = new ChangeGate();
     gate.evaluate({ kind: "INITIAL" }, 0);
     // A form that re-renders on every keystroke produces exactly this burst.
+    //
+    // Derived from the policy rather than hardcoded. These were literals until
+    // W1-S05-rate raised the floor from 250 ms to 500 ms and they silently became wrong -
+    // a test that has to be edited every time the constant moves is a test that will
+    // eventually be edited to match a constant nobody checked.
+    const floor = DEFAULT_CHANGE_POLICY.minCaptureIntervalMs;
     expect(gate.evaluate(structural(1), 10).refresh).toBe(false);
-    expect(gate.evaluate(structural(1), 100).refresh).toBe(false);
-    expect(gate.evaluate(structural(1), 300).refresh).toBe(true);
+    expect(gate.evaluate(structural(1), floor - 1).refresh).toBe(false);
+    expect(gate.evaluate(structural(1), floor).refresh).toBe(true);
   });
 
   it("debounces VISUAL signals too", () => {
@@ -122,8 +128,10 @@ describe("the full-frame hash is low-rate by policy", () => {
   });
 
   it("keeps the safety-net interval well above the debounce floor", () => {
-    // If these converged, the "safety net" would be a poll loop.
-    expect(DEFAULT_CHANGE_POLICY.fullFrameHashIntervalMs).toBeGreaterThan(
+    // If these converged, the "safety net" would be a poll loop. The ratio is what
+    // matters, not the absolute values: at a 500 ms floor and a 2000 ms hash the net runs
+    // at a quarter of the maximum capture cadence.
+    expect(DEFAULT_CHANGE_POLICY.fullFrameHashIntervalMs).toBeGreaterThanOrEqual(
       DEFAULT_CHANGE_POLICY.minCaptureIntervalMs * 4
     );
   });
