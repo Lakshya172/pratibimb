@@ -141,3 +141,52 @@ jobs:
       # WebAssembly.validate - the Firefox false-green trap.
       - name: Unit tests - security invariants
         run: npm test
+
+  # ───────────────────────────────────────────────────────────────────────────────────
+  # QG-02 — the coordinate contract, in real browsers.
+  #
+  # The gate requires a fixture rendered at DPR 1.0/1.5/2.0 and 100%/125% zoom, asserting
+  # the same logical element resolves to the same CSS-pixel box in all six. The unit suite
+  # cannot establish that: it supplies its own numbers, so it would agree with a wrong
+  # model of DPR as readily as a right one. This job takes the numbers from the browser and
+  # the frame size from a real screenshot, and runs the SHIPPED compiled code over them.
+  #
+  # Chromium and Firefox both run here. On the Windows workstation Firefox is NOT RUNNABLE
+  # - Playwright needs its own patched build and that download fails on that network, a
+  # standing environment fact recorded in agentos/blockers.md. CI is where the Firefox cell
+  # is actually produced, so a green run here is the evidence for it, not a formality.
+  # ───────────────────────────────────────────────────────────────────────────────────
+  coordinate-contract:
+    name: QG-02 - coordinate contract browser matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install workspace
+        run: npm ci --no-audit --no-fund
+
+      - name: Install Playwright ${{ matrix.browser }}
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+
+      # The gate imports packages/perception/dist, so the build must exist first. Testing a
+      # re-implementation instead would test the re-implementation.
+      - name: Build perception package
+        run: npm run typecheck
+
+      - name: QG-02 (${{ matrix.browser }})
+        run: node tests/browser/qg02/run-qg02.mjs --browser=${{ matrix.browser }}
+
+      - name: Upload gate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qg02-${{ matrix.browser }}
+          path: artifacts/gates/QG-02/
