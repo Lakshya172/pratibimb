@@ -1,0 +1,15 @@
+{
+  "//": "MODULE-SYSTEM BOUNDARY — not a real package, and deliberately not a workspace.",
+  "//1": "Every harness under artifacts/experiments/ is archived spike code written as",
+  "//2": "CommonJS (require/module.exports). They pre-date the product workspace and are",
+  "//3": "kept byte-stable as evidence: their recorded results are only reproducible if the",
+  "//4": "code that produced them is not edited.",
+  "//5": "The root package.json declares \"type\": \"module\" for the product code, and Node",
+  "//6": "resolves .js module type from the NEAREST package.json. Without this file the root",
+  "//7": "declaration would reach down here and reclassify all of them as ESM, so every",
+  "//8": "require() would throw — including the B-02 false-green regression guard, which is",
+  "//9": "the standing enforcement for Invariant E. This pins them back to CommonJS.",
+  "name": "pratibimb-experiment-archive",
+  "private": true,
+  "type": "commonjs"
+}

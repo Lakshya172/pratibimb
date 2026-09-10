@@ -10,16 +10,22 @@
 
 ## Recorded ADRs
 
-**Count: 1 proposed, 0 approved.**
+**Count: 1 approved and implemented, 0 proposed.**
 
 | ID | Title | Status | Date | Supersedes |
 |---|---|---|---|---|
-| [ADR-0001](ADR-0001-wasm-csp-and-connect-src.md) | WebAssembly CSP directive and the `connect-src` provenance pin | **PROPOSED — awaiting human architect approval** | 2026-09-10 | — |
+| [ADR-0001](ADR-0001-wasm-csp-and-connect-src.md) | WebAssembly CSP directive and the `connect-src` provenance pin | **APPROVED 2026-09-10 — implemented, G1–G7 recorded in §12** | 2026-09-10 | — |
 
 > **ADR-0001 covers issues #17 and #5 in one decision**, because S-02a-2a-4 measured that
 > the CSP directive and the `connect-src` egress pin live in the same manifest and constrain
 > each other. It is a decision *package*: evidence, options, consequences, rollback and
-> seven verification gates. **Nothing in it has been applied.**
+> seven verification gates.
+>
+> **Approved at the architectural decision level and implemented.** Gate results are in
+> §12.1; raw evidence in `artifacts/adr/ADR-0001/`. Approval of the decision was explicitly
+> **not** approval to weaken any gate: the `privacy-security-engineer` veto stands beyond the
+> G6 CSP-diff sign-off, **QG-04 remains UNSIGNED**, **B-02 remains OPEN**, and **Firefox on
+> Linux remains UNKNOWN**.
 
 ---
 

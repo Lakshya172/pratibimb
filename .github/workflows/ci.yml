@@ -3,11 +3,11 @@ name: CI
 # PratiBimb CI foundation.
 #
 # SCOPE NOTE — read before adding jobs:
-# There is no product code in this repository yet. These jobs therefore check what
-# actually exists: governance, secret hygiene, link integrity, and the integrity of
-# the governing dossier. Build / lint / typecheck / unit-test jobs for the extension
-# and the server are added in the same PR that introduces that code, using that
-# code's real tooling. We do not add jobs that run invented commands.
+# Product code now exists: ADR-0001's CSP and ORT runtime-pin boundary landed in
+# packages/security and apps/extension. Typecheck, unit tests and the ORT pin-drift
+# check were added in the SAME PR that introduced that code, as this note always
+# required. Perception, capture, server and executor jobs follow the same rule: they
+# arrive with their code, never before it. We do not add jobs that run invented commands.
 #
 # LIMITATION — browser-context experiments do not run here.
 # Capability spikes (S-01..S-07) require a real headful browser with a loaded MV3
@@ -49,18 +49,10 @@ jobs:
       - name: Verify repository governance
         run: python scripts/verify-repo.py
 
-      - name: Assert no product code has silently appeared
-        # Sprint gate: while the project is in the spike phase, apps/ and packages/
-        # must not exist. When Sprint 2 starts, this step is removed in the PR that
-        # creates them - deliberately, and visibly in the diff.
-        run: |
-          if [ -d apps ] || [ -d packages ]; then
-            echo "::error::apps/ or packages/ exists but the repository is still in the"
-            echo "::error::spike phase. If this is intended, remove this CI step in the"
-            echo "::error::same PR, so the transition is explicit and reviewable."
-            exit 1
-          fi
-          echo "OK - no product code; repository is in the spike phase."
+      # The spike-phase guard that asserted apps/ and packages/ did NOT exist is removed
+      # here, deliberately and visibly, in the same PR that creates them - exactly as the
+      # guard's own message instructed. It is replaced by the `product` job below, which
+      # is a stronger gate: it does not merely permit product code, it verifies it.
 
   history:
     name: Commit and branch hygiene
@@ -117,3 +109,35 @@ jobs:
           done < <(git diff --name-only --diff-filter=ACM "$base..$head")
           [ "$bad" -eq 0 ] && echo "OK - no oversized files added."
           exit $bad
+
+  product:
+    name: Product - typecheck, unit tests, ORT pin drift
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install workspace
+        run: npm ci --no-audit --no-fund
+
+      # ADR-0001 G4b (constraint C-2). The pin is BUNDLE-specific: `ort.all.min.js` was
+      # MEASURED to load ort-wasm-simd-threaded.jsep.wasm, not the file one would naively
+      # pin. This step recomputes every hash the mapping depends on - ORT version, bundle,
+      # artifact, glue - against the installed runtime, and FAILS if any has drifted.
+      # A drifting bundle means the measured mapping no longer describes shipped code, so
+      # the correct response is to re-run W1-S02a-2a-3, not to re-hash and carry on.
+      - name: ORT pin drift (G4b / C-2)
+        run: npm run pin:check
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      # ADR-0001 G4a (C-1) and G1. Every test in the security suite asserts a REFUSAL:
+      # hash mismatch rejected before ORT is invoked, late pin installation rejected,
+      # session creation without a pin rejected, and the capability probe never calling
+      # WebAssembly.validate - the Firefox false-green trap.
+      - name: Unit tests - security invariants
+        run: npm test

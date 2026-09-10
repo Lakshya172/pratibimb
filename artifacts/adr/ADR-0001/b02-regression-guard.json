@@ -1,0 +1,54 @@
+{
+  "test": "invariant-e-false-green-guard",
+  "runs": [
+    {
+      "run": 1,
+      "playwrightObserved": 0,
+      "playwrightBlocked": 0,
+      "playwrightWouldReportZeroRequests": true,
+      "actuallyArrivedOnTheWire": 1,
+      "arrivalDetail": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "hashMatches": true
+        }
+      ]
+    },
+    {
+      "run": 2,
+      "playwrightObserved": 0,
+      "playwrightBlocked": 0,
+      "playwrightWouldReportZeroRequests": true,
+      "actuallyArrivedOnTheWire": 1,
+      "arrivalDetail": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "hashMatches": true
+        }
+      ]
+    },
+    {
+      "run": 3,
+      "playwrightObserved": 0,
+      "playwrightBlocked": 0,
+      "playwrightWouldReportZeroRequests": true,
+      "actuallyArrivedOnTheWire": 1,
+      "arrivalDetail": [
+        {
+          "url": "/egress",
+          "bytes": 52,
+          "hashMatches": true
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "groundTruthDetected": 3,
+    "falseGreenReproduced": 3,
+    "playwrightNowSeesIt": 0,
+    "verdict": "PASS"
+  }
+}
