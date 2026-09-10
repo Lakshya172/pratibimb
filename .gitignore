@@ -116,3 +116,11 @@ tmp/
 .tmp/
 scratch/
 *.local
+
+# ADR-0001 gate harness — generated on every run.
+# The extensions under build/ are assembled from the production CSP by
+# build-gate-extensions.mjs, and results/ is the raw run output. Neither is a source of
+# truth: the evidence that is kept lives under artifacts/adr/ADR-0001/.
+tests/browser/gates/build/
+tests/browser/gates/results/
+artifacts/experiments/W1-B02-invariant-e-observation/harness/regression/guard-result.json
