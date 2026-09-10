@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>Seva services — T1 perception fixture</title>
+<!--
+  T1 detector/fusion fixture.
+
+  Richer than the QG-02 one on purpose. QG-02 needed fixed geometry at six DPRs; this
+  needs the shapes that make DOM/vision fusion hard:
+
+    visually similar elements   two buttons that differ only by label
+    repeated controls           a card list, so matching cannot rely on uniqueness
+    nested controls             a checkbox inside its own clickable label
+    partial clipping            a control straddling the fold
+    dynamic content             a region that repaints without a structural mutation
+    an off-screen target        below the fold, DOM-known, never captured
+
+  Every measured element keeps FIXED PIXEL geometry so assertions are exact.
+-->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 14px/1.4 system-ui, sans-serif; background: #fff; color: #111; }
+  main { position: relative; width: 1000px; height: 1800px; }
+
+  .card { position: absolute; width: 280px; height: 96px; border: 1px solid #ccd; padding: 10px; }
+  #card-1 { left: 40px;  top: 80px; }
+  #card-2 { left: 340px; top: 80px; }
+  #card-3 { left: 640px; top: 80px; }
+  .card button { position: absolute; left: 10px; top: 56px; width: 120px; height: 30px; }
+
+  /* Visually similar: same size, same position family, different meaning. */
+  #save    { position: absolute; left: 40px;  top: 240px; width: 130px; height: 36px; }
+  #saveas  { position: absolute; left: 190px; top: 240px; width: 130px; height: 36px; }
+
+  #email   { position: absolute; left: 40px;  top: 320px; width: 320px; height: 32px; }
+  #email-label { position: absolute; left: 40px; top: 296px; width: 320px; height: 18px; }
+
+  /* Nested: the checkbox lives inside a clickable label with its own box. */
+  #consent-label { position: absolute; left: 40px; top: 380px; width: 420px; height: 24px; }
+  #consent { position: absolute; left: 4px; top: 4px; width: 16px; height: 16px; }
+
+  #tos     { position: absolute; left: 40px; top: 420px; width: 200px; height: 24px; }
+  #plan-std { position: absolute; left: 40px;  top: 460px; width: 16px; height: 16px; }
+  #plan-pri { position: absolute; left: 140px; top: 460px; width: 16px; height: 16px; }
+  #state   { position: absolute; left: 40px; top: 500px; width: 220px; height: 32px; }
+  #help    { position: absolute; left: 40px; top: 550px; width: 180px; height: 18px; }
+
+  #queue-box { position: absolute; left: 500px; top: 320px; width: 300px; height: 70px;
+               border: 1px solid #bbb; padding: 8px; }
+
+  /* Straddles the 640 px fold: partially clipped in the capture. */
+  #clipped { position: absolute; left: 40px; top: 620px; width: 240px; height: 44px; }
+
+  /* Fully below the fold: DOM-known, never captured. */
+  #submit  { position: absolute; left: 40px; top: 1200px; width: 160px; height: 44px; }
+  #privacy { position: absolute; left: 40px; top: 1400px; width: 220px; height: 18px; }
+</style>
+
+<main>
+  <div class="card" id="card-1"><h3>Ration card</h3><button type="button">Apply</button></div>
+  <div class="card" id="card-2"><h3>Income certificate</h3><button type="button">Apply</button></div>
+  <div class="card" id="card-3"><h3>Domicile</h3><button type="button">Apply</button></div>
+
+  <button id="save" type="button">Save</button>
+  <button id="saveas" type="button">Save as…</button>
+
+  <label id="email-label" for="email">Email address</label>
+  <input id="email" type="email" name="email" autocomplete="email" aria-label="Email address" />
+
+  <label id="consent-label">
+    <input id="consent" type="checkbox" aria-label="Consent to processing" />
+    I consent to processing
+  </label>
+
+  <a id="tos" href="#tos">Terms of service</a>
+
+  <input id="plan-std" type="radio" name="plan" aria-label="Standard plan" checked />
+  <input id="plan-pri" type="radio" name="plan" aria-label="Priority plan" />
+
+  <select id="state" aria-label="State"><option>Kerala</option><option>Goa</option></select>
+
+  <a id="help" href="#help">Need help with this form?</a>
+
+  <div id="queue-box" aria-live="polite">Queue position: <span id="queue">—</span></div>
+
+  <button id="clipped" type="button">Straddles the fold</button>
+
+  <button id="submit" type="submit">Submit application</button>
+  <a id="privacy" href="#privacy">Privacy policy</a>
+</main>
+
+<script>
+  let n = 0;
+  const q = document.getElementById("queue");
+  q.textContent = String(n);
+  window.__tickQueue = () => { n += 1; q.textContent = String(n); return n; };
+
+  window.__measure = () => {
+    if (document.compatMode !== "CSS1Compat") {
+      throw new Error("fixture is in quirks mode; documentElement.clientHeight is not the viewport");
+    }
+    const ids = [
+      "card-1", "card-2", "card-3",
+      "save", "saveas", "email-label", "email",
+      "consent-label", "consent", "tos", "plan-std", "plan-pri", "state", "help",
+      "queue-box", "clipped", "submit", "privacy",
+    ];
+    const index = new Map(ids.map((id, i) => [id, i]));
+    const roleOf = (node) => {
+      const t = node.tagName;
+      if (t === "BUTTON") return "button";
+      if (t === "A") return "link";
+      if (t === "SELECT") return "select";
+      if (t === "LABEL") return "label";
+      if (t === "INPUT") {
+        if (node.type === "checkbox") return "checkbox";
+        if (node.type === "radio") return "radio";
+        return "textbox";
+      }
+      return "generic";
+    };
+    return {
+      viewport: {
+        dpr: window.devicePixelRatio,
+        viewportCssWidth: document.documentElement.clientWidth,
+        viewportCssHeight: document.documentElement.clientHeight,
+        scrollX: window.scrollX,
+        scrollY: window.scrollY,
+        origin: window.location.origin,
+      },
+      elements: ids.map((id) => {
+        const node = document.getElementById(id);
+        const r = node.getBoundingClientRect();
+        const cs = getComputedStyle(node);
+        // The consent checkbox is nested inside its label - real parent/child, so fusion
+        // has a genuine containment case rather than a synthetic one.
+        const parentId = id === "consent" ? "consent-label" : null;
+        return {
+          selector: "#" + id,
+          role: roleOf(node),
+          name: (node.getAttribute("aria-label") || node.textContent || "").trim().slice(0, 60),
+          rect: { x: r.x, y: r.y, w: r.width, h: r.height },
+          enabled: !node.disabled,
+          cssHidden: cs.display === "none" || cs.visibility === "hidden" || r.width === 0 || r.height === 0,
+          parentIndex: parentId === null ? -1 : index.get(parentId),
+        };
+      }),
+    };
+  };
+</script>
