@@ -239,3 +239,47 @@ jobs:
         with:
           name: t1-${{ matrix.browser }}
           path: artifacts/gates/T1-detector-fusion/
+
+  # ───────────────────────────────────────────────────────────────────────────────────
+  # QG-05 (T1 visual-context slice) — the evaluator, against a real rendered fixture.
+  #
+  # The unit suite validates the evaluator against geometry it generated itself, which
+  # proves the arithmetic. This proves the harness works on labels derived from a browser's
+  # own layout, at a real DPR, with a real screenshot's dimensions.
+  #
+  # NONE OF THIS IS DETECTOR PERFORMANCE. There is no detector. The perfect baseline copies
+  # ground truth and scores 1.0 by construction; the gate also asserts the UIElementDetector
+  # still refuses with MODEL_ASSET_UNAVAILABLE.
+  # ───────────────────────────────────────────────────────────────────────────────────
+  qg05-t1-evaluation:
+    name: QG-05 - T1 evaluator on a real fixture
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install workspace
+        run: npm ci --no-audit --no-fund
+
+      - name: Install Playwright ${{ matrix.browser }}
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Build packages
+        run: npm run typecheck
+
+      - name: QG-05 T1 evaluation (${{ matrix.browser }})
+        run: node tests/browser/qg05/run-qg05.mjs --browser=${{ matrix.browser }}
+
+      - name: Upload gate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qg05-${{ matrix.browser }}
+          path: artifacts/gates/QG-05-t1-evaluation/

@@ -13,6 +13,7 @@ export default defineConfig({
     alias: {
       "@pratibimb/security": new URL("./packages/security/src/index.ts", import.meta.url).pathname,
       "@pratibimb/perception": new URL("./packages/perception/src/index.ts", import.meta.url).pathname,
+      "@pratibimb/evaluation": new URL("./packages/evaluation/src/index.ts", import.meta.url).pathname,
     },
   },
 });

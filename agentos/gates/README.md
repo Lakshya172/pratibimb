@@ -77,6 +77,21 @@
 
 **Week two. Before any metric is quoted anywhere.**
 
+> **Status 2026-09-10: PARTIAL — one of six metrics implemented. The gate is NOT passed.**
+> The **visual-context slice (25%)** has a complete, validated evaluator: element mAP@0.5,
+> element recall and grounding accuracy, with a deterministic synthetic generator,
+> train/dev/test splits and content-fingerprint leakage detection. Evidence:
+> `artifacts/gates/QG-05-t1-evaluation/`.
+>
+> **Two things are gated separately and must not be collapsed:** infrastructure
+> readiness (**PASS**) and actual detector performance (**UNKNOWN — no admissible T1
+> detector exists**). The perfect baseline scores 1.0 by construction; that is
+> arithmetic, not achievement.
+>
+> Still missing: PII detection, redaction, client resources, latency, task success —
+> all needing T2, the server or the executor — plus the redacted-frame half of visual
+> context, the decoy generator, and the adversarial/false-positive/disagreement sets.
+
 - [ ] The harness reports all five scored metrics **plus task success after privacy**.
 - [ ] Every figure is labelled `measured` or `projected`. No figure is unlabelled.
 - [ ] Visual context is reported **twice**: on clean frames and on redacted frames.

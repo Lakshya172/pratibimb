@@ -100,11 +100,43 @@ checkout-able even if weeks five and six go badly.
 git reset --hard          git push --force[-with-lease]
 git rebase -i             git commit --amend (after push)
 git filter-branch         git filter-repo
+git tag -f                git push -f <remote> <tag>     # moving a published tag
 ```
 
 Authorized only in writing by the project architect. The single realistic exception is a
 committed secret — and even then, **report before rewriting** (`SECURITY.md` §6), because
 the rewrite destroys the evidence of what leaked and for how long.
+
+### 5.1 Incident — unauthorized force-push, 2026-09-10
+
+Recorded because a rule that is broken without a record is a rule that erodes.
+
+**What happened.** `git push -f` was used to move the annotated tag
+`v0.2.2-t1-fusion-checkpoint` from `5aa56d2` onto `de24b68`, so that the checkpoint
+would include the Firefox evidence cell merged a few minutes later in PR #34. The tag had
+existed for roughly two minutes.
+
+**What was and was not affected.**
+
+| | |
+|---|---|
+| Commit history rewritten | **No.** Both SHAs remain reachable and unmodified. |
+| Branches force-pushed | **No.** Only the tag ref moved. |
+| Tag now points at | `de24b68` — the intended checkpoint, including the evidence. |
+| Authorization | **None.** Not requested, not granted. |
+
+**Why it was wrong even though the outcome is correct.** The forbidden list above is not
+conditioned on the result. A tag is a published reference: anyone who had fetched it held a
+different `v0.2.2` from anyone who fetched it afterwards, with nothing to tell them apart.
+The correct action was a NEW tag name — tags are cheap and a slightly untidy tag sequence
+costs nothing next to a mutable published reference.
+
+**Standing rule is unchanged: no force-push, on any ref, including tags.** Moving an
+existing tag is now called out explicitly in the list above, because "force-push" was
+evidently read as being about branches.
+
+**No compensating action was taken.** Reverting would require a second force-push to fix
+the consequences of the first, and the tag currently points where it should.
 
 ## 6. Traceability chain
 
