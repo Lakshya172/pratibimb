@@ -190,3 +190,52 @@ jobs:
         with:
           name: qg02-${{ matrix.browser }}
           path: artifacts/gates/QG-02/
+
+  # ───────────────────────────────────────────────────────────────────────────────────
+  # T1 — detector + fusion end-to-end.
+  #
+  # capture -> DOM graph -> detector -> fusion -> PerceptionState, asserted against the
+  # TYPED STATE rather than screenshots. A screenshot comparison would show the page
+  # rendered; it would say nothing about whether provenance survived fusion, which is the
+  # property this layer exists to provide.
+  #
+  # The detector has NO WEIGHTS. The gate asserts it REFUSES with MODEL_ASSET_UNAVAILABLE
+  # rather than returning an empty list, and exercises fusion with detections derived from
+  # the measured DOM boxes - which are not a detector and support no accuracy claim.
+  #
+  # Firefox is not runnable on the Windows workstation (Playwright's browser CDN returns
+  # HTTP 400 there), so this job is where that cell is produced.
+  # ───────────────────────────────────────────────────────────────────────────────────
+  t1-detector-fusion:
+    name: T1 - detector and fusion end-to-end
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install workspace
+        run: npm ci --no-audit --no-fund
+
+      - name: Install Playwright ${{ matrix.browser }}
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+
+      # The gate imports packages/perception/dist, so the build must exist first.
+      - name: Build perception package
+        run: npm run typecheck
+
+      - name: T1 end-to-end (${{ matrix.browser }})
+        run: node tests/browser/t1/run-t1.mjs --browser=${{ matrix.browser }}
+
+      - name: Upload gate evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: t1-${{ matrix.browser }}
+          path: artifacts/gates/T1-detector-fusion/

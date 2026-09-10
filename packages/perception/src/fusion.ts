@@ -32,7 +32,8 @@ import { type CaptureGeometry, cssToDocument } from "./coordinates.js";
 import type { ElementGraph, ElementNode, NodeId } from "./elementGraph.js";
 import { nodeId } from "./elementGraph.js";
 import type { VisualDetection } from "./detector.js";
-import { admitsVisualEvidence, type VisualEvidence } from "./observation.js";
+import { admitsVisualEvidence, type VisualEvidence, type FrameId } from "./observation.js";
+import { PerceptionError } from "./failure.js";
 
 /** The frozen threshold. Changing it is a constitution §8 change, not a tweak. */
 export const FUSION_IOU_THRESHOLD = 0.5;
@@ -118,6 +119,45 @@ export function iou(a: CssBox, b: CssBox): number {
 export const OVERLAY_SUSPICION_FLOOR = 0.2;
 
 /**
+ * Refuse to fuse a DOM graph with visual evidence from a DIFFERENT frame.
+ *
+ * This is the "old screenshot + new DOM, silently treated as one current observation"
+ * failure, and it is the most dangerous state this tier can reach: both halves are
+ * individually valid, the result is internally consistent, and nothing looks wrong. The
+ * page has simply moved on, and every fused coordinate now describes a layout that no
+ * longer exists.
+ *
+ * It cannot be repaired by preferring one side. A DOM node and a detection from different
+ * frames are not two views of one thing, so there is no correct way to combine them - the
+ * only sound answer is to refuse and capture again.
+ *
+ * Throws rather than refusing softly: reaching here means the caller already failed to
+ * keep a frame and its detections together, and continuing would attach real-looking
+ * coordinates to a stale layout.
+ */
+export function assertSameFrame(
+  graph: ElementGraph,
+  detections: readonly VisualDetection[]
+): void {
+  const foreign = new Map<FrameId, number>();
+  for (const d of detections) {
+    if (d.frameId !== graph.frameId) {
+      foreign.set(d.frameId, (foreign.get(d.frameId) ?? 0) + 1);
+    }
+  }
+  if (foreign.size === 0) return;
+
+  const foreignCount = [...foreign.values()].reduce((a, b) => a + b, 0);
+  const detail = [...foreign.entries()].map(([id, n]) => `${n} from ${id}`).join(", ");
+  throw new PerceptionError(
+    `Refusing to fuse: the element graph was derived against frame ${graph.frameId}, but ` +
+      `${foreignCount} of ${detections.length} detections came from another frame (${detail}). ` +
+      "Stale visual evidence must not be combined with a current DOM graph - capture again.",
+    "STALE_FRAME"
+  );
+}
+
+/**
  * Fuse a DOM element graph with visual detections.
  *
  * `detectorRan` distinguishes "the detector ran and found nothing here" from "no detector
@@ -131,6 +171,7 @@ export function fuse(
   detectorRan: boolean,
   geometry: CaptureGeometry
 ): FusionResult {
+  assertSameFrame(graph, detections);
   const claimed = new Set<number>();
   const elements: FusedElement[] = [];
   let matched = 0;

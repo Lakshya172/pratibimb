@@ -41,12 +41,21 @@ const measure = (over: Partial<DomMeasurement> = {}): DomMeasurement => ({
   ...over,
 });
 
-const detection = (x: number, y: number, w: number, h: number, label = "button"): VisualDetection => ({
+const detection = (
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  label = "button",
+  frame = FRAME
+): VisualDetection => ({
   box: cssBox(x, y, w, h),
   label,
   score: 0.9,
   role: "UIElementDetector",
-  frameId: FRAME,
+  frameId: frame,
+  modelId: "pratibimb-ui-head (NO WEIGHTS)",
+  revision: "unbuilt",
 });
 
 describe("IoU", () => {
