@@ -30,6 +30,16 @@ verdict: CONDITIONAL
 Independent runs: **Chromium ×2**, **Firefox ×1**. Each run repeats the frequency ladder
 **3 times**, so each rung has 6 Chromium observations and 3 Firefox observations.
 
+## Hypothesis
+
+`tabs.captureVisibleTab` is rate-limited in a way that constrains the change gate's capture
+cadence, and the limit differs between Chromium and Firefox.
+
+## Expected result
+
+Some observable throttling under sustained or bursty capture, with onset above the
+dossier's budgeted ~8 captures per ten-step task.
+
 ## Method
 
 Bounded schedules only — every count is a constant and nothing adapts upward:
@@ -74,7 +84,7 @@ A side-observation, recorded but not built upon: the quota error appeared **even
 extension lacked permission to capture**, so the quota is evaluated before authorization.
 Observed behaviour; no claim about internals.
 
-## Results — Chromium
+## Actual result — Chromium
 
 Requested rate vs **observed successful captures per second**, per ladder pass:
 
@@ -98,7 +108,7 @@ Only one error string appeared once the permission was correct:
 Error: This request exceeds the MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND quota.
 ```
 
-## Results — Firefox
+## Actual result — Firefox
 
 **No failure of any kind, in any schedule.** 100% success at 1, 2, 3, 4, 5 and 10 Hz;
 `burst` 8/8; `concurrent` 5/5; `sustained-2hz` 40/40; `recovery` succeeded on its first

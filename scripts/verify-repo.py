@@ -15,6 +15,7 @@ from __future__ import annotations
 import hashlib
 import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -31,14 +32,56 @@ def warn(check: str, msg: str) -> None:
     WARN.append(f"[{check}] {msg}")
 
 
-def tracked_files() -> list[Path]:
-    """All files, excluding .git and ignored build dirs."""
+def _git_list(*args: str) -> list[Path] | None:
+    """Ask git for a file list. None if this is not a git checkout."""
+    try:
+        out = subprocess.run(
+            ["git", "ls-files", *args],
+            cwd=ROOT, capture_output=True, text=True, check=True,
+        ).stdout.splitlines()
+    except (OSError, subprocess.CalledProcessError):
+        return None
     skip = {".git", "node_modules", ".venv", "__pycache__", "dist", ".output", ".wxt"}
-    out = []
-    for p in ROOT.rglob("*"):
-        if p.is_file() and not any(s in p.parts for s in skip):
-            out.append(p)
-    return out
+    return [
+        ROOT / line for line in out
+        if line.strip() and (ROOT / line).is_file()
+        and not any(x in (ROOT / line).parts for x in skip)
+    ]
+
+
+def _walk() -> list[Path]:
+    skip = {".git", "node_modules", ".venv", "__pycache__", "dist", ".output", ".wxt"}
+    return [
+        p for p in ROOT.rglob("*")
+        if p.is_file() and not any(x in p.parts for x in skip)
+    ]
+
+
+def committed_files() -> list[Path]:
+    """
+    Files git is actually tracking.
+
+    Used for the BANNED-SUFFIX check, and the distinction matters more than it looks.
+    .gitignore already carries a global `*.onnx` rule, so a check that skipped ignored
+    files would be permanently dead for exactly the file types it exists to catch - and
+    would still pass if someone forced one in with `git add -f`. Asking what is TRACKED
+    is the question that matches the failure message.
+    """
+    return _git_list("--cached") or _walk()
+
+
+def committable_files() -> list[Path]:
+    """
+    Tracked files, plus untracked files that are not ignored.
+
+    Used for the SECRET-PATTERN scan, where catching a token BEFORE it is committed is
+    the entire value. Ignored files are excluded because they cannot reach a commit by
+    accident, and flagging a locally-trained model in an ignored directory reported
+    "committed" about a file that was not - a false positive that fails the build for
+    anyone who trains locally, and the usual response to a guard that cries wolf is to
+    stop believing it.
+    """
+    return _git_list("--cached", "--others", "--exclude-standard") or _walk()
 
 
 # ── 1. Required governance files exist ──────────────────────────────────────
@@ -104,12 +147,17 @@ TEXT_SUFFIX = {".md", ".py", ".js", ".ts", ".tsx", ".json", ".yml", ".yaml",
 
 
 def check_secrets() -> None:
-    for p in tracked_files():
+    # Banned artefacts are only a problem once git is tracking them.
+    for p in committed_files():
         rel = p.relative_to(ROOT).as_posix()
         if p.suffix.lower() in BANNED_SUFFIX:
             fail("secrets", f"banned file type committed: {rel}")
         if p.name == ".env":
             fail("secrets", ".env must never be committed")
+
+    # Secret-shaped text is worth catching before it is ever committed.
+    for p in committable_files():
+        rel = p.relative_to(ROOT).as_posix()
         if p.suffix.lower() not in TEXT_SUFFIX:
             continue
         try:
@@ -129,7 +177,7 @@ LINK = re.compile(r"\[[^\]]*\]\(([^)\s]+)\)")
 
 
 def check_links() -> None:
-    for p in tracked_files():
+    for p in committable_files():
         if p.suffix != ".md":
             continue
         for target in LINK.findall(p.read_text(encoding="utf-8", errors="ignore")):
@@ -147,7 +195,7 @@ def check_yaml() -> None:
     except ImportError:
         warn("yaml", "PyYAML not installed; skipping YAML validation")
         return
-    for p in tracked_files():
+    for p in committable_files():
         if p.suffix not in (".yml", ".yaml"):
             continue
         try:
