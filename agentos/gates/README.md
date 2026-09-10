@@ -41,8 +41,10 @@
 > **Status 2026-09-10: criteria 1–6 PASS on Chromium, criterion 7 CONDITIONAL.**
 > Measured across six configurations — `devicePixelRatio` 1.0→2.5, frame 1024×640→2560×1600,
 > the same element at `[400,260,300,32]` in all six. Evidence and the full criterion table:
-> `artifacts/gates/QG-02/`. **Firefox is NOT RUN on the Windows workstation** (Playwright's
-> browser CDN returns HTTP 400 there); the CI job produces that cell or it does not exist.
+> `artifacts/gates/QG-02/`. **Chromium AND Firefox both 6/6, 0 findings** — identical CSS
+> boxes on both engines. Firefox is not runnable on the Windows workstation (Playwright's
+> browser CDN returns HTTP 400 there) and its cell is produced in CI, run `34485366327`.
+> The Firefox cell caught a quirks-mode fixture defect Chromium passed straight through.
 
 ## QG-03 — Model feasibility
 
