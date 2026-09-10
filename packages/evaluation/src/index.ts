@@ -39,3 +39,5 @@ export {
   BASELINE_MODEL,
   perfectBaseline, emptyBaseline, shiftedBaseline, classSwappedBaseline,
 } from "./baselines.js";
+
+export { type RenderSpec, makeSpec, specToHtml } from "./renderSpec.js";

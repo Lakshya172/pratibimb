@@ -1,0 +1,359 @@
+{
+  "gate": "QG-05 visual-context, applied to the T1 head",
+  "warning": "SYNTHETIC DATA. These figures describe a model trained and tested on a rendered synthetic set. They are NOT real-world accuracy. The dossier's evidence source for this metric is ScreenSpot-v2 plus 300 self-labelled Indian government and banking screens, and neither exists yet.",
+  "model": {
+    "id": "pratibimb-t1-ui-head",
+    "revision": "ba6d9e93695b",
+    "artifact": {
+      "path": "t1-ui-head.onnx",
+      "sha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+      "bytes": 302960
+    }
+  },
+  "dataset": {
+    "name": "t1-ui-rendered",
+    "version": "1.0.0",
+    "hash": "4bbc57de"
+  },
+  "thresholdSelection": {
+    "rule": "max mAP@0.5 on DEV",
+    "split": "dev",
+    "chosen": 0.05,
+    "sweep": [
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.5,
+      0.6,
+      0.7
+    ]
+  },
+  "devSweep": [
+    {
+      "threshold": 0.05,
+      "mAP50": 0.7954100629724259,
+      "recall": 0.9166666666666666,
+      "grounding": 0.05757703672435627,
+      "predictions": 11845
+    },
+    {
+      "threshold": 0.1,
+      "mAP50": 0.7952684293536036,
+      "recall": 0.9153225806451613,
+      "grounding": 0.10310370931112793,
+      "predictions": 6605
+    },
+    {
+      "threshold": 0.15,
+      "mAP50": 0.7952684293536036,
+      "recall": 0.9153225806451613,
+      "grounding": 0.14891755958889133,
+      "predictions": 4573
+    },
+    {
+      "threshold": 0.2,
+      "mAP50": 0.7949602664609813,
+      "recall": 0.9139784946236559,
+      "grounding": 0.20053081686818047,
+      "predictions": 3391
+    },
+    {
+      "threshold": 0.25,
+      "mAP50": 0.7935264429315696,
+      "recall": 0.9126344086021505,
+      "grounding": 0.25326370757180156,
+      "predictions": 2681
+    },
+    {
+      "threshold": 0.3,
+      "mAP50": 0.7907966206704973,
+      "recall": 0.9099462365591398,
+      "grounding": 0.31547064305684996,
+      "predictions": 2146
+    },
+    {
+      "threshold": 0.35,
+      "mAP50": 0.7855124245698071,
+      "recall": 0.9059139784946236,
+      "grounding": 0.3736141906873614,
+      "predictions": 1804
+    },
+    {
+      "threshold": 0.4,
+      "mAP50": 0.7742050300630609,
+      "recall": 0.8951612903225806,
+      "grounding": 0.4228571428571429,
+      "predictions": 1575
+    },
+    {
+      "threshold": 0.5,
+      "mAP50": 0.7241077347512977,
+      "recall": 0.853494623655914,
+      "grounding": 0.5239273927392739,
+      "predictions": 1212
+    },
+    {
+      "threshold": 0.6,
+      "mAP50": 0.6237352937247422,
+      "recall": 0.7647849462365591,
+      "grounding": 0.5890269151138716,
+      "predictions": 966
+    },
+    {
+      "threshold": 0.7,
+      "mAP50": 0.5324415738284738,
+      "recall": 0.6639784946236559,
+      "grounding": 0.6517150395778364,
+      "predictions": 758
+    }
+  ],
+  "heldOutTest": {
+    "context": {
+      "modelId": "pratibimb-t1-ui-head",
+      "modelRevision": "ba6d9e93695b",
+      "backend": "none",
+      "browser": "node (torch export, ORT-verified)",
+      "preprocessing": "letterbox to 640 square, BILINEAR, centred pad 114/255, RGB, /255",
+      "evaluatedAt": "2026-09-10T19:17:13.605Z",
+      "datasetName": "t1-ui-rendered",
+      "datasetVersion": "1.0.0",
+      "datasetHash": "4bbc57de",
+      "split": "test"
+    },
+    "mAP50": {
+      "value": 0.7955363455302848,
+      "status": "measured",
+      "basis": "mean AP@0.5 over 8 classes with ground truth"
+    },
+    "elementRecall": {
+      "value": 0.9228723404255319,
+      "status": "measured",
+      "basis": "694/752 evaluatable elements matched at IoU>=0.5"
+    },
+    "groundingAccuracy": {
+      "value": 0.05472322977448352,
+      "status": "measured",
+      "basis": "694/12682 predictions landed on a correct element"
+    },
+    "perClass": [
+      {
+        "cls": "button",
+        "groundTruth": 202,
+        "predictions": 3947,
+        "truePositives": 165,
+        "falsePositives": 3782,
+        "falseNegatives": 37,
+        "ap50": {
+          "value": 0.49934102718433904,
+          "status": "measured",
+          "basis": "all-point interpolated AP at IoU>=0.5, 202 ground truth"
+        },
+        "recall": {
+          "value": 0.8168316831683168,
+          "status": "measured",
+          "basis": "165/202 matched"
+        },
+        "precision": {
+          "value": 0.04180390169749176,
+          "status": "measured",
+          "basis": "165/3947 correct"
+        }
+      },
+      {
+        "cls": "link",
+        "groundTruth": 152,
+        "predictions": 1490,
+        "truePositives": 142,
+        "falsePositives": 1348,
+        "falseNegatives": 10,
+        "ap50": {
+          "value": 0.6385784568628279,
+          "status": "measured",
+          "basis": "all-point interpolated AP at IoU>=0.5, 152 ground truth"
+        },
+        "recall": {
+          "value": 0.9342105263157895,
+          "status": "measured",
+          "basis": "142/152 matched"
+        },
+        "precision": {
+          "value": 0.0953020134228188,
+          "status": "measured",
+          "basis": "142/1490 correct"
+        }
+      },
+      {
+        "cls": "textbox",
+        "groundTruth": 130,
+        "predictions": 2150,
+        "truePositives": 129,
+        "falsePositives": 2021,
+        "falseNegatives": 1,
+        "ap50": {
+          "value": 0.9301557298399653,
+          "status": "measured",
+          "basis": "all-point interpolated AP at IoU>=0.5, 130 ground truth"
+        },
+        "recall": {
+          "value": 0.9923076923076923,
+          "status": "measured",
+          "basis": "129/130 matched"
+        },
+        "precision": {
+          "value": 0.06,
+          "status": "measured",
+          "basis": "129/2150 correct"
+        }
+      },
+      {
+        "cls": "checkbox",
+        "groundTruth": 40,
+        "predictions": 362,
+        "truePositives": 38,
+        "falsePositives": 324,
+        "falseNegatives": 2,
+        "ap50": {
+          "value": 0.8427458245712867,
+          "status": "measured",
+          "basis": "all-point interpolated AP at IoU>=0.5, 40 ground truth"
+        },
+        "recall": {
+          "value": 0.95,
+          "status": "measured",
+          "basis": "38/40 matched"
+        },
+        "precision": {
+          "value": 0.10497237569060773,
+          "status": "measured",
+          "basis": "38/362 correct"
+        }
+      },
+      {
+        "cls": "radio",
+        "groundTruth": 40,
+        "predictions": 422,
+        "truePositives": 34,
+        "falsePositives": 388,
+        "falseNegatives": 6,
+        "ap50": {
+          "value": 0.7172345463159007,
+          "status": "measured",
+          "basis": "all-point interpolated AP at IoU>=0.5, 40 ground truth"
+        },
+        "recall": {
+          "value": 0.85,
+          "status": "measured",
+          "basis": "34/40 matched"
+        },
+        "precision": {
+          "value": 0.08056872037914692,
+          "status": "measured",
+          "basis": "34/422 correct"
+        }
+      },
+      {
+        "cls": "select",
+        "groundTruth": 40,
+        "predictions": 2151,
+        "truePositives": 40,
+        "falsePositives": 2111,
+        "falseNegatives": 0,
+        "ap50": {
+          "value": 0.8214307927637351,
+          "status": "measured",
+          "basis": "all-point interpolated AP at IoU>=0.5, 40 ground truth"
+        },
+        "recall": {
+          "value": 1,
+          "status": "measured",
+          "basis": "40/40 matched"
+        },
+        "precision": {
+          "value": 0.018596001859600187,
+          "status": "measured",
+          "basis": "40/2151 correct"
+        }
+      },
+      {
+        "cls": "tab",
+        "groundTruth": 108,
+        "predictions": 2056,
+        "truePositives": 106,
+        "falsePositives": 1950,
+        "falseNegatives": 2,
+        "ap50": {
+          "value": 0.9148043867042245,
+          "status": "measured",
+          "basis": "all-point interpolated AP at IoU>=0.5, 108 ground truth"
+        },
+        "recall": {
+          "value": 0.9814814814814815,
+          "status": "measured",
+          "basis": "106/108 matched"
+        },
+        "precision": {
+          "value": 0.05155642023346303,
+          "status": "measured",
+          "basis": "106/2056 correct"
+        }
+      },
+      {
+        "cls": "icon",
+        "groundTruth": 40,
+        "predictions": 104,
+        "truePositives": 40,
+        "falsePositives": 64,
+        "falseNegatives": 0,
+        "ap50": {
+          "value": 1,
+          "status": "measured",
+          "basis": "all-point interpolated AP at IoU>=0.5, 40 ground truth"
+        },
+        "recall": {
+          "value": 1,
+          "status": "measured",
+          "basis": "40/40 matched"
+        },
+        "precision": {
+          "value": 0.38461538461538464,
+          "status": "measured",
+          "basis": "40/104 correct"
+        }
+      }
+    ],
+    "totals": {
+      "groundTruth": 856,
+      "evaluatable": 752,
+      "excludedOffscreen": 104,
+      "predictions": 12682,
+      "invalidPredictions": 0,
+      "truePositives": 694,
+      "falsePositives": 11988,
+      "falseNegatives": 58
+    },
+    "rejected": []
+  },
+  "recallByObjectSize": {
+    "tiny <20px": [
+      65,
+      72
+    ],
+    "small 20-40": [
+      47,
+      48
+    ],
+    "med 40-100": [
+      161,
+      167
+    ],
+    "large >100": [
+      421,
+      465
+    ]
+  }
+}

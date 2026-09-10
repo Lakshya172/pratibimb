@@ -1,0 +1,35 @@
+{
+  "frozenAt": "2026-09-10T19:17:49.363Z",
+  "note": "SYNTHETIC regression baseline for the T1 head. Detects regression against itself. NOT evidence of real-world accuracy.",
+  "fingerprint": {
+    "modelRevision": "ba6d9e93695b",
+    "artifactSha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+    "datasetName": "t1-ui-rendered",
+    "datasetVersion": "1.0.0",
+    "datasetHash": "4bbc57de",
+    "thresholdRule": "max mAP@0.5 on DEV",
+    "threshold": 0.05
+  },
+  "preprocessing": "letterbox to 640 square, BILINEAR, centred pad 114/255, RGB, /255",
+  "postprocessing": "per-class greedy NMS at IoU 0.5, emit floor 0.05, model->capture->CSS",
+  "evaluator": {
+    "package": "@pratibimb/evaluation",
+    "metric": "element mAP@0.5 / recall / grounding"
+  },
+  "tolerance": 0.02,
+  "metrics": {
+    "mAP50": 0.7955363455302848,
+    "elementRecall": 0.9228723404255319,
+    "groundingAccuracy": 0.05472322977448352,
+    "perClassRecall": {
+      "button": 0.8168316831683168,
+      "link": 0.9342105263157895,
+      "textbox": 0.9923076923076923,
+      "checkbox": 0.95,
+      "radio": 0.85,
+      "select": 1,
+      "tab": 0.9814814814814815,
+      "icon": 1
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "gate": "T1 detector micro-overfit (Phase 3)",
+  "purpose": "prove the learning pipeline before training, so a failure points at the pipeline",
+  "dataset": {
+    "name": "t1-ui-rendered",
+    "version": "1.0.0",
+    "hash": "4bbc57de",
+    "samples": 16
+  },
+  "model": {
+    "parameters": 61468,
+    "stride": 8,
+    "grid": 80,
+    "classes": 8
+  },
+  "config": {
+    "samples": 16,
+    "steps": 2500,
+    "lr": 0.003,
+    "seed": 20260910
+  },
+  "loss_initial": 4.498890161514282,
+  "loss_final": 0.5868297040462493,
+  "recall_at_iou50": 0.9498207885304659,
+  "class_accuracy": 0.9547169811320755,
+  "css_round_trip_rate": 1.0,
+  "invalid_boxes": 0,
+  "train_seconds": 313.25747418403625,
+  "criteria": {
+    "1_loss_below_15pct_of_initial": true,
+    "2_cls_loss_still_falling": true,
+    "3_recall_at_iou50_ge_0.90": true,
+    "4_class_correct_ge_0.90": true,
+    "5_no_invalid_boxes": true,
+    "6_css_round_trip_ge_0.90": true
+  },
+  "passed": true
+}
