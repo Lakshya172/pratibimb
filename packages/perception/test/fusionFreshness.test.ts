@@ -1,5 +1,8 @@
 /**
- * Frame freshness and DOM/vision disagreement — the D4-equivalent semantics.
+ * Frame freshness and DOM/vision disagreement — T1 fusion semantics.
+ *
+ * T1, not D4. D4 is the dossier's VISUAL PII channel (faces, signatures, ID cards, QR)
+ * and belongs to the T2 sanitize tier. This file is the T1 UI-perception fusion.
  *
  * The load-bearing test here is the stale-frame refusal. "Old screenshot + new DOM,
  * silently treated as one current observation" is the most dangerous state this tier can

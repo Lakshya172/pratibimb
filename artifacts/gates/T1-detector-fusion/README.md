@@ -2,7 +2,8 @@
 
 > **Status: the FUSION half is complete and gated. The DETECTOR half is a contract with no
 > admissible implementation.**
-> This is a real checkpoint for D4-equivalent work and explicitly **not** one for D3.
+> This is a real checkpoint for the T1 **fusion** half and explicitly **not** one for the
+> T1 **detector** half.
 
 ## A note on naming, because it matters
 
@@ -18,7 +19,7 @@ confused with a UI detector.
 
 ---
 
-## D3-equivalent — the detector
+## T1 detector — `UIElementDetector`
 
 | # | Criterion | Result | Basis |
 |---|---|---|---|
@@ -48,7 +49,7 @@ claim is made and none is possible from this work.**
 
 ---
 
-## D4-equivalent — fusion
+## T1 fusion — DOM/vision
 
 | # | Criterion | Result | Basis |
 |---|---|---|---|
