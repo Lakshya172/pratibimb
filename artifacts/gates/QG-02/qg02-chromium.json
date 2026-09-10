@@ -1,0 +1,1332 @@
+{
+  "gate": "QG-02",
+  "browser": "chromium",
+  "collectedAt": "2026-09-10T13:51:40.903Z",
+  "zoomEmulation": "Zoom is emulated via deviceScaleFactor. devicePixelRatio already folds browser zoom in, so the page sees the same ratio either way; Chrome's zoom-specific layout rounding at fractional scale factors is NOT reproduced.",
+  "verdict": {
+    "configurations": 6,
+    "QG02_same_css_box_all_six": true,
+    "QG02_round_trip_lossless": true,
+    "QG02_dpr_emulation_real": true,
+    "QG02_offscreen_no_pixel_evidence": true,
+    "QG02_onscreen_has_bbox": true,
+    "dynamic_region_observable": true,
+    "trackedElements": {
+      "#phone": true,
+      "#cancel": true,
+      "#help-link": true,
+      "#phone-label": true
+    },
+    "findings": []
+  },
+  "runs": [
+    {
+      "config": "DPR 1.0 @ 100%",
+      "physicalDpr": 1,
+      "zoom": 1,
+      "reportedDpr": 1,
+      "expectedDpr": 1,
+      "viewportCss": {
+        "w": 1024,
+        "h": 640
+      },
+      "captureSize": {
+        "width": 1024,
+        "height": 640
+      },
+      "scaleToCss": 1,
+      "roundTrip": {
+        "#masthead": {
+          "css": [
+            0,
+            0,
+            1024,
+            48
+          ],
+          "roundTripped": [
+            0,
+            0,
+            1024,
+            48
+          ]
+        },
+        "#phone-label": {
+          "css": [
+            400,
+            220,
+            300,
+            20
+          ],
+          "roundTripped": [
+            400,
+            220,
+            300,
+            20
+          ]
+        },
+        "#phone": {
+          "css": [
+            400,
+            260,
+            300,
+            32
+          ],
+          "roundTripped": [
+            400,
+            260,
+            300,
+            32
+          ]
+        },
+        "#help-link": {
+          "css": [
+            400,
+            310,
+            160,
+            18
+          ],
+          "roundTripped": [
+            400,
+            310,
+            160,
+            18
+          ]
+        },
+        "#cancel": {
+          "css": [
+            620,
+            360,
+            120,
+            40
+          ],
+          "roundTripped": [
+            620,
+            360,
+            120,
+            40
+          ]
+        },
+        "#dynamic": {
+          "css": [
+            400,
+            430,
+            300,
+            60
+          ],
+          "roundTripped": [
+            400,
+            430,
+            300,
+            60
+          ]
+        }
+      },
+      "elements": [
+        {
+          "id": "e0",
+          "role": "generic",
+          "name": "Seva — Application Portal",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            0,
+            0,
+            1024,
+            48
+          ]
+        },
+        {
+          "id": "e1",
+          "role": "label",
+          "name": "Phone",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            220,
+            300,
+            20
+          ]
+        },
+        {
+          "id": "e2",
+          "role": "textbox",
+          "name": "Phone",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            260,
+            300,
+            32
+          ]
+        },
+        {
+          "id": "e3",
+          "role": "link",
+          "name": "What number should I use?",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            310,
+            160,
+            18
+          ]
+        },
+        {
+          "id": "e4",
+          "role": "button",
+          "name": "Cancel",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            620,
+            360,
+            120,
+            40
+          ]
+        },
+        {
+          "id": "e5",
+          "role": "generic",
+          "name": "Queue position: 0",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            430,
+            300,
+            60
+          ]
+        },
+        {
+          "id": "e6",
+          "role": "button",
+          "name": "Submit",
+          "source": "dom",
+          "visible": false,
+          "offscreen": true,
+          "enabled": true
+        },
+        {
+          "id": "e7",
+          "role": "link",
+          "name": "Privacy policy",
+          "source": "dom",
+          "visible": false,
+          "offscreen": true,
+          "enabled": true
+        }
+      ],
+      "dynamicRegion": {
+        "before": "0",
+        "after": "1",
+        "textChanged": true,
+        "framesDiffer": true
+      }
+    },
+    {
+      "config": "DPR 1.0 @ 125%",
+      "physicalDpr": 1,
+      "zoom": 1.25,
+      "reportedDpr": 1.25,
+      "expectedDpr": 1.25,
+      "viewportCss": {
+        "w": 1024,
+        "h": 640
+      },
+      "captureSize": {
+        "width": 1280,
+        "height": 800
+      },
+      "scaleToCss": 0.8,
+      "roundTrip": {
+        "#masthead": {
+          "css": [
+            0,
+            0,
+            1024,
+            48
+          ],
+          "roundTripped": [
+            0,
+            0,
+            1024,
+            48
+          ]
+        },
+        "#phone-label": {
+          "css": [
+            400,
+            220,
+            300,
+            20
+          ],
+          "roundTripped": [
+            400,
+            220,
+            300,
+            20
+          ]
+        },
+        "#phone": {
+          "css": [
+            400,
+            260,
+            300,
+            32
+          ],
+          "roundTripped": [
+            400,
+            260,
+            300,
+            32
+          ]
+        },
+        "#help-link": {
+          "css": [
+            400,
+            310,
+            160,
+            18
+          ],
+          "roundTripped": [
+            400,
+            310,
+            160,
+            18
+          ]
+        },
+        "#cancel": {
+          "css": [
+            620,
+            360,
+            120,
+            40
+          ],
+          "roundTripped": [
+            620,
+            360,
+            120,
+            40
+          ]
+        },
+        "#dynamic": {
+          "css": [
+            400,
+            430,
+            300,
+            60
+          ],
+          "roundTripped": [
+            400,
+            430,
+            300,
+            60
+          ]
+        }
+      },
+      "elements": [
+        {
+          "id": "e0",
+          "role": "generic",
+          "name": "Seva — Application Portal",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            0,
+            0,
+            1024,
+            48
+          ]
+        },
+        {
+          "id": "e1",
+          "role": "label",
+          "name": "Phone",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            220,
+            300,
+            20
+          ]
+        },
+        {
+          "id": "e2",
+          "role": "textbox",
+          "name": "Phone",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            260,
+            300,
+            32
+          ]
+        },
+        {
+          "id": "e3",
+          "role": "link",
+          "name": "What number should I use?",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            310,
+            160,
+            18
+          ]
+        },
+        {
+          "id": "e4",
+          "role": "button",
+          "name": "Cancel",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            620,
+            360,
+            120,
+            40
+          ]
+        },
+        {
+          "id": "e5",
+          "role": "generic",
+          "name": "Queue position: 0",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            430,
+            300,
+            60
+          ]
+        },
+        {
+          "id": "e6",
+          "role": "button",
+          "name": "Submit",
+          "source": "dom",
+          "visible": false,
+          "offscreen": true,
+          "enabled": true
+        },
+        {
+          "id": "e7",
+          "role": "link",
+          "name": "Privacy policy",
+          "source": "dom",
+          "visible": false,
+          "offscreen": true,
+          "enabled": true
+        }
+      ],
+      "dynamicRegion": {
+        "before": "0",
+        "after": "1",
+        "textChanged": true,
+        "framesDiffer": true
+      }
+    },
+    {
+      "config": "DPR 1.5 @ 100%",
+      "physicalDpr": 1.5,
+      "zoom": 1,
+      "reportedDpr": 1.5,
+      "expectedDpr": 1.5,
+      "viewportCss": {
+        "w": 1024,
+        "h": 640
+      },
+      "captureSize": {
+        "width": 1536,
+        "height": 960
+      },
+      "scaleToCss": 0.6666666666666666,
+      "roundTrip": {
+        "#masthead": {
+          "css": [
+            0,
+            0,
+            1024,
+            48
+          ],
+          "roundTripped": [
+            0,
+            0,
+            1024,
+            48
+          ]
+        },
+        "#phone-label": {
+          "css": [
+            400,
+            220,
+            300,
+            20
+          ],
+          "roundTripped": [
+            400,
+            220,
+            300,
+            20
+          ]
+        },
+        "#phone": {
+          "css": [
+            400,
+            260,
+            300,
+            32
+          ],
+          "roundTripped": [
+            400,
+            260,
+            300,
+            32
+          ]
+        },
+        "#help-link": {
+          "css": [
+            400,
+            310,
+            160,
+            18
+          ],
+          "roundTripped": [
+            400,
+            310,
+            160,
+            18
+          ]
+        },
+        "#cancel": {
+          "css": [
+            620,
+            360,
+            120,
+            40
+          ],
+          "roundTripped": [
+            620,
+            360,
+            120,
+            40
+          ]
+        },
+        "#dynamic": {
+          "css": [
+            400,
+            430,
+            300,
+            60
+          ],
+          "roundTripped": [
+            400,
+            430,
+            300,
+            60
+          ]
+        }
+      },
+      "elements": [
+        {
+          "id": "e0",
+          "role": "generic",
+          "name": "Seva — Application Portal",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            0,
+            0,
+            1024,
+            48
+          ]
+        },
+        {
+          "id": "e1",
+          "role": "label",
+          "name": "Phone",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            220,
+            300,
+            20
+          ]
+        },
+        {
+          "id": "e2",
+          "role": "textbox",
+          "name": "Phone",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            260,
+            300,
+            32
+          ]
+        },
+        {
+          "id": "e3",
+          "role": "link",
+          "name": "What number should I use?",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            310,
+            160,
+            18
+          ]
+        },
+        {
+          "id": "e4",
+          "role": "button",
+          "name": "Cancel",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            620,
+            360,
+            120,
+            40
+          ]
+        },
+        {
+          "id": "e5",
+          "role": "generic",
+          "name": "Queue position: 0",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            430,
+            300,
+            60
+          ]
+        },
+        {
+          "id": "e6",
+          "role": "button",
+          "name": "Submit",
+          "source": "dom",
+          "visible": false,
+          "offscreen": true,
+          "enabled": true
+        },
+        {
+          "id": "e7",
+          "role": "link",
+          "name": "Privacy policy",
+          "source": "dom",
+          "visible": false,
+          "offscreen": true,
+          "enabled": true
+        }
+      ],
+      "dynamicRegion": {
+        "before": "0",
+        "after": "1",
+        "textChanged": true,
+        "framesDiffer": true
+      }
+    },
+    {
+      "config": "DPR 1.5 @ 125%",
+      "physicalDpr": 1.5,
+      "zoom": 1.25,
+      "reportedDpr": 1.875,
+      "expectedDpr": 1.875,
+      "viewportCss": {
+        "w": 1024,
+        "h": 640
+      },
+      "captureSize": {
+        "width": 1920,
+        "height": 1200
+      },
+      "scaleToCss": 0.5333333333333333,
+      "roundTrip": {
+        "#masthead": {
+          "css": [
+            0,
+            0,
+            1024,
+            48
+          ],
+          "roundTripped": [
+            0,
+            0,
+            1024,
+            48
+          ]
+        },
+        "#phone-label": {
+          "css": [
+            400,
+            220,
+            300,
+            20
+          ],
+          "roundTripped": [
+            400,
+            220,
+            300,
+            20
+          ]
+        },
+        "#phone": {
+          "css": [
+            400,
+            260,
+            300,
+            32
+          ],
+          "roundTripped": [
+            400,
+            260,
+            300,
+            32
+          ]
+        },
+        "#help-link": {
+          "css": [
+            400,
+            310,
+            160,
+            18
+          ],
+          "roundTripped": [
+            400,
+            310,
+            160,
+            18
+          ]
+        },
+        "#cancel": {
+          "css": [
+            620,
+            360,
+            120,
+            40
+          ],
+          "roundTripped": [
+            620,
+            360,
+            120,
+            40
+          ]
+        },
+        "#dynamic": {
+          "css": [
+            400,
+            430,
+            300,
+            60
+          ],
+          "roundTripped": [
+            400,
+            430,
+            300,
+            60
+          ]
+        }
+      },
+      "elements": [
+        {
+          "id": "e0",
+          "role": "generic",
+          "name": "Seva — Application Portal",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            0,
+            0,
+            1024,
+            48
+          ]
+        },
+        {
+          "id": "e1",
+          "role": "label",
+          "name": "Phone",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            220,
+            300,
+            20
+          ]
+        },
+        {
+          "id": "e2",
+          "role": "textbox",
+          "name": "Phone",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            260,
+            300,
+            32
+          ]
+        },
+        {
+          "id": "e3",
+          "role": "link",
+          "name": "What number should I use?",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            310,
+            160,
+            18
+          ]
+        },
+        {
+          "id": "e4",
+          "role": "button",
+          "name": "Cancel",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            620,
+            360,
+            120,
+            40
+          ]
+        },
+        {
+          "id": "e5",
+          "role": "generic",
+          "name": "Queue position: 0",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            430,
+            300,
+            60
+          ]
+        },
+        {
+          "id": "e6",
+          "role": "button",
+          "name": "Submit",
+          "source": "dom",
+          "visible": false,
+          "offscreen": true,
+          "enabled": true
+        },
+        {
+          "id": "e7",
+          "role": "link",
+          "name": "Privacy policy",
+          "source": "dom",
+          "visible": false,
+          "offscreen": true,
+          "enabled": true
+        }
+      ],
+      "dynamicRegion": {
+        "before": "0",
+        "after": "1",
+        "textChanged": true,
+        "framesDiffer": true
+      }
+    },
+    {
+      "config": "DPR 2.0 @ 100%",
+      "physicalDpr": 2,
+      "zoom": 1,
+      "reportedDpr": 2,
+      "expectedDpr": 2,
+      "viewportCss": {
+        "w": 1024,
+        "h": 640
+      },
+      "captureSize": {
+        "width": 2048,
+        "height": 1280
+      },
+      "scaleToCss": 0.5,
+      "roundTrip": {
+        "#masthead": {
+          "css": [
+            0,
+            0,
+            1024,
+            48
+          ],
+          "roundTripped": [
+            0,
+            0,
+            1024,
+            48
+          ]
+        },
+        "#phone-label": {
+          "css": [
+            400,
+            220,
+            300,
+            20
+          ],
+          "roundTripped": [
+            400,
+            220,
+            300,
+            20
+          ]
+        },
+        "#phone": {
+          "css": [
+            400,
+            260,
+            300,
+            32
+          ],
+          "roundTripped": [
+            400,
+            260,
+            300,
+            32
+          ]
+        },
+        "#help-link": {
+          "css": [
+            400,
+            310,
+            160,
+            18
+          ],
+          "roundTripped": [
+            400,
+            310,
+            160,
+            18
+          ]
+        },
+        "#cancel": {
+          "css": [
+            620,
+            360,
+            120,
+            40
+          ],
+          "roundTripped": [
+            620,
+            360,
+            120,
+            40
+          ]
+        },
+        "#dynamic": {
+          "css": [
+            400,
+            430,
+            300,
+            60
+          ],
+          "roundTripped": [
+            400,
+            430,
+            300,
+            60
+          ]
+        }
+      },
+      "elements": [
+        {
+          "id": "e0",
+          "role": "generic",
+          "name": "Seva — Application Portal",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            0,
+            0,
+            1024,
+            48
+          ]
+        },
+        {
+          "id": "e1",
+          "role": "label",
+          "name": "Phone",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            220,
+            300,
+            20
+          ]
+        },
+        {
+          "id": "e2",
+          "role": "textbox",
+          "name": "Phone",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            260,
+            300,
+            32
+          ]
+        },
+        {
+          "id": "e3",
+          "role": "link",
+          "name": "What number should I use?",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            310,
+            160,
+            18
+          ]
+        },
+        {
+          "id": "e4",
+          "role": "button",
+          "name": "Cancel",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            620,
+            360,
+            120,
+            40
+          ]
+        },
+        {
+          "id": "e5",
+          "role": "generic",
+          "name": "Queue position: 0",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            430,
+            300,
+            60
+          ]
+        },
+        {
+          "id": "e6",
+          "role": "button",
+          "name": "Submit",
+          "source": "dom",
+          "visible": false,
+          "offscreen": true,
+          "enabled": true
+        },
+        {
+          "id": "e7",
+          "role": "link",
+          "name": "Privacy policy",
+          "source": "dom",
+          "visible": false,
+          "offscreen": true,
+          "enabled": true
+        }
+      ],
+      "dynamicRegion": {
+        "before": "0",
+        "after": "1",
+        "textChanged": true,
+        "framesDiffer": true
+      }
+    },
+    {
+      "config": "DPR 2.0 @ 125%",
+      "physicalDpr": 2,
+      "zoom": 1.25,
+      "reportedDpr": 2.5,
+      "expectedDpr": 2.5,
+      "viewportCss": {
+        "w": 1024,
+        "h": 640
+      },
+      "captureSize": {
+        "width": 2560,
+        "height": 1600
+      },
+      "scaleToCss": 0.4,
+      "roundTrip": {
+        "#masthead": {
+          "css": [
+            0,
+            0,
+            1024,
+            48
+          ],
+          "roundTripped": [
+            0,
+            0,
+            1024,
+            48
+          ]
+        },
+        "#phone-label": {
+          "css": [
+            400,
+            220,
+            300,
+            20
+          ],
+          "roundTripped": [
+            400,
+            220,
+            300,
+            20
+          ]
+        },
+        "#phone": {
+          "css": [
+            400,
+            260,
+            300,
+            32
+          ],
+          "roundTripped": [
+            400,
+            260,
+            300,
+            32
+          ]
+        },
+        "#help-link": {
+          "css": [
+            400,
+            310,
+            160,
+            18
+          ],
+          "roundTripped": [
+            400,
+            310,
+            160,
+            18
+          ]
+        },
+        "#cancel": {
+          "css": [
+            620,
+            360,
+            120,
+            40
+          ],
+          "roundTripped": [
+            620,
+            360,
+            120,
+            40
+          ]
+        },
+        "#dynamic": {
+          "css": [
+            400,
+            430,
+            300,
+            60
+          ],
+          "roundTripped": [
+            400,
+            430,
+            300,
+            60
+          ]
+        }
+      },
+      "elements": [
+        {
+          "id": "e0",
+          "role": "generic",
+          "name": "Seva — Application Portal",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            0,
+            0,
+            1024,
+            48
+          ]
+        },
+        {
+          "id": "e1",
+          "role": "label",
+          "name": "Phone",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            220,
+            300,
+            20
+          ]
+        },
+        {
+          "id": "e2",
+          "role": "textbox",
+          "name": "Phone",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            260,
+            300,
+            32
+          ]
+        },
+        {
+          "id": "e3",
+          "role": "link",
+          "name": "What number should I use?",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            310,
+            160,
+            18
+          ]
+        },
+        {
+          "id": "e4",
+          "role": "button",
+          "name": "Cancel",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            620,
+            360,
+            120,
+            40
+          ]
+        },
+        {
+          "id": "e5",
+          "role": "generic",
+          "name": "Queue position: 0",
+          "source": "dom",
+          "visible": true,
+          "offscreen": false,
+          "enabled": true,
+          "bbox": [
+            400,
+            430,
+            300,
+            60
+          ]
+        },
+        {
+          "id": "e6",
+          "role": "button",
+          "name": "Submit",
+          "source": "dom",
+          "visible": false,
+          "offscreen": true,
+          "enabled": true
+        },
+        {
+          "id": "e7",
+          "role": "link",
+          "name": "Privacy policy",
+          "source": "dom",
+          "visible": false,
+          "offscreen": true,
+          "enabled": true
+        }
+      ],
+      "dynamicRegion": {
+        "before": "0",
+        "after": "1",
+        "textChanged": true,
+        "framesDiffer": true
+      }
+    }
+  ]
+}

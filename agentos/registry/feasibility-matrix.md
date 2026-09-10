@@ -260,7 +260,7 @@ or the URL passed in from the offscreen document.
 | S-02a-4 | Confirm the backend is software by a route other than `adapterInfo` | `UNKNOWN` | Labelling of Linux figures |
 | S-03 | Can an ONNX Runtime Web session be **created and run** in each context, on each backend? | `UNKNOWN` | — |
 | S-04 | Can **three ORT Web sessions coexist** in one WebAssembly heap inside an extension offscreen document, and does teardown reclaim memory? | `UNKNOWN` | — |
-| S-05 | What are the **real `tabs.captureVisibleTab` rate limits** under `activeTab`? | `UNKNOWN` | — |
+| S-05 | What are the **real `tabs.captureVisibleTab` rate limits** under `activeTab`? | `UNKNOWN` | **Still UNKNOWN — not measured by the 2026-09-10 perception work.** The substrate now has a consumer that fails closed around it: the capture adapter reports throttling as a typed `CAPTURE_FAILED` refusal and contains **no retry or backoff policy**, because that policy would be invented ahead of the measurement. `DEFAULT_CHANGE_POLICY` and `DEFAULT_FRAME_TTL_MS` are provisional named constants with tests attached, not measured values, and no performance claim rests on them. |
 | S-06 | Does the coordinate contract hold at DPR 1.0 / 1.5 / 2.0 and 100% / 125% zoom? | `UNKNOWN` | — |
 
 ### S-01 result — recorded 2026-09-07

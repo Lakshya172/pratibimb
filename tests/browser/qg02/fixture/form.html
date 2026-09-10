@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>Seva application form — QG-02 fixture</title>
+<!--
+  QG-02 coordinate-contract fixture.
+
+  Modelled on the manifest schema's own worked example — a government services
+  application form with a Phone textbox and a Submit button — so the gate's assertions tie
+  back to the frozen contract rather than to a shape invented for the test.
+
+  Every element the gate measures has a FIXED PIXEL size and position. That is the point:
+  CSS pixels are the page's own space, so a 300px-wide field is 300 CSS px at DPR 1.0 and
+  at DPR 2.0 and at 125% zoom. An element sized in percentages would change with the
+  viewport and could not distinguish "the contract holds" from "the layout happened to
+  agree".
+
+  Contents required by the perception brief, all present and all measured:
+    buttons, links, text fields, labels, a scrollable off-screen target, a dynamic region.
+-->
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font: 14px/1.4 system-ui, sans-serif;
+    background: #fff;
+    color: #111;
+  }
+  /* A tall document, so the submit button is genuinely below the fold at 640 CSS px. */
+  main { width: 900px; padding: 0; }
+
+  #masthead {
+    position: fixed; top: 0; left: 0;
+    width: 1024px; height: 48px;
+    background: #12395c; color: #fff;
+    padding: 14px 16px;
+  }
+  #content { padding-top: 64px; }
+
+  /* Fixed geometry. These numbers are asserted directly by the gate. */
+  #phone-label { position: absolute; left: 400px; top: 220px; width: 300px; height: 20px; }
+  #phone       { position: absolute; left: 400px; top: 260px; width: 300px; height: 32px; }
+  #help-link   { position: absolute; left: 400px; top: 310px; width: 160px; height: 18px; }
+  #cancel      { position: absolute; left: 620px; top: 360px; width: 120px; height: 40px; }
+  #dynamic     { position: absolute; left: 400px; top: 430px; width: 300px; height: 60px;
+                 border: 1px solid #bbb; padding: 8px; }
+  /* Below the fold at any of the six configurations: the off-screen target. */
+  #submit      { position: absolute; left: 400px; top: 1180px; width: 120px; height: 40px; }
+  #footer-link { position: absolute; left: 400px; top: 1400px; width: 200px; height: 18px; }
+
+  input, button { font: inherit; }
+</style>
+
+<header id="masthead">Seva — Application Portal</header>
+
+<main>
+  <div id="content">
+    <label id="phone-label" for="phone">Phone</label>
+    <input id="phone" type="tel" name="phone" autocomplete="tel" aria-label="Phone" />
+
+    <a id="help-link" href="#help">What number should I use?</a>
+
+    <button id="cancel" type="button">Cancel</button>
+
+    <!--
+      The dynamic region. Its text changes on a timer WITHOUT any structural mutation to
+      the elements the gate measures, which is what lets the change-detection assertion
+      distinguish a structural signal from a visual one.
+    -->
+    <div id="dynamic" aria-live="polite">Queue position: <span id="queue">—</span></div>
+
+    <!-- Off-screen: below the fold, DOM-known, never captured. -->
+    <button id="submit" type="submit">Submit</button>
+    <a id="footer-link" href="#privacy">Privacy policy</a>
+  </div>
+</main>
+
+<script>
+  // Deterministic on load, then advancing. The gate reads `queue` before and after a tick
+  // so "the pixels changed but the DOM structure did not" is observable.
+  let n = 0;
+  const el = document.getElementById("queue");
+  el.textContent = String(n);
+  window.__tickQueue = () => {
+    n += 1;
+    el.textContent = String(n);
+    return n;
+  };
+
+  /**
+   * Measure the page exactly as the perception tier's page-context half would.
+   *
+   * getBoundingClientRect() returns CSS pixels, which is why the QG-02 invariant holds at
+   * all: it is the page's own space and does not move with DPR or zoom.
+   */
+  window.__measure = () => {
+    // STANDARDS MODE IS LOAD-BEARING HERE, not a formality.
+    //
+    // In quirks mode, document.documentElement.clientHeight is the html element's CONTENT
+    // height rather than the viewport. This fixture was briefly missing its DOCTYPE and
+    // reported a 1024x64 viewport on Firefox while Chrome reported 1024x640 - the same
+    // page, two different answers, and only one of them wrong in a way anyone would spot.
+    // Every coordinate in the contract is derived from this number, so it is checked.
+    if (document.compatMode !== "CSS1Compat") {
+      throw new Error(
+        "QG-02 fixture is in quirks mode (document.compatMode=" + document.compatMode +
+        "). documentElement.clientHeight is not the viewport here. Restore the DOCTYPE."
+      );
+    }
+    const ids = [
+      "masthead", "phone-label", "phone", "help-link",
+      "cancel", "dynamic", "submit", "footer-link",
+    ];
+    return {
+      viewport: {
+        dpr: window.devicePixelRatio,
+        viewportCssWidth: document.documentElement.clientWidth,
+        viewportCssHeight: document.documentElement.clientHeight,
+        scrollX: window.scrollX,
+        scrollY: window.scrollY,
+        origin: window.location.origin,
+      },
+      elements: ids.map((id) => {
+        const node = document.getElementById(id);
+        const r = node.getBoundingClientRect();
+        const cs = getComputedStyle(node);
+        return {
+          selector: "#" + id,
+          role: node.tagName === "INPUT" ? "textbox"
+              : node.tagName === "BUTTON" ? "button"
+              : node.tagName === "A" ? "link"
+              : node.tagName === "LABEL" ? "label"
+              : "generic",
+          name: (node.getAttribute("aria-label") || node.textContent || "").trim().slice(0, 60),
+          rect: { x: r.x, y: r.y, w: r.width, h: r.height },
+          enabled: !node.disabled,
+          cssHidden: cs.display === "none" || cs.visibility === "hidden" || r.width === 0 || r.height === 0,
+          parentIndex: -1,
+        };
+      }),
+    };
+  };
+</script>
