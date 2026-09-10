@@ -28,13 +28,21 @@
 
 **This gate is passed before the action executor is written.**
 
-- [ ] CSS viewport pixels is the only space in any manifest or action plan.
-- [ ] Conversion happens at the edge of every component, and each conversion is unit tested.
-- [ ] The CI fixture renders at **DPR 1.0, 1.5, 2.0** and **100%, 125% zoom**.
-- [ ] The same logical element resolves to the **same CSS-pixel box in all six configurations**.
-- [ ] `capture` block records `dpr`, `zoom`, `scale_to_css`, `scroll`, `origin` — always, even when a value is 1.0.
-- [ ] Off-screen elements are reported `visible: false, offscreen: true`, in document space, with no pixel evidence.
-- [ ] An off-screen element is never actioned without a preceding scroll.
+- [x] CSS viewport pixels is the only space in any manifest or action plan.
+- [x] Conversion happens at the edge of every component, and each conversion is unit tested.
+- [x] The CI fixture renders at **DPR 1.0, 1.5, 2.0** and **100%, 125% zoom**.
+- [x] The same logical element resolves to the **same CSS-pixel box in all six configurations**.
+- [x] `capture` block records `dpr`, `zoom`, `scale_to_css`, `scroll`, `origin` — always, even when a value is 1.0.
+- [x] Off-screen elements are reported `visible: false, offscreen: true`, in document space, with no pixel evidence.
+- [ ] An off-screen element is never actioned without a preceding scroll. **CONDITIONAL —
+      perception discharges its half (it emits no actionable coordinate for an off-screen
+      element), but the executor half has no executor to bind. Re-verified when it lands.**
+
+> **Status 2026-09-10: criteria 1–6 PASS on Chromium, criterion 7 CONDITIONAL.**
+> Measured across six configurations — `devicePixelRatio` 1.0→2.5, frame 1024×640→2560×1600,
+> the same element at `[400,260,300,32]` in all six. Evidence and the full criterion table:
+> `artifacts/gates/QG-02/`. **Firefox is NOT RUN on the Windows workstation** (Playwright's
+> browser CDN returns HTTP 400 there); the CI job produces that cell or it does not exist.
 
 ## QG-03 — Model feasibility
 
