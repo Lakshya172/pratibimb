@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <meta charset="utf-8" />
 <title>Seva application form — QG-02 fixture</title>
 <!--
@@ -92,6 +93,19 @@
    * all: it is the page's own space and does not move with DPR or zoom.
    */
   window.__measure = () => {
+    // STANDARDS MODE IS LOAD-BEARING HERE, not a formality.
+    //
+    // In quirks mode, document.documentElement.clientHeight is the html element's CONTENT
+    // height rather than the viewport. This fixture was briefly missing its DOCTYPE and
+    // reported a 1024x64 viewport on Firefox while Chrome reported 1024x640 - the same
+    // page, two different answers, and only one of them wrong in a way anyone would spot.
+    // Every coordinate in the contract is derived from this number, so it is checked.
+    if (document.compatMode !== "CSS1Compat") {
+      throw new Error(
+        "QG-02 fixture is in quirks mode (document.compatMode=" + document.compatMode +
+        "). documentElement.clientHeight is not the viewport here. Restore the DOCTYPE."
+      );
+    }
     const ids = [
       "masthead", "phone-label", "phone", "help-link",
       "cancel", "dynamic", "submit", "footer-link",
