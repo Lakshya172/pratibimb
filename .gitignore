@@ -165,3 +165,9 @@ artifacts/experiments/W1-QG03b2a-chromium-jpeg-capture/harness/captured/*.r2.*
 # metrics.json and logs/.
 artifacts/experiments/W1-QG03a-t1-production-robustness/harness/generated/
 artifacts/experiments/W1-QG03a-t1-production-robustness/harness/profiles/
+
+# QG-03a-B2 real-model harness. generated/ holds the raw ORT output dumps (~6 MB per cell);
+# profiles/ holds the throwaway browser profiles. The model itself is already ignored under
+# artifacts/models/. Kept evidence: logs/ (every digest), metrics.json.
+artifacts/experiments/W1-QG03a-B2-real-model-nms/harness/generated/
+artifacts/experiments/W1-QG03a-B2-real-model-nms/harness/profiles/
