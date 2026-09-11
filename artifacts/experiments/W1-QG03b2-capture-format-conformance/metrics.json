@@ -1,0 +1,2042 @@
+{
+  "experiment": "W1-QG03b2-capture-format-conformance",
+  "question": "Does the browser decode and preprocess every real capture format the way the reference does?",
+  "lineage": "QG-03b-2 — raised by QG-03b, which proved only the PNG path",
+  "unitOfEvidence": "browser x backend x display mode x format x fixture",
+  "scope": {
+    "jpeg": "REAL capture format — chrome.tabs.captureVisibleTab({format:'jpeg', quality})",
+    "webp": "NOT a capture format. captureVisibleTab cannot produce it and TabsCaptureApi declares png|jpeg. Every WebP reference in dossier v4.0 is the T2 EGRESS encoding. Measured here because CaptureFrame.format permits 'webp' while the adapter cannot produce it, and because the T2 verification pass will decode WebP bytes later."
+  },
+  "criterion": {
+    "preRegistered": true,
+    "preRegisteredBefore": "any browser was launched for QG-03b-2",
+    "lossless": {
+      "decodedPixels": "BITWISE identical",
+      "why": "PNG and lossless WebP are defined to reconstruct the source exactly; a difference is a defect, not variance."
+    },
+    "lossy": {
+      "geometryExact": true,
+      "geometryWhy": "resize extent and padding are arithmetic on dimensions, not a codec question. No tolerance.",
+      "decodedMaxAbs": 2,
+      "decodedMeanAbs": 0.2,
+      "units": "0..255 per channel",
+      "why": "ITU-T T.83 holds a compliant JPEG decoder to a peak error of 1 against the reference IDCT; 2 allows one level of slack. Exceeding it means the difference is not ordinary decoder variance and a specific cause must be named."
+    },
+    "detector": {
+      "minMatchedAtIou50": 0.95,
+      "maxCountDelta": 2,
+      "maxCssDisplacementPx": 2,
+      "why": "the primary criterion — a tensor bound that does not change what the detector says is diagnostic, not decisive"
+    }
+  },
+  "reference": {
+    "decoder": "Pillow 12.3.0",
+    "libjpeg": "8.0",
+    "libjpegTurbo": true,
+    "libwebp": "1.6.0",
+    "rule": "the reference decodes THE EXACT ENCODED BYTES whose sha256 is recorded here, then runs the authoritative preprocessing contract. A lossy format is never compared against the original lossless image — that would measure compression, not conformance.",
+    "iccProfiles": "never embedded — a browser applies colour management from one and PIL does not"
+  },
+  "generatedAt": "2026-09-11T12:16:20.696Z",
+  "cells": [
+    {
+      "browser": "chromium",
+      "backend": "wasm",
+      "display": "headful",
+      "platform": "windows",
+      "runs": 2,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "byFormat": {
+        "png": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q95": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossy-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossless": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        }
+      },
+      "detection": {
+        "png": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "measured": true
+          }
+        },
+        "jpeg-q95": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010524409179879513,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.9622641509433962,
+            "worstCountDelta": 1,
+            "worstCssPx": 58.36899946142578,
+            "measured": true
+          }
+        },
+        "jpeg-q62": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010527749023481192,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.9056603773584906,
+            "worstCountDelta": 1,
+            "worstCssPx": 91.26683390136719,
+            "measured": true
+          }
+        },
+        "webp-lossy-q62": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0008237036132641151,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.92,
+            "worstCountDelta": 2,
+            "worstCssPx": 74.311963,
+            "measured": true
+          }
+        },
+        "webp-lossless": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "measured": true
+          }
+        }
+      },
+      "detectionUnavailable": null,
+      "latency": {
+        "png": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 12504,
+          "decodeMs": {
+            "min": 13.3,
+            "median": 34.5,
+            "max": 34.5,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 27.2,
+            "median": 107.7,
+            "max": 107.7,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 40.5,
+            "median": 142.2,
+            "max": 142.2,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "jpeg-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 348410,
+          "decodeMs": {
+            "min": 16,
+            "median": 59.3,
+            "max": 59.3,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 26.7,
+            "median": 108.9,
+            "max": 108.9,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 42.7,
+            "median": 168.2,
+            "max": 168.2,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "webp-lossy-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 158886,
+          "decodeMs": {
+            "min": 25,
+            "median": 87,
+            "max": 87,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 26.9,
+            "median": 110.4,
+            "max": 110.4,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 51.9,
+            "median": 197.4,
+            "max": 197.4,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        }
+      },
+      "attribution": {
+        "colourManagementEverAffects": false,
+        "premultiplyEverAffects": true
+      }
+    },
+    {
+      "browser": "chromium",
+      "backend": "wasm",
+      "display": "headless",
+      "platform": "windows",
+      "runs": 2,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "byFormat": {
+        "png": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q95": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossy-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossless": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        }
+      },
+      "detection": {
+        "png": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "measured": true
+          }
+        },
+        "jpeg-q95": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010524409179879513,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.9622641509433962,
+            "worstCountDelta": 1,
+            "worstCssPx": 58.36899946142578,
+            "measured": true
+          }
+        },
+        "jpeg-q62": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010527749023481192,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.9056603773584906,
+            "worstCountDelta": 1,
+            "worstCssPx": 91.26683390136719,
+            "measured": true
+          }
+        },
+        "webp-lossy-q62": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0008237036132641151,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.92,
+            "worstCountDelta": 2,
+            "worstCssPx": 74.311963,
+            "measured": true
+          }
+        },
+        "webp-lossless": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "measured": true
+          }
+        }
+      },
+      "detectionUnavailable": null,
+      "latency": {
+        "png": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 12504,
+          "decodeMs": {
+            "min": 9.1,
+            "median": 9.5,
+            "max": 9.5,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 26.1,
+            "median": 26.2,
+            "max": 26.2,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 35.2,
+            "median": 35.7,
+            "max": 35.7,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "jpeg-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 348410,
+          "decodeMs": {
+            "min": 12.4,
+            "median": 12.5,
+            "max": 12.5,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 25.7,
+            "median": 26.5,
+            "max": 26.5,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 38.2,
+            "median": 38.9,
+            "max": 38.9,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "webp-lossy-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 158886,
+          "decodeMs": {
+            "min": 20.1,
+            "median": 21.3,
+            "max": 21.3,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 24.9,
+            "median": 25.4,
+            "max": 25.4,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 45,
+            "median": 46.7,
+            "max": 46.7,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        }
+      },
+      "attribution": {
+        "colourManagementEverAffects": false,
+        "premultiplyEverAffects": true
+      }
+    },
+    {
+      "browser": "chromium",
+      "backend": "webgpu",
+      "display": "headful",
+      "platform": "windows",
+      "runs": 2,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "byFormat": {
+        "png": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q95": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossy-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossless": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        }
+      },
+      "detection": {
+        "png": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010577990722708819,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010577990722708819,
+            "measured": true
+          }
+        },
+        "jpeg-q95": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.001075631347646322,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.9622641509433962,
+            "worstCountDelta": 1,
+            "worstCssPx": 58.36906812597656,
+            "measured": true
+          }
+        },
+        "jpeg-q62": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0012083789061989592,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.9056603773584906,
+            "worstCountDelta": 1,
+            "worstCssPx": 91.26680643554687,
+            "measured": true
+          }
+        },
+        "webp-lossy-q62": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0021423813476815212,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.92,
+            "worstCountDelta": 2,
+            "worstCssPx": 74.311963,
+            "measured": true
+          }
+        },
+        "webp-lossless": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010577990722708819,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010577990722708819,
+            "measured": true
+          }
+        }
+      },
+      "detectionUnavailable": null,
+      "latency": {
+        "png": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 12504,
+          "decodeMs": {
+            "min": 10,
+            "median": 10.2,
+            "max": 10.2,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 26.8,
+            "median": 26.9,
+            "max": 26.9,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 36.9,
+            "median": 37,
+            "max": 37,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "jpeg-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 348410,
+          "decodeMs": {
+            "min": 12.6,
+            "median": 14.1,
+            "max": 14.1,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 24.6,
+            "median": 25.5,
+            "max": 25.5,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 37.2,
+            "median": 39.6,
+            "max": 39.6,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "webp-lossy-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 158886,
+          "decodeMs": {
+            "min": 20.6,
+            "median": 20.6,
+            "max": 20.6,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 23.7,
+            "median": 25.8,
+            "max": 25.8,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 44.3,
+            "median": 46.4,
+            "max": 46.4,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        }
+      },
+      "attribution": {
+        "colourManagementEverAffects": false,
+        "premultiplyEverAffects": true
+      }
+    },
+    {
+      "browser": "chromium",
+      "backend": "webgpu",
+      "display": "headless",
+      "platform": "windows",
+      "runs": 2,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "byFormat": {
+        "png": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q95": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossy-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossless": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        }
+      },
+      "detection": {
+        "png": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010577990722708819,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010577990722708819,
+            "measured": true
+          }
+        },
+        "jpeg-q95": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.001075631347646322,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.9622641509433962,
+            "worstCountDelta": 1,
+            "worstCssPx": 58.36906812597656,
+            "measured": true
+          }
+        },
+        "jpeg-q62": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0012083789061989592,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.9056603773584906,
+            "worstCountDelta": 1,
+            "worstCssPx": 91.26680643554687,
+            "measured": true
+          }
+        },
+        "webp-lossy-q62": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0021423813476815212,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.92,
+            "worstCountDelta": 2,
+            "worstCssPx": 74.311963,
+            "measured": true
+          }
+        },
+        "webp-lossless": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010577990722708819,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010577990722708819,
+            "measured": true
+          }
+        }
+      },
+      "detectionUnavailable": null,
+      "latency": {
+        "png": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 12504,
+          "decodeMs": {
+            "min": 7.9,
+            "median": 10.6,
+            "max": 10.6,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 26.4,
+            "median": 27.2,
+            "max": 27.2,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 35.1,
+            "median": 37,
+            "max": 37,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "jpeg-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 348410,
+          "decodeMs": {
+            "min": 12.9,
+            "median": 13.1,
+            "max": 13.1,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 25.6,
+            "median": 25.8,
+            "max": 25.8,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 38.5,
+            "median": 38.9,
+            "max": 38.9,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "webp-lossy-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 158886,
+          "decodeMs": {
+            "min": 19.9,
+            "median": 21.1,
+            "max": 21.1,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 25.1,
+            "median": 25.3,
+            "max": 25.3,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 45.2,
+            "median": 46.2,
+            "max": 46.2,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        }
+      },
+      "attribution": {
+        "colourManagementEverAffects": false,
+        "premultiplyEverAffects": true
+      }
+    },
+    {
+      "browser": "firefox",
+      "backend": "wasm",
+      "display": "headful",
+      "platform": "windows",
+      "runs": 2,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+      "byFormat": {
+        "png": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q95": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossy-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossless": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        }
+      },
+      "detection": {
+        "png": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "measured": true
+          }
+        },
+        "jpeg-q95": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010524409179879513,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.9622641509433962,
+            "worstCountDelta": 1,
+            "worstCssPx": 58.36899946142578,
+            "measured": true
+          }
+        },
+        "jpeg-q62": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010527749023481192,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.9056603773584906,
+            "worstCountDelta": 1,
+            "worstCssPx": 91.26683390136719,
+            "measured": true
+          }
+        },
+        "webp-lossy-q62": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0008237036132641151,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.92,
+            "worstCountDelta": 2,
+            "worstCssPx": 74.311963,
+            "measured": true
+          }
+        },
+        "webp-lossless": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "measured": true
+          }
+        }
+      },
+      "detectionUnavailable": null,
+      "latency": {
+        "png": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 12504,
+          "decodeMs": {
+            "min": 8,
+            "median": 10,
+            "max": 10,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 28,
+            "median": 30,
+            "max": 30,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 38,
+            "median": 38,
+            "max": 38,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "jpeg-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 348410,
+          "decodeMs": {
+            "min": 13,
+            "median": 15,
+            "max": 15,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 28,
+            "median": 28,
+            "max": 28,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 41,
+            "median": 43,
+            "max": 43,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "webp-lossy-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 158886,
+          "decodeMs": {
+            "min": 22,
+            "median": 23,
+            "max": 23,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 27,
+            "median": 28,
+            "max": 28,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 49,
+            "median": 51,
+            "max": 51,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        }
+      },
+      "attribution": {
+        "colourManagementEverAffects": false,
+        "premultiplyEverAffects": false
+      }
+    },
+    {
+      "browser": "firefox",
+      "backend": "wasm",
+      "display": "headless",
+      "platform": "windows",
+      "runs": 2,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+      "byFormat": {
+        "png": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q95": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossy-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossless": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        }
+      },
+      "detection": {
+        "png": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "measured": true
+          }
+        },
+        "jpeg-q95": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010524409179879513,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.9622641509433962,
+            "worstCountDelta": 1,
+            "worstCssPx": 58.36899946142578,
+            "measured": true
+          }
+        },
+        "jpeg-q62": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010527749023481192,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.9056603773584906,
+            "worstCountDelta": 1,
+            "worstCssPx": 91.26683390136719,
+            "measured": true
+          }
+        },
+        "webp-lossy-q62": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0008237036132641151,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.92,
+            "worstCountDelta": 2,
+            "worstCssPx": 74.311963,
+            "measured": true
+          }
+        },
+        "webp-lossless": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010985908203338113,
+            "measured": true
+          }
+        }
+      },
+      "detectionUnavailable": null,
+      "latency": {
+        "png": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 12504,
+          "decodeMs": {
+            "min": 9,
+            "median": 9,
+            "max": 9,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 29,
+            "median": 31,
+            "max": 31,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 38,
+            "median": 40,
+            "max": 40,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "jpeg-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 348410,
+          "decodeMs": {
+            "min": 12,
+            "median": 13,
+            "max": 13,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 26,
+            "median": 28,
+            "max": 28,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 38,
+            "median": 41,
+            "max": 41,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "webp-lossy-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 158886,
+          "decodeMs": {
+            "min": 20,
+            "median": 22,
+            "max": 22,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 27,
+            "median": 28,
+            "max": 28,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 48,
+            "median": 49,
+            "max": 49,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        }
+      },
+      "attribution": {
+        "colourManagementEverAffects": false,
+        "premultiplyEverAffects": false
+      }
+    },
+    {
+      "browser": "firefox",
+      "backend": "webgpu",
+      "display": "headful",
+      "platform": "windows",
+      "runs": 2,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+      "byFormat": {
+        "png": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q95": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossy-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossless": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        }
+      },
+      "detection": {
+        "png": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010527524414101208,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010527524414101208,
+            "measured": true
+          }
+        },
+        "jpeg-q95": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010982172851754513,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.9622641509433962,
+            "worstCountDelta": 1,
+            "worstCssPx": 58.368976573242186,
+            "measured": true
+          }
+        },
+        "jpeg-q62": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0011214394531293692,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.9056603773584906,
+            "worstCountDelta": 1,
+            "worstCssPx": 91.26620218749997,
+            "measured": true
+          }
+        },
+        "webp-lossy-q62": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010871875000049158,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.92,
+            "worstCountDelta": 2,
+            "worstCssPx": 74.311963,
+            "measured": true
+          }
+        },
+        "webp-lossless": {
+          "samples": 4,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010527524414101208,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0010527524414101208,
+            "measured": true
+          }
+        }
+      },
+      "detectionUnavailable": null,
+      "latency": {
+        "png": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 12504,
+          "decodeMs": {
+            "min": 10,
+            "median": 10,
+            "max": 10,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 31,
+            "median": 31,
+            "max": 31,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 41,
+            "median": 41,
+            "max": 41,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "jpeg-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 348410,
+          "decodeMs": {
+            "min": 13,
+            "median": 15,
+            "max": 15,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 27,
+            "median": 28,
+            "max": 28,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 40,
+            "median": 43,
+            "max": 43,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "webp-lossy-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 158886,
+          "decodeMs": {
+            "min": 21,
+            "median": 22,
+            "max": 22,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 27,
+            "median": 27,
+            "max": 27,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 48,
+            "median": 49,
+            "max": 49,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        }
+      },
+      "attribution": {
+        "colourManagementEverAffects": false,
+        "premultiplyEverAffects": false
+      }
+    },
+    {
+      "browser": "firefox",
+      "backend": "webgpu",
+      "display": "headless",
+      "platform": "windows",
+      "runs": 2,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+      "byFormat": {
+        "png": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q95": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "jpeg-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 0,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossy-q62": {
+          "lossless": false,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        },
+        "webp-lossless": {
+          "lossless": true,
+          "fixtures": 18,
+          "conformant": 18,
+          "allConformant": true,
+          "refusedNotOpaque": 2,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "worstFractionAboveTolerance": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "classification": "ACCEPT"
+        }
+      },
+      "detection": {},
+      "detectionUnavailable": "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+      "latency": {
+        "png": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 12504,
+          "decodeMs": {
+            "min": 8,
+            "median": 10,
+            "max": 10,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 29,
+            "median": 30,
+            "max": 30,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 37,
+            "median": 40,
+            "max": 40,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "jpeg-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 348410,
+          "decodeMs": {
+            "min": 12,
+            "median": 13,
+            "max": 13,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 29,
+            "median": 30,
+            "max": 30,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 42,
+            "median": 42,
+            "max": 42,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        },
+        "webp-lossy-q62": {
+          "source": "text-edges",
+          "sourceSize": {
+            "w": 1152,
+            "h": 800
+          },
+          "encodedBytes": 158886,
+          "decodeMs": {
+            "min": 22,
+            "median": 23,
+            "max": 23,
+            "runs": 2
+          },
+          "preprocessMs": {
+            "min": 26,
+            "median": 28,
+            "max": 28,
+            "runs": 2
+          },
+          "combinedMs": {
+            "min": 48,
+            "median": 51,
+            "max": 51,
+            "runs": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. The first run of a batch pays browser launch and JIT warm-up and is visible here as the max."
+        }
+      },
+      "attribution": {
+        "colourManagementEverAffects": false,
+        "premultiplyEverAffects": false
+      }
+    }
+  ]
+}

@@ -47,6 +47,21 @@ export type PerceptionErrorCode =
   /** A pinned model asset is absent, or its bytes do not match the registry. */
   | "MODEL_ASSET_UNAVAILABLE"
   /** Provenance could not be established for a perceived element. */
+  /**
+   * The frame handed to preprocessing is not fully opaque, so its RGB values cannot be
+   * trusted.
+   *
+   * A canvas stores premultiplied colour and `getImageData` un-premultiplies it. That round
+   * trip is not invertible below alpha 255 — MEASURED in QG-03b-2 at up to 15/255 per
+   * channel on a PNG with an alpha ramp, and 31/255 for WebP, whose decode premultiplies a
+   * second time. The RGB that arrives is already wrong by then and nothing downstream can
+   * recover it.
+   *
+   * `captureVisibleTab` produces opaque frames, so this should never fire in production.
+   * It exists because the alternative is a silently corrupted tensor that still looks like
+   * a tensor, and the detector would return confident boxes derived from it.
+   */
+  | "FRAME_NOT_OPAQUE"
   | "PROVENANCE_UNAVAILABLE";
 
 export class PerceptionError extends Error {

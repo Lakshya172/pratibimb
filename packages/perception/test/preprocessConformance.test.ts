@@ -32,6 +32,7 @@ import {
   preprocessToTensor,
   rasterLetterbox,
   rgbaToRgb,
+  rgbaToRgbWithAlpha,
 } from "@pratibimb/perception";
 
 const REPO = fileURLToPath(new URL("../../..", import.meta.url));
@@ -308,8 +309,11 @@ describe("preprocessing is deterministic and refuses malformed input", () => {
   it("the same pixels produce bitwise-identical tensors across calls", () => {
     const w = 37;
     const h = 23;
+    // Opaque, deliberately: preprocessToTensor refuses a non-opaque frame, and filling the
+    // alpha channel with the same pattern as the colour channels would be testing the
+    // refusal rather than determinism.
     const rgba = new Uint8Array(w * h * 4);
-    for (let i = 0; i < rgba.length; i += 1) rgba[i] = (i * 37) % 256;
+    for (let i = 0; i < rgba.length; i += 1) rgba[i] = i % 4 === 3 ? 255 : (i * 37) % 256;
     const a = preprocessToTensor({ width: w, height: h, rgba }, HEAD_CONTRACT).tensor;
     const b = preprocessToTensor({ width: w, height: h, rgba }, HEAD_CONTRACT).tensor;
     // Compared with a plain loop and ONE assertion. toEqual() on a 4.9 MB typed array, or
@@ -344,6 +348,44 @@ describe("preprocessing is deterministic and refuses malformed input", () => {
     }
   });
 
+  it("a non-opaque frame is REFUSED, not silently corrupted", () => {
+    // MEASURED in QG-03b-2: a canvas stores premultiplied colour and getImageData
+    // un-premultiplies it, which is not invertible below alpha 255 — up to 15/255 per
+    // channel for PNG and 31/255 for WebP. The RGB that arrives is already wrong, so
+    // producing a tensor from it would produce a normal-looking tensor that is wrong, and
+    // the detector would return confident boxes from it.
+    const w = 4;
+    const h = 4;
+    const rgba = new Uint8Array(w * h * 4).fill(255);
+    rgba[3] = 254; // one pixel, one level below opaque
+    expect(() => preprocessToTensor({ width: w, height: h, rgba }, HEAD_CONTRACT)).toThrow(
+      /not fully opaque \(minimum alpha 254\)/
+    );
+  });
+
+  it("the refusal carries the FRAME_NOT_OPAQUE code, not a generic one", () => {
+    const rgba = new Uint8Array(2 * 2 * 4).fill(255);
+    rgba[7] = 0;
+    try {
+      preprocessToTensor({ width: 2, height: 2, rgba }, HEAD_CONTRACT);
+      expect.unreachable("should have refused");
+    } catch (e) {
+      expect((e as { code?: string }).code).toBe("FRAME_NOT_OPAQUE");
+    }
+  });
+
+  it("a fully opaque frame is accepted", () => {
+    const rgba = new Uint8Array(4 * 4 * 4).fill(255);
+    expect(() => preprocessToTensor({ width: 4, height: 4, rgba }, HEAD_CONTRACT)).not.toThrow();
+  });
+
+  it("rgbaToRgbWithAlpha reports the minimum alpha it saw", () => {
+    const rgba = new Uint8Array([1, 2, 3, 255, 4, 5, 6, 17, 7, 8, 9, 200]);
+    const r = rgbaToRgbWithAlpha(rgba, 3, 1);
+    expect(r.minAlpha).toBe(17);
+    expect(Array.from(r.rgb)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  });
+
   it("alpha is dropped rather than blended", () => {
     // The detector is defined over RGB. Blending against an assumed background would
     // invent pixel values the training pipeline never produced.
@@ -355,6 +397,7 @@ describe("preprocessing is deterministic and refuses malformed input", () => {
     const w = 8;
     const h = 4;
     const rgba = new Uint8Array(w * h * 4).fill(200);
+    for (let i = 3; i < rgba.length; i += 4) rgba[i] = 255;
     const { tensor } = preprocessToTensor({ width: w, height: h, rgba }, HEAD_CONTRACT);
     const S = HEAD_CONTRACT.inputSize;
     expect(tensor.length).toBe(3 * S * S);

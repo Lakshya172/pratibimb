@@ -223,7 +223,77 @@ nw, nh, pad_x, pad_y = raster_letterbox(cap["w"], cap["h"])     # ADD
 
 ---
 
-## 7. Change control
+## 7. Capture formats — what the contract covers
+
+`chrome.tabs.captureVisibleTab` produces **PNG or JPEG only**. `TabsCaptureApi` in
+`capture.ts` declares exactly that. Measured in
+[`W1-QG03b-2`](../../artifacts/experiments/W1-QG03b2-capture-format-conformance/README.md),
+45 fixture/encoding pairs across 8 browser cells:
+
+| format | capture path? | browser decode vs Pillow | status |
+|---|---|---|---|
+| **PNG** | **yes** | **bitwise identical** | **ACCEPT** |
+| **JPEG q95** | **yes** | **bitwise identical — max abs 0** | **ACCEPT** |
+| **JPEG q62** | **yes** | **bitwise identical — max abs 0** | **ACCEPT** |
+| WebP lossless | no — see below | bitwise identical | ACCEPT (not a capture format) |
+| WebP lossy q62 | no — see below | bitwise identical | ACCEPT (not a capture format) |
+
+**JPEG decoding is bitwise identical**, which is better than the pre-registered bound
+required. Both Pillow and both browsers use libjpeg-turbo with the same default IDCT, so
+there is no decoder variance to bound. The bound stays in the contract because a different
+build could reintroduce it and the test would then say so.
+
+**Colour management is not involved**: `colorSpaceConversion: "none"` changed nothing on any
+fixture. Fixtures embed no ICC profile, deliberately — a browser applies colour management
+from one and Pillow does not, which would show up as decoder variance while being something
+else entirely.
+
+### WebP is NOT a capture format
+
+`captureVisibleTab` cannot produce it. Every WebP reference in dossier v4.0 is the **T2
+egress** encoding — *"Encode WebP q62, then decode the bytes back"* is the redaction
+verification pass, and *"the encoded WebP frame and the serialized manifest"* is the egress
+payload. **T2 does not exist yet.**
+
+It is measured anyway because `CaptureFrame.format` permits `"webp"` while the adapter that
+populates it cannot produce one. That inconsistency is now closed with evidence rather than
+an assumption, and the T2 verification pass will want the answer already on the shelf.
+
+---
+
+## 8. THE INPUT MUST BE FULLY OPAQUE, and this is enforced
+
+`preprocessToTensor` **refuses** a frame containing any pixel with alpha < 255, with
+`FRAME_NOT_OPAQUE`.
+
+This is not defensive coding. By the time pixels reach the module they have been through a
+canvas, which stores **premultiplied** colour and un-premultiplies on `getImageData`. That
+round trip is **not invertible** below alpha 255: at alpha 8 the colour has been quantised to
+8/255 steps and the original is gone.
+
+Measured, on a PNG with an alpha ramp:
+
+| format | max abs error vs reference | mean | attributable to |
+|---|---|---|---|
+| PNG (alpha) | **15/255** | 1.63 | canvas premultiply round trip |
+| WebP lossless (alpha) | **29/255** | 4.28 | the above, **plus a second premultiply during decode** |
+| WebP lossy (alpha) | **31/255** | 4.25 | the above |
+| JPEG | 0 | 0 | JPEG has no alpha channel at all |
+
+`createImageBitmap(..., {premultiplyAlpha: "none"})` recovers WebP to the PNG level (31 → 15)
+but **cannot remove the last one**, because the canvas itself is premultiplied storage.
+
+**Captures are opaque, so this never fires in production.** The guard exists because the
+alternative is a tensor that looks entirely normal and is wrong by up to 31 levels per
+channel, from which the detector would return confident boxes. The check is folded into the
+existing RGBA→RGB pass and costs nothing measurable.
+
+> A non-opaque frame means the capture path is not the one this contract describes. Refusing
+> says so; dropping alpha anyway would not.
+
+---
+
+## 9. Change control
 
 Any change to §1 or §2 changes the tensor every trained model sees. Such a change requires:
 

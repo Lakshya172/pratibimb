@@ -80,7 +80,7 @@ export {
 
 export {
   type DecodedImage, type RasterLetterbox, type PreprocessStages,
-  rasterLetterbox, preprocessToTensor, rgbaToRgb,
+  rasterLetterbox, preprocessToTensor, rgbaToRgb, rgbaToRgbWithAlpha,
 } from "./preprocess.js";
 
 export {
