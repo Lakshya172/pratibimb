@@ -12,6 +12,9 @@
  *     to change them deliberately. They are not an endorsement.
  */
 import { describe, it, expect } from "vitest";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   rasterLetterbox,
   decodeHeadOutput,
@@ -133,3 +136,55 @@ describe("B — CHARACTERISATION: the shipped decode is discontinuous at score n
   });
 });
 
+describe("the QG-03a evidence is internally consistent and claims no more than it shows", () => {
+  const REPO = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
+  const m = JSON.parse(
+    readFileSync(join(REPO, "artifacts/experiments/W1-QG03a-t1-production-robustness/metrics.json"), "utf8")
+  );
+
+  it("the reference proved itself against the committed QG-03b digests", () => {
+    expect(m.a.historicalDigestsReproduced).toBe(m.a.historicalFixtures);
+    expect(m.a.historicalFixtures).toBe(13);
+  });
+
+  it("A: before the fix, every runtime failed on exactly the exact-half disagreements", () => {
+    for (const rt of ["node", "chrome", "firefox"]) {
+      expect(m.a.before[rt].nonConformant, rt).toBe(6);
+      for (const name of m.a.before[rt].nonConformantNames) expect(m.a.exactHalfFixtures).toContain(name);
+    }
+    for (const d of m.a.beforeDivergence) expect(d.firstDivergence).toBe("geometry");
+  });
+
+  it("A: after the fix, every fixture is bitwise in every runtime — the only basis for A = PASS", () => {
+    for (const rt of ["node", "chrome", "firefox"]) {
+      expect(m.a.after[rt].conformant, rt).toBe(m.a.fixtures);
+      expect(m.a.after[rt].nonConformant, rt).toBe(0);
+    }
+    expect(m.status.A_preprocessing).toBe("PASS");
+  });
+
+  it("B stays OPEN: the pre-registered bound fails under noise, and no model was measured", () => {
+    expect(m.modelArtifactUsed).toBe(false);
+    expect(m.b.b1.survivorSwapsForEveryRepresentablePositiveDelta).toBe(true);
+    expect(m.b.b3.some((r: { preRegisteredPassRate: number }) => r.preRegisteredPassRate < 1)).toBe(true);
+    expect(m.status.B_inferenceNoise).toBe("OPEN");
+  });
+
+  it("C: 84/200 reproduced, and the worst case leaves the metrics unchanged on train and dev only", () => {
+    expect(m.c.c1.samples).toBe(200);
+    expect(m.c.c1.affected).toBe(84);
+    expect(m.heldOutTestSplitEvaluated).toBe(false);
+    const splits = new Set(m.c.c2.evaluator.map((e: { split: string }) => e.split));
+    expect([...splits].sort()).toEqual(["dev", "train"]);
+    for (const e of m.c.c2.evaluator) expect([e.mAP50, e.elementRecall, e.groundingAccuracy]).toEqual([1, 1, 1]);
+    expect(m.status.C_labelRaster).toBe("CONDITIONAL");
+  });
+
+  it("nothing is promoted: QG-03a OPEN, QG-03 CONDITIONAL, detector UNADOPTED, threshold 0.55", () => {
+    expect(m.status.QG03a).toBe("OPEN");
+    expect(m.status.QG03).toBe("CONDITIONAL");
+    expect(m.status.detector).toBe("UNADOPTED");
+    expect(m.status.frozenThreshold).toBe(0.55);
+    expect(m.status.modelRegistry).toBe("UNCHANGED");
+  });
+});

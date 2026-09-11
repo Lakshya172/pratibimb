@@ -1,0 +1,1244 @@
+{
+ "experiment": "W1-QG03a / A / browser production-path conformance",
+ "browser": "firefox",
+ "label": "before",
+ "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+ "fatal": null,
+ "context": "plain http://127.0.0.1 page, installed browser, throwaway profile, headful, no flags, not an extension",
+ "runAt": "2026-09-11T17:51:16.321Z",
+ "summary": {
+  "fixtures": 40,
+  "conformant": 34,
+  "nonConformant": 6,
+  "nonConformantNames": [
+   "tie-1280x641",
+   "tie-1280x721",
+   "tie-1024x644",
+   "tie-2560x1442",
+   "tie-641x1280",
+   "tie-1280x5"
+  ],
+  "firstDivergences": [
+   "geometry"
+  ]
+ },
+ "timingSingleRunMs": [
+  {
+   "name": "cap-1920x1080",
+   "decodeMs": 24,
+   "preprocessMs": 36
+  },
+  {
+   "name": "cap-1264x800",
+   "decodeMs": 12,
+   "preprocessMs": 26
+  },
+  {
+   "name": "cap-2560x1600",
+   "decodeMs": 45,
+   "preprocessMs": 72
+  }
+ ],
+ "rows": [
+  {
+   "name": "hist-square-exact",
+   "set": "HISTORICAL",
+   "source": {
+    "w": 640,
+    "h": 640
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 640,
+    "padLeft": 0,
+    "padTop": 0
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 4,
+   "preprocessMs": 6
+  },
+  {
+   "name": "hist-square-odd",
+   "set": "HISTORICAL",
+   "source": {
+    "w": 641,
+    "h": 641
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 640,
+    "padLeft": 0,
+    "padTop": 0
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 3,
+   "preprocessMs": 18
+  },
+  {
+   "name": "hist-wide-2x",
+   "set": "HISTORICAL",
+   "source": {
+    "w": 1280,
+    "h": 640
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 320,
+    "padLeft": 0,
+    "padTop": 160
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 5,
+   "preprocessMs": 20
+  },
+  {
+   "name": "hist-wide-canonical",
+   "set": "HISTORICAL",
+   "source": {
+    "w": 1024,
+    "h": 640
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 400,
+    "padLeft": 0,
+    "padTop": 120
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 5,
+   "preprocessMs": 21
+  },
+  {
+   "name": "hist-wide-3by2",
+   "set": "HISTORICAL",
+   "source": {
+    "w": 960,
+    "h": 640
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 427,
+    "padLeft": 0,
+    "padTop": 106
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 5,
+   "preprocessMs": 20
+  },
+  {
+   "name": "hist-wide-odd",
+   "set": "HISTORICAL",
+   "source": {
+    "w": 1153,
+    "h": 641
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 356,
+    "padLeft": 0,
+    "padTop": 142
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 4,
+   "preprocessMs": 16
+  },
+  {
+   "name": "hist-tall-3by2",
+   "set": "HISTORICAL",
+   "source": {
+    "w": 640,
+    "h": 960
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 427,
+    "resizedH": 640,
+    "padLeft": 106,
+    "padTop": 0
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 5,
+   "preprocessMs": 13
+  },
+  {
+   "name": "hist-tall-odd",
+   "set": "HISTORICAL",
+   "source": {
+    "w": 641,
+    "h": 1153
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 356,
+    "resizedH": 640,
+    "padLeft": 142,
+    "padTop": 0
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 6,
+   "preprocessMs": 14
+  },
+  {
+   "name": "hist-tiny-1px",
+   "set": "HISTORICAL",
+   "source": {
+    "w": 1,
+    "h": 1
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 640,
+    "padLeft": 0,
+    "padTop": 0
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 0,
+   "preprocessMs": 6
+  },
+  {
+   "name": "hist-tiny-3x7",
+   "set": "HISTORICAL",
+   "source": {
+    "w": 3,
+    "h": 7
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 274,
+    "resizedH": 640,
+    "padLeft": 183,
+    "padTop": 0
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 0,
+   "preprocessMs": 7
+  },
+  {
+   "name": "hist-upscale-small",
+   "set": "HISTORICAL",
+   "source": {
+    "w": 320,
+    "h": 200
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 400,
+    "padLeft": 0,
+    "padTop": 120
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 2,
+   "preprocessMs": 9
+  },
+  {
+   "name": "hist-odd-pad-split-2",
+   "set": "HISTORICAL",
+   "source": {
+    "w": 1153,
+    "h": 640
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 355,
+    "padLeft": 0,
+    "padTop": 142
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 5,
+   "preprocessMs": 18
+  },
+  {
+   "name": "hist-viewport-1152x800",
+   "set": "HISTORICAL",
+   "source": {
+    "w": 1152,
+    "h": 800
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 444,
+    "padLeft": 0,
+    "padTop": 98
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 6,
+   "preprocessMs": 24
+  },
+  {
+   "name": "tie-1280x641",
+   "set": "HOSTILE",
+   "source": {
+    "w": 1280,
+    "h": 641
+   },
+   "exactHalf": {
+    "w": false,
+    "h": true
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": false,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 321,
+    "padLeft": 0,
+    "padTop": 159
+   },
+   "stages": {
+    "decoded": true,
+    "resized": false,
+    "letterboxed": false,
+    "tensor": false
+   },
+   "firstDivergence": "geometry",
+   "conformant": false,
+   "decodeMs": 5,
+   "preprocessMs": 22
+  },
+  {
+   "name": "tie-1280x721",
+   "set": "HOSTILE",
+   "source": {
+    "w": 1280,
+    "h": 721
+   },
+   "exactHalf": {
+    "w": false,
+    "h": true
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": false,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 361,
+    "padLeft": 0,
+    "padTop": 139
+   },
+   "stages": {
+    "decoded": true,
+    "resized": false,
+    "letterboxed": false,
+    "tensor": false
+   },
+   "firstDivergence": "geometry",
+   "conformant": false,
+   "decodeMs": 12,
+   "preprocessMs": 22
+  },
+  {
+   "name": "tie-1024x644",
+   "set": "HOSTILE",
+   "source": {
+    "w": 1024,
+    "h": 644
+   },
+   "exactHalf": {
+    "w": false,
+    "h": true
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": false,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 403,
+    "padLeft": 0,
+    "padTop": 118
+   },
+   "stages": {
+    "decoded": true,
+    "resized": false,
+    "letterboxed": false,
+    "tensor": false
+   },
+   "firstDivergence": "geometry",
+   "conformant": false,
+   "decodeMs": 8,
+   "preprocessMs": 14
+  },
+  {
+   "name": "tie-2560x1442",
+   "set": "HOSTILE",
+   "source": {
+    "w": 2560,
+    "h": 1442
+   },
+   "exactHalf": {
+    "w": false,
+    "h": true
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": false,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 361,
+    "padLeft": 0,
+    "padTop": 139
+   },
+   "stages": {
+    "decoded": true,
+    "resized": false,
+    "letterboxed": false,
+    "tensor": false
+   },
+   "firstDivergence": "geometry",
+   "conformant": false,
+   "decodeMs": 26,
+   "preprocessMs": 55
+  },
+  {
+   "name": "tie-641x1280",
+   "set": "HOSTILE",
+   "source": {
+    "w": 641,
+    "h": 1280
+   },
+   "exactHalf": {
+    "w": true,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": false,
+   "shipped": {
+    "resizedW": 321,
+    "resizedH": 640,
+    "padLeft": 159,
+    "padTop": 0
+   },
+   "stages": {
+    "decoded": true,
+    "resized": false,
+    "letterboxed": false,
+    "tensor": false
+   },
+   "firstDivergence": "geometry",
+   "conformant": false,
+   "decodeMs": 6,
+   "preprocessMs": 17
+  },
+  {
+   "name": "tie-1280x5",
+   "set": "HOSTILE",
+   "source": {
+    "w": 1280,
+    "h": 5
+   },
+   "exactHalf": {
+    "w": false,
+    "h": true
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": false,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 3,
+    "padLeft": 0,
+    "padTop": 318
+   },
+   "stages": {
+    "decoded": true,
+    "resized": false,
+    "letterboxed": false,
+    "tensor": false
+   },
+   "firstDivergence": "geometry",
+   "conformant": false,
+   "decodeMs": 0,
+   "preprocessMs": 2
+  },
+  {
+   "name": "tie-agree-1024x652",
+   "set": "HOSTILE",
+   "source": {
+    "w": 1024,
+    "h": 652
+   },
+   "exactHalf": {
+    "w": false,
+    "h": true
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 408,
+    "padLeft": 0,
+    "padTop": 116
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 9,
+   "preprocessMs": 20
+  },
+  {
+   "name": "tie-agree-1280x3",
+   "set": "HOSTILE",
+   "source": {
+    "w": 1280,
+    "h": 3
+   },
+   "exactHalf": {
+    "w": false,
+    "h": true
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 2,
+    "padLeft": 0,
+    "padTop": 319
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 1,
+   "preprocessMs": 3
+  },
+  {
+   "name": "cap-1366x768",
+   "set": "HOSTILE",
+   "source": {
+    "w": 1366,
+    "h": 768
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 360,
+    "padLeft": 0,
+    "padTop": 140
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 12,
+   "preprocessMs": 17
+  },
+  {
+   "name": "cap-1536x864",
+   "set": "HOSTILE",
+   "source": {
+    "w": 1536,
+    "h": 864
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 360,
+    "padLeft": 0,
+    "padTop": 140
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 16,
+   "preprocessMs": 22
+  },
+  {
+   "name": "cap-1920x1080",
+   "set": "HOSTILE",
+   "source": {
+    "w": 1920,
+    "h": 1080
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 360,
+    "padLeft": 0,
+    "padTop": 140
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 24,
+   "preprocessMs": 36
+  },
+  {
+   "name": "cap-1264x800",
+   "set": "HOSTILE",
+   "source": {
+    "w": 1264,
+    "h": 800
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 405,
+    "padLeft": 0,
+    "padTop": 117
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 12,
+   "preprocessMs": 26
+  },
+  {
+   "name": "cap-1440x900",
+   "set": "HOSTILE",
+   "source": {
+    "w": 1440,
+    "h": 900
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 400,
+    "padLeft": 0,
+    "padTop": 120
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 8,
+   "preprocessMs": 20
+  },
+  {
+   "name": "cap-2560x1600",
+   "set": "HOSTILE",
+   "source": {
+    "w": 2560,
+    "h": 1600
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 400,
+    "padLeft": 0,
+    "padTop": 120
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 45,
+   "preprocessMs": 72
+  },
+  {
+   "name": "cap-390x844",
+   "set": "HOSTILE",
+   "source": {
+    "w": 390,
+    "h": 844
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 296,
+    "resizedH": 640,
+    "padLeft": 172,
+    "padTop": 0
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 4,
+   "preprocessMs": 12
+  },
+  {
+   "name": "cap-3840x2160",
+   "set": "HOSTILE",
+   "source": {
+    "w": 3840,
+    "h": 2160
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 360,
+    "padLeft": 0,
+    "padTop": 140
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 57,
+   "preprocessMs": 100
+  },
+  {
+   "name": "asym-639x641",
+   "set": "HOSTILE",
+   "source": {
+    "w": 639,
+    "h": 641
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 638,
+    "resizedH": 640,
+    "padLeft": 1,
+    "padTop": 0
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 3,
+   "preprocessMs": 18
+  },
+  {
+   "name": "asym-641x639",
+   "set": "HOSTILE",
+   "source": {
+    "w": 641,
+    "h": 639
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 638,
+    "padLeft": 0,
+    "padTop": 1
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 3,
+   "preprocessMs": 21
+  },
+  {
+   "name": "asym-1153x640",
+   "set": "HOSTILE",
+   "source": {
+    "w": 1153,
+    "h": 640
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 355,
+    "padLeft": 0,
+    "padTop": 142
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 10,
+   "preprocessMs": 21
+  },
+  {
+   "name": "asym-1151x641",
+   "set": "HOSTILE",
+   "source": {
+    "w": 1151,
+    "h": 641
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 356,
+    "padLeft": 0,
+    "padTop": 142
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 7,
+   "preprocessMs": 14
+  },
+  {
+   "name": "aspect-4000x100",
+   "set": "HOSTILE",
+   "source": {
+    "w": 4000,
+    "h": 100
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 16,
+    "padLeft": 0,
+    "padTop": 312
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 3,
+   "preprocessMs": 9
+  },
+  {
+   "name": "aspect-100x4000",
+   "set": "HOSTILE",
+   "source": {
+    "w": 100,
+    "h": 4000
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 16,
+    "resizedH": 640,
+    "padLeft": 312,
+    "padTop": 0
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 4,
+   "preprocessMs": 8
+  },
+  {
+   "name": "strip-640x1",
+   "set": "HOSTILE",
+   "source": {
+    "w": 640,
+    "h": 1
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 1,
+    "padLeft": 0,
+    "padTop": 319
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 1,
+   "preprocessMs": 3
+  },
+  {
+   "name": "strip-1x640",
+   "set": "HOSTILE",
+   "source": {
+    "w": 1,
+    "h": 640
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 1,
+    "resizedH": 640,
+    "padLeft": 319,
+    "padTop": 0
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 1,
+   "preprocessMs": 3
+  },
+  {
+   "name": "tiny-7x3",
+   "set": "HOSTILE",
+   "source": {
+    "w": 7,
+    "h": 3
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 274,
+    "padLeft": 0,
+    "padTop": 183
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 0,
+   "preprocessMs": 7
+  },
+  {
+   "name": "up-320x200",
+   "set": "HOSTILE",
+   "source": {
+    "w": 320,
+    "h": 200
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 400,
+    "padLeft": 0,
+    "padTop": 120
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 2,
+   "preprocessMs": 7
+  },
+  {
+   "name": "up-333x111",
+   "set": "HOSTILE",
+   "source": {
+    "w": 333,
+    "h": 111
+   },
+   "exactHalf": {
+    "w": false,
+    "h": false
+   },
+   "decodedSizeMatches": true,
+   "geometryMatches": true,
+   "shipped": {
+    "resizedW": 640,
+    "resizedH": 213,
+    "padLeft": 0,
+    "padTop": 213
+   },
+   "stages": {
+    "decoded": true,
+    "resized": true,
+    "letterboxed": true,
+    "tensor": true
+   },
+   "firstDivergence": null,
+   "conformant": true,
+   "decodeMs": 1,
+   "preprocessMs": 5
+  }
+ ]
+}

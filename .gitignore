@@ -158,3 +158,10 @@ artifacts/experiments/W1-QG03b2a-chromium-jpeg-capture/harness/generated/
 # evidence is the digest recorded in captured/manifest.json, which is committed; the file
 # itself is a byte-for-byte duplicate of the first and is not worth carrying in history.
 artifacts/experiments/W1-QG03b2a-chromium-jpeg-capture/harness/captured/*.r2.*
+
+# QG-03a production-path robustness harness. generated/ holds the Pillow reference pixel
+# dumps and the encoded fixtures; profiles/ the throwaway browser profiles. Both are rebuilt
+# by qg03a_reference.py and run-a-browser.mjs. Kept evidence: reference.json (digests only),
+# metrics.json and logs/.
+artifacts/experiments/W1-QG03a-t1-production-robustness/harness/generated/
+artifacts/experiments/W1-QG03a-t1-production-robustness/harness/profiles/

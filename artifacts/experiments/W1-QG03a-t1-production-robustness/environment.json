@@ -1,0 +1,36 @@
+{
+ "experiment": "W1-QG03a-t1-production-robustness",
+ "date": "2026-09-11",
+ "base": "3d97284ac08986cad9b1b8a6ba8ea2ed032af246",
+ "branch": "feature/qg03a-t1-production-robustness",
+ "workstation": {
+  "id": "workstation 2",
+  "hostname": "LAPTOP-SRCINK2B",
+  "model": "HP OMEN Gaming Laptop 16-ap0xxx",
+  "os": "Microsoft Windows 11 Home Single Language 10.0.26200 (build 26200)",
+  "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M, 8 cores / 16 threads",
+  "ramBytes": 24717639680,
+  "gpus": [
+   { "name": "AMD Radeon 860M", "driver": "32.0.22042.29001" },
+   { "name": "NVIDIA GeForce RTX 5050 Laptop GPU", "driver": "32.0.15.9282 (NVIDIA 592.82)" }
+  ],
+  "gpuNote": "No experiment here uses the GPU: preprocessing, decode/NMS and geometry are CPU/JS arithmetic. Recorded for completeness: Chrome 153 exposes amd/rdna-3; Firefox 155 adapterInfo is empty."
+ },
+ "runtimes": {
+  "node": "v26.4.0 (CI uses 22)",
+  "npm": "11.17.0",
+  "python": "3.12.10",
+  "pillow": "12.3.0",
+  "numpy": "2.5.3",
+  "chrome": "153.0.8010.36 (installed, branded), plain http://127.0.0.1 page, throwaway profile, headful, no flags",
+  "firefox": "155.0.1 (installed), plain http://127.0.0.1 page, throwaway profile, headful, no flags",
+  "esbuild": "0.28.2 (bundles the SHIPPED packages/perception/dist for the page)"
+ },
+ "notUsed": {
+  "modelArtifact": "t1-ui-head.onnx is gitignored and absent on workstation 2; QG-03a forbids regenerating it. No model output was computed.",
+  "onnxRuntime": "not used",
+  "heldOutTestSplit": "never evaluated; the evaluator's non-empty-split rule is satisfied by one placeholder test sample from a seed outside every T1 plan range",
+  "torch": "not installed; the Pillow reference runs without it (see harness/qg03a_reference.py)"
+ },
+ "context": "Page context, not an MV3 extension context. The extension-context preprocessing cells are QG-03b's, measured on workstation 1."
+}
