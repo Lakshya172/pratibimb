@@ -1,0 +1,897 @@
+{
+  "experiment": "W1-QG03b2a-chromium-jpeg-capture",
+  "gate": "QG-03b-2a — real Chromium captureVisibleTab JPEG conformance",
+  "generatedAt": "2026-09-11T14:00:31.952Z",
+  "question": "Does the JPEG that Chromium's own captureVisibleTab produces decode and preprocess the way the reference decoder does — the assumption QG-03b-2 validated using Pillow-encoded files?",
+  "scope": {
+    "jpeg": "REAL capture format — produced here by chrome.tabs.captureVisibleTab({format:'jpeg'})",
+    "webp": "NOT a capture format, and now refused by the API itself rather than merely absent from the type: Chromium 151 rejects {format:'webp'} at schema validation. See the capture manifest's apiSurface.",
+    "chromiumOnly": "Firefox is deliberately out of scope; the question is Chromium's encoder."
+  },
+  "criterion": {
+    "preRegistered": true,
+    "preRegisteredBefore": "any Chromium capture was decoded by the reference",
+    "inheritedFrom": "QG-03b-2 — identical numbers, so the two results are directly comparable",
+    "lossless": {
+      "decodedPixels": "BITWISE identical",
+      "why": "PNG reconstructs exactly whatever was encoded. A capture being the source changes nothing."
+    },
+    "lossy": {
+      "geometryExact": true,
+      "geometryWhy": "resize extent and padding are arithmetic on dimensions, not a codec question. No tolerance.",
+      "decodedMaxAbs": 2,
+      "decodedMeanAbs": 0.2,
+      "units": "0..255 per channel",
+      "why": "ITU-T T.83 holds a compliant JPEG decoder to a peak error of 1 against the reference IDCT; 2 allows one level of slack. Exceeding it means the difference is not ordinary decoder variance and a specific cause must be named."
+    },
+    "detector": {
+      "minMatchedAtIou50": 0.95,
+      "maxCountDelta": 2,
+      "maxCssDisplacementPx": 2,
+      "why": "the primary criterion — a tensor bound that does not change what the detector says is diagnostic, not decisive"
+    }
+  },
+  "capture": {
+    "api": "chrome.tabs.captureVisibleTab",
+    "nativeBinding": "function captureVisibleTab() { [native code] }",
+    "browserVersion": "151.0.7922.34",
+    "allWindowTargetsHit": true,
+    "allDigestsAgreeWithBrowser": true,
+    "throttleRetriesTotal": 0,
+    "apiSurface": {
+      "omitted": {
+        "mime": "image/jpeg",
+        "bytes": 203294,
+        "magic": "ff d8 ff e0"
+      },
+      "png": {
+        "mime": "image/png",
+        "bytes": 85050,
+        "magic": "89 50 4e 47"
+      },
+      "jpeg": {
+        "mime": "image/jpeg",
+        "bytes": 203294,
+        "magic": "ff d8 ff e0"
+      },
+      "jpeg-q100": {
+        "mime": "image/jpeg",
+        "bytes": 372503,
+        "magic": "ff d8 ff e0"
+      },
+      "jpeg-q50": {
+        "mime": "image/jpeg",
+        "bytes": 96108,
+        "magic": "ff d8 ff e0"
+      },
+      "png-q50": {
+        "mime": "image/png",
+        "bytes": 85050,
+        "magic": "89 50 4e 47"
+      },
+      "webp": {
+        "rejected": "Error in invocation of tabs.captureVisibleTab(optional integer windowId, optional extensionTypes.ImageDetails options, optional function callback): Error at parameter 'options': Error at property 'format': Value must be one of jpeg, png."
+      }
+    }
+  },
+  "captureLatency": {
+    "headful/image/png": {
+      "calls": 20,
+      "captureMs": {
+        "min": 21,
+        "median": 37,
+        "max": 101.7,
+        "samples": 20
+      },
+      "encodedBytes": {
+        "min": 22805,
+        "median": 69943,
+        "max": 85050,
+        "samples": 20
+      }
+    },
+    "headful/image/jpeg": {
+      "calls": 20,
+      "captureMs": {
+        "min": 11.6,
+        "median": 21.5,
+        "max": 77.8,
+        "samples": 20
+      },
+      "encodedBytes": {
+        "min": 46864,
+        "median": 140516,
+        "max": 203294,
+        "samples": 20
+      }
+    },
+    "headless/image/png": {
+      "calls": 20,
+      "captureMs": {
+        "min": 24.4,
+        "median": 37.7,
+        "max": 166.7,
+        "samples": 20
+      },
+      "encodedBytes": {
+        "min": 22805,
+        "median": 69943,
+        "max": 85050,
+        "samples": 20
+      }
+    },
+    "headless/image/jpeg": {
+      "calls": 20,
+      "captureMs": {
+        "min": 10.5,
+        "median": 19.7,
+        "max": 49.4,
+        "samples": 20
+      },
+      "encodedBytes": {
+        "min": 46864,
+        "median": 140516,
+        "max": 203294,
+        "samples": 20
+      }
+    }
+  },
+  "encoder": {
+    "jpeg": {
+      "files": 20,
+      "subsampling": [
+        "4:2:0"
+      ],
+      "progressive": [
+        false
+      ],
+      "quantTableCount": [
+        2
+      ],
+      "impliedIjgQuality": [
+        [
+          90
+        ]
+      ],
+      "iccProfileBytes": [
+        456
+      ],
+      "iccProfileSha256": [
+        "12afb4d9953adee0607d347daee5b78b18d6b3cab2d572b88970703f5edb37bc"
+      ],
+      "iccDescription": [
+        "sRGB"
+      ],
+      "iccIdentityToSrgb": {
+        "identical": 18,
+        "differs": 2,
+        "worstMaxAbs": 1
+      },
+      "note": "read from the DQT/APP2 markers of the captured files; quality is DERIVED from the tables, not assumed"
+    },
+    "png": {
+      "files": 20,
+      "iccProfileBytes": [
+        0
+      ]
+    }
+  },
+  "cells": [
+    {
+      "browser": "chromium",
+      "backend": "wasm",
+      "backendLabelVerified": true,
+      "gpuSubmits": {
+        "min": 0,
+        "median": 0,
+        "max": 0,
+        "samples": 2
+      },
+      "display": "headful",
+      "platform": "windows",
+      "runs": 2,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "byFormat": {
+        "capture-png": {
+          "lossless": true,
+          "fixtures": 40,
+          "conformant": 40,
+          "allConformant": true,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "magicMatchesDeclaredMime": true,
+          "tensorDigestAlwaysMatches": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "pathClassification": "ACCEPT",
+          "detectorMeasured": true,
+          "detectorCriterionMet": true,
+          "classification": "ACCEPT"
+        },
+        "capture-jpeg": {
+          "lossless": false,
+          "fixtures": 40,
+          "conformant": 40,
+          "allConformant": true,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "magicMatchesDeclaredMime": true,
+          "tensorDigestAlwaysMatches": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "pathClassification": "ACCEPT",
+          "detectorMeasured": true,
+          "detectorCriterionMet": false,
+          "classification": "CONDITIONAL",
+          "condition": "capture path bitwise-exact on every fixture; the detector bound (2 CSS px) is exceeded on at least one fixture (worst 15.95 px). See saturation-control.json: the tensor is bitwise identical there, so the difference is downstream of capture."
+        }
+      },
+      "detection": {
+        "capture-png": {
+          "samples": 40,
+          "saturatedAtCap": 24,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0014764277343033427,
+            "worstScoreDelta": 0.0000029807125702108195,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0,
+            "measured": false
+          }
+        },
+        "capture-jpeg": {
+          "samples": 40,
+          "saturatedAtCap": 24,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 15.948808107070931,
+            "worstScoreDelta": 0.0000043813122406199945,
+            "allMeet": false,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.8071428571428572,
+            "worstCountDelta": 11,
+            "worstCssPx": 108.39296675775137,
+            "measured": true
+          }
+        }
+      },
+      "detectionUnavailable": null,
+      "colourManagementEverAffects": false,
+      "premultiplyEverAffects": false,
+      "latency": {
+        "capture-png": {
+          "source": "text-heavy.headful",
+          "sourceSize": {
+            "w": 1264,
+            "h": 800
+          },
+          "encodedBytes": 85050,
+          "decodeMs": {
+            "min": 8.1,
+            "median": 9.7,
+            "max": 9.7,
+            "samples": 2
+          },
+          "preprocessMs": {
+            "min": 19.7,
+            "median": 20.8,
+            "max": 20.8,
+            "samples": 2
+          },
+          "combinedMs": {
+            "min": 27.8,
+            "median": 30.5,
+            "max": 30.5,
+            "samples": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. Decode + preprocess only — no capture."
+        },
+        "capture-jpeg": {
+          "source": "text-heavy.headful",
+          "sourceSize": {
+            "w": 1264,
+            "h": 800
+          },
+          "encodedBytes": 203294,
+          "decodeMs": {
+            "min": 9.1,
+            "median": 9.8,
+            "max": 9.8,
+            "samples": 2
+          },
+          "preprocessMs": {
+            "min": 19.5,
+            "median": 19.5,
+            "max": 19.5,
+            "samples": 2
+          },
+          "combinedMs": {
+            "min": 28.6,
+            "median": 29.3,
+            "max": 29.3,
+            "samples": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. Decode + preprocess only — no capture."
+        }
+      }
+    },
+    {
+      "browser": "chromium",
+      "backend": "wasm",
+      "backendLabelVerified": true,
+      "gpuSubmits": {
+        "min": 0,
+        "median": 0,
+        "max": 0,
+        "samples": 2
+      },
+      "display": "headless",
+      "platform": "windows",
+      "runs": 2,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "byFormat": {
+        "capture-png": {
+          "lossless": true,
+          "fixtures": 40,
+          "conformant": 40,
+          "allConformant": true,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "magicMatchesDeclaredMime": true,
+          "tensorDigestAlwaysMatches": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "pathClassification": "ACCEPT",
+          "detectorMeasured": true,
+          "detectorCriterionMet": true,
+          "classification": "ACCEPT"
+        },
+        "capture-jpeg": {
+          "lossless": false,
+          "fixtures": 40,
+          "conformant": 40,
+          "allConformant": true,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "magicMatchesDeclaredMime": true,
+          "tensorDigestAlwaysMatches": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "pathClassification": "ACCEPT",
+          "detectorMeasured": true,
+          "detectorCriterionMet": false,
+          "classification": "CONDITIONAL",
+          "condition": "capture path bitwise-exact on every fixture; the detector bound (2 CSS px) is exceeded on at least one fixture (worst 15.95 px). See saturation-control.json: the tensor is bitwise identical there, so the difference is downstream of capture."
+        }
+      },
+      "detection": {
+        "capture-png": {
+          "samples": 40,
+          "saturatedAtCap": 24,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0014764277343033427,
+            "worstScoreDelta": 0.0000029807125702108195,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0,
+            "measured": false
+          }
+        },
+        "capture-jpeg": {
+          "samples": 40,
+          "saturatedAtCap": 24,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 15.948808107070931,
+            "worstScoreDelta": 0.0000043813122406199945,
+            "allMeet": false,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.8071428571428572,
+            "worstCountDelta": 11,
+            "worstCssPx": 108.39296675775137,
+            "measured": true
+          }
+        }
+      },
+      "detectionUnavailable": null,
+      "colourManagementEverAffects": false,
+      "premultiplyEverAffects": false,
+      "latency": {
+        "capture-png": {
+          "source": "text-heavy.headful",
+          "sourceSize": {
+            "w": 1264,
+            "h": 800
+          },
+          "encodedBytes": 85050,
+          "decodeMs": {
+            "min": 9.3,
+            "median": 11.1,
+            "max": 11.1,
+            "samples": 2
+          },
+          "preprocessMs": {
+            "min": 19.6,
+            "median": 20.6,
+            "max": 20.6,
+            "samples": 2
+          },
+          "combinedMs": {
+            "min": 29.9,
+            "median": 30.7,
+            "max": 30.7,
+            "samples": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. Decode + preprocess only — no capture."
+        },
+        "capture-jpeg": {
+          "source": "text-heavy.headful",
+          "sourceSize": {
+            "w": 1264,
+            "h": 800
+          },
+          "encodedBytes": 203294,
+          "decodeMs": {
+            "min": 9.3,
+            "median": 9.8,
+            "max": 9.8,
+            "samples": 2
+          },
+          "preprocessMs": {
+            "min": 18.4,
+            "median": 19.9,
+            "max": 19.9,
+            "samples": 2
+          },
+          "combinedMs": {
+            "min": 27.7,
+            "median": 29.7,
+            "max": 29.7,
+            "samples": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. Decode + preprocess only — no capture."
+        }
+      }
+    },
+    {
+      "browser": "chromium",
+      "backend": "webgpu",
+      "backendLabelVerified": true,
+      "gpuSubmits": {
+        "min": 120,
+        "median": 120,
+        "max": 120,
+        "samples": 2
+      },
+      "display": "headful",
+      "platform": "windows",
+      "runs": 2,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "byFormat": {
+        "capture-png": {
+          "lossless": true,
+          "fixtures": 40,
+          "conformant": 40,
+          "allConformant": true,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "magicMatchesDeclaredMime": true,
+          "tensorDigestAlwaysMatches": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "pathClassification": "ACCEPT",
+          "detectorMeasured": true,
+          "detectorCriterionMet": true,
+          "classification": "ACCEPT"
+        },
+        "capture-jpeg": {
+          "lossless": false,
+          "fixtures": 40,
+          "conformant": 40,
+          "allConformant": true,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "magicMatchesDeclaredMime": true,
+          "tensorDigestAlwaysMatches": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "pathClassification": "ACCEPT",
+          "detectorMeasured": true,
+          "detectorCriterionMet": true,
+          "classification": "ACCEPT"
+        }
+      },
+      "detection": {
+        "capture-png": {
+          "samples": 40,
+          "saturatedAtCap": 24,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0028930910033864166,
+            "worstScoreDelta": 0.000009715305389401685,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0,
+            "measured": false
+          }
+        },
+        "capture-jpeg": {
+          "samples": 40,
+          "saturatedAtCap": 24,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0019887298583967095,
+            "worstScoreDelta": 0.000005215870376606979,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.8071428571428572,
+            "worstCountDelta": 11,
+            "worstCssPx": 108.39301196191406,
+            "measured": true
+          }
+        }
+      },
+      "detectionUnavailable": null,
+      "colourManagementEverAffects": false,
+      "premultiplyEverAffects": false,
+      "latency": {
+        "capture-png": {
+          "source": "text-heavy.headful",
+          "sourceSize": {
+            "w": 1264,
+            "h": 800
+          },
+          "encodedBytes": 85050,
+          "decodeMs": {
+            "min": 7.8,
+            "median": 8.4,
+            "max": 8.4,
+            "samples": 2
+          },
+          "preprocessMs": {
+            "min": 19.7,
+            "median": 20.3,
+            "max": 20.3,
+            "samples": 2
+          },
+          "combinedMs": {
+            "min": 28.1,
+            "median": 28.1,
+            "max": 28.1,
+            "samples": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. Decode + preprocess only — no capture."
+        },
+        "capture-jpeg": {
+          "source": "text-heavy.headful",
+          "sourceSize": {
+            "w": 1264,
+            "h": 800
+          },
+          "encodedBytes": 203294,
+          "decodeMs": {
+            "min": 9.4,
+            "median": 10.3,
+            "max": 10.3,
+            "samples": 2
+          },
+          "preprocessMs": {
+            "min": 19.8,
+            "median": 20.1,
+            "max": 20.1,
+            "samples": 2
+          },
+          "combinedMs": {
+            "min": 29.5,
+            "median": 30.1,
+            "max": 30.1,
+            "samples": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. Decode + preprocess only — no capture."
+        }
+      }
+    },
+    {
+      "browser": "chromium",
+      "backend": "webgpu",
+      "backendLabelVerified": true,
+      "gpuSubmits": {
+        "min": 120,
+        "median": 120,
+        "max": 120,
+        "samples": 2
+      },
+      "display": "headless",
+      "platform": "windows",
+      "runs": 2,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "byFormat": {
+        "capture-png": {
+          "lossless": true,
+          "fixtures": 40,
+          "conformant": 40,
+          "allConformant": true,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "magicMatchesDeclaredMime": true,
+          "tensorDigestAlwaysMatches": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "pathClassification": "ACCEPT",
+          "detectorMeasured": true,
+          "detectorCriterionMet": true,
+          "classification": "ACCEPT"
+        },
+        "capture-jpeg": {
+          "lossless": false,
+          "fixtures": 40,
+          "conformant": 40,
+          "allConformant": true,
+          "bitwiseIdenticalToReference": true,
+          "worstDecodedMaxAbs": 0,
+          "worstDecodedMeanAbs": 0,
+          "geometryAlwaysExact": true,
+          "encodedBytesVerified": true,
+          "magicMatchesDeclaredMime": true,
+          "tensorDigestAlwaysMatches": true,
+          "harnessErrors": 0,
+          "harnessErrorMessages": [],
+          "pathClassification": "ACCEPT",
+          "detectorMeasured": true,
+          "detectorCriterionMet": true,
+          "classification": "ACCEPT"
+        }
+      },
+      "detection": {
+        "capture-png": {
+          "samples": 40,
+          "saturatedAtCap": 24,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0028930910033864166,
+            "worstScoreDelta": 0.000009715305389401685,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0,
+            "measured": false
+          }
+        },
+        "capture-jpeg": {
+          "samples": 40,
+          "saturatedAtCap": 24,
+          "conformance": {
+            "worstAgreement": 1,
+            "worstCountDelta": 0,
+            "worstCssPx": 0.0019887298583967095,
+            "worstScoreDelta": 0.000005215870376606979,
+            "allMeet": true,
+            "measured": true
+          },
+          "compressionSensitivity": {
+            "worstAgreement": 0.8071428571428572,
+            "worstCountDelta": 11,
+            "worstCssPx": 108.39301196191406,
+            "measured": true
+          }
+        }
+      },
+      "detectionUnavailable": null,
+      "colourManagementEverAffects": false,
+      "premultiplyEverAffects": false,
+      "latency": {
+        "capture-png": {
+          "source": "text-heavy.headful",
+          "sourceSize": {
+            "w": 1264,
+            "h": 800
+          },
+          "encodedBytes": 85050,
+          "decodeMs": {
+            "min": 9.4,
+            "median": 10.4,
+            "max": 10.4,
+            "samples": 2
+          },
+          "preprocessMs": {
+            "min": 20,
+            "median": 20.3,
+            "max": 20.3,
+            "samples": 2
+          },
+          "combinedMs": {
+            "min": 29.4,
+            "median": 30.7,
+            "max": 30.7,
+            "samples": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. Decode + preprocess only — no capture."
+        },
+        "capture-jpeg": {
+          "source": "text-heavy.headful",
+          "sourceSize": {
+            "w": 1264,
+            "h": 800
+          },
+          "encodedBytes": 203294,
+          "decodeMs": {
+            "min": 10.1,
+            "median": 10.3,
+            "max": 10.3,
+            "samples": 2
+          },
+          "preprocessMs": {
+            "min": 19.2,
+            "median": 19.5,
+            "max": 19.5,
+            "samples": 2
+          },
+          "combinedMs": {
+            "min": 29.3,
+            "median": 29.8,
+            "max": 29.8,
+            "samples": 2
+          },
+          "note": "p50 within a run; min/median/max ACROSS runs. Decode + preprocess only — no capture."
+        }
+      }
+    }
+  ],
+  "compressionSensitivity": {
+    "note": "JPEG capture vs PNG capture of the SAME paint. NOT a conformance measurement — it is how much the encoding costs, and it belongs to QG-03a. Never used to classify this gate.",
+    "perFixture": [
+      {
+        "page": "text-heavy",
+        "category": "text-heavy UI",
+        "pngBytes": 85050,
+        "jpegBytes": 203294,
+        "decodedMaxAbs": 104,
+        "decodedMeanAbs": 2.7951,
+        "fractionDiffering": 0.1931
+      },
+      {
+        "page": "controls",
+        "category": "buttons and controls",
+        "pngBytes": 31434,
+        "jpegBytes": 54033,
+        "decodedMaxAbs": 137,
+        "decodedMeanAbs": 0.5456,
+        "fractionDiffering": 0.0715
+      },
+      {
+        "page": "small-controls",
+        "category": "small controls",
+        "pngBytes": 69943,
+        "jpegBytes": 184370,
+        "decodedMaxAbs": 119,
+        "decodedMeanAbs": 1.7963,
+        "fractionDiffering": 0.2765
+      },
+      {
+        "page": "dense-ui",
+        "category": "dense UI",
+        "pngBytes": 67983,
+        "jpegBytes": 194540,
+        "decodedMaxAbs": 137,
+        "decodedMeanAbs": 2.209,
+        "fractionDiffering": 0.4025
+      },
+      {
+        "page": "gradients-edges",
+        "category": "gradients and high-frequency edges",
+        "pngBytes": 81617,
+        "jpegBytes": 63482,
+        "decodedMaxAbs": 108,
+        "decodedMeanAbs": 0.3673,
+        "fractionDiffering": 0.2581
+      },
+      {
+        "page": "wide",
+        "category": "wide layout",
+        "pngBytes": 34812,
+        "jpegBytes": 85174,
+        "decodedMaxAbs": 114,
+        "decodedMeanAbs": 1.0839,
+        "fractionDiffering": 0.142
+      },
+      {
+        "page": "tall",
+        "category": "tall layout",
+        "pngBytes": 84482,
+        "jpegBytes": 159979,
+        "decodedMaxAbs": 111,
+        "decodedMeanAbs": 3.1885,
+        "fractionDiffering": 0.2751
+      },
+      {
+        "page": "odd-dims",
+        "category": "odd dimensions (both axes odd)",
+        "pngBytes": 52959,
+        "jpegBytes": 54650,
+        "decodedMaxAbs": 108,
+        "decodedMeanAbs": 0.9856,
+        "fractionDiffering": 0.2005
+      },
+      {
+        "page": "fractional-letterbox",
+        "category": "fractional letterbox geometry",
+        "pngBytes": 22805,
+        "jpegBytes": 46864,
+        "decodedMaxAbs": 111,
+        "decodedMeanAbs": 0.8965,
+        "fractionDiffering": 0.0929
+      },
+      {
+        "page": "realistic-ui",
+        "category": "realistic mixed UI",
+        "pngBytes": 81423,
+        "jpegBytes": 140516,
+        "decodedMaxAbs": 142,
+        "decodedMeanAbs": 1.8485,
+        "fractionDiffering": 0.2772
+      }
+    ]
+  },
+  "overall": {
+    "cells": 4,
+    "classifications": [
+      "ACCEPT",
+      "CONDITIONAL"
+    ],
+    "capturePathClassifications": [
+      "ACCEPT"
+    ],
+    "classification": "CONDITIONAL"
+  }
+}

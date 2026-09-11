@@ -244,13 +244,49 @@ there is no decoder variance to bound. The bound stays in the contract because a
 build could reintroduce it and the test would then say so.
 
 **Colour management is not involved**: `colorSpaceConversion: "none"` changed nothing on any
-fixture. Fixtures embed no ICC profile, deliberately — a browser applies colour management
-from one and Pillow does not, which would show up as decoder variance while being something
-else entirely.
+fixture. Those fixtures embed no ICC profile, deliberately — a browser applies colour
+management from one and Pillow does not, which would show up as decoder variance while being
+something else entirely.
+
+### The browser's own encoder, measured separately
+
+Every fixture above was written by **Pillow**, and Pillow's encoder and the browsers'
+decoders are all libjpeg-turbo — so that agreement was partly structural.
+[`W1-QG03b-2a`](../../artifacts/experiments/W1-QG03b2a-chromium-jpeg-capture/README.md)
+removed that caveat by capturing 40 fixtures through the real
+`chrome.tabs.captureVisibleTab` and letting Pillow meet them for the first time as a decoder.
+
+**Still bitwise identical, in all 8 Chromium cells** — including the encoder choices the
+synthetic fixtures never carried:
+
+| property of a real Chromium capture | measured |
+|---|---|
+| chroma subsampling | **4:2:0** |
+| quantization tables | IJG Annex K scaled; implied quality **exactly 90** |
+| progressive | no — baseline |
+| **embedded ICC profile** | **456 bytes, sRGB, "Google Inc. 2016"** on every JPEG; none on any PNG |
+| determinism | byte-identical across repeats and across headful/headless |
+
+The ICC profile is the one that could have mattered: a browser applies an embedded profile
+and Pillow does not. Measured rather than assumed — the profile is sRGB-identity (a 1-level
+round-trip difference on the widest-gamut fixture only), and `colorSpaceConversion: "none"`
+still changed nothing. If a future Chromium ships a non-identity profile, the `no-colorspace`
+decode variant is already in place to attribute it.
+
+**The `format` argument is load-bearing.** With `format` omitted entirely, Chromium 151
+returns **JPEG** — byte-identical to an explicit `{format:"jpeg"}`. The shipped adapter
+passes `{format: "png"}` explicitly; deleting that argument would not raise and would not
+fall back to lossless, it would silently switch the product to lossy capture at quality 90
+with 4:2:0 chroma. `realCaptureConformance.test.ts` fails if it ever goes missing.
+
+`quality` is **ignored for PNG** — `{format:"png", quality:50}` returns the same bytes as
+`{format:"png"}`.
 
 ### WebP is NOT a capture format
 
-`captureVisibleTab` cannot produce it. Every WebP reference in dossier v4.0 is the **T2
+`captureVisibleTab` cannot produce it — and since QG-03b-2a this is the API's own statement
+rather than an inference from the type: Chromium 151 **rejects `{format:"webp"}` at schema
+validation**, before any capture happens. Every WebP reference in dossier v4.0 is the **T2
 egress** encoding — *"Encode WebP q62, then decode the bytes back"* is the redaction
 verification pass, and *"the encoded WebP frame and the serialized manifest"* is the egress
 payload. **T2 does not exist yet.**

@@ -1,0 +1,2709 @@
+{
+  "experiment": "W1-QG03b2a-chromium-jpeg-capture",
+  "phase": "1-capture",
+  "note": "Every file here came out of chrome.tabs.captureVisibleTab. Nothing in this harness encodes an image.",
+  "platform": "windows",
+  "chromePath": "C:/Users/RONIT/AppData/Local/ms-playwright/chromium-1234/chrome-win64/chrome.exe",
+  "startedAt": "2026-09-11T13:47:18.092Z",
+  "captures": [
+    {
+      "page": "text-heavy",
+      "category": "text-heavy UI",
+      "display": "headful",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/text-heavy",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "text-heavy.headful.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 85050,
+          "sha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 54.8,
+          "throttleRetries": 0
+        },
+        {
+          "file": "text-heavy.headful.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 203294,
+          "sha256": "bd61aa73ffe294047084ac37e220fb9ef854a07dd47bf84cd48177ed269716f1",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 23.1,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null,
+      "apiSurface": {
+        "omitted": {
+          "ok": true,
+          "requested": {},
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "bytes": 203294,
+          "sha256": "bd61aa73ffe294047084ac37e220fb9ef854a07dd47bf84cd48177ed269716f1",
+          "magic": "ff d8 ff e0",
+          "captureMs": 26.7,
+          "throttleRetries": 0
+        },
+        "png": {
+          "ok": true,
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "bytes": 85050,
+          "sha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+          "magic": "89 50 4e 47",
+          "captureMs": 45.7,
+          "throttleRetries": 0
+        },
+        "jpeg": {
+          "ok": true,
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "bytes": 203294,
+          "sha256": "bd61aa73ffe294047084ac37e220fb9ef854a07dd47bf84cd48177ed269716f1",
+          "magic": "ff d8 ff e0",
+          "captureMs": 22.4,
+          "throttleRetries": 0
+        },
+        "jpeg-q100": {
+          "ok": true,
+          "requested": {
+            "format": "jpeg",
+            "quality": 100
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "bytes": 372503,
+          "sha256": "661e0d932a7a3a1254610943fb32fa4f75bdc72bb1fcb14644f92d6bb860772f",
+          "magic": "ff d8 ff e0",
+          "captureMs": 27.8,
+          "throttleRetries": 0
+        },
+        "jpeg-q50": {
+          "ok": true,
+          "requested": {
+            "format": "jpeg",
+            "quality": 50
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "bytes": 96108,
+          "sha256": "d395b2e70fcf947ad577d1833d9366615febc7b30dc00c9ed4813342b785cf01",
+          "magic": "ff d8 ff e0",
+          "captureMs": 33.2,
+          "throttleRetries": 0
+        },
+        "png-q50": {
+          "ok": true,
+          "requested": {
+            "format": "png",
+            "quality": 50
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "bytes": 85050,
+          "sha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+          "magic": "89 50 4e 47",
+          "captureMs": 36.2,
+          "throttleRetries": 0
+        },
+        "webp": {
+          "ok": false,
+          "requested": {
+            "format": "webp"
+          },
+          "error": "Error in invocation of tabs.captureVisibleTab(optional integer windowId, optional extensionTypes.ImageDetails options, optional function callback): Error at parameter 'options': Error at property 'format': Value must be one of jpeg, png.",
+          "throttleRetries": 0
+        }
+      }
+    },
+    {
+      "page": "text-heavy",
+      "category": "text-heavy UI",
+      "display": "headful",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/text-heavy",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "text-heavy.headful.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 85050,
+          "sha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 44.7,
+          "throttleRetries": 0
+        },
+        {
+          "file": "text-heavy.headful.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 203294,
+          "sha256": "bd61aa73ffe294047084ac37e220fb9ef854a07dd47bf84cd48177ed269716f1",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 31.7,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "controls",
+      "category": "buttons and controls",
+      "display": "headful",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/controls",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "controls.headful.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 31434,
+          "sha256": "2a0c067283e8ade2e4f571440b986403dba0910be0dee1e547ca5f9a1f10840a",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 28.5,
+          "throttleRetries": 0
+        },
+        {
+          "file": "controls.headful.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 54033,
+          "sha256": "e160b118a67d1db8a9e42b4fa6824f2b3dc6b2bb25344ebc54988728ea6cc14f",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 41,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "controls",
+      "category": "buttons and controls",
+      "display": "headful",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/controls",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "controls.headful.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 31434,
+          "sha256": "2a0c067283e8ade2e4f571440b986403dba0910be0dee1e547ca5f9a1f10840a",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 23.7,
+          "throttleRetries": 0
+        },
+        {
+          "file": "controls.headful.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 54033,
+          "sha256": "e160b118a67d1db8a9e42b4fa6824f2b3dc6b2bb25344ebc54988728ea6cc14f",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 17.8,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "small-controls",
+      "category": "small controls",
+      "display": "headful",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/small-controls",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "small-controls.headful.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 69943,
+          "sha256": "053bf8c36bf285513a8942dd09673f9265024e5c3677179bb2072b132a0306fe",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 52.6,
+          "throttleRetries": 0
+        },
+        {
+          "file": "small-controls.headful.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 184370,
+          "sha256": "39a7435cae6e85178900135a8a392f708943703311c4cf5060958cc6f013c3ef",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 20.7,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "small-controls",
+      "category": "small controls",
+      "display": "headful",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/small-controls",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "small-controls.headful.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 69943,
+          "sha256": "053bf8c36bf285513a8942dd09673f9265024e5c3677179bb2072b132a0306fe",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 29.1,
+          "throttleRetries": 0
+        },
+        {
+          "file": "small-controls.headful.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 184370,
+          "sha256": "39a7435cae6e85178900135a8a392f708943703311c4cf5060958cc6f013c3ef",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 18.5,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "dense-ui",
+      "category": "dense UI",
+      "display": "headful",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/dense-ui",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "dense-ui.headful.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 67983,
+          "sha256": "a1deafb5e567511422f3a92720349a22ed9ce4264deec10c30e624c00ba46dcb",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 31.5,
+          "throttleRetries": 0
+        },
+        {
+          "file": "dense-ui.headful.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 194540,
+          "sha256": "be9ac8f14502b5df75fe87af6cb478897732506666c887e6ea329e42c6a9f4d5",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 21.5,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "dense-ui",
+      "category": "dense UI",
+      "display": "headful",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/dense-ui",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "dense-ui.headful.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 67983,
+          "sha256": "a1deafb5e567511422f3a92720349a22ed9ce4264deec10c30e624c00ba46dcb",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 48.5,
+          "throttleRetries": 0
+        },
+        {
+          "file": "dense-ui.headful.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 194540,
+          "sha256": "be9ac8f14502b5df75fe87af6cb478897732506666c887e6ea329e42c6a9f4d5",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 39.2,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "gradients-edges",
+      "category": "gradients and high-frequency edges",
+      "display": "headful",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/gradients-edges",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "gradients-edges.headful.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 81617,
+          "sha256": "a56a98877d780f5a2d6c18a9f17d83f55d62b7f7ad8c4d14b7b4d2c8a3c6d705",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 46.9,
+          "throttleRetries": 0
+        },
+        {
+          "file": "gradients-edges.headful.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 63482,
+          "sha256": "61f007e0ff032b6f45dacc74440e8d4179beff5d6d7a72312b16b6f279d098ac",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 38.2,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "gradients-edges",
+      "category": "gradients and high-frequency edges",
+      "display": "headful",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/gradients-edges",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "gradients-edges.headful.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 81617,
+          "sha256": "a56a98877d780f5a2d6c18a9f17d83f55d62b7f7ad8c4d14b7b4d2c8a3c6d705",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 101.7,
+          "throttleRetries": 0
+        },
+        {
+          "file": "gradients-edges.headful.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 63482,
+          "sha256": "61f007e0ff032b6f45dacc74440e8d4179beff5d6d7a72312b16b6f279d098ac",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 26.9,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "wide",
+      "category": "wide layout",
+      "display": "headful",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/wide",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1600,
+        "h": 600
+      },
+      "achievedCssSize": {
+        "w": 1600,
+        "h": 600,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "wide.headful.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 34812,
+          "sha256": "2ddedb7ecc879d74ed822d69e74694e4ea2a961d1179bb629c5e141300d43fe5",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 34.8,
+          "throttleRetries": 0
+        },
+        {
+          "file": "wide.headful.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 85174,
+          "sha256": "5c3121375d75bab428a41bf3726d189f3994ada1d07dc7676781b56981c64b62",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 18,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "wide",
+      "category": "wide layout",
+      "display": "headful",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/wide",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1600,
+        "h": 600
+      },
+      "achievedCssSize": {
+        "w": 1600,
+        "h": 600,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "wide.headful.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 34812,
+          "sha256": "2ddedb7ecc879d74ed822d69e74694e4ea2a961d1179bb629c5e141300d43fe5",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 78.6,
+          "throttleRetries": 0
+        },
+        {
+          "file": "wide.headful.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 85174,
+          "sha256": "5c3121375d75bab428a41bf3726d189f3994ada1d07dc7676781b56981c64b62",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 20.3,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "tall",
+      "category": "tall layout",
+      "display": "headful",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/tall",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 700,
+        "h": 1000
+      },
+      "achievedCssSize": {
+        "w": 700,
+        "h": 1000,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "tall.headful.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 84482,
+          "sha256": "a3af54fc2c1d6e5e759d61484747f6400bd8272e9c22fbefb40390812e626d6d",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 33.4,
+          "throttleRetries": 0
+        },
+        {
+          "file": "tall.headful.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 159979,
+          "sha256": "f2a156995eb1a23940835c05e507242b399f024ca39f3691928b80ec7872914d",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 77.8,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "tall",
+      "category": "tall layout",
+      "display": "headful",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/tall",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 700,
+        "h": 1000
+      },
+      "achievedCssSize": {
+        "w": 700,
+        "h": 1000,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "tall.headful.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 84482,
+          "sha256": "a3af54fc2c1d6e5e759d61484747f6400bd8272e9c22fbefb40390812e626d6d",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 37,
+          "throttleRetries": 0
+        },
+        {
+          "file": "tall.headful.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 159979,
+          "sha256": "f2a156995eb1a23940835c05e507242b399f024ca39f3691928b80ec7872914d",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 16.2,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "odd-dims",
+      "category": "odd dimensions (both axes odd)",
+      "display": "headful",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/odd-dims",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1023,
+        "h": 641
+      },
+      "achievedCssSize": {
+        "w": 1023,
+        "h": 641,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "odd-dims.headful.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 52959,
+          "sha256": "d25cf799e5d333024e117c14cb9dff31430781fc5242747fc3a3de056ae838fd",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 34.6,
+          "throttleRetries": 0
+        },
+        {
+          "file": "odd-dims.headful.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 54650,
+          "sha256": "3df92dc1e466f287ca4d8569333a25db63c5688fbde9bef6d604e8f43130cec1",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 26.8,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "odd-dims",
+      "category": "odd dimensions (both axes odd)",
+      "display": "headful",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/odd-dims",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1023,
+        "h": 641
+      },
+      "achievedCssSize": {
+        "w": 1023,
+        "h": 641,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "odd-dims.headful.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 52959,
+          "sha256": "d25cf799e5d333024e117c14cb9dff31430781fc5242747fc3a3de056ae838fd",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 30.7,
+          "throttleRetries": 0
+        },
+        {
+          "file": "odd-dims.headful.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 54650,
+          "sha256": "3df92dc1e466f287ca4d8569333a25db63c5688fbde9bef6d604e8f43130cec1",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 21.5,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "fractional-letterbox",
+      "category": "fractional letterbox geometry",
+      "display": "headful",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/fractional-letterbox",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 960,
+        "h": 640
+      },
+      "achievedCssSize": {
+        "w": 960,
+        "h": 640,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "fractional-letterbox.headful.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 22805,
+          "sha256": "863183fd40eedc083b8795e817bf6f1adf0a3ca6d0484a0e9216e2262b77735f",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 25,
+          "throttleRetries": 0
+        },
+        {
+          "file": "fractional-letterbox.headful.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 46864,
+          "sha256": "9d598d308df5d58357e1dc6a5fdb880b1459322a51e3370c2768a771fe4ab3ef",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 16.3,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "fractional-letterbox",
+      "category": "fractional letterbox geometry",
+      "display": "headful",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/fractional-letterbox",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 960,
+        "h": 640
+      },
+      "achievedCssSize": {
+        "w": 960,
+        "h": 640,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "fractional-letterbox.headful.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 22805,
+          "sha256": "863183fd40eedc083b8795e817bf6f1adf0a3ca6d0484a0e9216e2262b77735f",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 21,
+          "throttleRetries": 0
+        },
+        {
+          "file": "fractional-letterbox.headful.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 46864,
+          "sha256": "9d598d308df5d58357e1dc6a5fdb880b1459322a51e3370c2768a771fe4ab3ef",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 11.6,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "realistic-ui",
+      "category": "realistic mixed UI",
+      "display": "headful",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/realistic-ui",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "realistic-ui.headful.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 81423,
+          "sha256": "b78492daa75ede8c24475ea8d0dd7a24b1f8db64384adff3e53a4079b70d34e1",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 41.1,
+          "throttleRetries": 0
+        },
+        {
+          "file": "realistic-ui.headful.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 140516,
+          "sha256": "1c0eb53ed9e82217efb80f52800fc95b7e27d86eb9f4410bdf15cd14e3564dc5",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 33.4,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "realistic-ui",
+      "category": "realistic mixed UI",
+      "display": "headful",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/realistic-ui",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "realistic-ui.headful.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 81423,
+          "sha256": "b78492daa75ede8c24475ea8d0dd7a24b1f8db64384adff3e53a4079b70d34e1",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 41.4,
+          "throttleRetries": 0
+        },
+        {
+          "file": "realistic-ui.headful.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 140516,
+          "sha256": "1c0eb53ed9e82217efb80f52800fc95b7e27d86eb9f4410bdf15cd14e3564dc5",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 18.9,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "text-heavy",
+      "category": "text-heavy UI",
+      "display": "headless",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/text-heavy",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "text-heavy.headless.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 85050,
+          "sha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 40.8,
+          "throttleRetries": 0
+        },
+        {
+          "file": "text-heavy.headless.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 203294,
+          "sha256": "bd61aa73ffe294047084ac37e220fb9ef854a07dd47bf84cd48177ed269716f1",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 42.3,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null,
+      "apiSurface": {
+        "omitted": {
+          "ok": true,
+          "requested": {},
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "bytes": 203294,
+          "sha256": "bd61aa73ffe294047084ac37e220fb9ef854a07dd47bf84cd48177ed269716f1",
+          "magic": "ff d8 ff e0",
+          "captureMs": 32.8,
+          "throttleRetries": 0
+        },
+        "png": {
+          "ok": true,
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "bytes": 85050,
+          "sha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+          "magic": "89 50 4e 47",
+          "captureMs": 30.6,
+          "throttleRetries": 0
+        },
+        "jpeg": {
+          "ok": true,
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "bytes": 203294,
+          "sha256": "bd61aa73ffe294047084ac37e220fb9ef854a07dd47bf84cd48177ed269716f1",
+          "magic": "ff d8 ff e0",
+          "captureMs": 299.8,
+          "throttleRetries": 0
+        },
+        "jpeg-q100": {
+          "ok": true,
+          "requested": {
+            "format": "jpeg",
+            "quality": 100
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "bytes": 372503,
+          "sha256": "661e0d932a7a3a1254610943fb32fa4f75bdc72bb1fcb14644f92d6bb860772f",
+          "magic": "ff d8 ff e0",
+          "captureMs": 78.6,
+          "throttleRetries": 0
+        },
+        "jpeg-q50": {
+          "ok": true,
+          "requested": {
+            "format": "jpeg",
+            "quality": 50
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "bytes": 96108,
+          "sha256": "d395b2e70fcf947ad577d1833d9366615febc7b30dc00c9ed4813342b785cf01",
+          "magic": "ff d8 ff e0",
+          "captureMs": 28.5,
+          "throttleRetries": 0
+        },
+        "png-q50": {
+          "ok": true,
+          "requested": {
+            "format": "png",
+            "quality": 50
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "bytes": 85050,
+          "sha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+          "magic": "89 50 4e 47",
+          "captureMs": 33.6,
+          "throttleRetries": 0
+        },
+        "webp": {
+          "ok": false,
+          "requested": {
+            "format": "webp"
+          },
+          "error": "Error in invocation of tabs.captureVisibleTab(optional integer windowId, optional extensionTypes.ImageDetails options, optional function callback): Error at parameter 'options': Error at property 'format': Value must be one of jpeg, png.",
+          "throttleRetries": 0
+        }
+      }
+    },
+    {
+      "page": "text-heavy",
+      "category": "text-heavy UI",
+      "display": "headless",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/text-heavy",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "text-heavy.headless.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 85050,
+          "sha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 34.7,
+          "throttleRetries": 0
+        },
+        {
+          "file": "text-heavy.headless.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 203294,
+          "sha256": "bd61aa73ffe294047084ac37e220fb9ef854a07dd47bf84cd48177ed269716f1",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 35.2,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "controls",
+      "category": "buttons and controls",
+      "display": "headless",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/controls",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "controls.headless.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 31434,
+          "sha256": "2a0c067283e8ade2e4f571440b986403dba0910be0dee1e547ca5f9a1f10840a",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 24.4,
+          "throttleRetries": 0
+        },
+        {
+          "file": "controls.headless.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 54033,
+          "sha256": "e160b118a67d1db8a9e42b4fa6824f2b3dc6b2bb25344ebc54988728ea6cc14f",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 21,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "controls",
+      "category": "buttons and controls",
+      "display": "headless",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/controls",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "controls.headless.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 31434,
+          "sha256": "2a0c067283e8ade2e4f571440b986403dba0910be0dee1e547ca5f9a1f10840a",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 57.2,
+          "throttleRetries": 0
+        },
+        {
+          "file": "controls.headless.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 54033,
+          "sha256": "e160b118a67d1db8a9e42b4fa6824f2b3dc6b2bb25344ebc54988728ea6cc14f",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 19.7,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "small-controls",
+      "category": "small controls",
+      "display": "headless",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/small-controls",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "small-controls.headless.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 69943,
+          "sha256": "053bf8c36bf285513a8942dd09673f9265024e5c3677179bb2072b132a0306fe",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 32.6,
+          "throttleRetries": 0
+        },
+        {
+          "file": "small-controls.headless.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 184370,
+          "sha256": "39a7435cae6e85178900135a8a392f708943703311c4cf5060958cc6f013c3ef",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 17.6,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "small-controls",
+      "category": "small controls",
+      "display": "headless",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/small-controls",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "small-controls.headless.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 69943,
+          "sha256": "053bf8c36bf285513a8942dd09673f9265024e5c3677179bb2072b132a0306fe",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 32.6,
+          "throttleRetries": 0
+        },
+        {
+          "file": "small-controls.headless.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 184370,
+          "sha256": "39a7435cae6e85178900135a8a392f708943703311c4cf5060958cc6f013c3ef",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 23.5,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "dense-ui",
+      "category": "dense UI",
+      "display": "headless",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/dense-ui",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "dense-ui.headless.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 67983,
+          "sha256": "a1deafb5e567511422f3a92720349a22ed9ce4264deec10c30e624c00ba46dcb",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 48.6,
+          "throttleRetries": 0
+        },
+        {
+          "file": "dense-ui.headless.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 194540,
+          "sha256": "be9ac8f14502b5df75fe87af6cb478897732506666c887e6ea329e42c6a9f4d5",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 25.4,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "dense-ui",
+      "category": "dense UI",
+      "display": "headless",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/dense-ui",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "dense-ui.headless.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 67983,
+          "sha256": "a1deafb5e567511422f3a92720349a22ed9ce4264deec10c30e624c00ba46dcb",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 38.1,
+          "throttleRetries": 0
+        },
+        {
+          "file": "dense-ui.headless.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 194540,
+          "sha256": "be9ac8f14502b5df75fe87af6cb478897732506666c887e6ea329e42c6a9f4d5",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 19.4,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "gradients-edges",
+      "category": "gradients and high-frequency edges",
+      "display": "headless",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/gradients-edges",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "gradients-edges.headless.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 81617,
+          "sha256": "a56a98877d780f5a2d6c18a9f17d83f55d62b7f7ad8c4d14b7b4d2c8a3c6d705",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 54,
+          "throttleRetries": 0
+        },
+        {
+          "file": "gradients-edges.headless.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 63482,
+          "sha256": "61f007e0ff032b6f45dacc74440e8d4179beff5d6d7a72312b16b6f279d098ac",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 17.8,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "gradients-edges",
+      "category": "gradients and high-frequency edges",
+      "display": "headless",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/gradients-edges",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "gradients-edges.headless.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 81617,
+          "sha256": "a56a98877d780f5a2d6c18a9f17d83f55d62b7f7ad8c4d14b7b4d2c8a3c6d705",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 53.3,
+          "throttleRetries": 0
+        },
+        {
+          "file": "gradients-edges.headless.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 63482,
+          "sha256": "61f007e0ff032b6f45dacc74440e8d4179beff5d6d7a72312b16b6f279d098ac",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 17.5,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "wide",
+      "category": "wide layout",
+      "display": "headless",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/wide",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1600,
+        "h": 600
+      },
+      "achievedCssSize": {
+        "w": 1600,
+        "h": 600,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "wide.headless.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 34812,
+          "sha256": "2ddedb7ecc879d74ed822d69e74694e4ea2a961d1179bb629c5e141300d43fe5",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 28.7,
+          "throttleRetries": 0
+        },
+        {
+          "file": "wide.headless.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 85174,
+          "sha256": "5c3121375d75bab428a41bf3726d189f3994ada1d07dc7676781b56981c64b62",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 20,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "wide",
+      "category": "wide layout",
+      "display": "headless",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/wide",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1600,
+        "h": 600
+      },
+      "achievedCssSize": {
+        "w": 1600,
+        "h": 600,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "wide.headless.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 34812,
+          "sha256": "2ddedb7ecc879d74ed822d69e74694e4ea2a961d1179bb629c5e141300d43fe5",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 166.7,
+          "throttleRetries": 0
+        },
+        {
+          "file": "wide.headless.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 85174,
+          "sha256": "5c3121375d75bab428a41bf3726d189f3994ada1d07dc7676781b56981c64b62",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 19.2,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "tall",
+      "category": "tall layout",
+      "display": "headless",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/tall",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 700,
+        "h": 1000
+      },
+      "achievedCssSize": {
+        "w": 700,
+        "h": 1000,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "tall.headless.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 84482,
+          "sha256": "a3af54fc2c1d6e5e759d61484747f6400bd8272e9c22fbefb40390812e626d6d",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 31.2,
+          "throttleRetries": 0
+        },
+        {
+          "file": "tall.headless.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 159979,
+          "sha256": "f2a156995eb1a23940835c05e507242b399f024ca39f3691928b80ec7872914d",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 49.4,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "tall",
+      "category": "tall layout",
+      "display": "headless",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/tall",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 700,
+        "h": 1000
+      },
+      "achievedCssSize": {
+        "w": 700,
+        "h": 1000,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "tall.headless.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 84482,
+          "sha256": "a3af54fc2c1d6e5e759d61484747f6400bd8272e9c22fbefb40390812e626d6d",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 34.8,
+          "throttleRetries": 0
+        },
+        {
+          "file": "tall.headless.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 159979,
+          "sha256": "f2a156995eb1a23940835c05e507242b399f024ca39f3691928b80ec7872914d",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 18.8,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "odd-dims",
+      "category": "odd dimensions (both axes odd)",
+      "display": "headless",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/odd-dims",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1023,
+        "h": 641
+      },
+      "achievedCssSize": {
+        "w": 1023,
+        "h": 641,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "odd-dims.headless.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 52959,
+          "sha256": "d25cf799e5d333024e117c14cb9dff31430781fc5242747fc3a3de056ae838fd",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 37.7,
+          "throttleRetries": 0
+        },
+        {
+          "file": "odd-dims.headless.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 54650,
+          "sha256": "3df92dc1e466f287ca4d8569333a25db63c5688fbde9bef6d604e8f43130cec1",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 15.4,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "odd-dims",
+      "category": "odd dimensions (both axes odd)",
+      "display": "headless",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/odd-dims",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1023,
+        "h": 641
+      },
+      "achievedCssSize": {
+        "w": 1023,
+        "h": 641,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "odd-dims.headless.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 52959,
+          "sha256": "d25cf799e5d333024e117c14cb9dff31430781fc5242747fc3a3de056ae838fd",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 26.6,
+          "throttleRetries": 0
+        },
+        {
+          "file": "odd-dims.headless.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 54650,
+          "sha256": "3df92dc1e466f287ca4d8569333a25db63c5688fbde9bef6d604e8f43130cec1",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 10.5,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "fractional-letterbox",
+      "category": "fractional letterbox geometry",
+      "display": "headless",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/fractional-letterbox",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 960,
+        "h": 640
+      },
+      "achievedCssSize": {
+        "w": 960,
+        "h": 640,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "fractional-letterbox.headless.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 22805,
+          "sha256": "863183fd40eedc083b8795e817bf6f1adf0a3ca6d0484a0e9216e2262b77735f",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 40.2,
+          "throttleRetries": 0
+        },
+        {
+          "file": "fractional-letterbox.headless.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 46864,
+          "sha256": "9d598d308df5d58357e1dc6a5fdb880b1459322a51e3370c2768a771fe4ab3ef",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 15,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "fractional-letterbox",
+      "category": "fractional letterbox geometry",
+      "display": "headless",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/fractional-letterbox",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 960,
+        "h": 640
+      },
+      "achievedCssSize": {
+        "w": 960,
+        "h": 640,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "fractional-letterbox.headless.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 22805,
+          "sha256": "863183fd40eedc083b8795e817bf6f1adf0a3ca6d0484a0e9216e2262b77735f",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 27.7,
+          "throttleRetries": 0
+        },
+        {
+          "file": "fractional-letterbox.headless.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 46864,
+          "sha256": "9d598d308df5d58357e1dc6a5fdb880b1459322a51e3370c2768a771fe4ab3ef",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 17.2,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "realistic-ui",
+      "category": "realistic mixed UI",
+      "display": "headless",
+      "repeat": 1,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/realistic-ui",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "realistic-ui.headless.r1.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 81423,
+          "sha256": "b78492daa75ede8c24475ea8d0dd7a24b1f8db64384adff3e53a4079b70d34e1",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 40.2,
+          "throttleRetries": 0
+        },
+        {
+          "file": "realistic-ui.headless.r1.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 140516,
+          "sha256": "1c0eb53ed9e82217efb80f52800fc95b7e27d86eb9f4410bdf15cd14e3564dc5",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 23.8,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    },
+    {
+      "page": "realistic-ui",
+      "category": "realistic mixed UI",
+      "display": "headless",
+      "repeat": 2,
+      "browserVersion": "151.0.7922.34",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "apiBinding": {
+        "source": "function captureVisibleTab() { [native code] }"
+      },
+      "capturedTabUrl": "http://127.0.0.1:8931/realistic-ui",
+      "permissions": {
+        "origins": [
+          "<all_urls>"
+        ],
+        "permissions": [
+          "activeTab",
+          "tabs"
+        ]
+      },
+      "targetSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "achievedCssSize": {
+        "w": 1264,
+        "h": 800,
+        "dpr": 1
+      },
+      "windowFitHitTarget": true,
+      "windowFitAttempts": 2,
+      "files": [
+        {
+          "file": "realistic-ui.headless.r2.png",
+          "requested": {
+            "format": "png"
+          },
+          "mime": "image/png",
+          "dataUrlHeader": "data:image/png;base64",
+          "magic": "89 50 4e 47",
+          "bytes": 81423,
+          "sha256": "b78492daa75ede8c24475ea8d0dd7a24b1f8db64384adff3e53a4079b70d34e1",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 36.4,
+          "throttleRetries": 0
+        },
+        {
+          "file": "realistic-ui.headless.r2.jpg",
+          "requested": {
+            "format": "jpeg"
+          },
+          "mime": "image/jpeg",
+          "dataUrlHeader": "data:image/jpeg;base64",
+          "magic": "ff d8 ff e0",
+          "bytes": 140516,
+          "sha256": "1c0eb53ed9e82217efb80f52800fc95b7e27d86eb9f4410bdf15cd14e3564dc5",
+          "sha256AgreesWithBrowser": true,
+          "captureMs": 19.7,
+          "throttleRetries": 0
+        }
+      ],
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-11T13:50:12.746Z"
+}

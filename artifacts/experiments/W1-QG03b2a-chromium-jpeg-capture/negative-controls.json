@@ -1,0 +1,45 @@
+{
+  "experiment": "W1-QG03b2a-chromium-jpeg-capture",
+  "purpose": "evidence that the conformance harness reports a difference when one exists",
+  "ranAt": "2026-09-11T14:01:46.736Z",
+  "allFired": true,
+  "controls": [
+    {
+      "control": "corrupted-bytes",
+      "broke": "one byte of text-heavy.headful.r1.jpg flipped",
+      "guard": "in-browser SHA-256 of the encoded bytes",
+      "fired": true,
+      "observed": {
+        "encodedSha256Matches": false,
+        "skipped": "encoded bytes differ from the reference file"
+      },
+      "wouldClassifyAs": "UNKNOWN"
+    },
+    {
+      "control": "mislabelled-type",
+      "broke": "text-heavy.headful.r1.png relabelled as image/jpeg while still being a PNG",
+      "guard": "magic bytes checked against the declared MIME",
+      "fired": true,
+      "observed": {
+        "magic": "89 50 4e 47",
+        "magicMatchesDeclaredMime": false,
+        "conformant": false
+      },
+      "wouldClassifyAs": "REJECT"
+    },
+    {
+      "control": "swapped-reference",
+      "broke": "controls's reference decode replaced with realistic-ui's (identical dimensions)",
+      "guard": "decoded-pixel comparison against the reference dump",
+      "fired": true,
+      "observed": {
+        "conformant": false,
+        "decodedDigestMatches": false,
+        "maxAbs": 255,
+        "meanAbs": 12.747835245253164,
+        "lengthMismatch": false
+      },
+      "wouldClassifyAs": "REJECT"
+    }
+  ]
+}

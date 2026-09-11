@@ -1,0 +1,99 @@
+{
+  "experiment": "W1-QG03b2a-chromium-jpeg-capture",
+  "recorded_at": "2026-09-11",
+  "question": "Does the JPEG that Chromium's own captureVisibleTab produces decode and preprocess the way the reference decoder does?",
+  "lineage": "QG-03b-2a - raised by QG-03b-2, which proved the JPEG path using PILLOW-ENCODED files. Pillow's encoder and Chromium's decoder are both libjpeg-turbo, so that agreement was partly structural.",
+  "scope": "40 fixture/encoding pairs (10 real captured pages x 2 formats x 2 display modes) across 8 backend/display/format cells. Compares the browser's decode of THE EXACT BYTES chrome.tabs.captureVisibleTab returned against Pillow's decode of the same bytes, then the authoritative preprocessing contract on both. Does NOT reopen QG-03b or QG-03b-2 except as regression checks, does NOT reopen any QG-03 cell verdict, and does NOT adopt the detector.",
+  "workstation": {
+    "id": "workstation 1",
+    "host": "LAPTOP-6E14K34L",
+    "model": "HP OMEN Gaming Laptop 16-am0xxx",
+    "os": "Microsoft Windows 11 Home Single Language, build 26200 (10.0.26200)",
+    "cpu": "Intel(R) Core(TM) 7 240H \u2014 10 cores, 16 threads",
+    "ram_gb": 23.6,
+    "gpus": [
+      {
+        "name": "Intel(R) Graphics",
+        "driver": "32.0.101.7077"
+      },
+      {
+        "name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+        "driver": "32.0.16.1074"
+      }
+    ],
+    "note": "TWO GPUs are present, so a WebGPU figure is only attributable if the adapter is identified. The harness records adapterInfo where the browser exposes it; Firefox exposes an empty adapterInfo (S-02), so every Firefox WebGPU figure here is labelled 'adapter unidentified'."
+  },
+  "platform_coverage": {
+    "windows": "MEASURED - this experiment",
+    "linux": "NOT MEASURED. Firefox on Linux remains UNKNOWN, exactly as S-02a-1 left it.",
+    "macos": "NOT MEASURED, out of scope"
+  },
+  "browsers": {
+    "chromium": {
+      "channel": "unbranded Chromium bundled with Playwright 1.63.0",
+      "version": "151.0.7922.34",
+      "path": "%LOCALAPPDATA%/ms-playwright/chromium-1234/chrome-win64/chrome.exe",
+      "why_not_branded_chrome": "Chrome 152 stable REFUSES --load-extension and does so with a warning the harness never sees, so the extension is simply absent and the run looks like 'the capability is missing in extension contexts'. That false negative cost two runs during S-01.",
+      "extension_context": "MV3 service worker drives a chrome.offscreen document; ORT runs in the offscreen document. ORT CANNOT run in an MV3 service worker at all \u2014 it loads its WASM glue by dynamic import(), which the HTML specification forbids there (S-03).",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "role_here": "BOTH the encoder under test and the decoder under test."
+    },
+    "firefox": "DELIBERATELY ABSENT. The question is Chromium's own capture encoder; Firefox has no captureVisibleTab output of its own to test here. No Firefox build is produced by this harness, so no Firefox cell can be accidentally claimed."
+  },
+  "capture_api": {
+    "api": "chrome.tabs.captureVisibleTab",
+    "nativeBindingVerified": "function captureVisibleTab() { [native code] }",
+    "permission_deviation": "the harness holds <all_urls>; production holds activeTab. activeTab needs a user gesture on the extension's toolbar action, which Playwright cannot deliver. MEASURED: a host permission scoped to the fixture origin alone is refused by Chromium 151 with \"Either the '<all_urls>' or 'activeTab' permission is required.\" The gate decides whether the call runs and has no path to the bytes it returns. The product's permission is unchanged.",
+    "throttle": "the harness paces under MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND and retries a throttle refusal; the SHIPPED adapter must never retry. Retries needed in the recorded run: 0",
+    "emulation_does_not_apply": "captureVisibleTab captures the real window surface and IGNORES CDP device-metrics emulation. Window sizes are therefore calibrated and the achieved size verified; all ten targets were hit exactly."
+  },
+  "reference": {
+    "decoder": "Pillow 12.3.0",
+    "libjpeg": "8.0",
+    "libjpegTurbo": true,
+    "rule": "the reference decodes THE EXACT ENCODED BYTES whose sha256 is recorded here, then runs the authoritative preprocessing contract. The JPEG capture is never compared against the PNG capture to decide conformance \u2014 that would measure compression, not conformance.",
+    "iccProfiles": "PRESENT in every Chromium JPEG and absent from every Chromium PNG. Pillow does not apply an embedded profile on decode, so whether this matters is measured per file (`encoder.iccIsIdentityToSrgb`) rather than assumed either way."
+  },
+  "encoder_measured": {
+    "jpeg": {
+      "files": 20,
+      "subsampling": [
+        "4:2:0"
+      ],
+      "progressive": [
+        false
+      ],
+      "quantTableCount": [
+        2
+      ],
+      "impliedIjgQuality": [
+        [
+          90
+        ]
+      ],
+      "iccProfileBytes": [
+        456
+      ],
+      "iccProfileSha256": [
+        "12afb4d9953adee0607d347daee5b78b18d6b3cab2d572b88970703f5edb37bc"
+      ],
+      "iccDescription": [
+        "sRGB"
+      ],
+      "iccIdentityToSrgb": {
+        "identical": 18,
+        "differs": 2,
+        "worstMaxAbs": 1
+      },
+      "note": "read from the DQT/APP2 markers of the captured files; quality is DERIVED from the tables, not assumed"
+    },
+    "png": {
+      "files": 20,
+      "iccProfileBytes": [
+        0
+      ]
+    }
+  },
+  "determinism": "every (page, format) pair is byte-identical across both repeats AND across headful and headless. The captured bytes are nevertheless MACHINE-BOUND: font rasterisation belongs to the installed fonts and the compositor, so another machine produces different files. No CI test re-renders a page.",
+  "toolchain": {}
+}
