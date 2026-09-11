@@ -10,11 +10,12 @@
 
 ## Recorded ADRs
 
-**Count: 1 approved and implemented, 0 proposed.**
+**Count: 1 approved and implemented, 1 proposed.**
 
 | ID | Title | Status | Date | Supersedes |
 |---|---|---|---|---|
 | [ADR-0001](ADR-0001-wasm-csp-and-connect-src.md) | WebAssembly CSP directive and the `connect-src` provenance pin | **APPROVED 2026-09-10 — implemented, G1–G7 recorded in §12** | 2026-09-10 | — |
+| [ADR-0002](ADR-0002-t1-capture-format-policy.md) | QG-03b-2c — T1 Capture Format Policy (explicit PNG only) | **PROPOSED — awaiting human-architect approval** | 2026-09-11 | — |
 
 > **ADR-0001 covers issues #17 and #5 in one decision**, because S-02a-2a-4 measured that
 > the CSP directive and the `connect-src` egress pin live in the same manifest and constrain
