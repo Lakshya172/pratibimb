@@ -126,3 +126,11 @@ tests/browser/gates/results/
 artifacts/experiments/W1-B02-invariant-e-observation/harness/regression/guard-result.json
 artifacts/datasets/
 artifacts/models/
+
+# QG-03 detector runtime harness — assembled on every run from node_modules, the compiled
+# packages, and the generated reference fixtures. 45 MB of ORT and a 0.30 MB model that is
+# itself gitignored. The evidence that is KEPT is metrics.json, reference-summary.json and
+# logs/ — none of which are generated here.
+artifacts/experiments/W1-QG03-t1-detector-runtime/harness/ext-chrome/
+artifacts/experiments/W1-QG03-t1-detector-runtime/harness/ext-firefox/
+artifacts/experiments/W1-QG03-t1-detector-runtime/harness/generated/
