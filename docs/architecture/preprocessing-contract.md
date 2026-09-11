@@ -68,10 +68,17 @@ layout    NCHW — [1, 3, S, S], channel-planar
   and **bottom**. This follows from flooring the left/top offset and is not a free choice.
 - **The content extent is an integer number of pixels**, so the realised scale is `nw/W`,
   which differs from `s` by up to `0.5/W`.
-- **`round()` must agree across languages.** JavaScript's `Math.round` rounds half *away
-  from zero*; Python's built-in `round` rounds half *to even*. They differ only when `dim · s`
-  is exactly `.5`. The conformance suite enumerates every fixture and **fails** if one lands
-  in that regime, rather than letting the tensor shift by a row.
+- **`round()` is PYTHON's: an exact .5 goes to the EVEN neighbour.** That is what `data.py`
+  rasterised the training set with, and §3 makes the trained artifact the authority.
+  - JavaScript's `Math.round` sends .5 *up*, so the two differ whenever `dim · s` is exactly
+    `.5` with an even lower neighbour.
+  - The original guard enumerated only fixture sizes, and none of them landed there.
+  - [`W1-QG03a`](../../artifacts/experiments/W1-QG03a-t1-production-robustness/README.md)
+    found real capture sizes that do: 1280×641, 1280×721, 1024×644, 2560×1442, 641×1280. On
+    every one of them the shipped raster diverged from the reference, in Node, Chrome and
+    Firefox, by up to 25.7% of tensor bytes.
+  - `preprocess.ts` now implements half to even (`roundHalfEven`), and
+    `qg03aRobustness.test.ts` pins the exact-half table.
 - **`max(1, …)`** means a source thinner than `S/max(W,H)` still yields one row or column
   rather than an empty image.
 
