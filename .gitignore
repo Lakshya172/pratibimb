@@ -148,3 +148,13 @@ artifacts/experiments/W1-QG03b-letterbox-conformance/harness/generated/
 artifacts/experiments/W1-QG03b2-capture-format-conformance/harness/ext-chrome/
 artifacts/experiments/W1-QG03b2-capture-format-conformance/harness/ext-firefox/
 artifacts/experiments/W1-QG03b2-capture-format-conformance/harness/generated/
+
+# QG-03b-2a real-capture harness — assembled per run. generated/ holds the reference
+# decode dumps (~338 MB) and ext-chrome/ the assembled extension (~198 MB of ORT plus the
+# compiled packages). Both are rebuilt from committed inputs by build-qg03b2a-extension.mjs.
+artifacts/experiments/W1-QG03b2a-chromium-jpeg-capture/harness/ext-chrome/
+artifacts/experiments/W1-QG03b2a-chromium-jpeg-capture/harness/generated/
+# The SECOND capture of each fixture exists to prove the encoder is deterministic. Its
+# evidence is the digest recorded in captured/manifest.json, which is committed; the file
+# itself is a byte-for-byte duplicate of the first and is not worth carrying in history.
+artifacts/experiments/W1-QG03b2a-chromium-jpeg-capture/harness/captured/*.r2.*
