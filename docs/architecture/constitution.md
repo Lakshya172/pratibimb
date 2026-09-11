@@ -117,7 +117,7 @@ Substitution requires an ADR.
 | Inference runtime | **ONNX Runtime Web**; **Transformers.js** for NER and the local VLM | Raw ORT gives manual control of pre-processing and NMS for the detectors; Transformers.js is faster to integrate for the transformer models |
 | Acceleration | **WebGPU when genuinely available and validated; WASM/SIMD always** | Feature-detect `navigator.gpu`; surface the live backend in the ledger |
 | Execution context | **Offscreen document + dedicated worker** | MV3 service workers have no DOM and terminate when idle; they cannot hold inference sessions |
-| Capture | **`tabs.captureVisibleTab`** | Faster than screen capture and raises no OS picker mid-demo. **Rate-limited, particularly under `activeTab`** — which is why the change gate does not depend on it. |
+| Capture | **`tabs.captureVisibleTab`**, **PNG, explicit (ADR-0002)** | Faster than screen capture and raises no OS picker mid-demo. **Rate-limited, particularly under `activeTab`** — which is why the change gate does not depend on it. |
 | Element source | **Derived element graph** | Built from roles, ARIA attributes, accessible-name computation, computed styles and geometry. **NOT the browser's accessibility tree** — `chrome.automation` is ChromeOS-only for extensions and no content-script API exposes the native AX tree. Never claim otherwise to a panel. |
 | Same-origin frames | `all_frames` | |
 | Change signal | **MutationObserver (structural) + bounded dHash polling (visual) + low-rate full-frame dHash (safety net)** | See section 6 |
