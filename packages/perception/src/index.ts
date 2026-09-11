@@ -41,6 +41,7 @@ export {
 
 export {
   type CaptureFrame, type ViewportMeasurement, type CaptureAdapter, type TabsCaptureApi,
+  type T1CaptureFormat, T1_CAPTURE_FORMAT,
   DEFAULT_FRAME_TTL_MS,
   geometryFrom, isStale, assertFresh, decodeDataUrl, createTabCaptureAdapter, isThrottleSignature,
 } from "./capture.js";

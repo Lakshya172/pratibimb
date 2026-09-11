@@ -21,6 +21,19 @@ import { type FrameId, frameId } from "./observation.js";
 import { type Perceived, ok, refuse, PerceptionError } from "./failure.js";
 
 /**
+ * The ONE format a T1 production frame is captured in — ADR-0002 (QG-03b-2c).
+ *
+ * PNG, requested explicitly, never the browser's default. MEASURED in W1-QG03b-2a: with
+ * `format` omitted, Chromium returns JPEG, byte-identical to `{format:"jpeg"}` — quality 90,
+ * 4:2:0 chroma. The default is therefore not a neutral choice; it is lossy capture.
+ *
+ * This is the T1 CAPTURE policy only. It says nothing about the T2 egress encoding, which the
+ * dossier specifies separately (WebP q62 on the sanitized frame, `manifest-schema.md`).
+ */
+export const T1_CAPTURE_FORMAT = "png" as const;
+export type T1CaptureFormat = typeof T1_CAPTURE_FORMAT;
+
+/**
  * One captured frame.
  *
  * `pixels` is intentionally opaque to this package. Perception decides WHERE things are;
@@ -31,9 +44,15 @@ export interface CaptureFrame {
   readonly id: FrameId;
   /** `Date.now()` at the moment the frame was produced. */
   readonly capturedAt: number;
-  /** Encoded image bytes, format as reported by the adapter. */
+  /** Encoded PNG bytes. The adapter has checked the PNG signature before building the frame. */
   readonly pixels: Uint8Array;
-  readonly format: "png" | "jpeg" | "webp";
+  /**
+   * Always PNG — ADR-0002. Narrowed from `"png" | "jpeg" | "webp"`: a JPEG T1 frame is lossy
+   * input the detector has no production robustness evidence for, and WebP is a format
+   * `captureVisibleTab` cannot produce at all (Chromium rejects it at schema validation).
+   * The type makes both unrepresentable rather than merely unlikely.
+   */
+  readonly format: T1CaptureFormat;
   /** The complete coordinate contract for THIS frame. */
   readonly geometry: CaptureGeometry;
 }
@@ -131,10 +150,26 @@ export function assertFresh(
  * extension runtime. The shape asserted here is small enough to read in full.
  */
 export interface TabsCaptureApi {
+  // The browser API's own surface: it can produce PNG or JPEG. What T1 ACCEPTS is narrower —
+  // PNG only (ADR-0002) — and is enforced in the adapter, not by pretending the API is smaller.
   captureVisibleTab(options: { format: "png" | "jpeg"; quality?: number }): Promise<string>;
 }
 
-/** Decode a `data:` URL into raw bytes and its declared format. */
+const PNG_SIGNATURE = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a] as const;
+const JPEG_SOI = [0xff, 0xd8, 0xff] as const;
+
+function startsWith(bytes: Uint8Array, signature: readonly number[]): boolean {
+  if (bytes.length < signature.length) return false;
+  return signature.every((b, i) => bytes[i] === b);
+}
+
+/**
+ * Decode a `data:` URL into raw bytes and its declared format.
+ *
+ * The declared MIME type must agree with the bytes' own signature. A label the bytes
+ * contradict is refused: downstream code keys behaviour on `format`, and a PNG-labelled JPEG
+ * would enter the lossless path carrying lossy pixels.
+ */
 export function decodeDataUrl(dataUrl: string): { bytes: Uint8Array; format: "png" | "jpeg" } {
   const match = /^data:image\/(png|jpeg);base64,(.*)$/s.exec(dataUrl);
   if (!match) {
@@ -148,6 +183,13 @@ export function decodeDataUrl(dataUrl: string): { bytes: Uint8Array; format: "pn
   const binary = atob(b64);
   const bytes = new Uint8Array(binary.length);
   for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+  if (!startsWith(bytes, format === "png" ? PNG_SIGNATURE : JPEG_SOI)) {
+    throw new PerceptionError(
+      `captureVisibleTab declared image/${format} but the bytes do not carry the ` +
+        `${format.toUpperCase()} signature. A MIME label the bytes contradict is not a frame.`,
+      "CAPTURE_FAILED"
+    );
+  }
   return { bytes, format };
 }
 
@@ -192,6 +234,9 @@ export function createTabCaptureAdapter(
     async capture(measurement) {
       let dataUrl: string;
       try {
+        // ADR-0002: explicit PNG, never the (JPEG) default. This literal is also guarded by
+        // source text in realCaptureConformance.test.ts; its BEHAVIOUR is guarded in
+        // capturePolicy.test.ts.
         dataUrl = await tabs.captureVisibleTab({ format: "png" });
       } catch (cause) {
         const message = String((cause as Error)?.message ?? cause);
@@ -205,17 +250,29 @@ export function createTabCaptureAdapter(
         );
       }
 
-      let bytes: Uint8Array;
-      let format: "png" | "jpeg";
+      let decoded: { bytes: Uint8Array; format: "png" | "jpeg" };
       try {
-        ({ bytes, format } = decodeDataUrl(dataUrl));
+        decoded = decodeDataUrl(dataUrl);
       } catch (cause) {
         return refuse("CAPTURE_FAILED", String((cause as Error)?.message ?? cause));
       }
 
+      // ADR-0002: PNG was requested, so anything else is REFUSED — never accepted as a lossy
+      // frame, and never re-requested in another format. A browser that ignores the format
+      // argument must surface as a failure, not as a quietly different product.
+      if (decoded.format !== T1_CAPTURE_FORMAT) {
+        return refuse(
+          "CAPTURE_FAILED",
+          `captureVisibleTab returned image/${decoded.format} although ` +
+            `image/${T1_CAPTURE_FORMAT} was requested. ADR-0002 admits PNG only for T1 ` +
+            `capture; the frame is refused and no other format is requested.`
+        );
+      }
+      const bytes = decoded.bytes;
+
       let size: { width: number; height: number };
       try {
-        size = await decodeSize(bytes, format);
+        size = await decodeSize(bytes, T1_CAPTURE_FORMAT);
       } catch (cause) {
         return refuse(
           "CAPTURE_FAILED",
@@ -237,7 +294,7 @@ export function createTabCaptureAdapter(
         id: frameId(`frame-${sequence}-${now()}`),
         capturedAt: now(),
         pixels: bytes,
-        format,
+        format: T1_CAPTURE_FORMAT,
         geometry,
       });
     },

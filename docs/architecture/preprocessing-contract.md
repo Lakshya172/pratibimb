@@ -295,6 +295,18 @@ It is measured anyway because `CaptureFrame.format` permits `"webp"` while the a
 populates it cannot produce one. That inconsistency is now closed with evidence rather than
 an assumption, and the T2 verification pass will want the answer already on the shelf.
 
+### T1 production capture policy — ADR-0002 (PROPOSED)
+
+[ADR-0002](../adr/ADR-0002-t1-capture-format-policy.md) (QG-03b-2c) makes the policy
+explicit: **T1 production capture is PNG, requested explicitly; anything else is refused,
+never re-requested in another format.** `CaptureFrame.format` is narrowed to `"png"`, which
+closes the `"webp"` inconsistency above at the type level.
+
+The table at the top of this section is **unchanged and still true**: JPEG decodes
+conformantly, and that evidence stays in the repository. It describes what the decoder does
+with JPEG, not what the T1 production path admits. WebP remains the **T2 egress** encoding
+and is untouched by this policy.
+
 ---
 
 ## 8. THE INPUT MUST BE FULLY OPAQUE, and this is enforced
