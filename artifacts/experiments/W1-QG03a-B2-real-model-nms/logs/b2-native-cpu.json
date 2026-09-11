@@ -1,0 +1,639 @@
+{
+ "experiment": "W1-QG03a-B2-real-model-nms",
+ "cell": "native-cpu",
+ "browser": "none",
+ "backendRequested": "cpu",
+ "backendObserved": "cpu",
+ "backendLabelVerified": true,
+ "userAgent": "onnxruntime 1.29.0 (python 3.12.10), CPUExecutionProvider, 1 thread",
+ "ortVersion": "1.29.0",
+ "model": {
+  "path": "artifacts/models/t1-ui-head/t1-ui-head.onnx",
+  "bytes": 302960,
+  "sha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0"
+ },
+ "fixtures": [
+  {
+   "name": "text-heavy.headful",
+   "file": "text-heavy.headful.r1.png",
+   "sha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "controls.headful",
+   "file": "controls.headful.r1.png",
+   "sha256": "2a0c067283e8ade2e4f571440b986403dba0910be0dee1e547ca5f9a1f10840a",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "small-controls.headful",
+   "file": "small-controls.headful.r1.png",
+   "sha256": "053bf8c36bf285513a8942dd09673f9265024e5c3677179bb2072b132a0306fe",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "dense-ui.headful",
+   "file": "dense-ui.headful.r1.png",
+   "sha256": "a1deafb5e567511422f3a92720349a22ed9ce4264deec10c30e624c00ba46dcb",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "gradients-edges.headful",
+   "file": "gradients-edges.headful.r1.png",
+   "sha256": "a56a98877d780f5a2d6c18a9f17d83f55d62b7f7ad8c4d14b7b4d2c8a3c6d705",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "wide.headful",
+   "file": "wide.headful.r1.png",
+   "sha256": "2ddedb7ecc879d74ed822d69e74694e4ea2a961d1179bb629c5e141300d43fe5",
+   "captureSize": {
+    "w": 1600,
+    "h": 600
+   },
+   "viewportCss": {
+    "w": 1600,
+    "h": 600
+   },
+   "dpr": 1
+  },
+  {
+   "name": "tall.headful",
+   "file": "tall.headful.r1.png",
+   "sha256": "a3af54fc2c1d6e5e759d61484747f6400bd8272e9c22fbefb40390812e626d6d",
+   "captureSize": {
+    "w": 700,
+    "h": 1000
+   },
+   "viewportCss": {
+    "w": 700,
+    "h": 1000
+   },
+   "dpr": 1
+  },
+  {
+   "name": "odd-dims.headful",
+   "file": "odd-dims.headful.r1.png",
+   "sha256": "d25cf799e5d333024e117c14cb9dff31430781fc5242747fc3a3de056ae838fd",
+   "captureSize": {
+    "w": 1023,
+    "h": 641
+   },
+   "viewportCss": {
+    "w": 1023,
+    "h": 641
+   },
+   "dpr": 1
+  },
+  {
+   "name": "fractional-letterbox.headful",
+   "file": "fractional-letterbox.headful.r1.png",
+   "sha256": "863183fd40eedc083b8795e817bf6f1adf0a3ca6d0484a0e9216e2262b77735f",
+   "captureSize": {
+    "w": 960,
+    "h": 640
+   },
+   "viewportCss": {
+    "w": 960,
+    "h": 640
+   },
+   "dpr": 1
+  },
+  {
+   "name": "realistic-ui.headful",
+   "file": "realistic-ui.headful.r1.png",
+   "sha256": "b78492daa75ede8c24475ea8d0dd7a24b1f8db64384adff3e53a4079b70d34e1",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "text-heavy.headless",
+   "file": "text-heavy.headless.r1.png",
+   "sha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "controls.headless",
+   "file": "controls.headless.r1.png",
+   "sha256": "2a0c067283e8ade2e4f571440b986403dba0910be0dee1e547ca5f9a1f10840a",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "small-controls.headless",
+   "file": "small-controls.headless.r1.png",
+   "sha256": "053bf8c36bf285513a8942dd09673f9265024e5c3677179bb2072b132a0306fe",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "dense-ui.headless",
+   "file": "dense-ui.headless.r1.png",
+   "sha256": "a1deafb5e567511422f3a92720349a22ed9ce4264deec10c30e624c00ba46dcb",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "gradients-edges.headless",
+   "file": "gradients-edges.headless.r1.png",
+   "sha256": "a56a98877d780f5a2d6c18a9f17d83f55d62b7f7ad8c4d14b7b4d2c8a3c6d705",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "wide.headless",
+   "file": "wide.headless.r1.png",
+   "sha256": "2ddedb7ecc879d74ed822d69e74694e4ea2a961d1179bb629c5e141300d43fe5",
+   "captureSize": {
+    "w": 1600,
+    "h": 600
+   },
+   "viewportCss": {
+    "w": 1600,
+    "h": 600
+   },
+   "dpr": 1
+  },
+  {
+   "name": "tall.headless",
+   "file": "tall.headless.r1.png",
+   "sha256": "a3af54fc2c1d6e5e759d61484747f6400bd8272e9c22fbefb40390812e626d6d",
+   "captureSize": {
+    "w": 700,
+    "h": 1000
+   },
+   "viewportCss": {
+    "w": 700,
+    "h": 1000
+   },
+   "dpr": 1
+  },
+  {
+   "name": "odd-dims.headless",
+   "file": "odd-dims.headless.r1.png",
+   "sha256": "d25cf799e5d333024e117c14cb9dff31430781fc5242747fc3a3de056ae838fd",
+   "captureSize": {
+    "w": 1023,
+    "h": 641
+   },
+   "viewportCss": {
+    "w": 1023,
+    "h": 641
+   },
+   "dpr": 1
+  },
+  {
+   "name": "fractional-letterbox.headless",
+   "file": "fractional-letterbox.headless.r1.png",
+   "sha256": "863183fd40eedc083b8795e817bf6f1adf0a3ca6d0484a0e9216e2262b77735f",
+   "captureSize": {
+    "w": 960,
+    "h": 640
+   },
+   "viewportCss": {
+    "w": 960,
+    "h": 640
+   },
+   "dpr": 1
+  },
+  {
+   "name": "realistic-ui.headless",
+   "file": "realistic-ui.headless.r1.png",
+   "sha256": "b78492daa75ede8c24475ea8d0dd7a24b1f8db64384adff3e53a4079b70d34e1",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  }
+ ],
+ "rows": [
+  {
+   "name": "text-heavy.headful",
+   "pngSha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+   "tensorSha256": "a7adfa147577d3e5d241d57e5de9fa604c5d8b656e4f9bf056582a26e691433d",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "b1a27656cee3f6c614ececa0c316ffcd36e8afc4a64f276fe01f9350f7cf7d0f",
+   "deterministic": true,
+   "inferMs": [
+    16.66
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "controls.headful",
+   "pngSha256": "2a0c067283e8ade2e4f571440b986403dba0910be0dee1e547ca5f9a1f10840a",
+   "tensorSha256": "0c2d149cbd90439400e7b8ef1e6ff4b1870b75c83116fd4b66ba163afc5e328c",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "d606c8a3a20fab8e312bc1ec261049963e7f749a04932b4560f39b4dcee2004b",
+   "deterministic": true,
+   "inferMs": [
+    8.18
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "small-controls.headful",
+   "pngSha256": "053bf8c36bf285513a8942dd09673f9265024e5c3677179bb2072b132a0306fe",
+   "tensorSha256": "d8281daf69b7c9adb5a58b8573b4ea7467db8dac520336b166d118b9b010c688",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "e3cd08fdcfacf9d735d5e4a6b435b98feb084f1819e3c395dffb42eb2edf6924",
+   "deterministic": true,
+   "inferMs": [
+    7.59
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "dense-ui.headful",
+   "pngSha256": "a1deafb5e567511422f3a92720349a22ed9ce4264deec10c30e624c00ba46dcb",
+   "tensorSha256": "06fc30cc81174565e061b6d536ce47ed3399e3b30bfbe59e7416cc1ed77b4cea",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "aa3f8afc0e73e1fc26393af8599b92f06c12c3228bfc577bb385e2bfd5ee7f8c",
+   "deterministic": true,
+   "inferMs": [
+    7.45
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "gradients-edges.headful",
+   "pngSha256": "a56a98877d780f5a2d6c18a9f17d83f55d62b7f7ad8c4d14b7b4d2c8a3c6d705",
+   "tensorSha256": "a85d566b9e4a74c3defaa04fe5c5ae3b66eb5b85d823e17928f6c418899fbba2",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "340fc4aacf72e5e6b7092681643f49153d82a65bb1c744175c4e20137b273da7",
+   "deterministic": true,
+   "inferMs": [
+    7.62
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "wide.headful",
+   "pngSha256": "2ddedb7ecc879d74ed822d69e74694e4ea2a961d1179bb629c5e141300d43fe5",
+   "tensorSha256": "f14284858213b810f02445e0b57c57cdc22b9e9d45e091e3ab36cee2b0891d4d",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "b8cb6c4e45bc981968bee39d9de97ff083aae427c4c446b5a719425b29423edb",
+   "deterministic": true,
+   "inferMs": [
+    7.41
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "tall.headful",
+   "pngSha256": "a3af54fc2c1d6e5e759d61484747f6400bd8272e9c22fbefb40390812e626d6d",
+   "tensorSha256": "501bf0d5f38a34a52bd7f53dc10b9557e388c35e1da6188eea70fbd01d2b5d39",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "c19860c4cde70ba7ceaebb47e4b11d22e7fbee6b1f2efdc1b197cbec933de61c",
+   "deterministic": true,
+   "inferMs": [
+    7.41
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "odd-dims.headful",
+   "pngSha256": "d25cf799e5d333024e117c14cb9dff31430781fc5242747fc3a3de056ae838fd",
+   "tensorSha256": "58348013134d68a402e771c91e990bb7dd24ef5395b6c0dff40ce95ee0867aa7",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "f1e0b74fa0b5fdce4eb7ffd52b546622546b16320fc1294a783edaf46ffbcb72",
+   "deterministic": true,
+   "inferMs": [
+    7.46
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "fractional-letterbox.headful",
+   "pngSha256": "863183fd40eedc083b8795e817bf6f1adf0a3ca6d0484a0e9216e2262b77735f",
+   "tensorSha256": "0adbce5a433f69b6e459ca42bd7a28a64e633af38d6215def6669bb41508fbc3",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "462dde3957a7a268aecabc02b29070ef021deec742259f50f06ebb3130258850",
+   "deterministic": true,
+   "inferMs": [
+    7.97
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "realistic-ui.headful",
+   "pngSha256": "b78492daa75ede8c24475ea8d0dd7a24b1f8db64384adff3e53a4079b70d34e1",
+   "tensorSha256": "74ed49f7bba1b5d9bcd58d231c45f6cd88b677fc9c453288778321970a661b68",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "889c88f5152abb947936898ebb5665ba0bb1cfdb9cb0aadd2dc8b41017ab05de",
+   "deterministic": true,
+   "inferMs": [
+    8.25
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "text-heavy.headless",
+   "pngSha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+   "tensorSha256": "a7adfa147577d3e5d241d57e5de9fa604c5d8b656e4f9bf056582a26e691433d",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "b1a27656cee3f6c614ececa0c316ffcd36e8afc4a64f276fe01f9350f7cf7d0f",
+   "deterministic": true,
+   "inferMs": [
+    7.7
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "controls.headless",
+   "pngSha256": "2a0c067283e8ade2e4f571440b986403dba0910be0dee1e547ca5f9a1f10840a",
+   "tensorSha256": "0c2d149cbd90439400e7b8ef1e6ff4b1870b75c83116fd4b66ba163afc5e328c",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "d606c8a3a20fab8e312bc1ec261049963e7f749a04932b4560f39b4dcee2004b",
+   "deterministic": true,
+   "inferMs": [
+    7.81
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "small-controls.headless",
+   "pngSha256": "053bf8c36bf285513a8942dd09673f9265024e5c3677179bb2072b132a0306fe",
+   "tensorSha256": "d8281daf69b7c9adb5a58b8573b4ea7467db8dac520336b166d118b9b010c688",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "e3cd08fdcfacf9d735d5e4a6b435b98feb084f1819e3c395dffb42eb2edf6924",
+   "deterministic": true,
+   "inferMs": [
+    7.79
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "dense-ui.headless",
+   "pngSha256": "a1deafb5e567511422f3a92720349a22ed9ce4264deec10c30e624c00ba46dcb",
+   "tensorSha256": "06fc30cc81174565e061b6d536ce47ed3399e3b30bfbe59e7416cc1ed77b4cea",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "aa3f8afc0e73e1fc26393af8599b92f06c12c3228bfc577bb385e2bfd5ee7f8c",
+   "deterministic": true,
+   "inferMs": [
+    7.71
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "gradients-edges.headless",
+   "pngSha256": "a56a98877d780f5a2d6c18a9f17d83f55d62b7f7ad8c4d14b7b4d2c8a3c6d705",
+   "tensorSha256": "a85d566b9e4a74c3defaa04fe5c5ae3b66eb5b85d823e17928f6c418899fbba2",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "340fc4aacf72e5e6b7092681643f49153d82a65bb1c744175c4e20137b273da7",
+   "deterministic": true,
+   "inferMs": [
+    8.77
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "wide.headless",
+   "pngSha256": "2ddedb7ecc879d74ed822d69e74694e4ea2a961d1179bb629c5e141300d43fe5",
+   "tensorSha256": "f14284858213b810f02445e0b57c57cdc22b9e9d45e091e3ab36cee2b0891d4d",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "b8cb6c4e45bc981968bee39d9de97ff083aae427c4c446b5a719425b29423edb",
+   "deterministic": true,
+   "inferMs": [
+    7.51
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "tall.headless",
+   "pngSha256": "a3af54fc2c1d6e5e759d61484747f6400bd8272e9c22fbefb40390812e626d6d",
+   "tensorSha256": "501bf0d5f38a34a52bd7f53dc10b9557e388c35e1da6188eea70fbd01d2b5d39",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "c19860c4cde70ba7ceaebb47e4b11d22e7fbee6b1f2efdc1b197cbec933de61c",
+   "deterministic": true,
+   "inferMs": [
+    7.93
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "odd-dims.headless",
+   "pngSha256": "d25cf799e5d333024e117c14cb9dff31430781fc5242747fc3a3de056ae838fd",
+   "tensorSha256": "58348013134d68a402e771c91e990bb7dd24ef5395b6c0dff40ce95ee0867aa7",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "f1e0b74fa0b5fdce4eb7ffd52b546622546b16320fc1294a783edaf46ffbcb72",
+   "deterministic": true,
+   "inferMs": [
+    7.41
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "fractional-letterbox.headless",
+   "pngSha256": "863183fd40eedc083b8795e817bf6f1adf0a3ca6d0484a0e9216e2262b77735f",
+   "tensorSha256": "0adbce5a433f69b6e459ca42bd7a28a64e633af38d6215def6669bb41508fbc3",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "462dde3957a7a268aecabc02b29070ef021deec742259f50f06ebb3130258850",
+   "deterministic": true,
+   "inferMs": [
+    7.65
+   ],
+   "dumpVerified": true
+  },
+  {
+   "name": "realistic-ui.headless",
+   "pngSha256": "b78492daa75ede8c24475ea8d0dd7a24b1f8db64384adff3e53a4079b70d34e1",
+   "tensorSha256": "74ed49f7bba1b5d9bcd58d231c45f6cd88b677fc9c453288778321970a661b68",
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "outputBytes": 307200,
+   "outputSha256": "889c88f5152abb947936898ebb5665ba0bb1cfdb9cb0aadd2dc8b41017ab05de",
+   "deterministic": true,
+   "inferMs": [
+    7.53
+   ],
+   "dumpVerified": true
+  }
+ ]
+}
