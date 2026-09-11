@@ -1,0 +1,399 @@
+{
+  "experiment": "W1-QG03b-letterbox-conformance",
+  "question": "Does the browser produce the SAME tensor as the Python reference, from the same PNG, stage by stage?",
+  "lineage": "QG-03b — the blocker QG-03 left CONDITIONAL",
+  "unitOfEvidence": "browser x backend x display mode x fixture x pipeline stage",
+  "generatedAt": "2026-09-11T09:46:58.373Z",
+  "summary": {
+    "cells": 8,
+    "conformantCells": 8,
+    "everyStageConformant": true,
+    "canvasControlEverMatchedNonTrivially": true
+  },
+  "cells": [
+    {
+      "browser": "chromium",
+      "backend": "wasm",
+      "display": "headful",
+      "platform": "windows",
+      "runs": 3,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "canvasKind": "OffscreenCanvas",
+      "fixturesPerRun": 15,
+      "conformant": true,
+      "decodeConformant": true,
+      "resizeConformant": true,
+      "paddingConformant": true,
+      "tensorConformant": true,
+      "geometryConformant": true,
+      "firstDivergences": [],
+      "latency": {
+        "preprocessP50Ms": 19.2,
+        "preprocessP95Ms": 46.3,
+        "pngDecodeP50Ms": 15.9,
+        "fixture": "viewport-1152x800",
+        "source": {
+          "w": 1152,
+          "h": 800
+        },
+        "note": "preprocessing and PNG decoding timed SEPARATELY — the decode is paid by the capture consumer either way"
+      },
+      "canvasControl": {
+        "everMatchedPython": true,
+        "matchedFixtures": [
+          "square-exact",
+          "tiny-1px"
+        ],
+        "worstMaxAbsDiff255": 98.99999409914017,
+        "worstDifferingFraction": 0.3384578450520833,
+        "honoursImageSmoothingQuality": true
+      },
+      "detection": {
+        "samples": [
+          "real-dev-0000",
+          "real-dev-0003"
+        ],
+        "shippedAgreementRate": 1,
+        "shippedExactCount": true,
+        "shippedWorstCssDeltaPx": 0.0010985908203338113,
+        "canvasControlAgreementRate": 0.7358490566037735,
+        "canvasControlWorstCssDeltaPx": 98.1484363935547
+      }
+    },
+    {
+      "browser": "chromium",
+      "backend": "wasm",
+      "display": "headless",
+      "platform": "windows",
+      "runs": 3,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "canvasKind": "OffscreenCanvas",
+      "fixturesPerRun": 15,
+      "conformant": true,
+      "decodeConformant": true,
+      "resizeConformant": true,
+      "paddingConformant": true,
+      "tensorConformant": true,
+      "geometryConformant": true,
+      "firstDivergences": [],
+      "latency": {
+        "preprocessP50Ms": 19.8,
+        "preprocessP95Ms": 23.2,
+        "pngDecodeP50Ms": 10.5,
+        "fixture": "viewport-1152x800",
+        "source": {
+          "w": 1152,
+          "h": 800
+        },
+        "note": "preprocessing and PNG decoding timed SEPARATELY — the decode is paid by the capture consumer either way"
+      },
+      "canvasControl": {
+        "everMatchedPython": true,
+        "matchedFixtures": [
+          "square-exact",
+          "tiny-1px"
+        ],
+        "worstMaxAbsDiff255": 98.99999409914017,
+        "worstDifferingFraction": 0.3384578450520833,
+        "honoursImageSmoothingQuality": true
+      },
+      "detection": {
+        "samples": [
+          "real-dev-0000",
+          "real-dev-0003"
+        ],
+        "shippedAgreementRate": 1,
+        "shippedExactCount": true,
+        "shippedWorstCssDeltaPx": 0.0010985908203338113,
+        "canvasControlAgreementRate": 0.7358490566037735,
+        "canvasControlWorstCssDeltaPx": 98.1484363935547
+      }
+    },
+    {
+      "browser": "chromium",
+      "backend": "webgpu",
+      "display": "headful",
+      "platform": "windows",
+      "runs": 3,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "canvasKind": "OffscreenCanvas",
+      "fixturesPerRun": 15,
+      "conformant": true,
+      "decodeConformant": true,
+      "resizeConformant": true,
+      "paddingConformant": true,
+      "tensorConformant": true,
+      "geometryConformant": true,
+      "firstDivergences": [],
+      "latency": {
+        "preprocessP50Ms": 19.1,
+        "preprocessP95Ms": 25,
+        "pngDecodeP50Ms": 9.9,
+        "fixture": "viewport-1152x800",
+        "source": {
+          "w": 1152,
+          "h": 800
+        },
+        "note": "preprocessing and PNG decoding timed SEPARATELY — the decode is paid by the capture consumer either way"
+      },
+      "canvasControl": {
+        "everMatchedPython": true,
+        "matchedFixtures": [
+          "square-exact",
+          "tiny-1px"
+        ],
+        "worstMaxAbsDiff255": 98.99999409914017,
+        "worstDifferingFraction": 0.3384578450520833,
+        "honoursImageSmoothingQuality": true
+      },
+      "detection": {
+        "samples": [
+          "real-dev-0000",
+          "real-dev-0003"
+        ],
+        "shippedAgreementRate": 1,
+        "shippedExactCount": true,
+        "shippedWorstCssDeltaPx": 0.0010577990722708819,
+        "canvasControlAgreementRate": 0.7358490566037735,
+        "canvasControlWorstCssDeltaPx": 98.1482441328125
+      }
+    },
+    {
+      "browser": "chromium",
+      "backend": "webgpu",
+      "display": "headless",
+      "platform": "windows",
+      "runs": 3,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "canvasKind": "OffscreenCanvas",
+      "fixturesPerRun": 15,
+      "conformant": true,
+      "decodeConformant": true,
+      "resizeConformant": true,
+      "paddingConformant": true,
+      "tensorConformant": true,
+      "geometryConformant": true,
+      "firstDivergences": [],
+      "latency": {
+        "preprocessP50Ms": 20,
+        "preprocessP95Ms": 56.8,
+        "pngDecodeP50Ms": 19.5,
+        "fixture": "viewport-1152x800",
+        "source": {
+          "w": 1152,
+          "h": 800
+        },
+        "note": "preprocessing and PNG decoding timed SEPARATELY — the decode is paid by the capture consumer either way"
+      },
+      "canvasControl": {
+        "everMatchedPython": true,
+        "matchedFixtures": [
+          "square-exact",
+          "tiny-1px"
+        ],
+        "worstMaxAbsDiff255": 98.99999409914017,
+        "worstDifferingFraction": 0.3384578450520833,
+        "honoursImageSmoothingQuality": true
+      },
+      "detection": {
+        "samples": [
+          "real-dev-0000",
+          "real-dev-0003"
+        ],
+        "shippedAgreementRate": 1,
+        "shippedExactCount": true,
+        "shippedWorstCssDeltaPx": 0.0010577990722708819,
+        "canvasControlAgreementRate": 0.7358490566037735,
+        "canvasControlWorstCssDeltaPx": 98.1482441328125
+      }
+    },
+    {
+      "browser": "firefox",
+      "backend": "wasm",
+      "display": "headful",
+      "platform": "windows",
+      "runs": 3,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+      "canvasKind": "OffscreenCanvas",
+      "fixturesPerRun": 15,
+      "conformant": true,
+      "decodeConformant": true,
+      "resizeConformant": true,
+      "paddingConformant": true,
+      "tensorConformant": true,
+      "geometryConformant": true,
+      "firstDivergences": [],
+      "latency": {
+        "preprocessP50Ms": 24,
+        "preprocessP95Ms": 31,
+        "pngDecodeP50Ms": 11,
+        "fixture": "viewport-1152x800",
+        "source": {
+          "w": 1152,
+          "h": 800
+        },
+        "note": "preprocessing and PNG decoding timed SEPARATELY — the decode is paid by the capture consumer either way"
+      },
+      "canvasControl": {
+        "everMatchedPython": true,
+        "matchedFixtures": [
+          "square-exact",
+          "tiny-1px"
+        ],
+        "worstMaxAbsDiff255": 147.99999877810478,
+        "worstDifferingFraction": 0.31498616536458335,
+        "honoursImageSmoothingQuality": false
+      },
+      "detection": {
+        "samples": [
+          "real-dev-0000",
+          "real-dev-0003"
+        ],
+        "shippedAgreementRate": 1,
+        "shippedExactCount": true,
+        "shippedWorstCssDeltaPx": 0.0010985908203338113,
+        "canvasControlAgreementRate": 0.660377358490566,
+        "canvasControlWorstCssDeltaPx": 145.01499950195307
+      }
+    },
+    {
+      "browser": "firefox",
+      "backend": "wasm",
+      "display": "headless",
+      "platform": "windows",
+      "runs": 3,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+      "canvasKind": "OffscreenCanvas",
+      "fixturesPerRun": 15,
+      "conformant": true,
+      "decodeConformant": true,
+      "resizeConformant": true,
+      "paddingConformant": true,
+      "tensorConformant": true,
+      "geometryConformant": true,
+      "firstDivergences": [],
+      "latency": {
+        "preprocessP50Ms": 21,
+        "preprocessP95Ms": 28,
+        "pngDecodeP50Ms": 11,
+        "fixture": "viewport-1152x800",
+        "source": {
+          "w": 1152,
+          "h": 800
+        },
+        "note": "preprocessing and PNG decoding timed SEPARATELY — the decode is paid by the capture consumer either way"
+      },
+      "canvasControl": {
+        "everMatchedPython": true,
+        "matchedFixtures": [
+          "square-exact",
+          "tiny-1px"
+        ],
+        "worstMaxAbsDiff255": 147.99999877810478,
+        "worstDifferingFraction": 0.31498616536458335,
+        "honoursImageSmoothingQuality": false
+      },
+      "detection": {
+        "samples": [
+          "real-dev-0000",
+          "real-dev-0003"
+        ],
+        "shippedAgreementRate": 1,
+        "shippedExactCount": true,
+        "shippedWorstCssDeltaPx": 0.0010985908203338113,
+        "canvasControlAgreementRate": 0.660377358490566,
+        "canvasControlWorstCssDeltaPx": 145.01499950195307
+      }
+    },
+    {
+      "browser": "firefox",
+      "backend": "webgpu",
+      "display": "headful",
+      "platform": "windows",
+      "runs": 3,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+      "canvasKind": "OffscreenCanvas",
+      "fixturesPerRun": 15,
+      "conformant": true,
+      "decodeConformant": true,
+      "resizeConformant": true,
+      "paddingConformant": true,
+      "tensorConformant": true,
+      "geometryConformant": true,
+      "firstDivergences": [],
+      "latency": {
+        "preprocessP50Ms": 22,
+        "preprocessP95Ms": 31,
+        "pngDecodeP50Ms": 9,
+        "fixture": "viewport-1152x800",
+        "source": {
+          "w": 1152,
+          "h": 800
+        },
+        "note": "preprocessing and PNG decoding timed SEPARATELY — the decode is paid by the capture consumer either way"
+      },
+      "canvasControl": {
+        "everMatchedPython": true,
+        "matchedFixtures": [
+          "square-exact",
+          "tiny-1px"
+        ],
+        "worstMaxAbsDiff255": 147.99999877810478,
+        "worstDifferingFraction": 0.31498616536458335,
+        "honoursImageSmoothingQuality": false
+      },
+      "detection": {
+        "samples": [
+          "real-dev-0000",
+          "real-dev-0003"
+        ],
+        "shippedAgreementRate": 1,
+        "shippedExactCount": true,
+        "shippedWorstCssDeltaPx": 0.0010527524414101208,
+        "canvasControlAgreementRate": 0.660377358490566,
+        "canvasControlWorstCssDeltaPx": 145.0157685449218
+      }
+    },
+    {
+      "browser": "firefox",
+      "backend": "webgpu",
+      "display": "headless",
+      "platform": "windows",
+      "runs": 3,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+      "canvasKind": "OffscreenCanvas",
+      "fixturesPerRun": 15,
+      "conformant": true,
+      "decodeConformant": true,
+      "resizeConformant": true,
+      "paddingConformant": true,
+      "tensorConformant": true,
+      "geometryConformant": true,
+      "firstDivergences": [],
+      "latency": {
+        "preprocessP50Ms": 22,
+        "preprocessP95Ms": 35,
+        "pngDecodeP50Ms": 10,
+        "fixture": "viewport-1152x800",
+        "source": {
+          "w": 1152,
+          "h": 800
+        },
+        "note": "preprocessing and PNG decoding timed SEPARATELY — the decode is paid by the capture consumer either way"
+      },
+      "canvasControl": {
+        "everMatchedPython": true,
+        "matchedFixtures": [
+          "square-exact",
+          "tiny-1px"
+        ],
+        "worstMaxAbsDiff255": 147.99999877810478,
+        "worstDifferingFraction": 0.31498616536458335,
+        "honoursImageSmoothingQuality": false
+      },
+      "detection": {
+        "unavailable": "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome."
+      }
+    }
+  ]
+}

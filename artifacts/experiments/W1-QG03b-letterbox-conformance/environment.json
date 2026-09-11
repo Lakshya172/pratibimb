@@ -1,0 +1,113 @@
+{
+  "experiment": "W1-QG03b-letterbox-conformance",
+  "recorded_at": "2026-09-11",
+  "question": "Do the Python reference path and the real browser PNG path produce the SAME input tensor, stage by stage?",
+  "lineage": "QG-03b \u2014 the blocker that left QG-03 CONDITIONAL: production PNG->tensor preprocessing did not match the reference.",
+  "scope": "Preprocessing conformance only. 15 fixtures x 8 browser/backend/display cells x 3 runs, comparing four pipeline stages byte for byte. Does NOT re-open the QG-03 cell verdicts and does NOT adopt the detector.",
+  "workstation": {
+    "id": "workstation 1",
+    "host": "LAPTOP-6E14K34L",
+    "model": "HP OMEN Gaming Laptop 16-am0xxx",
+    "os": "Microsoft Windows 11 Home Single Language, build 26200 (10.0.26200)",
+    "cpu": "Intel(R) Core(TM) 7 240H \u2014 10 cores, 16 threads",
+    "ram_gb": 23.6,
+    "gpus": [
+      {
+        "name": "Intel(R) Graphics",
+        "driver": "32.0.101.7077"
+      },
+      {
+        "name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+        "driver": "32.0.16.1074"
+      }
+    ],
+    "note": "TWO GPUs are present, so a WebGPU figure is only attributable if the adapter is identified. The harness records adapterInfo where the browser exposes it; Firefox exposes an empty adapterInfo (S-02), so every Firefox WebGPU figure here is labelled 'adapter unidentified'."
+  },
+  "platform_coverage": {
+    "windows": "MEASURED \u2014 this experiment",
+    "linux": "NOT MEASURED. Firefox on Linux remains UNKNOWN, exactly as S-02a-1 left it. Nothing in this experiment touches that cell and nothing here may be quoted about it.",
+    "macos": "NOT MEASURED, out of scope"
+  },
+  "browsers": {
+    "chromium": {
+      "channel": "unbranded Chromium bundled with Playwright 1.63.0",
+      "version": "151.0.7922.34",
+      "path": "%LOCALAPPDATA%/ms-playwright/chromium-1234/chrome-win64/chrome.exe",
+      "why_not_branded_chrome": "Chrome 152 stable REFUSES --load-extension and does so with a warning the harness never sees, so the extension is simply absent and the run looks like 'the capability is missing in extension contexts'. That false negative cost two runs during S-01.",
+      "extension_context": "MV3 service worker drives a chrome.offscreen document; ORT runs in the offscreen document. ORT CANNOT run in an MV3 service worker at all \u2014 it loads its WASM glue by dynamic import(), which the HTML specification forbids there (S-03)."
+    },
+    "firefox": {
+      "version": "155.0.1 release",
+      "path": "C:/Program Files/Mozilla Firefox/firefox.exe",
+      "driver": "web-ext, from artifacts/experiments/W1-S02a2a3-ort-wasm-hash-pin/harness/node_modules",
+      "extension_context": "MV3 event page \u2014 a document with a DOM, so ORT runs there directly and no offscreen equivalent is invented",
+      "prefs_forced": [
+        "extensions.originControls.grantByDefault=true"
+      ],
+      "prefs_forced_why": "REPORTING ONLY. Firefox MV3 gates host_permissions behind user-granted origin controls (S-02a-2); without this the probe runs correctly but cannot deliver its report, which is indistinguishable from a crash.",
+      "prefs_deliberately_NOT_forced": [
+        "dom.webgpu.enabled"
+      ],
+      "prefs_not_forced_why": "S-02a fixed the rule in advance: 'a result requiring an about:config change on the release channel is CONDITIONAL, never ACCEPT, because the judging machine will not have that change.' If the Firefox WebGPU cell fails at defaults, that failure IS the result."
+    }
+  },
+  "runtime": {
+    "package": "onnxruntime-web",
+    "version": "1.29.0",
+    "bundle": "ort.all.min.js (carries both wasm and webgpu backends)",
+    "wasm_numThreads": 1,
+    "loading": "ADR-0001's own path \u2014 installVerifiedOrtRuntime() hashes the packaged ort-wasm-simd-threaded.jsep.wasm against ORT_PIN before ORT is touched, then createPinnedInferenceSession() creates the session. The SHIPPED @pratibimb/security module is used, not a copy.",
+    "wasm_artifacts_committed": false,
+    "wasm_artifacts_why_not": "27.8 MB. CI blocks files over 5 MB and SECURITY.md requires large binaries be referenced by pinned revision. build-qg03-extension.mjs pulls them from the pinned npm package."
+  },
+  "model_under_test": {
+    "id": "pratibimb-t1-ui-head",
+    "revision": "ba6d9e93695b",
+    "file": "t1-ui-head.onnx",
+    "bytes": 302960,
+    "sha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+    "committed": false,
+    "why_not_committed": ".gitignore excludes artifacts/models/ and scripts/verify-repo.py bans .onnx. The TRACKED authority on which artifact the project has published evidence for is artifacts/gates/T1-detector-training/qg05-detector-evaluation.json, and the reference generator refuses to run if the local file disagrees with it.",
+    "delivery": "inlined as base64 in the probe. The model performs ZERO fetches, so 'no runtime model download' is observable in the arrival log rather than asserted.",
+    "provenance": "trained in this repository by tools/detector/train.py on the project's own synthetic rendered set. Nothing downloaded. Option B of constitution \u00a78.",
+    "adopted": false,
+    "note": "UNCHANGED by this experiment. The artifact is used only to answer whether the same PNG now yields the same detections."
+  },
+  "reference": {
+    "produced_by": "tools/detector/qg03_reference.py",
+    "runtime": "onnxruntime 1.20.1, CPUExecutionProvider, torch 2.14.0+cpu",
+    "eval_mode": "ASSERTED \u2014 every named_module()'s .training flag is READ, before and after the reference run. A single True aborts. This is the guard against the defect that produced a bogus 40.4 'export discrepancy' against a correct artifact.",
+    "criterion_pre_registered": true,
+    "criterion": "class channels 1e-4 absolute; box channels 0.25 model px; shape exact; repeated inference BITWISE identical"
+  },
+  "cases": [
+    "13 procedural fixtures - square, wide, tall, odd, tiny, upscale, asymmetric-padding - built from 1px rules, a Nyquist checkerboard and exact corner markers, because a smooth gradient is the image on which two kernels agree",
+    "2 real rendered dataset frames (dev-0000 960x640, dev-0003 1152x640) decoded from real PNGs by the browser itself"
+  ],
+  "measurements": {
+    "stages": "decoded / resized / letterboxed / tensor, compared by SHA-256 in order, FIRST divergence reported",
+    "control": "the QG-03 canvas drawImage path, run on the SAME decoded pixels in the SAME run, at both imageSmoothingQuality settings",
+    "detection": "same PNG -> browser preprocessing -> ORT -> shipped decode -> CSS boxes, against the Python reference boxes",
+    "latency": "preprocessing and PNG decoding timed SEPARATELY - the capture consumer pays the decode either way",
+    "reference": "Pillow 12.3.0 Image.resize(BILINEAR); stage-by-stage dumps and digests from tools/detector/qg03b_fixtures.py"
+  },
+  "collector": {
+    "endpoint": "http://127.0.0.1:8912",
+    "external_hosts_contacted": "none"
+  },
+  "csp": {
+    "directive": "built by the SHIPPED buildExtensionPagesCsp(), so the harness cannot run under a policy the product would reject",
+    "connect_src": "pinned to the loopback collector \u2014 the harness's only legitimate destination",
+    "status": "ADR-0001 is UNCHANGED by this experiment."
+  },
+  "data": {
+    "pii": "none",
+    "secrets": "none",
+    "real_user_data": "none \u2014 the frames are synthetic rendered HTML from the project's own generator",
+    "profiles": "temporary, deleted after each run; spawned Firefox processes reaped by PID-set difference and the reap verified"
+  },
+  "known_harness_defects_found_and_fixed": [
+    "The first preprocessing implementation cost 48.7 ms p50, which is 2.7x the dossier's capture+downscale budget. Two exact optimisations (reciprocal-multiply clip8, row-wise vertical accumulation) brought it to 17.3-24 ms. Both were verified against the byte-for-byte suite: a faster path that changed one output byte would be a regression, not an optimisation.",
+    "The probe originally wrapped conformance and inference in one try block, so the Firefox WebGPU headless cell - which has no GPU adapter - would have discarded its conformance result on an ORT failure. Preprocessing is a CPU question; the two are now independent, and that cell returned full conformance data while its backend failed."
+  ]
+}

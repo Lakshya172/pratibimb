@@ -1,0 +1,721 @@
+{
+  "analysis": "QG-03b \u2014 letterbox geometry, the two conventions currently in the repository",
+  "targetSize": 640,
+  "conventions": {
+    "CONTINUOUS": {
+      "where": [
+        "packages/perception/src/letterbox.ts :: computeLetterbox",
+        "tools/detector/targets.py :: letterbox_params"
+      ],
+      "uses": "real-valued scale and padding, no rounding",
+      "governs": "the LABELS during training, and every coordinate the runtime emits"
+    },
+    "PIL_PASTE": {
+      "where": [
+        "tools/detector/data.py :: letterbox_image"
+      ],
+      "uses": "round() on the resized extent, then floor-divided centring",
+      "governs": "the PIXELS the trained model actually learned from"
+    }
+  },
+  "theContradiction": "Both conventions are used by the SAME training run \u2014 PIL_PASTE places the pixels, CONTINUOUS places the labels that describe them. The trained artifact therefore encodes a sub-pixel offset between image content and target geometry that no inference path reproduces. It is invisible to the loss, to mAP@0.5 and to the micro-overfit gate, because a constant sub-pixel offset is far inside an IoU 0.5 matching threshold.",
+  "summary": {
+    "fixtures": 23,
+    "agreeExactly": 16,
+    "disagree": 7,
+    "worstPadDeltaModelPx": 0.6666666666666856,
+    "fixturesWithAsymmetricPilPadding": 3
+  },
+  "fixtures": [
+    {
+      "fixture": "square-exact",
+      "source": {
+        "w": 640,
+        "h": 640
+      },
+      "continuous": {
+        "scale": 1.0,
+        "contentW": 640.0,
+        "contentH": 640.0,
+        "padLeft": 0.0,
+        "padTop": 0.0,
+        "padRight": 0.0,
+        "padBottom": 0.0
+      },
+      "pilPaste": {
+        "scale": 1.0,
+        "resizedW": 640,
+        "resizedH": 640,
+        "padLeft": 0,
+        "padTop": 0,
+        "padRight": 0,
+        "padBottom": 0
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "square-large",
+      "source": {
+        "w": 1280,
+        "h": 1280
+      },
+      "continuous": {
+        "scale": 0.5,
+        "contentW": 640.0,
+        "contentH": 640.0,
+        "padLeft": 0.0,
+        "padTop": 0.0,
+        "padRight": 0.0,
+        "padBottom": 0.0
+      },
+      "pilPaste": {
+        "scale": 0.5,
+        "resizedW": 640,
+        "resizedH": 640,
+        "padLeft": 0,
+        "padTop": 0,
+        "padRight": 0,
+        "padBottom": 0
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "square-odd",
+      "source": {
+        "w": 641,
+        "h": 641
+      },
+      "continuous": {
+        "scale": 0.9984399375975039,
+        "contentW": 640.0,
+        "contentH": 640.0,
+        "padLeft": 0.0,
+        "padTop": 0.0,
+        "padRight": 0.0,
+        "padBottom": 0.0
+      },
+      "pilPaste": {
+        "scale": 0.9984399375975039,
+        "resizedW": 640,
+        "resizedH": 640,
+        "padLeft": 0,
+        "padTop": 0,
+        "padRight": 0,
+        "padBottom": 0
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "wide-2x",
+      "source": {
+        "w": 1280,
+        "h": 640
+      },
+      "continuous": {
+        "scale": 0.5,
+        "contentW": 640.0,
+        "contentH": 320.0,
+        "padLeft": 0.0,
+        "padTop": 160.0,
+        "padRight": 0.0,
+        "padBottom": 160.0
+      },
+      "pilPaste": {
+        "scale": 0.5,
+        "resizedW": 640,
+        "resizedH": 320,
+        "padLeft": 0,
+        "padTop": 160,
+        "padRight": 0,
+        "padBottom": 160
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "wide-canonical",
+      "source": {
+        "w": 1024,
+        "h": 640
+      },
+      "continuous": {
+        "scale": 0.625,
+        "contentW": 640.0,
+        "contentH": 400.0,
+        "padLeft": 0.0,
+        "padTop": 120.0,
+        "padRight": 0.0,
+        "padBottom": 120.0
+      },
+      "pilPaste": {
+        "scale": 0.625,
+        "resizedW": 640,
+        "resizedH": 400,
+        "padLeft": 0,
+        "padTop": 120,
+        "padRight": 0,
+        "padBottom": 120
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "wide-3by2",
+      "source": {
+        "w": 960,
+        "h": 640
+      },
+      "continuous": {
+        "scale": 0.6666666666666666,
+        "contentW": 640.0,
+        "contentH": 426.66666666666663,
+        "padLeft": 0.0,
+        "padTop": 106.66666666666669,
+        "padRight": 0.0,
+        "padBottom": 106.66666666666669
+      },
+      "pilPaste": {
+        "scale": 0.6666666666666666,
+        "resizedW": 640,
+        "resizedH": 427,
+        "padLeft": 0,
+        "padTop": 106,
+        "padRight": 0,
+        "padBottom": 107
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.6666666666666856,
+      "pilPaddingAsymmetric": true,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.33333333333337123
+    },
+    {
+      "fixture": "wide-odd",
+      "source": {
+        "w": 1153,
+        "h": 641
+      },
+      "continuous": {
+        "scale": 0.5550737207285342,
+        "contentW": 640.0,
+        "contentH": 355.8022549869904,
+        "padLeft": 0.0,
+        "padTop": 142.0988725065048,
+        "padRight": 0.0,
+        "padBottom": 142.0988725065048
+      },
+      "pilPaste": {
+        "scale": 0.5550737207285342,
+        "resizedW": 640,
+        "resizedH": 356,
+        "padLeft": 0,
+        "padTop": 142,
+        "padRight": 0,
+        "padBottom": 142
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.09887250650479018,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.19774501300958036
+    },
+    {
+      "fixture": "wide-16by9",
+      "source": {
+        "w": 1920,
+        "h": 1080
+      },
+      "continuous": {
+        "scale": 0.3333333333333333,
+        "contentW": 640.0,
+        "contentH": 360.0,
+        "padLeft": 0.0,
+        "padTop": 140.0,
+        "padRight": 0.0,
+        "padBottom": 140.0
+      },
+      "pilPaste": {
+        "scale": 0.3333333333333333,
+        "resizedW": 640,
+        "resizedH": 360,
+        "padLeft": 0,
+        "padTop": 140,
+        "padRight": 0,
+        "padBottom": 140
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "wide-extreme",
+      "source": {
+        "w": 2000,
+        "h": 100
+      },
+      "continuous": {
+        "scale": 0.32,
+        "contentW": 640.0,
+        "contentH": 32.0,
+        "padLeft": 0.0,
+        "padTop": 304.0,
+        "padRight": 0.0,
+        "padBottom": 304.0
+      },
+      "pilPaste": {
+        "scale": 0.32,
+        "resizedW": 640,
+        "resizedH": 32,
+        "padLeft": 0,
+        "padTop": 304,
+        "padRight": 0,
+        "padBottom": 304
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "tall-2x",
+      "source": {
+        "w": 640,
+        "h": 1280
+      },
+      "continuous": {
+        "scale": 0.5,
+        "contentW": 320.0,
+        "contentH": 640.0,
+        "padLeft": 160.0,
+        "padTop": 0.0,
+        "padRight": 160.0,
+        "padBottom": 0.0
+      },
+      "pilPaste": {
+        "scale": 0.5,
+        "resizedW": 320,
+        "resizedH": 640,
+        "padLeft": 160,
+        "padTop": 0,
+        "padRight": 160,
+        "padBottom": 0
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "tall-3by2",
+      "source": {
+        "w": 640,
+        "h": 960
+      },
+      "continuous": {
+        "scale": 0.6666666666666666,
+        "contentW": 426.66666666666663,
+        "contentH": 640.0,
+        "padLeft": 106.66666666666669,
+        "padTop": 0.0,
+        "padRight": 106.66666666666669,
+        "padBottom": 0.0
+      },
+      "pilPaste": {
+        "scale": 0.6666666666666666,
+        "resizedW": 427,
+        "resizedH": 640,
+        "padLeft": 106,
+        "padTop": 0,
+        "padRight": 107,
+        "padBottom": 0
+      },
+      "deltaPadLeftPx": 0.6666666666666856,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": true,
+      "deltaContentW": 0.33333333333337123,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "tall-odd",
+      "source": {
+        "w": 641,
+        "h": 1153
+      },
+      "continuous": {
+        "scale": 0.5550737207285342,
+        "contentW": 355.8022549869904,
+        "contentH": 640.0,
+        "padLeft": 142.0988725065048,
+        "padTop": 0.0,
+        "padRight": 142.0988725065048,
+        "padBottom": 0.0
+      },
+      "pilPaste": {
+        "scale": 0.5550737207285342,
+        "resizedW": 356,
+        "resizedH": 640,
+        "padLeft": 142,
+        "padTop": 0,
+        "padRight": 142,
+        "padBottom": 0
+      },
+      "deltaPadLeftPx": 0.09887250650479018,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.19774501300958036,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "tall-extreme",
+      "source": {
+        "w": 100,
+        "h": 2000
+      },
+      "continuous": {
+        "scale": 0.32,
+        "contentW": 32.0,
+        "contentH": 640.0,
+        "padLeft": 304.0,
+        "padTop": 0.0,
+        "padRight": 304.0,
+        "padBottom": 0.0
+      },
+      "pilPaste": {
+        "scale": 0.32,
+        "resizedW": 32,
+        "resizedH": 640,
+        "padLeft": 304,
+        "padTop": 0,
+        "padRight": 304,
+        "padBottom": 0
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "tiny-1px",
+      "source": {
+        "w": 1,
+        "h": 1
+      },
+      "continuous": {
+        "scale": 640.0,
+        "contentW": 640.0,
+        "contentH": 640.0,
+        "padLeft": 0.0,
+        "padTop": 0.0,
+        "padRight": 0.0,
+        "padBottom": 0.0
+      },
+      "pilPaste": {
+        "scale": 640.0,
+        "resizedW": 640,
+        "resizedH": 640,
+        "padLeft": 0,
+        "padTop": 0,
+        "padRight": 0,
+        "padBottom": 0
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "tiny-1x2",
+      "source": {
+        "w": 1,
+        "h": 2
+      },
+      "continuous": {
+        "scale": 320.0,
+        "contentW": 320.0,
+        "contentH": 640.0,
+        "padLeft": 160.0,
+        "padTop": 0.0,
+        "padRight": 160.0,
+        "padBottom": 0.0
+      },
+      "pilPaste": {
+        "scale": 320.0,
+        "resizedW": 320,
+        "resizedH": 640,
+        "padLeft": 160,
+        "padTop": 0,
+        "padRight": 160,
+        "padBottom": 0
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "tiny-3x7",
+      "source": {
+        "w": 3,
+        "h": 7
+      },
+      "continuous": {
+        "scale": 91.42857142857143,
+        "contentW": 274.2857142857143,
+        "contentH": 640.0,
+        "padLeft": 182.85714285714286,
+        "padTop": 0.0,
+        "padRight": 182.85714285714286,
+        "padBottom": 0.0
+      },
+      "pilPaste": {
+        "scale": 91.42857142857143,
+        "resizedW": 274,
+        "resizedH": 640,
+        "padLeft": 183,
+        "padTop": 0,
+        "padRight": 183,
+        "padBottom": 0
+      },
+      "deltaPadLeftPx": 0.1428571428571388,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.2857142857142776,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "upscale-small",
+      "source": {
+        "w": 320,
+        "h": 200
+      },
+      "continuous": {
+        "scale": 2.0,
+        "contentW": 640.0,
+        "contentH": 400.0,
+        "padLeft": 0.0,
+        "padTop": 120.0,
+        "padRight": 0.0,
+        "padBottom": 120.0
+      },
+      "pilPaste": {
+        "scale": 2.0,
+        "resizedW": 640,
+        "resizedH": 400,
+        "padLeft": 0,
+        "padTop": 120,
+        "padRight": 0,
+        "padBottom": 120
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "odd-pad-split",
+      "source": {
+        "w": 960,
+        "h": 639
+      },
+      "continuous": {
+        "scale": 0.6666666666666666,
+        "contentW": 640.0,
+        "contentH": 426.0,
+        "padLeft": 0.0,
+        "padTop": 107.0,
+        "padRight": 0.0,
+        "padBottom": 107.0
+      },
+      "pilPaste": {
+        "scale": 0.6666666666666666,
+        "resizedW": 640,
+        "resizedH": 426,
+        "padLeft": 0,
+        "padTop": 107,
+        "padRight": 0,
+        "padBottom": 107
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "odd-pad-split-2",
+      "source": {
+        "w": 1153,
+        "h": 640
+      },
+      "continuous": {
+        "scale": 0.5550737207285342,
+        "contentW": 640.0,
+        "contentH": 355.2471812662619,
+        "padLeft": 0.0,
+        "padTop": 142.37640936686904,
+        "padRight": 0.0,
+        "padBottom": 142.37640936686904
+      },
+      "pilPaste": {
+        "scale": 0.5550737207285342,
+        "resizedW": 640,
+        "resizedH": 355,
+        "padLeft": 0,
+        "padTop": 142,
+        "padRight": 0,
+        "padBottom": 143
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.3764093668690407,
+      "pilPaddingAsymmetric": true,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.2471812662619186
+    },
+    {
+      "fixture": "viewport-1152x800",
+      "source": {
+        "w": 1152,
+        "h": 800
+      },
+      "continuous": {
+        "scale": 0.5555555555555556,
+        "contentW": 640.0,
+        "contentH": 444.44444444444446,
+        "padLeft": 0.0,
+        "padTop": 97.77777777777777,
+        "padRight": 0.0,
+        "padBottom": 97.77777777777777
+      },
+      "pilPaste": {
+        "scale": 0.5555555555555556,
+        "resizedW": 640,
+        "resizedH": 444,
+        "padLeft": 0,
+        "padTop": 98,
+        "padRight": 0,
+        "padBottom": 98
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.22222222222222854,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.4444444444444571
+    },
+    {
+      "fixture": "viewport-1280x800",
+      "source": {
+        "w": 1280,
+        "h": 800
+      },
+      "continuous": {
+        "scale": 0.5,
+        "contentW": 640.0,
+        "contentH": 400.0,
+        "padLeft": 0.0,
+        "padTop": 120.0,
+        "padRight": 0.0,
+        "padBottom": 120.0
+      },
+      "pilPaste": {
+        "scale": 0.5,
+        "resizedW": 640,
+        "resizedH": 400,
+        "padLeft": 0,
+        "padTop": 120,
+        "padRight": 0,
+        "padBottom": 120
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "viewport-960x600",
+      "source": {
+        "w": 960,
+        "h": 600
+      },
+      "continuous": {
+        "scale": 0.6666666666666666,
+        "contentW": 640.0,
+        "contentH": 400.0,
+        "padLeft": 0.0,
+        "padTop": 120.0,
+        "padRight": 0.0,
+        "padBottom": 120.0
+      },
+      "pilPaste": {
+        "scale": 0.6666666666666666,
+        "resizedW": 640,
+        "resizedH": 400,
+        "padLeft": 0,
+        "padTop": 120,
+        "padRight": 0,
+        "padBottom": 120
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    },
+    {
+      "fixture": "viewport-1024x720",
+      "source": {
+        "w": 1024,
+        "h": 720
+      },
+      "continuous": {
+        "scale": 0.625,
+        "contentW": 640.0,
+        "contentH": 450.0,
+        "padLeft": 0.0,
+        "padTop": 95.0,
+        "padRight": 0.0,
+        "padBottom": 95.0
+      },
+      "pilPaste": {
+        "scale": 0.625,
+        "resizedW": 640,
+        "resizedH": 450,
+        "padLeft": 0,
+        "padTop": 95,
+        "padRight": 0,
+        "padBottom": 95
+      },
+      "deltaPadLeftPx": 0.0,
+      "deltaPadTopPx": 0.0,
+      "pilPaddingAsymmetric": false,
+      "deltaContentW": 0.0,
+      "deltaContentH": 0.0
+    }
+  ]
+}

@@ -79,6 +79,11 @@ export {
 } from "./letterbox.js";
 
 export {
+  type DecodedImage, type RasterLetterbox, type PreprocessStages,
+  rasterLetterbox, preprocessToTensor, rgbaToRgb,
+} from "./preprocess.js";
+
+export {
   type UiClass, type HeadTensorContract, type HeadOutput, type HeadRuntime,
   UI_CLASSES, HEAD_CONTRACT, PROVISIONAL_THRESHOLDS, UI_DETECTOR_ROLE,
   decodeHeadOutput, projectToCapture, createUiElementDetector,

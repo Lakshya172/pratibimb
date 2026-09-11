@@ -75,11 +75,23 @@ essentially none of it**, and JS heap is recorded separately.
 > ### A filled row is not an adopted model
 >
 > **The detector is NOT adopted and `model-registry.md` is unchanged.** These cells settle
-> whether the artifact *runs*. They do not settle whether it *works*: when the browser
-> performs the letterboxing itself — the only thing it can do in production — **16% to 34%
-> of the reference detections are lost**, because canvas resampling is not PIL BILINEAR and
-> the two browsers do not agree with each other either. That is tracked as **QG-03a** and it
-> blocks adoption. See the experiment README §4.
+> whether the artifact *runs*. They do not settle whether it *works*.
+>
+> **Preprocessing blocker — CLOSED 2026-09-11 by [`W1-QG03b`](../../artifacts/experiments/W1-QG03b-letterbox-conformance/README.md).**
+> When these cells were measured, the browser performing its own letterboxing lost **16–34%
+> of the reference detections**, because canvas `drawImage` is not PIL `BILINEAR` and the two
+> engines do not agree with each other either. The root cause was that the contract specified
+> the fit's *geometry* and nothing else. `preprocess.ts` now implements PIL's algorithm
+> exactly; the browser path is **byte-identical** to the reference in all 8 cells and
+> detection agreement is **100%** with exact counts.
+>
+> **The cell verdicts above are UNCHANGED by that fix** — they were always measurements of
+> whether the artifact executes correctly, which it did. **Firefox WebGPU headless remains
+> `REJECT`**, reconfirmed 3/3.
+>
+> **What still blocks adoption:** resampler *robustness* (**QG-03a** — the model was trained
+> with `augmentation: "none"` on one resampler), and adoption items 11 and 14, acceptable
+> metrics and usable grounding. Neither is touched by QG-03b.
 
 ---
 
@@ -306,6 +318,7 @@ or the URL passed in from the offscreen document.
 | S-02a-4 | Confirm the backend is software by a route other than `adapterInfo` | `UNKNOWN` | Labelling of Linux figures |
 | S-03 | Can an ONNX Runtime Web session be **created and run** in each context, on each backend? | **ANSWERED 2026-09-08 — `CONDITIONAL`.** Yes in the offscreen document, the dedicated worker inside it, and the Firefox MV3 event page, on both backends — and **only because `'wasm-unsafe-eval'` is declared**. **NO** in the Chrome MV3 service worker: ORT loads its WASM glue by dynamic `import()`, which the HTML specification forbids there — specification-level, unfixable by configuration. Measured on a 174-byte two-op synthetic model, which is why it did NOT satisfy QG-03. Evidence: `artifacts/experiments/W1-S03-ort-web-feasibility/`. *(This row was deferred in PR #13/#15/#16 to avoid a conflict and is landed here.)* | — |
 | S-03c | Repeat S-03 with a **real detector** before any latency figure is quoted | **ANSWERED 2026-09-11 — `CONDITIONAL`.** The actual trained T1 artifact (302,960 bytes, `ba6d9e93695b`) runs correctly and bitwise-deterministically in 7 of 8 Windows cells, ~100× inside a pre-registered numerical criterion, with zero foreign network arrivals and no runtime model download. **Firefox WebGPU headless: no GPU adapter at release defaults, `REJECT`.** Latency is comfortably inside the dossier budget on 3 of 4 backends. **But when the BROWSER does the letterboxing — the only thing production can do — 16–34% of detections are lost**, because canvas resampling is not PIL BILINEAR and Chromium and Firefox do not agree with each other either. Tracked as **QG-03a**; it blocks adoption. Evidence: `artifacts/experiments/W1-QG03-t1-detector-runtime/`. | **QG-03 (one row of five now filled)** |
+| QG-03b | Reconcile the two letterbox implementations — the preprocessing blocker QG-03 left open | **ANSWERED 2026-09-11 — `ACCEPT`.** The dossier specifies **no** preprocessing semantics (verified), so the authority is the trained artifact, whose weights encode PIL's rasterisation. `preprocess.ts` reproduces PIL `BILINEAR` exactly — separable support-scaled triangle filter, 22-bit fixed-point coefficients, horizontal pass first. **Byte-identical at every stage in 8/8 cells**, 15 fixtures x 3 runs; PNG decode was never the problem. Detection agreement **74%/66% -> 100%** with exact counts and worst CSS delta **1.10e-03 px** against 98-145 px. **No retrain required.** Uncovered, and NOT fixed: the training pipeline labels by the continuous rule and rasterises by the integer one, affecting **42% of training samples** by up to 0.667 model px — recorded in `docs/architecture/preprocessing-contract.md` §6 with the exact change and its consequences. Evidence: `artifacts/experiments/W1-QG03b-letterbox-conformance/`. | — |
 | S-04 | Can **three ORT Web sessions coexist** in one WebAssembly heap inside an extension offscreen document, and does teardown reclaim memory? | `UNKNOWN` | — |
 | S-05 | What are the **real `tabs.captureVisibleTab` rate limits** under `activeTab`? | `CONDITIONAL` | **MEASURED 2026-09-10 (W1-S05-rate) — `CONDITIONAL`.** Chromium 151 MV3 service worker with `<all_urls>`: a hard, reproducible quota. 500 ms spacing gives 100% success (12/12 in all 6 ladder passes, 40/40 sustained, twice); failures begin between 2 Hz and 3 Hz; the ceiling is ~2.6 successes/sec no matter how fast you ask; a zero-delay burst yields exactly 2, 5-way concurrency also exactly 2, and recovery takes ~1.15 s. Stateful, consistent with a per-second budget of about 2 — mechanism inferred from observed behaviour plus the browser's own error string, not from internals. Firefox 155: **no throttle observed at or below 10 Hz**, which is an absence of observation and not a proof of absence. **`activeTab` is NOT MEASURED** — it needs a user gesture the harness cannot drive, and the dossier singles out that exact cell as the more restrictive one, which is why this is `CONDITIONAL` rather than `ACCEPT`. Windows only. Evidence: `artifacts/experiments/W1-S05rate-capture-limits/`. Production consequence: `CAPTURE_THROTTLED` is now a distinct typed refusal and `minCaptureIntervalMs` moved 250 ms -> 500 ms, the one constant this bounds. The adapter still contains **no retry, backoff or queueing** — it reports and the refresh scheduler decides. `fullFrameHashIntervalMs`, `dynamicRegionPollMs` and `maxDynamicRegions` remain **policy**, unbounded by this measurement. |
 | S-06 | Does the coordinate contract hold at DPR 1.0 / 1.5 / 2.0 and 100% / 125% zoom? | `UNKNOWN` | — |
