@@ -1,0 +1,142 @@
+{
+  "control": "QG-03b-2a saturation / NMS-ordering control",
+  "generatedAt": "2026-09-11T19:30:12.219319+05:30",
+  "observed": {
+    "worstCssDisplacementPx": 15.9488,
+    "worstScoreDelta": 2.563e-06,
+    "cell": "chromium / wasm / capture-jpeg / gradients-edges"
+  },
+  "results": [
+    {
+      "fixture": "gradients-edges",
+      "captureSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "emitted": 300,
+      "saturatedAtCap": true,
+      "anchorsAboveThreshold": 829,
+      "maxDetections": 300,
+      "perturbations": [
+        {
+          "relativeEpsilon": 1e-08,
+          "emitted": 300,
+          "matched": 300,
+          "ofReference": 300,
+          "worstCssDisplacementPx": 0.0,
+          "exceedsObserved": false
+        },
+        {
+          "relativeEpsilon": 1e-07,
+          "emitted": 300,
+          "matched": 292,
+          "ofReference": 300,
+          "worstCssDisplacementPx": 47.4001,
+          "exceedsObserved": true
+        },
+        {
+          "relativeEpsilon": 1e-06,
+          "emitted": 300,
+          "matched": 287,
+          "ofReference": 300,
+          "worstCssDisplacementPx": 63.4492,
+          "exceedsObserved": true
+        }
+      ]
+    },
+    {
+      "fixture": "controls",
+      "captureSize": {
+        "w": 1264,
+        "h": 800
+      },
+      "emitted": 147,
+      "saturatedAtCap": false,
+      "anchorsAboveThreshold": 203,
+      "maxDetections": 300,
+      "perturbations": [
+        {
+          "relativeEpsilon": 1e-08,
+          "emitted": 147,
+          "matched": 147,
+          "ofReference": 147,
+          "worstCssDisplacementPx": 0.0,
+          "exceedsObserved": false
+        },
+        {
+          "relativeEpsilon": 1e-07,
+          "emitted": 146,
+          "matched": 146,
+          "ofReference": 147,
+          "worstCssDisplacementPx": 47.4,
+          "exceedsObserved": true
+        },
+        {
+          "relativeEpsilon": 1e-06,
+          "emitted": 146,
+          "matched": 146,
+          "ofReference": 147,
+          "worstCssDisplacementPx": 47.4,
+          "exceedsObserved": true
+        }
+      ]
+    },
+    {
+      "fixture": "fractional-letterbox",
+      "captureSize": {
+        "w": 960,
+        "h": 640
+      },
+      "emitted": 129,
+      "saturatedAtCap": false,
+      "anchorsAboveThreshold": 92,
+      "maxDetections": 300,
+      "perturbations": [
+        {
+          "relativeEpsilon": 1e-08,
+          "emitted": 129,
+          "matched": 129,
+          "ofReference": 129,
+          "worstCssDisplacementPx": 0.0,
+          "exceedsObserved": false
+        },
+        {
+          "relativeEpsilon": 1e-07,
+          "emitted": 129,
+          "matched": 129,
+          "ofReference": 129,
+          "worstCssDisplacementPx": 0.0001,
+          "exceedsObserved": false
+        },
+        {
+          "relativeEpsilon": 1e-06,
+          "emitted": 129,
+          "matched": 129,
+          "ofReference": 129,
+          "worstCssDisplacementPx": 0.0007,
+          "exceedsObserved": false
+        }
+      ]
+    }
+  ],
+  "verdict": {
+    "question": "is the 15.9 px browser/reference disagreement attributable to the capture format?",
+    "answer": "NO",
+    "decisive": [
+      "the tensor digest matches the reference BITWISE on that fixture, so decode and preprocessing had already agreed exactly and the capture path's output is identical on both sides",
+      "the same bytes and the same tensor gave 15.9 px on the WASM backend and 0.002 px on WebGPU in the same browser on the same machine, so the quantity tracks the execution provider and not the input"
+    ],
+    "supporting": "the shipped decode is extremely sensitive to sub-microscopic changes in model output: an iid relative perturbation of 1e-07 already moves a matched box further than the 15.9488 px observed.",
+    "mechanism": "NMS ordering. One swapped pair among near-tied scores changes which box suppresses which and the change cascades. Saturation at the 300 cap aggravates this \u2014 gradients-edges puts 829 anchors over the frozen 0.55 threshold \u2014 but it is NOT the cause: `controls` emits 147 boxes, nowhere near the cap, and is equally unstable.",
+    "perturbationIsHarsherThanReality": "noise is applied independently per element; the real difference between two ORT builds is correlated. This bounds the sensitivity, it does not model the observed error.",
+    "saturatingFixtures": [
+      "gradients-edges"
+    ],
+    "unstableWithoutSaturating": [
+      "controls"
+    ],
+    "belongsTo": "QG-03a - detector robustness. NOT a QG-03b-2a capture-conformance result.",
+    "doesNotJustify": "retraining, re-thresholding, or any change to the model registry",
+    "isAQg03aInput": "box-decode stability under inference noise is a robustness property nobody has measured deliberately. It joins resampler robustness and QG-03b-1 as a QG-03a item."
+  }
+}
