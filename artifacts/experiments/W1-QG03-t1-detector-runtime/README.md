@@ -259,6 +259,17 @@ configuration. `fetch`, XHR, `WebSocket`, `EventSource` and `importScripts` were
 
 ## 4. The finding that blocks adoption
 
+> **RESOLVED 2026-09-11 — see [`W1-QG03b`](../W1-QG03b-letterbox-conformance/README.md).**
+> The section below is preserved exactly as measured. The root cause was that the contract
+> specified the fit's geometry and nothing else; `preprocess.ts` now implements PIL's
+> resampling algorithm exactly, and the browser path is **byte-identical** to the reference
+> in all 8 cells, with detection agreement at **100%** and exact counts.
+>
+> **This does not promote QG-03**, which remains `CONDITIONAL` — one row of twenty, and
+> Firefox WebGPU headless still `REJECT`. And it does not resolve **QG-03a**: the model is
+> still trained on a single resampler with `augmentation: "none"`, so its *robustness* to
+> preprocessing variation is untested and remains an adoption blocker.
+
 **Everything above fed the browser a tensor that Python had already letterboxed.** That was
 deliberate — it isolates ORT's arithmetic from image resampling. But it is not what
 production does. In production the browser receives a **PNG** from `captureVisibleTab` and

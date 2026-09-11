@@ -1,0 +1,3545 @@
+{
+  "experiment": "W1-QG03b-letterbox-conformance",
+  "browser": "chromium",
+  "backend": "wasm",
+  "platform": "windows",
+  "chromePath": "C:\\Users\\RONIT\\AppData\\Local/ms-playwright/chromium-1234/chrome-win64/chrome.exe",
+  "startedAt": "2026-09-11T09:38:23.884Z",
+  "runs": [
+    {
+      "headless": false,
+      "run": 1,
+      "backend": "wasm",
+      "extensionLoaded": true,
+      "browserVersion": "151.0.7922.34",
+      "result": {
+        "context": "chrome-offscreen-document",
+        "probe": "qg03b-preprocessing-conformance",
+        "requestedBackend": "wasm",
+        "startedAt": "2026-09-11T09:38:26.011Z",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+        "canvasKind": "OffscreenCanvas",
+        "fixtures": [
+          {
+            "name": "square-exact",
+            "source": {
+              "w": 640,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 640,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              },
+              "high": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              }
+            }
+          },
+          {
+            "name": "square-odd",
+            "source": {
+              "w": 641,
+              "h": 641
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 641,
+              "h": 641
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 30.00000011175871,
+                "differingFractionVsShipped": 0.31498616536458335
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 2.0000008307397366,
+                "differingFractionVsShipped": 0.06454671223958333
+              }
+            }
+          },
+          {
+            "name": "wide-2x",
+            "source": {
+              "w": 1280,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1280,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 58.00000022398308,
+                "differingFractionVsShipped": 0.18759358723958333
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 58.00000022398308,
+                "differingFractionVsShipped": 0.18759358723958333
+              }
+            }
+          },
+          {
+            "name": "wide-canonical",
+            "source": {
+              "w": 1024,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1024,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 104.00000140070915,
+                "differingFractionVsShipped": 0.22507486979166666
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 81.00000277161598,
+                "differingFractionVsShipped": 0.22722900390625
+              }
+            }
+          },
+          {
+            "name": "wide-3by2",
+            "source": {
+              "w": 960,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 960,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 101.99999392032623,
+                "differingFractionVsShipped": 0.22133544921875
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 98.99999409914017,
+                "differingFractionVsShipped": 0.23960205078125
+              }
+            }
+          },
+          {
+            "name": "wide-odd",
+            "source": {
+              "w": 1153,
+              "h": 641
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1153,
+              "h": 641
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 147.99999877810478,
+                "differingFractionVsShipped": 0.19776611328125
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 84.00000259280205,
+                "differingFractionVsShipped": 0.22466796875
+              }
+            }
+          },
+          {
+            "name": "tall-3by2",
+            "source": {
+              "w": 640,
+              "h": 960
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 640,
+              "h": 960
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 103.0000014603138,
+                "differingFractionVsShipped": 0.22250325520833333
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 85.00000063329935,
+                "differingFractionVsShipped": 0.24038492838541667
+              }
+            }
+          },
+          {
+            "name": "tall-odd",
+            "source": {
+              "w": 641,
+              "h": 1153
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 641,
+              "h": 1153
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 144.99999895691872,
+                "differingFractionVsShipped": 0.20124918619791668
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 86.00000247359276,
+                "differingFractionVsShipped": 0.22034586588541666
+              }
+            }
+          },
+          {
+            "name": "tiny-1px",
+            "source": {
+              "w": 1,
+              "h": 1
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1,
+              "h": 1
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              },
+              "high": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              }
+            }
+          },
+          {
+            "name": "tiny-3x7",
+            "source": {
+              "w": 3,
+              "h": 7
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 3,
+              "h": 7
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 28.9999982714653,
+                "differingFractionVsShipped": 0.12287679036458334
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 40.999997556209564,
+                "differingFractionVsShipped": 0.1410791015625
+              }
+            }
+          },
+          {
+            "name": "upscale-small",
+            "source": {
+              "w": 320,
+              "h": 200
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 320,
+              "h": 200
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 1.000007539987564,
+                "differingFractionVsShipped": 0.13535970052083332
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 13.000003024935722,
+                "differingFractionVsShipped": 0.3384578450520833
+              }
+            }
+          },
+          {
+            "name": "odd-pad-split-2",
+            "source": {
+              "w": 1153,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1153,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 143.99999901652336,
+                "differingFractionVsShipped": 0.19525065104166667
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 84.00000259280205,
+                "differingFractionVsShipped": 0.20846028645833334
+              }
+            }
+          },
+          {
+            "name": "viewport-1152x800",
+            "source": {
+              "w": 1152,
+              "h": 800
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1152,
+              "h": 800
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 127.00000002980232,
+                "differingFractionVsShipped": 0.23744791666666668
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 81.99999891221523,
+                "differingFractionVsShipped": 0.24133870442708333
+              }
+            }
+          },
+          {
+            "name": "real-dev-0000",
+            "source": {
+              "w": 960,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 960,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 109.99999914318323,
+                "differingFractionVsShipped": 0.021664225260416666
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 86.99999861419201,
+                "differingFractionVsShipped": 0.028993326822916665
+              }
+            }
+          },
+          {
+            "name": "real-dev-0003",
+            "source": {
+              "w": 1152,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1152,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 126.00000673905015,
+                "differingFractionVsShipped": 0.039034830729166664
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 72.00000330805779,
+                "differingFractionVsShipped": 0.045145670572916664
+              }
+            }
+          }
+        ],
+        "latency": {
+          "fixture": "viewport-1152x800",
+          "source": {
+            "w": 1152,
+            "h": 800
+          },
+          "preprocessMs": {
+            "runs": 30,
+            "p50": 33.6,
+            "p95": 57.6,
+            "min": 16.5,
+            "max": 57.9
+          },
+          "pngDecodeMs": {
+            "runs": 10,
+            "p50": 17.4,
+            "min": 15.7,
+            "max": 30.9
+          }
+        },
+        "detection": [
+          {
+            "name": "real-dev-0000",
+            "sampleId": "dev-0000",
+            "shipped": {
+              "emitted": 50,
+              "reference": 50,
+              "matchedAtIou50": 50,
+              "agreementRate": 1,
+              "worstCssCoordinateDeltaPx": 0.0010985908203338113,
+              "worstScoreDelta": 0.0000025928520507867425,
+              "exactCount": true
+            },
+            "canvasControlHigh": {
+              "emitted": 53,
+              "reference": 50,
+              "matchedAtIou50": 42,
+              "agreementRate": 0.84,
+              "worstCssCoordinateDeltaPx": 84.7299266328125,
+              "worstScoreDelta": 0.3179561491290588,
+              "exactCount": false
+            }
+          },
+          {
+            "name": "real-dev-0003",
+            "sampleId": "dev-0003",
+            "shipped": {
+              "emitted": 53,
+              "reference": 53,
+              "matchedAtIou50": 53,
+              "agreementRate": 1,
+              "worstCssCoordinateDeltaPx": 0.0005495742187235919,
+              "worstScoreDelta": 0.0000036954456482107823,
+              "exactCount": true
+            },
+            "canvasControlHigh": {
+              "emitted": 58,
+              "reference": 53,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.7358490566037735,
+              "worstCssCoordinateDeltaPx": 98.1484363935547,
+              "worstScoreDelta": 0.603422761100586,
+              "exactCount": false
+            }
+          }
+        ],
+        "summary": {
+          "fixtures": 15,
+          "conformant": 15,
+          "nonConformant": 0,
+          "firstDivergences": [],
+          "decodeConformant": true,
+          "canvasControlEverMatchedPython": true
+        },
+        "error": null,
+        "conclusion": "CONFORMANT — every stage matches the Python reference byte for byte",
+        "finishedAt": "2026-09-11T09:38:30.404Z"
+      }
+    },
+    {
+      "headless": false,
+      "run": 2,
+      "backend": "wasm",
+      "extensionLoaded": true,
+      "browserVersion": "151.0.7922.34",
+      "result": {
+        "context": "chrome-offscreen-document",
+        "probe": "qg03b-preprocessing-conformance",
+        "requestedBackend": "wasm",
+        "startedAt": "2026-09-11T09:38:33.847Z",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+        "canvasKind": "OffscreenCanvas",
+        "fixtures": [
+          {
+            "name": "square-exact",
+            "source": {
+              "w": 640,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 640,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              },
+              "high": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              }
+            }
+          },
+          {
+            "name": "square-odd",
+            "source": {
+              "w": 641,
+              "h": 641
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 641,
+              "h": 641
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 30.00000011175871,
+                "differingFractionVsShipped": 0.31498616536458335
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 2.0000008307397366,
+                "differingFractionVsShipped": 0.06454671223958333
+              }
+            }
+          },
+          {
+            "name": "wide-2x",
+            "source": {
+              "w": 1280,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1280,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 58.00000022398308,
+                "differingFractionVsShipped": 0.18759358723958333
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 58.00000022398308,
+                "differingFractionVsShipped": 0.18759358723958333
+              }
+            }
+          },
+          {
+            "name": "wide-canonical",
+            "source": {
+              "w": 1024,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1024,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 104.00000140070915,
+                "differingFractionVsShipped": 0.22507486979166666
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 81.00000277161598,
+                "differingFractionVsShipped": 0.22722900390625
+              }
+            }
+          },
+          {
+            "name": "wide-3by2",
+            "source": {
+              "w": 960,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 960,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 101.99999392032623,
+                "differingFractionVsShipped": 0.22133544921875
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 98.99999409914017,
+                "differingFractionVsShipped": 0.23960205078125
+              }
+            }
+          },
+          {
+            "name": "wide-odd",
+            "source": {
+              "w": 1153,
+              "h": 641
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1153,
+              "h": 641
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 147.99999877810478,
+                "differingFractionVsShipped": 0.19776611328125
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 84.00000259280205,
+                "differingFractionVsShipped": 0.22466796875
+              }
+            }
+          },
+          {
+            "name": "tall-3by2",
+            "source": {
+              "w": 640,
+              "h": 960
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 640,
+              "h": 960
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 103.0000014603138,
+                "differingFractionVsShipped": 0.22250325520833333
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 85.00000063329935,
+                "differingFractionVsShipped": 0.24038492838541667
+              }
+            }
+          },
+          {
+            "name": "tall-odd",
+            "source": {
+              "w": 641,
+              "h": 1153
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 641,
+              "h": 1153
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 144.99999895691872,
+                "differingFractionVsShipped": 0.20124918619791668
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 86.00000247359276,
+                "differingFractionVsShipped": 0.22034586588541666
+              }
+            }
+          },
+          {
+            "name": "tiny-1px",
+            "source": {
+              "w": 1,
+              "h": 1
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1,
+              "h": 1
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              },
+              "high": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              }
+            }
+          },
+          {
+            "name": "tiny-3x7",
+            "source": {
+              "w": 3,
+              "h": 7
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 3,
+              "h": 7
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 28.9999982714653,
+                "differingFractionVsShipped": 0.12287679036458334
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 40.999997556209564,
+                "differingFractionVsShipped": 0.1410791015625
+              }
+            }
+          },
+          {
+            "name": "upscale-small",
+            "source": {
+              "w": 320,
+              "h": 200
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 320,
+              "h": 200
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 1.000007539987564,
+                "differingFractionVsShipped": 0.13535970052083332
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 13.000003024935722,
+                "differingFractionVsShipped": 0.3384578450520833
+              }
+            }
+          },
+          {
+            "name": "odd-pad-split-2",
+            "source": {
+              "w": 1153,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1153,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 143.99999901652336,
+                "differingFractionVsShipped": 0.19525065104166667
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 84.00000259280205,
+                "differingFractionVsShipped": 0.20846028645833334
+              }
+            }
+          },
+          {
+            "name": "viewport-1152x800",
+            "source": {
+              "w": 1152,
+              "h": 800
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1152,
+              "h": 800
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 127.00000002980232,
+                "differingFractionVsShipped": 0.23744791666666668
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 81.99999891221523,
+                "differingFractionVsShipped": 0.24133870442708333
+              }
+            }
+          },
+          {
+            "name": "real-dev-0000",
+            "source": {
+              "w": 960,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 960,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 109.99999914318323,
+                "differingFractionVsShipped": 0.021664225260416666
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 86.99999861419201,
+                "differingFractionVsShipped": 0.028993326822916665
+              }
+            }
+          },
+          {
+            "name": "real-dev-0003",
+            "source": {
+              "w": 1152,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1152,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 126.00000673905015,
+                "differingFractionVsShipped": 0.039034830729166664
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 72.00000330805779,
+                "differingFractionVsShipped": 0.045145670572916664
+              }
+            }
+          }
+        ],
+        "latency": {
+          "fixture": "viewport-1152x800",
+          "source": {
+            "w": 1152,
+            "h": 800
+          },
+          "preprocessMs": {
+            "runs": 30,
+            "p50": 19.2,
+            "p95": 46.3,
+            "min": 15.9,
+            "max": 50.4
+          },
+          "pngDecodeMs": {
+            "runs": 10,
+            "p50": 15.9,
+            "min": 15.2,
+            "max": 17.9
+          }
+        },
+        "detection": [
+          {
+            "name": "real-dev-0000",
+            "sampleId": "dev-0000",
+            "shipped": {
+              "emitted": 50,
+              "reference": 50,
+              "matchedAtIou50": 50,
+              "agreementRate": 1,
+              "worstCssCoordinateDeltaPx": 0.0010985908203338113,
+              "worstScoreDelta": 0.0000025928520507867425,
+              "exactCount": true
+            },
+            "canvasControlHigh": {
+              "emitted": 53,
+              "reference": 50,
+              "matchedAtIou50": 42,
+              "agreementRate": 0.84,
+              "worstCssCoordinateDeltaPx": 84.7299266328125,
+              "worstScoreDelta": 0.3179561491290588,
+              "exactCount": false
+            }
+          },
+          {
+            "name": "real-dev-0003",
+            "sampleId": "dev-0003",
+            "shipped": {
+              "emitted": 53,
+              "reference": 53,
+              "matchedAtIou50": 53,
+              "agreementRate": 1,
+              "worstCssCoordinateDeltaPx": 0.0005495742187235919,
+              "worstScoreDelta": 0.0000036954456482107823,
+              "exactCount": true
+            },
+            "canvasControlHigh": {
+              "emitted": 58,
+              "reference": 53,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.7358490566037735,
+              "worstCssCoordinateDeltaPx": 98.1484363935547,
+              "worstScoreDelta": 0.603422761100586,
+              "exactCount": false
+            }
+          }
+        ],
+        "summary": {
+          "fixtures": 15,
+          "conformant": 15,
+          "nonConformant": 0,
+          "firstDivergences": [],
+          "decodeConformant": true,
+          "canvasControlEverMatchedPython": true
+        },
+        "error": null,
+        "conclusion": "CONFORMANT — every stage matches the Python reference byte for byte",
+        "finishedAt": "2026-09-11T09:38:37.696Z"
+      }
+    },
+    {
+      "headless": false,
+      "run": 3,
+      "backend": "wasm",
+      "extensionLoaded": true,
+      "browserVersion": "151.0.7922.34",
+      "result": {
+        "context": "chrome-offscreen-document",
+        "probe": "qg03b-preprocessing-conformance",
+        "requestedBackend": "wasm",
+        "startedAt": "2026-09-11T09:38:42.151Z",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+        "canvasKind": "OffscreenCanvas",
+        "fixtures": [
+          {
+            "name": "square-exact",
+            "source": {
+              "w": 640,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 640,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              },
+              "high": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              }
+            }
+          },
+          {
+            "name": "square-odd",
+            "source": {
+              "w": 641,
+              "h": 641
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 641,
+              "h": 641
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 30.00000011175871,
+                "differingFractionVsShipped": 0.31498616536458335
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 2.0000008307397366,
+                "differingFractionVsShipped": 0.06454671223958333
+              }
+            }
+          },
+          {
+            "name": "wide-2x",
+            "source": {
+              "w": 1280,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1280,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 58.00000022398308,
+                "differingFractionVsShipped": 0.18759358723958333
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 58.00000022398308,
+                "differingFractionVsShipped": 0.18759358723958333
+              }
+            }
+          },
+          {
+            "name": "wide-canonical",
+            "source": {
+              "w": 1024,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1024,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 104.00000140070915,
+                "differingFractionVsShipped": 0.22507486979166666
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 81.00000277161598,
+                "differingFractionVsShipped": 0.22722900390625
+              }
+            }
+          },
+          {
+            "name": "wide-3by2",
+            "source": {
+              "w": 960,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 960,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 101.99999392032623,
+                "differingFractionVsShipped": 0.22133544921875
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 98.99999409914017,
+                "differingFractionVsShipped": 0.23960205078125
+              }
+            }
+          },
+          {
+            "name": "wide-odd",
+            "source": {
+              "w": 1153,
+              "h": 641
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1153,
+              "h": 641
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 147.99999877810478,
+                "differingFractionVsShipped": 0.19776611328125
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 84.00000259280205,
+                "differingFractionVsShipped": 0.22466796875
+              }
+            }
+          },
+          {
+            "name": "tall-3by2",
+            "source": {
+              "w": 640,
+              "h": 960
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 640,
+              "h": 960
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 103.0000014603138,
+                "differingFractionVsShipped": 0.22250325520833333
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 85.00000063329935,
+                "differingFractionVsShipped": 0.24038492838541667
+              }
+            }
+          },
+          {
+            "name": "tall-odd",
+            "source": {
+              "w": 641,
+              "h": 1153
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 641,
+              "h": 1153
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 144.99999895691872,
+                "differingFractionVsShipped": 0.20124918619791668
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 86.00000247359276,
+                "differingFractionVsShipped": 0.22034586588541666
+              }
+            }
+          },
+          {
+            "name": "tiny-1px",
+            "source": {
+              "w": 1,
+              "h": 1
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1,
+              "h": 1
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              },
+              "high": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              }
+            }
+          },
+          {
+            "name": "tiny-3x7",
+            "source": {
+              "w": 3,
+              "h": 7
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 3,
+              "h": 7
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 28.9999982714653,
+                "differingFractionVsShipped": 0.12287679036458334
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 40.999997556209564,
+                "differingFractionVsShipped": 0.1410791015625
+              }
+            }
+          },
+          {
+            "name": "upscale-small",
+            "source": {
+              "w": 320,
+              "h": 200
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 320,
+              "h": 200
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 1.000007539987564,
+                "differingFractionVsShipped": 0.13535970052083332
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 13.000003024935722,
+                "differingFractionVsShipped": 0.3384578450520833
+              }
+            }
+          },
+          {
+            "name": "odd-pad-split-2",
+            "source": {
+              "w": 1153,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1153,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 143.99999901652336,
+                "differingFractionVsShipped": 0.19525065104166667
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 84.00000259280205,
+                "differingFractionVsShipped": 0.20846028645833334
+              }
+            }
+          },
+          {
+            "name": "viewport-1152x800",
+            "source": {
+              "w": 1152,
+              "h": 800
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1152,
+              "h": 800
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 127.00000002980232,
+                "differingFractionVsShipped": 0.23744791666666668
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 81.99999891221523,
+                "differingFractionVsShipped": 0.24133870442708333
+              }
+            }
+          },
+          {
+            "name": "real-dev-0000",
+            "source": {
+              "w": 960,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 960,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 109.99999914318323,
+                "differingFractionVsShipped": 0.021664225260416666
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 86.99999861419201,
+                "differingFractionVsShipped": 0.028993326822916665
+              }
+            }
+          },
+          {
+            "name": "real-dev-0003",
+            "source": {
+              "w": 1152,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1152,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 126.00000673905015,
+                "differingFractionVsShipped": 0.039034830729166664
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 72.00000330805779,
+                "differingFractionVsShipped": 0.045145670572916664
+              }
+            }
+          }
+        ],
+        "latency": {
+          "fixture": "viewport-1152x800",
+          "source": {
+            "w": 1152,
+            "h": 800
+          },
+          "preprocessMs": {
+            "runs": 30,
+            "p50": 18.6,
+            "p95": 23.9,
+            "min": 16.2,
+            "max": 24.5
+          },
+          "pngDecodeMs": {
+            "runs": 10,
+            "p50": 9.8,
+            "min": 7.5,
+            "max": 16.3
+          }
+        },
+        "detection": [
+          {
+            "name": "real-dev-0000",
+            "sampleId": "dev-0000",
+            "shipped": {
+              "emitted": 50,
+              "reference": 50,
+              "matchedAtIou50": 50,
+              "agreementRate": 1,
+              "worstCssCoordinateDeltaPx": 0.0010985908203338113,
+              "worstScoreDelta": 0.0000025928520507867425,
+              "exactCount": true
+            },
+            "canvasControlHigh": {
+              "emitted": 53,
+              "reference": 50,
+              "matchedAtIou50": 42,
+              "agreementRate": 0.84,
+              "worstCssCoordinateDeltaPx": 84.7299266328125,
+              "worstScoreDelta": 0.3179561491290588,
+              "exactCount": false
+            }
+          },
+          {
+            "name": "real-dev-0003",
+            "sampleId": "dev-0003",
+            "shipped": {
+              "emitted": 53,
+              "reference": 53,
+              "matchedAtIou50": 53,
+              "agreementRate": 1,
+              "worstCssCoordinateDeltaPx": 0.0005495742187235919,
+              "worstScoreDelta": 0.0000036954456482107823,
+              "exactCount": true
+            },
+            "canvasControlHigh": {
+              "emitted": 58,
+              "reference": 53,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.7358490566037735,
+              "worstCssCoordinateDeltaPx": 98.1484363935547,
+              "worstScoreDelta": 0.603422761100586,
+              "exactCount": false
+            }
+          }
+        ],
+        "summary": {
+          "fixtures": 15,
+          "conformant": 15,
+          "nonConformant": 0,
+          "firstDivergences": [],
+          "decodeConformant": true,
+          "canvasControlEverMatchedPython": true
+        },
+        "error": null,
+        "conclusion": "CONFORMANT — every stage matches the Python reference byte for byte",
+        "finishedAt": "2026-09-11T09:38:45.039Z"
+      }
+    },
+    {
+      "headless": true,
+      "run": 1,
+      "backend": "wasm",
+      "extensionLoaded": true,
+      "browserVersion": "151.0.7922.34",
+      "result": {
+        "context": "chrome-offscreen-document",
+        "probe": "qg03b-preprocessing-conformance",
+        "requestedBackend": "wasm",
+        "startedAt": "2026-09-11T09:38:47.534Z",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+        "canvasKind": "OffscreenCanvas",
+        "fixtures": [
+          {
+            "name": "square-exact",
+            "source": {
+              "w": 640,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 640,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              },
+              "high": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              }
+            }
+          },
+          {
+            "name": "square-odd",
+            "source": {
+              "w": 641,
+              "h": 641
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 641,
+              "h": 641
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 30.00000011175871,
+                "differingFractionVsShipped": 0.31498616536458335
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 2.0000008307397366,
+                "differingFractionVsShipped": 0.06454671223958333
+              }
+            }
+          },
+          {
+            "name": "wide-2x",
+            "source": {
+              "w": 1280,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1280,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 58.00000022398308,
+                "differingFractionVsShipped": 0.18759358723958333
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 58.00000022398308,
+                "differingFractionVsShipped": 0.18759358723958333
+              }
+            }
+          },
+          {
+            "name": "wide-canonical",
+            "source": {
+              "w": 1024,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1024,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 104.00000140070915,
+                "differingFractionVsShipped": 0.22507486979166666
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 81.00000277161598,
+                "differingFractionVsShipped": 0.22722900390625
+              }
+            }
+          },
+          {
+            "name": "wide-3by2",
+            "source": {
+              "w": 960,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 960,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 101.99999392032623,
+                "differingFractionVsShipped": 0.22133544921875
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 98.99999409914017,
+                "differingFractionVsShipped": 0.23960205078125
+              }
+            }
+          },
+          {
+            "name": "wide-odd",
+            "source": {
+              "w": 1153,
+              "h": 641
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1153,
+              "h": 641
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 147.99999877810478,
+                "differingFractionVsShipped": 0.19776611328125
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 84.00000259280205,
+                "differingFractionVsShipped": 0.22466796875
+              }
+            }
+          },
+          {
+            "name": "tall-3by2",
+            "source": {
+              "w": 640,
+              "h": 960
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 640,
+              "h": 960
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 103.0000014603138,
+                "differingFractionVsShipped": 0.22250325520833333
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 85.00000063329935,
+                "differingFractionVsShipped": 0.24038492838541667
+              }
+            }
+          },
+          {
+            "name": "tall-odd",
+            "source": {
+              "w": 641,
+              "h": 1153
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 641,
+              "h": 1153
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 144.99999895691872,
+                "differingFractionVsShipped": 0.20124918619791668
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 86.00000247359276,
+                "differingFractionVsShipped": 0.22034586588541666
+              }
+            }
+          },
+          {
+            "name": "tiny-1px",
+            "source": {
+              "w": 1,
+              "h": 1
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1,
+              "h": 1
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              },
+              "high": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              }
+            }
+          },
+          {
+            "name": "tiny-3x7",
+            "source": {
+              "w": 3,
+              "h": 7
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 3,
+              "h": 7
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 28.9999982714653,
+                "differingFractionVsShipped": 0.12287679036458334
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 40.999997556209564,
+                "differingFractionVsShipped": 0.1410791015625
+              }
+            }
+          },
+          {
+            "name": "upscale-small",
+            "source": {
+              "w": 320,
+              "h": 200
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 320,
+              "h": 200
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 1.000007539987564,
+                "differingFractionVsShipped": 0.13535970052083332
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 13.000003024935722,
+                "differingFractionVsShipped": 0.3384578450520833
+              }
+            }
+          },
+          {
+            "name": "odd-pad-split-2",
+            "source": {
+              "w": 1153,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1153,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 143.99999901652336,
+                "differingFractionVsShipped": 0.19525065104166667
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 84.00000259280205,
+                "differingFractionVsShipped": 0.20846028645833334
+              }
+            }
+          },
+          {
+            "name": "viewport-1152x800",
+            "source": {
+              "w": 1152,
+              "h": 800
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1152,
+              "h": 800
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 127.00000002980232,
+                "differingFractionVsShipped": 0.23744791666666668
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 81.99999891221523,
+                "differingFractionVsShipped": 0.24133870442708333
+              }
+            }
+          },
+          {
+            "name": "real-dev-0000",
+            "source": {
+              "w": 960,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 960,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 109.99999914318323,
+                "differingFractionVsShipped": 0.021664225260416666
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 86.99999861419201,
+                "differingFractionVsShipped": 0.028993326822916665
+              }
+            }
+          },
+          {
+            "name": "real-dev-0003",
+            "source": {
+              "w": 1152,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1152,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 126.00000673905015,
+                "differingFractionVsShipped": 0.039034830729166664
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 72.00000330805779,
+                "differingFractionVsShipped": 0.045145670572916664
+              }
+            }
+          }
+        ],
+        "latency": {
+          "fixture": "viewport-1152x800",
+          "source": {
+            "w": 1152,
+            "h": 800
+          },
+          "preprocessMs": {
+            "runs": 30,
+            "p50": 18.3,
+            "p95": 22,
+            "min": 15.9,
+            "max": 22.1
+          },
+          "pngDecodeMs": {
+            "runs": 10,
+            "p50": 11.5,
+            "min": 9.1,
+            "max": 11.8
+          }
+        },
+        "detection": [
+          {
+            "name": "real-dev-0000",
+            "sampleId": "dev-0000",
+            "shipped": {
+              "emitted": 50,
+              "reference": 50,
+              "matchedAtIou50": 50,
+              "agreementRate": 1,
+              "worstCssCoordinateDeltaPx": 0.0010985908203338113,
+              "worstScoreDelta": 0.0000025928520507867425,
+              "exactCount": true
+            },
+            "canvasControlHigh": {
+              "emitted": 53,
+              "reference": 50,
+              "matchedAtIou50": 42,
+              "agreementRate": 0.84,
+              "worstCssCoordinateDeltaPx": 84.7299266328125,
+              "worstScoreDelta": 0.3179561491290588,
+              "exactCount": false
+            }
+          },
+          {
+            "name": "real-dev-0003",
+            "sampleId": "dev-0003",
+            "shipped": {
+              "emitted": 53,
+              "reference": 53,
+              "matchedAtIou50": 53,
+              "agreementRate": 1,
+              "worstCssCoordinateDeltaPx": 0.0005495742187235919,
+              "worstScoreDelta": 0.0000036954456482107823,
+              "exactCount": true
+            },
+            "canvasControlHigh": {
+              "emitted": 58,
+              "reference": 53,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.7358490566037735,
+              "worstCssCoordinateDeltaPx": 98.1484363935547,
+              "worstScoreDelta": 0.603422761100586,
+              "exactCount": false
+            }
+          }
+        ],
+        "summary": {
+          "fixtures": 15,
+          "conformant": 15,
+          "nonConformant": 0,
+          "firstDivergences": [],
+          "decodeConformant": true,
+          "canvasControlEverMatchedPython": true
+        },
+        "error": null,
+        "conclusion": "CONFORMANT — every stage matches the Python reference byte for byte",
+        "finishedAt": "2026-09-11T09:38:50.722Z"
+      }
+    },
+    {
+      "headless": true,
+      "run": 2,
+      "backend": "wasm",
+      "extensionLoaded": true,
+      "browserVersion": "151.0.7922.34",
+      "result": {
+        "context": "chrome-offscreen-document",
+        "probe": "qg03b-preprocessing-conformance",
+        "requestedBackend": "wasm",
+        "startedAt": "2026-09-11T09:38:53.531Z",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+        "canvasKind": "OffscreenCanvas",
+        "fixtures": [
+          {
+            "name": "square-exact",
+            "source": {
+              "w": 640,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 640,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              },
+              "high": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              }
+            }
+          },
+          {
+            "name": "square-odd",
+            "source": {
+              "w": 641,
+              "h": 641
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 641,
+              "h": 641
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 30.00000011175871,
+                "differingFractionVsShipped": 0.31498616536458335
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 2.0000008307397366,
+                "differingFractionVsShipped": 0.06454671223958333
+              }
+            }
+          },
+          {
+            "name": "wide-2x",
+            "source": {
+              "w": 1280,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1280,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 58.00000022398308,
+                "differingFractionVsShipped": 0.18759358723958333
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 58.00000022398308,
+                "differingFractionVsShipped": 0.18759358723958333
+              }
+            }
+          },
+          {
+            "name": "wide-canonical",
+            "source": {
+              "w": 1024,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1024,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 104.00000140070915,
+                "differingFractionVsShipped": 0.22507486979166666
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 81.00000277161598,
+                "differingFractionVsShipped": 0.22722900390625
+              }
+            }
+          },
+          {
+            "name": "wide-3by2",
+            "source": {
+              "w": 960,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 960,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 101.99999392032623,
+                "differingFractionVsShipped": 0.22133544921875
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 98.99999409914017,
+                "differingFractionVsShipped": 0.23960205078125
+              }
+            }
+          },
+          {
+            "name": "wide-odd",
+            "source": {
+              "w": 1153,
+              "h": 641
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1153,
+              "h": 641
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 147.99999877810478,
+                "differingFractionVsShipped": 0.19776611328125
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 84.00000259280205,
+                "differingFractionVsShipped": 0.22466796875
+              }
+            }
+          },
+          {
+            "name": "tall-3by2",
+            "source": {
+              "w": 640,
+              "h": 960
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 640,
+              "h": 960
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 103.0000014603138,
+                "differingFractionVsShipped": 0.22250325520833333
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 85.00000063329935,
+                "differingFractionVsShipped": 0.24038492838541667
+              }
+            }
+          },
+          {
+            "name": "tall-odd",
+            "source": {
+              "w": 641,
+              "h": 1153
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 641,
+              "h": 1153
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 144.99999895691872,
+                "differingFractionVsShipped": 0.20124918619791668
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 86.00000247359276,
+                "differingFractionVsShipped": 0.22034586588541666
+              }
+            }
+          },
+          {
+            "name": "tiny-1px",
+            "source": {
+              "w": 1,
+              "h": 1
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1,
+              "h": 1
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              },
+              "high": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              }
+            }
+          },
+          {
+            "name": "tiny-3x7",
+            "source": {
+              "w": 3,
+              "h": 7
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 3,
+              "h": 7
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 28.9999982714653,
+                "differingFractionVsShipped": 0.12287679036458334
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 40.999997556209564,
+                "differingFractionVsShipped": 0.1410791015625
+              }
+            }
+          },
+          {
+            "name": "upscale-small",
+            "source": {
+              "w": 320,
+              "h": 200
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 320,
+              "h": 200
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 1.000007539987564,
+                "differingFractionVsShipped": 0.13535970052083332
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 13.000003024935722,
+                "differingFractionVsShipped": 0.3384578450520833
+              }
+            }
+          },
+          {
+            "name": "odd-pad-split-2",
+            "source": {
+              "w": 1153,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1153,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 143.99999901652336,
+                "differingFractionVsShipped": 0.19525065104166667
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 84.00000259280205,
+                "differingFractionVsShipped": 0.20846028645833334
+              }
+            }
+          },
+          {
+            "name": "viewport-1152x800",
+            "source": {
+              "w": 1152,
+              "h": 800
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1152,
+              "h": 800
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 127.00000002980232,
+                "differingFractionVsShipped": 0.23744791666666668
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 81.99999891221523,
+                "differingFractionVsShipped": 0.24133870442708333
+              }
+            }
+          },
+          {
+            "name": "real-dev-0000",
+            "source": {
+              "w": 960,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 960,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 109.99999914318323,
+                "differingFractionVsShipped": 0.021664225260416666
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 86.99999861419201,
+                "differingFractionVsShipped": 0.028993326822916665
+              }
+            }
+          },
+          {
+            "name": "real-dev-0003",
+            "source": {
+              "w": 1152,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1152,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 126.00000673905015,
+                "differingFractionVsShipped": 0.039034830729166664
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 72.00000330805779,
+                "differingFractionVsShipped": 0.045145670572916664
+              }
+            }
+          }
+        ],
+        "latency": {
+          "fixture": "viewport-1152x800",
+          "source": {
+            "w": 1152,
+            "h": 800
+          },
+          "preprocessMs": {
+            "runs": 30,
+            "p50": 20.6,
+            "p95": 28.9,
+            "min": 16.9,
+            "max": 30
+          },
+          "pngDecodeMs": {
+            "runs": 10,
+            "p50": 10.5,
+            "min": 9,
+            "max": 14.3
+          }
+        },
+        "detection": [
+          {
+            "name": "real-dev-0000",
+            "sampleId": "dev-0000",
+            "shipped": {
+              "emitted": 50,
+              "reference": 50,
+              "matchedAtIou50": 50,
+              "agreementRate": 1,
+              "worstCssCoordinateDeltaPx": 0.0010985908203338113,
+              "worstScoreDelta": 0.0000025928520507867425,
+              "exactCount": true
+            },
+            "canvasControlHigh": {
+              "emitted": 53,
+              "reference": 50,
+              "matchedAtIou50": 42,
+              "agreementRate": 0.84,
+              "worstCssCoordinateDeltaPx": 84.7299266328125,
+              "worstScoreDelta": 0.3179561491290588,
+              "exactCount": false
+            }
+          },
+          {
+            "name": "real-dev-0003",
+            "sampleId": "dev-0003",
+            "shipped": {
+              "emitted": 53,
+              "reference": 53,
+              "matchedAtIou50": 53,
+              "agreementRate": 1,
+              "worstCssCoordinateDeltaPx": 0.0005495742187235919,
+              "worstScoreDelta": 0.0000036954456482107823,
+              "exactCount": true
+            },
+            "canvasControlHigh": {
+              "emitted": 58,
+              "reference": 53,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.7358490566037735,
+              "worstCssCoordinateDeltaPx": 98.1484363935547,
+              "worstScoreDelta": 0.603422761100586,
+              "exactCount": false
+            }
+          }
+        ],
+        "summary": {
+          "fixtures": 15,
+          "conformant": 15,
+          "nonConformant": 0,
+          "firstDivergences": [],
+          "decodeConformant": true,
+          "canvasControlEverMatchedPython": true
+        },
+        "error": null,
+        "conclusion": "CONFORMANT — every stage matches the Python reference byte for byte",
+        "finishedAt": "2026-09-11T09:38:57.156Z"
+      }
+    },
+    {
+      "headless": true,
+      "run": 3,
+      "backend": "wasm",
+      "extensionLoaded": true,
+      "browserVersion": "151.0.7922.34",
+      "result": {
+        "context": "chrome-offscreen-document",
+        "probe": "qg03b-preprocessing-conformance",
+        "requestedBackend": "wasm",
+        "startedAt": "2026-09-11T09:38:59.856Z",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+        "canvasKind": "OffscreenCanvas",
+        "fixtures": [
+          {
+            "name": "square-exact",
+            "source": {
+              "w": 640,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 640,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              },
+              "high": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              }
+            }
+          },
+          {
+            "name": "square-odd",
+            "source": {
+              "w": 641,
+              "h": 641
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 641,
+              "h": 641
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 30.00000011175871,
+                "differingFractionVsShipped": 0.31498616536458335
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 2.0000008307397366,
+                "differingFractionVsShipped": 0.06454671223958333
+              }
+            }
+          },
+          {
+            "name": "wide-2x",
+            "source": {
+              "w": 1280,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1280,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 58.00000022398308,
+                "differingFractionVsShipped": 0.18759358723958333
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 58.00000022398308,
+                "differingFractionVsShipped": 0.18759358723958333
+              }
+            }
+          },
+          {
+            "name": "wide-canonical",
+            "source": {
+              "w": 1024,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1024,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 104.00000140070915,
+                "differingFractionVsShipped": 0.22507486979166666
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 81.00000277161598,
+                "differingFractionVsShipped": 0.22722900390625
+              }
+            }
+          },
+          {
+            "name": "wide-3by2",
+            "source": {
+              "w": 960,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 960,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 101.99999392032623,
+                "differingFractionVsShipped": 0.22133544921875
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 98.99999409914017,
+                "differingFractionVsShipped": 0.23960205078125
+              }
+            }
+          },
+          {
+            "name": "wide-odd",
+            "source": {
+              "w": 1153,
+              "h": 641
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1153,
+              "h": 641
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 147.99999877810478,
+                "differingFractionVsShipped": 0.19776611328125
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 84.00000259280205,
+                "differingFractionVsShipped": 0.22466796875
+              }
+            }
+          },
+          {
+            "name": "tall-3by2",
+            "source": {
+              "w": 640,
+              "h": 960
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 640,
+              "h": 960
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 103.0000014603138,
+                "differingFractionVsShipped": 0.22250325520833333
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 85.00000063329935,
+                "differingFractionVsShipped": 0.24038492838541667
+              }
+            }
+          },
+          {
+            "name": "tall-odd",
+            "source": {
+              "w": 641,
+              "h": 1153
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 641,
+              "h": 1153
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 144.99999895691872,
+                "differingFractionVsShipped": 0.20124918619791668
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 86.00000247359276,
+                "differingFractionVsShipped": 0.22034586588541666
+              }
+            }
+          },
+          {
+            "name": "tiny-1px",
+            "source": {
+              "w": 1,
+              "h": 1
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1,
+              "h": 1
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              },
+              "high": {
+                "letterboxedMatchesPython": true,
+                "maxAbsDiffVsShipped255": 0,
+                "differingFractionVsShipped": 0
+              }
+            }
+          },
+          {
+            "name": "tiny-3x7",
+            "source": {
+              "w": 3,
+              "h": 7
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 3,
+              "h": 7
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 28.9999982714653,
+                "differingFractionVsShipped": 0.12287679036458334
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 40.999997556209564,
+                "differingFractionVsShipped": 0.1410791015625
+              }
+            }
+          },
+          {
+            "name": "upscale-small",
+            "source": {
+              "w": 320,
+              "h": 200
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 320,
+              "h": 200
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 1.000007539987564,
+                "differingFractionVsShipped": 0.13535970052083332
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 13.000003024935722,
+                "differingFractionVsShipped": 0.3384578450520833
+              }
+            }
+          },
+          {
+            "name": "odd-pad-split-2",
+            "source": {
+              "w": 1153,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1153,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 143.99999901652336,
+                "differingFractionVsShipped": 0.19525065104166667
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 84.00000259280205,
+                "differingFractionVsShipped": 0.20846028645833334
+              }
+            }
+          },
+          {
+            "name": "viewport-1152x800",
+            "source": {
+              "w": 1152,
+              "h": 800
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1152,
+              "h": 800
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 127.00000002980232,
+                "differingFractionVsShipped": 0.23744791666666668
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 81.99999891221523,
+                "differingFractionVsShipped": 0.24133870442708333
+              }
+            }
+          },
+          {
+            "name": "real-dev-0000",
+            "source": {
+              "w": 960,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 960,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 109.99999914318323,
+                "differingFractionVsShipped": 0.021664225260416666
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 86.99999861419201,
+                "differingFractionVsShipped": 0.028993326822916665
+              }
+            }
+          },
+          {
+            "name": "real-dev-0003",
+            "source": {
+              "w": 1152,
+              "h": 640
+            },
+            "stages": {
+              "decoded": true,
+              "resized": true,
+              "letterboxed": true,
+              "tensor": true
+            },
+            "firstDivergence": null,
+            "decodedSize": {
+              "w": 1152,
+              "h": 640
+            },
+            "decodedSizeMatches": true,
+            "geometryMatches": true,
+            "conformant": true,
+            "canvasControl": {
+              "low": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 126.00000673905015,
+                "differingFractionVsShipped": 0.039034830729166664
+              },
+              "high": {
+                "letterboxedMatchesPython": false,
+                "maxAbsDiffVsShipped255": 72.00000330805779,
+                "differingFractionVsShipped": 0.045145670572916664
+              }
+            }
+          }
+        ],
+        "latency": {
+          "fixture": "viewport-1152x800",
+          "source": {
+            "w": 1152,
+            "h": 800
+          },
+          "preprocessMs": {
+            "runs": 30,
+            "p50": 19.8,
+            "p95": 23.2,
+            "min": 16.6,
+            "max": 23.6
+          },
+          "pngDecodeMs": {
+            "runs": 10,
+            "p50": 9.3,
+            "min": 8.3,
+            "max": 14.9
+          }
+        },
+        "detection": [
+          {
+            "name": "real-dev-0000",
+            "sampleId": "dev-0000",
+            "shipped": {
+              "emitted": 50,
+              "reference": 50,
+              "matchedAtIou50": 50,
+              "agreementRate": 1,
+              "worstCssCoordinateDeltaPx": 0.0010985908203338113,
+              "worstScoreDelta": 0.0000025928520507867425,
+              "exactCount": true
+            },
+            "canvasControlHigh": {
+              "emitted": 53,
+              "reference": 50,
+              "matchedAtIou50": 42,
+              "agreementRate": 0.84,
+              "worstCssCoordinateDeltaPx": 84.7299266328125,
+              "worstScoreDelta": 0.3179561491290588,
+              "exactCount": false
+            }
+          },
+          {
+            "name": "real-dev-0003",
+            "sampleId": "dev-0003",
+            "shipped": {
+              "emitted": 53,
+              "reference": 53,
+              "matchedAtIou50": 53,
+              "agreementRate": 1,
+              "worstCssCoordinateDeltaPx": 0.0005495742187235919,
+              "worstScoreDelta": 0.0000036954456482107823,
+              "exactCount": true
+            },
+            "canvasControlHigh": {
+              "emitted": 58,
+              "reference": 53,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.7358490566037735,
+              "worstCssCoordinateDeltaPx": 98.1484363935547,
+              "worstScoreDelta": 0.603422761100586,
+              "exactCount": false
+            }
+          }
+        ],
+        "summary": {
+          "fixtures": 15,
+          "conformant": 15,
+          "nonConformant": 0,
+          "firstDivergences": [],
+          "decodeConformant": true,
+          "canvasControlEverMatchedPython": true
+        },
+        "error": null,
+        "conclusion": "CONFORMANT — every stage matches the Python reference byte for byte",
+        "finishedAt": "2026-09-11T09:39:03.422Z"
+      }
+    }
+  ],
+  "finishedAt": "2026-09-11T09:39:04.645Z"
+}
