@@ -25,15 +25,61 @@ artifact path under `artifacts/experiments/`.
 
 ## The matrix
 
-**Status of every cell: `UNKNOWN`. Nothing has been run.**
+**One row of five has been run.** The UI element detector row below is measured; every other
+row is still `UNKNOWN` and nothing has been run for it.
 
 | Model | Chrome WebGPU | Chrome WASM | Firefox WebGPU | Firefox WASM (Linux) |
 |---|---|---|---|---|
-| UI element detector | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` |
+| **UI element detector** — `pratibimb-t1-ui-head` @ `ba6d9e93695b` | **`ACCEPT`** ¹ | **`ACCEPT`** ¹ | **`CONDITIONAL`** ² | **`UNKNOWN`** ³ |
 | YuNet faces | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` |
 | PP-OCRv5-mobile | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` |
 | GLiNER-PII | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` |
 | SmolVLM (offline path) | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` |
+
+¹ **Unbranded Chromium 151.0.7922.34 on WINDOWS**, not branded Chrome — Chrome 152 refuses
+`--load-extension`. WebGPU ran on the **Intel `gen-12lp` integrated adapter**; the RTX 5050
+on the same machine is unmeasured (S-01a).
+
+² **Firefox 155.0.1 on WINDOWS. Headful `ACCEPT`, headless `REJECT`** — no GPU adapter at
+release defaults, 3/3 reproducible. `dom.webgpu.enabled` was deliberately not touched, per
+S-02a's rule. **CI is headless, so this is the cell CI would hit.** Headful is also **8.6×
+slower than Chromium WebGPU** and slower than its own WASM backend.
+
+³ **NOT MEASURED. This column is Firefox WASM on LINUX** and no Linux environment was used.
+Firefox WASM on **Windows** *was* measured and passes (33–36 ms p50, correct, deterministic,
+3/3 both display modes) — but that is a different cell and is not this one.
+
+### UI element detector — the four required fields, per cell
+
+Measured 2026-09-11, **workstation 1**, Windows 11 build 26200, Intel Core 7 240H.
+ORT Web 1.29.0, `numThreads = 1`, artifact `302,960` bytes sha256 `ba6d9e93695b22d1…`.
+Evidence: [`W1-QG03`](../../artifacts/experiments/W1-QG03-t1-detector-runtime/README.md).
+
+| browser | backend | display | LOAD | P50 | HEAP (WASM) | CORRECT |
+|---|---|---|---|---|---|---|
+| Chromium 151 | wasm | headful | yes 3/3 | 41.0 ms | 26.4 MB | yes |
+| Chromium 151 | wasm | headless | yes 3/3 | 28.2 ms | 26.4 MB | yes |
+| Chromium 151 | webgpu | headful | yes 3/3 | 11.6 ms | 16.0 MB | yes |
+| Chromium 151 | webgpu | headless | yes 3/3 | 10.9 ms | 16.0 MB | yes |
+| Firefox 155.0.1 | wasm | headful | yes 3/3 | 33.0 ms | 26.4 MB | yes |
+| Firefox 155.0.1 | wasm | headless | yes 3/3 | 36.0 ms | 26.4 MB | yes |
+| Firefox 155.0.1 | webgpu | headful | yes 3/3 | 100 ms | 16.0 MB | yes |
+| Firefox 155.0.1 | webgpu | headless | **no 0/3** | — | — | — |
+
+`CORRECT` means element-wise agreement with a Python reference inside a **pre-registered**
+criterion (class channels 1e-4, box channels 0.25 model px), with **bitwise-identical**
+repeated inference. Worst observed: **5.6e-06** class, **1.6e-03** model px box.
+`HEAP` is WASM linear memory, which is ORT's arena — **the 0.30 MB model accounts for
+essentially none of it**, and JS heap is recorded separately.
+
+> ### A filled row is not an adopted model
+>
+> **The detector is NOT adopted and `model-registry.md` is unchanged.** These cells settle
+> whether the artifact *runs*. They do not settle whether it *works*: when the browser
+> performs the letterboxing itself — the only thing it can do in production — **16% to 34%
+> of the reference detections are lost**, because canvas resampling is not PIL BILINEAR and
+> the two browsers do not agree with each other either. That is tracked as **QG-03a** and it
+> blocks adoption. See the experiment README §4.
 
 ---
 
@@ -258,7 +304,8 @@ or the URL passed in from the offscreen document.
 
 | S-02a-3 | Mozilla's 2026 ship status for `dom.webgpu.enabled` on Linux release | `UNKNOWN` | Slide accuracy |
 | S-02a-4 | Confirm the backend is software by a route other than `adapterInfo` | `UNKNOWN` | Labelling of Linux figures |
-| S-03 | Can an ONNX Runtime Web session be **created and run** in each context, on each backend? | `UNKNOWN` | — |
+| S-03 | Can an ONNX Runtime Web session be **created and run** in each context, on each backend? | **ANSWERED 2026-09-08 — `CONDITIONAL`.** Yes in the offscreen document, the dedicated worker inside it, and the Firefox MV3 event page, on both backends — and **only because `'wasm-unsafe-eval'` is declared**. **NO** in the Chrome MV3 service worker: ORT loads its WASM glue by dynamic `import()`, which the HTML specification forbids there — specification-level, unfixable by configuration. Measured on a 174-byte two-op synthetic model, which is why it did NOT satisfy QG-03. Evidence: `artifacts/experiments/W1-S03-ort-web-feasibility/`. *(This row was deferred in PR #13/#15/#16 to avoid a conflict and is landed here.)* | — |
+| S-03c | Repeat S-03 with a **real detector** before any latency figure is quoted | **ANSWERED 2026-09-11 — `CONDITIONAL`.** The actual trained T1 artifact (302,960 bytes, `ba6d9e93695b`) runs correctly and bitwise-deterministically in 7 of 8 Windows cells, ~100× inside a pre-registered numerical criterion, with zero foreign network arrivals and no runtime model download. **Firefox WebGPU headless: no GPU adapter at release defaults, `REJECT`.** Latency is comfortably inside the dossier budget on 3 of 4 backends. **But when the BROWSER does the letterboxing — the only thing production can do — 16–34% of detections are lost**, because canvas resampling is not PIL BILINEAR and Chromium and Firefox do not agree with each other either. Tracked as **QG-03a**; it blocks adoption. Evidence: `artifacts/experiments/W1-QG03-t1-detector-runtime/`. | **QG-03 (one row of five now filled)** |
 | S-04 | Can **three ORT Web sessions coexist** in one WebAssembly heap inside an extension offscreen document, and does teardown reclaim memory? | `UNKNOWN` | — |
 | S-05 | What are the **real `tabs.captureVisibleTab` rate limits** under `activeTab`? | `CONDITIONAL` | **MEASURED 2026-09-10 (W1-S05-rate) — `CONDITIONAL`.** Chromium 151 MV3 service worker with `<all_urls>`: a hard, reproducible quota. 500 ms spacing gives 100% success (12/12 in all 6 ladder passes, 40/40 sustained, twice); failures begin between 2 Hz and 3 Hz; the ceiling is ~2.6 successes/sec no matter how fast you ask; a zero-delay burst yields exactly 2, 5-way concurrency also exactly 2, and recovery takes ~1.15 s. Stateful, consistent with a per-second budget of about 2 — mechanism inferred from observed behaviour plus the browser's own error string, not from internals. Firefox 155: **no throttle observed at or below 10 Hz**, which is an absence of observation and not a proof of absence. **`activeTab` is NOT MEASURED** — it needs a user gesture the harness cannot drive, and the dossier singles out that exact cell as the more restrictive one, which is why this is `CONDITIONAL` rather than `ACCEPT`. Windows only. Evidence: `artifacts/experiments/W1-S05rate-capture-limits/`. Production consequence: `CAPTURE_THROTTLED` is now a distinct typed refusal and `minCaptureIntervalMs` moved 250 ms -> 500 ms, the one constant this bounds. The adapter still contains **no retry, backoff or queueing** — it reports and the refresh scheduler decides. `fullFrameHashIntervalMs`, `dynamicRegionPollMs` and `maxDynamicRegions` remain **policy**, unbounded by this measurement. |
 | S-06 | Does the coordinate contract hold at DPR 1.0 / 1.5 / 2.0 and 100% / 125% zoom? | `UNKNOWN` | — |

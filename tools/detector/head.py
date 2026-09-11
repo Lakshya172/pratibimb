@@ -43,8 +43,8 @@ import torch.nn as nn
 
 INPUT_SIZE = 640
 STRIDE = 8
-GRID = INPUT_SIZE // STRIDE  # 40
-NUM_ANCHORS = GRID * GRID  # 1600
+GRID = INPUT_SIZE // STRIDE  # 80
+NUM_ANCHORS = GRID * GRID  # 6400
 
 # Must match UI_CLASSES in packages/perception/src/uiDetectorHead.ts, in order.
 CLASSES = ["button", "link", "textbox", "checkbox", "radio", "select", "tab", "icon"]
@@ -107,7 +107,7 @@ class UiHead(nn.Module):
         self.box = nn.Conv2d(c3, 4, 1)
         self.cls = nn.Conv2d(c3, num_classes, 1)
 
-        # Classification bias initialised to a low prior probability. With ~1600 anchors and
+        # Classification bias initialised to a low prior probability. With 6400 anchors and
         # a handful of objects, over 99% of cells are negative; starting at p=0.5 makes the
         # first steps dominated by suppressing background, which is the classic reason a
         # from-scratch detector appears not to learn at all.

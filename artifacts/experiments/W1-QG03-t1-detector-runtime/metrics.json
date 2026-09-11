@@ -1,0 +1,1477 @@
+{
+  "experiment": "W1-QG03-t1-detector-runtime",
+  "question": "Can the ACTUAL shipped T1 UIElementDetector ONNX artifact execute correctly, reproducibly and within lightweight constraints across the dossier's browser/backend matrix?",
+  "spikeLineage": "S-03c — 'repeat with a real detector before any latency figure is quoted'",
+  "unitOfEvidence": "browser x backend x model artifact x display mode",
+  "generatedAt": "2026-09-11T05:54:34.668Z",
+  "cells": [
+    {
+      "browser": "chromium",
+      "backend": "wasm",
+      "display": "headful",
+      "platform": "windows",
+      "runs": 3,
+      "sessionCreated": "3/3",
+      "sessionLoads": true,
+      "ortVersion": "1.29.0",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "modelSha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+      "modelBytes": 302960,
+      "ortPin": {
+        "installed": true,
+        "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+        "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+        "bytes": 27797172
+      },
+      "schema": {
+        "inputNames": [
+          "images"
+        ],
+        "outputNames": [
+          "output"
+        ],
+        "inputName": "images",
+        "outputName": "output"
+      },
+      "inputDims": [
+        1,
+        3,
+        640,
+        640
+      ],
+      "outputDims": [
+        1,
+        12,
+        6400
+      ],
+      "outputType": "float32",
+      "correctness": {
+        "cases": [
+          "synth",
+          "dev-0000",
+          "dev-0003"
+        ],
+        "allCorrect": true,
+        "inputsMatchedReference": true,
+        "worstBoxChannelAbs": 0.0014190673828125,
+        "worstClassChannelAbs": 0.000004589557647705078,
+        "criterion": {
+          "boxChannelsMaxAbs": 0.25,
+          "classChannelsMaxAbs": 0.0001
+        },
+        "nonFinite": 0,
+        "postprocessingAgrees": true,
+        "worstCssCoordinateDeltaPx": 0.0010985908203338113,
+        "labelMismatches": 0,
+        "typedContractOk": true,
+        "detectionsValid": true,
+        "boundsValid": true,
+        "provenanceComplete": true
+      },
+      "correct": true,
+      "determinism": {
+        "bitwiseIdenticalEveryRun": true,
+        "identicalAcrossRuns": true
+      },
+      "latency": {
+        "sessionCreateMs": {
+          "runs": [
+            429.5,
+            372.3,
+            347
+          ],
+          "p50": 372.3
+        },
+        "firstInferenceMs": {
+          "runs": [
+            69.5,
+            53.5,
+            51.4
+          ],
+          "p50": 53.5
+        },
+        "warmP50Ms": 41,
+        "warmP95Ms": 107.5,
+        "warmMinMs": 27.4,
+        "warmMaxMs": 134.9,
+        "warmRunsPerSample": 30,
+        "releaseMs": 5.4,
+        "note": "warm figures are on the synthetic deterministic tensor; the work is identical every run"
+      },
+      "memory": {
+        "modelFileBytes": 302960,
+        "wasmHeapMB": {
+          "baseline": 0,
+          "afterSessionCreate": 16,
+          "afterFirstInference": 26.4,
+          "steadyState": 26.4,
+          "afterRelease": 26.4
+        },
+        "jsHeapMB": {
+          "baseline": 12.1,
+          "steadyState": 80.4,
+          "available": true
+        },
+        "caution": "model file size, WASM linear memory and JS heap are three different quantities. The WASM heap is dominated by the ORT runtime itself, not by this 0.30 MB model; the JS heap is GC-timing-dominated and is not evidence about the WASM arena."
+      },
+      "backendIdentity": {
+        "requested": "wasm",
+        "verdict": "CONSISTENT — no GPU submissions, as expected for wasm",
+        "gpuSubmitsDuringInference": 0,
+        "computePipelines": 0,
+        "consistentAcrossRuns": true,
+        "adapterInfo": null,
+        "adapterIdentified": null
+      },
+      "network": {
+        "foreignArrivals": 0,
+        "modelFetchedAtRuntime": false,
+        "urls": [
+          "<ext>/ort-wasm-simd-threaded.jsep.wasm"
+        ]
+      },
+      "preprocessingParity": [
+        {
+          "sample": "dev-0000",
+          "variants": {
+            "float-low": {
+              "maxAbsDiff255": 153.9999984204769,
+              "meanAbsDiff255": 0.8932560046291655,
+              "detections": 65,
+              "referenceDetections": 50,
+              "matchedAtIou50": 37,
+              "agreementRate": 0.74
+            },
+            "float-high": {
+              "maxAbsDiff255": 146.00000459700823,
+              "meanAbsDiff255": 0.8696012200556652,
+              "detections": 58,
+              "referenceDetections": 50,
+              "matchedAtIou50": 40,
+              "agreementRate": 0.8
+            },
+            "integer-low": {
+              "maxAbsDiff255": 109.99999914318323,
+              "meanAbsDiff255": 0.27583657920639554,
+              "detections": 54,
+              "referenceDetections": 50,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.78
+            },
+            "integer-high": {
+              "maxAbsDiff255": 86.99999861419201,
+              "meanAbsDiff255": 0.252906891946941,
+              "detections": 53,
+              "referenceDetections": 50,
+              "matchedAtIou50": 42,
+              "agreementRate": 0.84
+            }
+          },
+          "bestAgreementRate": 0.84
+        },
+        {
+          "sample": "dev-0003",
+          "variants": {
+            "float-low": {
+              "maxAbsDiff255": 132.0000035315752,
+              "meanAbsDiff255": 0.6327994620720802,
+              "detections": 58,
+              "referenceDetections": 53,
+              "matchedAtIou50": 36,
+              "agreementRate": 0.6792452830188679
+            },
+            "float-high": {
+              "maxAbsDiff255": 88.00000235438347,
+              "meanAbsDiff255": 0.43584634318731336,
+              "detections": 52,
+              "referenceDetections": 53,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.7358490566037735
+            },
+            "integer-low": {
+              "maxAbsDiff255": 126.00000673905015,
+              "meanAbsDiff255": 0.6592862816632532,
+              "detections": 62,
+              "referenceDetections": 53,
+              "matchedAtIou50": 35,
+              "agreementRate": 0.660377358490566
+            },
+            "integer-high": {
+              "maxAbsDiff255": 72.00000330805779,
+              "meanAbsDiff255": 0.4256721881348312,
+              "detections": 58,
+              "referenceDetections": 53,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.7358490566037735
+            }
+          },
+          "bestAgreementRate": 0.7358490566037735
+        }
+      ],
+      "verdict": "ACCEPT"
+    },
+    {
+      "browser": "chromium",
+      "backend": "wasm",
+      "display": "headless",
+      "platform": "windows",
+      "runs": 3,
+      "sessionCreated": "3/3",
+      "sessionLoads": true,
+      "ortVersion": "1.29.0",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "modelSha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+      "modelBytes": 302960,
+      "ortPin": {
+        "installed": true,
+        "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+        "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+        "bytes": 27797172
+      },
+      "schema": {
+        "inputNames": [
+          "images"
+        ],
+        "outputNames": [
+          "output"
+        ],
+        "inputName": "images",
+        "outputName": "output"
+      },
+      "inputDims": [
+        1,
+        3,
+        640,
+        640
+      ],
+      "outputDims": [
+        1,
+        12,
+        6400
+      ],
+      "outputType": "float32",
+      "correctness": {
+        "cases": [
+          "synth",
+          "dev-0000",
+          "dev-0003"
+        ],
+        "allCorrect": true,
+        "inputsMatchedReference": true,
+        "worstBoxChannelAbs": 0.0014190673828125,
+        "worstClassChannelAbs": 0.000004589557647705078,
+        "criterion": {
+          "boxChannelsMaxAbs": 0.25,
+          "classChannelsMaxAbs": 0.0001
+        },
+        "nonFinite": 0,
+        "postprocessingAgrees": true,
+        "worstCssCoordinateDeltaPx": 0.0010985908203338113,
+        "labelMismatches": 0,
+        "typedContractOk": true,
+        "detectionsValid": true,
+        "boundsValid": true,
+        "provenanceComplete": true
+      },
+      "correct": true,
+      "determinism": {
+        "bitwiseIdenticalEveryRun": true,
+        "identicalAcrossRuns": true
+      },
+      "latency": {
+        "sessionCreateMs": {
+          "runs": [
+            329.2,
+            324.7,
+            334.1
+          ],
+          "p50": 329.2
+        },
+        "firstInferenceMs": {
+          "runs": [
+            48.8,
+            50.5,
+            48
+          ],
+          "p50": 48.8
+        },
+        "warmP50Ms": 28.2,
+        "warmP95Ms": 30.1,
+        "warmMinMs": 27,
+        "warmMaxMs": 87.8,
+        "warmRunsPerSample": 30,
+        "releaseMs": 1.9,
+        "note": "warm figures are on the synthetic deterministic tensor; the work is identical every run"
+      },
+      "memory": {
+        "modelFileBytes": 302960,
+        "wasmHeapMB": {
+          "baseline": 0,
+          "afterSessionCreate": 16,
+          "afterFirstInference": 26.4,
+          "steadyState": 26.4,
+          "afterRelease": 26.4
+        },
+        "jsHeapMB": {
+          "baseline": 12.1,
+          "steadyState": 80.5,
+          "available": true
+        },
+        "caution": "model file size, WASM linear memory and JS heap are three different quantities. The WASM heap is dominated by the ORT runtime itself, not by this 0.30 MB model; the JS heap is GC-timing-dominated and is not evidence about the WASM arena."
+      },
+      "backendIdentity": {
+        "requested": "wasm",
+        "verdict": "CONSISTENT — no GPU submissions, as expected for wasm",
+        "gpuSubmitsDuringInference": 0,
+        "computePipelines": 0,
+        "consistentAcrossRuns": true,
+        "adapterInfo": null,
+        "adapterIdentified": null
+      },
+      "network": {
+        "foreignArrivals": 0,
+        "modelFetchedAtRuntime": false,
+        "urls": [
+          "<ext>/ort-wasm-simd-threaded.jsep.wasm"
+        ]
+      },
+      "preprocessingParity": [
+        {
+          "sample": "dev-0000",
+          "variants": {
+            "float-low": {
+              "maxAbsDiff255": 153.9999984204769,
+              "meanAbsDiff255": 0.8932560046291655,
+              "detections": 65,
+              "referenceDetections": 50,
+              "matchedAtIou50": 37,
+              "agreementRate": 0.74
+            },
+            "float-high": {
+              "maxAbsDiff255": 146.00000459700823,
+              "meanAbsDiff255": 0.8696012200556652,
+              "detections": 58,
+              "referenceDetections": 50,
+              "matchedAtIou50": 40,
+              "agreementRate": 0.8
+            },
+            "integer-low": {
+              "maxAbsDiff255": 109.99999914318323,
+              "meanAbsDiff255": 0.27583657920639554,
+              "detections": 54,
+              "referenceDetections": 50,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.78
+            },
+            "integer-high": {
+              "maxAbsDiff255": 86.99999861419201,
+              "meanAbsDiff255": 0.252906891946941,
+              "detections": 53,
+              "referenceDetections": 50,
+              "matchedAtIou50": 42,
+              "agreementRate": 0.84
+            }
+          },
+          "bestAgreementRate": 0.84
+        },
+        {
+          "sample": "dev-0003",
+          "variants": {
+            "float-low": {
+              "maxAbsDiff255": 132.0000035315752,
+              "meanAbsDiff255": 0.6327994620720802,
+              "detections": 58,
+              "referenceDetections": 53,
+              "matchedAtIou50": 36,
+              "agreementRate": 0.6792452830188679
+            },
+            "float-high": {
+              "maxAbsDiff255": 88.00000235438347,
+              "meanAbsDiff255": 0.43584634318731336,
+              "detections": 52,
+              "referenceDetections": 53,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.7358490566037735
+            },
+            "integer-low": {
+              "maxAbsDiff255": 126.00000673905015,
+              "meanAbsDiff255": 0.6592862816632532,
+              "detections": 62,
+              "referenceDetections": 53,
+              "matchedAtIou50": 35,
+              "agreementRate": 0.660377358490566
+            },
+            "integer-high": {
+              "maxAbsDiff255": 72.00000330805779,
+              "meanAbsDiff255": 0.4256721881348312,
+              "detections": 58,
+              "referenceDetections": 53,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.7358490566037735
+            }
+          },
+          "bestAgreementRate": 0.7358490566037735
+        }
+      ],
+      "verdict": "ACCEPT"
+    },
+    {
+      "browser": "chromium",
+      "backend": "webgpu",
+      "display": "headful",
+      "platform": "windows",
+      "runs": 3,
+      "sessionCreated": "3/3",
+      "sessionLoads": true,
+      "ortVersion": "1.29.0",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+      "modelSha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+      "modelBytes": 302960,
+      "ortPin": {
+        "installed": true,
+        "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+        "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+        "bytes": 27797172
+      },
+      "schema": {
+        "inputNames": [
+          "images"
+        ],
+        "outputNames": [
+          "output"
+        ],
+        "inputName": "images",
+        "outputName": "output"
+      },
+      "inputDims": [
+        1,
+        3,
+        640,
+        640
+      ],
+      "outputDims": [
+        1,
+        12,
+        6400
+      ],
+      "outputType": "float32",
+      "correctness": {
+        "cases": [
+          "synth",
+          "dev-0000",
+          "dev-0003"
+        ],
+        "allCorrect": true,
+        "inputsMatchedReference": true,
+        "worstBoxChannelAbs": 0.001617431640625,
+        "worstClassChannelAbs": 0.000005424022674560547,
+        "criterion": {
+          "boxChannelsMaxAbs": 0.25,
+          "classChannelsMaxAbs": 0.0001
+        },
+        "nonFinite": 0,
+        "postprocessingAgrees": true,
+        "worstCssCoordinateDeltaPx": 0.0010577990722708819,
+        "labelMismatches": 0,
+        "typedContractOk": true,
+        "detectionsValid": true,
+        "boundsValid": true,
+        "provenanceComplete": true
+      },
+      "correct": true,
+      "determinism": {
+        "bitwiseIdenticalEveryRun": true,
+        "identicalAcrossRuns": true
+      },
+      "latency": {
+        "sessionCreateMs": {
+          "runs": [
+            397.9,
+            417,
+            428.2
+          ],
+          "p50": 417
+        },
+        "firstInferenceMs": {
+          "runs": [
+            387.5,
+            284.8,
+            287.1
+          ],
+          "p50": 287.1
+        },
+        "warmP50Ms": 11.6,
+        "warmP95Ms": 14.7,
+        "warmMinMs": 9.3,
+        "warmMaxMs": 16.2,
+        "warmRunsPerSample": 30,
+        "releaseMs": 7.1,
+        "note": "warm figures are on the synthetic deterministic tensor; the work is identical every run"
+      },
+      "memory": {
+        "modelFileBytes": 302960,
+        "wasmHeapMB": {
+          "baseline": 0,
+          "afterSessionCreate": 16,
+          "afterFirstInference": 16,
+          "steadyState": 16,
+          "afterRelease": 16
+        },
+        "jsHeapMB": {
+          "baseline": 12.1,
+          "steadyState": 76.7,
+          "available": true
+        },
+        "caution": "model file size, WASM linear memory and JS heap are three different quantities. The WASM heap is dominated by the ORT runtime itself, not by this 0.30 MB model; the JS heap is GC-timing-dominated and is not evidence about the WASM arena."
+      },
+      "backendIdentity": {
+        "requested": "webgpu",
+        "verdict": "CONFIRMED — GPU command submissions observed during inference",
+        "gpuSubmitsDuringInference": 90,
+        "computePipelines": 15,
+        "consistentAcrossRuns": true,
+        "adapterInfo": {
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": "",
+          "isFallbackAdapter": null,
+          "identified": true
+        },
+        "adapterIdentified": true
+      },
+      "network": {
+        "foreignArrivals": 0,
+        "modelFetchedAtRuntime": false,
+        "urls": [
+          "<ext>/ort-wasm-simd-threaded.jsep.wasm"
+        ]
+      },
+      "preprocessingParity": [
+        {
+          "sample": "dev-0000",
+          "variants": {
+            "float-low": {
+              "maxAbsDiff255": 153.9999984204769,
+              "meanAbsDiff255": 0.8932560046291655,
+              "detections": 65,
+              "referenceDetections": 50,
+              "matchedAtIou50": 37,
+              "agreementRate": 0.74
+            },
+            "float-high": {
+              "maxAbsDiff255": 146.00000459700823,
+              "meanAbsDiff255": 0.8696012200556652,
+              "detections": 58,
+              "referenceDetections": 50,
+              "matchedAtIou50": 40,
+              "agreementRate": 0.8
+            },
+            "integer-low": {
+              "maxAbsDiff255": 109.99999914318323,
+              "meanAbsDiff255": 0.27583657920639554,
+              "detections": 54,
+              "referenceDetections": 50,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.78
+            },
+            "integer-high": {
+              "maxAbsDiff255": 86.99999861419201,
+              "meanAbsDiff255": 0.252906891946941,
+              "detections": 53,
+              "referenceDetections": 50,
+              "matchedAtIou50": 42,
+              "agreementRate": 0.84
+            }
+          },
+          "bestAgreementRate": 0.84
+        },
+        {
+          "sample": "dev-0003",
+          "variants": {
+            "float-low": {
+              "maxAbsDiff255": 132.0000035315752,
+              "meanAbsDiff255": 0.6327994620720802,
+              "detections": 58,
+              "referenceDetections": 53,
+              "matchedAtIou50": 36,
+              "agreementRate": 0.6792452830188679
+            },
+            "float-high": {
+              "maxAbsDiff255": 88.00000235438347,
+              "meanAbsDiff255": 0.43584634318731336,
+              "detections": 52,
+              "referenceDetections": 53,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.7358490566037735
+            },
+            "integer-low": {
+              "maxAbsDiff255": 126.00000673905015,
+              "meanAbsDiff255": 0.6592862816632532,
+              "detections": 62,
+              "referenceDetections": 53,
+              "matchedAtIou50": 35,
+              "agreementRate": 0.660377358490566
+            },
+            "integer-high": {
+              "maxAbsDiff255": 72.00000330805779,
+              "meanAbsDiff255": 0.4256721881348312,
+              "detections": 58,
+              "referenceDetections": 53,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.7358490566037735
+            }
+          },
+          "bestAgreementRate": 0.7358490566037735
+        }
+      ],
+      "verdict": "ACCEPT"
+    },
+    {
+      "browser": "chromium",
+      "backend": "webgpu",
+      "display": "headless",
+      "platform": "windows",
+      "runs": 3,
+      "sessionCreated": "3/3",
+      "sessionLoads": true,
+      "ortVersion": "1.29.0",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "modelSha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+      "modelBytes": 302960,
+      "ortPin": {
+        "installed": true,
+        "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+        "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+        "bytes": 27797172
+      },
+      "schema": {
+        "inputNames": [
+          "images"
+        ],
+        "outputNames": [
+          "output"
+        ],
+        "inputName": "images",
+        "outputName": "output"
+      },
+      "inputDims": [
+        1,
+        3,
+        640,
+        640
+      ],
+      "outputDims": [
+        1,
+        12,
+        6400
+      ],
+      "outputType": "float32",
+      "correctness": {
+        "cases": [
+          "synth",
+          "dev-0000",
+          "dev-0003"
+        ],
+        "allCorrect": true,
+        "inputsMatchedReference": true,
+        "worstBoxChannelAbs": 0.001617431640625,
+        "worstClassChannelAbs": 0.000005424022674560547,
+        "criterion": {
+          "boxChannelsMaxAbs": 0.25,
+          "classChannelsMaxAbs": 0.0001
+        },
+        "nonFinite": 0,
+        "postprocessingAgrees": true,
+        "worstCssCoordinateDeltaPx": 0.0010577990722708819,
+        "labelMismatches": 0,
+        "typedContractOk": true,
+        "detectionsValid": true,
+        "boundsValid": true,
+        "provenanceComplete": true
+      },
+      "correct": true,
+      "determinism": {
+        "bitwiseIdenticalEveryRun": true,
+        "identicalAcrossRuns": true
+      },
+      "latency": {
+        "sessionCreateMs": {
+          "runs": [
+            483.4,
+            407.6,
+            411.3
+          ],
+          "p50": 411.3
+        },
+        "firstInferenceMs": {
+          "runs": [
+            285.5,
+            259.9,
+            253.2
+          ],
+          "p50": 259.9
+        },
+        "warmP50Ms": 10.9,
+        "warmP95Ms": 13,
+        "warmMinMs": 8.8,
+        "warmMaxMs": 13.9,
+        "warmRunsPerSample": 30,
+        "releaseMs": 4.3,
+        "note": "warm figures are on the synthetic deterministic tensor; the work is identical every run"
+      },
+      "memory": {
+        "modelFileBytes": 302960,
+        "wasmHeapMB": {
+          "baseline": 0,
+          "afterSessionCreate": 16,
+          "afterFirstInference": 16,
+          "steadyState": 16,
+          "afterRelease": 16
+        },
+        "jsHeapMB": {
+          "baseline": 12.1,
+          "steadyState": 74,
+          "available": true
+        },
+        "caution": "model file size, WASM linear memory and JS heap are three different quantities. The WASM heap is dominated by the ORT runtime itself, not by this 0.30 MB model; the JS heap is GC-timing-dominated and is not evidence about the WASM arena."
+      },
+      "backendIdentity": {
+        "requested": "webgpu",
+        "verdict": "CONFIRMED — GPU command submissions observed during inference",
+        "gpuSubmitsDuringInference": 90,
+        "computePipelines": 15,
+        "consistentAcrossRuns": true,
+        "adapterInfo": {
+          "vendor": "intel",
+          "architecture": "gen-12lp",
+          "device": "",
+          "description": "",
+          "isFallbackAdapter": null,
+          "identified": true
+        },
+        "adapterIdentified": true
+      },
+      "network": {
+        "foreignArrivals": 0,
+        "modelFetchedAtRuntime": false,
+        "urls": [
+          "<ext>/ort-wasm-simd-threaded.jsep.wasm"
+        ]
+      },
+      "preprocessingParity": [
+        {
+          "sample": "dev-0000",
+          "variants": {
+            "float-low": {
+              "maxAbsDiff255": 153.9999984204769,
+              "meanAbsDiff255": 0.8932560046291655,
+              "detections": 65,
+              "referenceDetections": 50,
+              "matchedAtIou50": 37,
+              "agreementRate": 0.74
+            },
+            "float-high": {
+              "maxAbsDiff255": 146.00000459700823,
+              "meanAbsDiff255": 0.8696012200556652,
+              "detections": 58,
+              "referenceDetections": 50,
+              "matchedAtIou50": 40,
+              "agreementRate": 0.8
+            },
+            "integer-low": {
+              "maxAbsDiff255": 109.99999914318323,
+              "meanAbsDiff255": 0.27583657920639554,
+              "detections": 54,
+              "referenceDetections": 50,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.78
+            },
+            "integer-high": {
+              "maxAbsDiff255": 86.99999861419201,
+              "meanAbsDiff255": 0.252906891946941,
+              "detections": 53,
+              "referenceDetections": 50,
+              "matchedAtIou50": 42,
+              "agreementRate": 0.84
+            }
+          },
+          "bestAgreementRate": 0.84
+        },
+        {
+          "sample": "dev-0003",
+          "variants": {
+            "float-low": {
+              "maxAbsDiff255": 132.0000035315752,
+              "meanAbsDiff255": 0.6327994620720802,
+              "detections": 58,
+              "referenceDetections": 53,
+              "matchedAtIou50": 36,
+              "agreementRate": 0.6792452830188679
+            },
+            "float-high": {
+              "maxAbsDiff255": 88.00000235438347,
+              "meanAbsDiff255": 0.43584634318731336,
+              "detections": 52,
+              "referenceDetections": 53,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.7358490566037735
+            },
+            "integer-low": {
+              "maxAbsDiff255": 126.00000673905015,
+              "meanAbsDiff255": 0.6592862816632532,
+              "detections": 62,
+              "referenceDetections": 53,
+              "matchedAtIou50": 35,
+              "agreementRate": 0.660377358490566
+            },
+            "integer-high": {
+              "maxAbsDiff255": 72.00000330805779,
+              "meanAbsDiff255": 0.4256721881348312,
+              "detections": 58,
+              "referenceDetections": 53,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.7358490566037735
+            }
+          },
+          "bestAgreementRate": 0.7358490566037735
+        }
+      ],
+      "verdict": "ACCEPT"
+    },
+    {
+      "browser": "firefox",
+      "backend": "wasm",
+      "display": "headful",
+      "platform": "windows",
+      "runs": 3,
+      "sessionCreated": "3/3",
+      "sessionLoads": true,
+      "ortVersion": "1.29.0",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+      "modelSha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+      "modelBytes": 302960,
+      "ortPin": {
+        "installed": true,
+        "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+        "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+        "bytes": 27797172
+      },
+      "schema": {
+        "inputNames": [
+          "images"
+        ],
+        "outputNames": [
+          "output"
+        ],
+        "inputName": "images",
+        "outputName": "output"
+      },
+      "inputDims": [
+        1,
+        3,
+        640,
+        640
+      ],
+      "outputDims": [
+        1,
+        12,
+        6400
+      ],
+      "outputType": "float32",
+      "correctness": {
+        "cases": [
+          "synth",
+          "dev-0000",
+          "dev-0003"
+        ],
+        "allCorrect": true,
+        "inputsMatchedReference": true,
+        "worstBoxChannelAbs": 0.0014190673828125,
+        "worstClassChannelAbs": 0.000004589557647705078,
+        "criterion": {
+          "boxChannelsMaxAbs": 0.25,
+          "classChannelsMaxAbs": 0.0001
+        },
+        "nonFinite": 0,
+        "postprocessingAgrees": true,
+        "worstCssCoordinateDeltaPx": 0.0010985908203338113,
+        "labelMismatches": 0,
+        "typedContractOk": true,
+        "detectionsValid": true,
+        "boundsValid": true,
+        "provenanceComplete": true
+      },
+      "correct": true,
+      "determinism": {
+        "bitwiseIdenticalEveryRun": true,
+        "identicalAcrossRuns": true
+      },
+      "latency": {
+        "sessionCreateMs": {
+          "runs": [
+            235,
+            156,
+            161
+          ],
+          "p50": 161
+        },
+        "firstInferenceMs": {
+          "runs": [
+            40,
+            36,
+            47
+          ],
+          "p50": 40
+        },
+        "warmP50Ms": 33,
+        "warmP95Ms": 41,
+        "warmMinMs": 29,
+        "warmMaxMs": 50,
+        "warmRunsPerSample": 30,
+        "releaseMs": 0,
+        "note": "warm figures are on the synthetic deterministic tensor; the work is identical every run"
+      },
+      "memory": {
+        "modelFileBytes": 302960,
+        "wasmHeapMB": {
+          "baseline": 0,
+          "afterSessionCreate": 16,
+          "afterFirstInference": 26.4,
+          "steadyState": 26.4,
+          "afterRelease": 26.4
+        },
+        "jsHeapMB": {
+          "baseline": null,
+          "steadyState": null,
+          "available": false
+        },
+        "caution": "model file size, WASM linear memory and JS heap are three different quantities. The WASM heap is dominated by the ORT runtime itself, not by this 0.30 MB model; the JS heap is GC-timing-dominated and is not evidence about the WASM arena."
+      },
+      "backendIdentity": {
+        "requested": "wasm",
+        "verdict": "CONSISTENT — no GPU submissions, as expected for wasm",
+        "gpuSubmitsDuringInference": 0,
+        "computePipelines": 0,
+        "consistentAcrossRuns": true,
+        "adapterInfo": null,
+        "adapterIdentified": null
+      },
+      "network": {
+        "foreignArrivals": 0,
+        "modelFetchedAtRuntime": false,
+        "urls": [
+          "<ext>/ort-wasm-simd-threaded.jsep.wasm"
+        ]
+      },
+      "preprocessingParity": [
+        {
+          "sample": "dev-0000",
+          "variants": {
+            "float-low": {
+              "maxAbsDiff255": 153.9999984204769,
+              "meanAbsDiff255": 0.9331005779306907,
+              "detections": 66,
+              "referenceDetections": 50,
+              "matchedAtIou50": 38,
+              "agreementRate": 0.76
+            },
+            "float-high": {
+              "maxAbsDiff255": 153.9999984204769,
+              "meanAbsDiff255": 0.9331005779306907,
+              "detections": 66,
+              "referenceDetections": 50,
+              "matchedAtIou50": 38,
+              "agreementRate": 0.76
+            },
+            "integer-low": {
+              "maxAbsDiff255": 109.99999914318323,
+              "meanAbsDiff255": 0.27583657920639554,
+              "detections": 54,
+              "referenceDetections": 50,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.78
+            },
+            "integer-high": {
+              "maxAbsDiff255": 109.99999914318323,
+              "meanAbsDiff255": 0.27583657920639554,
+              "detections": 54,
+              "referenceDetections": 50,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.78
+            }
+          },
+          "bestAgreementRate": 0.78
+        },
+        {
+          "sample": "dev-0003",
+          "variants": {
+            "float-low": {
+              "maxAbsDiff255": 132.0000035315752,
+              "meanAbsDiff255": 0.6928157355260282,
+              "detections": 59,
+              "referenceDetections": 53,
+              "matchedAtIou50": 36,
+              "agreementRate": 0.6792452830188679
+            },
+            "float-high": {
+              "maxAbsDiff255": 132.0000035315752,
+              "meanAbsDiff255": 0.6928157355260282,
+              "detections": 59,
+              "referenceDetections": 53,
+              "matchedAtIou50": 36,
+              "agreementRate": 0.6792452830188679
+            },
+            "integer-low": {
+              "maxAbsDiff255": 126.00000673905015,
+              "meanAbsDiff255": 0.6592862816632532,
+              "detections": 62,
+              "referenceDetections": 53,
+              "matchedAtIou50": 35,
+              "agreementRate": 0.660377358490566
+            },
+            "integer-high": {
+              "maxAbsDiff255": 126.00000673905015,
+              "meanAbsDiff255": 0.6592862816632532,
+              "detections": 62,
+              "referenceDetections": 53,
+              "matchedAtIou50": 35,
+              "agreementRate": 0.660377358490566
+            }
+          },
+          "bestAgreementRate": 0.6792452830188679
+        }
+      ],
+      "verdict": "ACCEPT"
+    },
+    {
+      "browser": "firefox",
+      "backend": "wasm",
+      "display": "headless",
+      "platform": "windows",
+      "runs": 3,
+      "sessionCreated": "3/3",
+      "sessionLoads": true,
+      "ortVersion": "1.29.0",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+      "modelSha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+      "modelBytes": 302960,
+      "ortPin": {
+        "installed": true,
+        "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+        "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+        "bytes": 27797172
+      },
+      "schema": {
+        "inputNames": [
+          "images"
+        ],
+        "outputNames": [
+          "output"
+        ],
+        "inputName": "images",
+        "outputName": "output"
+      },
+      "inputDims": [
+        1,
+        3,
+        640,
+        640
+      ],
+      "outputDims": [
+        1,
+        12,
+        6400
+      ],
+      "outputType": "float32",
+      "correctness": {
+        "cases": [
+          "synth",
+          "dev-0000",
+          "dev-0003"
+        ],
+        "allCorrect": true,
+        "inputsMatchedReference": true,
+        "worstBoxChannelAbs": 0.0014190673828125,
+        "worstClassChannelAbs": 0.000004589557647705078,
+        "criterion": {
+          "boxChannelsMaxAbs": 0.25,
+          "classChannelsMaxAbs": 0.0001
+        },
+        "nonFinite": 0,
+        "postprocessingAgrees": true,
+        "worstCssCoordinateDeltaPx": 0.0010985908203338113,
+        "labelMismatches": 0,
+        "typedContractOk": true,
+        "detectionsValid": true,
+        "boundsValid": true,
+        "provenanceComplete": true
+      },
+      "correct": true,
+      "determinism": {
+        "bitwiseIdenticalEveryRun": true,
+        "identicalAcrossRuns": true
+      },
+      "latency": {
+        "sessionCreateMs": {
+          "runs": [
+            191,
+            169,
+            159
+          ],
+          "p50": 169
+        },
+        "firstInferenceMs": {
+          "runs": [
+            45,
+            45,
+            44
+          ],
+          "p50": 45
+        },
+        "warmP50Ms": 36,
+        "warmP95Ms": 44,
+        "warmMinMs": 29,
+        "warmMaxMs": 49,
+        "warmRunsPerSample": 30,
+        "releaseMs": 0,
+        "note": "warm figures are on the synthetic deterministic tensor; the work is identical every run"
+      },
+      "memory": {
+        "modelFileBytes": 302960,
+        "wasmHeapMB": {
+          "baseline": 0,
+          "afterSessionCreate": 16,
+          "afterFirstInference": 26.4,
+          "steadyState": 26.4,
+          "afterRelease": 26.4
+        },
+        "jsHeapMB": {
+          "baseline": null,
+          "steadyState": null,
+          "available": false
+        },
+        "caution": "model file size, WASM linear memory and JS heap are three different quantities. The WASM heap is dominated by the ORT runtime itself, not by this 0.30 MB model; the JS heap is GC-timing-dominated and is not evidence about the WASM arena."
+      },
+      "backendIdentity": {
+        "requested": "wasm",
+        "verdict": "CONSISTENT — no GPU submissions, as expected for wasm",
+        "gpuSubmitsDuringInference": 0,
+        "computePipelines": 0,
+        "consistentAcrossRuns": true,
+        "adapterInfo": null,
+        "adapterIdentified": null
+      },
+      "network": {
+        "foreignArrivals": 0,
+        "modelFetchedAtRuntime": false,
+        "urls": [
+          "<ext>/ort-wasm-simd-threaded.jsep.wasm"
+        ]
+      },
+      "preprocessingParity": [
+        {
+          "sample": "dev-0000",
+          "variants": {
+            "float-low": {
+              "maxAbsDiff255": 153.9999984204769,
+              "meanAbsDiff255": 0.9331005779306907,
+              "detections": 66,
+              "referenceDetections": 50,
+              "matchedAtIou50": 38,
+              "agreementRate": 0.76
+            },
+            "float-high": {
+              "maxAbsDiff255": 153.9999984204769,
+              "meanAbsDiff255": 0.9331005779306907,
+              "detections": 66,
+              "referenceDetections": 50,
+              "matchedAtIou50": 38,
+              "agreementRate": 0.76
+            },
+            "integer-low": {
+              "maxAbsDiff255": 109.99999914318323,
+              "meanAbsDiff255": 0.27583657920639554,
+              "detections": 54,
+              "referenceDetections": 50,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.78
+            },
+            "integer-high": {
+              "maxAbsDiff255": 109.99999914318323,
+              "meanAbsDiff255": 0.27583657920639554,
+              "detections": 54,
+              "referenceDetections": 50,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.78
+            }
+          },
+          "bestAgreementRate": 0.78
+        },
+        {
+          "sample": "dev-0003",
+          "variants": {
+            "float-low": {
+              "maxAbsDiff255": 132.0000035315752,
+              "meanAbsDiff255": 0.6928157355260282,
+              "detections": 59,
+              "referenceDetections": 53,
+              "matchedAtIou50": 36,
+              "agreementRate": 0.6792452830188679
+            },
+            "float-high": {
+              "maxAbsDiff255": 132.0000035315752,
+              "meanAbsDiff255": 0.6928157355260282,
+              "detections": 59,
+              "referenceDetections": 53,
+              "matchedAtIou50": 36,
+              "agreementRate": 0.6792452830188679
+            },
+            "integer-low": {
+              "maxAbsDiff255": 126.00000673905015,
+              "meanAbsDiff255": 0.6592862816632532,
+              "detections": 62,
+              "referenceDetections": 53,
+              "matchedAtIou50": 35,
+              "agreementRate": 0.660377358490566
+            },
+            "integer-high": {
+              "maxAbsDiff255": 126.00000673905015,
+              "meanAbsDiff255": 0.6592862816632532,
+              "detections": 62,
+              "referenceDetections": 53,
+              "matchedAtIou50": 35,
+              "agreementRate": 0.660377358490566
+            }
+          },
+          "bestAgreementRate": 0.6792452830188679
+        }
+      ],
+      "verdict": "ACCEPT"
+    },
+    {
+      "browser": "firefox",
+      "backend": "webgpu",
+      "display": "headful",
+      "platform": "windows",
+      "runs": 3,
+      "sessionCreated": "3/3",
+      "sessionLoads": true,
+      "ortVersion": "1.29.0",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+      "modelSha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+      "modelBytes": 302960,
+      "ortPin": {
+        "installed": true,
+        "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+        "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+        "bytes": 27797172
+      },
+      "schema": {
+        "inputNames": [
+          "images"
+        ],
+        "outputNames": [
+          "output"
+        ],
+        "inputName": "images",
+        "outputName": "output"
+      },
+      "inputDims": [
+        1,
+        3,
+        640,
+        640
+      ],
+      "outputDims": [
+        1,
+        12,
+        6400
+      ],
+      "outputType": "float32",
+      "correctness": {
+        "cases": [
+          "synth",
+          "dev-0000",
+          "dev-0003"
+        ],
+        "allCorrect": true,
+        "inputsMatchedReference": true,
+        "worstBoxChannelAbs": 0.001617431640625,
+        "worstClassChannelAbs": 0.000005602836608886719,
+        "criterion": {
+          "boxChannelsMaxAbs": 0.25,
+          "classChannelsMaxAbs": 0.0001
+        },
+        "nonFinite": 0,
+        "postprocessingAgrees": true,
+        "worstCssCoordinateDeltaPx": 0.0010527524414101208,
+        "labelMismatches": 0,
+        "typedContractOk": true,
+        "detectionsValid": true,
+        "boundsValid": true,
+        "provenanceComplete": true
+      },
+      "correct": true,
+      "determinism": {
+        "bitwiseIdenticalEveryRun": true,
+        "identicalAcrossRuns": true
+      },
+      "latency": {
+        "sessionCreateMs": {
+          "runs": [
+            1359,
+            1052,
+            1198
+          ],
+          "p50": 1198
+        },
+        "firstInferenceMs": {
+          "runs": [
+            4837,
+            3134,
+            3075
+          ],
+          "p50": 3134
+        },
+        "warmP50Ms": 100,
+        "warmP95Ms": 102,
+        "warmMinMs": 97,
+        "warmMaxMs": 102,
+        "warmRunsPerSample": 30,
+        "releaseMs": 1,
+        "note": "warm figures are on the synthetic deterministic tensor; the work is identical every run"
+      },
+      "memory": {
+        "modelFileBytes": 302960,
+        "wasmHeapMB": {
+          "baseline": 0,
+          "afterSessionCreate": 16,
+          "afterFirstInference": 16,
+          "steadyState": 16,
+          "afterRelease": 16
+        },
+        "jsHeapMB": {
+          "baseline": null,
+          "steadyState": null,
+          "available": false
+        },
+        "caution": "model file size, WASM linear memory and JS heap are three different quantities. The WASM heap is dominated by the ORT runtime itself, not by this 0.30 MB model; the JS heap is GC-timing-dominated and is not evidence about the WASM arena."
+      },
+      "backendIdentity": {
+        "requested": "webgpu",
+        "verdict": "CONFIRMED — GPU command submissions observed during inference",
+        "gpuSubmitsDuringInference": 90,
+        "computePipelines": 15,
+        "consistentAcrossRuns": true,
+        "adapterInfo": {
+          "vendor": "",
+          "architecture": "",
+          "device": "",
+          "description": "",
+          "isFallbackAdapter": null,
+          "identified": false
+        },
+        "adapterIdentified": false
+      },
+      "network": {
+        "foreignArrivals": 0,
+        "modelFetchedAtRuntime": false,
+        "urls": [
+          "<ext>/ort-wasm-simd-threaded.jsep.wasm"
+        ]
+      },
+      "preprocessingParity": [
+        {
+          "sample": "dev-0000",
+          "variants": {
+            "float-low": {
+              "maxAbsDiff255": 153.9999984204769,
+              "meanAbsDiff255": 0.9331005779306907,
+              "detections": 66,
+              "referenceDetections": 50,
+              "matchedAtIou50": 38,
+              "agreementRate": 0.76
+            },
+            "float-high": {
+              "maxAbsDiff255": 153.9999984204769,
+              "meanAbsDiff255": 0.9331005779306907,
+              "detections": 66,
+              "referenceDetections": 50,
+              "matchedAtIou50": 38,
+              "agreementRate": 0.76
+            },
+            "integer-low": {
+              "maxAbsDiff255": 109.99999914318323,
+              "meanAbsDiff255": 0.27583657920639554,
+              "detections": 54,
+              "referenceDetections": 50,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.78
+            },
+            "integer-high": {
+              "maxAbsDiff255": 109.99999914318323,
+              "meanAbsDiff255": 0.27583657920639554,
+              "detections": 54,
+              "referenceDetections": 50,
+              "matchedAtIou50": 39,
+              "agreementRate": 0.78
+            }
+          },
+          "bestAgreementRate": 0.78
+        },
+        {
+          "sample": "dev-0003",
+          "variants": {
+            "float-low": {
+              "maxAbsDiff255": 132.0000035315752,
+              "meanAbsDiff255": 0.6928157355260282,
+              "detections": 59,
+              "referenceDetections": 53,
+              "matchedAtIou50": 36,
+              "agreementRate": 0.6792452830188679
+            },
+            "float-high": {
+              "maxAbsDiff255": 132.0000035315752,
+              "meanAbsDiff255": 0.6928157355260282,
+              "detections": 59,
+              "referenceDetections": 53,
+              "matchedAtIou50": 36,
+              "agreementRate": 0.6792452830188679
+            },
+            "integer-low": {
+              "maxAbsDiff255": 126.00000673905015,
+              "meanAbsDiff255": 0.6592862816632532,
+              "detections": 62,
+              "referenceDetections": 53,
+              "matchedAtIou50": 35,
+              "agreementRate": 0.660377358490566
+            },
+            "integer-high": {
+              "maxAbsDiff255": 126.00000673905015,
+              "meanAbsDiff255": 0.6592862816632532,
+              "detections": 62,
+              "referenceDetections": 53,
+              "matchedAtIou50": 35,
+              "agreementRate": 0.660377358490566
+            }
+          },
+          "bestAgreementRate": 0.6792452830188679
+        }
+      ],
+      "verdict": "ACCEPT"
+    },
+    {
+      "browser": "firefox",
+      "backend": "webgpu",
+      "display": "headless",
+      "platform": "windows",
+      "runs": 3,
+      "sessionCreated": "0/3",
+      "sessionLoads": false,
+      "correct": false,
+      "failure": "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+      "verdict": "REJECT"
+    }
+  ]
+}

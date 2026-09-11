@@ -1,0 +1,839 @@
+{
+  "analysis": "QG-03 / QG-05 — DEV-ONLY threshold methodology and failure analysis",
+  "split": "dev",
+  "testSplitOpened": false,
+  "warning": "SYNTHETIC DATA, DEV SPLIT. Nothing here is a performance claim. The held-out figures remain those already published in qg05-detector-evaluation.json, produced under the OLD rule, and they are not restated or revised here.",
+  "model": {
+    "id": "pratibimb-t1-ui-head",
+    "revision": "ba6d9e93695b",
+    "artifact": {
+      "path": "t1-ui-head.onnx",
+      "sha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+      "bytes": 302960
+    }
+  },
+  "dataset": {
+    "name": "t1-ui-rendered",
+    "version": "1.0.0",
+    "hash": "4bbc57de",
+    "devSamples": 40
+  },
+  "oldRule": {
+    "rule": "max mAP@0.5 on DEV",
+    "chose": 0.05,
+    "status": "METHODOLOGICAL DEFECT — superseded, not erased",
+    "defect": "mAP@0.5 is a ranking metric and is very nearly invariant to the emit threshold, because lowering the threshold appends predictions to the tail of the ranking where recall is already saturated. Maximising it therefore cannot express a preference between operating points, and the tie-break selected the end of the plateau with the most predictions.",
+    "evidence": {
+      "mAPRangeAcrossGrid": 0.6186041498735823,
+      "mAPRangeWithinPlateau": 0.0004497965114446112,
+      "plateauThresholds": [
+        0.05,
+        0.1,
+        0.15,
+        0.2
+      ],
+      "groundingRangeWithinPlateau": 0.1429537801438242,
+      "predictionsRangeWithinPlateau": [
+        3391,
+        11845
+      ],
+      "verdict": "mAP@0.5 varies by 0.0004 across the plateau while grounding varies by 0.1430. Maximising mAP cannot express a preference between these operating points."
+    }
+  },
+  "candidateRule": {
+    "rule": "max F1(element recall, grounding accuracy) on DEV; ties broken to the HIGHER threshold",
+    "grid": [
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.9
+    ],
+    "selects": 0.55,
+    "interiorMaximum": true,
+    "devFigures": {
+      "f1": 0.6696083838940983,
+      "recall": 0.8158602150537635,
+      "grounding": 0.567820392890552,
+      "mAP50": 0.6949004753547953,
+      "predictionsPerScreen": 26.725
+    },
+    "whyThisAndNotSomethingElse": "Both terms are figures the dossier ALREADY requires for the visual-context metric (element recall, and grounding accuracy, which is defined as the fraction of predictions that land on the right element). No new metric is invented and no arbitrary constant is introduced — a constrained rule such as 'maximise recall subject to grounding >= X' would have required choosing X, and there is no evidence for any particular X. Both terms vary strongly with the threshold, which is exactly the property the old rule lacked.",
+    "selectionIsNotSharp": {
+      "note": "F1 is flat near the optimum. On 40 dev screens the difference between thresholds in the flat band is not resolvable, so 0.55 should be read as 'somewhere in that band', not as a tuned value. Reporting it to two decimals would overstate the evidence.",
+      "withinOnePercentOfBest": [
+        0.55,
+        0.6,
+        0.65
+      ],
+      "devScreens": 40
+    },
+    "tieBreakRationale": "Fewer predictions is the safer failure for a detector feeding a fusion stage that pairs visual boxes against DOM nodes at IoU 0.5; surplus boxes become UNRESOLVED visual-only elements that a planner must then reason about.",
+    "appliedToTest": false,
+    "appliedToTestNote": "DELIBERATELY NOT APPLIED. The test split has already been observed once, so it is no longer fully held out. Applying a newly frozen rule to it would produce a figure whose provenance is 'the second look at a consumed split'. The rule is frozen here; the evaluation that uses it needs a split that has not been read."
+  },
+  "recallCeiling": {
+    "evaluatableAnnotations": 744,
+    "visibilityLabels": {
+      "VISIBLE": 693,
+      "CLIPPED": 51
+    },
+    "clippedAnnotations": 51,
+    "unreachableAtIou50": 42,
+    "unreachableShareOfEvaluatable": 0.056451612903225805,
+    "visibleAreaFraction": {
+      "min": 0.03333333333333333,
+      "p50": 0.3684210526315789,
+      "max": 0.7901234567901234
+    },
+    "recallCeiling": 0.9435483870967742,
+    "consequence": "Element recall on this dataset cannot exceed 94.4%. A reported recall must be read against that ceiling, not against 1.0. The fix is an evaluator decision — score CLIPPED elements against their VISIBLE extent, or exclude them the way OFFSCREEN elements are excluded — and it changes the metric definition, so it must not be made while a held-out figure is being interpreted."
+  },
+  "devSweep": [
+    {
+      "threshold": 0.05,
+      "mAP50": 0.7954100629724259,
+      "recall": 0.9166666666666666,
+      "grounding": 0.05757703672435627,
+      "f1": 0.1083485582651521,
+      "predictions": 11845,
+      "predictionsPerScreen": 296.125,
+      "tp": 682,
+      "fp": 11163,
+      "fn": 62
+    },
+    {
+      "threshold": 0.1,
+      "mAP50": 0.7952684293536036,
+      "recall": 0.9153225806451613,
+      "grounding": 0.10310370931112793,
+      "f1": 0.18533133759695194,
+      "predictions": 6605,
+      "predictionsPerScreen": 165.125,
+      "tp": 681,
+      "fp": 5924,
+      "fn": 63
+    },
+    {
+      "threshold": 0.15,
+      "mAP50": 0.7952684293536036,
+      "recall": 0.9153225806451613,
+      "grounding": 0.14891755958889133,
+      "f1": 0.25615948843332703,
+      "predictions": 4573,
+      "predictionsPerScreen": 114.325,
+      "tp": 681,
+      "fp": 3892,
+      "fn": 63
+    },
+    {
+      "threshold": 0.2,
+      "mAP50": 0.7949602664609813,
+      "recall": 0.9139784946236559,
+      "grounding": 0.20053081686818047,
+      "f1": 0.3288996372430472,
+      "predictions": 3391,
+      "predictionsPerScreen": 84.775,
+      "tp": 680,
+      "fp": 2711,
+      "fn": 64
+    },
+    {
+      "threshold": 0.25,
+      "mAP50": 0.7935264429315696,
+      "recall": 0.9126344086021505,
+      "grounding": 0.25326370757180156,
+      "f1": 0.3964963503649635,
+      "predictions": 2681,
+      "predictionsPerScreen": 67.025,
+      "tp": 679,
+      "fp": 2002,
+      "fn": 65
+    },
+    {
+      "threshold": 0.3,
+      "mAP50": 0.7907966206704973,
+      "recall": 0.9099462365591398,
+      "grounding": 0.31547064305684996,
+      "f1": 0.46851211072664367,
+      "predictions": 2146,
+      "predictionsPerScreen": 53.65,
+      "tp": 677,
+      "fp": 1469,
+      "fn": 67
+    },
+    {
+      "threshold": 0.35,
+      "mAP50": 0.7855124245698071,
+      "recall": 0.9059139784946236,
+      "grounding": 0.3736141906873614,
+      "f1": 0.5290423861852432,
+      "predictions": 1804,
+      "predictionsPerScreen": 45.1,
+      "tp": 674,
+      "fp": 1130,
+      "fn": 70
+    },
+    {
+      "threshold": 0.4,
+      "mAP50": 0.7742050300630609,
+      "recall": 0.8951612903225806,
+      "grounding": 0.4228571428571429,
+      "f1": 0.574385510996119,
+      "predictions": 1575,
+      "predictionsPerScreen": 39.375,
+      "tp": 666,
+      "fp": 909,
+      "fn": 78
+    },
+    {
+      "threshold": 0.45,
+      "mAP50": 0.7616567743256074,
+      "recall": 0.8817204301075269,
+      "grounding": 0.4819985304922851,
+      "f1": 0.6232779097387173,
+      "predictions": 1361,
+      "predictionsPerScreen": 34.025,
+      "tp": 656,
+      "fp": 705,
+      "fn": 88
+    },
+    {
+      "threshold": 0.5,
+      "mAP50": 0.7241077347512977,
+      "recall": 0.853494623655914,
+      "grounding": 0.5239273927392739,
+      "f1": 0.6492842535787321,
+      "predictions": 1212,
+      "predictionsPerScreen": 30.3,
+      "tp": 635,
+      "fp": 577,
+      "fn": 109
+    },
+    {
+      "threshold": 0.55,
+      "mAP50": 0.6949004753547953,
+      "recall": 0.8158602150537635,
+      "grounding": 0.567820392890552,
+      "f1": 0.6696083838940983,
+      "predictions": 1069,
+      "predictionsPerScreen": 26.725,
+      "tp": 607,
+      "fp": 462,
+      "fn": 137
+    },
+    {
+      "threshold": 0.6,
+      "mAP50": 0.6237352937247422,
+      "recall": 0.7647849462365591,
+      "grounding": 0.5890269151138716,
+      "f1": 0.6654970760233917,
+      "predictions": 966,
+      "predictionsPerScreen": 24.15,
+      "tp": 569,
+      "fp": 397,
+      "fn": 175
+    },
+    {
+      "threshold": 0.65,
+      "mAP50": 0.5804755439439848,
+      "recall": 0.7190860215053764,
+      "grounding": 0.6170703575547867,
+      "f1": 0.6641837368094351,
+      "predictions": 867,
+      "predictionsPerScreen": 21.675,
+      "tp": 535,
+      "fp": 332,
+      "fn": 209
+    },
+    {
+      "threshold": 0.7,
+      "mAP50": 0.5324415738284738,
+      "recall": 0.6639784946236559,
+      "grounding": 0.6517150395778364,
+      "f1": 0.6577896138482023,
+      "predictions": 758,
+      "predictionsPerScreen": 18.95,
+      "tp": 494,
+      "fp": 264,
+      "fn": 250
+    },
+    {
+      "threshold": 0.75,
+      "mAP50": 0.48144437387435374,
+      "recall": 0.6021505376344086,
+      "grounding": 0.691358024691358,
+      "f1": 0.6436781609195402,
+      "predictions": 648,
+      "predictionsPerScreen": 16.2,
+      "tp": 448,
+      "fp": 200,
+      "fn": 296
+    },
+    {
+      "threshold": 0.8,
+      "mAP50": 0.41168865519883024,
+      "recall": 0.5161290322580645,
+      "grounding": 0.732824427480916,
+      "f1": 0.6056782334384858,
+      "predictions": 524,
+      "predictionsPerScreen": 13.1,
+      "tp": 384,
+      "fp": 140,
+      "fn": 360
+    },
+    {
+      "threshold": 0.85,
+      "mAP50": 0.2918852290046976,
+      "recall": 0.396505376344086,
+      "grounding": 0.7682291666666666,
+      "f1": 0.5230496453900709,
+      "predictions": 384,
+      "predictionsPerScreen": 9.6,
+      "tp": 295,
+      "fp": 89,
+      "fn": 449
+    },
+    {
+      "threshold": 0.9,
+      "mAP50": 0.17680591309884364,
+      "recall": 0.239247311827957,
+      "grounding": 0.7911111111111111,
+      "f1": 0.3673890608875129,
+      "predictions": 225,
+      "predictionsPerScreen": 5.625,
+      "tp": 178,
+      "fp": 47,
+      "fn": 566
+    }
+  ],
+  "failureAnalysis": {
+    "incumbent": {
+      "threshold": 0.05,
+      "predictions": 11845,
+      "predictionsPerScreen": 296.125,
+      "groundTruth": 744,
+      "matched": 682,
+      "recall": 0.9166666666666666,
+      "falsePositiveTaxonomy": {
+        "duplicate": 259,
+        "classConfusion": 2543,
+        "localization": 594,
+        "spurious": 7767
+      },
+      "falsePositiveShare": {
+        "duplicate": 0.02320164830242766,
+        "classConfusion": 0.22780614530144228,
+        "localization": 0.05321150228433217,
+        "spurious": 0.6957807041117979
+      },
+      "falseNegativeTaxonomy": {
+        "noOverlapAtAll": 4,
+        "overlappedWrongClass": 9,
+        "overlappedPoorLocalization": 49
+      },
+      "classConfusionPairs": {
+        "textbox->button": 197,
+        "textbox->select": 195,
+        "button->tab": 184,
+        "button->select": 148,
+        "button->textbox": 141,
+        "button->link": 140,
+        "textbox->tab": 131,
+        "tab->button": 122,
+        "tab->select": 119,
+        "tab->textbox": 112
+      },
+      "perClass": {
+        "button": {
+          "gt": 194,
+          "pred": 3643,
+          "tp": 157,
+          "fp": 3486,
+          "recall": 0.8092783505154639,
+          "precision": 0.04309634916277793
+        },
+        "checkbox": {
+          "gt": 40,
+          "pred": 336,
+          "tp": 39,
+          "fp": 297,
+          "recall": 0.975,
+          "precision": 0.11607142857142858
+        },
+        "icon": {
+          "gt": 40,
+          "pred": 104,
+          "tp": 40,
+          "fp": 64,
+          "recall": 1,
+          "precision": 0.38461538461538464
+        },
+        "link": {
+          "gt": 148,
+          "pred": 1355,
+          "tp": 136,
+          "fp": 1219,
+          "recall": 0.918918918918919,
+          "precision": 0.1003690036900369
+        },
+        "radio": {
+          "gt": 40,
+          "pred": 416,
+          "tp": 34,
+          "fp": 382,
+          "recall": 0.85,
+          "precision": 0.08173076923076923
+        },
+        "select": {
+          "gt": 40,
+          "pred": 1978,
+          "tp": 40,
+          "fp": 1938,
+          "recall": 1,
+          "precision": 0.020222446916076844
+        },
+        "tab": {
+          "gt": 117,
+          "pred": 1900,
+          "tp": 111,
+          "fp": 1789,
+          "recall": 0.9487179487179487,
+          "precision": 0.05842105263157895
+        },
+        "textbox": {
+          "gt": 125,
+          "pred": 2113,
+          "tp": 125,
+          "fp": 1988,
+          "recall": 1,
+          "precision": 0.059157595835305256
+        }
+      },
+      "recallBySize": {
+        "large >100": {
+          "hit": 443,
+          "total": 485,
+          "recall": 0.9134020618556701
+        },
+        "med 40-100": {
+          "hit": 126,
+          "total": 139,
+          "recall": 0.9064748201438849
+        },
+        "tiny <20": {
+          "hit": 69,
+          "total": 76,
+          "recall": 0.9078947368421053
+        },
+        "small 20-40": {
+          "hit": 44,
+          "total": 44,
+          "recall": 1
+        }
+      },
+      "recallByPosition": {
+        "top": {
+          "hit": 241,
+          "total": 246,
+          "recall": 0.9796747967479674
+        },
+        "middle": {
+          "hit": 227,
+          "total": 230,
+          "recall": 0.9869565217391304
+        },
+        "bottom": {
+          "hit": 214,
+          "total": 268,
+          "recall": 0.7985074626865671
+        }
+      },
+      "recallByDensity": {
+        "sparse <15": {
+          "hit": 222,
+          "total": 238,
+          "recall": 0.9327731092436975
+        },
+        "medium 15-24": {
+          "hit": 335,
+          "total": 372,
+          "recall": 0.9005376344086021
+        },
+        "dense >=25": {
+          "hit": 125,
+          "total": 134,
+          "recall": 0.9328358208955224
+        }
+      },
+      "recallByClipping": {
+        "clipped": {
+          "hit": 3,
+          "total": 51,
+          "recall": 0.058823529411764705
+        },
+        "whole": {
+          "hit": 679,
+          "total": 693,
+          "recall": 0.9797979797979798
+        }
+      }
+    },
+    "candidate": {
+      "threshold": 0.55,
+      "predictions": 1069,
+      "predictionsPerScreen": 26.725,
+      "groundTruth": 744,
+      "matched": 607,
+      "recall": 0.8158602150537635,
+      "falsePositiveTaxonomy": {
+        "duplicate": 137,
+        "classConfusion": 56,
+        "localization": 163,
+        "spurious": 106
+      },
+      "falsePositiveShare": {
+        "duplicate": 0.29653679653679654,
+        "classConfusion": 0.12121212121212122,
+        "localization": 0.3528138528138528,
+        "spurious": 0.22943722943722944
+      },
+      "falseNegativeTaxonomy": {
+        "noOverlapAtAll": 65,
+        "overlappedWrongClass": 16,
+        "overlappedPoorLocalization": 56
+      },
+      "classConfusionPairs": {
+        "button->tab": 16,
+        "select->textbox": 12,
+        "tab->button": 10,
+        "button->textbox": 6,
+        "tab->textbox": 4,
+        "button->select": 3,
+        "checkbox->radio": 2,
+        "textbox->button": 1,
+        "select->button": 1,
+        "link->button": 1
+      },
+      "perClass": {
+        "button": {
+          "gt": 194,
+          "pred": 236,
+          "tp": 131,
+          "fp": 105,
+          "recall": 0.6752577319587629,
+          "precision": 0.5550847457627118
+        },
+        "checkbox": {
+          "gt": 40,
+          "pred": 19,
+          "tp": 19,
+          "fp": 0,
+          "recall": 0.475,
+          "precision": 1
+        },
+        "icon": {
+          "gt": 40,
+          "pred": 40,
+          "tp": 40,
+          "fp": 0,
+          "recall": 1,
+          "precision": 1
+        },
+        "link": {
+          "gt": 148,
+          "pred": 254,
+          "tp": 131,
+          "fp": 123,
+          "recall": 0.8851351351351351,
+          "precision": 0.515748031496063
+        },
+        "radio": {
+          "gt": 40,
+          "pred": 26,
+          "tp": 18,
+          "fp": 8,
+          "recall": 0.45,
+          "precision": 0.6923076923076923
+        },
+        "select": {
+          "gt": 40,
+          "pred": 66,
+          "tp": 36,
+          "fp": 30,
+          "recall": 0.9,
+          "precision": 0.5454545454545454
+        },
+        "tab": {
+          "gt": 117,
+          "pred": 125,
+          "tp": 107,
+          "fp": 18,
+          "recall": 0.9145299145299145,
+          "precision": 0.856
+        },
+        "textbox": {
+          "gt": 125,
+          "pred": 303,
+          "tp": 125,
+          "fp": 178,
+          "recall": 1,
+          "precision": 0.41254125412541254
+        }
+      },
+      "recallBySize": {
+        "large >100": {
+          "hit": 407,
+          "total": 485,
+          "recall": 0.8391752577319588
+        },
+        "med 40-100": {
+          "hit": 123,
+          "total": 139,
+          "recall": 0.8848920863309353
+        },
+        "tiny <20": {
+          "hit": 36,
+          "total": 76,
+          "recall": 0.47368421052631576
+        },
+        "small 20-40": {
+          "hit": 41,
+          "total": 44,
+          "recall": 0.9318181818181818
+        }
+      },
+      "recallByPosition": {
+        "top": {
+          "hit": 240,
+          "total": 246,
+          "recall": 0.975609756097561
+        },
+        "middle": {
+          "hit": 191,
+          "total": 230,
+          "recall": 0.8304347826086956
+        },
+        "bottom": {
+          "hit": 176,
+          "total": 268,
+          "recall": 0.6567164179104478
+        }
+      },
+      "recallByDensity": {
+        "sparse <15": {
+          "hit": 195,
+          "total": 238,
+          "recall": 0.819327731092437
+        },
+        "medium 15-24": {
+          "hit": 307,
+          "total": 372,
+          "recall": 0.8252688172043011
+        },
+        "dense >=25": {
+          "hit": 105,
+          "total": 134,
+          "recall": 0.7835820895522388
+        }
+      },
+      "recallByClipping": {
+        "clipped": {
+          "hit": 2,
+          "total": 51,
+          "recall": 0.0392156862745098
+        },
+        "whole": {
+          "hit": 605,
+          "total": 693,
+          "recall": 0.873015873015873
+        }
+      }
+    },
+    "shippedDefault": {
+      "threshold": 0.25,
+      "predictions": 2681,
+      "predictionsPerScreen": 67.025,
+      "groundTruth": 744,
+      "matched": 679,
+      "recall": 0.9126344086021505,
+      "falsePositiveTaxonomy": {
+        "duplicate": 196,
+        "classConfusion": 652,
+        "localization": 275,
+        "spurious": 879
+      },
+      "falsePositiveShare": {
+        "duplicate": 0.0979020979020979,
+        "classConfusion": 0.3256743256743257,
+        "localization": 0.13736263736263737,
+        "spurious": 0.43906093906093907
+      },
+      "falseNegativeTaxonomy": {
+        "noOverlapAtAll": 9,
+        "overlappedWrongClass": 4,
+        "overlappedPoorLocalization": 52
+      },
+      "classConfusionPairs": {
+        "tab->button": 105,
+        "button->tab": 96,
+        "button->select": 60,
+        "textbox->select": 57,
+        "select->button": 53,
+        "textbox->button": 45,
+        "button->textbox": 38,
+        "tab->select": 37,
+        "radio->checkbox": 31,
+        "checkbox->radio": 29
+      },
+      "perClass": {
+        "button": {
+          "gt": 194,
+          "pred": 796,
+          "tp": 157,
+          "fp": 639,
+          "recall": 0.8092783505154639,
+          "precision": 0.1972361809045226
+        },
+        "checkbox": {
+          "gt": 40,
+          "pred": 84,
+          "tp": 38,
+          "fp": 46,
+          "recall": 0.95,
+          "precision": 0.4523809523809524
+        },
+        "icon": {
+          "gt": 40,
+          "pred": 42,
+          "tp": 40,
+          "fp": 2,
+          "recall": 1,
+          "precision": 0.9523809523809523
+        },
+        "link": {
+          "gt": 148,
+          "pred": 333,
+          "tp": 134,
+          "fp": 199,
+          "recall": 0.9054054054054054,
+          "precision": 0.4024024024024024
+        },
+        "radio": {
+          "gt": 40,
+          "pred": 92,
+          "tp": 34,
+          "fp": 58,
+          "recall": 0.85,
+          "precision": 0.3695652173913043
+        },
+        "select": {
+          "gt": 40,
+          "pred": 393,
+          "tp": 40,
+          "fp": 353,
+          "recall": 1,
+          "precision": 0.10178117048346055
+        },
+        "tab": {
+          "gt": 117,
+          "pred": 315,
+          "tp": 111,
+          "fp": 204,
+          "recall": 0.9487179487179487,
+          "precision": 0.3523809523809524
+        },
+        "textbox": {
+          "gt": 125,
+          "pred": 626,
+          "tp": 125,
+          "fp": 501,
+          "recall": 1,
+          "precision": 0.19968051118210864
+        }
+      },
+      "recallBySize": {
+        "large >100": {
+          "hit": 442,
+          "total": 485,
+          "recall": 0.911340206185567
+        },
+        "med 40-100": {
+          "hit": 125,
+          "total": 139,
+          "recall": 0.8992805755395683
+        },
+        "tiny <20": {
+          "hit": 68,
+          "total": 76,
+          "recall": 0.8947368421052632
+        },
+        "small 20-40": {
+          "hit": 44,
+          "total": 44,
+          "recall": 1
+        }
+      },
+      "recallByPosition": {
+        "top": {
+          "hit": 241,
+          "total": 246,
+          "recall": 0.9796747967479674
+        },
+        "middle": {
+          "hit": 226,
+          "total": 230,
+          "recall": 0.9826086956521739
+        },
+        "bottom": {
+          "hit": 212,
+          "total": 268,
+          "recall": 0.7910447761194029
+        }
+      },
+      "recallByDensity": {
+        "sparse <15": {
+          "hit": 220,
+          "total": 238,
+          "recall": 0.9243697478991597
+        },
+        "medium 15-24": {
+          "hit": 335,
+          "total": 372,
+          "recall": 0.9005376344086021
+        },
+        "dense >=25": {
+          "hit": 124,
+          "total": 134,
+          "recall": 0.9253731343283582
+        }
+      },
+      "recallByClipping": {
+        "clipped": {
+          "hit": 3,
+          "total": 51,
+          "recall": 0.058823529411764705
+        },
+        "whole": {
+          "hit": 676,
+          "total": 693,
+          "recall": 0.9754689754689755
+        }
+      }
+    }
+  },
+  "generatedAt": "2026-09-10T19:59:00.153Z"
+}

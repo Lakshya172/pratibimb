@@ -1,0 +1,2025 @@
+{
+  "experiment": "W1-QG03-t1-detector-runtime",
+  "browser": "firefox",
+  "backend": "webgpu",
+  "platform": "windows",
+  "firefoxPath": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+  "prefsForced": [
+    "extensions.originControls.grantByDefault=true (reporting only)"
+  ],
+  "webgpuPreferenceTouched": false,
+  "startedAt": "2026-09-10T20:13:55.906Z",
+  "runs": [
+    {
+      "headless": false,
+      "run": 1,
+      "backend": "webgpu",
+      "livenessSeen": true,
+      "timedOut": false,
+      "incompleteChunkSets": [],
+      "result": {
+        "context": "firefox-mv3-event-page",
+        "probe": "qg03-t1-detector",
+        "requestedBackend": "webgpu",
+        "startedAt": "2026-09-10T20:13:58.599Z",
+        "globalKind": "window",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+        "ortVersion": "1.29.0",
+        "model": {
+          "sha256Declared": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+          "bytesDeclared": 302960,
+          "sha256Observed": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+          "bytesObserved": 302960
+        },
+        "pin": {
+          "installed": true,
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "bytes": 27797172
+        },
+        "sessionCreated": true,
+        "schema": {
+          "inputNames": [
+            "images"
+          ],
+          "outputNames": [
+            "output"
+          ],
+          "inputName": "images",
+          "outputName": "output"
+        },
+        "memory": {
+          "snapshots": [
+            {
+              "label": "baseline-before-anything",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 0,
+                "computePipelines": 0
+              },
+              "networkArrivals": 0,
+              "at": 878
+            },
+            {
+              "label": "after-session-create",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 0,
+                "computePipelines": 0
+              },
+              "networkArrivals": 1,
+              "at": 2367
+            },
+            {
+              "label": "after-first-inference",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 3,
+                "computePipelines": 15
+              },
+              "networkArrivals": 1,
+              "at": 7211
+            },
+            {
+              "label": "steady-state-after-warm",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 132,
+                "computePipelines": 15
+              },
+              "networkArrivals": 1,
+              "at": 11532
+            },
+            {
+              "label": "after-release",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 132,
+                "computePipelines": 15
+              },
+              "networkArrivals": 1,
+              "at": 11533
+            }
+          ]
+        },
+        "latency": {
+          "sessionCreateMs": 1359,
+          "firstInferenceMs": 4837,
+          "warm": {
+            "runs": 30,
+            "p50": 100,
+            "p95": 102,
+            "p95Suppressed": null,
+            "min": 99,
+            "max": 102,
+            "mean": 100.5
+          },
+          "input": "the synthetic deterministic tensor — identical work every run, so the spread is the runtime's, not the input's",
+          "releaseMs": 1
+        },
+        "cases": [
+          {
+            "name": "synth",
+            "kind": "SYNTHETIC — deterministic formula, no image decode, no resize",
+            "inputSha256": "fdb3f260442a827b43142979711f4f147b7bc738bac244b7cb5f0a076d8c9740",
+            "inputMatchesReference": true,
+            "inferenceMs": 4837,
+            "gpuSubmitsDuringRun": 3,
+            "outputDims": [
+              1,
+              12,
+              6400
+            ],
+            "outputType": "float32",
+            "shapeMatches": true,
+            "declaredOutputShape": [
+              1,
+              12,
+              6400
+            ],
+            "diff": {
+              "boxChannelsMaxAbs": 0.00006103515625,
+              "classChannelsMaxAbs": 4.172325134277344e-7,
+              "nonFinite": 0,
+              "worstBoxIndex": 309,
+              "worstClassIndex": 73360
+            },
+            "correct": true,
+            "criterion": {
+              "boxChannelsMaxAbs": 0.25,
+              "classChannelsMaxAbs": 0.0001
+            },
+            "detectorContract": {
+              "ok": true,
+              "code": null
+            },
+            "detectionsValid": true,
+            "detectionsInvalidReason": null,
+            "detectionCount": 18,
+            "provenance": {
+              "allCarryFrameId": true,
+              "allCarryModelId": true,
+              "allCarryRevision": true,
+              "roles": [
+                "UIElementDetector"
+              ]
+            },
+            "boundsValid": true,
+            "referenceDetectionCount": 18,
+            "countMatches": true,
+            "boxAgreement": {
+              "worstCssCoordinateDeltaPx": 0.000021633819613953165,
+              "worstScoreDelta": 4.174787597843732e-7,
+              "labelMismatches": 0
+            },
+            "postprocessingAgrees": true,
+            "sampleBoxes": [
+              {
+                "label": "icon",
+                "score": 0.462416,
+                "css": [
+                  0,
+                  480.56,
+                  35.38,
+                  25.08
+                ]
+              },
+              {
+                "label": "icon",
+                "score": 0.460056,
+                "css": [
+                  0,
+                  0,
+                  28.88,
+                  3.44
+                ]
+              },
+              {
+                "label": "icon",
+                "score": 0.460056,
+                "css": [
+                  0,
+                  591.55,
+                  28.88,
+                  23.89
+                ]
+              }
+            ]
+          },
+          {
+            "name": "dev-0000",
+            "kind": "REAL rendered frame, letterboxed by tools/detector/data.py",
+            "inputSha256": "e2ffa448972cce29ca871257e168a77b399bf0c39891254f287f71f548bc2a8b",
+            "inputMatchesReference": true,
+            "inferenceMs": 70,
+            "gpuSubmitsDuringRun": 3,
+            "outputDims": [
+              1,
+              12,
+              6400
+            ],
+            "outputType": "float32",
+            "shapeMatches": true,
+            "declaredOutputShape": [
+              1,
+              12,
+              6400
+            ],
+            "diff": {
+              "boxChannelsMaxAbs": 0.001617431640625,
+              "classChannelsMaxAbs": 0.000004291534423828125,
+              "nonFinite": 0,
+              "worstBoxIndex": 16722,
+              "worstClassIndex": 60907
+            },
+            "correct": true,
+            "criterion": {
+              "boxChannelsMaxAbs": 0.25,
+              "classChannelsMaxAbs": 0.0001
+            },
+            "detectorContract": {
+              "ok": true,
+              "code": null
+            },
+            "detectionsValid": true,
+            "detectionsInvalidReason": null,
+            "detectionCount": 50,
+            "provenance": {
+              "allCarryFrameId": true,
+              "allCarryModelId": true,
+              "allCarryRevision": true,
+              "roles": [
+                "UIElementDetector"
+              ]
+            },
+            "boundsValid": true,
+            "referenceDetectionCount": 50,
+            "countMatches": true,
+            "boxAgreement": {
+              "worstCssCoordinateDeltaPx": 0.0010527524414101208,
+              "worstScoreDelta": 0.0000022947602386635957,
+              "labelMismatches": 0
+            },
+            "postprocessingAgrees": true,
+            "sampleBoxes": [
+              {
+                "label": "link",
+                "score": 0.936926,
+                "css": [
+                  40.42,
+                  104.42,
+                  88.2,
+                  16.36
+                ]
+              },
+              {
+                "label": "textbox",
+                "score": 0.92303,
+                "css": [
+                  21.81,
+                  215.75,
+                  261.83,
+                  32.01
+                ]
+              },
+              {
+                "label": "button",
+                "score": 0.899071,
+                "css": [
+                  47.5,
+                  127.79,
+                  111.09,
+                  29.25
+                ]
+              }
+            ]
+          },
+          {
+            "name": "dev-0003",
+            "kind": "REAL rendered frame, letterboxed by tools/detector/data.py",
+            "inputSha256": "97b5b791fdd183d2a465b8c5c8ef28c2a7a2b65b875e320deaa31fd01fce9e13",
+            "inputMatchesReference": true,
+            "inferenceMs": 76,
+            "gpuSubmitsDuringRun": 3,
+            "outputDims": [
+              1,
+              12,
+              6400
+            ],
+            "outputType": "float32",
+            "shapeMatches": true,
+            "declaredOutputShape": [
+              1,
+              12,
+              6400
+            ],
+            "diff": {
+              "boxChannelsMaxAbs": 0.0012054443359375,
+              "classChannelsMaxAbs": 0.000005602836608886719,
+              "nonFinite": 0,
+              "worstBoxIndex": 15698,
+              "worstClassIndex": 62263
+            },
+            "correct": true,
+            "criterion": {
+              "boxChannelsMaxAbs": 0.25,
+              "classChannelsMaxAbs": 0.0001
+            },
+            "detectorContract": {
+              "ok": true,
+              "code": null
+            },
+            "detectionsValid": true,
+            "detectionsInvalidReason": null,
+            "detectionCount": 53,
+            "provenance": {
+              "allCarryFrameId": true,
+              "allCarryModelId": true,
+              "allCarryRevision": true,
+              "roles": [
+                "UIElementDetector"
+              ]
+            },
+            "boundsValid": true,
+            "referenceDetectionCount": 53,
+            "countMatches": true,
+            "boxAgreement": {
+              "worstCssCoordinateDeltaPx": 0.0008240869140081486,
+              "worstScoreDelta": 0.0000046197729339780835,
+              "labelMismatches": 0
+            },
+            "postprocessingAgrees": true,
+            "sampleBoxes": [
+              {
+                "label": "link",
+                "score": 0.975907,
+                "css": [
+                  558.4,
+                  111.91,
+                  146.94,
+                  18.89
+                ]
+              },
+              {
+                "label": "link",
+                "score": 0.970627,
+                "css": [
+                  522.12,
+                  110.14,
+                  107.9,
+                  20.72
+                ]
+              },
+              {
+                "label": "link",
+                "score": 0.970544,
+                "css": [
+                  296.45,
+                  110.69,
+                  137.76,
+                  21.03
+                ]
+              }
+            ]
+          }
+        ],
+        "determinism": {
+          "runs": 3,
+          "bitwiseIdentical": true,
+          "firstDifferingByte": -1,
+          "note": "bitwise, not within-tolerance. A detector whose output moves between identical calls cannot be regression-tested."
+        },
+        "gpu": {
+          "navigatorGpuPresent": true,
+          "submitsTotal": 132,
+          "submitsDuringWarmRuns": 90,
+          "computePipelinesCreated": 15,
+          "adaptersReturned": 1,
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": "",
+            "isFallbackAdapter": null,
+            "identified": false
+          },
+          "hookError": null
+        },
+        "network": {
+          "selfOrigin": "moz-extension://0aac2167-dd8c-4aad-a975-2ef9febdfa26",
+          "total": 1,
+          "foreign": 0,
+          "foreignUrls": [],
+          "byKind": {
+            "fetch": 1
+          },
+          "urls": [
+            "<ext>/ort-wasm-simd-threaded.jsep.wasm"
+          ],
+          "modelFetched": false,
+          "hookErrors": []
+        },
+        "backendEvidence": {
+          "requested": "webgpu",
+          "gpuSubmitsDuringInference": 90,
+          "executedOnGpu": true,
+          "verdict": "CONFIRMED — GPU command submissions observed during inference",
+          "method": "GPUQueue.prototype.submit counted, wrapped before ORT loaded. Configuration is not execution."
+        },
+        "error": null,
+        "conclusion": "correct on webgpu; postprocessing agrees; determinism bitwise",
+        "preprocessingParity": [
+          {
+            "name": "dev-0000",
+            "sampleId": "dev-0000",
+            "decoded": {
+              "w": 960,
+              "h": 640
+            },
+            "transform": {
+              "scale": 0.6666666666666666,
+              "padX": 0,
+              "padY": 106.66666666666669
+            },
+            "variants": {
+              "float-low": {
+                "mode": "float",
+                "quality": "low",
+                "maxAbsDiff255": 153.9999984204769,
+                "meanAbsDiff255": 0.9331005779306907,
+                "differingFraction": 0.026936848958333332,
+                "detections": 66,
+                "referenceDetections": 50,
+                "matchedAtIou50": 38,
+                "agreementRate": 0.76
+              },
+              "float-high": {
+                "mode": "float",
+                "quality": "high",
+                "maxAbsDiff255": 153.9999984204769,
+                "meanAbsDiff255": 0.9331005779306907,
+                "differingFraction": 0.026936848958333332,
+                "detections": 66,
+                "referenceDetections": 50,
+                "matchedAtIou50": 38,
+                "agreementRate": 0.76
+              },
+              "integer-low": {
+                "mode": "integer",
+                "quality": "low",
+                "maxAbsDiff255": 109.99999914318323,
+                "meanAbsDiff255": 0.27583657920639554,
+                "differingFraction": 0.021664225260416666,
+                "detections": 54,
+                "referenceDetections": 50,
+                "matchedAtIou50": 39,
+                "agreementRate": 0.78
+              },
+              "integer-high": {
+                "mode": "integer",
+                "quality": "high",
+                "maxAbsDiff255": 109.99999914318323,
+                "meanAbsDiff255": 0.27583657920639554,
+                "differingFraction": 0.021664225260416666,
+                "detections": 54,
+                "referenceDetections": 50,
+                "matchedAtIou50": 39,
+                "agreementRate": 0.78
+              }
+            }
+          },
+          {
+            "name": "dev-0003",
+            "sampleId": "dev-0003",
+            "decoded": {
+              "w": 1152,
+              "h": 640
+            },
+            "transform": {
+              "scale": 0.5555555555555556,
+              "padX": 0,
+              "padY": 142.22222222222223
+            },
+            "variants": {
+              "float-low": {
+                "mode": "float",
+                "quality": "low",
+                "maxAbsDiff255": 132.0000035315752,
+                "meanAbsDiff255": 0.6928157355260282,
+                "differingFraction": 0.04192626953125,
+                "detections": 59,
+                "referenceDetections": 53,
+                "matchedAtIou50": 36,
+                "agreementRate": 0.6792452830188679
+              },
+              "float-high": {
+                "mode": "float",
+                "quality": "high",
+                "maxAbsDiff255": 132.0000035315752,
+                "meanAbsDiff255": 0.6928157355260282,
+                "differingFraction": 0.04192626953125,
+                "detections": 59,
+                "referenceDetections": 53,
+                "matchedAtIou50": 36,
+                "agreementRate": 0.6792452830188679
+              },
+              "integer-low": {
+                "mode": "integer",
+                "quality": "low",
+                "maxAbsDiff255": 126.00000673905015,
+                "meanAbsDiff255": 0.6592862816632532,
+                "differingFraction": 0.039034830729166664,
+                "detections": 62,
+                "referenceDetections": 53,
+                "matchedAtIou50": 35,
+                "agreementRate": 0.660377358490566
+              },
+              "integer-high": {
+                "mode": "integer",
+                "quality": "high",
+                "maxAbsDiff255": 126.00000673905015,
+                "meanAbsDiff255": 0.6592862816632532,
+                "differingFraction": 0.039034830729166664,
+                "detections": 62,
+                "referenceDetections": 53,
+                "matchedAtIou50": 35,
+                "agreementRate": 0.660377358490566
+              }
+            }
+          }
+        ],
+        "released": true,
+        "finishedAt": "2026-09-10T20:14:09.254Z"
+      },
+      "firefoxProcessesReaped": {
+        "preExisting": 0,
+        "spawned": 15,
+        "killed": 14,
+        "remaining": 1
+      },
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-QG03-t1-detector-runtime\\harness\\ext-firefox as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "headless": false,
+      "run": 2,
+      "backend": "webgpu",
+      "livenessSeen": true,
+      "timedOut": false,
+      "incompleteChunkSets": [],
+      "result": {
+        "context": "firefox-mv3-event-page",
+        "probe": "qg03-t1-detector",
+        "requestedBackend": "webgpu",
+        "startedAt": "2026-09-10T20:14:17.031Z",
+        "globalKind": "window",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+        "ortVersion": "1.29.0",
+        "model": {
+          "sha256Declared": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+          "bytesDeclared": 302960,
+          "sha256Observed": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+          "bytesObserved": 302960
+        },
+        "pin": {
+          "installed": true,
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "bytes": 27797172
+        },
+        "sessionCreated": true,
+        "schema": {
+          "inputNames": [
+            "images"
+          ],
+          "outputNames": [
+            "output"
+          ],
+          "inputName": "images",
+          "outputName": "output"
+        },
+        "memory": {
+          "snapshots": [
+            {
+              "label": "baseline-before-anything",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 0,
+                "computePipelines": 0
+              },
+              "networkArrivals": 0,
+              "at": 796
+            },
+            {
+              "label": "after-session-create",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 0,
+                "computePipelines": 0
+              },
+              "networkArrivals": 1,
+              "at": 1999
+            },
+            {
+              "label": "after-first-inference",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 3,
+                "computePipelines": 15
+              },
+              "networkArrivals": 1,
+              "at": 5142
+            },
+            {
+              "label": "steady-state-after-warm",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 132,
+                "computePipelines": 15
+              },
+              "networkArrivals": 1,
+              "at": 9460
+            },
+            {
+              "label": "after-release",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 132,
+                "computePipelines": 15
+              },
+              "networkArrivals": 1,
+              "at": 9461
+            }
+          ]
+        },
+        "latency": {
+          "sessionCreateMs": 1052,
+          "firstInferenceMs": 3134,
+          "warm": {
+            "runs": 30,
+            "p50": 100,
+            "p95": 101,
+            "p95Suppressed": null,
+            "min": 99,
+            "max": 102,
+            "mean": 100.4
+          },
+          "input": "the synthetic deterministic tensor — identical work every run, so the spread is the runtime's, not the input's",
+          "releaseMs": 1
+        },
+        "cases": [
+          {
+            "name": "synth",
+            "kind": "SYNTHETIC — deterministic formula, no image decode, no resize",
+            "inputSha256": "fdb3f260442a827b43142979711f4f147b7bc738bac244b7cb5f0a076d8c9740",
+            "inputMatchesReference": true,
+            "inferenceMs": 3134,
+            "gpuSubmitsDuringRun": 3,
+            "outputDims": [
+              1,
+              12,
+              6400
+            ],
+            "outputType": "float32",
+            "shapeMatches": true,
+            "declaredOutputShape": [
+              1,
+              12,
+              6400
+            ],
+            "diff": {
+              "boxChannelsMaxAbs": 0.00006103515625,
+              "classChannelsMaxAbs": 4.172325134277344e-7,
+              "nonFinite": 0,
+              "worstBoxIndex": 309,
+              "worstClassIndex": 73360
+            },
+            "correct": true,
+            "criterion": {
+              "boxChannelsMaxAbs": 0.25,
+              "classChannelsMaxAbs": 0.0001
+            },
+            "detectorContract": {
+              "ok": true,
+              "code": null
+            },
+            "detectionsValid": true,
+            "detectionsInvalidReason": null,
+            "detectionCount": 18,
+            "provenance": {
+              "allCarryFrameId": true,
+              "allCarryModelId": true,
+              "allCarryRevision": true,
+              "roles": [
+                "UIElementDetector"
+              ]
+            },
+            "boundsValid": true,
+            "referenceDetectionCount": 18,
+            "countMatches": true,
+            "boxAgreement": {
+              "worstCssCoordinateDeltaPx": 0.000021633819613953165,
+              "worstScoreDelta": 4.174787597843732e-7,
+              "labelMismatches": 0
+            },
+            "postprocessingAgrees": true,
+            "sampleBoxes": [
+              {
+                "label": "icon",
+                "score": 0.462416,
+                "css": [
+                  0,
+                  480.56,
+                  35.38,
+                  25.08
+                ]
+              },
+              {
+                "label": "icon",
+                "score": 0.460056,
+                "css": [
+                  0,
+                  0,
+                  28.88,
+                  3.44
+                ]
+              },
+              {
+                "label": "icon",
+                "score": 0.460056,
+                "css": [
+                  0,
+                  591.55,
+                  28.88,
+                  23.89
+                ]
+              }
+            ]
+          },
+          {
+            "name": "dev-0000",
+            "kind": "REAL rendered frame, letterboxed by tools/detector/data.py",
+            "inputSha256": "e2ffa448972cce29ca871257e168a77b399bf0c39891254f287f71f548bc2a8b",
+            "inputMatchesReference": true,
+            "inferenceMs": 75,
+            "gpuSubmitsDuringRun": 3,
+            "outputDims": [
+              1,
+              12,
+              6400
+            ],
+            "outputType": "float32",
+            "shapeMatches": true,
+            "declaredOutputShape": [
+              1,
+              12,
+              6400
+            ],
+            "diff": {
+              "boxChannelsMaxAbs": 0.001617431640625,
+              "classChannelsMaxAbs": 0.000004291534423828125,
+              "nonFinite": 0,
+              "worstBoxIndex": 16722,
+              "worstClassIndex": 60907
+            },
+            "correct": true,
+            "criterion": {
+              "boxChannelsMaxAbs": 0.25,
+              "classChannelsMaxAbs": 0.0001
+            },
+            "detectorContract": {
+              "ok": true,
+              "code": null
+            },
+            "detectionsValid": true,
+            "detectionsInvalidReason": null,
+            "detectionCount": 50,
+            "provenance": {
+              "allCarryFrameId": true,
+              "allCarryModelId": true,
+              "allCarryRevision": true,
+              "roles": [
+                "UIElementDetector"
+              ]
+            },
+            "boundsValid": true,
+            "referenceDetectionCount": 50,
+            "countMatches": true,
+            "boxAgreement": {
+              "worstCssCoordinateDeltaPx": 0.0010527524414101208,
+              "worstScoreDelta": 0.0000022947602386635957,
+              "labelMismatches": 0
+            },
+            "postprocessingAgrees": true,
+            "sampleBoxes": [
+              {
+                "label": "link",
+                "score": 0.936926,
+                "css": [
+                  40.42,
+                  104.42,
+                  88.2,
+                  16.36
+                ]
+              },
+              {
+                "label": "textbox",
+                "score": 0.92303,
+                "css": [
+                  21.81,
+                  215.75,
+                  261.83,
+                  32.01
+                ]
+              },
+              {
+                "label": "button",
+                "score": 0.899071,
+                "css": [
+                  47.5,
+                  127.79,
+                  111.09,
+                  29.25
+                ]
+              }
+            ]
+          },
+          {
+            "name": "dev-0003",
+            "kind": "REAL rendered frame, letterboxed by tools/detector/data.py",
+            "inputSha256": "97b5b791fdd183d2a465b8c5c8ef28c2a7a2b65b875e320deaa31fd01fce9e13",
+            "inputMatchesReference": true,
+            "inferenceMs": 70,
+            "gpuSubmitsDuringRun": 3,
+            "outputDims": [
+              1,
+              12,
+              6400
+            ],
+            "outputType": "float32",
+            "shapeMatches": true,
+            "declaredOutputShape": [
+              1,
+              12,
+              6400
+            ],
+            "diff": {
+              "boxChannelsMaxAbs": 0.0012054443359375,
+              "classChannelsMaxAbs": 0.000005602836608886719,
+              "nonFinite": 0,
+              "worstBoxIndex": 15698,
+              "worstClassIndex": 62263
+            },
+            "correct": true,
+            "criterion": {
+              "boxChannelsMaxAbs": 0.25,
+              "classChannelsMaxAbs": 0.0001
+            },
+            "detectorContract": {
+              "ok": true,
+              "code": null
+            },
+            "detectionsValid": true,
+            "detectionsInvalidReason": null,
+            "detectionCount": 53,
+            "provenance": {
+              "allCarryFrameId": true,
+              "allCarryModelId": true,
+              "allCarryRevision": true,
+              "roles": [
+                "UIElementDetector"
+              ]
+            },
+            "boundsValid": true,
+            "referenceDetectionCount": 53,
+            "countMatches": true,
+            "boxAgreement": {
+              "worstCssCoordinateDeltaPx": 0.0008240869140081486,
+              "worstScoreDelta": 0.0000046197729339780835,
+              "labelMismatches": 0
+            },
+            "postprocessingAgrees": true,
+            "sampleBoxes": [
+              {
+                "label": "link",
+                "score": 0.975907,
+                "css": [
+                  558.4,
+                  111.91,
+                  146.94,
+                  18.89
+                ]
+              },
+              {
+                "label": "link",
+                "score": 0.970627,
+                "css": [
+                  522.12,
+                  110.14,
+                  107.9,
+                  20.72
+                ]
+              },
+              {
+                "label": "link",
+                "score": 0.970544,
+                "css": [
+                  296.45,
+                  110.69,
+                  137.76,
+                  21.03
+                ]
+              }
+            ]
+          }
+        ],
+        "determinism": {
+          "runs": 3,
+          "bitwiseIdentical": true,
+          "firstDifferingByte": -1,
+          "note": "bitwise, not within-tolerance. A detector whose output moves between identical calls cannot be regression-tested."
+        },
+        "gpu": {
+          "navigatorGpuPresent": true,
+          "submitsTotal": 132,
+          "submitsDuringWarmRuns": 90,
+          "computePipelinesCreated": 15,
+          "adaptersReturned": 1,
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": "",
+            "isFallbackAdapter": null,
+            "identified": false
+          },
+          "hookError": null
+        },
+        "network": {
+          "selfOrigin": "moz-extension://baa744ac-e1bd-4019-a7d9-e0afc226c33b",
+          "total": 1,
+          "foreign": 0,
+          "foreignUrls": [],
+          "byKind": {
+            "fetch": 1
+          },
+          "urls": [
+            "<ext>/ort-wasm-simd-threaded.jsep.wasm"
+          ],
+          "modelFetched": false,
+          "hookErrors": []
+        },
+        "backendEvidence": {
+          "requested": "webgpu",
+          "gpuSubmitsDuringInference": 90,
+          "executedOnGpu": true,
+          "verdict": "CONFIRMED — GPU command submissions observed during inference",
+          "method": "GPUQueue.prototype.submit counted, wrapped before ORT loaded. Configuration is not execution."
+        },
+        "error": null,
+        "conclusion": "correct on webgpu; postprocessing agrees; determinism bitwise",
+        "preprocessingParity": [
+          {
+            "name": "dev-0000",
+            "sampleId": "dev-0000",
+            "decoded": {
+              "w": 960,
+              "h": 640
+            },
+            "transform": {
+              "scale": 0.6666666666666666,
+              "padX": 0,
+              "padY": 106.66666666666669
+            },
+            "variants": {
+              "float-low": {
+                "mode": "float",
+                "quality": "low",
+                "maxAbsDiff255": 153.9999984204769,
+                "meanAbsDiff255": 0.9331005779306907,
+                "differingFraction": 0.026936848958333332,
+                "detections": 66,
+                "referenceDetections": 50,
+                "matchedAtIou50": 38,
+                "agreementRate": 0.76
+              },
+              "float-high": {
+                "mode": "float",
+                "quality": "high",
+                "maxAbsDiff255": 153.9999984204769,
+                "meanAbsDiff255": 0.9331005779306907,
+                "differingFraction": 0.026936848958333332,
+                "detections": 66,
+                "referenceDetections": 50,
+                "matchedAtIou50": 38,
+                "agreementRate": 0.76
+              },
+              "integer-low": {
+                "mode": "integer",
+                "quality": "low",
+                "maxAbsDiff255": 109.99999914318323,
+                "meanAbsDiff255": 0.27583657920639554,
+                "differingFraction": 0.021664225260416666,
+                "detections": 54,
+                "referenceDetections": 50,
+                "matchedAtIou50": 39,
+                "agreementRate": 0.78
+              },
+              "integer-high": {
+                "mode": "integer",
+                "quality": "high",
+                "maxAbsDiff255": 109.99999914318323,
+                "meanAbsDiff255": 0.27583657920639554,
+                "differingFraction": 0.021664225260416666,
+                "detections": 54,
+                "referenceDetections": 50,
+                "matchedAtIou50": 39,
+                "agreementRate": 0.78
+              }
+            }
+          },
+          {
+            "name": "dev-0003",
+            "sampleId": "dev-0003",
+            "decoded": {
+              "w": 1152,
+              "h": 640
+            },
+            "transform": {
+              "scale": 0.5555555555555556,
+              "padX": 0,
+              "padY": 142.22222222222223
+            },
+            "variants": {
+              "float-low": {
+                "mode": "float",
+                "quality": "low",
+                "maxAbsDiff255": 132.0000035315752,
+                "meanAbsDiff255": 0.6928157355260282,
+                "differingFraction": 0.04192626953125,
+                "detections": 59,
+                "referenceDetections": 53,
+                "matchedAtIou50": 36,
+                "agreementRate": 0.6792452830188679
+              },
+              "float-high": {
+                "mode": "float",
+                "quality": "high",
+                "maxAbsDiff255": 132.0000035315752,
+                "meanAbsDiff255": 0.6928157355260282,
+                "differingFraction": 0.04192626953125,
+                "detections": 59,
+                "referenceDetections": 53,
+                "matchedAtIou50": 36,
+                "agreementRate": 0.6792452830188679
+              },
+              "integer-low": {
+                "mode": "integer",
+                "quality": "low",
+                "maxAbsDiff255": 126.00000673905015,
+                "meanAbsDiff255": 0.6592862816632532,
+                "differingFraction": 0.039034830729166664,
+                "detections": 62,
+                "referenceDetections": 53,
+                "matchedAtIou50": 35,
+                "agreementRate": 0.660377358490566
+              },
+              "integer-high": {
+                "mode": "integer",
+                "quality": "high",
+                "maxAbsDiff255": 126.00000673905015,
+                "meanAbsDiff255": 0.6592862816632532,
+                "differingFraction": 0.039034830729166664,
+                "detections": 62,
+                "referenceDetections": 53,
+                "matchedAtIou50": 35,
+                "agreementRate": 0.660377358490566
+              }
+            }
+          }
+        ],
+        "released": true,
+        "finishedAt": "2026-09-10T20:14:25.696Z"
+      },
+      "firefoxProcessesReaped": {
+        "preExisting": 0,
+        "spawned": 12,
+        "killed": 12,
+        "remaining": 0
+      },
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-QG03-t1-detector-runtime\\harness\\ext-firefox as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "headless": false,
+      "run": 3,
+      "backend": "webgpu",
+      "livenessSeen": true,
+      "timedOut": false,
+      "incompleteChunkSets": [],
+      "result": {
+        "context": "firefox-mv3-event-page",
+        "probe": "qg03-t1-detector",
+        "requestedBackend": "webgpu",
+        "startedAt": "2026-09-10T20:14:32.663Z",
+        "globalKind": "window",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+        "ortVersion": "1.29.0",
+        "model": {
+          "sha256Declared": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+          "bytesDeclared": 302960,
+          "sha256Observed": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+          "bytesObserved": 302960
+        },
+        "pin": {
+          "installed": true,
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "bytes": 27797172
+        },
+        "sessionCreated": true,
+        "schema": {
+          "inputNames": [
+            "images"
+          ],
+          "outputNames": [
+            "output"
+          ],
+          "inputName": "images",
+          "outputName": "output"
+        },
+        "memory": {
+          "snapshots": [
+            {
+              "label": "baseline-before-anything",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 0,
+                "computePipelines": 0
+              },
+              "networkArrivals": 0,
+              "at": 893
+            },
+            {
+              "label": "after-session-create",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 0,
+                "computePipelines": 0
+              },
+              "networkArrivals": 1,
+              "at": 2224
+            },
+            {
+              "label": "after-first-inference",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 3,
+                "computePipelines": 15
+              },
+              "networkArrivals": 1,
+              "at": 5308
+            },
+            {
+              "label": "steady-state-after-warm",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 132,
+                "computePipelines": 15
+              },
+              "networkArrivals": 1,
+              "at": 9626
+            },
+            {
+              "label": "after-release",
+              "wasm": {
+                "instances": 2,
+                "bytes": 16777216,
+                "mb": 16,
+                "pages": 256,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 132,
+                "computePipelines": 15
+              },
+              "networkArrivals": 1,
+              "at": 9628
+            }
+          ]
+        },
+        "latency": {
+          "sessionCreateMs": 1198,
+          "firstInferenceMs": 3075,
+          "warm": {
+            "runs": 30,
+            "p50": 100,
+            "p95": 102,
+            "p95Suppressed": null,
+            "min": 97,
+            "max": 102,
+            "mean": 100.3
+          },
+          "input": "the synthetic deterministic tensor — identical work every run, so the spread is the runtime's, not the input's",
+          "releaseMs": 1
+        },
+        "cases": [
+          {
+            "name": "synth",
+            "kind": "SYNTHETIC — deterministic formula, no image decode, no resize",
+            "inputSha256": "fdb3f260442a827b43142979711f4f147b7bc738bac244b7cb5f0a076d8c9740",
+            "inputMatchesReference": true,
+            "inferenceMs": 3075,
+            "gpuSubmitsDuringRun": 3,
+            "outputDims": [
+              1,
+              12,
+              6400
+            ],
+            "outputType": "float32",
+            "shapeMatches": true,
+            "declaredOutputShape": [
+              1,
+              12,
+              6400
+            ],
+            "diff": {
+              "boxChannelsMaxAbs": 0.00006103515625,
+              "classChannelsMaxAbs": 4.172325134277344e-7,
+              "nonFinite": 0,
+              "worstBoxIndex": 309,
+              "worstClassIndex": 73360
+            },
+            "correct": true,
+            "criterion": {
+              "boxChannelsMaxAbs": 0.25,
+              "classChannelsMaxAbs": 0.0001
+            },
+            "detectorContract": {
+              "ok": true,
+              "code": null
+            },
+            "detectionsValid": true,
+            "detectionsInvalidReason": null,
+            "detectionCount": 18,
+            "provenance": {
+              "allCarryFrameId": true,
+              "allCarryModelId": true,
+              "allCarryRevision": true,
+              "roles": [
+                "UIElementDetector"
+              ]
+            },
+            "boundsValid": true,
+            "referenceDetectionCount": 18,
+            "countMatches": true,
+            "boxAgreement": {
+              "worstCssCoordinateDeltaPx": 0.000021633819613953165,
+              "worstScoreDelta": 4.174787597843732e-7,
+              "labelMismatches": 0
+            },
+            "postprocessingAgrees": true,
+            "sampleBoxes": [
+              {
+                "label": "icon",
+                "score": 0.462416,
+                "css": [
+                  0,
+                  480.56,
+                  35.38,
+                  25.08
+                ]
+              },
+              {
+                "label": "icon",
+                "score": 0.460056,
+                "css": [
+                  0,
+                  0,
+                  28.88,
+                  3.44
+                ]
+              },
+              {
+                "label": "icon",
+                "score": 0.460056,
+                "css": [
+                  0,
+                  591.55,
+                  28.88,
+                  23.89
+                ]
+              }
+            ]
+          },
+          {
+            "name": "dev-0000",
+            "kind": "REAL rendered frame, letterboxed by tools/detector/data.py",
+            "inputSha256": "e2ffa448972cce29ca871257e168a77b399bf0c39891254f287f71f548bc2a8b",
+            "inputMatchesReference": true,
+            "inferenceMs": 64,
+            "gpuSubmitsDuringRun": 3,
+            "outputDims": [
+              1,
+              12,
+              6400
+            ],
+            "outputType": "float32",
+            "shapeMatches": true,
+            "declaredOutputShape": [
+              1,
+              12,
+              6400
+            ],
+            "diff": {
+              "boxChannelsMaxAbs": 0.001617431640625,
+              "classChannelsMaxAbs": 0.000004291534423828125,
+              "nonFinite": 0,
+              "worstBoxIndex": 16722,
+              "worstClassIndex": 60907
+            },
+            "correct": true,
+            "criterion": {
+              "boxChannelsMaxAbs": 0.25,
+              "classChannelsMaxAbs": 0.0001
+            },
+            "detectorContract": {
+              "ok": true,
+              "code": null
+            },
+            "detectionsValid": true,
+            "detectionsInvalidReason": null,
+            "detectionCount": 50,
+            "provenance": {
+              "allCarryFrameId": true,
+              "allCarryModelId": true,
+              "allCarryRevision": true,
+              "roles": [
+                "UIElementDetector"
+              ]
+            },
+            "boundsValid": true,
+            "referenceDetectionCount": 50,
+            "countMatches": true,
+            "boxAgreement": {
+              "worstCssCoordinateDeltaPx": 0.0010527524414101208,
+              "worstScoreDelta": 0.0000022947602386635957,
+              "labelMismatches": 0
+            },
+            "postprocessingAgrees": true,
+            "sampleBoxes": [
+              {
+                "label": "link",
+                "score": 0.936926,
+                "css": [
+                  40.42,
+                  104.42,
+                  88.2,
+                  16.36
+                ]
+              },
+              {
+                "label": "textbox",
+                "score": 0.92303,
+                "css": [
+                  21.81,
+                  215.75,
+                  261.83,
+                  32.01
+                ]
+              },
+              {
+                "label": "button",
+                "score": 0.899071,
+                "css": [
+                  47.5,
+                  127.79,
+                  111.09,
+                  29.25
+                ]
+              }
+            ]
+          },
+          {
+            "name": "dev-0003",
+            "kind": "REAL rendered frame, letterboxed by tools/detector/data.py",
+            "inputSha256": "97b5b791fdd183d2a465b8c5c8ef28c2a7a2b65b875e320deaa31fd01fce9e13",
+            "inputMatchesReference": true,
+            "inferenceMs": 70,
+            "gpuSubmitsDuringRun": 3,
+            "outputDims": [
+              1,
+              12,
+              6400
+            ],
+            "outputType": "float32",
+            "shapeMatches": true,
+            "declaredOutputShape": [
+              1,
+              12,
+              6400
+            ],
+            "diff": {
+              "boxChannelsMaxAbs": 0.0012054443359375,
+              "classChannelsMaxAbs": 0.000005602836608886719,
+              "nonFinite": 0,
+              "worstBoxIndex": 15698,
+              "worstClassIndex": 62263
+            },
+            "correct": true,
+            "criterion": {
+              "boxChannelsMaxAbs": 0.25,
+              "classChannelsMaxAbs": 0.0001
+            },
+            "detectorContract": {
+              "ok": true,
+              "code": null
+            },
+            "detectionsValid": true,
+            "detectionsInvalidReason": null,
+            "detectionCount": 53,
+            "provenance": {
+              "allCarryFrameId": true,
+              "allCarryModelId": true,
+              "allCarryRevision": true,
+              "roles": [
+                "UIElementDetector"
+              ]
+            },
+            "boundsValid": true,
+            "referenceDetectionCount": 53,
+            "countMatches": true,
+            "boxAgreement": {
+              "worstCssCoordinateDeltaPx": 0.0008240869140081486,
+              "worstScoreDelta": 0.0000046197729339780835,
+              "labelMismatches": 0
+            },
+            "postprocessingAgrees": true,
+            "sampleBoxes": [
+              {
+                "label": "link",
+                "score": 0.975907,
+                "css": [
+                  558.4,
+                  111.91,
+                  146.94,
+                  18.89
+                ]
+              },
+              {
+                "label": "link",
+                "score": 0.970627,
+                "css": [
+                  522.12,
+                  110.14,
+                  107.9,
+                  20.72
+                ]
+              },
+              {
+                "label": "link",
+                "score": 0.970544,
+                "css": [
+                  296.45,
+                  110.69,
+                  137.76,
+                  21.03
+                ]
+              }
+            ]
+          }
+        ],
+        "determinism": {
+          "runs": 3,
+          "bitwiseIdentical": true,
+          "firstDifferingByte": -1,
+          "note": "bitwise, not within-tolerance. A detector whose output moves between identical calls cannot be regression-tested."
+        },
+        "gpu": {
+          "navigatorGpuPresent": true,
+          "submitsTotal": 132,
+          "submitsDuringWarmRuns": 90,
+          "computePipelinesCreated": 15,
+          "adaptersReturned": 1,
+          "adapterInfo": {
+            "vendor": "",
+            "architecture": "",
+            "device": "",
+            "description": "",
+            "isFallbackAdapter": null,
+            "identified": false
+          },
+          "hookError": null
+        },
+        "network": {
+          "selfOrigin": "moz-extension://9c30f932-c2cd-4ba7-87be-89ac10e118d6",
+          "total": 1,
+          "foreign": 0,
+          "foreignUrls": [],
+          "byKind": {
+            "fetch": 1
+          },
+          "urls": [
+            "<ext>/ort-wasm-simd-threaded.jsep.wasm"
+          ],
+          "modelFetched": false,
+          "hookErrors": []
+        },
+        "backendEvidence": {
+          "requested": "webgpu",
+          "gpuSubmitsDuringInference": 90,
+          "executedOnGpu": true,
+          "verdict": "CONFIRMED — GPU command submissions observed during inference",
+          "method": "GPUQueue.prototype.submit counted, wrapped before ORT loaded. Configuration is not execution."
+        },
+        "error": null,
+        "conclusion": "correct on webgpu; postprocessing agrees; determinism bitwise",
+        "preprocessingParity": [
+          {
+            "name": "dev-0000",
+            "sampleId": "dev-0000",
+            "decoded": {
+              "w": 960,
+              "h": 640
+            },
+            "transform": {
+              "scale": 0.6666666666666666,
+              "padX": 0,
+              "padY": 106.66666666666669
+            },
+            "variants": {
+              "float-low": {
+                "mode": "float",
+                "quality": "low",
+                "maxAbsDiff255": 153.9999984204769,
+                "meanAbsDiff255": 0.9331005779306907,
+                "differingFraction": 0.026936848958333332,
+                "detections": 66,
+                "referenceDetections": 50,
+                "matchedAtIou50": 38,
+                "agreementRate": 0.76
+              },
+              "float-high": {
+                "mode": "float",
+                "quality": "high",
+                "maxAbsDiff255": 153.9999984204769,
+                "meanAbsDiff255": 0.9331005779306907,
+                "differingFraction": 0.026936848958333332,
+                "detections": 66,
+                "referenceDetections": 50,
+                "matchedAtIou50": 38,
+                "agreementRate": 0.76
+              },
+              "integer-low": {
+                "mode": "integer",
+                "quality": "low",
+                "maxAbsDiff255": 109.99999914318323,
+                "meanAbsDiff255": 0.27583657920639554,
+                "differingFraction": 0.021664225260416666,
+                "detections": 54,
+                "referenceDetections": 50,
+                "matchedAtIou50": 39,
+                "agreementRate": 0.78
+              },
+              "integer-high": {
+                "mode": "integer",
+                "quality": "high",
+                "maxAbsDiff255": 109.99999914318323,
+                "meanAbsDiff255": 0.27583657920639554,
+                "differingFraction": 0.021664225260416666,
+                "detections": 54,
+                "referenceDetections": 50,
+                "matchedAtIou50": 39,
+                "agreementRate": 0.78
+              }
+            }
+          },
+          {
+            "name": "dev-0003",
+            "sampleId": "dev-0003",
+            "decoded": {
+              "w": 1152,
+              "h": 640
+            },
+            "transform": {
+              "scale": 0.5555555555555556,
+              "padX": 0,
+              "padY": 142.22222222222223
+            },
+            "variants": {
+              "float-low": {
+                "mode": "float",
+                "quality": "low",
+                "maxAbsDiff255": 132.0000035315752,
+                "meanAbsDiff255": 0.6928157355260282,
+                "differingFraction": 0.04192626953125,
+                "detections": 59,
+                "referenceDetections": 53,
+                "matchedAtIou50": 36,
+                "agreementRate": 0.6792452830188679
+              },
+              "float-high": {
+                "mode": "float",
+                "quality": "high",
+                "maxAbsDiff255": 132.0000035315752,
+                "meanAbsDiff255": 0.6928157355260282,
+                "differingFraction": 0.04192626953125,
+                "detections": 59,
+                "referenceDetections": 53,
+                "matchedAtIou50": 36,
+                "agreementRate": 0.6792452830188679
+              },
+              "integer-low": {
+                "mode": "integer",
+                "quality": "low",
+                "maxAbsDiff255": 126.00000673905015,
+                "meanAbsDiff255": 0.6592862816632532,
+                "differingFraction": 0.039034830729166664,
+                "detections": 62,
+                "referenceDetections": 53,
+                "matchedAtIou50": 35,
+                "agreementRate": 0.660377358490566
+              },
+              "integer-high": {
+                "mode": "integer",
+                "quality": "high",
+                "maxAbsDiff255": 126.00000673905015,
+                "meanAbsDiff255": 0.6592862816632532,
+                "differingFraction": 0.039034830729166664,
+                "detections": 62,
+                "referenceDetections": 53,
+                "matchedAtIou50": 35,
+                "agreementRate": 0.660377358490566
+              }
+            }
+          }
+        ],
+        "released": true,
+        "finishedAt": "2026-09-10T20:14:41.398Z"
+      },
+      "firefoxProcessesReaped": {
+        "preExisting": 0,
+        "spawned": 12,
+        "killed": 12,
+        "remaining": 0
+      },
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-QG03-t1-detector-runtime\\harness\\ext-firefox as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "headless": true,
+      "run": 1,
+      "backend": "webgpu",
+      "livenessSeen": true,
+      "timedOut": false,
+      "incompleteChunkSets": [],
+      "result": {
+        "context": "firefox-mv3-event-page",
+        "probe": "qg03-t1-detector",
+        "requestedBackend": "webgpu",
+        "startedAt": "2026-09-10T20:14:47.444Z",
+        "globalKind": "window",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+        "ortVersion": "1.29.0",
+        "model": {
+          "sha256Declared": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+          "bytesDeclared": 302960,
+          "sha256Observed": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+          "bytesObserved": 302960
+        },
+        "pin": {
+          "installed": true,
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "bytes": 27797172
+        },
+        "sessionCreated": false,
+        "schema": null,
+        "memory": {
+          "snapshots": [
+            {
+              "label": "baseline-before-anything",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 0,
+                "computePipelines": 0
+              },
+              "networkArrivals": 0,
+              "at": 449
+            }
+          ]
+        },
+        "latency": {},
+        "cases": [],
+        "determinism": null,
+        "gpu": null,
+        "network": null,
+        "backendEvidence": null,
+        "error": {
+          "name": "Error",
+          "message": "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+          "stack": "Ll@moz-extension://3b5c11e6-d7df-4124-af5f-dedcebbbc9f5/ort.all.min.js:6:2149\n"
+        },
+        "conclusion": "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+        "finishedAt": "2026-09-10T20:14:47.724Z"
+      },
+      "firefoxProcessesReaped": {
+        "preExisting": 0,
+        "spawned": 0,
+        "killed": 0,
+        "remaining": 0
+      },
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-QG03-t1-detector-runtime\\harness\\ext-firefox as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "headless": true,
+      "run": 2,
+      "backend": "webgpu",
+      "livenessSeen": true,
+      "timedOut": false,
+      "incompleteChunkSets": [],
+      "result": {
+        "context": "firefox-mv3-event-page",
+        "probe": "qg03-t1-detector",
+        "requestedBackend": "webgpu",
+        "startedAt": "2026-09-10T20:15:00.277Z",
+        "globalKind": "window",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+        "ortVersion": "1.29.0",
+        "model": {
+          "sha256Declared": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+          "bytesDeclared": 302960,
+          "sha256Observed": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+          "bytesObserved": 302960
+        },
+        "pin": {
+          "installed": true,
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "bytes": 27797172
+        },
+        "sessionCreated": false,
+        "schema": null,
+        "memory": {
+          "snapshots": [
+            {
+              "label": "baseline-before-anything",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 0,
+                "computePipelines": 0
+              },
+              "networkArrivals": 0,
+              "at": 431
+            }
+          ]
+        },
+        "latency": {},
+        "cases": [],
+        "determinism": null,
+        "gpu": null,
+        "network": null,
+        "backendEvidence": null,
+        "error": {
+          "name": "Error",
+          "message": "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+          "stack": "Ll@moz-extension://5fecb231-037d-4aa7-ad82-785cfa9c0bda/ort.all.min.js:6:2149\n"
+        },
+        "conclusion": "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+        "finishedAt": "2026-09-10T20:15:00.552Z"
+      },
+      "firefoxProcessesReaped": {
+        "preExisting": 0,
+        "spawned": 0,
+        "killed": 0,
+        "remaining": 0
+      },
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-QG03-t1-detector-runtime\\harness\\ext-firefox as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    },
+    {
+      "headless": true,
+      "run": 3,
+      "backend": "webgpu",
+      "livenessSeen": true,
+      "timedOut": false,
+      "incompleteChunkSets": [],
+      "result": {
+        "context": "firefox-mv3-event-page",
+        "probe": "qg03-t1-detector",
+        "requestedBackend": "webgpu",
+        "startedAt": "2026-09-10T20:15:12.110Z",
+        "globalKind": "window",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0",
+        "ortVersion": "1.29.0",
+        "model": {
+          "sha256Declared": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+          "bytesDeclared": 302960,
+          "sha256Observed": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+          "bytesObserved": 302960
+        },
+        "pin": {
+          "installed": true,
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "bytes": 27797172
+        },
+        "sessionCreated": false,
+        "schema": null,
+        "memory": {
+          "snapshots": [
+            {
+              "label": "baseline-before-anything",
+              "wasm": {
+                "instances": 0,
+                "bytes": 0,
+                "mb": 0,
+                "pages": 0,
+                "growCount": 0
+              },
+              "js": null,
+              "gpu": {
+                "submits": 0,
+                "computePipelines": 0
+              },
+              "networkArrivals": 0,
+              "at": 457
+            }
+          ]
+        },
+        "latency": {},
+        "cases": [],
+        "determinism": null,
+        "gpu": null,
+        "network": null,
+        "backendEvidence": null,
+        "error": {
+          "name": "Error",
+          "message": "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+          "stack": "Ll@moz-extension://06db0020-5b4b-487e-a34f-f67e93dfa6fa/ort.all.min.js:6:2149\n"
+        },
+        "conclusion": "threw: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+        "finishedAt": "2026-09-10T20:15:12.360Z"
+      },
+      "firefoxProcessesReaped": {
+        "preExisting": 0,
+        "spawned": 10,
+        "killed": 5,
+        "remaining": 5
+      },
+      "webExtLogTail": [
+        "Setting custom Firefox preferences: {",
+        "  \"extensions.originControls.grantByDefault\": true",
+        "}",
+        "Use --verbose or --devtools to see logging",
+        "Installed C:\\Users\\RONIT\\OneDrive\\Desktop\\PratiBimb\\artifacts\\experiments\\W1-QG03-t1-detector-runtime\\harness\\ext-firefox as a temporary add-on",
+        "Automatic extension reloading has been disabled"
+      ]
+    }
+  ],
+  "finishedAt": "2026-09-10T20:15:17.532Z"
+}

@@ -1,0 +1,1472 @@
+{
+  "gate": "QG-03 \u2014 trusted reference for the T1 detector browser/backend matrix",
+  "generatedAt": "2026-09-11T01:13:25.192139+05:30",
+  "warning": "This is a CPU reference produced by onnxruntime-python on one machine. It is the thing browsers are compared AGAINST; it is not itself browser evidence, and it says nothing about accuracy on real screens.",
+  "artifact": {
+    "path": "artifacts/models/t1-ui-head/t1-ui-head.onnx",
+    "bytes": 302960,
+    "sha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+    "modelId": "pratibimb-t1-ui-head",
+    "revision": "ba6d9e93695b",
+    "tracked": false,
+    "trackedEvidence": "artifacts/gates/T1-detector-training/qg05-detector-evaluation.json"
+  },
+  "schema": {
+    "inputName": "images",
+    "inputShape": [
+      1,
+      3,
+      640,
+      640
+    ],
+    "inputType": "tensor(float)",
+    "outputName": "output",
+    "outputShape": [
+      1,
+      12,
+      6400
+    ],
+    "outputType": "tensor(float)",
+    "inputCount": 1,
+    "outputCount": 1
+  },
+  "contract": {
+    "input": [
+      1,
+      3,
+      640,
+      640
+    ],
+    "layout": "NCHW",
+    "channelOrder": "RGB",
+    "normalization": "0..1",
+    "padValue": 0.4470588235294118,
+    "output": [
+      1,
+      12,
+      6400
+    ],
+    "preprocessingVersion": "letterbox to 640 square, BILINEAR, centred pad 114/255, RGB, /255",
+    "postprocessingVersion": "per-class greedy NMS at IoU 0.5, emit floor 0.05, model->capture->CSS",
+    "classes": [
+      "button",
+      "link",
+      "textbox",
+      "checkbox",
+      "radio",
+      "select",
+      "tab",
+      "icon"
+    ],
+    "stride": 8
+  },
+  "evalMode": {
+    "asserted": true,
+    "how": "every named_module()'s .training flag READ (not set) immediately before and immediately after the reference run; a single True aborts the run",
+    "why": "torch.onnx.export restores the module's original training mode on return. An ExportWrapper constructed fresh defaults to training=True, which propagates into the wrapped model and puts BatchNorm on batch statistics. That produced a bogus 40.4 'export discrepancy' against a correct artifact.",
+    "guardedBy": "packages/perception/test/qg03Reference.test.ts"
+  },
+  "criterion": {
+    "preRegistered": true,
+    "preRegisteredBefore": "any browser was launched for this gate",
+    "classChannelsMaxAbs": 0.0001,
+    "boxChannelsMaxAbs": 0.25,
+    "boxUnits": "model pixels",
+    "determinism": "BITWISE identical across repeated runs within one session",
+    "shapeMatch": "exact",
+    "rationale": "class channels are sigmoid outputs and fp32 SIMD accumulation noise is ~1e-6, so 1e-4 is ~100x noise; box channels pass through exp(), which turns a 1e-5 logit error into a 1e-5 relative error (4.4e-3 absolute at w~440), and the measured torch-vs-ORT figure on that channel was 5.6e-3, so 0.25 model px is ~45x that and about a third of a CSS pixel after unletterboxing."
+  },
+  "cases": [
+    {
+      "name": "synth",
+      "inputSha256": "fdb3f260442a827b43142979711f4f147b7bc738bac244b7cb5f0a076d8c9740",
+      "inputStats": {
+        "count": 1228800,
+        "min": 0.0,
+        "max": 0.9960784316062927,
+        "sum": 611989.1887247148,
+        "sumAbs": 611989.1887247148,
+        "finite": true
+      },
+      "outputShape": [
+        1,
+        12,
+        6400
+      ],
+      "outputSha256": "2080583c7b71ae0a1c9682263e8ed1c038850011e15715ab2f164a81ac72a097",
+      "outputStats": {
+        "count": 76800,
+        "min": 0.0,
+        "max": 631.2257080078125,
+        "sum": 4332361.049847752,
+        "sumAbs": 4332361.049847752,
+        "finite": true
+      },
+      "torchVsOnnxEvalMode": {
+        "boxChannelsMaxAbs": 6.103515625e-05,
+        "classChannelsMaxAbs": 5.066394805908203e-07
+      },
+      "geometry": {
+        "capture": {
+          "w": 960,
+          "h": 640
+        },
+        "viewportCss": {
+          "w": 960,
+          "h": 640
+        },
+        "letterbox": {
+          "scale": 0.6666666666666666,
+          "padX": 0.0,
+          "padY": 106.66666666666669,
+          "contentW": 640.0,
+          "contentH": 426.66666666666663
+        },
+        "cssToCapture": 1.0
+      },
+      "shippedDecode": {
+        "threshold": 0.25,
+        "nmsIou": 0.5,
+        "maxDetections": 300,
+        "detectionCount": 18,
+        "cssBoxes": [
+          {
+            "box": [
+              0.0,
+              480.555547,
+              35.377759,
+              25.075155
+            ],
+            "label": "icon",
+            "score": 0.462415695
+          },
+          {
+            "box": [
+              0.0,
+              0.0,
+              28.88201,
+              3.438949
+            ],
+            "label": "icon",
+            "score": 0.460055411
+          },
+          {
+            "box": [
+              0.0,
+              591.551884,
+              28.88201,
+              23.887077
+            ],
+            "label": "icon",
+            "score": 0.460055411
+          },
+          {
+            "box": [
+              0.0,
+              286.091876,
+              20.854297,
+              20.685998
+            ],
+            "label": "icon",
+            "score": 0.439922273
+          },
+          {
+            "box": [
+              0.0,
+              98.216654,
+              28.695378,
+              24.117245
+            ],
+            "label": "icon",
+            "score": 0.434328794
+          },
+          {
+            "box": [
+              0.0,
+              24.841108,
+              20.911928,
+              20.350468
+            ],
+            "label": "icon",
+            "score": 0.429740667
+          },
+          {
+            "box": [
+              0.0,
+              636.841063,
+              20.911928,
+              3.158937
+            ],
+            "label": "icon",
+            "score": 0.429740667
+          },
+          {
+            "box": [
+              0.0,
+              516.857306,
+              21.481381,
+              19.631335
+            ],
+            "label": "icon",
+            "score": 0.382246494
+          },
+          {
+            "box": [
+              0.0,
+              144.380034,
+              22.799435,
+              20.556858
+            ],
+            "label": "icon",
+            "score": 0.321372241
+          },
+          {
+            "box": [
+              0.0,
+              136.361969,
+              24.786337,
+              20.644318
+            ],
+            "label": "icon",
+            "score": 0.320517778
+          },
+          {
+            "box": [
+              0.0,
+              167.373688,
+              25.480737,
+              24.443358
+            ],
+            "label": "icon",
+            "score": 0.314777762
+          },
+          {
+            "box": [
+              0.0,
+              258.303074,
+              25.17306,
+              18.851616
+            ],
+            "label": "icon",
+            "score": 0.290271044
+          },
+          {
+            "box": [
+              0.0,
+              0.0,
+              39.02811,
+              12.473875
+            ],
+            "label": "icon",
+            "score": 0.261562675
+          },
+          {
+            "box": [
+              0.0,
+              602.001589,
+              39.02811,
+              22.472285
+            ],
+            "label": "icon",
+            "score": 0.261562675
+          },
+          {
+            "box": [
+              0.0,
+              397.747885,
+              21.567324,
+              18.809558
+            ],
+            "label": "icon",
+            "score": 0.260865897
+          },
+          {
+            "box": [
+              0.0,
+              433.202526,
+              26.485611,
+              23.624732
+            ],
+            "label": "icon",
+            "score": 0.256515563
+          },
+          {
+            "box": [
+              0.0,
+              452.289741,
+              26.926754,
+              13.300828
+            ],
+            "label": "icon",
+            "score": 0.254401743
+          },
+          {
+            "box": [
+              0.0,
+              275.437902,
+              25.041412,
+              21.743397
+            ],
+            "label": "icon",
+            "score": 0.250127733
+          }
+        ]
+      },
+      "kind": "SYNTHETIC \u2014 deterministic formula, no image decode, no resize"
+    },
+    {
+      "name": "dev-0000",
+      "inputSha256": "e2ffa448972cce29ca871257e168a77b399bf0c39891254f287f71f548bc2a8b",
+      "inputStats": {
+        "count": 1228800,
+        "min": 0.07058823853731155,
+        "max": 1.0,
+        "sum": 942731.9078859463,
+        "sumAbs": 942731.9078859463,
+        "finite": true
+      },
+      "outputShape": [
+        1,
+        12,
+        6400
+      ],
+      "outputSha256": "1b3f74912f43066954411bc161bb1966554699632bbe105b8547dac0ffc177c2",
+      "outputStats": {
+        "count": 76800,
+        "min": -2.098123550415039,
+        "max": 635.0225830078125,
+        "sum": 4719344.522326589,
+        "sumAbs": 4719364.635504842,
+        "finite": true
+      },
+      "torchVsOnnxEvalMode": {
+        "boxChannelsMaxAbs": 0.0061492919921875,
+        "classChannelsMaxAbs": 1.3113021850585938e-05
+      },
+      "geometry": {
+        "capture": {
+          "w": 960,
+          "h": 640
+        },
+        "viewportCss": {
+          "w": 960,
+          "h": 640
+        },
+        "letterbox": {
+          "scale": 0.6666666666666666,
+          "padX": 0.0,
+          "padY": 106.66666666666669,
+          "contentW": 640.0,
+          "contentH": 426.66666666666663
+        },
+        "cssToCapture": 1.0
+      },
+      "shippedDecode": {
+        "threshold": 0.25,
+        "nmsIou": 0.5,
+        "maxDetections": 300,
+        "detectionCount": 50,
+        "cssBoxes": [
+          {
+            "box": [
+              40.415749,
+              104.424788,
+              88.201,
+              16.360874
+            ],
+            "label": "link",
+            "score": 0.93692553
+          },
+          {
+            "box": [
+              21.809143,
+              215.750649,
+              261.826515,
+              32.011122
+            ],
+            "label": "textbox",
+            "score": 0.923029542
+          },
+          {
+            "box": [
+              47.495098,
+              127.791735,
+              111.085258,
+              29.250973
+            ],
+            "label": "button",
+            "score": 0.89907074
+          },
+          {
+            "box": [
+              28.256104,
+              283.908825,
+              295.351433,
+              30.998085
+            ],
+            "label": "textbox",
+            "score": 0.889024734
+          },
+          {
+            "box": [
+              18.117754,
+              499.08546,
+              131.363171,
+              18.217385
+            ],
+            "label": "link",
+            "score": 0.882094502
+          },
+          {
+            "box": [
+              20.094772,
+              630.009068,
+              235.01326,
+              9.990932
+            ],
+            "label": "button",
+            "score": 0.863415003
+          },
+          {
+            "box": [
+              46.467442,
+              103.479695,
+              131.25071,
+              20.305502
+            ],
+            "label": "link",
+            "score": 0.84386301
+          },
+          {
+            "box": [
+              0.0,
+              629.741767,
+              173.006252,
+              10.258233
+            ],
+            "label": "button",
+            "score": 0.829081297
+          },
+          {
+            "box": [
+              0.0,
+              499.768382,
+              91.536232,
+              18.958903
+            ],
+            "label": "link",
+            "score": 0.802723408
+          },
+          {
+            "box": [
+              0.0,
+              0.37901,
+              21.34852,
+              22.183622
+            ],
+            "label": "icon",
+            "score": 0.774719
+          },
+          {
+            "box": [
+              24.266573,
+              443.837911,
+              122.361683,
+              33.348135
+            ],
+            "label": "button",
+            "score": 0.718858957
+          },
+          {
+            "box": [
+              0.0,
+              413.279895,
+              192.89423,
+              31.573113
+            ],
+            "label": "textbox",
+            "score": 0.714145064
+          },
+          {
+            "box": [
+              171.714426,
+              387.246322,
+              72.270046,
+              27.980501
+            ],
+            "label": "tab",
+            "score": 0.692002594
+          },
+          {
+            "box": [
+              21.99345,
+              388.030853,
+              67.530441,
+              26.424714
+            ],
+            "label": "tab",
+            "score": 0.677039087
+          },
+          {
+            "box": [
+              0.0,
+              283.79535,
+              196.882851,
+              29.945495
+            ],
+            "label": "textbox",
+            "score": 0.66594708
+          },
+          {
+            "box": [
+              172.061096,
+              414.144047,
+              204.287521,
+              30.725821
+            ],
+            "label": "textbox",
+            "score": 0.659692764
+          },
+          {
+            "box": [
+              56.663944,
+              476.445589,
+              288.1661,
+              28.51373
+            ],
+            "label": "textbox",
+            "score": 0.643986344
+          },
+          {
+            "box": [
+              21.379372,
+              294.21279,
+              245.261215,
+              25.111101
+            ],
+            "label": "textbox",
+            "score": 0.641745389
+          },
+          {
+            "box": [
+              106.454538,
+              388.461631,
+              74.464748,
+              28.37877
+            ],
+            "label": "tab",
+            "score": 0.632867754
+          },
+          {
+            "box": [
+              91.405289,
+              214.130767,
+              296.401428,
+              33.191317
+            ],
+            "label": "textbox",
+            "score": 0.618233502
+          },
+          {
+            "box": [
+              169.348572,
+              312.850198,
+              228.64476,
+              22.303144
+            ],
+            "label": "textbox",
+            "score": 0.609059751
+          },
+          {
+            "box": [
+              254.055685,
+              332.798746,
+              157.01302,
+              28.12318
+            ],
+            "label": "select",
+            "score": 0.576934099
+          },
+          {
+            "box": [
+              0.0,
+              305.21482,
+              208.155338,
+              30.677965
+            ],
+            "label": "textbox",
+            "score": 0.53656441
+          },
+          {
+            "box": [
+              1.075161,
+              305.21482,
+              327.080177,
+              30.677965
+            ],
+            "label": "textbox",
+            "score": 0.53656441
+          },
+          {
+            "box": [
+              0.0,
+              214.174672,
+              201.69013,
+              34.877432
+            ],
+            "label": "textbox",
+            "score": 0.500805855
+          },
+          {
+            "box": [
+              151.46345,
+              339.667367,
+              16.408739,
+              17.389143
+            ],
+            "label": "radio",
+            "score": 0.497544438
+          },
+          {
+            "box": [
+              28.572727,
+              442.34382,
+              130.056839,
+              32.77638
+            ],
+            "label": "tab",
+            "score": 0.462307096
+          },
+          {
+            "box": [
+              0.0,
+              313.401311,
+              193.812035,
+              34.151327
+            ],
+            "label": "textbox",
+            "score": 0.451649487
+          },
+          {
+            "box": [
+              11.931747,
+              313.401311,
+              289.880287,
+              34.151327
+            ],
+            "label": "textbox",
+            "score": 0.451649487
+          },
+          {
+            "box": [
+              349.284376,
+              333.036328,
+              124.589939,
+              30.297552
+            ],
+            "label": "select",
+            "score": 0.429110914
+          },
+          {
+            "box": [
+              76.646064,
+              97.19302,
+              76.51288,
+              30.300179
+            ],
+            "label": "tab",
+            "score": 0.411068738
+          },
+          {
+            "box": [
+              208.41695,
+              362.343543,
+              273.147606,
+              33.504198
+            ],
+            "label": "textbox",
+            "score": 0.396825314
+          },
+          {
+            "box": [
+              65.915028,
+              416.001319,
+              240.260078,
+              29.013353
+            ],
+            "label": "textbox",
+            "score": 0.392339796
+          },
+          {
+            "box": [
+              0.0,
+              247.845196,
+              199.573036,
+              30.990578
+            ],
+            "label": "textbox",
+            "score": 0.381586343
+          },
+          {
+            "box": [
+              5.142677,
+              247.845196,
+              302.430359,
+              30.990578
+            ],
+            "label": "textbox",
+            "score": 0.381586343
+          },
+          {
+            "box": [
+              113.142677,
+              247.845196,
+              302.430359,
+              30.990578
+            ],
+            "label": "textbox",
+            "score": 0.381586343
+          },
+          {
+            "box": [
+              0.0,
+              358.110288,
+              301.029007,
+              29.084204
+            ],
+            "label": "textbox",
+            "score": 0.378162473
+          },
+          {
+            "box": [
+              16.480843,
+              443.317948,
+              131.608383,
+              29.8486
+            ],
+            "label": "select",
+            "score": 0.376130134
+          },
+          {
+            "box": [
+              362.012581,
+              331.772225,
+              105.875748,
+              30.741011
+            ],
+            "label": "tab",
+            "score": 0.365293711
+          },
+          {
+            "box": [
+              214.721443,
+              329.22202,
+              160.425156,
+              40.345176
+            ],
+            "label": "button",
+            "score": 0.345998704
+          },
+          {
+            "box": [
+              0.0,
+              355.262908,
+              146.650497,
+              31.734286
+            ],
+            "label": "textbox",
+            "score": 0.320188582
+          },
+          {
+            "box": [
+              10.457623,
+              475.623338,
+              206.504654,
+              28.904692
+            ],
+            "label": "textbox",
+            "score": 0.317899287
+          },
+          {
+            "box": [
+              226.689056,
+              349.208198,
+              167.17662,
+              21.366135
+            ],
+            "label": "button",
+            "score": 0.309839308
+          },
+          {
+            "box": [
+              249.901485,
+              335.277237,
+              169.168465,
+              30.578032
+            ],
+            "label": "textbox",
+            "score": 0.304853022
+          },
+          {
+            "box": [
+              317.308445,
+              332.234045,
+              146.54409,
+              25.562917
+            ],
+            "label": "button",
+            "score": 0.277537763
+          },
+          {
+            "box": [
+              0.0,
+              193.557556,
+              124.843769,
+              24.497849
+            ],
+            "label": "link",
+            "score": 0.275604725
+          },
+          {
+            "box": [
+              32.894421,
+              337.429483,
+              28.241641,
+              20.95863
+            ],
+            "label": "checkbox",
+            "score": 0.275392234
+          },
+          {
+            "box": [
+              64.971654,
+              386.726451,
+              68.841276,
+              28.918802
+            ],
+            "label": "tab",
+            "score": 0.270521522
+          },
+          {
+            "box": [
+              0.0,
+              97.726422,
+              104.65149,
+              18.383185
+            ],
+            "label": "button",
+            "score": 0.267089665
+          },
+          {
+            "box": [
+              25.628609,
+              74.064291,
+              114.140934,
+              34.934192
+            ],
+            "label": "button",
+            "score": 0.25122261
+          }
+        ]
+      },
+      "kind": "REAL rendered frame, letterboxed by tools/detector/data.py",
+      "sampleId": "dev-0000",
+      "split": "dev",
+      "framePath": "frames/dev-0000.png",
+      "framePngSha256": "a92dd29ad0f4999280c39f00b147bddb3c81b07df1fa623253395de7bfae6081",
+      "annotations": 15
+    },
+    {
+      "name": "dev-0003",
+      "inputSha256": "97b5b791fdd183d2a465b8c5c8ef28c2a7a2b65b875e320deaa31fd01fce9e13",
+      "inputStats": {
+        "count": 1228800,
+        "min": 0.12156862765550613,
+        "max": 1.0,
+        "sum": 872957.0269383267,
+        "sumAbs": 872957.0269383267,
+        "finite": true
+      },
+      "outputShape": [
+        1,
+        12,
+        6400
+      ],
+      "outputSha256": "dff65d57aea6e37daba1978f6723c88c9a6b121a600bfec382ec23c330d21b99",
+      "outputStats": {
+        "count": 76800,
+        "min": -1.8507041931152344,
+        "max": 649.7973022460938,
+        "sum": 4574172.546110421,
+        "sumAbs": 4574189.595909387,
+        "finite": true
+      },
+      "torchVsOnnxEvalMode": {
+        "boxChannelsMaxAbs": 0.001678466796875,
+        "classChannelsMaxAbs": 6.973743438720703e-06
+      },
+      "geometry": {
+        "capture": {
+          "w": 1152,
+          "h": 640
+        },
+        "viewportCss": {
+          "w": 1152,
+          "h": 640
+        },
+        "letterbox": {
+          "scale": 0.5555555555555556,
+          "padX": 0.0,
+          "padY": 142.22222222222223,
+          "contentW": 640.0,
+          "contentH": 355.55555555555554
+        },
+        "cssToCapture": 1.0
+      },
+      "shippedDecode": {
+        "threshold": 0.25,
+        "nmsIou": 0.5,
+        "maxDetections": 300,
+        "detectionCount": 53,
+        "cssBoxes": [
+          {
+            "box": [
+              558.40372,
+              111.90838,
+              146.9367,
+              18.892787
+            ],
+            "label": "link",
+            "score": 0.975907207
+          },
+          {
+            "box": [
+              522.122395,
+              110.141147,
+              107.897813,
+              20.715692
+            ],
+            "label": "link",
+            "score": 0.97062695
+          },
+          {
+            "box": [
+              296.448857,
+              110.691193,
+              137.762595,
+              21.032616
+            ],
+            "label": "link",
+            "score": 0.970543742
+          },
+          {
+            "box": [
+              35.515537,
+              110.62472,
+              109.111748,
+              20.027269
+            ],
+            "label": "link",
+            "score": 0.969485343
+          },
+          {
+            "box": [
+              273.604807,
+              136.91116,
+              114.265283,
+              36.417165
+            ],
+            "label": "button",
+            "score": 0.961151838
+          },
+          {
+            "box": [
+              789.956756,
+              111.13424,
+              138.894887,
+              19.756013
+            ],
+            "label": "link",
+            "score": 0.960260034
+          },
+          {
+            "box": [
+              65.228041,
+              377.771163,
+              421.864865,
+              26.398397
+            ],
+            "label": "textbox",
+            "score": 0.957633853
+          },
+          {
+            "box": [
+              3.672153,
+              441.051868,
+              416.05546,
+              32.607642
+            ],
+            "label": "textbox",
+            "score": 0.92945683
+          },
+          {
+            "box": [
+              774.939029,
+              136.578212,
+              101.360028,
+              30.383047
+            ],
+            "label": "button",
+            "score": 0.924692273
+          },
+          {
+            "box": [
+              45.916912,
+              136.839069,
+              118.526385,
+              30.215149
+            ],
+            "label": "button",
+            "score": 0.908259809
+          },
+          {
+            "box": [
+              539.29154,
+              137.411614,
+              114.894154,
+              31.896236
+            ],
+            "label": "button",
+            "score": 0.900378585
+          },
+          {
+            "box": [
+              19.643802,
+              510.435887,
+              292.637219,
+              35.009304
+            ],
+            "label": "textbox",
+            "score": 0.871733904
+          },
+          {
+            "box": [
+              10.200531,
+              233.68225,
+              302.376489,
+              34.983291
+            ],
+            "label": "textbox",
+            "score": 0.864459038
+          },
+          {
+            "box": [
+              0.060665,
+              0.890847,
+              21.305223,
+              20.432631
+            ],
+            "label": "icon",
+            "score": 0.859755635
+          },
+          {
+            "box": [
+              0.0,
+              307.312956,
+              251.759894,
+              31.796586
+            ],
+            "label": "textbox",
+            "score": 0.845420182
+          },
+          {
+            "box": [
+              34.796365,
+              610.345279,
+              76.909941,
+              22.10191
+            ],
+            "label": "tab",
+            "score": 0.841083407
+          },
+          {
+            "box": [
+              212.887961,
+              610.927496,
+              81.81831,
+              28.627576
+            ],
+            "label": "tab",
+            "score": 0.83417511
+          },
+          {
+            "box": [
+              117.63055,
+              609.551943,
+              90.050805,
+              22.233333
+            ],
+            "label": "tab",
+            "score": 0.802680194
+          },
+          {
+            "box": [
+              257.758916,
+              561.804421,
+              170.894106,
+              29.658235
+            ],
+            "label": "select",
+            "score": 0.793466926
+          },
+          {
+            "box": [
+              206.582932,
+              610.972863,
+              123.170856,
+              25.95978
+            ],
+            "label": "button",
+            "score": 0.772201777
+          },
+          {
+            "box": [
+              0.0,
+              375.792442,
+              334.451624,
+              28.142753
+            ],
+            "label": "textbox",
+            "score": 0.768469095
+          },
+          {
+            "box": [
+              74.892041,
+              307.210527,
+              276.158167,
+              31.717996
+            ],
+            "label": "textbox",
+            "score": 0.75884521
+          },
+          {
+            "box": [
+              21.939409,
+              610.599265,
+              158.405809,
+              26.688409
+            ],
+            "label": "button",
+            "score": 0.731930137
+          },
+          {
+            "box": [
+              0.0,
+              510.636045,
+              219.255009,
+              34.858709
+            ],
+            "label": "textbox",
+            "score": 0.720041037
+          },
+          {
+            "box": [
+              32.432438,
+              568.132667,
+              13.956295,
+              17.783312
+            ],
+            "label": "checkbox",
+            "score": 0.628396273
+          },
+          {
+            "box": [
+              517.419717,
+              107.713544,
+              171.203632,
+              27.705872
+            ],
+            "label": "link",
+            "score": 0.621524096
+          },
+          {
+            "box": [
+              97.625569,
+              610.015168,
+              152.935538,
+              26.760826
+            ],
+            "label": "button",
+            "score": 0.607163072
+          },
+          {
+            "box": [
+              140.359524,
+              567.120055,
+              14.250734,
+              17.924709
+            ],
+            "label": "radio",
+            "score": 0.557692647
+          },
+          {
+            "box": [
+              106.592356,
+              610.153221,
+              147.286821,
+              27.540177
+            ],
+            "label": "tab",
+            "score": 0.498745918
+          },
+          {
+            "box": [
+              326.516535,
+              104.676097,
+              159.857542,
+              32.488663
+            ],
+            "label": "link",
+            "score": 0.48559624
+          },
+          {
+            "box": [
+              27.662064,
+              338.83792,
+              326.763611,
+              39.687575
+            ],
+            "label": "textbox",
+            "score": 0.461367518
+          },
+          {
+            "box": [
+              0.0,
+              609.820422,
+              141.610968,
+              26.608912
+            ],
+            "label": "tab",
+            "score": 0.458770305
+          },
+          {
+            "box": [
+              752.539925,
+              108.938084,
+              131.468967,
+              23.263321
+            ],
+            "label": "link",
+            "score": 0.41351068
+          },
+          {
+            "box": [
+              769.068869,
+              107.558153,
+              242.430084,
+              28.623153
+            ],
+            "label": "link",
+            "score": 0.373399615
+          },
+          {
+            "box": [
+              126.572707,
+              564.854344,
+              34.726019,
+              23.297904
+            ],
+            "label": "radio",
+            "score": 0.3674016
+          },
+          {
+            "box": [
+              36.914042,
+              106.953583,
+              168.835075,
+              27.672051
+            ],
+            "label": "link",
+            "score": 0.349631667
+          },
+          {
+            "box": [
+              15.55088,
+              485.764695,
+              148.183882,
+              29.129789
+            ],
+            "label": "link",
+            "score": 0.346177697
+          },
+          {
+            "box": [
+              764.303906,
+              149.270384,
+              119.705823,
+              25.127415
+            ],
+            "label": "button",
+            "score": 0.342712641
+          },
+          {
+            "box": [
+              33.23242,
+              153.511616,
+              129.170023,
+              21.821213
+            ],
+            "label": "button",
+            "score": 0.33036992
+          },
+          {
+            "box": [
+              0.0,
+              106.419171,
+              121.319385,
+              28.102899
+            ],
+            "label": "link",
+            "score": 0.319238722
+          },
+          {
+            "box": [
+              153.630753,
+              336.057758,
+              308.706042,
+              42.840026
+            ],
+            "label": "textbox",
+            "score": 0.307943761
+          },
+          {
+            "box": [
+              74.311963,
+              268.77195,
+              296.616302,
+              40.954635
+            ],
+            "label": "textbox",
+            "score": 0.29205814
+          },
+          {
+            "box": [
+              95.026698,
+              134.244381,
+              157.603244,
+              44.399415
+            ],
+            "label": "button",
+            "score": 0.291054666
+          },
+          {
+            "box": [
+              0.0,
+              476.209833,
+              148.737112,
+              37.419959
+            ],
+            "label": "button",
+            "score": 0.288792849
+          },
+          {
+            "box": [
+              0.0,
+              273.344638,
+              139.325544,
+              36.72597
+            ],
+            "label": "button",
+            "score": 0.278844953
+          },
+          {
+            "box": [
+              0.0,
+              269.331245,
+              223.324345,
+              40.35438
+            ],
+            "label": "textbox",
+            "score": 0.276196241
+          },
+          {
+            "box": [
+              80.133495,
+              406.828808,
+              147.475992,
+              31.844287
+            ],
+            "label": "button",
+            "score": 0.272011638
+          },
+          {
+            "box": [
+              37.158927,
+              566.787865,
+              17.567455,
+              20.561574
+            ],
+            "label": "checkbox",
+            "score": 0.271678478
+          },
+          {
+            "box": [
+              0.0,
+              413.531687,
+              150.125029,
+              27.982353
+            ],
+            "label": "link",
+            "score": 0.270607948
+          },
+          {
+            "box": [
+              71.700835,
+              560.548751,
+              96.367772,
+              32.239119
+            ],
+            "label": "button",
+            "score": 0.267929792
+          },
+          {
+            "box": [
+              93.404787,
+              339.953915,
+              175.331195,
+              36.658637
+            ],
+            "label": "select",
+            "score": 0.257561922
+          },
+          {
+            "box": [
+              0.0,
+              135.379657,
+              169.249576,
+              32.01073
+            ],
+            "label": "select",
+            "score": 0.255836755
+          },
+          {
+            "box": [
+              306.208531,
+              145.334897,
+              84.122019,
+              32.316741
+            ],
+            "label": "button",
+            "score": 0.254403621
+          }
+        ]
+      },
+      "kind": "REAL rendered frame, letterboxed by tools/detector/data.py",
+      "sampleId": "dev-0003",
+      "split": "dev",
+      "framePath": "frames/dev-0003.png",
+      "framePngSha256": "21eee1fcbf752df329c17a5766bfb250438e143fa1104726501018b3dce283ab",
+      "annotations": 28
+    }
+  ]
+}

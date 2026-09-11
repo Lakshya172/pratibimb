@@ -1,0 +1,103 @@
+{
+  "experiment": "W1-QG03-t1-detector-runtime",
+  "recorded_at": "2026-09-11",
+  "question": "Can the ACTUAL trained T1 UIElementDetector ONNX artifact execute correctly, reproducibly and within lightweight constraints across the dossier's browser/backend matrix?",
+  "lineage": "S-03c — the follow-up S-03 recorded as blocking QG-03: 'Repeat with a real detector before any latency figure is quoted.' S-03 used a 174-byte two-op synthetic model and said explicitly that it did NOT satisfy QG-03.",
+  "scope": "ONE model — the project's own T1 head — across four browser x backend cells, each split by display mode. This fills ONE ROW of the twenty-cell feasibility matrix. The other four model rows remain UNKNOWN.",
+  "workstation": {
+    "id": "workstation 1",
+    "host": "LAPTOP-6E14K34L",
+    "model": "HP OMEN Gaming Laptop 16-am0xxx",
+    "os": "Microsoft Windows 11 Home Single Language, build 26200 (10.0.26200)",
+    "cpu": "Intel(R) Core(TM) 7 240H — 10 cores, 16 threads",
+    "ram_gb": 23.6,
+    "gpus": [
+      { "name": "Intel(R) Graphics", "driver": "32.0.101.7077" },
+      { "name": "NVIDIA GeForce RTX 5050 Laptop GPU", "driver": "32.0.16.1074" }
+    ],
+    "note": "TWO GPUs are present, so a WebGPU figure is only attributable if the adapter is identified. The harness records adapterInfo where the browser exposes it; Firefox exposes an empty adapterInfo (S-02), so every Firefox WebGPU figure here is labelled 'adapter unidentified'."
+  },
+  "platform_coverage": {
+    "windows": "MEASURED — this experiment",
+    "linux": "NOT MEASURED. Firefox on Linux remains UNKNOWN, exactly as S-02a-1 left it. Nothing in this experiment touches that cell and nothing here may be quoted about it.",
+    "macos": "NOT MEASURED, out of scope"
+  },
+  "browsers": {
+    "chromium": {
+      "channel": "unbranded Chromium bundled with Playwright 1.63.0",
+      "version": "151.0.7922.34",
+      "path": "%LOCALAPPDATA%/ms-playwright/chromium-1234/chrome-win64/chrome.exe",
+      "why_not_branded_chrome": "Chrome 152 stable REFUSES --load-extension and does so with a warning the harness never sees, so the extension is simply absent and the run looks like 'the capability is missing in extension contexts'. That false negative cost two runs during S-01.",
+      "extension_context": "MV3 service worker drives a chrome.offscreen document; ORT runs in the offscreen document. ORT CANNOT run in an MV3 service worker at all — it loads its WASM glue by dynamic import(), which the HTML specification forbids there (S-03)."
+    },
+    "firefox": {
+      "version": "155.0.1 release",
+      "path": "C:/Program Files/Mozilla Firefox/firefox.exe",
+      "driver": "web-ext, from artifacts/experiments/W1-S02a2a3-ort-wasm-hash-pin/harness/node_modules",
+      "extension_context": "MV3 event page — a document with a DOM, so ORT runs there directly and no offscreen equivalent is invented",
+      "prefs_forced": ["extensions.originControls.grantByDefault=true"],
+      "prefs_forced_why": "REPORTING ONLY. Firefox MV3 gates host_permissions behind user-granted origin controls (S-02a-2); without this the probe runs correctly but cannot deliver its report, which is indistinguishable from a crash.",
+      "prefs_deliberately_NOT_forced": ["dom.webgpu.enabled"],
+      "prefs_not_forced_why": "S-02a fixed the rule in advance: 'a result requiring an about:config change on the release channel is CONDITIONAL, never ACCEPT, because the judging machine will not have that change.' If the Firefox WebGPU cell fails at defaults, that failure IS the result."
+    }
+  },
+  "runtime": {
+    "package": "onnxruntime-web",
+    "version": "1.29.0",
+    "bundle": "ort.all.min.js (carries both wasm and webgpu backends)",
+    "wasm_numThreads": 1,
+    "loading": "ADR-0001's own path — installVerifiedOrtRuntime() hashes the packaged ort-wasm-simd-threaded.jsep.wasm against ORT_PIN before ORT is touched, then createPinnedInferenceSession() creates the session. The SHIPPED @pratibimb/security module is used, not a copy.",
+    "wasm_artifacts_committed": false,
+    "wasm_artifacts_why_not": "27.8 MB. CI blocks files over 5 MB and SECURITY.md requires large binaries be referenced by pinned revision. build-qg03-extension.mjs pulls them from the pinned npm package."
+  },
+  "model_under_test": {
+    "id": "pratibimb-t1-ui-head",
+    "revision": "ba6d9e93695b",
+    "file": "t1-ui-head.onnx",
+    "bytes": 302960,
+    "sha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+    "committed": false,
+    "why_not_committed": ".gitignore excludes artifacts/models/ and scripts/verify-repo.py bans .onnx. The TRACKED authority on which artifact the project has published evidence for is artifacts/gates/T1-detector-training/qg05-detector-evaluation.json, and the reference generator refuses to run if the local file disagrees with it.",
+    "delivery": "inlined as base64 in the probe. The model performs ZERO fetches, so 'no runtime model download' is observable in the arrival log rather than asserted.",
+    "provenance": "trained in this repository by tools/detector/train.py on the project's own synthetic rendered set. Nothing downloaded. Option B of constitution §8.",
+    "adopted": false
+  },
+  "reference": {
+    "produced_by": "tools/detector/qg03_reference.py",
+    "runtime": "onnxruntime 1.20.1, CPUExecutionProvider, torch 2.14.0+cpu",
+    "eval_mode": "ASSERTED — every named_module()'s .training flag is READ, before and after the reference run. A single True aborts. This is the guard against the defect that produced a bogus 40.4 'export discrepancy' against a correct artifact.",
+    "criterion_pre_registered": true,
+    "criterion": "class channels 1e-4 absolute; box channels 0.25 model px; shape exact; repeated inference BITWISE identical"
+  },
+  "cases": [
+    "synth — deterministic formula, no image decode and no resize, so the graph is isolated from every resampling difference a browser could introduce",
+    "dev-0000 — real rendered frame, 960x640 capture, letterboxed by the training code path",
+    "dev-0003 — real rendered frame, 1152x640 capture, 28 annotations"
+  ],
+  "measurements": {
+    "correctness": "browser output compared ELEMENT-WISE against the reference tensor; box and class channels reported separately because they live on different scales",
+    "postprocessing": "the SHIPPED compiled @pratibimb/perception decode, NMS, letterbox inverse and coordinate chain, imported into the extension verbatim — no bundler, no re-implementation",
+    "determinism": "3 repeated runs in one session, compared bitwise",
+    "latency": "session creation, first inference and warm inference kept as SEPARATE figures, per benchmark contract Rule 1",
+    "memory": "WASM linear memory via wrapped WebAssembly.Memory constructor and grow(); JS heap via performance.memory where available; model file size. Three different quantities, never conflated.",
+    "backend_identity": "GPUQueue.prototype.submit counted, wrapped before ORT loaded. Configuration is not execution.",
+    "network": "fetch, XHR, WebSocket, EventSource and importScripts wrapped; every URL logged with its origin classified against the extension's own"
+  },
+  "collector": { "endpoint": "http://127.0.0.1:8912", "external_hosts_contacted": "none" },
+  "csp": {
+    "directive": "built by the SHIPPED buildExtensionPagesCsp(), so the harness cannot run under a policy the product would reject",
+    "connect_src": "pinned to the loopback collector — the harness's only legitimate destination",
+    "status": "ADR-0001 is UNCHANGED by this experiment."
+  },
+  "data": {
+    "pii": "none",
+    "secrets": "none",
+    "real_user_data": "none — the frames are synthetic rendered HTML from the project's own generator",
+    "profiles": "temporary, deleted after each run; spawned Firefox processes reaped by PID-set difference and the reap verified"
+  },
+  "known_harness_defects_found_and_fixed": [
+    "web-ext spawns Firefox and killing web-ext does not kill Firefox; 90 browser processes accumulated across two cells before the PID-set reaper was added. Latency figures measured under that load were discarded and every cell re-measured.",
+    "Reaping by profile path reported killed:0 while fifteen processes survived — web-ext copies the profile and content processes do not carry it in their command line. Replaced with PID-set differencing, which is verified rather than assumed.",
+    "An interrupted run left the backend baked into ff-background.js with no __CONFIG__ placeholder, so substitution became a silent no-op and a cell labelled webgpu throughout its own log actually measured WASM. The runner now fails closed if the placeholder is absent, and the aggregator refuses to emit a cell whose label disagrees with the backend the probe reported."
+  ]
+}
