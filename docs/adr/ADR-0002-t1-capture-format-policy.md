@@ -1,14 +1,14 @@
 ---
 id: ADR-0002
 title: "QG-03b-2c — T1 Capture Format Policy"
-version: 1.0
-status: PROPOSED — for human-architect approval
+version: 1.1
+status: APPROVED — implemented in PR #41 (merge commit 27d71e3)
 owner: pratibimb-architect
 proposed_by: browser-engineer · ml-engineer
-approved_by: —
-approved_on: —
+approved_by: ronitsaha11
+approved_on: 2026-09-11
 created: 2026-09-11
-modified: 2026-09-11
+modified: 2026-09-11  # rev 2: approval recorded (basis in §14)
 supersedes: none
 related_gates: ["QG-03", "QG-03a", "QG-03b-2", "QG-03b-2a", "QG-03b-2c"]
 related_follow_ups: ["QG-03b-2d (closed by this ADR)", "QG-03b-2b", "QG-03a-4", "QG-03b-3"]
@@ -17,18 +17,24 @@ related_invariants: none changed
 
 # ADR-0002 — QG-03b-2c: T1 Capture Format Policy
 
-> **STATUS: PROPOSED.** Not approved. Per the amendment procedure in `docs/adr/README.md`,
-> the human architect approves or rejects; no agent approves its own ADR. The accompanying
-> code **enforces the behaviour production already had** (an explicit PNG request) and
-> refuses what it previously accepted silently. If this ADR is rejected, that code is
-> reverted (§12) and production keeps requesting PNG either way.
+> **STATUS: APPROVED 2026-09-11** by the human architect, **ronitsaha11**, who merged PR #41
+> (merge commit `27d71e33486195c53338b82f251a70d3a3b30a7e`). That PR implemented the policy.
+> **No GitHub approval review was submitted; the merge is the recorded owner action.** The
+> approval basis is set out in §14.
+>
+> Approval covers **explicit PNG-only T1 production capture** and nothing wider. It does not
+> adopt the detector, does not touch the T2 egress encoding, and does not promote QG-03, which
+> remains **CONDITIONAL**.
 
 ---
 
 ## 1 · Status
 
-`PROPOSED` 2026-09-11 on `feature/qg03b2c-capture-format-policy`, based on `main` =
-`0aad4f0`. Approval block in §14, left blank for the human architect.
+`APPROVED` 2026-09-11 by ronitsaha11 (§14).
+
+Proposed and implemented on `feature/qg03b2c-capture-format-policy` (PR #41, base `0aad4f0`,
+merged as `27d71e3`). This approval record was added afterwards on
+`feature/approve-adr0002-qg03b2c`, because PR #41 merged before the ADR metadata was updated.
 
 ## 2 · Context
 
@@ -245,7 +251,33 @@ request stays `{format:"png"}` either way, so revert changes no captured frame.
 
 | Field | Value |
 |---|---|
-| Decision | ☐ APPROVED ☐ REJECTED ☐ APPROVED WITH CONDITIONS |
-| Human architect | |
-| Date | |
-| Conditions | |
+| Decision | ☒ **APPROVED** ☐ REJECTED ☐ APPROVED WITH CONDITIONS |
+| Human architect | **ronitsaha11**, repository owner |
+| Date | **2026-09-11** |
+| Approval basis | ronitsaha11 merged PR #41 into `main` at 2026-09-11T16:59:10Z, as merge commit `27d71e33486195c53338b82f251a70d3a3b30a7e`. When it was merged, this ADR was marked PROPOSED and the PR stated it was awaiting approval. The merge accepts the policy together with its implementation. **No GitHub approval review was submitted on PR #41**, and none is claimed here. The merge is the owner action this record rests on. |
+| Recorded by | Lakshya172, after the merge, on `feature/approve-adr0002-qg03b2c`, because PR #41 merged before this block was filled. **This record takes effect when ronitsaha11 merges that documentation PR.** |
+| Conditions | None beyond the ADR's own scope, restated below. |
+
+**What is approved:** explicit PNG-only T1 production capture, as specified in §5 and
+implemented in PR #41. That means:
+- `captureVisibleTab({ format: "png" })` is the only request;
+- anything that is not PNG is refused;
+- nothing is re-requested in another format, and there is no fallback;
+- `CaptureFrame.format` is `"png"`;
+- the decision rests on the measured evidence in §3.
+
+**Boundaries that stay in force:**
+- **JPEG** remains historically characterised (W1-QG03b-2, W1-QG03b-2a, with their tests),
+  but it is **not** part of the T1 production capture path. Admitting it again needs a
+  superseding ADR (§12).
+- **T2 egress encoding is separate and unchanged**: WebP q62 on the sanitized frame
+  (`manifest-schema.md`, `security-invariants.md`). D3 and D4 are untouched.
+- **The detector remains UNADOPTED.** The 0.55 threshold, its tolerances and the held-out
+  split are unchanged.
+- **QG-03 remains CONDITIONAL.** Its independent requirements are unaffected.
+- The §11 revision of QG-03a's T1 scope takes effect with this approval. **QG-03a remains
+  open and still blocks detector adoption.**
+- ADR-0001, B-02, Invariant E and QG-04 are untouched.
+
+Per amendment step 6, `docs/architecture/constitution.md` §5 and `docs/adr/README.md` are
+updated in the same documentation PR that records this approval.
