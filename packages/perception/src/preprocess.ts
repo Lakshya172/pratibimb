@@ -306,16 +306,45 @@ function resampleVertical(src: Uint8Array, srcW: number, srcH: number, dstH: num
   return out;
 }
 
-/** RGBA → RGB, dropping alpha. The detector is defined over RGB and the contract says so. */
-export function rgbaToRgb(rgba: Uint8ClampedArray | Uint8Array, width: number, height: number): Uint8Array {
+/**
+ * RGBA → RGB, dropping alpha. The detector is defined over RGB and the contract says so.
+ *
+ * Dropping rather than compositing, deliberately, and matching Pillow: `RGBA.convert("RGB")`
+ * discards the alpha channel and does not blend against an assumed background. Compositing
+ * would invent pixel values the training pipeline never produced.
+ *
+ * `minAlpha` is reported because the caller needs it: see `assertOpaque`.
+ */
+export function rgbaToRgb(
+  rgba: Uint8ClampedArray | Uint8Array,
+  width: number,
+  height: number
+): Uint8Array {
+  return rgbaToRgbWithAlpha(rgba, width, height).rgb;
+}
+
+/**
+ * The same conversion, also reporting the minimum alpha seen.
+ *
+ * Folded into the existing pass rather than added as a second one: the loop already touches
+ * every pixel, so the opacity check costs nothing measurable.
+ */
+export function rgbaToRgbWithAlpha(
+  rgba: Uint8ClampedArray | Uint8Array,
+  width: number,
+  height: number
+): { rgb: Uint8Array; minAlpha: number } {
   const n = width * height;
   const out = new Uint8Array(n * 3);
+  let minAlpha = 255;
   for (let i = 0, j = 0; i < n; i += 1, j += 4) {
     out[i * 3] = rgba[j]!;
     out[i * 3 + 1] = rgba[j + 1]!;
     out[i * 3 + 2] = rgba[j + 2]!;
+    const a = rgba[j + 3]!;
+    if (a < minAlpha) minAlpha = a;
   }
-  return out;
+  return { rgb: out, minAlpha };
 }
 
 /** Every intermediate stage, so a conformance failure can name where it started. */
@@ -350,7 +379,28 @@ export function preprocessToTensor(image: DecodedImage, contract: HeadTensorCont
   }
 
   const t = rasterLetterbox({ w: image.width, h: image.height }, contract.inputSize, contract.padValue);
-  const decoded = rgbaToRgb(image.rgba, image.width, image.height);
+  const { rgb: decoded, minAlpha } = rgbaToRgbWithAlpha(image.rgba, image.width, image.height);
+
+  // FAIL CLOSED ON A NON-OPAQUE FRAME.
+  //
+  // By the time these pixels arrive they have been through a canvas, which stores
+  // premultiplied colour and un-premultiplies on getImageData. That round trip is not
+  // invertible below alpha 255: at alpha 8 the colour has been quantised to 8/255 steps and
+  // the original is unrecoverable. MEASURED in QG-03b-2 — up to 15/255 per channel for PNG
+  // and 31/255 for WebP, which premultiplies a second time during decode.
+  //
+  // Dropping alpha anyway would produce a tensor that looks entirely normal and is wrong,
+  // and the detector would return confident boxes from it. captureVisibleTab produces
+  // opaque frames, so refusing costs production nothing and removes a silent failure.
+  if (minAlpha < 255) {
+    throw new PerceptionError(
+      `Frame is not fully opaque (minimum alpha ${minAlpha}). Its RGB values have already ` +
+        "passed through a premultiply/un-premultiply round trip that is not invertible below " +
+        "alpha 255, so they cannot be trusted. captureVisibleTab produces opaque frames; a " +
+        "non-opaque one means the capture path is not the one this contract describes.",
+      "FRAME_NOT_OPAQUE"
+    );
+  }
 
   // Horizontal then vertical, the order PIL uses. The order is observable: each pass
   // quantises to 8 bits, so resampling height-first can differ by one in the last bit.
