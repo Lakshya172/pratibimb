@@ -86,6 +86,27 @@ export interface RasterLetterbox {
 }
 
 /**
+ * Python's built-in `round()` on a positive float: the nearest integer, and on an EXACT .5,
+ * the even neighbour.
+ *
+ * This is what `tools/detector/data.py` rasterised the training set with. `Math.round`
+ * is not: it sends every .5 up. W1-QG03a measured the difference on realistic capture sizes.
+ * At 1024×644 the height extent is exactly 402.5. Training drew 402 rows; the shipped raster
+ * drew 403 and moved the top padding by a row, so 21% of tensor bytes differed from the
+ * reference.
+ *
+ * `x - Math.floor(x)` is exact in binary floating point at these magnitudes, so the tie test
+ * is exact rather than approximate. It reproduces Python's decision on the same double.
+ */
+function roundHalfEven(x: number): number {
+  const f = Math.floor(x);
+  const d = x - f;
+  if (d > 0.5) return f + 1;
+  if (d < 0.5) return f;
+  return f % 2 === 0 ? f : f + 1;
+}
+
+/**
  * The raster geometry.
  *
  * `round()` on the extent and floor-division on the offset, matching
@@ -93,12 +114,13 @@ export interface RasterLetterbox {
  *
  *   * padding is ASYMMETRIC whenever `modelSize - resized` is odd. The extra pixel goes to
  *     the RIGHT and BOTTOM, because `(S - n) / 2` is floored for the left/top offset.
- *   * `round()` here is JavaScript's `Math.round`, which rounds half AWAY from zero for
- *     positive values (0.5 → 1). Python's built-in `round()` is banker's rounding (0.5 → 0,
- *     1.5 → 2). They differ only when `dim * scale` lands exactly on .5, which requires the
- *     product to be exactly representable — `conformance.test.ts` enumerates the cases and
- *     asserts the two agree on all of them. If a future source size breaks that, the test
- *     fails rather than the tensor quietly shifting by a pixel.
+ *   * `round()` here is PYTHON's built-in `round()`, i.e. half to EVEN, reproduced by
+ *     `roundHalfEven`, because that is what data.py rasterised the training set with and the
+ *     trained weights are the authority. JavaScript's `Math.round` sends every .5 UP. The two
+ *     disagree whenever `dim * scale` lands exactly on .5 with an even lower neighbour.
+ *     QG-03a found real capture sizes that do (1280×641, 1280×721, 1024×644, 2560×1442,
+ *     641×1280). With `Math.round` the shipped raster diverged from the reference on every
+ *     one of them, in Node, Chrome and Firefox alike.
  */
 export function rasterLetterbox(source: Size, modelSize: number, padValue: number): RasterLetterbox {
   if (!Number.isFinite(modelSize) || modelSize <= 0 || !Number.isInteger(modelSize)) {
@@ -122,8 +144,8 @@ export function rasterLetterbox(source: Size, modelSize: number, padValue: numbe
   }
 
   const scale = Math.min(modelSize / source.w, modelSize / source.h);
-  const resizedW = Math.max(1, Math.round(source.w * scale));
-  const resizedH = Math.max(1, Math.round(source.h * scale));
+  const resizedW = Math.max(1, roundHalfEven(source.w * scale));
+  const resizedH = Math.max(1, roundHalfEven(source.h * scale));
   const padLeft = Math.floor((modelSize - resizedW) / 2);
   const padTop = Math.floor((modelSize - resizedH) / 2);
   return {

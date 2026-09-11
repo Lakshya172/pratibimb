@@ -1,0 +1,800 @@
+{
+ "experiment": "W1-QG03a / C + A3",
+ "runAt": "2026-09-11T17:55:31.967Z",
+ "runtime": "node v26.4.0",
+ "c1": {
+  "source": "tools/dataset/build-dataset.mjs plan (seed 20260910, counts 120/40/40, DPR 1) via makeSpec",
+  "samples": 200,
+  "affected": 84,
+  "bySplit": {
+   "train": {
+    "samples": 120,
+    "affected": 50
+   },
+   "dev": {
+    "samples": 40,
+    "affected": 18
+   },
+   "test": {
+    "samples": 40,
+    "affected": 16
+   }
+  },
+  "distinctWorstOffsetsModelPx": [
+   0.2222,
+   0.5,
+   0.6667
+  ],
+  "captureSizes": [
+   "1024x600",
+   "1024x640",
+   "1024x720",
+   "1024x800",
+   "1152x600",
+   "1152x640",
+   "1152x720",
+   "1152x800",
+   "1280x600",
+   "1280x640",
+   "1280x720",
+   "1280x800",
+   "960x600",
+   "960x640",
+   "960x720",
+   "960x800"
+  ],
+  "trainingSizesWithRoundingDisagreement": []
+ },
+ "c2": {
+  "note": "WORST CASE: predictions equal the PIXEL-true box, inverted by the continuous runtime transform. TRAIN and DEV only; TEST never evaluated.",
+  "placeholderTestSample": {
+   "seed": 990000000,
+   "purpose": "satisfies the evaluator's non-empty-split rule; never evaluated; outside every T1 seed range"
+  },
+  "boxes": 2658,
+  "maxDispModelPx": 0.681,
+  "minIou": 0.8693,
+  "byBucket": [
+   {
+    "bucket": "<8",
+    "boxes": 0
+   },
+   {
+    "bucket": "8-16",
+    "boxes": 1172,
+    "minIou": 0.8693,
+    "maxDispModelPx": 0.63,
+    "fractionIouBelow075_DIAGNOSTIC": 0,
+    "fractionIouBelow090_DIAGNOSTIC": 0.0486
+   },
+   {
+    "bucket": "16-32",
+    "boxes": 1486,
+    "minIou": 0.922,
+    "maxDispModelPx": 0.681,
+    "fractionIouBelow075_DIAGNOSTIC": 0,
+    "fractionIouBelow090_DIAGNOSTIC": 0
+   },
+   {
+    "bucket": ">=32",
+    "boxes": 0
+   }
+  ],
+  "evaluator": [
+   {
+    "split": "train",
+    "predictions": "perfect (control)",
+    "mAP50": 1,
+    "elementRecall": 1,
+    "groundingAccuracy": 1,
+    "totals": {
+     "groundTruth": 2248,
+     "evaluatable": 2008,
+     "excludedOffscreen": 240,
+     "predictions": 2008,
+     "invalidPredictions": 0,
+     "truePositives": 2008,
+     "falsePositives": 0,
+     "falseNegatives": 0
+    },
+    "rejected": []
+   },
+   {
+    "split": "train",
+    "predictions": "worst case: model learned pixels, not labels",
+    "mAP50": 1,
+    "elementRecall": 1,
+    "groundingAccuracy": 1,
+    "totals": {
+     "groundTruth": 2248,
+     "evaluatable": 2008,
+     "excludedOffscreen": 240,
+     "predictions": 2008,
+     "invalidPredictions": 0,
+     "truePositives": 2008,
+     "falsePositives": 0,
+     "falseNegatives": 0
+    },
+    "rejected": []
+   },
+   {
+    "split": "dev",
+    "predictions": "perfect (control)",
+    "mAP50": 1,
+    "elementRecall": 1,
+    "groundingAccuracy": 1,
+    "totals": {
+     "groundTruth": 730,
+     "evaluatable": 650,
+     "excludedOffscreen": 80,
+     "predictions": 650,
+     "invalidPredictions": 0,
+     "truePositives": 650,
+     "falsePositives": 0,
+     "falseNegatives": 0
+    },
+    "rejected": []
+   },
+   {
+    "split": "dev",
+    "predictions": "worst case: model learned pixels, not labels",
+    "mAP50": 1,
+    "elementRecall": 1,
+    "groundingAccuracy": 1,
+    "totals": {
+     "groundTruth": 730,
+     "evaluatable": 650,
+     "excludedOffscreen": 80,
+     "predictions": 650,
+     "invalidPredictions": 0,
+     "truePositives": 650,
+     "falsePositives": 0,
+     "falseNegatives": 0
+    },
+    "rejected": []
+   }
+  ]
+ },
+ "a3": {
+  "rows": [
+   {
+    "viewportCss": {
+     "w": 1280,
+     "h": 800
+    },
+    "dpr": 1,
+    "zoom": 1,
+    "captureSize": {
+     "w": 1280,
+     "h": 800
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 0,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1024,
+     "h": 640
+    },
+    "dpr": 1.25,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 1280,
+     "h": 800
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 1.1368683772161603e-13,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1280,
+     "h": 800
+    },
+    "dpr": 1.5,
+    "zoom": 1,
+    "captureSize": {
+     "w": 1920,
+     "h": 1200
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 0,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1024,
+     "h": 640
+    },
+    "dpr": 1.875,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 1920,
+     "h": 1200
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.2737367544323206e-13,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1280,
+     "h": 800
+    },
+    "dpr": 2,
+    "zoom": 1,
+    "captureSize": {
+     "w": 2560,
+     "h": 1600
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 0,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1024,
+     "h": 640
+    },
+    "dpr": 2.5,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 2560,
+     "h": 1600
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 1.1368683772161603e-13,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1024,
+     "h": 640
+    },
+    "dpr": 1,
+    "zoom": 1,
+    "captureSize": {
+     "w": 1024,
+     "h": 640
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.2737367544323206e-13,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 819,
+     "h": 512
+    },
+    "dpr": 1.25,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 1024,
+     "h": 640
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 1.1368683772161603e-13,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1024,
+     "h": 640
+    },
+    "dpr": 1.5,
+    "zoom": 1,
+    "captureSize": {
+     "w": 1536,
+     "h": 960
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.2737367544323206e-13,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 819,
+     "h": 512
+    },
+    "dpr": 1.875,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 1536,
+     "h": 960
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 1.4210854715202004e-13,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1024,
+     "h": 640
+    },
+    "dpr": 2,
+    "zoom": 1,
+    "captureSize": {
+     "w": 2048,
+     "h": 1280
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.2737367544323206e-13,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 819,
+     "h": 512
+    },
+    "dpr": 2.5,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 2048,
+     "h": 1280
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 1.2079226507921703e-13,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1366,
+     "h": 768
+    },
+    "dpr": 1,
+    "zoom": 1,
+    "captureSize": {
+     "w": 1366,
+     "h": 768
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.2737367544323206e-13,
+    "labelRasterWorstCssPx": 0.1875,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1093,
+     "h": 614
+    },
+    "dpr": 1.25,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 1366,
+     "h": 768
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.2737367544323206e-13,
+    "labelRasterWorstCssPx": 0.15,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1366,
+     "h": 768
+    },
+    "dpr": 1.5,
+    "zoom": 1,
+    "captureSize": {
+     "w": 2049,
+     "h": 1152
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.2737367544323206e-13,
+    "labelRasterWorstCssPx": 0.1875,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1093,
+     "h": 614
+    },
+    "dpr": 1.875,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 2049,
+     "h": 1151
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 3.410605131648481e-13,
+    "labelRasterWorstCssPx": 0.4167,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1366,
+     "h": 768
+    },
+    "dpr": 2,
+    "zoom": 1,
+    "captureSize": {
+     "w": 2732,
+     "h": 1536
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.5579538487363607e-13,
+    "labelRasterWorstCssPx": 0.1875,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1093,
+     "h": 614
+    },
+    "dpr": 2.5,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 2733,
+     "h": 1535
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 1.1723955140041653e-13,
+    "labelRasterWorstCssPx": 1.2454,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1440,
+     "h": 900
+    },
+    "dpr": 1,
+    "zoom": 1,
+    "captureSize": {
+     "w": 1440,
+     "h": 900
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.842170943040401e-14,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1152,
+     "h": 720
+    },
+    "dpr": 1.25,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 1440,
+     "h": 900
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 1.1368683772161603e-13,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1440,
+     "h": 900
+    },
+    "dpr": 1.5,
+    "zoom": 1,
+    "captureSize": {
+     "w": 2160,
+     "h": 1350
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.842170943040401e-14,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1152,
+     "h": 720
+    },
+    "dpr": 1.875,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 2160,
+     "h": 1350
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.2737367544323206e-13,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1440,
+     "h": 900
+    },
+    "dpr": 2,
+    "zoom": 1,
+    "captureSize": {
+     "w": 2880,
+     "h": 1800
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.842170943040401e-14,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1152,
+     "h": 720
+    },
+    "dpr": 2.5,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 2880,
+     "h": 1800
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 1.4210854715202004e-13,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1280,
+     "h": 641
+    },
+    "dpr": 1,
+    "zoom": 1,
+    "captureSize": {
+     "w": 1280,
+     "h": 641
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 5.684341886080802e-14,
+    "labelRasterWorstCssPx": 0.5,
+    "exactHalfDisagreement": true
+   },
+   {
+    "viewportCss": {
+     "w": 1024,
+     "h": 513
+    },
+    "dpr": 1.25,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 1280,
+     "h": 641
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 1.1368683772161603e-13,
+    "labelRasterWorstCssPx": 0.4,
+    "exactHalfDisagreement": true
+   },
+   {
+    "viewportCss": {
+     "w": 1280,
+     "h": 641
+    },
+    "dpr": 1.5,
+    "zoom": 1,
+    "captureSize": {
+     "w": 1920,
+     "h": 962
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 1.1368683772161603e-13,
+    "labelRasterWorstCssPx": 1.3333,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1024,
+     "h": 513
+    },
+    "dpr": 1.875,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 1920,
+     "h": 962
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.2737367544323206e-13,
+    "labelRasterWorstCssPx": 1.0667,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1280,
+     "h": 641
+    },
+    "dpr": 2,
+    "zoom": 1,
+    "captureSize": {
+     "w": 2560,
+     "h": 1282
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 5.684341886080802e-14,
+    "labelRasterWorstCssPx": 0.5,
+    "exactHalfDisagreement": true
+   },
+   {
+    "viewportCss": {
+     "w": 1024,
+     "h": 513
+    },
+    "dpr": 2.5,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 2560,
+     "h": 1283
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 1.1368683772161603e-13,
+    "labelRasterWorstCssPx": 1,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1920,
+     "h": 1080
+    },
+    "dpr": 1,
+    "zoom": 1,
+    "captureSize": {
+     "w": 1920,
+     "h": 1080
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.842170943040401e-14,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1536,
+     "h": 864
+    },
+    "dpr": 1.25,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 1920,
+     "h": 1080
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 1.1368683772161603e-13,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1920,
+     "h": 1080
+    },
+    "dpr": 1.5,
+    "zoom": 1,
+    "captureSize": {
+     "w": 2880,
+     "h": 1620
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 0,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1536,
+     "h": 864
+    },
+    "dpr": 1.875,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 2880,
+     "h": 1620
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.2737367544323206e-13,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1920,
+     "h": 1080
+    },
+    "dpr": 2,
+    "zoom": 1,
+    "captureSize": {
+     "w": 3840,
+     "h": 2160
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 2.842170943040401e-14,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   },
+   {
+    "viewportCss": {
+     "w": 1536,
+     "h": 864
+    },
+    "dpr": 2.5,
+    "zoom": 1.25,
+    "captureSize": {
+     "w": 3840,
+     "h": 2160
+    },
+    "geometryAccepted": true,
+    "refusal": null,
+    "maxRoundTripErrorCssPx": 1.1368683772161603e-13,
+    "labelRasterWorstCssPx": 0,
+    "exactHalfDisagreement": false
+   }
+  ],
+  "prevalence": [
+   {
+    "dpr": 1,
+    "captureSizes": 801801,
+    "roundingDisagreement": 361,
+    "fraction": 0.0005
+   },
+   {
+    "dpr": 1.25,
+    "captureSizes": 801801,
+    "roundingDisagreement": 223,
+    "fraction": 0.0003
+   },
+   {
+    "dpr": 1.5,
+    "captureSizes": 801801,
+    "roundingDisagreement": 111,
+    "fraction": 0.0001
+   },
+   {
+    "dpr": 2,
+    "captureSizes": 801801,
+    "roundingDisagreement": 361,
+    "fraction": 0.0005
+   }
+  ]
+ }
+}

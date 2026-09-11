@@ -1,0 +1,940 @@
+{
+ "experiment": "W1-QG03a-t1-production-robustness",
+ "base": "3d97284ac08986cad9b1b8a6ba8ea2ed032af246",
+ "workstation": "2 (LAPTOP-SRCINK2B, ENV-0002)",
+ "modelArtifactUsed": false,
+ "heldOutTestSplitEvaluated": false,
+ "a": {
+  "reference": {
+   "library": "Pillow 12.3.0",
+   "numpy": "2.5.3",
+   "python": "3.12.10",
+   "functions": "tools/detector/qg03b_fixtures.py :: make_image, pil_stages, mulberry32 (unmodified)",
+   "rounding": "Python built-in round() on the resized extent (half to EVEN), exactly as tools/detector/data.py",
+   "inputSize": 640,
+   "padByte": 114
+  },
+  "historicalDigestsReproduced": 13,
+  "historicalFixtures": 13,
+  "fixtures": 40,
+  "exactHalfFixtures": [
+   "tie-1280x641",
+   "tie-1280x721",
+   "tie-1024x644",
+   "tie-2560x1442",
+   "tie-641x1280",
+   "tie-1280x5",
+   "tie-agree-1024x652",
+   "tie-agree-1280x3"
+  ],
+  "before": {
+   "node": {
+    "fixtures": 40,
+    "conformant": 34,
+    "nonConformant": 6,
+    "nonConformantNames": [
+     "tie-1280x641",
+     "tie-1280x721",
+     "tie-1024x644",
+     "tie-2560x1442",
+     "tie-641x1280",
+     "tie-1280x5"
+    ],
+    "runtime": {
+     "node": "v26.4.0",
+     "platform": "win32 x64"
+    }
+   },
+   "chrome": {
+    "fixtures": 40,
+    "conformant": 34,
+    "nonConformant": 6,
+    "nonConformantNames": [
+     "tie-1280x641",
+     "tie-1280x721",
+     "tie-1024x644",
+     "tie-2560x1442",
+     "tie-641x1280",
+     "tie-1280x5"
+    ],
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
+   },
+   "firefox": {
+    "fixtures": 40,
+    "conformant": 34,
+    "nonConformant": 6,
+    "nonConformantNames": [
+     "tie-1280x641",
+     "tie-1280x721",
+     "tie-1024x644",
+     "tie-2560x1442",
+     "tie-641x1280",
+     "tie-1280x5"
+    ],
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0"
+   }
+  },
+  "after": {
+   "node": {
+    "fixtures": 40,
+    "conformant": 40,
+    "nonConformant": 0,
+    "nonConformantNames": [],
+    "runtime": {
+     "node": "v26.4.0",
+     "platform": "win32 x64"
+    }
+   },
+   "chrome": {
+    "fixtures": 40,
+    "conformant": 40,
+    "nonConformant": 0,
+    "nonConformantNames": [],
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36"
+   },
+   "firefox": {
+    "fixtures": 40,
+    "conformant": 40,
+    "nonConformant": 0,
+    "nonConformantNames": [],
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:155.0) Gecko/20100101 Firefox/155.0"
+   }
+  },
+  "beforeDivergence": [
+   {
+    "name": "tie-1280x641",
+    "firstDivergence": "geometry",
+    "shipped": {
+     "resizedW": 640,
+     "resizedH": 321,
+     "padLeft": 0,
+     "padTop": 159
+    },
+    "reference": {
+     "resizedW": 640,
+     "resizedH": 320,
+     "padLeft": 0,
+     "padTop": 160
+    },
+    "letterboxedMaxAbs": 151,
+    "letterboxedMeanAbs": 0.99476318359375,
+    "fractionDiffering": 0.042360026041666665
+   },
+   {
+    "name": "tie-1280x721",
+    "firstDivergence": "geometry",
+    "shipped": {
+     "resizedW": 640,
+     "resizedH": 361,
+     "padLeft": 0,
+     "padTop": 139
+    },
+    "reference": {
+     "resizedW": 640,
+     "resizedH": 360,
+     "padLeft": 0,
+     "padTop": 140
+    },
+    "letterboxedMaxAbs": 189,
+    "letterboxedMeanAbs": 2.9273046875,
+    "fractionDiffering": 0.2571101888020833
+   },
+   {
+    "name": "tie-1024x644",
+    "firstDivergence": "geometry",
+    "shipped": {
+     "resizedW": 640,
+     "resizedH": 403,
+     "padLeft": 0,
+     "padTop": 118
+    },
+    "reference": {
+     "resizedW": 640,
+     "resizedH": 402,
+     "padLeft": 0,
+     "padTop": 119
+    },
+    "letterboxedMaxAbs": 185,
+    "letterboxedMeanAbs": 2.848720703125,
+    "fractionDiffering": 0.21254557291666668
+   },
+   {
+    "name": "tie-2560x1442",
+    "firstDivergence": "geometry",
+    "shipped": {
+     "resizedW": 640,
+     "resizedH": 361,
+     "padLeft": 0,
+     "padTop": 139
+    },
+    "reference": {
+     "resizedW": 640,
+     "resizedH": 360,
+     "padLeft": 0,
+     "padTop": 140
+    },
+    "letterboxedMaxAbs": 132,
+    "letterboxedMeanAbs": 0.6167586263020833,
+    "fractionDiffering": 0.0450244140625
+   },
+   {
+    "name": "tie-641x1280",
+    "firstDivergence": "geometry",
+    "shipped": {
+     "resizedW": 321,
+     "resizedH": 640,
+     "padLeft": 159,
+     "padTop": 0
+    },
+    "reference": {
+     "resizedW": 320,
+     "resizedH": 640,
+     "padLeft": 160,
+     "padTop": 0
+    },
+    "letterboxedMaxAbs": 153,
+    "letterboxedMeanAbs": 1.1627303059895833,
+    "fractionDiffering": 0.04862548828125
+   },
+   {
+    "name": "tie-1280x5",
+    "firstDivergence": "geometry",
+    "shipped": {
+     "resizedW": 640,
+     "resizedH": 3,
+     "padLeft": 0,
+     "padTop": 318
+    },
+    "reference": {
+     "resizedW": 640,
+     "resizedH": 2,
+     "padLeft": 0,
+     "padTop": 319
+    },
+    "letterboxedMaxAbs": 141,
+    "letterboxedMeanAbs": 0.17251220703125,
+    "fractionDiffering": 0.0031298828125
+   }
+  ],
+  "timing": {
+   "nodeMedianOf7": {
+    "cap-1264x800": {
+     "medianMs": 14.5,
+     "runs": 7,
+     "runtime": "node v26.4.0"
+    },
+    "cap-1920x1080": {
+     "medianMs": 21,
+     "runs": 7,
+     "runtime": "node v26.4.0"
+    },
+    "cap-2560x1600": {
+     "medianMs": 38,
+     "runs": 7,
+     "runtime": "node v26.4.0"
+    }
+   },
+   "chromeSingleRun": [
+    {
+     "name": "cap-1920x1080",
+     "decodeMs": 20.9,
+     "preprocessMs": 76.4
+    },
+    {
+     "name": "cap-1264x800",
+     "decodeMs": 10.6,
+     "preprocessMs": 50.4
+    },
+    {
+     "name": "cap-2560x1600",
+     "decodeMs": 40.2,
+     "preprocessMs": 116
+    }
+   ],
+   "firefoxSingleRun": [
+    {
+     "name": "cap-1920x1080",
+     "decodeMs": 23,
+     "preprocessMs": 34
+    },
+    {
+     "name": "cap-1264x800",
+     "decodeMs": 14,
+     "preprocessMs": 17
+    },
+    {
+     "name": "cap-2560x1600",
+     "decodeMs": 42,
+     "preprocessMs": 46
+    }
+   ],
+   "dossierBudget": "Capture + downscale 18 ms — PROJECTED (dossier §10), not a measurement"
+  },
+  "roundingDisagreementPrevalence": [
+   {
+    "dpr": 1,
+    "captureSizes": 801801,
+    "roundingDisagreement": 361,
+    "fraction": 0.0005
+   },
+   {
+    "dpr": 1.25,
+    "captureSizes": 801801,
+    "roundingDisagreement": 223,
+    "fraction": 0.0003
+   },
+   {
+    "dpr": 1.5,
+    "captureSizes": 801801,
+    "roundingDisagreement": 111,
+    "fraction": 0.0001
+   },
+   {
+    "dpr": 2,
+    "captureSizes": 801801,
+    "roundingDisagreement": 361,
+    "fraction": 0.0005
+   }
+  ]
+ },
+ "a3": {
+  "geometries": 36,
+  "accepted": 36,
+  "dpr": [
+   1,
+   1.25,
+   1.5,
+   1.875,
+   2,
+   2.5
+  ],
+  "zoom": [
+   1,
+   1.25
+  ],
+  "maxRoundTripErrorCssPx": 3.410605131648481e-13,
+  "maxLabelRasterOffsetCssPx": 1.3333
+ },
+ "b": {
+  "shippedDecode": {
+   "scoreFloor": 0.25,
+   "nmsIou": 0.5,
+   "maxDetections": 300,
+   "source": "packages/perception/dist decodeHeadOutput"
+  },
+  "observedBackendScoreDelta": 0.000002563,
+  "b1": {
+   "pair": {
+    "A": {
+     "cx": 200,
+     "cy": 200,
+     "w": 140,
+     "h": 40
+    },
+    "B": {
+     "cx": 240,
+     "cy": 200,
+     "w": 140,
+     "h": 40
+    },
+    "iou": 0.5556,
+    "label": "button",
+    "baseScore": 0.9
+   },
+   "survivorSwapsForEveryRepresentablePositiveDelta": true,
+   "survivorUnchangedOtherwise": true,
+   "swapDisplacementCssPx": 80,
+   "float32SmallestVisibleIncrementAt09": 5.960464510845754e-9
+  },
+  "swapGeometry": {
+   "randomPairsWithIouAbove05": 81127,
+   "centreOutsideTheOtherBox": 0,
+   "maxCentreOffsetOverSide": 0.3787,
+   "maxCornerDisplacementOverMinSide": 26.7176,
+   "equalSizeAnalyticBound": "for equal boxes offset along one axis, IoU > 0.5 implies offset < side/3"
+  },
+  "mechanisms": [
+   {
+    "mechanism": "score near-tie between two overlapping same-class boxes (ordering)",
+    "outcomeChangesAt": [
+     "float64 1e-9",
+     "float64 1e-8",
+     "float64 1e-7",
+     "float64 0.000001",
+     "float64 0.00001",
+     "float64 0.0001",
+     "float32 1e-8",
+     "float32 1e-7",
+     "float32 0.000001",
+     "float32 0.00001",
+     "float32 0.0001"
+    ]
+   },
+   {
+    "mechanism": "IoU exactly at the 0.5 NMS threshold (coordinate noise)",
+    "outcomeChangesAt": [
+     "float64 -1e-9",
+     "float64 -1e-8",
+     "float64 -1e-7",
+     "float64 -0.000001",
+     "float64 -0.00001",
+     "float64 -0.0001",
+     "float32 -1e-7",
+     "float32 -0.000001",
+     "float32 -0.00001",
+     "float32 -0.0001"
+    ]
+   },
+   {
+    "mechanism": "near-equal class scores on one anchor (argmax / label flip)",
+    "outcomeChangesAt": [
+     "float64 1e-9",
+     "float64 1e-8",
+     "float64 1e-7",
+     "float64 0.000001",
+     "float64 0.00001",
+     "float64 0.0001",
+     "float32 1e-7",
+     "float32 0.000001",
+     "float32 0.00001",
+     "float32 0.0001"
+    ]
+   },
+   {
+    "mechanism": "score at the emit floor (0.25)",
+    "outcomeChangesAt": [
+     "float64 -1e-9",
+     "float64 -1e-8",
+     "float64 -1e-7",
+     "float64 -0.000001",
+     "float64 -0.00001",
+     "float64 -0.0001",
+     "float32 -1e-8",
+     "float32 -1e-7",
+     "float32 -0.000001",
+     "float32 -0.00001",
+     "float32 -0.0001"
+    ]
+   },
+   {
+    "mechanism": "rank at the maxDetections cap (300)",
+    "outcomeChangesAt": [
+     "float64 1e-9",
+     "float64 1e-8",
+     "float64 1e-7",
+     "float64 0.000001",
+     "float64 0.00001",
+     "float64 0.0001",
+     "float32 1e-7",
+     "float32 0.000001",
+     "float32 0.00001",
+     "float32 0.0001"
+    ]
+   },
+   {
+    "mechanism": "suppression cascade through a chain of overlaps",
+    "outcomeChangesAt": [
+     "float64 -1e-9",
+     "float64 -1e-8",
+     "float64 -1e-7",
+     "float64 -0.000001",
+     "float64 -0.00001",
+     "float64 -0.0001",
+     "float32 -1e-7",
+     "float32 -0.000001",
+     "float32 -0.00001",
+     "float32 -0.0001"
+    ]
+   }
+  ],
+  "b3Scenes": [
+   {
+    "scene": 11,
+    "controls": 24,
+    "kept": 24,
+    "recalled": 24,
+    "clickSafe": 24
+   },
+   {
+    "scene": 12,
+    "controls": 24,
+    "kept": 24,
+    "recalled": 24,
+    "clickSafe": 24
+   },
+   {
+    "scene": 13,
+    "controls": 24,
+    "kept": 24,
+    "recalled": 24,
+    "clickSafe": 24
+   },
+   {
+    "scene": 14,
+    "controls": 24,
+    "kept": 24,
+    "recalled": 24,
+    "clickSafe": 24
+   },
+   {
+    "scene": 15,
+    "controls": 24,
+    "kept": 24,
+    "recalled": 24,
+    "clickSafe": 24
+   }
+  ],
+  "b3": [
+   {
+    "arm": "float64",
+    "relativeEpsilon": 1e-9,
+    "trials": 100,
+    "notBitIdentical": 100,
+    "survivorSwap": 0,
+    "preRegisteredPass": 100,
+    "worstCssPxMax": 0,
+    "minMatchedFraction": 1,
+    "maxAbsCountDelta": 0,
+    "recallLost": 0,
+    "clickSafeLost": 0,
+    "notBitIdenticalRate": 1,
+    "survivorSwapRate": 0,
+    "preRegisteredPassRate": 1
+   },
+   {
+    "arm": "float64",
+    "relativeEpsilon": 1e-8,
+    "trials": 100,
+    "notBitIdentical": 100,
+    "survivorSwap": 0,
+    "preRegisteredPass": 100,
+    "worstCssPxMax": 0,
+    "minMatchedFraction": 1,
+    "maxAbsCountDelta": 0,
+    "recallLost": 0,
+    "clickSafeLost": 0,
+    "notBitIdenticalRate": 1,
+    "survivorSwapRate": 0,
+    "preRegisteredPassRate": 1
+   },
+   {
+    "arm": "float64",
+    "relativeEpsilon": 1e-7,
+    "trials": 100,
+    "notBitIdentical": 100,
+    "survivorSwap": 0,
+    "preRegisteredPass": 100,
+    "worstCssPxMax": 0.0001,
+    "minMatchedFraction": 1,
+    "maxAbsCountDelta": 0,
+    "recallLost": 0,
+    "clickSafeLost": 0,
+    "notBitIdenticalRate": 1,
+    "survivorSwapRate": 0,
+    "preRegisteredPassRate": 1
+   },
+   {
+    "arm": "float64",
+    "relativeEpsilon": 0.000001,
+    "trials": 100,
+    "notBitIdentical": 100,
+    "survivorSwap": 0,
+    "preRegisteredPass": 100,
+    "worstCssPxMax": 0.0012,
+    "minMatchedFraction": 1,
+    "maxAbsCountDelta": 0,
+    "recallLost": 0,
+    "clickSafeLost": 0,
+    "notBitIdenticalRate": 1,
+    "survivorSwapRate": 0,
+    "preRegisteredPassRate": 1
+   },
+   {
+    "arm": "float64",
+    "relativeEpsilon": 0.00001,
+    "trials": 100,
+    "notBitIdentical": 100,
+    "survivorSwap": 17,
+    "preRegisteredPass": 83,
+    "worstCssPxMax": 3.5838,
+    "minMatchedFraction": 1,
+    "maxAbsCountDelta": 0,
+    "recallLost": 0,
+    "clickSafeLost": 0,
+    "notBitIdenticalRate": 1,
+    "survivorSwapRate": 0.17,
+    "preRegisteredPassRate": 0.83
+   },
+   {
+    "arm": "float64",
+    "relativeEpsilon": 0.0001,
+    "trials": 100,
+    "notBitIdentical": 100,
+    "survivorSwap": 49,
+    "preRegisteredPass": 55,
+    "worstCssPxMax": 8.3727,
+    "minMatchedFraction": 1,
+    "maxAbsCountDelta": 0,
+    "recallLost": 0,
+    "clickSafeLost": 0,
+    "notBitIdenticalRate": 1,
+    "survivorSwapRate": 0.49,
+    "preRegisteredPassRate": 0.55
+   },
+   {
+    "arm": "float32",
+    "relativeEpsilon": 1e-9,
+    "trials": 100,
+    "notBitIdentical": 0,
+    "survivorSwap": 0,
+    "preRegisteredPass": 100,
+    "worstCssPxMax": 0,
+    "minMatchedFraction": 1,
+    "maxAbsCountDelta": 0,
+    "recallLost": 0,
+    "clickSafeLost": 0,
+    "notBitIdenticalRate": 0,
+    "survivorSwapRate": 0,
+    "preRegisteredPassRate": 1
+   },
+   {
+    "arm": "float32",
+    "relativeEpsilon": 1e-8,
+    "trials": 100,
+    "notBitIdentical": 0,
+    "survivorSwap": 0,
+    "preRegisteredPass": 100,
+    "worstCssPxMax": 0,
+    "minMatchedFraction": 1,
+    "maxAbsCountDelta": 0,
+    "recallLost": 0,
+    "clickSafeLost": 0,
+    "notBitIdenticalRate": 0,
+    "survivorSwapRate": 0,
+    "preRegisteredPassRate": 1
+   },
+   {
+    "arm": "float32",
+    "relativeEpsilon": 1e-7,
+    "trials": 100,
+    "notBitIdentical": 100,
+    "survivorSwap": 0,
+    "preRegisteredPass": 100,
+    "worstCssPxMax": 0.0001,
+    "minMatchedFraction": 1,
+    "maxAbsCountDelta": 0,
+    "recallLost": 0,
+    "clickSafeLost": 0,
+    "notBitIdenticalRate": 1,
+    "survivorSwapRate": 0,
+    "preRegisteredPassRate": 1
+   },
+   {
+    "arm": "float32",
+    "relativeEpsilon": 0.000001,
+    "trials": 100,
+    "notBitIdentical": 100,
+    "survivorSwap": 0,
+    "preRegisteredPass": 100,
+    "worstCssPxMax": 0.0012,
+    "minMatchedFraction": 1,
+    "maxAbsCountDelta": 0,
+    "recallLost": 0,
+    "clickSafeLost": 0,
+    "notBitIdenticalRate": 1,
+    "survivorSwapRate": 0,
+    "preRegisteredPassRate": 1
+   },
+   {
+    "arm": "float32",
+    "relativeEpsilon": 0.00001,
+    "trials": 100,
+    "notBitIdentical": 100,
+    "survivorSwap": 17,
+    "preRegisteredPass": 83,
+    "worstCssPxMax": 3.5838,
+    "minMatchedFraction": 1,
+    "maxAbsCountDelta": 0,
+    "recallLost": 0,
+    "clickSafeLost": 0,
+    "notBitIdenticalRate": 1,
+    "survivorSwapRate": 0.17,
+    "preRegisteredPassRate": 0.83
+   },
+   {
+    "arm": "float32",
+    "relativeEpsilon": 0.0001,
+    "trials": 100,
+    "notBitIdentical": 100,
+    "survivorSwap": 49,
+    "preRegisteredPass": 55,
+    "worstCssPxMax": 8.3727,
+    "minMatchedFraction": 1,
+    "maxAbsCountDelta": 0,
+    "recallLost": 0,
+    "clickSafeLost": 0,
+    "notBitIdenticalRate": 1,
+    "survivorSwapRate": 0.49,
+    "preRegisteredPassRate": 0.55
+   }
+  ],
+  "diagnosticOnlyWeightedMerge": {
+   "label": "DIAGNOSTIC ONLY — not shipped, not proposed; adoption would need model re-evaluation",
+   "rows": [
+    {
+     "arm": "float64",
+     "relativeEpsilon": 1e-9,
+     "trials": 100,
+     "worstCssPxMax": 0,
+     "minMatchedFraction": 1
+    },
+    {
+     "arm": "float64",
+     "relativeEpsilon": 1e-8,
+     "trials": 100,
+     "worstCssPxMax": 0,
+     "minMatchedFraction": 1
+    },
+    {
+     "arm": "float64",
+     "relativeEpsilon": 1e-7,
+     "trials": 100,
+     "worstCssPxMax": 0.0001,
+     "minMatchedFraction": 1
+    },
+    {
+     "arm": "float64",
+     "relativeEpsilon": 0.000001,
+     "trials": 100,
+     "worstCssPxMax": 0.0008,
+     "minMatchedFraction": 1
+    },
+    {
+     "arm": "float64",
+     "relativeEpsilon": 0.00001,
+     "trials": 100,
+     "worstCssPxMax": 0.0077,
+     "minMatchedFraction": 1
+    },
+    {
+     "arm": "float64",
+     "relativeEpsilon": 0.0001,
+     "trials": 100,
+     "worstCssPxMax": 0.077,
+     "minMatchedFraction": 1
+    },
+    {
+     "arm": "float32",
+     "relativeEpsilon": 1e-9,
+     "trials": 100,
+     "worstCssPxMax": 0,
+     "minMatchedFraction": 1
+    },
+    {
+     "arm": "float32",
+     "relativeEpsilon": 1e-8,
+     "trials": 100,
+     "worstCssPxMax": 0,
+     "minMatchedFraction": 1
+    },
+    {
+     "arm": "float32",
+     "relativeEpsilon": 1e-7,
+     "trials": 100,
+     "worstCssPxMax": 0.0001,
+     "minMatchedFraction": 1
+    },
+    {
+     "arm": "float32",
+     "relativeEpsilon": 0.000001,
+     "trials": 100,
+     "worstCssPxMax": 0.0008,
+     "minMatchedFraction": 1
+    },
+    {
+     "arm": "float32",
+     "relativeEpsilon": 0.00001,
+     "trials": 100,
+     "worstCssPxMax": 0.0077,
+     "minMatchedFraction": 1
+    },
+    {
+     "arm": "float32",
+     "relativeEpsilon": 0.0001,
+     "trials": 100,
+     "worstCssPxMax": 0.077,
+     "minMatchedFraction": 1
+    }
+   ]
+  }
+ },
+ "c": {
+  "c1": {
+   "source": "tools/dataset/build-dataset.mjs plan (seed 20260910, counts 120/40/40, DPR 1) via makeSpec",
+   "samples": 200,
+   "affected": 84,
+   "bySplit": {
+    "train": {
+     "samples": 120,
+     "affected": 50
+    },
+    "dev": {
+     "samples": 40,
+     "affected": 18
+    },
+    "test": {
+     "samples": 40,
+     "affected": 16
+    }
+   },
+   "distinctWorstOffsetsModelPx": [
+    0.2222,
+    0.5,
+    0.6667
+   ],
+   "captureSizes": [
+    "1024x600",
+    "1024x640",
+    "1024x720",
+    "1024x800",
+    "1152x600",
+    "1152x640",
+    "1152x720",
+    "1152x800",
+    "1280x600",
+    "1280x640",
+    "1280x720",
+    "1280x800",
+    "960x600",
+    "960x640",
+    "960x720",
+    "960x800"
+   ],
+   "trainingSizesWithRoundingDisagreement": []
+  },
+  "c2": {
+   "note": "WORST CASE: predictions equal the PIXEL-true box, inverted by the continuous runtime transform. TRAIN and DEV only; TEST never evaluated.",
+   "placeholderTestSample": {
+    "seed": 990000000,
+    "purpose": "satisfies the evaluator's non-empty-split rule; never evaluated; outside every T1 seed range"
+   },
+   "boxes": 2658,
+   "maxDispModelPx": 0.681,
+   "minIou": 0.8693,
+   "byBucket": [
+    {
+     "bucket": "<8",
+     "boxes": 0
+    },
+    {
+     "bucket": "8-16",
+     "boxes": 1172,
+     "minIou": 0.8693,
+     "maxDispModelPx": 0.63,
+     "fractionIouBelow075_DIAGNOSTIC": 0,
+     "fractionIouBelow090_DIAGNOSTIC": 0.0486
+    },
+    {
+     "bucket": "16-32",
+     "boxes": 1486,
+     "minIou": 0.922,
+     "maxDispModelPx": 0.681,
+     "fractionIouBelow075_DIAGNOSTIC": 0,
+     "fractionIouBelow090_DIAGNOSTIC": 0
+    },
+    {
+     "bucket": ">=32",
+     "boxes": 0
+    }
+   ],
+   "evaluator": [
+    {
+     "split": "train",
+     "predictions": "perfect (control)",
+     "mAP50": 1,
+     "elementRecall": 1,
+     "groundingAccuracy": 1,
+     "totals": {
+      "groundTruth": 2248,
+      "evaluatable": 2008,
+      "excludedOffscreen": 240,
+      "predictions": 2008,
+      "invalidPredictions": 0,
+      "truePositives": 2008,
+      "falsePositives": 0,
+      "falseNegatives": 0
+     },
+     "rejected": []
+    },
+    {
+     "split": "train",
+     "predictions": "worst case: model learned pixels, not labels",
+     "mAP50": 1,
+     "elementRecall": 1,
+     "groundingAccuracy": 1,
+     "totals": {
+      "groundTruth": 2248,
+      "evaluatable": 2008,
+      "excludedOffscreen": 240,
+      "predictions": 2008,
+      "invalidPredictions": 0,
+      "truePositives": 2008,
+      "falsePositives": 0,
+      "falseNegatives": 0
+     },
+     "rejected": []
+    },
+    {
+     "split": "dev",
+     "predictions": "perfect (control)",
+     "mAP50": 1,
+     "elementRecall": 1,
+     "groundingAccuracy": 1,
+     "totals": {
+      "groundTruth": 730,
+      "evaluatable": 650,
+      "excludedOffscreen": 80,
+      "predictions": 650,
+      "invalidPredictions": 0,
+      "truePositives": 650,
+      "falsePositives": 0,
+      "falseNegatives": 0
+     },
+     "rejected": []
+    },
+    {
+     "split": "dev",
+     "predictions": "worst case: model learned pixels, not labels",
+     "mAP50": 1,
+     "elementRecall": 1,
+     "groundingAccuracy": 1,
+     "totals": {
+      "groundTruth": 730,
+      "evaluatable": 650,
+      "excludedOffscreen": 80,
+      "predictions": 650,
+      "invalidPredictions": 0,
+      "truePositives": 650,
+      "falsePositives": 0,
+      "falseNegatives": 0
+     },
+     "rejected": []
+    }
+   ]
+  }
+ },
+ "status": {
+  "A_preprocessing": "PASS",
+  "A_scope": "after the QG-03a-A1 fix; Windows workstation 2; Node, Chrome 153 and Firefox 155 in a plain page context. Linux UNKNOWN. Extension-context cells are QG-03b's (workstation 1).",
+  "A3_coordinates": "PASS",
+  "B_inferenceNoise": "OPEN",
+  "B_reason": "mechanism localised (hard greedy NMS is discontinuous at score near-ties); consequence is model-dependent and cannot be measured without the artifact; the pre-registered 2.0 CSS px bound is incompatible with hard NMS and a replacement criterion is an architect decision",
+  "C_labelRaster": "CONDITIONAL",
+  "C_reason": "bounded (<= 0.681 model px) and metric-neutral at IoU 0.5 even in the worst case; does not justify a retrain on its own; remains technical debt to bundle with the next training change",
+  "QG03a": "OPEN",
+  "QG03": "CONDITIONAL",
+  "detector": "UNADOPTED",
+  "frozenThreshold": 0.55,
+  "modelRegistry": "UNCHANGED"
+ }
+}
