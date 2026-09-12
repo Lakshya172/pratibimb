@@ -65,6 +65,14 @@ measurement gap:
 
 Either way **no retraining is justified by C3 or C3b**, and neither closes QG-03a.
 
+**Update 2026-09-12 (owner decision, ronitsaha11) — Option 1 was taken.** `QG-03a-C` is recorded as
+`RESOLVED / CONDITIONAL-RESOLVED`: the geometry concern is closed as **no demonstrated
+production defect**, on the grounds set out above. The mismatch is **not fixed** and is retained as
+**technical debt / future training-revision item**. **Nothing in this document's verdict, numbers or
+conclusions was altered by that decision**, and none of it is restated as a pass: C3b remains an
+attribution result, C3 remains `INCONCLUSIVE`, and **QG-03a remains `OPEN`**, now carrying the
+separate scale-generalisation concern `QG-03a-C4`.
+
 ## What is NOT done
 
 - No inference, no session, no weights loaded; the harness contains no ORT import at all.
@@ -79,6 +87,6 @@ Either way **no retraining is justified by C3 or C3b**, and neither closes QG-03
 
 | id | item |
 |---|---|
-| **QG-03a-C closure** | owner decision between Option 1 and Option 2 above. No further measurement is required for the convention question |
+| ~~**QG-03a-C closure**~~ | **DECIDED 2026-09-12 (owner decision, ronitsaha11) — Option 1.** `QG-03a-C` = `RESOLVED / CONDITIONAL-RESOLVED`: the geometry concern is closed as **no demonstrated production defect**, the §6 mismatch is **retained as technical debt / future training-revision item** and is **not** called fixed, no acceptance threshold was created, and **QG-03a stays `OPEN`**. The verdict above is unchanged. Recorded in `agentos/registry/feasibility-matrix.md` (row `QG-03a-C`) |
 | **detector scale fragility** | collapse beyond ~2 CSS px per model px — adoption items 11/14 and capture policy, not QG-03a-C |
 | ~~QG-03a-C3b~~ | **done.** The convention is exonerated; C3c (scale-controlled cells) is no longer needed to answer *this* question |
