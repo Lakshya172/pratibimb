@@ -182,3 +182,9 @@ artifacts/experiments/W1-QG03a-B3-1-mv3-extension-backends/logs/development-*/de
 # dumps, the raw ORT outputs and the per-cell manifests - all reproducible from the recipe
 # (spec version + seed + the harness). Committed: the records, the harness, logs/ and metrics.json.
 artifacts/experiments/W1-QG03a-C3-label-raster-generalisation/harness/generated/
+
+# W-1 detector precision/scale harness. generated/ holds the regenerated dev-split frames,
+# the scale-control renders, the Pillow RGBA dumps and the per-cell manifests - about 1.9 GB,
+# and all of it reproducible from the recipe: the unchanged tools/dataset/build-dataset.mjs
+# at seed 20260910 (hash 4bbc57de), then render-arm-b.mjs and decode-w1-png.py.
+artifacts/experiments/W1-detector-precision-scale/harness/generated/

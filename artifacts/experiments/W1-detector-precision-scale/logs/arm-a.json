@@ -1,0 +1,2113 @@
+{
+ "experiment": "W1-detector-precision-scale",
+ "arm": "A — post-processing, DEV only, no retrain, no shipped-code change",
+ "runAt": "2026-09-12T09:55:20.251Z",
+ "machine": {
+  "hostname": "LAPTOP-SRCINK2B",
+  "node": "v26.4.0"
+ },
+ "model": {
+  "modelId": "pratibimb-t1-ui-head",
+  "revision": "ba6d9e93695b",
+  "sha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+  "bytes": 302960,
+  "path": "artifacts/models/t1-ui-head/t1-ui-head.onnx",
+  "sha256Verified": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0"
+ },
+ "ort": {
+  "version": "1.29.0",
+  "backend": "wasm",
+  "numThreads": 1,
+  "proxy": false
+ },
+ "shippedConstants": {
+  "score": 0.25,
+  "nmsIou": 0.5,
+  "maxDetections": 300,
+  "status": "PROVISIONAL — not derived from project evidence; tune against the QG-05 harness (element mAP@0.5, element recall) over ScreenSpot-v2 plus the 300 self-labelled screens, per the dossier's scored metric."
+ },
+ "shippedConstantsExpected": {
+  "score": 0.25,
+  "nmsIou": 0.5,
+  "maxDetections": 300
+ },
+ "dataset": {
+  "name": "t1-ui-rendered",
+  "version": "1.0.0",
+  "hash": "4bbc57de",
+  "pinnedHash": "4bbc57de",
+  "identityVerified": true,
+  "split": "dev",
+  "samples": 40
+ },
+ "testSplitOpened": false,
+ "replicaMatchesShippedDecode": {
+  "samples": 40,
+  "allIdentical": true
+ },
+ "clippingCeiling": {
+  "evaluatable": 744,
+  "clipped": 51,
+  "unreachable": 42,
+  "ceiling": 0.943548
+ },
+ "variants": [
+  {
+   "id": "V0",
+   "label": "shipped baseline — per-class NMS IoU 0.50",
+   "kind": "per-class",
+   "nmsIou": 0.5
+  },
+  {
+   "id": "V1",
+   "label": "tighter per-class NMS — IoU 0.30",
+   "kind": "per-class",
+   "nmsIou": 0.3
+  },
+  {
+   "id": "V2",
+   "label": "cross-class NMS — IoU 0.50, label ignored",
+   "kind": "cross-class",
+   "nmsIou": 0.5
+  },
+  {
+   "id": "V3",
+   "label": "per-class NMS 0.50 + containment suppression IoS > 0.80",
+   "kind": "containment",
+   "nmsIou": 0.5,
+   "ios": 0.8
+  }
+ ],
+ "results": [
+  {
+   "variant": "V0",
+   "label": "shipped baseline — per-class NMS IoU 0.50",
+   "operatingPoint": 0.55,
+   "mAP50": 0.694669,
+   "elementRecall": 0.81586,
+   "recallCeilingRelative": 0.864672,
+   "groundingAccuracy": 0.571563,
+   "predictions": 1062,
+   "predictionsPerScreen": 26.55,
+   "matched": 607,
+   "groundTruth": 744,
+   "falsePositives": 455,
+   "falsePositiveTaxonomy": {
+    "duplicate": 160,
+    "classConfusion": 58,
+    "localization": 138,
+    "spurious": 99
+   },
+   "falsePositiveShare": {
+    "duplicate": 0.351648,
+    "classConfusion": 0.127473,
+    "localization": 0.303297,
+    "spurious": 0.217582
+   },
+   "falseNegativeTaxonomy": {
+    "noOverlapAtAll": 65,
+    "overlappedWrongClass": 26,
+    "overlappedPoorLocalization": 46
+   },
+   "topConfusions": {
+    "button->tab": 15,
+    "select->textbox": 12,
+    "tab->button": 10,
+    "button->textbox": 9,
+    "tab->textbox": 4,
+    "button->select": 3,
+    "checkbox->radio": 2,
+    "textbox->button": 1
+   },
+   "matchedIou": {
+    "n": 607,
+    "min": 0.501853,
+    "p10": 0.604184,
+    "p25": 0.687503,
+    "median": 0.785581,
+    "p75": 0.860117,
+    "max": 0.992457
+   },
+   "normalisedDisplacement": {
+    "n": 607,
+    "min": 0.002306,
+    "p10": 0.024134,
+    "p25": 0.049925,
+    "median": 0.119081,
+    "p75": 0.28816,
+    "max": 0.924612
+   },
+   "perClass": [
+    {
+     "cls": "button",
+     "gt": 194,
+     "pred": 234,
+     "tp": 130,
+     "ap50": 0.472514,
+     "recall": 0.670103,
+     "precision": 0.555556
+    },
+    {
+     "cls": "link",
+     "gt": 148,
+     "pred": 253,
+     "tp": 133,
+     "ap50": 0.665372,
+     "recall": 0.898649,
+     "precision": 0.525692
+    },
+    {
+     "cls": "textbox",
+     "gt": 125,
+     "pred": 302,
+     "tp": 125,
+     "ap50": 0.948546,
+     "recall": 1,
+     "precision": 0.413907
+    },
+    {
+     "cls": "checkbox",
+     "gt": 40,
+     "pred": 18,
+     "tp": 18,
+     "ap50": 0.45,
+     "recall": 0.45,
+     "precision": 1
+    },
+    {
+     "cls": "radio",
+     "gt": 40,
+     "pred": 26,
+     "tp": 18,
+     "ap50": 0.327675,
+     "recall": 0.45,
+     "precision": 0.692308
+    },
+    {
+     "cls": "select",
+     "gt": 40,
+     "pred": 65,
+     "tp": 36,
+     "ap50": 0.815205,
+     "recall": 0.9,
+     "precision": 0.553846
+    },
+    {
+     "cls": "tab",
+     "gt": 117,
+     "pred": 124,
+     "tp": 107,
+     "ap50": 0.878037,
+     "recall": 0.91453,
+     "precision": 0.862903
+    },
+    {
+     "cls": "icon",
+     "gt": 40,
+     "pred": 40,
+     "tp": 40,
+     "ap50": 1,
+     "recall": 1,
+     "precision": 1
+    }
+   ]
+  },
+  {
+   "variant": "V1",
+   "label": "tighter per-class NMS — IoU 0.30",
+   "operatingPoint": 0.55,
+   "mAP50": 0.71232,
+   "elementRecall": 0.803763,
+   "recallCeilingRelative": 0.851852,
+   "groundingAccuracy": 0.731051,
+   "predictions": 818,
+   "predictionsPerScreen": 20.45,
+   "matched": 598,
+   "groundTruth": 744,
+   "falsePositives": 220,
+   "falsePositiveTaxonomy": {
+    "duplicate": 12,
+    "classConfusion": 51,
+    "localization": 86,
+    "spurious": 71
+   },
+   "falsePositiveShare": {
+    "duplicate": 0.054545,
+    "classConfusion": 0.231818,
+    "localization": 0.390909,
+    "spurious": 0.322727
+   },
+   "falseNegativeTaxonomy": {
+    "noOverlapAtAll": 65,
+    "overlappedWrongClass": 26,
+    "overlappedPoorLocalization": 55
+   },
+   "topConfusions": {
+    "button->tab": 13,
+    "select->textbox": 11,
+    "tab->button": 9,
+    "button->textbox": 8,
+    "tab->textbox": 3,
+    "button->select": 3,
+    "checkbox->radio": 2,
+    "textbox->button": 1
+   },
+   "matchedIou": {
+    "n": 598,
+    "min": 0.501853,
+    "p10": 0.600132,
+    "p25": 0.681233,
+    "median": 0.786283,
+    "p75": 0.860155,
+    "max": 0.992457
+   },
+   "normalisedDisplacement": {
+    "n": 598,
+    "min": 0.002306,
+    "p10": 0.022717,
+    "p25": 0.049815,
+    "median": 0.120577,
+    "p75": 0.291837,
+    "max": 0.924612
+   },
+   "perClass": [
+    {
+     "cls": "button",
+     "gt": 194,
+     "pred": 195,
+     "tp": 130,
+     "ap50": 0.511628,
+     "recall": 0.670103,
+     "precision": 0.666667
+    },
+    {
+     "cls": "link",
+     "gt": 148,
+     "pred": 177,
+     "tp": 128,
+     "ap50": 0.746867,
+     "recall": 0.864865,
+     "precision": 0.723164
+    },
+    {
+     "cls": "textbox",
+     "gt": 125,
+     "pred": 194,
+     "tp": 122,
+     "ap50": 0.95316,
+     "recall": 0.976,
+     "precision": 0.628866
+    },
+    {
+     "cls": "checkbox",
+     "gt": 40,
+     "pred": 18,
+     "tp": 18,
+     "ap50": 0.45,
+     "recall": 0.45,
+     "precision": 1
+    },
+    {
+     "cls": "radio",
+     "gt": 40,
+     "pred": 23,
+     "tp": 17,
+     "ap50": 0.31413,
+     "recall": 0.425,
+     "precision": 0.73913
+    },
+    {
+     "cls": "select",
+     "gt": 40,
+     "pred": 50,
+     "tp": 36,
+     "ap50": 0.843511,
+     "recall": 0.9,
+     "precision": 0.72
+    },
+    {
+     "cls": "tab",
+     "gt": 117,
+     "pred": 121,
+     "tp": 107,
+     "ap50": 0.879265,
+     "recall": 0.91453,
+     "precision": 0.884298
+    },
+    {
+     "cls": "icon",
+     "gt": 40,
+     "pred": 40,
+     "tp": 40,
+     "ap50": 1,
+     "recall": 1,
+     "precision": 1
+    }
+   ]
+  },
+  {
+   "variant": "V2",
+   "label": "cross-class NMS — IoU 0.50, label ignored",
+   "operatingPoint": 0.55,
+   "mAP50": 0.689149,
+   "elementRecall": 0.807796,
+   "recallCeilingRelative": 0.856125,
+   "groundingAccuracy": 0.582929,
+   "predictions": 1031,
+   "predictionsPerScreen": 25.775,
+   "matched": 601,
+   "groundTruth": 744,
+   "falsePositives": 430,
+   "falsePositiveTaxonomy": {
+    "duplicate": 158,
+    "classConfusion": 36,
+    "localization": 138,
+    "spurious": 98
+   },
+   "falsePositiveShare": {
+    "duplicate": 0.367442,
+    "classConfusion": 0.083721,
+    "localization": 0.32093,
+    "spurious": 0.227907
+   },
+   "falseNegativeTaxonomy": {
+    "noOverlapAtAll": 65,
+    "overlappedWrongClass": 32,
+    "overlappedPoorLocalization": 46
+   },
+   "topConfusions": {
+    "button->tab": 9,
+    "select->textbox": 8,
+    "button->textbox": 7,
+    "tab->textbox": 4,
+    "tab->button": 3,
+    "checkbox->radio": 2,
+    "select->button": 1,
+    "button->select": 1
+   },
+   "matchedIou": {
+    "n": 601,
+    "min": 0.501853,
+    "p10": 0.602057,
+    "p25": 0.686039,
+    "median": 0.786283,
+    "p75": 0.859962,
+    "max": 0.992457
+   },
+   "normalisedDisplacement": {
+    "n": 601,
+    "min": 0.002306,
+    "p10": 0.022717,
+    "p25": 0.049925,
+    "median": 0.120577,
+    "p75": 0.285241,
+    "max": 0.924612
+   },
+   "perClass": [
+    {
+     "cls": "button",
+     "gt": 194,
+     "pred": 222,
+     "tp": 127,
+     "ap50": 0.464716,
+     "recall": 0.654639,
+     "precision": 0.572072
+    },
+    {
+     "cls": "link",
+     "gt": 148,
+     "pred": 253,
+     "tp": 133,
+     "ap50": 0.665372,
+     "recall": 0.898649,
+     "precision": 0.525692
+    },
+    {
+     "cls": "textbox",
+     "gt": 125,
+     "pred": 296,
+     "tp": 125,
+     "ap50": 0.948998,
+     "recall": 1,
+     "precision": 0.422297
+    },
+    {
+     "cls": "checkbox",
+     "gt": 40,
+     "pred": 18,
+     "tp": 18,
+     "ap50": 0.45,
+     "recall": 0.45,
+     "precision": 1
+    },
+    {
+     "cls": "radio",
+     "gt": 40,
+     "pred": 26,
+     "tp": 18,
+     "ap50": 0.327675,
+     "recall": 0.45,
+     "precision": 0.692308
+    },
+    {
+     "cls": "select",
+     "gt": 40,
+     "pred": 60,
+     "tp": 35,
+     "ap50": 0.791407,
+     "recall": 0.875,
+     "precision": 0.583333
+    },
+    {
+     "cls": "tab",
+     "gt": 117,
+     "pred": 116,
+     "tp": 105,
+     "ap50": 0.865021,
+     "recall": 0.897436,
+     "precision": 0.905172
+    },
+    {
+     "cls": "icon",
+     "gt": 40,
+     "pred": 40,
+     "tp": 40,
+     "ap50": 1,
+     "recall": 1,
+     "precision": 1
+    }
+   ]
+  },
+  {
+   "variant": "V3",
+   "label": "per-class NMS 0.50 + containment suppression IoS > 0.80",
+   "operatingPoint": 0.55,
+   "mAP50": 0.696074,
+   "elementRecall": 0.81586,
+   "recallCeilingRelative": 0.864672,
+   "groundingAccuracy": 0.580306,
+   "predictions": 1046,
+   "predictionsPerScreen": 26.15,
+   "matched": 607,
+   "groundTruth": 744,
+   "falsePositives": 439,
+   "falsePositiveTaxonomy": {
+    "duplicate": 150,
+    "classConfusion": 58,
+    "localization": 135,
+    "spurious": 96
+   },
+   "falsePositiveShare": {
+    "duplicate": 0.341686,
+    "classConfusion": 0.132118,
+    "localization": 0.307517,
+    "spurious": 0.218679
+   },
+   "falseNegativeTaxonomy": {
+    "noOverlapAtAll": 65,
+    "overlappedWrongClass": 26,
+    "overlappedPoorLocalization": 46
+   },
+   "topConfusions": {
+    "button->tab": 15,
+    "select->textbox": 12,
+    "tab->button": 10,
+    "button->textbox": 9,
+    "tab->textbox": 4,
+    "button->select": 3,
+    "checkbox->radio": 2,
+    "textbox->button": 1
+   },
+   "matchedIou": {
+    "n": 607,
+    "min": 0.501853,
+    "p10": 0.604184,
+    "p25": 0.687503,
+    "median": 0.785581,
+    "p75": 0.860117,
+    "max": 0.992457
+   },
+   "normalisedDisplacement": {
+    "n": 607,
+    "min": 0.002306,
+    "p10": 0.024134,
+    "p25": 0.049925,
+    "median": 0.119081,
+    "p75": 0.28816,
+    "max": 0.924612
+   },
+   "perClass": [
+    {
+     "cls": "button",
+     "gt": 194,
+     "pred": 228,
+     "tp": 130,
+     "ap50": 0.47373,
+     "recall": 0.670103,
+     "precision": 0.570175
+    },
+    {
+     "cls": "link",
+     "gt": 148,
+     "pred": 249,
+     "tp": 133,
+     "ap50": 0.674047,
+     "recall": 0.898649,
+     "precision": 0.534137
+    },
+    {
+     "cls": "textbox",
+     "gt": 125,
+     "pred": 297,
+     "tp": 125,
+     "ap50": 0.948586,
+     "recall": 1,
+     "precision": 0.420875
+    },
+    {
+     "cls": "checkbox",
+     "gt": 40,
+     "pred": 18,
+     "tp": 18,
+     "ap50": 0.45,
+     "recall": 0.45,
+     "precision": 1
+    },
+    {
+     "cls": "radio",
+     "gt": 40,
+     "pred": 26,
+     "tp": 18,
+     "ap50": 0.327675,
+     "recall": 0.45,
+     "precision": 0.692308
+    },
+    {
+     "cls": "select",
+     "gt": 40,
+     "pred": 64,
+     "tp": 36,
+     "ap50": 0.816515,
+     "recall": 0.9,
+     "precision": 0.5625
+    },
+    {
+     "cls": "tab",
+     "gt": 117,
+     "pred": 124,
+     "tp": 107,
+     "ap50": 0.878037,
+     "recall": 0.91453,
+     "precision": 0.862903
+    },
+    {
+     "cls": "icon",
+     "gt": 40,
+     "pred": 40,
+     "tp": 40,
+     "ap50": 1,
+     "recall": 1,
+     "precision": 1
+    }
+   ]
+  }
+ ],
+ "deltasAgainstV0": [
+  {
+   "variant": "V1",
+   "label": "tighter per-class NMS — IoU 0.30",
+   "dGrounding": 0.159488,
+   "dRecall": -0.012097,
+   "dMAP50": 0.017651,
+   "dPredictionsPerScreen": -6.1,
+   "dMatched": -9,
+   "dFalsePositives": -235,
+   "dTaxonomy": {
+    "duplicate": -148,
+    "classConfusion": -7,
+    "localization": -52,
+    "spurious": -28
+   }
+  },
+  {
+   "variant": "V2",
+   "label": "cross-class NMS — IoU 0.50, label ignored",
+   "dGrounding": 0.011366,
+   "dRecall": -0.008064,
+   "dMAP50": -0.00552,
+   "dPredictionsPerScreen": -0.775,
+   "dMatched": -6,
+   "dFalsePositives": -25,
+   "dTaxonomy": {
+    "duplicate": -2,
+    "classConfusion": -22,
+    "localization": 0,
+    "spurious": -1
+   }
+  },
+  {
+   "variant": "V3",
+   "label": "per-class NMS 0.50 + containment suppression IoS > 0.80",
+   "dGrounding": 0.008743,
+   "dRecall": 0,
+   "dMAP50": 0.001405,
+   "dPredictionsPerScreen": -0.4,
+   "dMatched": 0,
+   "dFalsePositives": -16,
+   "dTaxonomy": {
+    "duplicate": -10,
+    "classConfusion": 0,
+    "localization": -3,
+    "spurious": -3
+   }
+  }
+ ],
+ "samples": [
+  {
+   "id": "dev-0000",
+   "split": "dev",
+   "seed": 21260910,
+   "viewportCss": {
+    "w": 960,
+    "h": 640
+   },
+   "captureSize": {
+    "w": 960,
+    "h": 640
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "fbf7560e88bf8ab172b992fec9171cf86a1c16d89a3c4a499edcf56de146c869",
+   "rgbaSha256": "05b82d67c2f02d10d0242e92fe9ad97eb0bdfe05260c36cb830ed630f3eb593e",
+   "tensorSha256": "87b8ef6e14ddd15cfcc96fc3624a81954d0cd9e290640a1f6f1cef8b9ab15385",
+   "outputSha256": "0ddbc598141c514fd1c6318832b726c68344b520ffe642f955950212a62cff05",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 50,
+     "atOperatingPoint": 22
+    },
+    "V1": {
+     "beforeNmsProjection": 39,
+     "atOperatingPoint": 18
+    },
+    "V2": {
+     "beforeNmsProjection": 45,
+     "atOperatingPoint": 22
+    },
+    "V3": {
+     "beforeNmsProjection": 48,
+     "atOperatingPoint": 21
+    }
+   }
+  },
+  {
+   "id": "dev-0001",
+   "split": "dev",
+   "seed": 21260911,
+   "viewportCss": {
+    "w": 960,
+    "h": 800
+   },
+   "captureSize": {
+    "w": 960,
+    "h": 800
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "1b5c792643e90942dcc5a8786e3acdc47aaa67f52d4b9b72fb0adacbbfe9c073",
+   "rgbaSha256": "fade86014540e55e85d2f63e6172ed2c7794c6c7b449f8060d979de7a772c797",
+   "tensorSha256": "2f5e19f9289cae890abb1146545d227f5e2cd0586e84816021fbcead96f6d9a3",
+   "outputSha256": "87890e90fc043cc810c23aea940ed42fb5919b0863feb8b8637f68f066651a2a",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 51,
+     "atOperatingPoint": 13
+    },
+    "V1": {
+     "beforeNmsProjection": 41,
+     "atOperatingPoint": 12
+    },
+    "V2": {
+     "beforeNmsProjection": 42,
+     "atOperatingPoint": 13
+    },
+    "V3": {
+     "beforeNmsProjection": 50,
+     "atOperatingPoint": 13
+    }
+   }
+  },
+  {
+   "id": "dev-0002",
+   "split": "dev",
+   "seed": 21260912,
+   "viewportCss": {
+    "w": 1024,
+    "h": 600
+   },
+   "captureSize": {
+    "w": 1024,
+    "h": 600
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "74d61c831e7fff97aa8fe6602cf2d2abe19b0adddcb238bce152d6ecfd2910ff",
+   "rgbaSha256": "91756c46d891e1692b238f31b60f80cfc306ca0beaf8d9b9ca182a0e8e6697e0",
+   "tensorSha256": "bc03a3ece778b04fe45bad39dcf0377ad36188bb81fc2cc03ef568ef253e9877",
+   "outputSha256": "0430c966a10d72f9898695e48c3deddc69c94514cb117bea636953d2fe2d834f",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 45,
+     "atOperatingPoint": 17
+    },
+    "V1": {
+     "beforeNmsProjection": 36,
+     "atOperatingPoint": 13
+    },
+    "V2": {
+     "beforeNmsProjection": 33,
+     "atOperatingPoint": 17
+    },
+    "V3": {
+     "beforeNmsProjection": 44,
+     "atOperatingPoint": 17
+    }
+   }
+  },
+  {
+   "id": "dev-0003",
+   "split": "dev",
+   "seed": 21260913,
+   "viewportCss": {
+    "w": 1152,
+    "h": 640
+   },
+   "captureSize": {
+    "w": 1152,
+    "h": 640
+   },
+   "evaluatableAnnotations": 21,
+   "pngSha256": "7dde3856207dcef6c22fb02c9fbf109542b0745f7cfe977c5bec50dfb3a20851",
+   "rgbaSha256": "c28ef9b65d9a7b33c7f4b1107792b423545ccd62226ac1c46d6af0ae8d69696e",
+   "tensorSha256": "3f9f41894f08de6c7aeed5bb420827ead6fbe69bd92f8ce9288981ec108f2dce",
+   "outputSha256": "73565daff3a55c1f8234f34c331af4d40741ccf2f98a953f09386146905c8120",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 53,
+     "atOperatingPoint": 28
+    },
+    "V1": {
+     "beforeNmsProjection": 35,
+     "atOperatingPoint": 22
+    },
+    "V2": {
+     "beforeNmsProjection": 48,
+     "atOperatingPoint": 27
+    },
+    "V3": {
+     "beforeNmsProjection": 52,
+     "atOperatingPoint": 28
+    }
+   }
+  },
+  {
+   "id": "dev-0004",
+   "split": "dev",
+   "seed": 21260914,
+   "viewportCss": {
+    "w": 1024,
+    "h": 600
+   },
+   "captureSize": {
+    "w": 1024,
+    "h": 600
+   },
+   "evaluatableAnnotations": 20,
+   "pngSha256": "98259187d8bc1478449783bc5f3e6db55cd6bd5bb083866bf0c10b91c3c6160c",
+   "rgbaSha256": "56c59041bf4e1adaa879543b62a8b06fad6c413b3f5c6a3bb975a4e78d55b2a9",
+   "tensorSha256": "fb03980bdf4acb3a496cc6b8b54f538d28d1dd229dbf7d82df9c35b05048358c",
+   "outputSha256": "39d278ac4d5c106e2f90c225f0cde7c908e8d30f3b9a67073ebfbb97754149b7",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 59,
+     "atOperatingPoint": 27
+    },
+    "V1": {
+     "beforeNmsProjection": 47,
+     "atOperatingPoint": 23
+    },
+    "V2": {
+     "beforeNmsProjection": 45,
+     "atOperatingPoint": 25
+    },
+    "V3": {
+     "beforeNmsProjection": 59,
+     "atOperatingPoint": 27
+    }
+   }
+  },
+  {
+   "id": "dev-0005",
+   "split": "dev",
+   "seed": 21260915,
+   "viewportCss": {
+    "w": 1280,
+    "h": 600
+   },
+   "captureSize": {
+    "w": 1280,
+    "h": 600
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "baa6ce2100fef0a280cadfab5c513133902881575a7438ff5976af92d3b3ec71",
+   "rgbaSha256": "de5157f8a4a0ef479a5ae0b9da2a6d16898482f5a7412a35bd4d3669ba3de33d",
+   "tensorSha256": "222275e75608b740ca4806b28f47470d3f122aa6e31d884f6a832d405f769a85",
+   "outputSha256": "cf4c8d52848a133b2313108ece607b08ca296877b15fb508ddbdc5d338e785db",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 38,
+     "atOperatingPoint": 18
+    },
+    "V1": {
+     "beforeNmsProjection": 30,
+     "atOperatingPoint": 14
+    },
+    "V2": {
+     "beforeNmsProjection": 35,
+     "atOperatingPoint": 18
+    },
+    "V3": {
+     "beforeNmsProjection": 37,
+     "atOperatingPoint": 18
+    }
+   }
+  },
+  {
+   "id": "dev-0006",
+   "split": "dev",
+   "seed": 21260916,
+   "viewportCss": {
+    "w": 1024,
+    "h": 800
+   },
+   "captureSize": {
+    "w": 1024,
+    "h": 800
+   },
+   "evaluatableAnnotations": 21,
+   "pngSha256": "9b57b35da122b2715542169e2df09d328c39be56166adc0adf56f98b095d25c5",
+   "rgbaSha256": "5da2e036fca8db7d854ad480ee10f94d74577526920e911d362b86c300592076",
+   "tensorSha256": "c93e34b6dfc2ba3dba9a997f1cb2633fe7913aefb1eae482326b93b874cb9e4f",
+   "outputSha256": "15d2388b2648d6081085be9269f359511e85feb93e8ca3115af6fe9769024cb3",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 63,
+     "atOperatingPoint": 36
+    },
+    "V1": {
+     "beforeNmsProjection": 49,
+     "atOperatingPoint": 27
+    },
+    "V2": {
+     "beforeNmsProjection": 54,
+     "atOperatingPoint": 35
+    },
+    "V3": {
+     "beforeNmsProjection": 60,
+     "atOperatingPoint": 35
+    }
+   }
+  },
+  {
+   "id": "dev-0007",
+   "split": "dev",
+   "seed": 21260917,
+   "viewportCss": {
+    "w": 1024,
+    "h": 720
+   },
+   "captureSize": {
+    "w": 1024,
+    "h": 720
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "230e523b9fa7a8574bb840f706db7ba494fdba3e3a1633e3bd1256ecce0d7db0",
+   "rgbaSha256": "e677b03a660d8c448834a3eca8717fe2dede9a9bd707d2434970aab238869573",
+   "tensorSha256": "130215a8b98e60d0f71ef8675d29d341341d9ff20cd58d0d716eedc681f7efec",
+   "outputSha256": "039c1e57098c68cc1b7a7ea2bda42125fc794bb92d53a8ac1d0b8f94686f5370",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 40,
+     "atOperatingPoint": 19
+    },
+    "V1": {
+     "beforeNmsProjection": 28,
+     "atOperatingPoint": 14
+    },
+    "V2": {
+     "beforeNmsProjection": 36,
+     "atOperatingPoint": 18
+    },
+    "V3": {
+     "beforeNmsProjection": 39,
+     "atOperatingPoint": 19
+    }
+   }
+  },
+  {
+   "id": "dev-0008",
+   "split": "dev",
+   "seed": 21260918,
+   "viewportCss": {
+    "w": 1280,
+    "h": 800
+   },
+   "captureSize": {
+    "w": 1280,
+    "h": 800
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "790888cf225afab8759bff470ccffe718798edc69985fa267471605e43114d28",
+   "rgbaSha256": "1b68c306b5ae1000cd15a867002f5719617c4bb171cdc1c933ecc8000cadd31d",
+   "tensorSha256": "dbc9d22e50d1c8e960fe64047c3bea92158b453af839559a02ee53bcd873169c",
+   "outputSha256": "7ca0c8df13c2d44c6cbabaf7437273bd42db3511a534afd27c617fb43f548e8b",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 40,
+     "atOperatingPoint": 17
+    },
+    "V1": {
+     "beforeNmsProjection": 27,
+     "atOperatingPoint": 14
+    },
+    "V2": {
+     "beforeNmsProjection": 37,
+     "atOperatingPoint": 17
+    },
+    "V3": {
+     "beforeNmsProjection": 39,
+     "atOperatingPoint": 17
+    }
+   }
+  },
+  {
+   "id": "dev-0009",
+   "split": "dev",
+   "seed": 21260919,
+   "viewportCss": {
+    "w": 960,
+    "h": 600
+   },
+   "captureSize": {
+    "w": 960,
+    "h": 600
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "43b4fd278c194f60826bf9c48e08395f126f41f8440bf758f82df561a4d7ade9",
+   "rgbaSha256": "88506a0fcdb4288dff55e4f49e0f15ccaca144462da9eb4560dc707230a955c4",
+   "tensorSha256": "ced9c2d3471278c7e8f12051ffeaa4547fac270f49deddd8f8b36bf3920085a5",
+   "outputSha256": "3fd56ffb4e363bb91c446a3a9f86ad902a78974a06b410a5e3ba9a9f4a101011",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 47,
+     "atOperatingPoint": 26
+    },
+    "V1": {
+     "beforeNmsProjection": 36,
+     "atOperatingPoint": 19
+    },
+    "V2": {
+     "beforeNmsProjection": 41,
+     "atOperatingPoint": 25
+    },
+    "V3": {
+     "beforeNmsProjection": 47,
+     "atOperatingPoint": 26
+    }
+   }
+  },
+  {
+   "id": "dev-0010",
+   "split": "dev",
+   "seed": 21260920,
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "1be081dd85ba03462f2d24876a0f6b821eca9776a91323339ceeba2dce2b047a",
+   "rgbaSha256": "0a4b78f928d1b57309f161e2356c667f80679c95853411c4024ca65b7ea00aa9",
+   "tensorSha256": "bfb4c6789398326f4adb4b7f9fac432fc0c5a70f3e4ae9df343ff4ceab1ddf01",
+   "outputSha256": "09b815b38801adaa10276ca5de3b1162b9db423c6adcbc3ea599f741da6f415b",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 36,
+     "atOperatingPoint": 23
+    },
+    "V1": {
+     "beforeNmsProjection": 24,
+     "atOperatingPoint": 17
+    },
+    "V2": {
+     "beforeNmsProjection": 34,
+     "atOperatingPoint": 23
+    },
+    "V3": {
+     "beforeNmsProjection": 36,
+     "atOperatingPoint": 23
+    }
+   }
+  },
+  {
+   "id": "dev-0011",
+   "split": "dev",
+   "seed": 21260921,
+   "viewportCss": {
+    "w": 1024,
+    "h": 600
+   },
+   "captureSize": {
+    "w": 1024,
+    "h": 600
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "09e55c6f9c648362b80f0882dc0ee9daeb4d3664f8a96fb8bcf4665ff8e24726",
+   "rgbaSha256": "68620d983c3ba4c78610a6ee5606a0a0a43e81dd32e520eb02cc59fa2423afa5",
+   "tensorSha256": "8e31f7274591d6d2549d05307e6fdacbc0fc9d5d2079849e1c3bc423d2f1afd7",
+   "outputSha256": "7b797ffd89e8f80986ae11b467fa162c62c97c2c435a5c8b4f184e701329e03a",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 55,
+     "atOperatingPoint": 23
+    },
+    "V1": {
+     "beforeNmsProjection": 39,
+     "atOperatingPoint": 18
+    },
+    "V2": {
+     "beforeNmsProjection": 48,
+     "atOperatingPoint": 23
+    },
+    "V3": {
+     "beforeNmsProjection": 53,
+     "atOperatingPoint": 23
+    }
+   }
+  },
+  {
+   "id": "dev-0012",
+   "split": "dev",
+   "seed": 21260922,
+   "viewportCss": {
+    "w": 1024,
+    "h": 720
+   },
+   "captureSize": {
+    "w": 1024,
+    "h": 720
+   },
+   "evaluatableAnnotations": 21,
+   "pngSha256": "3af32b6a8787f6994b80de5b713d12401ad466224f1d077736d8f5de4e23a0c5",
+   "rgbaSha256": "e59ceed6b69d5cab10e54df9cdb7e28e7bd22d1ebabbae38aa95fa5ea33cbae5",
+   "tensorSha256": "ab1e803343683fe7781a403aed17fcfb80a49e259fa96478adde5c4f5a0cd79c",
+   "outputSha256": "7d8e5e46150fe6c240cc784f418a5dc438e8ea9bb1d5f971a66a15a9196be54e",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 80,
+     "atOperatingPoint": 29
+    },
+    "V1": {
+     "beforeNmsProjection": 60,
+     "atOperatingPoint": 24
+    },
+    "V2": {
+     "beforeNmsProjection": 70,
+     "atOperatingPoint": 27
+    },
+    "V3": {
+     "beforeNmsProjection": 79,
+     "atOperatingPoint": 29
+    }
+   }
+  },
+  {
+   "id": "dev-0013",
+   "split": "dev",
+   "seed": 21260923,
+   "viewportCss": {
+    "w": 1152,
+    "h": 720
+   },
+   "captureSize": {
+    "w": 1152,
+    "h": 720
+   },
+   "evaluatableAnnotations": 21,
+   "pngSha256": "dce0f453109592ac8b9d42cffbf8a0ad67a6aae7e0b5e5f30d5e6a186dc79592",
+   "rgbaSha256": "328e4bf923cb0faa64b29ccd7439efd5c3ae0ca6abba27d65df4fd983bf4f882",
+   "tensorSha256": "aac709ae2cbbd2fabd3ecae017238f42d2f1218257e2e8420ea8ad4ea23e880c",
+   "outputSha256": "8fe9ab901d5e6a50552734f29750023d96785dd93061d4fed639e745d4a27f43",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 68,
+     "atOperatingPoint": 31
+    },
+    "V1": {
+     "beforeNmsProjection": 47,
+     "atOperatingPoint": 24
+    },
+    "V2": {
+     "beforeNmsProjection": 54,
+     "atOperatingPoint": 27
+    },
+    "V3": {
+     "beforeNmsProjection": 67,
+     "atOperatingPoint": 31
+    }
+   }
+  },
+  {
+   "id": "dev-0014",
+   "split": "dev",
+   "seed": 21260924,
+   "viewportCss": {
+    "w": 1280,
+    "h": 640
+   },
+   "captureSize": {
+    "w": 1280,
+    "h": 640
+   },
+   "evaluatableAnnotations": 21,
+   "pngSha256": "5c960a5aa9eb8aa8a97e816dddbe2160f4c16478478878e730ed00b0b5e7a011",
+   "rgbaSha256": "9b8b7dc6689057ccecebfffd3267d5c6186df7fde9b63e342c948263a857cbc4",
+   "tensorSha256": "324113b3e380804827cd98ecfa261fa05b029f9a83f1094307dd746bc07535a4",
+   "outputSha256": "76c29eca599b9ac7d7eb3deffe531794cf291a3f79b18c7dbd062be9f834b8fc",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 62,
+     "atOperatingPoint": 30
+    },
+    "V1": {
+     "beforeNmsProjection": 46,
+     "atOperatingPoint": 23
+    },
+    "V2": {
+     "beforeNmsProjection": 51,
+     "atOperatingPoint": 30
+    },
+    "V3": {
+     "beforeNmsProjection": 60,
+     "atOperatingPoint": 29
+    }
+   }
+  },
+  {
+   "id": "dev-0015",
+   "split": "dev",
+   "seed": 21260925,
+   "viewportCss": {
+    "w": 1280,
+    "h": 720
+   },
+   "captureSize": {
+    "w": 1280,
+    "h": 720
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "c471d3a70a221a13231306d59facef30248424740ae05730445afb044bac98c9",
+   "rgbaSha256": "3ae1a8bc2739289c6bd410e0057a3f1796f750177bcc86655a516d03f9f7b9ac",
+   "tensorSha256": "438334ec1db0c3348897e307cfb15f27d2d90b2c139c2af8945246949911d7a7",
+   "outputSha256": "66112b9f359b6669425000a722cdf79cbb50e3c71ec2fad4e34731ebebba2a20",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 33,
+     "atOperatingPoint": 21
+    },
+    "V1": {
+     "beforeNmsProjection": 23,
+     "atOperatingPoint": 14
+    },
+    "V2": {
+     "beforeNmsProjection": 29,
+     "atOperatingPoint": 19
+    },
+    "V3": {
+     "beforeNmsProjection": 33,
+     "atOperatingPoint": 21
+    }
+   }
+  },
+  {
+   "id": "dev-0016",
+   "split": "dev",
+   "seed": 21260926,
+   "viewportCss": {
+    "w": 1152,
+    "h": 720
+   },
+   "captureSize": {
+    "w": 1152,
+    "h": 720
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "9ef8a04ab3da3ae9179356e83f4c23cb0d9968f402b28d4bf64fae9cc635e355",
+   "rgbaSha256": "50173a14ca3ef09c7b76a966cf59bcb24b792bd616c7441dcda713e57796f614",
+   "tensorSha256": "0cb2329bb1ff162c0c8add250a99c672d12b54e989187a92ab2d817c226f88e3",
+   "outputSha256": "2e8c4832309b4d281fa30b7903aa8f4d1ddbc2ad92887cd8ffde70498b729f25",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 32,
+     "atOperatingPoint": 21
+    },
+    "V1": {
+     "beforeNmsProjection": 26,
+     "atOperatingPoint": 17
+    },
+    "V2": {
+     "beforeNmsProjection": 30,
+     "atOperatingPoint": 21
+    },
+    "V3": {
+     "beforeNmsProjection": 32,
+     "atOperatingPoint": 21
+    }
+   }
+  },
+  {
+   "id": "dev-0017",
+   "split": "dev",
+   "seed": 21260927,
+   "viewportCss": {
+    "w": 1152,
+    "h": 640
+   },
+   "captureSize": {
+    "w": 1152,
+    "h": 640
+   },
+   "evaluatableAnnotations": 21,
+   "pngSha256": "71e450b3178c8a8021213861718cafff9b1d4ac43c1af9ccd10215580354ac48",
+   "rgbaSha256": "3f6adf22b1f3e0b1fcba051e9035b01c3cdcf18a7f2a71c97301686275a2506d",
+   "tensorSha256": "538750a9154a80237008401de566006892b66e755b999d33faba2851f248e98c",
+   "outputSha256": "1e06e7624ae41dbbb07132ff0d14852ce54e6d63fb737ffe7f3b051f9c29087c",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 48,
+     "atOperatingPoint": 24
+    },
+    "V1": {
+     "beforeNmsProjection": 39,
+     "atOperatingPoint": 21
+    },
+    "V2": {
+     "beforeNmsProjection": 41,
+     "atOperatingPoint": 24
+    },
+    "V3": {
+     "beforeNmsProjection": 48,
+     "atOperatingPoint": 24
+    }
+   }
+  },
+  {
+   "id": "dev-0018",
+   "split": "dev",
+   "seed": 21260928,
+   "viewportCss": {
+    "w": 960,
+    "h": 800
+   },
+   "captureSize": {
+    "w": 960,
+    "h": 800
+   },
+   "evaluatableAnnotations": 21,
+   "pngSha256": "868375b0ab1d29286593ef6bec2b65988f2a79c850b14d21d74cd80fd0733b39",
+   "rgbaSha256": "2b65f37d73b0c8d6b82b373895d61919970a592fb6fa82662d6d5ceb2d53c849",
+   "tensorSha256": "a15255f975ecd77341b6c3c70216b673463040b46b48ec32d56729f3758f5d53",
+   "outputSha256": "40d5d4474383f1a5839cd7c05c1e40de4a1fede0b6a584f0d3f3f6ea609324cf",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 95,
+     "atOperatingPoint": 41
+    },
+    "V1": {
+     "beforeNmsProjection": 73,
+     "atOperatingPoint": 31
+    },
+    "V2": {
+     "beforeNmsProjection": 76,
+     "atOperatingPoint": 38
+    },
+    "V3": {
+     "beforeNmsProjection": 94,
+     "atOperatingPoint": 40
+    }
+   }
+  },
+  {
+   "id": "dev-0019",
+   "split": "dev",
+   "seed": 21260929,
+   "viewportCss": {
+    "w": 1280,
+    "h": 600
+   },
+   "captureSize": {
+    "w": 1280,
+    "h": 600
+   },
+   "evaluatableAnnotations": 18,
+   "pngSha256": "28748578e90d0d1fdcf95e315e80da5b8a40aa51103238eeeb62cef07da58408",
+   "rgbaSha256": "6c3e628ed35cfd173f325c9dc5ee2836b504c3fc661b2cb07ee85f30dcc71974",
+   "tensorSha256": "e6e2090c372fe4c17ba3741213af890d1cad17d3023648dfe6057fae6b9aaed6",
+   "outputSha256": "b14ef5ae75037b4c59359ee8a718ffc0694f2fb658f44b500a16fa29084e2727",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 49,
+     "atOperatingPoint": 26
+    },
+    "V1": {
+     "beforeNmsProjection": 38,
+     "atOperatingPoint": 21
+    },
+    "V2": {
+     "beforeNmsProjection": 46,
+     "atOperatingPoint": 26
+    },
+    "V3": {
+     "beforeNmsProjection": 48,
+     "atOperatingPoint": 26
+    }
+   }
+  },
+  {
+   "id": "dev-0020",
+   "split": "dev",
+   "seed": 21260930,
+   "viewportCss": {
+    "w": 1024,
+    "h": 600
+   },
+   "captureSize": {
+    "w": 1024,
+    "h": 600
+   },
+   "evaluatableAnnotations": 19,
+   "pngSha256": "717445f22eacf914afc4c3e9e999d40cf3714fec37abcef15bd1b23a656dc326",
+   "rgbaSha256": "91e2e512ee8b4fa165ad2a53807f07b5060f0d7d2b47e9cbc1d23829c39cdca2",
+   "tensorSha256": "4a3c0cbc9d3499ab545c3c516ab52e85fa68bff88ca1b9b43465711dfa74c7f1",
+   "outputSha256": "348f014f196c7dbb1a0490e5a5601644496175a714f22f5bbfc8ddfc44338697",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 47,
+     "atOperatingPoint": 31
+    },
+    "V1": {
+     "beforeNmsProjection": 36,
+     "atOperatingPoint": 21
+    },
+    "V2": {
+     "beforeNmsProjection": 42,
+     "atOperatingPoint": 30
+    },
+    "V3": {
+     "beforeNmsProjection": 47,
+     "atOperatingPoint": 31
+    }
+   }
+  },
+  {
+   "id": "dev-0021",
+   "split": "dev",
+   "seed": 21260931,
+   "viewportCss": {
+    "w": 960,
+    "h": 600
+   },
+   "captureSize": {
+    "w": 960,
+    "h": 600
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "223bf3dec5910d309058a8ff1c6d87335eac9e5b54e846bd7cbab01034771811",
+   "rgbaSha256": "60fc43906a02c0c77fbca852bdc753855c4d5325dcc8e6131216e2216aaf902f",
+   "tensorSha256": "00c31a5ad26f19ead8807d6d07462ba12e1b0441258e89c980075fd05f688f82",
+   "outputSha256": "90e7f57b499317aae73c608a53e6229217a94afbb9391853670441c6e11db9bf",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 49,
+     "atOperatingPoint": 21
+    },
+    "V1": {
+     "beforeNmsProjection": 37,
+     "atOperatingPoint": 16
+    },
+    "V2": {
+     "beforeNmsProjection": 40,
+     "atOperatingPoint": 20
+    },
+    "V3": {
+     "beforeNmsProjection": 49,
+     "atOperatingPoint": 21
+    }
+   }
+  },
+  {
+   "id": "dev-0022",
+   "split": "dev",
+   "seed": 21260932,
+   "viewportCss": {
+    "w": 960,
+    "h": 800
+   },
+   "captureSize": {
+    "w": 960,
+    "h": 800
+   },
+   "evaluatableAnnotations": 21,
+   "pngSha256": "1d0f082df2a90368ad52934939084b3ef64d9083d657f6aeaeafce70702b081c",
+   "rgbaSha256": "f030a86c0d00a1f2f22650c1241d3c51e18ec948aa6811ace62dd4484e9370ab",
+   "tensorSha256": "1c46331c152acffef8fbb00775f49c71d884505e654100c3e1f1d3f7be233bad",
+   "outputSha256": "bdcb52dd42ef2d3455de0eae8c08c1060e0fcc33b57cee0d92a1e80f1cc86816",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 86,
+     "atOperatingPoint": 38
+    },
+    "V1": {
+     "beforeNmsProjection": 58,
+     "atOperatingPoint": 27
+    },
+    "V2": {
+     "beforeNmsProjection": 69,
+     "atOperatingPoint": 34
+    },
+    "V3": {
+     "beforeNmsProjection": 81,
+     "atOperatingPoint": 36
+    }
+   }
+  },
+  {
+   "id": "dev-0023",
+   "split": "dev",
+   "seed": 21260933,
+   "viewportCss": {
+    "w": 1280,
+    "h": 800
+   },
+   "captureSize": {
+    "w": 1280,
+    "h": 800
+   },
+   "evaluatableAnnotations": 27,
+   "pngSha256": "bb21c6f0500b27a7b8341d6093cdbb496bacdc3a7c59e6655dd46a0fdafb4dc3",
+   "rgbaSha256": "3f62a514f8f13e95782466d31d4c4eb3410816727f7ac7615b70066eff24b2eb",
+   "tensorSha256": "c9db400a721259a39f15d1385bbf4b5692debd6c597dbcb454133dde53fc594f",
+   "outputSha256": "f73e23f81cd962d75921fd4d50950eea34725c1d8a039e452bc404701efd1280",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 68,
+     "atOperatingPoint": 32
+    },
+    "V1": {
+     "beforeNmsProjection": 53,
+     "atOperatingPoint": 25
+    },
+    "V2": {
+     "beforeNmsProjection": 61,
+     "atOperatingPoint": 32
+    },
+    "V3": {
+     "beforeNmsProjection": 65,
+     "atOperatingPoint": 29
+    }
+   }
+  },
+  {
+   "id": "dev-0024",
+   "split": "dev",
+   "seed": 21260934,
+   "viewportCss": {
+    "w": 1152,
+    "h": 720
+   },
+   "captureSize": {
+    "w": 1152,
+    "h": 720
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "6accd60b7bfd8c0488bdeae5440892e933071f7d48e9b44d226aa17c30ee4fb6",
+   "rgbaSha256": "9a9e6e75c2e1db2d1fe0c5f6c5d4012737341749669b59d3d6d9d746b13a5dc5",
+   "tensorSha256": "cd8d1dc0902a10cece1d1e4623f78171396d1937fe152f84e9f231dddb7968b2",
+   "outputSha256": "5fc1765848a4622f45fdda32ee61c246246b5c7180e4b6df2cbc20e45abf9668",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 28,
+     "atOperatingPoint": 21
+    },
+    "V1": {
+     "beforeNmsProjection": 21,
+     "atOperatingPoint": 17
+    },
+    "V2": {
+     "beforeNmsProjection": 24,
+     "atOperatingPoint": 19
+    },
+    "V3": {
+     "beforeNmsProjection": 27,
+     "atOperatingPoint": 21
+    }
+   }
+  },
+  {
+   "id": "dev-0025",
+   "split": "dev",
+   "seed": 21260935,
+   "viewportCss": {
+    "w": 960,
+    "h": 640
+   },
+   "captureSize": {
+    "w": 960,
+    "h": 640
+   },
+   "evaluatableAnnotations": 21,
+   "pngSha256": "503133bf30035fa6590d308699d4f0c708b67622fc837ff4d1fc72d84668b821",
+   "rgbaSha256": "6d9425a522beecd205a71eb621230e737d988d1a52b02e08af4ae5dfc7b70ccc",
+   "tensorSha256": "07440707a621d4174ee8c56ab4e1a614a4fb6f4cab6170dd4bc9dcafcfdb653e",
+   "outputSha256": "ea159ac6e50d15d5bf9a8e71eafe3ce0302599456fabf9574520bdc9e176127b",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 63,
+     "atOperatingPoint": 35
+    },
+    "V1": {
+     "beforeNmsProjection": 49,
+     "atOperatingPoint": 24
+    },
+    "V2": {
+     "beforeNmsProjection": 56,
+     "atOperatingPoint": 35
+    },
+    "V3": {
+     "beforeNmsProjection": 63,
+     "atOperatingPoint": 35
+    }
+   }
+  },
+  {
+   "id": "dev-0026",
+   "split": "dev",
+   "seed": 21260936,
+   "viewportCss": {
+    "w": 960,
+    "h": 800
+   },
+   "captureSize": {
+    "w": 960,
+    "h": 800
+   },
+   "evaluatableAnnotations": 21,
+   "pngSha256": "a5fde17451ad649c7a5b06f53397ace9884ff43b62ba369edb131d14818d77d1",
+   "rgbaSha256": "c64b0fdac863e06ff4aafa30acd0fc4e7da99ab9d4e1d82cc129967e47ee14c7",
+   "tensorSha256": "4687a1b144f4e7fa81c6544a548c7c0cce4f553e5eae4892f871e9a346f4479e",
+   "outputSha256": "41ad8566c3edfe482f385cfd3ecf42c52e307962062c9a1f2bebfc4566a58fa3",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 81,
+     "atOperatingPoint": 33
+    },
+    "V1": {
+     "beforeNmsProjection": 60,
+     "atOperatingPoint": 26
+    },
+    "V2": {
+     "beforeNmsProjection": 71,
+     "atOperatingPoint": 32
+    },
+    "V3": {
+     "beforeNmsProjection": 80,
+     "atOperatingPoint": 33
+    }
+   }
+  },
+  {
+   "id": "dev-0027",
+   "split": "dev",
+   "seed": 21260937,
+   "viewportCss": {
+    "w": 1024,
+    "h": 800
+   },
+   "captureSize": {
+    "w": 1024,
+    "h": 800
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "496b583555bbe7d1a21c2b6935124334878ce109e7278b5a08408c69fb5112ec",
+   "rgbaSha256": "01b3063b9216fd30ac5cf79192db3e38b5e8305c4ee40d6c6c51f5a419f09500",
+   "tensorSha256": "e459b15f3e9a5c45b6ce06259e148b5d2cd20830d5c76f8d71a4e6e4b8f152cc",
+   "outputSha256": "bc52e5f65c4df127f9afb774d2d9820b31af9df77f2b15006d7c0a286e506b56",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 32,
+     "atOperatingPoint": 12
+    },
+    "V1": {
+     "beforeNmsProjection": 27,
+     "atOperatingPoint": 10
+    },
+    "V2": {
+     "beforeNmsProjection": 26,
+     "atOperatingPoint": 12
+    },
+    "V3": {
+     "beforeNmsProjection": 32,
+     "atOperatingPoint": 12
+    }
+   }
+  },
+  {
+   "id": "dev-0028",
+   "split": "dev",
+   "seed": 21260938,
+   "viewportCss": {
+    "w": 1152,
+    "h": 800
+   },
+   "captureSize": {
+    "w": 1152,
+    "h": 800
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "23e649e52db467e4b2f206d33ce22a45ccdfb1ca39282814913e21bfb75ab3da",
+   "rgbaSha256": "a35099d9c21d2d2b697fb96ef85c88dc94ac842bfad21cffce27b58af1aef813",
+   "tensorSha256": "5ea3e732e0c7a6ed24c84b71375751cf49b04b4ff2880d5ed6e1245364dbc859",
+   "outputSha256": "559e57ffb747ca004d1eda64c7de7dd59bf934ec189dff4a8db8b0f6adce550b",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 29,
+     "atOperatingPoint": 18
+    },
+    "V1": {
+     "beforeNmsProjection": 23,
+     "atOperatingPoint": 14
+    },
+    "V2": {
+     "beforeNmsProjection": 26,
+     "atOperatingPoint": 17
+    },
+    "V3": {
+     "beforeNmsProjection": 29,
+     "atOperatingPoint": 18
+    }
+   }
+  },
+  {
+   "id": "dev-0029",
+   "split": "dev",
+   "seed": 21260939,
+   "viewportCss": {
+    "w": 1024,
+    "h": 600
+   },
+   "captureSize": {
+    "w": 1024,
+    "h": 600
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "cf2eb0b21944c2e25a849faf9c39a5e62e326822b2f71bb4b79419493faa8a65",
+   "rgbaSha256": "bf1015b048ebcbebbfb58a0c11f5e0d3785794ed67d8e652190e2396c8a0f1e4",
+   "tensorSha256": "395b326a22c60e222f1cb7e363e2a1041833f5ceb649666670d77221615f629c",
+   "outputSha256": "2d0f1620adfd028aec89335321aa3eb5d03604f4ba215cf5e55ebda0bbdb08f7",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 32,
+     "atOperatingPoint": 21
+    },
+    "V1": {
+     "beforeNmsProjection": 25,
+     "atOperatingPoint": 17
+    },
+    "V2": {
+     "beforeNmsProjection": 28,
+     "atOperatingPoint": 19
+    },
+    "V3": {
+     "beforeNmsProjection": 31,
+     "atOperatingPoint": 20
+    }
+   }
+  },
+  {
+   "id": "dev-0030",
+   "split": "dev",
+   "seed": 21260940,
+   "viewportCss": {
+    "w": 1024,
+    "h": 600
+   },
+   "captureSize": {
+    "w": 1024,
+    "h": 600
+   },
+   "evaluatableAnnotations": 20,
+   "pngSha256": "644294363a5991b0f842e8f9036679070cfb7b7a2e7c3959bd026856105be50c",
+   "rgbaSha256": "02a1c1fb95e09d5dad8200fdef16e35845773063713e2b55d79b2e60ebdcfbd0",
+   "tensorSha256": "b052ae9a1d391dddc39f9cd46ebb5a312773db9754fef9869a6a38971f015bc3",
+   "outputSha256": "9b74f7b5ce8ca8cf772167069f1a4b255da875a09ab8a75341098588e9cb4c1d",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 54,
+     "atOperatingPoint": 22
+    },
+    "V1": {
+     "beforeNmsProjection": 42,
+     "atOperatingPoint": 18
+    },
+    "V2": {
+     "beforeNmsProjection": 47,
+     "atOperatingPoint": 22
+    },
+    "V3": {
+     "beforeNmsProjection": 54,
+     "atOperatingPoint": 22
+    }
+   }
+  },
+  {
+   "id": "dev-0031",
+   "split": "dev",
+   "seed": 21260941,
+   "viewportCss": {
+    "w": 1280,
+    "h": 800
+   },
+   "captureSize": {
+    "w": 1280,
+    "h": 800
+   },
+   "evaluatableAnnotations": 27,
+   "pngSha256": "0d7da7b9e72c4311cc736d5f49f8938888c1b4adde07f6f1b1313129c0a63d7d",
+   "rgbaSha256": "7229e6d4391aa53c7db1f790248e4df202a974aea8e1a6bd0afd76ec13b6cfc0",
+   "tensorSha256": "bfdca4a1eea96e6e57803a1b6e3297aae34ae2a32705afb202e6a895a39caebf",
+   "outputSha256": "44824f27aa57f8e830cae098163d3c1749c956a745cdc195f34b242a5154cd7d",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 63,
+     "atOperatingPoint": 37
+    },
+    "V1": {
+     "beforeNmsProjection": 50,
+     "atOperatingPoint": 28
+    },
+    "V2": {
+     "beforeNmsProjection": 53,
+     "atOperatingPoint": 37
+    },
+    "V3": {
+     "beforeNmsProjection": 61,
+     "atOperatingPoint": 36
+    }
+   }
+  },
+  {
+   "id": "dev-0032",
+   "split": "dev",
+   "seed": 21260942,
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "evaluatableAnnotations": 19,
+   "pngSha256": "dccd4ed808a92f4f022adb2c5a743d346f79eef8891d6d074eb899f5642df73c",
+   "rgbaSha256": "794230f27ae82c5242fed9f6d52d176a269b7fd9667451650aaa92000603b2ae",
+   "tensorSha256": "c52e563283a7c3f503afca40f649fcbf48fcbd83780d65b7150b67ddd8ab2215",
+   "outputSha256": "ccf8fe7ca759344dfaae35393331a38f6f85f46b4525529359302f0961442400",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 69,
+     "atOperatingPoint": 31
+    },
+    "V1": {
+     "beforeNmsProjection": 44,
+     "atOperatingPoint": 19
+    },
+    "V2": {
+     "beforeNmsProjection": 58,
+     "atOperatingPoint": 31
+    },
+    "V3": {
+     "beforeNmsProjection": 68,
+     "atOperatingPoint": 30
+    }
+   }
+  },
+  {
+   "id": "dev-0033",
+   "split": "dev",
+   "seed": 21260943,
+   "viewportCss": {
+    "w": 960,
+    "h": 640
+   },
+   "captureSize": {
+    "w": 960,
+    "h": 640
+   },
+   "evaluatableAnnotations": 21,
+   "pngSha256": "3b4c2f1cebefbcb9d7c4b083fa2152c1eff45dc167c6b5737ab9f304f0f7d948",
+   "rgbaSha256": "33c7da19834cba04a7f6bc999e350c9259bdc0f00f506f4d8bc5bdd4ed94dc7c",
+   "tensorSha256": "0f58d9cfbe123e9f252407ff79cf86db0d4969027c2c97587539b285701da3f2",
+   "outputSha256": "c03f061e494a50f5e2b20625f9d91679566f20a732df2b46360e5eac65ebf2ae",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 67,
+     "atOperatingPoint": 29
+    },
+    "V1": {
+     "beforeNmsProjection": 50,
+     "atOperatingPoint": 23
+    },
+    "V2": {
+     "beforeNmsProjection": 53,
+     "atOperatingPoint": 29
+    },
+    "V3": {
+     "beforeNmsProjection": 67,
+     "atOperatingPoint": 29
+    }
+   }
+  },
+  {
+   "id": "dev-0034",
+   "split": "dev",
+   "seed": 21260944,
+   "viewportCss": {
+    "w": 1280,
+    "h": 800
+   },
+   "captureSize": {
+    "w": 1280,
+    "h": 800
+   },
+   "evaluatableAnnotations": 27,
+   "pngSha256": "4558df47cc6b14bc33cd0058e4978b847295a03542a42330d13b933df64c35c7",
+   "rgbaSha256": "f80e22672eaf66400a01424da6147a827336e2b8f416446e53d0c909d5594d5d",
+   "tensorSha256": "87bdf49c336fce77c0e0077aeb038693794b23627fd831540aeaf8f4f2fa8dc3",
+   "outputSha256": "ffa2198f3aade570da9d0a32da7d05ac9ea2fde5357b6522a9182439a7d9229d",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 60,
+     "atOperatingPoint": 31
+    },
+    "V1": {
+     "beforeNmsProjection": 47,
+     "atOperatingPoint": 24
+    },
+    "V2": {
+     "beforeNmsProjection": 48,
+     "atOperatingPoint": 30
+    },
+    "V3": {
+     "beforeNmsProjection": 58,
+     "atOperatingPoint": 30
+    }
+   }
+  },
+  {
+   "id": "dev-0035",
+   "split": "dev",
+   "seed": 21260945,
+   "viewportCss": {
+    "w": 1152,
+    "h": 720
+   },
+   "captureSize": {
+    "w": 1152,
+    "h": 720
+   },
+   "evaluatableAnnotations": 24,
+   "pngSha256": "2a71d14205b6d48113979e940b2bc4fa3771ac1a4064c831007ea31504e9523f",
+   "rgbaSha256": "bb3d4c2f60e5b5e0b98f83881002c263811682e485572fd0b3043614d26b37c2",
+   "tensorSha256": "7cb9222834c860ce8e23ba9e1f923bfc35a6a37cf69b2305af4b1e6b07ec617a",
+   "outputSha256": "b7a4846dad21bceea68e3fee9b2cfcdaecaa337b3386e3d629e9c824bac80653",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 63,
+     "atOperatingPoint": 34
+    },
+    "V1": {
+     "beforeNmsProjection": 51,
+     "atOperatingPoint": 28
+    },
+    "V2": {
+     "beforeNmsProjection": 55,
+     "atOperatingPoint": 33
+    },
+    "V3": {
+     "beforeNmsProjection": 61,
+     "atOperatingPoint": 33
+    }
+   }
+  },
+  {
+   "id": "dev-0036",
+   "split": "dev",
+   "seed": 21260946,
+   "viewportCss": {
+    "w": 1024,
+    "h": 800
+   },
+   "captureSize": {
+    "w": 1024,
+    "h": 800
+   },
+   "evaluatableAnnotations": 26,
+   "pngSha256": "9b50c342dd86053d962ee7b6a98ef558db979c1cf5586b4db44715a519e19653",
+   "rgbaSha256": "8bcde120a5fb730b3cd9fd4accf9b32e398d1c74801bd729cd88cc94223141f7",
+   "tensorSha256": "280e2e3e0d1b8a2a955f8c75d8f7e68ec7c74e5526ffb5aefa2a6e09014cb94e",
+   "outputSha256": "cd4021818f88ac37e740d78a3b4c3d4b6e7e71a9d7416633723300d5d4a2ff6f",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 63,
+     "atOperatingPoint": 34
+    },
+    "V1": {
+     "beforeNmsProjection": 48,
+     "atOperatingPoint": 26
+    },
+    "V2": {
+     "beforeNmsProjection": 55,
+     "atOperatingPoint": 34
+    },
+    "V3": {
+     "beforeNmsProjection": 61,
+     "atOperatingPoint": 33
+    }
+   }
+  },
+  {
+   "id": "dev-0037",
+   "split": "dev",
+   "seed": 21260947,
+   "viewportCss": {
+    "w": 1152,
+    "h": 720
+   },
+   "captureSize": {
+    "w": 1152,
+    "h": 720
+   },
+   "evaluatableAnnotations": 21,
+   "pngSha256": "96386fff47341f1ecaf13ee14d3b71cc4ce3e90ba5700328c1ac74cd754bc1d4",
+   "rgbaSha256": "ef253fb898d1f164d41fd045c3b4fa2d113c68ef47a01dbd7bfece10cb1741df",
+   "tensorSha256": "183ceae09ccb65b30707fcad05aede694bd4e94eb6461e65acb9573a8fc42b63",
+   "outputSha256": "7dad20aadfa1fda868128c41260663a29ce5a2492e2f6a2fef892bec6c9611f3",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 66,
+     "atOperatingPoint": 32
+    },
+    "V1": {
+     "beforeNmsProjection": 46,
+     "atOperatingPoint": 22
+    },
+    "V2": {
+     "beforeNmsProjection": 58,
+     "atOperatingPoint": 32
+    },
+    "V3": {
+     "beforeNmsProjection": 66,
+     "atOperatingPoint": 32
+    }
+   }
+  },
+  {
+   "id": "dev-0038",
+   "split": "dev",
+   "seed": 21260948,
+   "viewportCss": {
+    "w": 1152,
+    "h": 800
+   },
+   "captureSize": {
+    "w": 1152,
+    "h": 800
+   },
+   "evaluatableAnnotations": 27,
+   "pngSha256": "2c44c10d4fa9fc132e00680905956b370267ea3287fcbb5afddbd415eb2a36ee",
+   "rgbaSha256": "8f8baf2891693e0b4a87c4ef8dcf8e7d6bd37087d7077a5cd23fb4b33922a6e1",
+   "tensorSha256": "f564487c07c38ecb7064cb234da0a5872d1ecfd2d0f8632af1f501a7a7766a0b",
+   "outputSha256": "77267f5f0e774151bc20d00042c8cd21ad0602c94faca3e50d684de682f39aad",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 101,
+     "atOperatingPoint": 40
+    },
+    "V1": {
+     "beforeNmsProjection": 76,
+     "atOperatingPoint": 33
+    },
+    "V2": {
+     "beforeNmsProjection": 93,
+     "atOperatingPoint": 40
+    },
+    "V3": {
+     "beforeNmsProjection": 101,
+     "atOperatingPoint": 40
+    }
+   }
+  },
+  {
+   "id": "dev-0039",
+   "split": "dev",
+   "seed": 21260949,
+   "viewportCss": {
+    "w": 1152,
+    "h": 800
+   },
+   "captureSize": {
+    "w": 1152,
+    "h": 800
+   },
+   "evaluatableAnnotations": 14,
+   "pngSha256": "bd05b4a738c4ad6f93bac93a9b5fffd2f9ae58982911f17ad1851f596509e928",
+   "rgbaSha256": "1605161ba94760520276d40c3a64d81be028f43e22c5dee5bf842e1de975566c",
+   "tensorSha256": "08eaf010ad4b1333b06f0a1df487b248a5328c6a39eeef28e120688bf533cf98",
+   "outputSha256": "56745acea0bc2f3cd08fd03e6ce7e83991bf2ac47b57d83c9654c6f8aea168f6",
+   "counts": {
+    "V0": {
+     "beforeNmsProjection": 34,
+     "atOperatingPoint": 18
+    },
+    "V1": {
+     "beforeNmsProjection": 26,
+     "atOperatingPoint": 14
+    },
+    "V2": {
+     "beforeNmsProjection": 26,
+     "atOperatingPoint": 18
+    },
+    "V3": {
+     "beforeNmsProjection": 33,
+     "atOperatingPoint": 17
+    }
+   }
+  }
+ ],
+ "notClaimed": [
+  "SYNTHETIC evidence. This cannot close adoption item 11.",
+  "No variant is adopted; the shipped decode and PROVISIONAL_THRESHOLDS are unchanged.",
+  "No threshold was swept, on any split. The consumed held-out test split was not opened.",
+  "No definition of 'substantial' improvement is set here — the absolute deltas go to the owner."
+ ]
+}
