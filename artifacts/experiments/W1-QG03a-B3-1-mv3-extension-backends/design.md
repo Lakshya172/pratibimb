@@ -2,7 +2,7 @@
 
 > **Status: HARNESS DESIGN.** This note maps what B3-1 reuses and what it adds. It records no
 > measurement. B3-1 itself is **NOT STARTED** until the harness runs on **workstation 1**, and
-> B1 (the criterion) is still **ARCHITECT APPROVAL REQUIRED**.
+> B1 (the criterion) is **APPROVED by ronitsaha11**; the numbers are unchanged.
 
 ## Why B3-1 needs a new harness
 
@@ -48,9 +48,9 @@ measurement with QG-03b-2a's real MV3 extension context.
 | **evidence class** | every log carries `evidenceClass`. Anything not run on workstation 1 (`LAPTOP-6E14K34L`) is `DEVELOPMENT / NON-W1 EVIDENCE` and is written under `logs/development-<machine>/` |
 | **native CPU as the reference** | native ORT 1.29.0 CPU is the reference; WASM and WebGPU are each compared against it, and against each other (B2's pair) |
 | **decoded detections kept** | every cell's decoded detections (label, score, box, emission order) are written in full precision, so the matching can be recomputed without the raw dumps |
-| **two fixture readings** | B4 (gradients-edges STRESS-ONLY) is not approved, so the analysis reports the criterion on **all 20** fixtures and on the **18 UI** fixtures, and never picks one for the owner |
+| **two fixture readings** | B4 (gradients-edges STRESS-ONLY) is **APPROVED by ronitsaha11**: the **18 UI** fixtures gate. The analysis still reports **all 20** and the 18, and never drops a fixture — the 20-fixture reading is analytical, not the gate |
 
-## Criterion (candidate, B1 approval pending)
+## Criterion (APPROVED — QG-03a-B1, by ronitsaha11)
 
 Per machine × browser × backend × realm cell, same model, same ORT version, same shipped
 preprocessing, decode and NMS, at the actual measured difference: ≥ 95% matched at IoU 0.5,

@@ -1,16 +1,21 @@
 # QG-03a-B3-1 — the exact T1 artifact in the REAL MV3 extension, per backend
 
-> **This directory is a HARNESS plus a DEVELOPMENT run. It is not B3-1 evidence.**
+> **QG-03a-B3-1 = PASS**, measured on **workstation 1** (`LAPTOP-6E14K34L`, Intel) on 2026-09-12.
+> The evidence is `logs/workstation-1/`. See [decision.md](decision.md).
 >
-> **QG-03a-B3-1 is NOT STARTED.** B3-1 requires **workstation 1** (`LAPTOP-6E14K34L`, Intel), and
-> nothing measured anywhere else can satisfy it. The run recorded under
-> `logs/development-laptop-srcink2b/` was made on **workstation 2** to validate the harness. The
-> harness labels it **DEVELOPMENT / NON-W1 EVIDENCE** itself, and so does every file in it.
+> **This does NOT close QG-03a or QG-03, and the detector remains UNADOPTED.** `QG-03a-B3-2`
+> (an NVIDIA-backed cell) is **NOT MEASURED / OPEN**: Chrome selected the Intel `gen-12lp`
+> adapter here, so the RTX 5050 was never exercised.
 >
-> The criterion measured here is a **CANDIDATE**: QG-03a-B1 is **ARCHITECT APPROVAL REQUIRED**.
-> The numbers were pre-registered in QG-03b-2 as an **identical-input detector-equivalence**
-> criterion; applying them to **backend-noise robustness** is what B1 has to approve. They are not
-> changed here.
+> This directory also holds the harness and a **workstation-2 DEVELOPMENT run** under
+> `logs/development-laptop-srcink2b/`, which is **not** B3-1 evidence. The harness labels it
+> **DEVELOPMENT / NON-W1 EVIDENCE** itself, and so does every file in it.
+>
+> **QG-03a-B1 and QG-03a-B4 are APPROVED by ronitsaha11.** The criterion numbers were
+> pre-registered in QG-03b-2 as an **identical-input detector-equivalence** criterion; B1 approves
+> applying them to **backend-noise robustness**. **They are not changed here.** B4 approves the
+> fixture scope: **18 UI fixtures gate**, all 20 are executed and reported, and `gradients-edges`
+> is **STRESS-ONLY** and does not decide the UI adoption gate.
 
 ## Why B3-1 exists, and why B2 cannot close it
 
@@ -59,7 +64,7 @@ that changes the outputs.
 lossless captures), the reference (native ORT 1.29.0 CPU), the repetition count (3, B2's), and the
 rule that a result holds only for the cell that produced it.
 
-## Acceptance criterion (CANDIDATE — QG-03a-B1 approval pending)
+## Acceptance criterion (APPROVED — QG-03a-B1, by ronitsaha11)
 
 Per machine × browser × backend × realm cell, at the **actual measured** difference, in **both**
 the shipped and the 0.55 operating-point views:
@@ -174,12 +179,13 @@ both the offscreen document and its dedicated worker, with the backend proved by
 submits and the adapter identified. On this machine that context makes no difference to the
 outputs. **Whether that holds on Intel is exactly what B3-1 has to measure.**
 
-Two things gate the B3-1 measurement, neither of which this session can supply:
+Both gates on the B3-1 measurement are now satisfied:
 
-1. **QG-03a-B1** — the architect (ronitsaha11) must approve the candidate criterion, and **B4**
-   (`gradients-edges` = STRESS-ONLY), which decides whether the gate reads 20 fixtures or 18.
-   Until then the analysis reports **both** readings and drops nothing.
-2. **Workstation 1** — the four cells must run there, by someone with access to that machine.
+1. **QG-03a-B1 and B4 — APPROVED by ronitsaha11.** The criterion is unchanged; the gate reads the
+   **18 UI fixtures**, while all 20 are still executed and reported and nothing is dropped.
+2. **Workstation 1** — the four cells ran there on 2026-09-12. Evidence: `logs/workstation-1/`.
+
+What remains open is **QG-03a-B3-2** (NVIDIA), which B3-1 does not and cannot supply.
 
 ## Limitations
 

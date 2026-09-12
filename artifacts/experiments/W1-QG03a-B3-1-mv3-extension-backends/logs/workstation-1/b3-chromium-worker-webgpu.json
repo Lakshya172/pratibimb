@@ -1,0 +1,1496 @@
+{
+ "experiment": "W1-QG03a-B3-1-mv3-extension-backends",
+ "evidenceClass": "WORKSTATION-1 CANDIDATE (review required before B3-1 is recorded)",
+ "cell": "chromium-worker-webgpu",
+ "realm": "worker",
+ "backend": "webgpu",
+ "headless": false,
+ "runAt": "2026-09-12T05:17:01.833Z",
+ "machine": {
+  "hostname": "LAPTOP-6E14K34L",
+  "platform": "win32",
+  "osRelease": "10.0.26200",
+  "osVersion": "Windows 11 Home Single Language",
+  "cpu": "Intel(R) Core(TM) 7 240H",
+  "logicalCpus": 16,
+  "ramBytes": 25378177024,
+  "node": "v24.19.0",
+  "gpusNote": "OS inventory only; it does not say which GPU executed a cell (the adapter record does)",
+  "gpusReportedByOs": [
+   {
+    "name": "Intel(R) Graphics",
+    "driver": "32.0.101.7077"
+   },
+   {
+    "name": "NVIDIA GeForce RTX 5050 Laptop GPU",
+    "driver": "32.0.16.1074"
+   }
+  ]
+ },
+ "browser": {
+  "executablePath": "C:/Users/RONIT/AppData/Local/ms-playwright/chromium-1234/chrome-win64/chrome.exe",
+  "fileVersion": "151.0.7922.34",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36",
+  "fullVersionList": [
+   {
+    "brand": "Chromium",
+    "version": "151.0.7922.34"
+   },
+   {
+    "brand": "Not=A?Brand",
+    "version": "99.0.0.0"
+   }
+  ],
+  "launcher": "playwright chromium.launchPersistentContext --load-extension"
+ },
+ "extension": {
+  "id": "epjmccddicjdnijghdhlgbopkdolofcb",
+  "serviceWorkerUrl": "chrome-extension://epjmccddicjdnijghdhlgbopkdolofcb/background.js",
+  "offscreenContexts": [
+   {
+    "contextType": "OFFSCREEN_DOCUMENT",
+    "documentUrl": "chrome-extension://epjmccddicjdnijghdhlgbopkdolofcb/offscreen.html",
+    "documentOrigin": "chrome-extension://epjmccddicjdnijghdhlgbopkdolofcb"
+   }
+  ],
+  "reportedId": "epjmccddicjdnijghdhlgbopkdolofcb"
+ },
+ "collectorOrigin": "http://127.0.0.1:8971",
+ "build": {
+  "builtAt": "2026-09-12T05:11:54.187Z",
+  "csp": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8971",
+  "ortFiles": {
+   "ort.all.min.js": "292feb81eb47989f30d40e62e29e2373979e7588231c189e6dd494ff294f069d",
+   "ort-wasm-simd-threaded.mjs": "5a15f1fd086b3f6c2baf1f35105b8f502653b567e165cef80028870b39748747",
+   "ort-wasm-simd-threaded.wasm": "ec8580a9d7b9476ceee52e10a7f94124e4dc71a019d666ed6d4726697c109a4d",
+   "ort-wasm-simd-threaded.jsep.mjs": "3d68fa7af88c48894d4b0c8629de12018ab73b77519bc0b05dc8d908ad82749f",
+   "ort-wasm-simd-threaded.jsep.wasm": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea"
+  },
+  "harnessFiles": {
+   "b3-instrument.js": "0e40c08cd27d58006554ff194427a536d2032a162cfc5235ee2b8ff05ad06ebc",
+   "b3-probe.js": "bbed288abbb36dd8eb6dd15715063d4ad88a5b1495d8aa470077115a911a54f8"
+  }
+ },
+ "runtime": {
+  "ortPackageVersion": "1.29.0",
+  "capability": {
+   "context": "qg03a-b3-1-dedicated-worker",
+   "compiled": true,
+   "instantiated": true,
+   "probeResult": 5,
+   "checkedAt": "2026-09-12T05:16:52.277Z"
+  },
+  "pin": {
+   "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+   "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+   "bytes": 27797172,
+   "installedAt": "2026-09-12T05:16:52.411Z"
+  },
+  "numThreads": 1,
+  "proxy": false,
+  "ortEnvVersions": {
+   "common": "1.29.0",
+   "web": "1.29.0"
+  }
+ },
+ "model": {
+  "path": "artifacts/models/t1-ui-head/t1-ui-head.onnx",
+  "sha256Expected": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+  "sha256SeenInRealm": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+  "bytes": 302960
+ },
+ "context": {
+  "origin": "chrome-extension://epjmccddicjdnijghdhlgbopkdolofcb",
+  "href": "chrome-extension://epjmccddicjdnijghdhlgbopkdolofcb/b3-worker.js",
+  "realmKind": "dedicated-worker",
+  "isDedicatedWorker": true,
+  "hasDocument": false,
+  "runtimeId": null
+ },
+ "session": {
+  "inputNames": [
+   "images"
+  ],
+  "outputNames": [
+   "output"
+  ]
+ },
+ "sessionCreateMs": 748.2,
+ "gpu": {
+  "hookInstalled": true,
+  "hookError": null,
+  "submitsTotal": 180,
+  "submitsDuringInference": 180,
+  "computePipelines": 15,
+  "requestAdapterCalls": 1,
+  "adapterFromRequestAdapter": {
+   "returned": true,
+   "vendor": "intel",
+   "architecture": "gen-12lp",
+   "device": null,
+   "description": null,
+   "isFallbackAdapter": false,
+   "requestedOptions": {},
+   "identified": true
+  }
+ },
+ "adapterFromOrt": {
+  "returned": true,
+  "vendor": "intel",
+  "architecture": "gen-12lp",
+  "device": null,
+  "description": null,
+  "isFallbackAdapter": false,
+  "requestedOptions": null,
+  "identified": true
+ },
+ "network": {
+  "observed": true,
+  "hookErrors": [],
+  "selfOrigin": "chrome-extension://epjmccddicjdnijghdhlgbopkdolofcb",
+  "arrivals": 21,
+  "byOrigin": {
+   "chrome-extension://epjmccddicjdnijghdhlgbopkdolofcb": 1,
+   "http://127.0.0.1:8971": 20
+  },
+  "nonSelf": [
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   },
+   {
+    "kind": "fetch",
+    "origin": "http://127.0.0.1:8971",
+    "url": "http://127.0.0.1:8971/dump"
+   }
+  ]
+ },
+ "nativeReference": {
+  "log": "logs/workstation-1/b3-native-cpu.json",
+  "ortVersion": "1.29.0"
+ },
+ "fixtures": [
+  {
+   "name": "text-heavy.headful",
+   "file": "text-heavy.headful.r1.png",
+   "encodedSha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+   "tensorSha256": "a7adfa147577d3e5d241d57e5de9fa604c5d8b656e4f9bf056582a26e691433d",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "controls.headful",
+   "file": "controls.headful.r1.png",
+   "encodedSha256": "2a0c067283e8ade2e4f571440b986403dba0910be0dee1e547ca5f9a1f10840a",
+   "tensorSha256": "0c2d149cbd90439400e7b8ef1e6ff4b1870b75c83116fd4b66ba163afc5e328c",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "small-controls.headful",
+   "file": "small-controls.headful.r1.png",
+   "encodedSha256": "053bf8c36bf285513a8942dd09673f9265024e5c3677179bb2072b132a0306fe",
+   "tensorSha256": "d8281daf69b7c9adb5a58b8573b4ea7467db8dac520336b166d118b9b010c688",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "dense-ui.headful",
+   "file": "dense-ui.headful.r1.png",
+   "encodedSha256": "a1deafb5e567511422f3a92720349a22ed9ce4264deec10c30e624c00ba46dcb",
+   "tensorSha256": "06fc30cc81174565e061b6d536ce47ed3399e3b30bfbe59e7416cc1ed77b4cea",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "gradients-edges.headful",
+   "file": "gradients-edges.headful.r1.png",
+   "encodedSha256": "a56a98877d780f5a2d6c18a9f17d83f55d62b7f7ad8c4d14b7b4d2c8a3c6d705",
+   "tensorSha256": "a85d566b9e4a74c3defaa04fe5c5ae3b66eb5b85d823e17928f6c418899fbba2",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "wide.headful",
+   "file": "wide.headful.r1.png",
+   "encodedSha256": "2ddedb7ecc879d74ed822d69e74694e4ea2a961d1179bb629c5e141300d43fe5",
+   "tensorSha256": "f14284858213b810f02445e0b57c57cdc22b9e9d45e091e3ab36cee2b0891d4d",
+   "captureSize": {
+    "w": 1600,
+    "h": 600
+   },
+   "viewportCss": {
+    "w": 1600,
+    "h": 600
+   },
+   "dpr": 1
+  },
+  {
+   "name": "tall.headful",
+   "file": "tall.headful.r1.png",
+   "encodedSha256": "a3af54fc2c1d6e5e759d61484747f6400bd8272e9c22fbefb40390812e626d6d",
+   "tensorSha256": "501bf0d5f38a34a52bd7f53dc10b9557e388c35e1da6188eea70fbd01d2b5d39",
+   "captureSize": {
+    "w": 700,
+    "h": 1000
+   },
+   "viewportCss": {
+    "w": 700,
+    "h": 1000
+   },
+   "dpr": 1
+  },
+  {
+   "name": "odd-dims.headful",
+   "file": "odd-dims.headful.r1.png",
+   "encodedSha256": "d25cf799e5d333024e117c14cb9dff31430781fc5242747fc3a3de056ae838fd",
+   "tensorSha256": "58348013134d68a402e771c91e990bb7dd24ef5395b6c0dff40ce95ee0867aa7",
+   "captureSize": {
+    "w": 1023,
+    "h": 641
+   },
+   "viewportCss": {
+    "w": 1023,
+    "h": 641
+   },
+   "dpr": 1
+  },
+  {
+   "name": "fractional-letterbox.headful",
+   "file": "fractional-letterbox.headful.r1.png",
+   "encodedSha256": "863183fd40eedc083b8795e817bf6f1adf0a3ca6d0484a0e9216e2262b77735f",
+   "tensorSha256": "0adbce5a433f69b6e459ca42bd7a28a64e633af38d6215def6669bb41508fbc3",
+   "captureSize": {
+    "w": 960,
+    "h": 640
+   },
+   "viewportCss": {
+    "w": 960,
+    "h": 640
+   },
+   "dpr": 1
+  },
+  {
+   "name": "realistic-ui.headful",
+   "file": "realistic-ui.headful.r1.png",
+   "encodedSha256": "b78492daa75ede8c24475ea8d0dd7a24b1f8db64384adff3e53a4079b70d34e1",
+   "tensorSha256": "74ed49f7bba1b5d9bcd58d231c45f6cd88b677fc9c453288778321970a661b68",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "text-heavy.headless",
+   "file": "text-heavy.headless.r1.png",
+   "encodedSha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+   "tensorSha256": "a7adfa147577d3e5d241d57e5de9fa604c5d8b656e4f9bf056582a26e691433d",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "controls.headless",
+   "file": "controls.headless.r1.png",
+   "encodedSha256": "2a0c067283e8ade2e4f571440b986403dba0910be0dee1e547ca5f9a1f10840a",
+   "tensorSha256": "0c2d149cbd90439400e7b8ef1e6ff4b1870b75c83116fd4b66ba163afc5e328c",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "small-controls.headless",
+   "file": "small-controls.headless.r1.png",
+   "encodedSha256": "053bf8c36bf285513a8942dd09673f9265024e5c3677179bb2072b132a0306fe",
+   "tensorSha256": "d8281daf69b7c9adb5a58b8573b4ea7467db8dac520336b166d118b9b010c688",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "dense-ui.headless",
+   "file": "dense-ui.headless.r1.png",
+   "encodedSha256": "a1deafb5e567511422f3a92720349a22ed9ce4264deec10c30e624c00ba46dcb",
+   "tensorSha256": "06fc30cc81174565e061b6d536ce47ed3399e3b30bfbe59e7416cc1ed77b4cea",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "gradients-edges.headless",
+   "file": "gradients-edges.headless.r1.png",
+   "encodedSha256": "a56a98877d780f5a2d6c18a9f17d83f55d62b7f7ad8c4d14b7b4d2c8a3c6d705",
+   "tensorSha256": "a85d566b9e4a74c3defaa04fe5c5ae3b66eb5b85d823e17928f6c418899fbba2",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  },
+  {
+   "name": "wide.headless",
+   "file": "wide.headless.r1.png",
+   "encodedSha256": "2ddedb7ecc879d74ed822d69e74694e4ea2a961d1179bb629c5e141300d43fe5",
+   "tensorSha256": "f14284858213b810f02445e0b57c57cdc22b9e9d45e091e3ab36cee2b0891d4d",
+   "captureSize": {
+    "w": 1600,
+    "h": 600
+   },
+   "viewportCss": {
+    "w": 1600,
+    "h": 600
+   },
+   "dpr": 1
+  },
+  {
+   "name": "tall.headless",
+   "file": "tall.headless.r1.png",
+   "encodedSha256": "a3af54fc2c1d6e5e759d61484747f6400bd8272e9c22fbefb40390812e626d6d",
+   "tensorSha256": "501bf0d5f38a34a52bd7f53dc10b9557e388c35e1da6188eea70fbd01d2b5d39",
+   "captureSize": {
+    "w": 700,
+    "h": 1000
+   },
+   "viewportCss": {
+    "w": 700,
+    "h": 1000
+   },
+   "dpr": 1
+  },
+  {
+   "name": "odd-dims.headless",
+   "file": "odd-dims.headless.r1.png",
+   "encodedSha256": "d25cf799e5d333024e117c14cb9dff31430781fc5242747fc3a3de056ae838fd",
+   "tensorSha256": "58348013134d68a402e771c91e990bb7dd24ef5395b6c0dff40ce95ee0867aa7",
+   "captureSize": {
+    "w": 1023,
+    "h": 641
+   },
+   "viewportCss": {
+    "w": 1023,
+    "h": 641
+   },
+   "dpr": 1
+  },
+  {
+   "name": "fractional-letterbox.headless",
+   "file": "fractional-letterbox.headless.r1.png",
+   "encodedSha256": "863183fd40eedc083b8795e817bf6f1adf0a3ca6d0484a0e9216e2262b77735f",
+   "tensorSha256": "0adbce5a433f69b6e459ca42bd7a28a64e633af38d6215def6669bb41508fbc3",
+   "captureSize": {
+    "w": 960,
+    "h": 640
+   },
+   "viewportCss": {
+    "w": 960,
+    "h": 640
+   },
+   "dpr": 1
+  },
+  {
+   "name": "realistic-ui.headless",
+   "file": "realistic-ui.headless.r1.png",
+   "encodedSha256": "b78492daa75ede8c24475ea8d0dd7a24b1f8db64384adff3e53a4079b70d34e1",
+   "tensorSha256": "74ed49f7bba1b5d9bcd58d231c45f6cd88b677fc9c453288778321970a661b68",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "viewportCss": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1
+  }
+ ],
+ "rows": [
+  {
+   "name": "text-heavy.headful",
+   "pngSha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 14.5,
+   "decodedSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "preprocessMs": 57.6,
+   "tensorSha256": "a7adfa147577d3e5d241d57e5de9fa604c5d8b656e4f9bf056582a26e691433d",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    422.4,
+    17.2,
+    14.5
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "24c89bbad718fda5978a00af66f1c653f71c0794ec86762406dc441f6b7ae8be",
+   "repeatSha256": [
+    "24c89bbad718fda5978a00af66f1c653f71c0794ec86762406dc441f6b7ae8be",
+    "24c89bbad718fda5978a00af66f1c653f71c0794ec86762406dc441f6b7ae8be"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 16.8,
+   "decodedCount": 300,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "controls.headful",
+   "pngSha256": "2a0c067283e8ade2e4f571440b986403dba0910be0dee1e547ca5f9a1f10840a",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 10.7,
+   "decodedSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "preprocessMs": 60.8,
+   "tensorSha256": "0c2d149cbd90439400e7b8ef1e6ff4b1870b75c83116fd4b66ba163afc5e328c",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    15.4,
+    16,
+    14.9
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "15cd70f8e4bbb10be24bd5490d1785e494c4ab332b38f130842ca9960b6dd2be",
+   "repeatSha256": [
+    "15cd70f8e4bbb10be24bd5490d1785e494c4ab332b38f130842ca9960b6dd2be",
+    "15cd70f8e4bbb10be24bd5490d1785e494c4ab332b38f130842ca9960b6dd2be"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 6.3,
+   "decodedCount": 143,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "small-controls.headful",
+   "pngSha256": "053bf8c36bf285513a8942dd09673f9265024e5c3677179bb2072b132a0306fe",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 15.3,
+   "decodedSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "preprocessMs": 118.6,
+   "tensorSha256": "d8281daf69b7c9adb5a58b8573b4ea7467db8dac520336b166d118b9b010c688",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    12.6,
+    15.3,
+    15.8
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "b51e54f3d91728eaa85114f3e2f28ff98dcbdb5b6fb933a620abd3ccd5b4d64e",
+   "repeatSha256": [
+    "b51e54f3d91728eaa85114f3e2f28ff98dcbdb5b6fb933a620abd3ccd5b4d64e",
+    "b51e54f3d91728eaa85114f3e2f28ff98dcbdb5b6fb933a620abd3ccd5b4d64e"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 43.7,
+   "decodedCount": 300,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "dense-ui.headful",
+   "pngSha256": "a1deafb5e567511422f3a92720349a22ed9ce4264deec10c30e624c00ba46dcb",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 17.8,
+   "decodedSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "preprocessMs": 76.4,
+   "tensorSha256": "06fc30cc81174565e061b6d536ce47ed3399e3b30bfbe59e7416cc1ed77b4cea",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    23.8,
+    18.1,
+    18.5
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "609c067ee9b9b90cd8ba4ca583fa88103783c26f215b3d17bf207ad259fe674c",
+   "repeatSha256": [
+    "609c067ee9b9b90cd8ba4ca583fa88103783c26f215b3d17bf207ad259fe674c",
+    "609c067ee9b9b90cd8ba4ca583fa88103783c26f215b3d17bf207ad259fe674c"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 61.6,
+   "decodedCount": 300,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "gradients-edges.headful",
+   "pngSha256": "a56a98877d780f5a2d6c18a9f17d83f55d62b7f7ad8c4d14b7b4d2c8a3c6d705",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 19.3,
+   "decodedSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "preprocessMs": 50.9,
+   "tensorSha256": "a85d566b9e4a74c3defaa04fe5c5ae3b66eb5b85d823e17928f6c418899fbba2",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    16.1,
+    13.6,
+    15.2
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "67fd801cfe3706fa4be87dca7bb8ca042c9052defa12d175fbf3db74ae754ac0",
+   "repeatSha256": [
+    "67fd801cfe3706fa4be87dca7bb8ca042c9052defa12d175fbf3db74ae754ac0",
+    "67fd801cfe3706fa4be87dca7bb8ca042c9052defa12d175fbf3db74ae754ac0"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 21.6,
+   "decodedCount": 300,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "wide.headful",
+   "pngSha256": "2ddedb7ecc879d74ed822d69e74694e4ea2a961d1179bb629c5e141300d43fe5",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 17.7,
+   "decodedSize": {
+    "w": 1600,
+    "h": 600
+   },
+   "preprocessMs": 35.8,
+   "tensorSha256": "f14284858213b810f02445e0b57c57cdc22b9e9d45e091e3ab36cee2b0891d4d",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    17.5,
+    15,
+    15.4
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "9e87b2e2b459ce3ccdf0621e6da9fc2ff9416507d77626965023079de59acaca",
+   "repeatSha256": [
+    "9e87b2e2b459ce3ccdf0621e6da9fc2ff9416507d77626965023079de59acaca",
+    "9e87b2e2b459ce3ccdf0621e6da9fc2ff9416507d77626965023079de59acaca"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 13.6,
+   "decodedCount": 151,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "tall.headful",
+   "pngSha256": "a3af54fc2c1d6e5e759d61484747f6400bd8272e9c22fbefb40390812e626d6d",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 13.8,
+   "decodedSize": {
+    "w": 700,
+    "h": 1000
+   },
+   "preprocessMs": 37.7,
+   "tensorSha256": "501bf0d5f38a34a52bd7f53dc10b9557e388c35e1da6188eea70fbd01d2b5d39",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    14.1,
+    12.9,
+    16.5
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "c423eb0182564b65f69e3e91939f6277603e29d5a5d6ec53fb51f047b557a08e",
+   "repeatSha256": [
+    "c423eb0182564b65f69e3e91939f6277603e29d5a5d6ec53fb51f047b557a08e",
+    "c423eb0182564b65f69e3e91939f6277603e29d5a5d6ec53fb51f047b557a08e"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 26.5,
+   "decodedCount": 300,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "odd-dims.headful",
+   "pngSha256": "d25cf799e5d333024e117c14cb9dff31430781fc5242747fc3a3de056ae838fd",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 11.7,
+   "decodedSize": {
+    "w": 1023,
+    "h": 641
+   },
+   "preprocessMs": 37.8,
+   "tensorSha256": "58348013134d68a402e771c91e990bb7dd24ef5395b6c0dff40ce95ee0867aa7",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    15.6,
+    16.3,
+    16.5
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "61121a82fa8ddbeba840731fa21fd77f8ec3f5b373c98c935deb3b0c13417baf",
+   "repeatSha256": [
+    "61121a82fa8ddbeba840731fa21fd77f8ec3f5b373c98c935deb3b0c13417baf",
+    "61121a82fa8ddbeba840731fa21fd77f8ec3f5b373c98c935deb3b0c13417baf"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 8,
+   "decodedCount": 190,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "fractional-letterbox.headful",
+   "pngSha256": "863183fd40eedc083b8795e817bf6f1adf0a3ca6d0484a0e9216e2262b77735f",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 13.2,
+   "decodedSize": {
+    "w": 960,
+    "h": 640
+   },
+   "preprocessMs": 37.1,
+   "tensorSha256": "0adbce5a433f69b6e459ca42bd7a28a64e633af38d6215def6669bb41508fbc3",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    14.4,
+    13.9,
+    15.1
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "b9c395906a4b4ddd1e4704248af1d88599b0d81d91d04b9fcfc166ca15987fef",
+   "repeatSha256": [
+    "b9c395906a4b4ddd1e4704248af1d88599b0d81d91d04b9fcfc166ca15987fef",
+    "b9c395906a4b4ddd1e4704248af1d88599b0d81d91d04b9fcfc166ca15987fef"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 8,
+   "decodedCount": 140,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "realistic-ui.headful",
+   "pngSha256": "b78492daa75ede8c24475ea8d0dd7a24b1f8db64384adff3e53a4079b70d34e1",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 22.4,
+   "decodedSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "preprocessMs": 40.4,
+   "tensorSha256": "74ed49f7bba1b5d9bcd58d231c45f6cd88b677fc9c453288778321970a661b68",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    14.7,
+    16.5,
+    13.2
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "4b39c98e63cfe7889f29b6ce1dfd6420fd7dca123f6b6b2ee4a1b3f4ae0950d8",
+   "repeatSha256": [
+    "4b39c98e63cfe7889f29b6ce1dfd6420fd7dca123f6b6b2ee4a1b3f4ae0950d8",
+    "4b39c98e63cfe7889f29b6ce1dfd6420fd7dca123f6b6b2ee4a1b3f4ae0950d8"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 17.4,
+   "decodedCount": 300,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "text-heavy.headless",
+   "pngSha256": "728416874b9ca106895233ca49801e626a05060e6d2dc76a4d14db31521e02c6",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 17.6,
+   "decodedSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "preprocessMs": 52.2,
+   "tensorSha256": "a7adfa147577d3e5d241d57e5de9fa604c5d8b656e4f9bf056582a26e691433d",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    24.2,
+    17.7,
+    16.1
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "24c89bbad718fda5978a00af66f1c653f71c0794ec86762406dc441f6b7ae8be",
+   "repeatSha256": [
+    "24c89bbad718fda5978a00af66f1c653f71c0794ec86762406dc441f6b7ae8be",
+    "24c89bbad718fda5978a00af66f1c653f71c0794ec86762406dc441f6b7ae8be"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 25.4,
+   "decodedCount": 300,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "controls.headless",
+   "pngSha256": "2a0c067283e8ade2e4f571440b986403dba0910be0dee1e547ca5f9a1f10840a",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 18.6,
+   "decodedSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "preprocessMs": 42.8,
+   "tensorSha256": "0c2d149cbd90439400e7b8ef1e6ff4b1870b75c83116fd4b66ba163afc5e328c",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    15.3,
+    15.6,
+    16.1
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "15cd70f8e4bbb10be24bd5490d1785e494c4ab332b38f130842ca9960b6dd2be",
+   "repeatSha256": [
+    "15cd70f8e4bbb10be24bd5490d1785e494c4ab332b38f130842ca9960b6dd2be",
+    "15cd70f8e4bbb10be24bd5490d1785e494c4ab332b38f130842ca9960b6dd2be"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 4.4,
+   "decodedCount": 143,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "small-controls.headless",
+   "pngSha256": "053bf8c36bf285513a8942dd09673f9265024e5c3677179bb2072b132a0306fe",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 17.4,
+   "decodedSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "preprocessMs": 47.3,
+   "tensorSha256": "d8281daf69b7c9adb5a58b8573b4ea7467db8dac520336b166d118b9b010c688",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    18,
+    15.4,
+    16.4
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "b51e54f3d91728eaa85114f3e2f28ff98dcbdb5b6fb933a620abd3ccd5b4d64e",
+   "repeatSha256": [
+    "b51e54f3d91728eaa85114f3e2f28ff98dcbdb5b6fb933a620abd3ccd5b4d64e",
+    "b51e54f3d91728eaa85114f3e2f28ff98dcbdb5b6fb933a620abd3ccd5b4d64e"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 34.1,
+   "decodedCount": 300,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "dense-ui.headless",
+   "pngSha256": "a1deafb5e567511422f3a92720349a22ed9ce4264deec10c30e624c00ba46dcb",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 14.4,
+   "decodedSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "preprocessMs": 41.1,
+   "tensorSha256": "06fc30cc81174565e061b6d536ce47ed3399e3b30bfbe59e7416cc1ed77b4cea",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    14.7,
+    15.2,
+    15.3
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "609c067ee9b9b90cd8ba4ca583fa88103783c26f215b3d17bf207ad259fe674c",
+   "repeatSha256": [
+    "609c067ee9b9b90cd8ba4ca583fa88103783c26f215b3d17bf207ad259fe674c",
+    "609c067ee9b9b90cd8ba4ca583fa88103783c26f215b3d17bf207ad259fe674c"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 32.4,
+   "decodedCount": 300,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "gradients-edges.headless",
+   "pngSha256": "a56a98877d780f5a2d6c18a9f17d83f55d62b7f7ad8c4d14b7b4d2c8a3c6d705",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 19.8,
+   "decodedSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "preprocessMs": 52.7,
+   "tensorSha256": "a85d566b9e4a74c3defaa04fe5c5ae3b66eb5b85d823e17928f6c418899fbba2",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    24.9,
+    16.8,
+    17.2
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "67fd801cfe3706fa4be87dca7bb8ca042c9052defa12d175fbf3db74ae754ac0",
+   "repeatSha256": [
+    "67fd801cfe3706fa4be87dca7bb8ca042c9052defa12d175fbf3db74ae754ac0",
+    "67fd801cfe3706fa4be87dca7bb8ca042c9052defa12d175fbf3db74ae754ac0"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 16.6,
+   "decodedCount": 300,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "wide.headless",
+   "pngSha256": "2ddedb7ecc879d74ed822d69e74694e4ea2a961d1179bb629c5e141300d43fe5",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 22.5,
+   "decodedSize": {
+    "w": 1600,
+    "h": 600
+   },
+   "preprocessMs": 45.4,
+   "tensorSha256": "f14284858213b810f02445e0b57c57cdc22b9e9d45e091e3ab36cee2b0891d4d",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    12.6,
+    18.8,
+    15.6
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "9e87b2e2b459ce3ccdf0621e6da9fc2ff9416507d77626965023079de59acaca",
+   "repeatSha256": [
+    "9e87b2e2b459ce3ccdf0621e6da9fc2ff9416507d77626965023079de59acaca",
+    "9e87b2e2b459ce3ccdf0621e6da9fc2ff9416507d77626965023079de59acaca"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 1.8,
+   "decodedCount": 151,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "tall.headless",
+   "pngSha256": "a3af54fc2c1d6e5e759d61484747f6400bd8272e9c22fbefb40390812e626d6d",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 17.6,
+   "decodedSize": {
+    "w": 700,
+    "h": 1000
+   },
+   "preprocessMs": 34.7,
+   "tensorSha256": "501bf0d5f38a34a52bd7f53dc10b9557e388c35e1da6188eea70fbd01d2b5d39",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    18.8,
+    13.7,
+    16.4
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "c423eb0182564b65f69e3e91939f6277603e29d5a5d6ec53fb51f047b557a08e",
+   "repeatSha256": [
+    "c423eb0182564b65f69e3e91939f6277603e29d5a5d6ec53fb51f047b557a08e",
+    "c423eb0182564b65f69e3e91939f6277603e29d5a5d6ec53fb51f047b557a08e"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 16.1,
+   "decodedCount": 300,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "odd-dims.headless",
+   "pngSha256": "d25cf799e5d333024e117c14cb9dff31430781fc5242747fc3a3de056ae838fd",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 15.5,
+   "decodedSize": {
+    "w": 1023,
+    "h": 641
+   },
+   "preprocessMs": 27.4,
+   "tensorSha256": "58348013134d68a402e771c91e990bb7dd24ef5395b6c0dff40ce95ee0867aa7",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    12.3,
+    14.8,
+    13.4
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "61121a82fa8ddbeba840731fa21fd77f8ec3f5b373c98c935deb3b0c13417baf",
+   "repeatSha256": [
+    "61121a82fa8ddbeba840731fa21fd77f8ec3f5b373c98c935deb3b0c13417baf",
+    "61121a82fa8ddbeba840731fa21fd77f8ec3f5b373c98c935deb3b0c13417baf"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 3.3,
+   "decodedCount": 190,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "fractional-letterbox.headless",
+   "pngSha256": "863183fd40eedc083b8795e817bf6f1adf0a3ca6d0484a0e9216e2262b77735f",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 7.2,
+   "decodedSize": {
+    "w": 960,
+    "h": 640
+   },
+   "preprocessMs": 23,
+   "tensorSha256": "0adbce5a433f69b6e459ca42bd7a28a64e633af38d6215def6669bb41508fbc3",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    16.4,
+    14.1,
+    13.7
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "b9c395906a4b4ddd1e4704248af1d88599b0d81d91d04b9fcfc166ca15987fef",
+   "repeatSha256": [
+    "b9c395906a4b4ddd1e4704248af1d88599b0d81d91d04b9fcfc166ca15987fef",
+    "b9c395906a4b4ddd1e4704248af1d88599b0d81d91d04b9fcfc166ca15987fef"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 1.6,
+   "decodedCount": 140,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  },
+  {
+   "name": "realistic-ui.headless",
+   "pngSha256": "b78492daa75ede8c24475ea8d0dd7a24b1f8db64384adff3e53a4079b70d34e1",
+   "magic": "89 50 4e 47",
+   "pngDecodeMs": 10.7,
+   "decodedSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "preprocessMs": 28.2,
+   "tensorSha256": "74ed49f7bba1b5d9bcd58d231c45f6cd88b677fc9c453288778321970a661b68",
+   "inputDims": [
+    1,
+    3,
+    640,
+    640
+   ],
+   "inferMs": [
+    11.4,
+    13.4,
+    15.3
+   ],
+   "submits": [
+    3,
+    3,
+    3
+   ],
+   "dims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "outputValues": 76800,
+   "outputSha256": "4b39c98e63cfe7889f29b6ce1dfd6420fd7dca123f6b6b2ee4a1b3f4ae0950d8",
+   "repeatSha256": [
+    "4b39c98e63cfe7889f29b6ce1dfd6420fd7dca123f6b6b2ee4a1b3f4ae0950d8",
+    "4b39c98e63cfe7889f29b6ce1dfd6420fd7dca123f6b6b2ee4a1b3f4ae0950d8"
+   ],
+   "deterministic": true,
+   "decodeNmsMs": 12.4,
+   "decodedCount": 300,
+   "decodeRefusal": null,
+   "dumpPosted": true,
+   "dumpVerified": true
+  }
+ ],
+ "collector": {
+  "dumpsReceived": 20,
+  "stray": []
+ },
+ "error": null,
+ "guard": {
+  "ok": true,
+  "failures": []
+ }
+}

@@ -49,8 +49,18 @@ pre-registered detector criterion holds between backends, with zero true failure
 
 ## Follow-ups
 
+> **Update 2026-09-12 — B1, B4 and B3-1 are resolved.** `QG-03a-B1` and `QG-03a-B4` were
+> **APPROVED by ronitsaha11**: the criterion above is reused **unchanged** for backend-noise
+> robustness, the **18 UI fixtures are the gating corpus**, all 20 fixtures are executed and
+> reported, and `gradients-edges` is **STRESS-ONLY** and does not decide the UI adoption gate.
+> `QG-03a-B3-1` was then measured on **workstation 1** and **PASSED** in all four MV3 extension
+> cells. The rows below are kept as written at B2 time; see
+> [`W1-QG03a-B3-1-mv3-extension-backends/decision.md`](../W1-QG03a-B3-1-mv3-extension-backends/decision.md)
+> for the current state. **QG-03a-B remains CONDITIONAL**, now on GPU coverage alone —
+> `QG-03a-B3-2` (NVIDIA) is **NOT MEASURED / OPEN**.
+
 | id | item |
 |---|---|
-| QG-03a-B1 | architect decision on the criterion above |
-| QG-03a-B3 | repeat B2 on workstation 1 (Intel) and an NVIDIA-backed browser, and in the extension context |
-| QG-03a-B4 | decide whether saturated non-UI frames (300-cap) belong in the adoption fixture set or are excluded as out of distribution |
+| QG-03a-B1 | architect decision on the criterion above — **APPROVED 2026-09-12 by ronitsaha11** |
+| QG-03a-B3 | repeat B2 on workstation 1 (Intel) and an NVIDIA-backed browser, and in the extension context — **B3-1 (Intel, extension) PASS 2026-09-12; B3-2 (NVIDIA) NOT MEASURED / OPEN** |
+| QG-03a-B4 | decide whether saturated non-UI frames (300-cap) belong in the adoption fixture set or are excluded as out of distribution — **APPROVED 2026-09-12 by ronitsaha11: STRESS-ONLY, reported but not gating** |
