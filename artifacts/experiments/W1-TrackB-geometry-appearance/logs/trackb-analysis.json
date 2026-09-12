@@ -1,0 +1,159 @@
+{
+ "experiment": "W1-TrackB-geometry-appearance",
+ "runAt": "2026-09-12T11:45:35.285Z",
+ "frozenRule": {
+  "source": "design.md",
+  "degradation": "drop in elementRecall from that family's own baseline cell",
+  "reproducesMost": 0.7,
+  "partialContribution": [
+   0.3,
+   0.7
+  ],
+  "note": "thresholds fixed before scoring; not recomputed from results"
+ },
+ "sanityChecks": [
+  {
+   "id": "1",
+   "what": "the three families agree at the baseline",
+   "status": "NOT SATISFIABLE",
+   "detail": "only true at k=1.00, which the 960px content block makes unrenderable. Baseline recall: NAT 0.85342, GEOM 0.749186, APPR 0.745928. The frozen rule measures each family's drop from ITS OWN baseline, so it does not require these to be equal."
+  },
+  {
+   "id": "1b",
+   "what": "no family is already collapsed at its own baseline",
+   "status": "PASS",
+   "detail": "NAT 0.85342, GEOM 0.749186, APPR 0.745928 — all well above 0.5"
+  },
+  {
+   "id": "2",
+   "what": "GEOM(k) and NAT(k) carry identical ground truth",
+   "status": "PASS",
+   "detail": "307 annotations at every k in both families"
+  },
+  {
+   "id": "3",
+   "what": "APPR ground truth is constant across k",
+   "status": "PASS",
+   "detail": "values: 307"
+  },
+  {
+   "id": "4",
+   "what": "model-space extent: GEOM(k)==NAT(k), APPR constant",
+   "status": "PASS",
+   "detail": "GEOM/NAT mismatches: 0; APPR extent values: 0.666667"
+  },
+  {
+   "id": "5",
+   "what": "the CLIPPED ceiling is 1.0 in every cell",
+   "status": "PASS",
+   "detail": "ceiling 1.0, clipped 0, unreachable 0 in all 24 cells"
+  },
+  {
+   "id": "6",
+   "what": "the appearance transform hit APPR and only APPR",
+   "status": "PASS",
+   "detail": "applied to 8 APPR cells, 0 cells wrong"
+  }
+ ],
+ "valid": true,
+ "rows": [
+  {
+   "k": 1.5,
+   "natRecall": 0.85342,
+   "geomRecall": 0.749186,
+   "apprRecall": 0.745928,
+   "degNat": 0,
+   "degGeom": 0,
+   "degAppr": 0,
+   "geomShare": null,
+   "apprShare": null
+  },
+  {
+   "k": 1.75,
+   "natRecall": 0.895765,
+   "geomRecall": 0.827362,
+   "apprRecall": 0.67101,
+   "degNat": -0.0423,
+   "degGeom": -0.0782,
+   "degAppr": 0.0749,
+   "geomShare": null,
+   "apprShare": null
+  },
+  {
+   "k": 2,
+   "natRecall": 0.869707,
+   "geomRecall": 0.762215,
+   "apprRecall": 0.589577,
+   "degNat": -0.0163,
+   "degGeom": -0.013,
+   "degAppr": 0.1564,
+   "geomShare": null,
+   "apprShare": null
+  },
+  {
+   "k": 2.25,
+   "natRecall": 0.81759,
+   "geomRecall": 0.762215,
+   "apprRecall": 0.586319,
+   "degNat": 0.0358,
+   "degGeom": -0.013,
+   "degAppr": 0.1596,
+   "geomShare": -0.3636,
+   "apprShare": 4.4546
+  },
+  {
+   "k": 2.5,
+   "natRecall": 0.641694,
+   "geomRecall": 0.651466,
+   "apprRecall": 0.557003,
+   "degNat": 0.2117,
+   "degGeom": 0.0977,
+   "degAppr": 0.1889,
+   "geomShare": 0.4615,
+   "apprShare": 0.8923
+  },
+  {
+   "k": 3,
+   "natRecall": 0.205212,
+   "geomRecall": 0.250814,
+   "apprRecall": 0.498371,
+   "degNat": 0.6482,
+   "degGeom": 0.4984,
+   "degAppr": 0.2476,
+   "geomShare": 0.7688,
+   "apprShare": 0.3819
+  },
+  {
+   "k": 3.5,
+   "natRecall": 0.026059,
+   "geomRecall": 0.068404,
+   "apprRecall": 0.371336,
+   "degNat": 0.8274,
+   "degGeom": 0.6808,
+   "degAppr": 0.3746,
+   "geomShare": 0.8228,
+   "apprShare": 0.4528
+  },
+  {
+   "k": 4,
+   "natRecall": 0.013029,
+   "geomRecall": 0.026059,
+   "apprRecall": 0.299674,
+   "degNat": 0.8404,
+   "degGeom": 0.7231,
+   "degAppr": 0.4463,
+   "geomShare": 0.8605,
+   "apprShare": 0.531
+  }
+ ],
+ "shares": {
+  "geometry": 0.7284,
+  "appearance": 0.5645,
+  "overCellsWithDegNatAbove": 0.05
+ },
+ "classification": {
+  "H-GEOMETRY": "SUPPORTED",
+  "H-APPEARANCE": "NOT SUPPORTED (contributes, not sufficient)",
+  "H-MIXED": "NOT SUPPORTED"
+ }
+}

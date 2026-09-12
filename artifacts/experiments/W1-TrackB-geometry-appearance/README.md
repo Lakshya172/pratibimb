@@ -1,17 +1,21 @@
 ---
 id: W1-TrackB-geometry-appearance
 title: "Track B — geometry vs appearance attribution"
-status: pre-registered (NOT EXECUTED)
+status: recorded
 date: 2026-09-12
-label: PRE-REGISTRATION — no measurement exists
-verdict: NOT RUN
+label: FACT (measurements) / INFERENCE (attribution)
+verdict: H-GEOMETRY SUPPORTED
 workstation: 1 (LAPTOP-6E14K34L)
 ---
 
 # Track B — geometry vs appearance
 
-> **NOTHING HAS BEEN MEASURED.** This directory contains a pre-registration and no result.
-> Any number quoted from it would be invented. Execution is **BLOCKED** on PR #52 landing.
+> **EXECUTED on workstation 1, 2026-09-12. SYNTHETIC DEV evidence.**
+> **H-GEOMETRY SUPPORTED** by the frozen rule: geometry alone reproduces **72.8%** of the recall
+> degradation, appearance alone **56.5%**. But the shares **sum to 115–139%**, and the two produce
+> **qualitatively different failures** — geometry makes the detector go *silent* (27.1 → 5.5
+> predictions/screen), appearance makes it *fire at nothing* (spurious FP 222 → 431). See
+> [decision.md](decision.md). **No capture policy. Detector still UNADOPTED.**
 
 W-1 arm B proved scale degrades the detector and ruled out two explanations — frame emptiness
 (exonerated by a tiling control) and stride-8 (**H-S1 NOT SUPPORTED**). It could not say *why*,
@@ -31,9 +35,11 @@ by **0.839** *within* a fixed 8–16 model-px band, so extent alone does not det
 
 ## Expected result
 
-Stated before running, so the outcome can disagree with it: **H-MIXED**, with appearance carrying
-more of the degradation than geometry. This follows from arm B's within-band variation, and it is
-a prediction rather than a finding.
+Stated before running, so the outcome could disagree with it: **H-MIXED**, with appearance
+carrying more of the degradation than geometry.
+
+**It disagreed.** Geometry carried more, and cleared the frozen bar on its own. The prediction was
+wrong in both parts and is left here rather than quietly revised.
 
 ## Environment
 
@@ -44,18 +50,26 @@ Workstation 1 (`LAPTOP-6E14K34L`), Intel Core 7 240H, Windows 11 build 26200. Da
 
 ## Actual result
 
-**NONE. The experiment has not been run.**
+24 cells, 20 samples each, 480 frames, 307 annotations per cell, CLIPPED ceiling 1.0 everywhere.
 
-The governed harness lives only in **PR #52**, which is open and unmerged, and is self-contained —
-it imports nothing from `packages/`. Rebuilding Track B on `main` would mean reimplementing the
-evaluator and producing a divergent duplicate, which is precisely what this project should not
-have. **Status: OWNER MERGE REQUIRED on PR #52** (`MERGEABLE`, `CLEAN`, 9/9 checks green, no
-blocking defect found).
+| recall | k=1.5 | 1.75 | 2.0 | 2.25 | 2.5 | 3.0 | 3.5 | 4.0 |
+|---|---|---|---|---|---|---|---|---|
+| **NAT** | 0.853 | 0.896 | 0.870 | 0.818 | 0.642 | 0.205 | 0.026 | **0.013** |
+| **GEOM** | 0.749 | 0.827 | 0.762 | 0.762 | 0.652 | 0.251 | 0.068 | **0.026** |
+| **APPR** | 0.746 | 0.671 | 0.590 | 0.586 | 0.557 | 0.498 | 0.371 | **0.300** |
+
+Mean share of NAT's degradation, over the cells where NAT actually degrades: **GEOM 72.8%**
+(clears the frozen 70% bar), **APPR 56.5%** (partial contribution). Full table and the
+per-k shares are in [logs/trackb-analysis.json](logs/trackb-analysis.json).
 
 ## Conclusion
 
-**NOT RUN — no hypothesis is classified.** H-GEOMETRY, H-APPEARANCE and H-MIXED all remain
-**INCONCLUSIVE** for want of data, not for want of a design.
+**H-GEOMETRY SUPPORTED. H-APPEARANCE NOT SUPPORTED as sufficient, but substantial (56.5%).
+H-MIXED NOT SUPPORTED** by the frozen rule, because geometry cleared the bar.
+
+Read the classification together with the caveat that the shares overlap heavily and the two
+failure modes are qualitatively different — the rule answers "is one of them sufficient", which
+is not the same question as "is only one of them happening".
 
 The ~2.0 CSS px per model px region remains **not** a deployment limit, **not** a minimum capture
 size, and **not** a capture policy. Nothing here changes the production decoder, threshold, model
