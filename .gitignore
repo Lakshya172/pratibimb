@@ -171,3 +171,10 @@ artifacts/experiments/W1-QG03a-t1-production-robustness/harness/profiles/
 # artifacts/models/. Kept evidence: logs/ (every digest), metrics.json.
 artifacts/experiments/W1-QG03a-B2-real-model-nms/harness/generated/
 artifacts/experiments/W1-QG03a-B2-real-model-nms/harness/profiles/
+
+# QG-03a-B3-1 MV3 extension harness. ext-chrome/ is assembled per run (ignored above);
+# generated/ holds the raw ORT output dumps (~6 MB per cell, per machine) and browser profiles
+# live in the OS temp directory. The detections of a DEVELOPMENT run are not evidence, so they
+# are not committed either; a workstation-1 run commits logs/workstation-1/detections/.
+artifacts/experiments/W1-QG03a-B3-1-mv3-extension-backends/harness/generated/
+artifacts/experiments/W1-QG03a-B3-1-mv3-extension-backends/logs/development-*/detections/
