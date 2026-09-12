@@ -70,9 +70,22 @@ add("4", "model-space extent: GEOM(k)==NAT(k), APPR constant", extBad.length ===
   `GEOM/NAT mismatches: ${extBad.length}; APPR extent values: ${apprExt.join(", ")}`);
 
 // 5 — CLIPPED ceiling 1.0 everywhere.
-const ceil = log.cells.filter((c) => Math.abs(c.clippingCeiling - 1) > 1e-9);
+//
+// clippingCeiling() returns {evaluatable, clipped, unreachable, ceiling}, not a bare number.
+// The first version of this check compared the OBJECT to 1, which yields NaN, and `NaN > 1e-9`
+// is false — so the filter matched nothing and the check reported PASS without ever testing
+// anything. The ceiling was in fact 1.0 in all 24 cells, so no conclusion moved, but a guard
+// that cannot fail is not a guard. It now reads the field, and also requires clipped and
+// unreachable to be zero, which is what "ceiling 1.0" is supposed to mean.
+const ceil = log.cells.filter((c) => {
+  const cc = c.clippingCeiling;
+  return !cc || typeof cc.ceiling !== "number"
+    || Math.abs(cc.ceiling - 1) > 1e-9 || cc.clipped !== 0 || cc.unreachable !== 0;
+});
 add("5", "the CLIPPED ceiling is 1.0 in every cell", ceil.length === 0,
-  ceil.length ? ceil.map((c) => `${c.cell}=${c.clippingCeiling}`).join(", ") : "1.0 in all 24 cells");
+  ceil.length
+    ? ceil.map((c) => `${c.cell}=${JSON.stringify(c.clippingCeiling)}`).join(", ")
+    : `ceiling 1.0, clipped 0, unreachable 0 in all ${log.cells.length} cells`);
 
 // 6 — the appearance transform must have been applied to APPR and only APPR.
 let applied = 0; let wrong = 0;
