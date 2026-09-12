@@ -119,6 +119,17 @@ location with access recorded; hash at ingest, `sealDataset` over the manifest.
 
 ## Owner decision form — PENDING
 
+> **SUPERSEDED 2026-09-12 — do not sign this table.** The eight-row form below was written in
+> pass 1. [`D5-policy-evidence-pass-2.md`](D5-policy-evidence-pass-2.md) then **reduced the
+> candidate set to three** (G1, G2, B1) and dropped G3, G4, B2, B3 and B4 for insufficient or
+> catch-all-restricted policy evidence. Signing a row for a dropped candidate would authorise a
+> source the evidence does not support.
+>
+> **The signable form is [`D5-D2-OWNER-DECISION-PACKAGE.md`](D5-D2-OWNER-DECISION-PACKAGE.md)
+> §1**, which carries one decision block per retained source. The table below is kept as the
+> pass-1 record, unchanged.
+
+
 | # | source | APPROVE | APPROVE WITH CONDITIONS | BLOCK | DEFER | conditions the owner may wish to impose |
 |---|---|---|---|---|---|---|
 | G1 | mygov.in | ☐ | ☐ | ☐ | ☐ | honour `Crawl-delay: 10`; public paths only; never `/user/` |

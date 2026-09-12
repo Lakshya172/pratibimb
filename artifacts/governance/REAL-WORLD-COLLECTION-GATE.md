@@ -8,6 +8,12 @@ workstation: 1 (LAPTOP-6E14K34L)
 
 # REAL-WORLD COLLECTION MAY BEGIN ONLY WHEN
 
+> **Update 2026-09-12 — PR #56 is merged, and the gate is still CLOSED.** Merging it made the
+> framework governing; it approved no source, adopted no gate structure, set no numeric
+> threshold and authorised no collection. Conditions 1-5 are now **signable** on
+> [`D5-D2-OWNER-DECISION-PACKAGE.md`](D5-D2-OWNER-DECISION-PACKAGE.md); every one of them is
+> still **PENDING**, and none may be marked satisfied because a document exists.
+
 > **This gate is CLOSED.** Every condition must be TRUE, and each is marked from repository
 > evidence only — **PASS is never asserted without a record that proves it.**
 >
