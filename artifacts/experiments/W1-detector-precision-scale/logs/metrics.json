@@ -1,0 +1,574 @@
+{
+ "experiment": "W1-detector-precision-scale",
+ "analysedAt": "2026-09-12T10:19:56.380Z",
+ "operatingPoint": 0.55,
+ "evidenceClass": "SYNTHETIC",
+ "armA": {
+  "baselineReproducesPublishedDev": {
+   "note": "V0 on the regenerated dev split, beside the published dev figures at the same operating point. Frames are re-rendered, so these are close rather than identical; the gap is the frame provenance, and it cancels in the variant comparison.",
+   "measured": {
+    "mAP50": 0.694669,
+    "elementRecall": 0.81586,
+    "groundingAccuracy": 0.571563,
+    "predictionsPerScreen": 26.55
+   },
+   "published": {
+    "mAP50": 0.6949004753547953,
+    "elementRecall": 0.8158602150537635,
+    "groundingAccuracy": 0.567820392890552,
+    "predictionsPerScreen": 26.725
+   }
+  },
+  "variants": [
+   {
+    "variant": "V0",
+    "label": "shipped baseline — per-class NMS IoU 0.50",
+    "mAP50": 0.694669,
+    "elementRecall": 0.81586,
+    "groundingAccuracy": 0.571563,
+    "predictionsPerScreen": 26.55,
+    "falsePositives": 455,
+    "duplicate": 160,
+    "classConfusion": 58,
+    "localization": 138,
+    "spurious": 99
+   },
+   {
+    "variant": "V1",
+    "label": "tighter per-class NMS — IoU 0.30",
+    "mAP50": 0.71232,
+    "elementRecall": 0.803763,
+    "groundingAccuracy": 0.731051,
+    "predictionsPerScreen": 20.45,
+    "falsePositives": 220,
+    "duplicate": 12,
+    "classConfusion": 51,
+    "localization": 86,
+    "spurious": 71
+   },
+   {
+    "variant": "V2",
+    "label": "cross-class NMS — IoU 0.50, label ignored",
+    "mAP50": 0.689149,
+    "elementRecall": 0.807796,
+    "groundingAccuracy": 0.582929,
+    "predictionsPerScreen": 25.775,
+    "falsePositives": 430,
+    "duplicate": 158,
+    "classConfusion": 36,
+    "localization": 138,
+    "spurious": 98
+   },
+   {
+    "variant": "V3",
+    "label": "per-class NMS 0.50 + containment suppression IoS > 0.80",
+    "mAP50": 0.696074,
+    "elementRecall": 0.81586,
+    "groundingAccuracy": 0.580306,
+    "predictionsPerScreen": 26.15,
+    "falsePositives": 439,
+    "duplicate": 150,
+    "classConfusion": 58,
+    "localization": 135,
+    "spurious": 96
+   }
+  ],
+  "deltas": [
+   {
+    "variant": "V1",
+    "label": "tighter per-class NMS — IoU 0.30",
+    "dGrounding": 0.159488,
+    "dRecall": -0.012097,
+    "dMAP50": 0.017651,
+    "dPredictionsPerScreen": -6.1,
+    "dMatched": -9,
+    "dFalsePositives": -235,
+    "dTaxonomy": {
+     "duplicate": -148,
+     "classConfusion": -7,
+     "localization": -52,
+     "spurious": -28
+    }
+   },
+   {
+    "variant": "V2",
+    "label": "cross-class NMS — IoU 0.50, label ignored",
+    "dGrounding": 0.011366,
+    "dRecall": -0.008064,
+    "dMAP50": -0.00552,
+    "dPredictionsPerScreen": -0.775,
+    "dMatched": -6,
+    "dFalsePositives": -25,
+    "dTaxonomy": {
+     "duplicate": -2,
+     "classConfusion": -22,
+     "localization": 0,
+     "spurious": -1
+    }
+   },
+   {
+    "variant": "V3",
+    "label": "per-class NMS 0.50 + containment suppression IoS > 0.80",
+    "dGrounding": 0.008743,
+    "dRecall": 0,
+    "dMAP50": 0.001405,
+    "dPredictionsPerScreen": -0.4,
+    "dMatched": 0,
+    "dFalsePositives": -16,
+    "dTaxonomy": {
+     "duplicate": -10,
+     "classConfusion": 0,
+     "localization": -3,
+     "spurious": -3
+    }
+   }
+  ],
+  "direction": [
+   {
+    "variant": "V1",
+    "removedDuplicates": 148,
+    "groundingChange": 0.159488,
+    "recallCost": 0.012097,
+    "recoverableWithoutRetrain": true
+   },
+   {
+    "variant": "V2",
+    "removedDuplicates": 2,
+    "groundingChange": 0.011366,
+    "recallCost": 0.008064,
+    "recoverableWithoutRetrain": true
+   },
+   {
+    "variant": "V3",
+    "removedDuplicates": 10,
+    "groundingChange": 0.008743,
+    "recallCost": 0,
+    "recoverableWithoutRetrain": true
+   }
+  ],
+  "substantialThresholdDefined": false,
+  "ownerReadsTheDeltas": true
+ },
+ "armB": {
+  "groundTruthIdenticalAcrossScaleCells": true,
+  "groundTruthObjects": 307,
+  "clippingRemoved": true,
+  "series": [
+   {
+    "cell": "s150",
+    "cssPerModelPx": 1.5,
+    "mAP50": 0.640417,
+    "elementRecall": 0.85342,
+    "groundingAccuracy": 0.484288,
+    "predictionsPerScreen": 27.05,
+    "matchedIouMedian": 0.800361,
+    "matchedIouP10": 0.602095,
+    "normalisedDisplacementMedian": 0.122786
+   },
+   {
+    "cell": "s175",
+    "cssPerModelPx": 1.75,
+    "mAP50": 0.787645,
+    "elementRecall": 0.892508,
+    "groundingAccuracy": 0.621315,
+    "predictionsPerScreen": 22.05,
+    "matchedIouMedian": 0.770521,
+    "matchedIouP10": 0.596807,
+    "normalisedDisplacementMedian": 0.114972
+   },
+   {
+    "cell": "s200",
+    "cssPerModelPx": 2,
+    "mAP50": 0.723375,
+    "elementRecall": 0.869707,
+    "groundingAccuracy": 0.637232,
+    "predictionsPerScreen": 20.95,
+    "matchedIouMedian": 0.78793,
+    "matchedIouP10": 0.59455,
+    "normalisedDisplacementMedian": 0.124375
+   },
+   {
+    "cell": "s225",
+    "cssPerModelPx": 2.25,
+    "mAP50": 0.646202,
+    "elementRecall": 0.814332,
+    "groundingAccuracy": 0.608273,
+    "predictionsPerScreen": 20.55,
+    "matchedIouMedian": 0.707935,
+    "matchedIouP10": 0.564223,
+    "normalisedDisplacementMedian": 0.15966
+   },
+   {
+    "cell": "s250",
+    "cssPerModelPx": 2.5,
+    "mAP50": 0.468486,
+    "elementRecall": 0.644951,
+    "groundingAccuracy": 0.542466,
+    "predictionsPerScreen": 18.25,
+    "matchedIouMedian": 0.653022,
+    "matchedIouP10": 0.533867,
+    "normalisedDisplacementMedian": 0.17877
+   },
+   {
+    "cell": "s300",
+    "cssPerModelPx": 3,
+    "mAP50": 0.078053,
+    "elementRecall": 0.205212,
+    "groundingAccuracy": 0.273913,
+    "predictionsPerScreen": 11.5,
+    "matchedIouMedian": 0.619332,
+    "matchedIouP10": 0.526884,
+    "normalisedDisplacementMedian": 0.147167
+   },
+   {
+    "cell": "s350",
+    "cssPerModelPx": 3.5,
+    "mAP50": 0.006436,
+    "elementRecall": 0.026059,
+    "groundingAccuracy": 0.054422,
+    "predictionsPerScreen": 7.35,
+    "matchedIouMedian": 0.637234,
+    "matchedIouP10": 0.528121,
+    "normalisedDisplacementMedian": 0.146495
+   },
+   {
+    "cell": "s400",
+    "cssPerModelPx": 4,
+    "mAP50": 0.003542,
+    "elementRecall": 0.016287,
+    "groundingAccuracy": 0.045872,
+    "predictionsPerScreen": 5.45,
+    "matchedIouMedian": 0.55315,
+    "matchedIouP10": 0.500031,
+    "normalisedDisplacementMedian": 0.095041
+   }
+  ],
+  "peak": {
+   "cell": "s175",
+   "cssPerModelPx": 1.75,
+   "elementRecall": 0.892508
+  },
+  "monotoneInScaleAbovePeak": true,
+  "monotoneAcrossWholeRange": false,
+  "pairedStrideTest": [
+   {
+    "cell": "s150",
+    "cssPerModelPx": 1.5,
+    "n": 262,
+    "stillFound": 262,
+    "recallOnS150Hits": 1,
+    "byModelSizeHere": {
+     "model>=16px": {
+      "hit": 178,
+      "n": 178,
+      "recall": 1
+     },
+     "model 8-16px": {
+      "hit": 84,
+      "n": 84,
+      "recall": 1
+     }
+    },
+    "atLeast16ModelPx": {
+     "n": 178,
+     "hit": 178,
+     "recall": 1
+    }
+   },
+   {
+    "cell": "s175",
+    "cssPerModelPx": 1.75,
+    "n": 262,
+    "stillFound": 247,
+    "recallOnS150Hits": 0.942748,
+    "byModelSizeHere": {
+     "model>=16px": {
+      "hit": 139,
+      "n": 143,
+      "recall": 0.972028
+     },
+     "model 8-16px": {
+      "hit": 108,
+      "n": 118,
+      "recall": 0.915254
+     },
+     "model 4-8px": {
+      "hit": 0,
+      "n": 1,
+      "recall": 0
+     }
+    },
+    "atLeast16ModelPx": {
+     "n": 143,
+     "hit": 139,
+     "recall": 0.972028
+    }
+   },
+   {
+    "cell": "s200",
+    "cssPerModelPx": 2,
+    "n": 262,
+    "stillFound": 244,
+    "recallOnS150Hits": 0.931298,
+    "byModelSizeHere": {
+     "model>=16px": {
+      "hit": 61,
+      "n": 67,
+      "recall": 0.910448
+     },
+     "model 8-16px": {
+      "hit": 181,
+      "n": 191,
+      "recall": 0.947644
+     },
+     "model 4-8px": {
+      "hit": 2,
+      "n": 4,
+      "recall": 0.5
+     }
+    },
+    "atLeast16ModelPx": {
+     "n": 67,
+     "hit": 61,
+     "recall": 0.910448
+    }
+   },
+   {
+    "cell": "s225",
+    "cssPerModelPx": 2.25,
+    "n": 262,
+    "stillFound": 230,
+    "recallOnS150Hits": 0.877863,
+    "byModelSizeHere": {
+     "model 8-16px": {
+      "hit": 207,
+      "n": 227,
+      "recall": 0.911894
+     },
+     "model 4-8px": {
+      "hit": 20,
+      "n": 30,
+      "recall": 0.666667
+     },
+     "model>=16px": {
+      "hit": 3,
+      "n": 5,
+      "recall": 0.6
+     }
+    },
+    "atLeast16ModelPx": {
+     "n": 5,
+     "hit": 3,
+     "recall": 0.6
+    }
+   },
+   {
+    "cell": "s250",
+    "cssPerModelPx": 2.5,
+    "n": 262,
+    "stillFound": 189,
+    "recallOnS150Hits": 0.721374,
+    "byModelSizeHere": {
+     "model 8-16px": {
+      "hit": 175,
+      "n": 217,
+      "recall": 0.806452
+     },
+     "model 4-8px": {
+      "hit": 14,
+      "n": 45,
+      "recall": 0.311111
+     }
+    },
+    "atLeast16ModelPx": {
+     "n": 0,
+     "hit": 0,
+     "recall": null
+    }
+   },
+   {
+    "cell": "s300",
+    "cssPerModelPx": 3,
+    "n": 262,
+    "stillFound": 60,
+    "recallOnS150Hits": 0.229008,
+    "byModelSizeHere": {
+     "model 8-16px": {
+      "hit": 53,
+      "n": 178,
+      "recall": 0.297753
+     },
+     "model 4-8px": {
+      "hit": 7,
+      "n": 84,
+      "recall": 0.083333
+     }
+    },
+    "atLeast16ModelPx": {
+     "n": 0,
+     "hit": 0,
+     "recall": null
+    }
+   },
+   {
+    "cell": "s350",
+    "cssPerModelPx": 3.5,
+    "n": 262,
+    "stillFound": 8,
+    "recallOnS150Hits": 0.030534,
+    "byModelSizeHere": {
+     "model 8-16px": {
+      "hit": 7,
+      "n": 143,
+      "recall": 0.048951
+     },
+     "model 4-8px": {
+      "hit": 1,
+      "n": 118,
+      "recall": 0.008475
+     },
+     "model<4px": {
+      "hit": 0,
+      "n": 1,
+      "recall": 0
+     }
+    },
+    "atLeast16ModelPx": {
+     "n": 0,
+     "hit": 0,
+     "recall": null
+    }
+   },
+   {
+    "cell": "s400",
+    "cssPerModelPx": 4,
+    "n": 262,
+    "stillFound": 5,
+    "recallOnS150Hits": 0.019084,
+    "byModelSizeHere": {
+     "model 8-16px": {
+      "hit": 5,
+      "n": 67,
+      "recall": 0.074627
+     },
+     "model 4-8px": {
+      "hit": 0,
+      "n": 191,
+      "recall": 0
+     },
+     "model<4px": {
+      "hit": 0,
+      "n": 4,
+      "recall": 0
+     }
+    },
+    "atLeast16ModelPx": {
+     "n": 0,
+     "hit": 0,
+     "recall": null
+    }
+   }
+  ],
+  "emptinessControls": [
+   {
+    "control": "t300",
+    "twin": "s300",
+    "cssPerModelPx": 3,
+    "dMAP50": -0.027169,
+    "dRecall": -0.03746,
+    "dGrounding": -0.041931,
+    "collapseAtThisScale": 0.648208,
+    "controlDeltaIsSmallComparedToCollapse": true
+   },
+   {
+    "control": "t400",
+    "twin": "s400",
+    "cssPerModelPx": 4,
+    "dMAP50": -0.001761,
+    "dRecall": -0.004886,
+    "dGrounding": -0.014054,
+    "collapseAtThisScale": 0.837133,
+    "controlDeltaIsSmallComparedToCollapse": true
+   }
+  ],
+  "emptinessExonerated": true,
+  "strideHypothesis": {
+   "statement": "H-S1: small model-space objects are hard for a stride-8 head.",
+   "test": "recall inside the fixed model 8-16px band, compared across cells. A pure extent account predicts similar recall for similar model-space extent.",
+   "series": [
+    {
+     "cell": "s150",
+     "cssPerModelPx": 1.5,
+     "hit": 84,
+     "n": 116,
+     "recall": 0.724138
+    },
+    {
+     "cell": "s175",
+     "cssPerModelPx": 1.75,
+     "hit": 128,
+     "n": 150,
+     "recall": 0.853333
+    },
+    {
+     "cell": "s200",
+     "cssPerModelPx": 2,
+     "hit": 199,
+     "n": 225,
+     "recall": 0.884444
+    },
+    {
+     "cell": "s225",
+     "cssPerModelPx": 2.25,
+     "hit": 220,
+     "n": 259,
+     "recall": 0.849421
+    },
+    {
+     "cell": "s250",
+     "cssPerModelPx": 2.5,
+     "hit": 180,
+     "n": 229,
+     "recall": 0.786026
+    },
+    {
+     "cell": "s300",
+     "cssPerModelPx": 3,
+     "hit": 56,
+     "n": 191,
+     "recall": 0.293194
+    },
+    {
+     "cell": "s350",
+     "cssPerModelPx": 3.5,
+     "hit": 7,
+     "n": 153,
+     "recall": 0.045752
+    },
+    {
+     "cell": "s400",
+     "cssPerModelPx": 4,
+     "hit": 5,
+     "n": 70,
+     "recall": 0.071429
+    }
+   ],
+   "spreadWithinOneBand": 0.838692,
+   "caveat": "The population inside a band is not the same set of objects from cell to cell: raising the scale moves every object into a smaller band. The paired read (pairedStrideTest) follows the same objects and shows the same direction without that confound.",
+   "supported": false,
+   "why": "Recall inside one fixed model-space band varies across cells by far more than the band's width can explain, so extent in model px does not by itself determine the outcome. Scale is implicated; the stride is not shown to be the mechanism."
+  }
+ },
+ "verdict": {
+  "armA": "PRECISION IS PARTLY RECOVERABLE IN POST-PROCESSING — absolute deltas reported; no threshold defined here",
+  "armB": "SCALE IS IMPLICATED — degradation is ordered in CSS px per model px above the peak, with identical ground truth and the emptiness control exonerated",
+  "strideHypothesis": "NOT SUPPORTED as the mechanism. Not disproven as a contributing factor; not isolated either."
+ },
+ "cannotClaim": [
+  "Item 11 is NOT affected. This is synthetic evidence and item 11 requires real-world data.",
+  "No production capture limit is established or implied.",
+  "No retraining is justified by this experiment.",
+  "No variant is adopted: the shipped decode, PROVISIONAL_THRESHOLDS and the artifact are unchanged.",
+  "The consumed held-out test split was not opened, and no new test split was created as evidence."
+ ]
+}
