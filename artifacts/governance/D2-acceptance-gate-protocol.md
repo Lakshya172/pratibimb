@@ -98,7 +98,49 @@ PASS ⇔ (i) ∧ (ii)
 - **Compatibility: STRONGEST.** QG-03, QG-03b-2a, B2, B3-1 and Track B **all** report per cell
   and gate on the weakest cell. This is the house pattern, stated as a formula.
 
-**No option is selected. That is the owner's decision.**
+## 2a. RECOMMENDED FRAMEWORK — Option C (owner decision still PENDING)
+
+**Recommended: Option C, the two-level gate.** Recommended as a *structure* only — **every
+numeric value below remains PENDING and none is proposed here.**
+
+Why C rather than A or B: it is the pattern the project already uses everywhere that matters.
+QG-03, QG-03b-2a, B2, B3-1 and Track B all report **per cell** and gate on the **weakest** cell,
+and B3-1's own verdict was CONDITIONAL precisely because one cell of eight failed while the
+pooled picture looked fine. A pooled-only gate (Option A) would have passed that run. Option C
+makes the project's existing habit explicit rather than introducing a new one.
+
+Its cost is stated plainly: it has the **highest false-reject risk** of the three, and `S` set
+blind is the likeliest mis-set constant in the scheme — which is exactly why §3's repeatability
+measurement is a hard prerequisite rather than a nicety.
+
+### Formal statement
+
+Let `e` range over the frozen environment list, and let `g_e`, `r_e`, `m_e` be that
+environment's grounding, recall (against **its own** measured CLIPPED ceiling) and mAP@0.5.
+Pooled figures `g`, `r`, `m` are computed over the whole sealed test split.
+
+```
+Gate 1 — pooled performance
+    g ≥ G        AND    r ≥ R        AND    m ≥ M
+
+Gate 2 — environment robustness
+    max_e(g_e) − min_e(g_e) ≤ S      AND    min_e(g_e) ≥ G_min
+
+PASS ⇔ Gate 1 ∧ Gate 2
+```
+
+| symbol | meaning | value |
+|---|---|---|
+| `G` | pooled grounding threshold | **PENDING** |
+| `R` | pooled recall threshold | **PENDING** |
+| `M` | pooled mAP@0.5 threshold | **PENDING** |
+| `S` | allowable across-environment grounding spread | **PENDING** |
+| `G_min` | per-environment grounding floor | **PENDING** |
+
+**Environment list, clean/redacted reporting, corpus, splits, leakage rules, CLIPPED handling,
+DEV-only calibration and the TEST read-once rule are as specified in §3 and are unchanged.**
+
+**No option is selected as an owner decision, and no number is chosen. That remains the owner's.**
 
 ## 3. The minimum real-world measurement required before any number is chosen
 
@@ -144,8 +186,8 @@ From `AUDIT-0003`, recorded exactly:
 **It is not a standard deviation. It is not a confidence interval. It is not a generic pipeline
 error. It is not a universal tolerance.** It is a single paired difference.
 
-> **This evidence motivates measuring variance on the real evaluation protocol; it does not
-> justify a numeric D2 tolerance by itself.**
+> **Because AUDIT-0003 is one synthetic paired observation, it does not determine `S` or any
+> other D2 tolerance. Real-protocol repeatability must be measured before `S` is assigned.**
 
 Three reasons it cannot be reused as `δ`: it is **one observation**, so any "±" describes a
 spread never estimated; it is a **count effect on a fixed denominator** (2 boxes in ~4,848
@@ -157,7 +199,33 @@ What it *does* establish, and this is a real constraint on D2's **form**: absolu
 from this pipeline are **not bitwise reproducible across machines**, so a bar expressed as a bare
 equality or an unqualified inequality at four decimal places is not decidable by two honest runs.
 
+## 4a. Numeric-calibration rule — how the numbers get chosen without being fitted to the answer
+
+The ordering is the whole point: **the gate is frozen before the evidence that could bias it
+exists**, and the numbers are derived from **DEV only**, by a rule recorded in advance.
+
+1. **Freeze the evaluation design** — corpus definition, environment list, capture protocol,
+   annotation guidelines, metric definitions, CLIPPED handling.
+2. **Seal the dataset.** `sealDataset` hash committed, frames outside Git, **test manifest
+   unopened**.
+3. **Freeze the D2 structure** — Option C's *form* above, with `G/R/M/S/G_min` still unset.
+4. **Collect independent development evidence** — DEV split only, across the full environment
+   list.
+5. **Estimate, from DEV only:** achievable pooled performance, and the **across-environment
+   spread**, from the sealed corpus scored **k ≥ 3 times per environment**. This is the
+   repeatability measurement; without it `S` and `G_min` are guesses.
+6. **Choose `G/R/M/S/G_min` by a documented rule**, recorded with its justification **before**
+   any test read. The rule must be written down, not the numbers alone, so the derivation can be
+   audited.
+7. **Record the numeric values** in this document, dated, as an owner-approved amendment.
+8. **Only then unlock the final evaluation** — the TEST split is read **once**.
+9. **Never tune the gate on TEST.** A gate adjusted after a test read is not a gate.
+
+**Nothing in steps 1–9 has been performed.** No dataset exists, no split was created or sealed,
+no measurement was taken.
+
 ## 5. Status
 
-**D2 remains PENDING.** No numeric value is adopted. No gate structure is selected. The detector
+**D2 remains PENDING.** Option C is **RECOMMENDED as the framework**; the owner has not adopted
+it, and no numeric value has been chosen. No numeric value is adopted. No gate structure is selected. The detector
 remains **UNADOPTED** and item 11 remains **FAIL**.

@@ -262,6 +262,48 @@ Two companion artifacts extend this ADR. Both keep every decision PENDING.
   and `S` require a **measured repeatability** of the real evaluation — the sealed corpus scored
   **k ≥ 3 times per environment** — which does not exist and which `AUDIT-0003` cannot supply.
 
+## Update 2026-09-12 (second pass) — policy evidence, a reduced set, and a recommended D2 framework
+
+**D5 — the classification in pass 1 was too optimistic, and this pass corrects it.**
+Pass 1 marked `mygov.in` and `sbi.bank.in` READY FOR OWNER REVIEW on the strength of permissive
+`robots.txt`. Retrieving their actual terms shows **both are restricted**:
+
+- **`mygov.in`** — *"You will not use any robot, spider, other automatic software or device, or
+  manual process to monitor or copy MyGov without Provider's prior written permission"*, and
+  separately *"the use of any software (e.g. bots, scraper tools)… is prohibited unless expressly
+  authorized… in writing"*. It also prohibits creating *"derivative works"*.
+- **`sbi.bank.in`** — *"The content of this website shall not be displayed or printed in any form
+  in part or whole without the prior written approval of SBI"*.
+
+That is the reason robots.txt is not the legal instrument, demonstrated on this project's own
+candidates. **Not one of the eight has evidence permitting automated capture.**
+
+The candidate set is reduced from eight to **three — G1 `mygov.in`, G2 `india.gov.in`, B1
+`sbi.bank.in` — all as DEFER**, retained only because each has an identifiable
+**written-permission route**. Five are excluded for insufficient or ambiguous policy evidence,
+`npci.org.in` on its catch-all `Disallow: /`. **No source is recommended for APPROVE, and none
+can be on this evidence.** Detail and verbatim quotations:
+[`D5-policy-evidence-pass-2.md`](../../artifacts/governance/D5-policy-evidence-pass-2.md).
+
+No legal determination is made here — not whether a screenshot is a *"display"*, not whether
+annotations are *"derivative works"*, not whether a headless browser is an *"automatic device"*.
+Three of those questions are now concrete enough to put to a lawyer, which they were not before.
+
+**D2 — Option C is RECOMMENDED as the framework; the owner has not adopted it.**
+Two-level gate: pooled performance **and** per-environment robustness, with
+`G/R/M/S/G_min` all **PENDING**. Recommended because it is the pattern the project already
+uses — QG-03, QG-03b-2a, B2, B3-1 and Track B all gate on the weakest cell, and **B3-1 was
+CONDITIONAL precisely because one cell of eight failed while the pooled picture looked fine; a
+pooled-only gate would have passed it.** Its cost is the highest false-reject risk of the three,
+which is why the repeatability measurement is a hard prerequisite. A numeric-calibration
+procedure (steps 1–9, DEV-only, gate frozen before any test read, never tuned on TEST) is
+recorded in [`D2-acceptance-gate-protocol.md`](../../artifacts/governance/D2-acceptance-gate-protocol.md).
+
+**The pre-collection gate** is now explicit and **CLOSED**:
+[`REAL-WORLD-COLLECTION-GATE.md`](../../artifacts/governance/REAL-WORLD-COLLECTION-GATE.md) —
+**0 of 11 substantive conditions met**; the three that read PASS do so *vacuously*, because
+nothing has happened.
+
 ## Decision
 
 **PENDING — both.** No approval is recorded in this document.
