@@ -59,6 +59,17 @@ design. It does three things the design does not:
 **Nothing is SATISFIED.** Two items are hard-**BLOCKED** (D5, D10), seven need an owner ruling,
 and one is engineering drafting work that still ends in an owner freeze.
 
+> **Update 2026-09-12 — D5 and D2 are packaged for decision.**
+> [ADR-0004](../../docs/adr/ADR-0004-wa-source-authorisation-and-item11-bar.md) formalises both
+> as a decision package: the per-source evidence table for D5, and three candidate bar *forms*
+> for D2. **Both remain PENDING the owner and neither is approved there.** The audit behind it
+> established one fact that changes how D5 can be asked: **no source is named anywhere in this
+> repository**, so D5 is not answerable as posed until a source list exists — permission is a
+> property of a named site, not of a category. It also established that the **±0.0015 figure
+> from AUDIT-0003 is a single paired difference in *grounding accuracy* on 40 synthetic screens,
+> driven entirely by localization false positives**, and therefore cannot serve as a decision
+> margin for D2 without its own measurement.
+
 ## The measured constraint on D2
 
 **This is an input to the owner's decision, not a proposed number.** No bar is selected here.
