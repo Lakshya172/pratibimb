@@ -4,7 +4,7 @@
 > The evidence is `logs/workstation-1/`. See [decision.md](decision.md).
 >
 > **This does NOT close QG-03a or QG-03, and the detector remains UNADOPTED.** `QG-03a-B3-2`
-> (an NVIDIA-backed cell) is **NOT MEASURED / OPEN**: Chrome selected the Intel `gen-12lp`
+> (an NVIDIA-backed cell) is **NOT MEASURED / OPTIONAL COVERAGE**: Chrome selected the Intel `gen-12lp`
 > adapter here, so the RTX 5050 was never exercised.
 >
 > This directory also holds the harness and a **workstation-2 DEVELOPMENT run** under
@@ -189,13 +189,19 @@ What remains open is **QG-03a-B3-2** (NVIDIA), which B3-1 does not and cannot su
 
 ## Limitations
 
-- **No B3-1 cell has been measured.** Everything above is workstation 2 and is labelled
-  development. It says nothing about Intel, NVIDIA, Linux or Firefox.
-- **Browser version is a confound.** Workstation 1's earlier evidence is Chromium 151; this run is
-  Chrome for Testing 153.0.8010.12. Every cell records its own version and cells are not merged
-  across versions.
-- **One adapter.** `amd / rdna-3`, the integrated GPU. The RTX 5050 present in the machine was not
-  selected, and no flag was used to force it.
+**The measured B3-1 result** (`logs/workstation-1/`) carries these limitations:
+
+- **Intel only.** The WebGPU cells ran on `intel / gen-12lp`; the RTX 5050 in the machine was not
+  selected and no flag was used to force it. `QG-03a-B3-2` is **NOT MEASURED / OPTIONAL COVERAGE**,
+  and **no NVIDIA claim is made**.
+- **One browser version.** Chrome for Testing **151.0.7922.34**. Every cell records its own
+  version and cells are not merged across versions.
+- **Windows only.** Linux and Firefox extension realms are unmeasured.
+
+**The workstation-2 run** under `logs/development-laptop-srcink2b/` is **development evidence, not
+B3-1 evidence**: Chrome for Testing 153.0.8010.12 on the `amd / rdna-3` integrated adapter. It is
+kept because it is what validated the harness, and it says nothing about Intel, NVIDIA, Linux or
+Firefox.
 - **Firefox has no offscreen document.** B3-1 is Chromium-only by construction; a Firefox cell
   would be a different realm and a separate decision.
 - **Headful only.** `--headless` exists and is recorded in the cell name, but headless WebGPU has

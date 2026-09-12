@@ -94,10 +94,18 @@ Escalations: **none**.
 Intel**. The extension context is now measured, in both realms, with the backend proved by counted
 submits rather than inferred from configuration.
 
-**Does not close:** QG-03a-B. **`QG-03a-B3-2` is `NOT MEASURED / OPEN`** — Chrome selected the
+**Does not close:** QG-03a-B. **`QG-03a-B3-2` is `NOT MEASURED / OPTIONAL COVERAGE`** — Chrome selected the
 Intel `gen-12lp` adapter on this machine, so the RTX 5050 was never exercised. That is an absence
 of evidence and is recorded as such; it is **not** a failure, and no NVIDIA cell was simulated,
 fabricated or inferred.
+
+**Update 2026-09-12 — owner decision on NVIDIA coverage (ronitsaha11).** The governing
+feasibility axis is **model × browser × backend**; the dossier defines **no GPU-vendor axis**. An
+NVIDIA-backed cell is therefore **not a mandatory acceptance cell** for QG-03a-B, and **B3-1's
+Intel `gen-12lp` WebGPU cell stands as the required WebGPU evidence**. NVIDIA execution remains
+**NOT MEASURED / OPTIONAL COVERAGE**: its absence affects **coverage and labelling only**, it does
+**not** invalidate B3-1, and **no NVIDIA compatibility or performance claim may be made**. No
+retroactive mandatory B3-2 gate was created, and no numerical threshold changed.
 
 **Two confounds, recorded rather than buried.** The browser is Chrome for Testing **151.0.7922.34**,
 not the 153.0.8010.12 that Playwright 1.63 would fetch, because `npx playwright install` fails on
@@ -137,8 +145,8 @@ The analysis is reproducible from that archive: re-running it changed only `runA
 
 | id | item |
 |---|---|
-| **QG-03a-B3-2** | **OPEN / NOT MEASURED.** An NVIDIA-backed browser cell. Chrome chose Intel `gen-12lp` on workstation 1; forcing the discrete GPU is a distinct cell, not a re-run of B3-1 |
-| QG-03a-B | remains CONDITIONAL until the GPU-coverage gap is closed or the owner accepts Intel-only coverage |
+| **QG-03a-B3-2** | **NOT MEASURED / OPTIONAL COVERAGE** (owner decision, 2026-09-12; not a mandatory acceptance cell). An NVIDIA-backed browser cell. Chrome chose Intel `gen-12lp` on workstation 1; forcing the discrete GPU is a distinct cell, not a re-run of B3-1 |
+| QG-03a-B | remains CONDITIONAL. **Update 2026-09-12:** the owner accepted Intel-only WebGPU coverage as the required evidence, so **B3-2 no longer gates it**. Promoting QG-03a-B is a **separate architect decision** and is **not** recorded yet |
 | QG-03a-C | unchanged, CONDITIONAL |
 | B3-1-env | workstation 2's Playwright browser directory is broken, and `npx playwright install` also fails on workstation 1; both machines need `CHROME_PATH` |
 | adoption 11, 14 | acceptable metrics and usable grounding, untouched by B3-1 |
