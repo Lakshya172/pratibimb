@@ -1,0 +1,549 @@
+{
+ "experiment": "W1-QG03a-C3-label-raster-generalisation",
+ "runAt": "2026-09-12T06:27:45.287Z",
+ "criterion": {
+  "approved": "The mismatch is harmless if the worst case leaves mAP@0.5, element recall and grounding unchanged, and IoU stays well above 0.5 for the smallest controls.",
+  "source": "QG-03a-C, approved; reused unchanged",
+  "comparator": "per design.md: each C3-A cell no worse than the worst C3-B control, recall compared ceiling-relative; FAIL only on minMatchedIou <= 0.5 or a metric collapsing to 0; anything else escalates",
+  "noNewTolerance": true
+ },
+ "pairing": {
+  "bySeed": true,
+  "identicalSpecContentAcrossCells": false
+ },
+ "model": {
+  "sha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+  "revision": "ba6d9e93695b",
+  "retrained": false
+ },
+ "operatingPoint": 0.55,
+ "clippedDefinition": "FROZEN and untouched; its arithmetic ceiling is reported per cell and recall is read against it",
+ "cells": {
+  "a1": {
+   "kind": "A",
+   "viewport": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "trainingGeometry": false,
+   "datasetHash": "66cce555",
+   "samples": 20,
+   "clippingCeiling": {
+    "evaluatable": 398,
+    "reachable": 382,
+    "clipped": 24,
+    "offscreen": 20,
+    "ceiling": 0.9597989949748744
+   },
+   "views": {
+    "op055": {
+     "predictions": 480,
+     "mAP50": 0.664734,
+     "elementRecall": 0.771357,
+     "groundingAccuracy": 0.639583,
+     "minMatchedIou": 0.502066,
+     "worstMatchedDispCss": 116.103496,
+     "matched": 307,
+     "labels": 398,
+     "smallestMatchedLabelPx": 14,
+     "rejections": null
+    },
+    "shipped": {
+     "predictions": 954,
+     "mAP50": 0.811366,
+     "elementRecall": 0.909548,
+     "groundingAccuracy": 0.379455,
+     "minMatchedIou": 0.502066,
+     "worstMatchedDispCss": 106.581737,
+     "matched": 362,
+     "labels": 398,
+     "smallestMatchedLabelPx": 13,
+     "rejections": null
+    }
+   },
+   "timing": {
+    "preprocessMedianMs": 18,
+    "inferMedianMs": 31,
+    "decodeNmsMedianMs": 2
+   }
+  },
+  "a2": {
+   "kind": "A",
+   "viewport": {
+    "w": 1920,
+    "h": 962
+   },
+   "dpr": 1.5,
+   "captureSize": {
+    "w": 2880,
+    "h": 1443
+   },
+   "trainingGeometry": false,
+   "datasetHash": "f2b41cfe",
+   "samples": 20,
+   "clippingCeiling": {
+    "evaluatable": 398,
+    "reachable": 383,
+    "clipped": 20,
+    "offscreen": 20,
+    "ceiling": 0.9623115577889447
+   },
+   "views": {
+    "op055": {
+     "predictions": 245,
+     "mAP50": 0.060771,
+     "elementRecall": 0.153266,
+     "groundingAccuracy": 0.24898,
+     "minMatchedIou": 0.503147,
+     "worstMatchedDispCss": 183.261383,
+     "matched": 61,
+     "labels": 398,
+     "smallestMatchedLabelPx": 17.546875,
+     "rejections": null
+    },
+    "shipped": {
+     "predictions": 904,
+     "mAP50": 0.099053,
+     "elementRecall": 0.331658,
+     "groundingAccuracy": 0.146018,
+     "minMatchedIou": 0.501353,
+     "worstMatchedDispCss": 183.261383,
+     "matched": 132,
+     "labels": 398,
+     "smallestMatchedLabelPx": 17.546875,
+     "rejections": null
+    }
+   },
+   "timing": {
+    "preprocessMedianMs": 45,
+    "inferMedianMs": 30,
+    "decodeNmsMedianMs": 1
+   }
+  },
+  "a3": {
+   "kind": "A",
+   "viewport": {
+    "w": 1920,
+    "h": 1080
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1920,
+    "h": 1080
+   },
+   "trainingGeometry": false,
+   "datasetHash": "eedfaef9",
+   "samples": 20,
+   "clippingCeiling": {
+    "evaluatable": 398,
+    "reachable": 383,
+    "clipped": 20,
+    "offscreen": 20,
+    "ceiling": 0.9623115577889447
+   },
+   "views": {
+    "op055": {
+     "predictions": 297,
+     "mAP50": 0.061703,
+     "elementRecall": 0.193467,
+     "groundingAccuracy": 0.259259,
+     "minMatchedIou": 0.502346,
+     "worstMatchedDispCss": 196.777313,
+     "matched": 77,
+     "labels": 398,
+     "smallestMatchedLabelPx": 17.546875,
+     "rejections": null
+    },
+    "shipped": {
+     "predictions": 950,
+     "mAP50": 0.107684,
+     "elementRecall": 0.374372,
+     "groundingAccuracy": 0.156842,
+     "minMatchedIou": 0.500879,
+     "worstMatchedDispCss": 171.051865,
+     "matched": 149,
+     "labels": 398,
+     "smallestMatchedLabelPx": 17.546875,
+     "rejections": null
+    }
+   },
+   "timing": {
+    "preprocessMedianMs": 25,
+    "inferMedianMs": 31,
+    "decodeNmsMedianMs": 0
+   }
+  },
+  "a4": {
+   "kind": "A",
+   "viewport": {
+    "w": 2560,
+    "h": 1600
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 2560,
+    "h": 1600
+   },
+   "trainingGeometry": false,
+   "datasetHash": "7b63f85c",
+   "samples": 20,
+   "clippingCeiling": {
+    "evaluatable": 398,
+    "reachable": 383,
+    "clipped": 20,
+    "offscreen": 20,
+    "ceiling": 0.9623115577889447
+   },
+   "views": {
+    "op055": {
+     "predictions": 129,
+     "mAP50": 0.003984,
+     "elementRecall": 0.01005,
+     "groundingAccuracy": 0.031008,
+     "minMatchedIou": 0.582291,
+     "worstMatchedDispCss": 47.266525,
+     "matched": 4,
+     "labels": 398,
+     "smallestMatchedLabelPx": 29,
+     "rejections": null
+    },
+    "shipped": {
+     "predictions": 655,
+     "mAP50": 0.011419,
+     "elementRecall": 0.052764,
+     "groundingAccuracy": 0.032061,
+     "minMatchedIou": 0.500501,
+     "worstMatchedDispCss": 52.884277,
+     "matched": 21,
+     "labels": 398,
+     "smallestMatchedLabelPx": 28,
+     "rejections": null
+    }
+   },
+   "timing": {
+    "preprocessMedianMs": 47,
+    "inferMedianMs": 31,
+    "decodeNmsMedianMs": 0
+   }
+  },
+  "b1": {
+   "kind": "B",
+   "viewport": {
+    "w": 960,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 960,
+    "h": 640
+   },
+   "trainingGeometry": true,
+   "datasetHash": "5c03db9b",
+   "samples": 20,
+   "clippingCeiling": {
+    "evaluatable": 338,
+    "reachable": 313,
+    "clipped": 36,
+    "offscreen": 68,
+    "ceiling": 0.9260355029585798
+   },
+   "views": {
+    "op055": {
+     "predictions": 523,
+     "mAP50": 0.599306,
+     "elementRecall": 0.763314,
+     "groundingAccuracy": 0.493308,
+     "minMatchedIou": 0.512127,
+     "worstMatchedDispCss": 144.042923,
+     "matched": 258,
+     "labels": 338,
+     "smallestMatchedLabelPx": 15,
+     "rejections": null
+    },
+    "shipped": {
+     "predictions": 1110,
+     "mAP50": 0.769056,
+     "elementRecall": 0.884615,
+     "groundingAccuracy": 0.269369,
+     "minMatchedIou": 0.512127,
+     "worstMatchedDispCss": 144.042923,
+     "matched": 299,
+     "labels": 338,
+     "smallestMatchedLabelPx": 13,
+     "rejections": null
+    }
+   },
+   "timing": {
+    "preprocessMedianMs": 13,
+    "inferMedianMs": 30,
+    "decodeNmsMedianMs": 1
+   }
+  },
+  "b2": {
+   "kind": "B",
+   "viewport": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "trainingGeometry": true,
+   "datasetHash": "6d452206",
+   "samples": 20,
+   "clippingCeiling": {
+    "evaluatable": 340,
+    "reachable": 316,
+    "clipped": 36,
+    "offscreen": 68,
+    "ceiling": 0.9294117647058824
+   },
+   "views": {
+    "op055": {
+     "predictions": 473,
+     "mAP50": 0.660979,
+     "elementRecall": 0.785294,
+     "groundingAccuracy": 0.564482,
+     "minMatchedIou": 0.500783,
+     "worstMatchedDispCss": 133.519873,
+     "matched": 267,
+     "labels": 340,
+     "smallestMatchedLabelPx": 14,
+     "rejections": null
+    },
+    "shipped": {
+     "predictions": 937,
+     "mAP50": 0.829723,
+     "elementRecall": 0.894118,
+     "groundingAccuracy": 0.32444,
+     "minMatchedIou": 0.500783,
+     "worstMatchedDispCss": 133.519873,
+     "matched": 304,
+     "labels": 340,
+     "smallestMatchedLabelPx": 13,
+     "rejections": null
+    }
+   },
+   "timing": {
+    "preprocessMedianMs": 13,
+    "inferMedianMs": 30,
+    "decodeNmsMedianMs": 0
+   }
+  }
+ },
+ "comparison": {
+  "op055": {
+   "worstControl": {
+    "mAP50": 0.599306,
+    "recallCeilingRelative": 0.824282,
+    "groundingAccuracy": 0.493308,
+    "minMatchedIou": 0.500783
+   },
+   "cells": {
+    "a1": {
+     "measured": {
+      "mAP50": 0.664734,
+      "elementRecall": 0.771357,
+      "recallCeilingRelative": 0.803665,
+      "groundingAccuracy": 0.639583,
+      "minMatchedIou": 0.502066,
+      "worstMatchedDispCss": 116.103496,
+      "smallestMatchedLabelPx": 14
+     },
+     "deltaVsWorstControl": {
+      "mAP50": 0.065428,
+      "recallCeilingRelative": -0.020616,
+      "groundingAccuracy": 0.146275,
+      "minMatchedIou": 0.001283
+     },
+     "degraded": [
+      "recallCeilingRelative"
+     ],
+     "hardBreach": []
+    },
+    "a2": {
+     "measured": {
+      "mAP50": 0.060771,
+      "elementRecall": 0.153266,
+      "recallCeilingRelative": 0.159269,
+      "groundingAccuracy": 0.24898,
+      "minMatchedIou": 0.503147,
+      "worstMatchedDispCss": 183.261383,
+      "smallestMatchedLabelPx": 17.546875
+     },
+     "deltaVsWorstControl": {
+      "mAP50": -0.538535,
+      "recallCeilingRelative": -0.665013,
+      "groundingAccuracy": -0.244328,
+      "minMatchedIou": 0.002364
+     },
+     "degraded": [
+      "mAP50",
+      "recallCeilingRelative",
+      "groundingAccuracy"
+     ],
+     "hardBreach": []
+    },
+    "a3": {
+     "measured": {
+      "mAP50": 0.061703,
+      "elementRecall": 0.193467,
+      "recallCeilingRelative": 0.201044,
+      "groundingAccuracy": 0.259259,
+      "minMatchedIou": 0.502346,
+      "worstMatchedDispCss": 196.777313,
+      "smallestMatchedLabelPx": 17.546875
+     },
+     "deltaVsWorstControl": {
+      "mAP50": -0.537603,
+      "recallCeilingRelative": -0.623238,
+      "groundingAccuracy": -0.234049,
+      "minMatchedIou": 0.001563
+     },
+     "degraded": [
+      "mAP50",
+      "recallCeilingRelative",
+      "groundingAccuracy"
+     ],
+     "hardBreach": []
+    },
+    "a4": {
+     "measured": {
+      "mAP50": 0.003984,
+      "elementRecall": 0.01005,
+      "recallCeilingRelative": 0.010444,
+      "groundingAccuracy": 0.031008,
+      "minMatchedIou": 0.582291,
+      "worstMatchedDispCss": 47.266525,
+      "smallestMatchedLabelPx": 29
+     },
+     "deltaVsWorstControl": {
+      "mAP50": -0.595322,
+      "recallCeilingRelative": -0.813838,
+      "groundingAccuracy": -0.4623,
+      "minMatchedIou": 0.081508
+     },
+     "degraded": [
+      "mAP50",
+      "recallCeilingRelative",
+      "groundingAccuracy"
+     ],
+     "hardBreach": []
+    }
+   }
+  },
+  "shipped": {
+   "worstControl": {
+    "mAP50": 0.769056,
+    "recallCeilingRelative": 0.955271,
+    "groundingAccuracy": 0.269369,
+    "minMatchedIou": 0.500783
+   },
+   "cells": {
+    "a1": {
+     "measured": {
+      "mAP50": 0.811366,
+      "elementRecall": 0.909548,
+      "recallCeilingRelative": 0.947644,
+      "groundingAccuracy": 0.379455,
+      "minMatchedIou": 0.502066,
+      "worstMatchedDispCss": 106.581737,
+      "smallestMatchedLabelPx": 13
+     },
+     "deltaVsWorstControl": {
+      "mAP50": 0.04231,
+      "recallCeilingRelative": -0.007627,
+      "groundingAccuracy": 0.110086,
+      "minMatchedIou": 0.001283
+     },
+     "degraded": [
+      "recallCeilingRelative"
+     ],
+     "hardBreach": []
+    },
+    "a2": {
+     "measured": {
+      "mAP50": 0.099053,
+      "elementRecall": 0.331658,
+      "recallCeilingRelative": 0.344647,
+      "groundingAccuracy": 0.146018,
+      "minMatchedIou": 0.501353,
+      "worstMatchedDispCss": 183.261383,
+      "smallestMatchedLabelPx": 17.546875
+     },
+     "deltaVsWorstControl": {
+      "mAP50": -0.670003,
+      "recallCeilingRelative": -0.610624,
+      "groundingAccuracy": -0.123351,
+      "minMatchedIou": 0.00057
+     },
+     "degraded": [
+      "mAP50",
+      "recallCeilingRelative",
+      "groundingAccuracy"
+     ],
+     "hardBreach": []
+    },
+    "a3": {
+     "measured": {
+      "mAP50": 0.107684,
+      "elementRecall": 0.374372,
+      "recallCeilingRelative": 0.389034,
+      "groundingAccuracy": 0.156842,
+      "minMatchedIou": 0.500879,
+      "worstMatchedDispCss": 171.051865,
+      "smallestMatchedLabelPx": 17.546875
+     },
+     "deltaVsWorstControl": {
+      "mAP50": -0.661372,
+      "recallCeilingRelative": -0.566237,
+      "groundingAccuracy": -0.112527,
+      "minMatchedIou": 0.000096
+     },
+     "degraded": [
+      "mAP50",
+      "recallCeilingRelative",
+      "groundingAccuracy"
+     ],
+     "hardBreach": []
+    },
+    "a4": {
+     "measured": {
+      "mAP50": 0.011419,
+      "elementRecall": 0.052764,
+      "recallCeilingRelative": 0.05483,
+      "groundingAccuracy": 0.032061,
+      "minMatchedIou": 0.500501,
+      "worstMatchedDispCss": 52.884277,
+      "smallestMatchedLabelPx": 28
+     },
+     "deltaVsWorstControl": {
+      "mAP50": -0.757637,
+      "recallCeilingRelative": -0.900441,
+      "groundingAccuracy": -0.237308,
+      "minMatchedIou": -0.000282
+     },
+     "degraded": [
+      "mAP50",
+      "recallCeilingRelative",
+      "groundingAccuracy",
+      "minMatchedIou"
+     ],
+     "hardBreach": []
+    }
+   }
+  }
+ },
+ "worstMatchedDispCssAllCells": 196.777313,
+ "minMatchedIouAllCells": 0.500501,
+ "verdict": "INCONCLUSIVE / DECISION REQUIRED",
+ "closesQg03aC": false,
+ "note": "A C3 PASS is evidence for a governance decision on QG-03a-C, not the decision. Retraining was not performed and is not approved."
+}
