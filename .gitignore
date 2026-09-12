@@ -188,3 +188,8 @@ artifacts/experiments/W1-QG03a-C3-label-raster-generalisation/harness/generated/
 # and all of it reproducible from the recipe: the unchanged tools/dataset/build-dataset.mjs
 # at seed 20260910 (hash 4bbc57de), then render-arm-b.mjs and decode-w1-png.py.
 artifacts/experiments/W1-detector-precision-scale/harness/generated/
+
+# Track B geometry/appearance harness. generated/ holds 480 rendered frames, their RGBA dumps
+# and the per-cell manifests - reproducible from render-trackb.mjs, apply-appearance.py and
+# decode-trackb.py at the recorded dataset and model identities.
+artifacts/experiments/W1-TrackB-geometry-appearance/harness/generated/
