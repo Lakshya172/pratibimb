@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>Registration — MODE B, DOM-poor (synthetic, locally generated)</title>
+<!--
+  MODE B — the DOM-POOR case, generated entirely locally.
+
+  This page contains NO real scanned material and NO content from any external site. Every
+  pixel is drawn by the script below from fabricated strings. It is served from a local
+  loopback server, which is why automating it needs no authorisation from anybody.
+
+  WHY IT IS DOM-POOR, stated honestly rather than strawmanned:
+
+  A genuinely scanned government form has an empty DOM over an image. A page like that cannot
+  be *acted on* at all, so it would test perception and nothing else. This fixture is the
+  realistic middle case the dossier actually names: the form is PAINTED ON A CANVAS, and the
+  only DOM nodes are the canvas plus one unlabelled generic overlay that routes clicks by
+  coordinate. So:
+
+    - the DOM exposes NO input, NO label, NO role, NO accessible name for any field;
+    - the element graph can therefore see the canvas as one opaque box and learn nothing
+      about which region is "Full name" and which is "Submit";
+    - a human, and a visual detector, can see six distinct field boxes and one button.
+
+  That is the condition under which DOM understanding is insufficient by construction, not by
+  being deliberately crippled: canvas-rendered UI is a real pattern, and the DOM genuinely has
+  nothing to say about it.
+
+  ALL VALUES ARE FABRICATED. No real person's data appears here.
+-->
+<style>
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: #f4f5f7;
+    font: 14px system-ui, sans-serif;
+  }
+  /* Fixed pixel geometry so CSS-px assertions are stable across DPR and zoom, exactly as the
+     QG-02 fixture does. */
+  #sheet {
+    position: absolute;
+    left: 40px;
+    top: 40px;
+    width: 720px;
+    height: 520px;
+  }
+  /* The one generic overlay. No role, no name, no label, no data-* semantics: a click router
+     and nothing more. This is what makes the DOM underdetermine the task. */
+  #hit {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 720px;
+    height: 520px;
+  }
+  #receipt {
+    position: absolute;
+    left: 40px;
+    top: 580px;
+    width: 720px;
+    font: 13px ui-monospace, monospace;
+    color: #1a3d1a;
+  }
+</style>
+
+<div id="sheet">
+  <canvas id="paper" width="720" height="520"></canvas>
+  <div id="hit"></div>
+</div>
+<div id="receipt" hidden></div>
+
+<script>
+  /**
+   * The form's true layout, in canvas/CSS px. This object is the GROUND TRUTH for the probe:
+   * it is what a perfect perceiver would recover. It is deliberately NOT exposed through any
+   * DOM attribute — reading it from the page would be cheating the very thing under test.
+   */
+  const FIELDS = [
+    { key: "fullName", label: "Full name", x: 40, y: 96, w: 280, h: 34 },
+    { key: "email", label: "Email", x: 400, y: 96, w: 280, h: 34 },
+    { key: "dob", label: "Date of birth", x: 40, y: 176, w: 180, h: 34 },
+    { key: "phone", label: "Phone", x: 400, y: 176, w: 280, h: 34 },
+    { key: "address", label: "Address", x: 40, y: 256, w: 640, h: 34 },
+    { key: "pin", label: "PIN", x: 40, y: 336, w: 140, h: 34 },
+  ];
+  const SUBMIT = { key: "submit", label: "Submit", x: 540, y: 430, w: 140, h: 40 };
+
+  const c = document.getElementById("paper");
+  const g = c.getContext("2d");
+
+  /** Values typed so far. Kept in the page, the way a canvas widget keeps its own state. */
+  const typed = Object.create(null);
+  let focused = null;
+
+  function paint() {
+    g.fillStyle = "#ffffff";
+    g.fillRect(0, 0, 720, 520);
+    g.strokeStyle = "#c9ced6";
+    g.lineWidth = 1;
+    g.strokeRect(0.5, 0.5, 719, 519);
+
+    g.fillStyle = "#12243a";
+    g.font = "600 19px system-ui, sans-serif";
+    g.fillText("Seva portal — registration", 40, 52);
+    g.font = "13px system-ui, sans-serif";
+    g.fillStyle = "#5a6472";
+    g.fillText("Synthetic demonstration form. Fabricated values only.", 40, 72);
+
+    for (const f of [...FIELDS, SUBMIT]) {
+      const isButton = f.key === "submit";
+      if (!isButton) {
+        g.fillStyle = "#404b5a";
+        g.font = "12px system-ui, sans-serif";
+        g.fillText(f.label, f.x, f.y - 8);
+      }
+      g.fillStyle = isButton ? "#1f5c2e" : "#ffffff";
+      g.strokeStyle = focused === f.key ? "#1f5c2e" : isButton ? "#1f5c2e" : "#9aa3b0";
+      g.lineWidth = focused === f.key ? 2 : 1;
+      g.beginPath();
+      g.rect(f.x + 0.5, f.y + 0.5, f.w, f.h);
+      g.fill();
+      g.stroke();
+
+      if (isButton) {
+        g.fillStyle = "#ffffff";
+        g.font = "600 14px system-ui, sans-serif";
+        g.fillText("Submit", f.x + 42, f.y + 26);
+      } else {
+        const v = typed[f.key];
+        if (v) {
+          g.fillStyle = "#12243a";
+          g.font = "14px system-ui, sans-serif";
+          // A PIN renders masked on screen, as a password field would.
+          g.fillText(f.key === "pin" ? "•".repeat(v.length) : v, f.x + 8, f.y + 23);
+        }
+      }
+    }
+  }
+
+  const hitAt = (px, py) =>
+    [...FIELDS, SUBMIT].find((f) => px >= f.x && px <= f.x + f.w && py >= f.y && py <= f.y + f.h) ?? null;
+
+  const hit = document.getElementById("hit");
+  hit.addEventListener("mousedown", (e) => {
+    const r = hit.getBoundingClientRect();
+    const f = hitAt(e.clientX - r.left, e.clientY - r.top);
+    if (!f) {
+      focused = null;
+      paint();
+      return;
+    }
+    if (f.key === "submit") return submit();
+    focused = f.key;
+    paint();
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (!focused) return;
+    if (e.key === "Backspace") typed[focused] = (typed[focused] ?? "").slice(0, -1);
+    else if (e.key.length === 1) typed[focused] = (typed[focused] ?? "") + e.key;
+    else return;
+    e.preventDefault();
+    paint();
+  });
+
+  function submit() {
+    const missing = FIELDS.filter((f) => !typed[f.key]).map((f) => f.key);
+    const out = document.getElementById("receipt");
+    if (missing.length) {
+      out.hidden = false;
+      out.textContent = `REJECTED — empty: ${missing.join(", ")}`;
+      return;
+    }
+    out.hidden = false;
+    // The receipt is the verifiable end state. The PIN is never echoed.
+    out.textContent =
+      `ACCEPTED — fullName="${typed.fullName}" email="${typed.email}" dob="${typed.dob}" ` +
+      `phone="${typed.phone}" address="${typed.address}" pin=<withheld>`;
+    out.setAttribute("data-accepted", "1");
+  }
+
+  paint();
+
+  /**
+   * Exposed ONLY for the probe's scoring, under a name that says so. The probe reads this to
+   * know where the truth is; the DOM perception path under test never reads it, and the
+   * assertion that it did not is part of the harness.
+   */
+  window.__probeGroundTruth = () => ({
+    sheet: { x: 40, y: 40, w: 720, h: 520 },
+    fields: FIELDS.map((f) => ({ ...f, x: f.x + 40, y: f.y + 40 })),
+    submit: { ...SUBMIT, x: SUBMIT.x + 40, y: SUBMIT.y + 40 },
+    accepted: () => document.getElementById("receipt").getAttribute("data-accepted") === "1",
+  });
+</script>

@@ -1,0 +1,840 @@
+{
+ "experiment": "MVP-0-dom-sufficiency",
+ "runAt": "2026-09-12T15:45:58.054Z",
+ "machine": {
+  "workstation": "W2",
+  "hostname": "LAPTOP-SRCINK2B",
+  "node": "v26.4.0"
+ },
+ "authorisation": "both pages served from 127.0.0.1 by this harness; mode A is the repo's own QG-02 fixture, mode B is generated locally from fabricated strings; no external site contacted",
+ "whatThisIsNot": [
+  "NOT the PratiBimb agent loop: 9 of its 11 stages have no implementation (see AUDIT-0005).",
+  "No SANITIZE, VERIFY, REASON, PLAN, VALIDATE, REFRESH or RE-HYDRATE stage ran, because none exists.",
+  "No value was sanitised, no context was transmitted, no server was contacted, no vault was read.",
+  "'ACT from grounding' is a Playwright click/type driven by perceived coordinates. It is NOT task success in the product sense and NOT safe-task-success.",
+  "The detector is used EXPERIMENTALLY. No weight, threshold, NMS or decode change was made."
+ ],
+ "model": {
+  "modelId": "pratibimb-t1-ui-head",
+  "revision": "ba6d9e93695b",
+  "sha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+  "bytes": 302960,
+  "path": "artifacts/models/t1-ui-head/t1-ui-head.onnx",
+  "sha256Verified": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0"
+ },
+ "ort": {
+  "version": "1.29.0",
+  "backend": "wasm"
+ },
+ "operatingPoint": 0.55,
+ "shippedConstants": {
+  "score": 0.25,
+  "nmsIou": 0.5,
+  "maxDetections": 300,
+  "status": "PROVISIONAL — not derived from project evidence; tune against the QG-05 harness (element mAP@0.5, element recall) over ScreenSpot-v2 plus the 300 self-labelled screens, per the dossier's scored metric."
+ },
+ "syntheticValuesUsed": {
+  "fullName": "Asha Example",
+  "email": "asha@example.invalid",
+  "dob": "1990-01-02",
+  "phone": "9000000001",
+  "address": "12 Test Lane, Example City",
+  "pin": "4321"
+ },
+ "realDataCollected": false,
+ "realPiiCollected": false,
+ "pages": {
+  "mode-a": {
+   "url": "http://127.0.0.1:8981/mode-a",
+   "viewport": {
+    "w": 1024,
+    "h": 768
+   },
+   "dpr": 1,
+   "pngBytes": 9775,
+   "pngSha256": "d00ff0f58399e86814e07b37dba3e6cc54823eb219ac3f132b22a337fc202051",
+   "domTotalNodes": 18,
+   "domActionableCount": 5,
+   "domActionable": [
+    {
+     "tag": "input",
+     "type": "tel",
+     "role": null,
+     "name": "Phone",
+     "box": {
+      "x": 400,
+      "y": 260,
+      "w": 300,
+      "h": 32
+     }
+    },
+    {
+     "tag": "a",
+     "type": null,
+     "role": null,
+     "name": "What number should I use?",
+     "box": {
+      "x": 400,
+      "y": 310,
+      "w": 160,
+      "h": 18
+     }
+    },
+    {
+     "tag": "button",
+     "type": "button",
+     "role": null,
+     "name": "Cancel",
+     "box": {
+      "x": 620,
+      "y": 360,
+      "w": 120,
+      "h": 40
+     }
+    },
+    {
+     "tag": "button",
+     "type": "submit",
+     "role": null,
+     "name": "Submit",
+     "box": {
+      "x": 400,
+      "y": 1180,
+      "w": 120,
+      "h": 40
+     }
+    },
+    {
+     "tag": "a",
+     "type": null,
+     "role": null,
+     "name": "Privacy policy",
+     "box": {
+      "x": 400,
+      "y": 1400,
+      "w": 200,
+      "h": 18
+     }
+    }
+   ],
+   "domNamedCount": 5,
+   "domGroundedCount": 5
+  },
+  "mode-b": {
+   "url": "http://127.0.0.1:8981/mode-b",
+   "viewport": {
+    "w": 1024,
+    "h": 768
+   },
+   "dpr": 1,
+   "pngBytes": 14271,
+   "pngSha256": "78e78f59905df1032e4eb5c69146530efa5e09d6554dfd99b984c16f001f0f13",
+   "domTotalNodes": 11,
+   "domActionableCount": 0,
+   "domActionable": [],
+   "domNamedCount": 0,
+   "domGrounding": [
+    {
+     "key": "fullName",
+     "grounded": false,
+     "bestIou": 0
+    },
+    {
+     "key": "email",
+     "grounded": false,
+     "bestIou": 0
+    },
+    {
+     "key": "dob",
+     "grounded": false,
+     "bestIou": 0
+    },
+    {
+     "key": "phone",
+     "grounded": false,
+     "bestIou": 0
+    },
+    {
+     "key": "address",
+     "grounded": false,
+     "bestIou": 0
+    },
+    {
+     "key": "pin",
+     "grounded": false,
+     "bestIou": 0
+    },
+    {
+     "key": "submit",
+     "grounded": false,
+     "bestIou": 0
+    }
+   ],
+   "domGroundedCount": 0,
+   "visionCandidateCount": 46,
+   "visionGrounding": [
+    {
+     "key": "fullName",
+     "grounded": true,
+     "bestIou": 0.8566
+    },
+    {
+     "key": "email",
+     "grounded": true,
+     "bestIou": 0.7874
+    },
+    {
+     "key": "dob",
+     "grounded": true,
+     "bestIou": 0.6329
+    },
+    {
+     "key": "phone",
+     "grounded": true,
+     "bestIou": 0.6861
+    },
+    {
+     "key": "address",
+     "grounded": false,
+     "bestIou": 0.485
+    },
+    {
+     "key": "pin",
+     "grounded": false,
+     "bestIou": 0.425
+    },
+    {
+     "key": "submit",
+     "grounded": false,
+     "bestIou": 0.0665
+    }
+   ],
+   "visionGroundedCount": 4,
+   "visionCandidates": [
+    {
+     "cls": "link",
+     "score": 0.8944,
+     "box": {
+      "x": 66.6084,
+      "y": 96.027,
+      "w": 72.6155,
+      "h": 20.5477
+     }
+    },
+    {
+     "cls": "link",
+     "score": 0.8865,
+     "box": {
+      "x": 280.0887,
+      "y": 99.0261,
+      "w": 89.7958,
+      "h": 17.6312
+     }
+    },
+    {
+     "cls": "link",
+     "score": 0.8798,
+     "box": {
+      "x": 237.7804,
+      "y": 97.1277,
+      "w": 84.8029,
+      "h": 19.3439
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.8735,
+     "box": {
+      "x": 175.9467,
+      "y": 110.2,
+      "w": 276.47,
+      "h": 26.8553
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.8522,
+     "box": {
+      "x": 278.5718,
+      "y": 110.9905,
+      "w": 240.6684,
+      "h": 25.9915
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.8334,
+     "box": {
+      "x": 44.0608,
+      "y": 295.5665,
+      "w": 345.4378,
+      "h": 36.5744
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.8192,
+     "box": {
+      "x": 117.6343,
+      "y": 111.3776,
+      "w": 224.0128,
+      "h": 25.6856
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.7837,
+     "box": {
+      "x": 170.0076,
+      "y": 296.1907,
+      "w": 320.9229,
+      "h": 35.7127
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.7837,
+     "box": {
+      "x": 285.2076,
+      "y": 296.1907,
+      "w": 320.9229,
+      "h": 35.7127
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.7837,
+     "box": {
+      "x": 400.4076,
+      "y": 296.1907,
+      "w": 320.9229,
+      "h": 35.7127
+     }
+    },
+    {
+     "cls": "button",
+     "score": 0.7812,
+     "box": {
+      "x": 84.3919,
+      "y": 103.724,
+      "w": 79.7924,
+      "h": 28.516
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.776,
+     "box": {
+      "x": 368.822,
+      "y": 217.3497,
+      "w": 299.107,
+      "h": 32.511
+     }
+    },
+    {
+     "cls": "link",
+     "score": 0.7633,
+     "box": {
+      "x": 95.3073,
+      "y": 96.1823,
+      "w": 73.3471,
+      "h": 20.1077
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.7334,
+     "box": {
+      "x": 59.624,
+      "y": 217.1804,
+      "w": 317.1469,
+      "h": 34.7423
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.7226,
+     "box": {
+      "x": 0,
+      "y": 40.417,
+      "w": 179.5225,
+      "h": 28.6946
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.7226,
+     "box": {
+      "x": 7.2147,
+      "y": 40.417,
+      "w": 261.9078,
+      "h": 28.6946
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.7226,
+     "box": {
+      "x": 96.8147,
+      "y": 40.417,
+      "w": 261.9078,
+      "h": 28.6946
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.7226,
+     "box": {
+      "x": 186.4147,
+      "y": 40.417,
+      "w": 261.9078,
+      "h": 28.6946
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.7226,
+     "box": {
+      "x": 276.0147,
+      "y": 40.417,
+      "w": 261.9078,
+      "h": 28.6946
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.7226,
+     "box": {
+      "x": 365.6147,
+      "y": 40.417,
+      "w": 261.9078,
+      "h": 28.6946
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.7226,
+     "box": {
+      "x": 455.2147,
+      "y": 40.417,
+      "w": 261.9078,
+      "h": 28.6946
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.7226,
+     "box": {
+      "x": 544.8147,
+      "y": 40.417,
+      "w": 261.9078,
+      "h": 28.6946
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.7161,
+     "box": {
+      "x": 0,
+      "y": 217.059,
+      "w": 257.2084,
+      "h": 34.7615
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.6839,
+     "box": {
+      "x": 439.2902,
+      "y": 136.1553,
+      "w": 231.9239,
+      "h": 35.5457
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.6827,
+     "box": {
+      "x": 0.1,
+      "y": 377.3604,
+      "w": 286.4691,
+      "h": 36.8637
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.6778,
+     "box": {
+      "x": 0,
+      "y": 135.5631,
+      "w": 246.9537,
+      "h": 35.9844
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.6778,
+     "box": {
+      "x": 62.2943,
+      "y": 135.5631,
+      "w": 287.0594,
+      "h": 35.9844
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.6778,
+     "box": {
+      "x": 164.6943,
+      "y": 135.5631,
+      "w": 287.0594,
+      "h": 35.9844
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.6778,
+     "box": {
+      "x": 318.2943,
+      "y": 135.5631,
+      "w": 287.0594,
+      "h": 35.9844
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.6778,
+     "box": {
+      "x": 497.4943,
+      "y": 135.5631,
+      "w": 287.0594,
+      "h": 35.9844
+     }
+    },
+    {
+     "cls": "link",
+     "score": 0.6484,
+     "box": {
+      "x": 127.7117,
+      "y": 96.3105,
+      "w": 97.9483,
+      "h": 20.6807
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.6412,
+     "box": {
+      "x": 465.3338,
+      "y": 217.1383,
+      "w": 320.6058,
+      "h": 34.4555
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.6028,
+     "box": {
+      "x": 0,
+      "y": 170.5297,
+      "w": 230.9506,
+      "h": 32.3486
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.6028,
+     "box": {
+      "x": 22.1878,
+      "y": 170.5297,
+      "w": 323.9628,
+      "h": 32.3486
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.6028,
+     "box": {
+      "x": 265.3877,
+      "y": 170.5297,
+      "w": 323.9628,
+      "h": 32.3486
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.6028,
+     "box": {
+      "x": 380.5877,
+      "y": 170.5297,
+      "w": 323.9628,
+      "h": 32.3486
+     }
+    },
+    {
+     "cls": "icon",
+     "score": 0.5881,
+     "box": {
+      "x": 571.1554,
+      "y": 471.2612,
+      "w": 32.8339,
+      "h": 15.9176
+     }
+    },
+    {
+     "cls": "link",
+     "score": 0.5845,
+     "box": {
+      "x": 77.0892,
+      "y": 191.6196,
+      "w": 75.4404,
+      "h": 20.1262
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.5612,
+     "box": {
+      "x": 0,
+      "y": 296.4605,
+      "w": 272.2635,
+      "h": 32.9066
+     }
+    },
+    {
+     "cls": "link",
+     "score": 0.5593,
+     "box": {
+      "x": 332.3863,
+      "y": 98.9038,
+      "w": 53.5009,
+      "h": 16.7897
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.556,
+     "box": {
+      "x": 0,
+      "y": 330.881,
+      "w": 244.05,
+      "h": 34.4848
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.556,
+     "box": {
+      "x": 22.7583,
+      "y": 330.881,
+      "w": 349.2917,
+      "h": 34.4848
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.556,
+     "box": {
+      "x": 150.7583,
+      "y": 330.881,
+      "w": 349.2917,
+      "h": 34.4848
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.556,
+     "box": {
+      "x": 278.7583,
+      "y": 330.881,
+      "w": 349.2917,
+      "h": 34.4848
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.556,
+     "box": {
+      "x": 406.7583,
+      "y": 330.881,
+      "w": 349.2917,
+      "h": 34.4848
+     }
+    },
+    {
+     "cls": "textbox",
+     "score": 0.556,
+     "box": {
+      "x": 511.8761,
+      "y": 295.7526,
+      "w": 340.8514,
+      "h": 36.0763
+     }
+    }
+   ]
+  }
+ },
+ "act": {
+  "dom-only": {
+   "candidates": 0,
+   "attempts": [
+    {
+     "field": "fullName",
+     "acted": false,
+     "reason": "NO_CANDIDATE_AT_IOU_0.5",
+     "bestIou": 0
+    },
+    {
+     "field": "email",
+     "acted": false,
+     "reason": "NO_CANDIDATE_AT_IOU_0.5",
+     "bestIou": 0
+    },
+    {
+     "field": "dob",
+     "acted": false,
+     "reason": "NO_CANDIDATE_AT_IOU_0.5",
+     "bestIou": 0
+    },
+    {
+     "field": "phone",
+     "acted": false,
+     "reason": "NO_CANDIDATE_AT_IOU_0.5",
+     "bestIou": 0
+    },
+    {
+     "field": "address",
+     "acted": false,
+     "reason": "NO_CANDIDATE_AT_IOU_0.5",
+     "bestIou": 0
+    },
+    {
+     "field": "pin",
+     "acted": false,
+     "reason": "NO_CANDIDATE_AT_IOU_0.5",
+     "bestIou": 0
+    }
+   ],
+   "fieldsActedOn": 0,
+   "submitGroundedIou": 0,
+   "submitted": false,
+   "endState": {
+    "hidden": true,
+    "text": "",
+    "accepted": false
+   },
+   "elapsedMs": 2
+  },
+  "vision": {
+   "candidates": 46,
+   "attempts": [
+    {
+     "field": "fullName",
+     "acted": true,
+     "bestIou": 0.8566
+    },
+    {
+     "field": "email",
+     "acted": true,
+     "bestIou": 0.7874
+    },
+    {
+     "field": "dob",
+     "acted": true,
+     "bestIou": 0.6329
+    },
+    {
+     "field": "phone",
+     "acted": true,
+     "bestIou": 0.6861
+    },
+    {
+     "field": "address",
+     "acted": false,
+     "reason": "NO_CANDIDATE_AT_IOU_0.5",
+     "bestIou": 0.485
+    },
+    {
+     "field": "pin",
+     "acted": false,
+     "reason": "NO_CANDIDATE_AT_IOU_0.5",
+     "bestIou": 0.425
+    }
+   ],
+   "fieldsActedOn": 4,
+   "submitGroundedIou": 0.0665,
+   "submitted": false,
+   "endState": {
+    "hidden": true,
+    "text": "",
+    "accepted": false
+   },
+   "elapsedMs": 72
+  }
+ },
+ "modeBTruth": {
+  "fields": [
+   {
+    "key": "fullName",
+    "label": "Full name",
+    "x": 80,
+    "y": 136,
+    "w": 280,
+    "h": 34
+   },
+   {
+    "key": "email",
+    "label": "Email",
+    "x": 440,
+    "y": 136,
+    "w": 280,
+    "h": 34
+   },
+   {
+    "key": "dob",
+    "label": "Date of birth",
+    "x": 80,
+    "y": 216,
+    "w": 180,
+    "h": 34
+   },
+   {
+    "key": "phone",
+    "label": "Phone",
+    "x": 440,
+    "y": 216,
+    "w": 280,
+    "h": 34
+   },
+   {
+    "key": "address",
+    "label": "Address",
+    "x": 80,
+    "y": 296,
+    "w": 640,
+    "h": 34
+   },
+   {
+    "key": "pin",
+    "label": "PIN",
+    "x": 80,
+    "y": 376,
+    "w": 140,
+    "h": 34
+   }
+  ],
+  "submit": {
+   "key": "submit",
+   "label": "Submit",
+   "x": 580,
+   "y": 470,
+   "w": 140,
+   "h": 40
+  }
+ },
+ "detectorLatencyMs": {
+  "preprocess": 25,
+  "inference": 44,
+  "decodeAndProject": 4
+ }
+}
