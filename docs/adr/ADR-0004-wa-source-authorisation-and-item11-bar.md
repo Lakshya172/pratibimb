@@ -237,6 +237,31 @@ sealed**.
 
 ---
 
+## Update 2026-09-12 — the package now has source-level and protocol-level detail
+
+Two companion artifacts extend this ADR. Both keep every decision PENDING.
+
+- **[`artifacts/governance/D5-candidate-source-registry.md`](../../artifacts/governance/D5-candidate-source-registry.md)**
+  names **8 candidate origins** (4 government, 4 banking) so D5 becomes answerable, and records
+  `robots.txt` evidence retrieved on 2026-09-12. **Nothing there is approved.**
+
+  Three findings worth surfacing here. **`robots.txt` was readable for only 4 of 8** — the others
+  returned 403/403/418 or publish none, which is *absence of evidence, not prohibition*, though it
+  does mean a human in a browser must read those policies. **`npci.org.in` publishes a catch-all
+  `User-agent: *` / `Disallow: /`** and PratiBimb's harness is not a named agent, so it is proposed
+  **BLOCKED**. And **`sbi.co.in` and `www.icicibank.com` now 301 to `.bank.in` origins**, which
+  matters because origin is what a split's separation rule keys on.
+
+  **Terms-of-service evidence was obtained for none of the eight.** One ToS URL was attempted and
+  404'd because it had been guessed; guessing further would manufacture citations. Every ToS field
+  is UNKNOWN.
+
+- **[`artifacts/governance/D2-acceptance-gate-protocol.md`](../../artifacts/governance/D2-acceptance-gate-protocol.md)**
+  fixes the *structure* of the eventual gate and the measurements needed to calibrate it, with
+  every numeric symbol left unset. It states the prerequisite that blocks Options B and C: `δ`
+  and `S` require a **measured repeatability** of the real evaluation — the sealed corpus scored
+  **k ≥ 3 times per environment** — which does not exist and which `AUDIT-0003` cannot supply.
+
 ## Decision
 
 **PENDING — both.** No approval is recorded in this document.
