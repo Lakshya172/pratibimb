@@ -1,0 +1,759 @@
+{
+ "experiment": "W1-QG03a-C3b-letterbox-inverse-attribution",
+ "runAt": "2026-09-12T08:41:34.616Z",
+ "inference": "NONE — re-inversion of C3's retained raw outputs only",
+ "question": "does the label/raster inverse convention explain C3's degradation?",
+ "classificationRule": "design.md: ATTRIBUTED if switching to the raster inverse closes the A-versus-control gaps; NOT ATTRIBUTED if the gaps survive and the per-detection inversion delta bounds the effect; INCONCLUSIVE otherwise",
+ "heldIdentical": [
+  "retained raw outputs (digest-verified)",
+  "decodeHeadOutput + NMS (run once, shared)",
+  "detection set",
+  "score floor 0.25",
+  "operating point 0.55",
+  "capture->CSS scale",
+  "sealed datasets and DOM ground truth",
+  "frozen evaluator incl. CLIPPED"
+ ],
+ "onlyChanged": "the inverse letterbox: continuous computeLetterbox vs raster-consistent rasterLetterbox integers with per-axis scales",
+ "maxInversionDeltaCssPx": 1.997891,
+ "cells": {
+  "a1": {
+   "kind": "A",
+   "captureSize": {
+    "w": 1264,
+    "h": 800
+   },
+   "dpr": 1,
+   "cssPxPerModelPx": 1.975,
+   "inversionDeltaCssPx": {
+    "detections": 954,
+    "max": 1.048123,
+    "p50": 0.978594,
+    "p95": 1.04305
+   },
+   "clippingCeiling": {
+    "evaluatable": 398,
+    "reachable": 382,
+    "clipped": 24,
+    "offscreen": 20,
+    "ceiling": 0.9597989949748744
+   },
+   "views": {
+    "op055": {
+     "continuous": {
+      "predictions": 480,
+      "mAP50": 0.664734,
+      "elementRecall": 0.771357,
+      "groundingAccuracy": 0.639583,
+      "matched": 307,
+      "labels": 398,
+      "minMatchedIou": 0.502066,
+      "worstMatchedDispCss": 116.103496
+     },
+     "raster": {
+      "predictions": 480,
+      "mAP50": 0.676422,
+      "elementRecall": 0.78392,
+      "groundingAccuracy": 0.65,
+      "matched": 312,
+      "labels": 398,
+      "minMatchedIou": 0.502906,
+      "worstMatchedDispCss": 116.103496
+     },
+     "delta": {
+      "mAP50": 0.011688,
+      "elementRecall": 0.012563,
+      "groundingAccuracy": 0.010417,
+      "matched": 5,
+      "minMatchedIou": 0.00084
+     }
+    },
+    "shipped": {
+     "continuous": {
+      "predictions": 954,
+      "mAP50": 0.811366,
+      "elementRecall": 0.909548,
+      "groundingAccuracy": 0.379455,
+      "matched": 362,
+      "labels": 398,
+      "minMatchedIou": 0.502066,
+      "worstMatchedDispCss": 106.581737
+     },
+     "raster": {
+      "predictions": 954,
+      "mAP50": 0.821962,
+      "elementRecall": 0.917085,
+      "groundingAccuracy": 0.3826,
+      "matched": 365,
+      "labels": 398,
+      "minMatchedIou": 0.502906,
+      "worstMatchedDispCss": 106.581737
+     },
+     "delta": {
+      "mAP50": 0.010596,
+      "elementRecall": 0.007537,
+      "groundingAccuracy": 0.003145,
+      "matched": 3,
+      "minMatchedIou": 0.00084
+     }
+    }
+   },
+   "rasterTransform": {
+    "scale": 0.5063291139240507,
+    "resizedW": 640,
+    "resizedH": 405,
+    "padLeft": 0,
+    "padTop": 117,
+    "scaleX": 1.975,
+    "scaleY": 1.975309
+   }
+  },
+  "a2": {
+   "kind": "A",
+   "captureSize": {
+    "w": 2880,
+    "h": 1443
+   },
+   "dpr": 1.5,
+   "cssPxPerModelPx": 3,
+   "inversionDeltaCssPx": {
+    "detections": 904,
+    "max": 1.997891,
+    "p50": 1.647162,
+    "p95": 1.897049
+   },
+   "clippingCeiling": {
+    "evaluatable": 398,
+    "reachable": 383,
+    "clipped": 20,
+    "offscreen": 20,
+    "ceiling": 0.9623115577889447
+   },
+   "views": {
+    "op055": {
+     "continuous": {
+      "predictions": 245,
+      "mAP50": 0.060771,
+      "elementRecall": 0.153266,
+      "groundingAccuracy": 0.24898,
+      "matched": 61,
+      "labels": 398,
+      "minMatchedIou": 0.503147,
+      "worstMatchedDispCss": 183.261383
+     },
+     "raster": {
+      "predictions": 245,
+      "mAP50": 0.061918,
+      "elementRecall": 0.158291,
+      "groundingAccuracy": 0.257143,
+      "matched": 63,
+      "labels": 398,
+      "minMatchedIou": 0.507028,
+      "worstMatchedDispCss": 183.261383
+     },
+     "delta": {
+      "mAP50": 0.001147,
+      "elementRecall": 0.005025,
+      "groundingAccuracy": 0.008163,
+      "matched": 2,
+      "minMatchedIou": 0.003881
+     }
+    },
+    "shipped": {
+     "continuous": {
+      "predictions": 904,
+      "mAP50": 0.099053,
+      "elementRecall": 0.331658,
+      "groundingAccuracy": 0.146018,
+      "matched": 132,
+      "labels": 398,
+      "minMatchedIou": 0.501353,
+      "worstMatchedDispCss": 183.261383
+     },
+     "raster": {
+      "predictions": 904,
+      "mAP50": 0.10064,
+      "elementRecall": 0.336683,
+      "groundingAccuracy": 0.14823,
+      "matched": 134,
+      "labels": 398,
+      "minMatchedIou": 0.501874,
+      "worstMatchedDispCss": 183.261383
+     },
+     "delta": {
+      "mAP50": 0.001587,
+      "elementRecall": 0.005025,
+      "groundingAccuracy": 0.002212,
+      "matched": 2,
+      "minMatchedIou": 0.000521
+     }
+    }
+   },
+   "rasterTransform": {
+    "scale": 0.2222222222222222,
+    "resizedW": 640,
+    "resizedH": 321,
+    "padLeft": 0,
+    "padTop": 159,
+    "scaleX": 4.5,
+    "scaleY": 4.495327
+   }
+  },
+  "a3": {
+   "kind": "A",
+   "captureSize": {
+    "w": 1920,
+    "h": 1080
+   },
+   "dpr": 1,
+   "cssPxPerModelPx": 3,
+   "inversionDeltaCssPx": {
+    "detections": 950,
+    "max": 0,
+    "p50": 0,
+    "p95": 0
+   },
+   "clippingCeiling": {
+    "evaluatable": 398,
+    "reachable": 383,
+    "clipped": 20,
+    "offscreen": 20,
+    "ceiling": 0.9623115577889447
+   },
+   "views": {
+    "op055": {
+     "continuous": {
+      "predictions": 297,
+      "mAP50": 0.061703,
+      "elementRecall": 0.193467,
+      "groundingAccuracy": 0.259259,
+      "matched": 77,
+      "labels": 398,
+      "minMatchedIou": 0.502346,
+      "worstMatchedDispCss": 196.777313
+     },
+     "raster": {
+      "predictions": 297,
+      "mAP50": 0.061703,
+      "elementRecall": 0.193467,
+      "groundingAccuracy": 0.259259,
+      "matched": 77,
+      "labels": 398,
+      "minMatchedIou": 0.502346,
+      "worstMatchedDispCss": 196.777313
+     },
+     "delta": {
+      "mAP50": 0,
+      "elementRecall": 0,
+      "groundingAccuracy": 0,
+      "matched": 0,
+      "minMatchedIou": 0
+     }
+    },
+    "shipped": {
+     "continuous": {
+      "predictions": 950,
+      "mAP50": 0.107684,
+      "elementRecall": 0.374372,
+      "groundingAccuracy": 0.156842,
+      "matched": 149,
+      "labels": 398,
+      "minMatchedIou": 0.500879,
+      "worstMatchedDispCss": 171.051865
+     },
+     "raster": {
+      "predictions": 950,
+      "mAP50": 0.107684,
+      "elementRecall": 0.374372,
+      "groundingAccuracy": 0.156842,
+      "matched": 149,
+      "labels": 398,
+      "minMatchedIou": 0.500879,
+      "worstMatchedDispCss": 171.051865
+     },
+     "delta": {
+      "mAP50": 0,
+      "elementRecall": 0,
+      "groundingAccuracy": 0,
+      "matched": 0,
+      "minMatchedIou": 0
+     }
+    }
+   },
+   "rasterTransform": {
+    "scale": 0.3333333333333333,
+    "resizedW": 640,
+    "resizedH": 360,
+    "padLeft": 0,
+    "padTop": 140,
+    "scaleX": 3,
+    "scaleY": 3
+   }
+  },
+  "a4": {
+   "kind": "A",
+   "captureSize": {
+    "w": 2560,
+    "h": 1600
+   },
+   "dpr": 1,
+   "cssPxPerModelPx": 4,
+   "inversionDeltaCssPx": {
+    "detections": 655,
+    "max": 0,
+    "p50": 0,
+    "p95": 0
+   },
+   "clippingCeiling": {
+    "evaluatable": 398,
+    "reachable": 383,
+    "clipped": 20,
+    "offscreen": 20,
+    "ceiling": 0.9623115577889447
+   },
+   "views": {
+    "op055": {
+     "continuous": {
+      "predictions": 129,
+      "mAP50": 0.003984,
+      "elementRecall": 0.01005,
+      "groundingAccuracy": 0.031008,
+      "matched": 4,
+      "labels": 398,
+      "minMatchedIou": 0.582291,
+      "worstMatchedDispCss": 47.266525
+     },
+     "raster": {
+      "predictions": 129,
+      "mAP50": 0.003984,
+      "elementRecall": 0.01005,
+      "groundingAccuracy": 0.031008,
+      "matched": 4,
+      "labels": 398,
+      "minMatchedIou": 0.582291,
+      "worstMatchedDispCss": 47.266525
+     },
+     "delta": {
+      "mAP50": 0,
+      "elementRecall": 0,
+      "groundingAccuracy": 0,
+      "matched": 0,
+      "minMatchedIou": 0
+     }
+    },
+    "shipped": {
+     "continuous": {
+      "predictions": 655,
+      "mAP50": 0.011419,
+      "elementRecall": 0.052764,
+      "groundingAccuracy": 0.032061,
+      "matched": 21,
+      "labels": 398,
+      "minMatchedIou": 0.500501,
+      "worstMatchedDispCss": 52.884277
+     },
+     "raster": {
+      "predictions": 655,
+      "mAP50": 0.011419,
+      "elementRecall": 0.052764,
+      "groundingAccuracy": 0.032061,
+      "matched": 21,
+      "labels": 398,
+      "minMatchedIou": 0.500501,
+      "worstMatchedDispCss": 52.884277
+     },
+     "delta": {
+      "mAP50": 0,
+      "elementRecall": 0,
+      "groundingAccuracy": 0,
+      "matched": 0,
+      "minMatchedIou": 0
+     }
+    }
+   },
+   "rasterTransform": {
+    "scale": 0.25,
+    "resizedW": 640,
+    "resizedH": 400,
+    "padLeft": 0,
+    "padTop": 120,
+    "scaleX": 4,
+    "scaleY": 4
+   }
+  },
+  "b1": {
+   "kind": "B",
+   "captureSize": {
+    "w": 960,
+    "h": 640
+   },
+   "dpr": 1,
+   "cssPxPerModelPx": 1.5,
+   "inversionDeltaCssPx": {
+    "detections": 1110,
+    "max": 0.999113,
+    "p50": 0.740076,
+    "p95": 0.943557
+   },
+   "clippingCeiling": {
+    "evaluatable": 338,
+    "reachable": 313,
+    "clipped": 36,
+    "offscreen": 68,
+    "ceiling": 0.9260355029585798
+   },
+   "views": {
+    "op055": {
+     "continuous": {
+      "predictions": 523,
+      "mAP50": 0.599306,
+      "elementRecall": 0.763314,
+      "groundingAccuracy": 0.493308,
+      "matched": 258,
+      "labels": 338,
+      "minMatchedIou": 0.512127,
+      "worstMatchedDispCss": 144.042923
+     },
+     "raster": {
+      "predictions": 523,
+      "mAP50": 0.599056,
+      "elementRecall": 0.763314,
+      "groundingAccuracy": 0.493308,
+      "matched": 258,
+      "labels": 338,
+      "minMatchedIou": 0.531238,
+      "worstMatchedDispCss": 144.042923
+     },
+     "delta": {
+      "mAP50": -0.00025,
+      "elementRecall": 0,
+      "groundingAccuracy": 0,
+      "matched": 0,
+      "minMatchedIou": 0.019111
+     }
+    },
+    "shipped": {
+     "continuous": {
+      "predictions": 1110,
+      "mAP50": 0.769056,
+      "elementRecall": 0.884615,
+      "groundingAccuracy": 0.269369,
+      "matched": 299,
+      "labels": 338,
+      "minMatchedIou": 0.512127,
+      "worstMatchedDispCss": 144.042923
+     },
+     "raster": {
+      "predictions": 1110,
+      "mAP50": 0.770444,
+      "elementRecall": 0.887574,
+      "groundingAccuracy": 0.27027,
+      "matched": 300,
+      "labels": 338,
+      "minMatchedIou": 0.505264,
+      "worstMatchedDispCss": 144.042923
+     },
+     "delta": {
+      "mAP50": 0.001388,
+      "elementRecall": 0.002959,
+      "groundingAccuracy": 0.000901,
+      "matched": 1,
+      "minMatchedIou": -0.006863
+     }
+    }
+   },
+   "rasterTransform": {
+    "scale": 0.6666666666666666,
+    "resizedW": 640,
+    "resizedH": 427,
+    "padLeft": 0,
+    "padTop": 106,
+    "scaleX": 1.5,
+    "scaleY": 1.498829
+   }
+  },
+  "b2": {
+   "kind": "B",
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "cssPxPerModelPx": 1.6,
+   "inversionDeltaCssPx": {
+    "detections": 937,
+    "max": 0,
+    "p50": 0,
+    "p95": 0
+   },
+   "clippingCeiling": {
+    "evaluatable": 340,
+    "reachable": 316,
+    "clipped": 36,
+    "offscreen": 68,
+    "ceiling": 0.9294117647058824
+   },
+   "views": {
+    "op055": {
+     "continuous": {
+      "predictions": 473,
+      "mAP50": 0.660979,
+      "elementRecall": 0.785294,
+      "groundingAccuracy": 0.564482,
+      "matched": 267,
+      "labels": 340,
+      "minMatchedIou": 0.500783,
+      "worstMatchedDispCss": 133.519873
+     },
+     "raster": {
+      "predictions": 473,
+      "mAP50": 0.660979,
+      "elementRecall": 0.785294,
+      "groundingAccuracy": 0.564482,
+      "matched": 267,
+      "labels": 340,
+      "minMatchedIou": 0.500783,
+      "worstMatchedDispCss": 133.519873
+     },
+     "delta": {
+      "mAP50": 0,
+      "elementRecall": 0,
+      "groundingAccuracy": 0,
+      "matched": 0,
+      "minMatchedIou": 0
+     }
+    },
+    "shipped": {
+     "continuous": {
+      "predictions": 937,
+      "mAP50": 0.829723,
+      "elementRecall": 0.894118,
+      "groundingAccuracy": 0.32444,
+      "matched": 304,
+      "labels": 340,
+      "minMatchedIou": 0.500783,
+      "worstMatchedDispCss": 133.519873
+     },
+     "raster": {
+      "predictions": 937,
+      "mAP50": 0.829723,
+      "elementRecall": 0.894118,
+      "groundingAccuracy": 0.32444,
+      "matched": 304,
+      "labels": 340,
+      "minMatchedIou": 0.500783,
+      "worstMatchedDispCss": 133.519873
+     },
+     "delta": {
+      "mAP50": 0,
+      "elementRecall": 0,
+      "groundingAccuracy": 0,
+      "matched": 0,
+      "minMatchedIou": 0
+     }
+    }
+   },
+   "rasterTransform": {
+    "scale": 0.625,
+    "resizedW": 640,
+    "resizedH": 400,
+    "padLeft": 0,
+    "padTop": 120,
+    "scaleX": 1.6,
+    "scaleY": 1.6
+   }
+  }
+ },
+ "attribution": {
+  "op055": {
+   "controlBandContinuous": {
+    "mAP50": 0.599306,
+    "recallCeilingRelative": 0.8242815718849841,
+    "groundingAccuracy": 0.493308
+   },
+   "controlBandRaster": {
+    "mAP50": 0.599056,
+    "recallCeilingRelative": 0.8242815718849841,
+    "groundingAccuracy": 0.493308
+   },
+   "cells": {
+    "a1": {
+     "gapUnderContinuous": {
+      "mAP50": 0.065428,
+      "recallCeilingRelative": -0.020616,
+      "groundingAccuracy": 0.146275
+     },
+     "gapUnderRaster": {
+      "mAP50": 0.077366,
+      "recallCeilingRelative": -0.007527,
+      "groundingAccuracy": 0.156692
+     },
+     "belowControlsBefore": true,
+     "belowControlsAfter": true,
+     "gapClosed": false
+    },
+    "a2": {
+     "gapUnderContinuous": {
+      "mAP50": -0.538535,
+      "recallCeilingRelative": -0.665013,
+      "groundingAccuracy": -0.244328
+     },
+     "gapUnderRaster": {
+      "mAP50": -0.537138,
+      "recallCeilingRelative": -0.659791,
+      "groundingAccuracy": -0.236165
+     },
+     "belowControlsBefore": true,
+     "belowControlsAfter": true,
+     "gapClosed": false
+    },
+    "a3": {
+     "gapUnderContinuous": {
+      "mAP50": -0.537603,
+      "recallCeilingRelative": -0.623238,
+      "groundingAccuracy": -0.234049
+     },
+     "gapUnderRaster": {
+      "mAP50": -0.537353,
+      "recallCeilingRelative": -0.623238,
+      "groundingAccuracy": -0.234049
+     },
+     "belowControlsBefore": true,
+     "belowControlsAfter": true,
+     "gapClosed": false
+    },
+    "a4": {
+     "gapUnderContinuous": {
+      "mAP50": -0.595322,
+      "recallCeilingRelative": -0.813838,
+      "groundingAccuracy": -0.4623
+     },
+     "gapUnderRaster": {
+      "mAP50": -0.595072,
+      "recallCeilingRelative": -0.813838,
+      "groundingAccuracy": -0.4623
+     },
+     "belowControlsBefore": true,
+     "belowControlsAfter": true,
+     "gapClosed": false
+    }
+   }
+  },
+  "shipped": {
+   "controlBandContinuous": {
+    "mAP50": 0.769056,
+    "recallCeilingRelative": 0.9552711501597445,
+    "groundingAccuracy": 0.269369
+   },
+   "controlBandRaster": {
+    "mAP50": 0.770444,
+    "recallCeilingRelative": 0.9584664920127796,
+    "groundingAccuracy": 0.27027
+   },
+   "cells": {
+    "a1": {
+     "gapUnderContinuous": {
+      "mAP50": 0.04231,
+      "recallCeilingRelative": -0.007627,
+      "groundingAccuracy": 0.110086
+     },
+     "gapUnderRaster": {
+      "mAP50": 0.051518,
+      "recallCeilingRelative": -0.00297,
+      "groundingAccuracy": 0.11233
+     },
+     "belowControlsBefore": true,
+     "belowControlsAfter": true,
+     "gapClosed": false
+    },
+    "a2": {
+     "gapUnderContinuous": {
+      "mAP50": -0.670003,
+      "recallCeilingRelative": -0.610624,
+      "groundingAccuracy": -0.123351
+     },
+     "gapUnderRaster": {
+      "mAP50": -0.669804,
+      "recallCeilingRelative": -0.608597,
+      "groundingAccuracy": -0.12204
+     },
+     "belowControlsBefore": true,
+     "belowControlsAfter": true,
+     "gapClosed": false
+    },
+    "a3": {
+     "gapUnderContinuous": {
+      "mAP50": -0.661372,
+      "recallCeilingRelative": -0.566237,
+      "groundingAccuracy": -0.112527
+     },
+     "gapUnderRaster": {
+      "mAP50": -0.66276,
+      "recallCeilingRelative": -0.569432,
+      "groundingAccuracy": -0.113428
+     },
+     "belowControlsBefore": true,
+     "belowControlsAfter": true,
+     "gapClosed": false
+    },
+    "a4": {
+     "gapUnderContinuous": {
+      "mAP50": -0.757637,
+      "recallCeilingRelative": -0.900441,
+      "groundingAccuracy": -0.237308
+     },
+     "gapUnderRaster": {
+      "mAP50": -0.759025,
+      "recallCeilingRelative": -0.903636,
+      "groundingAccuracy": -0.238209
+     },
+     "belowControlsBefore": true,
+     "belowControlsAfter": true,
+     "gapClosed": false
+    }
+   }
+  }
+ },
+ "scalePattern": [
+  {
+   "cell": "b1",
+   "cssPxPerModelPx": 1.5,
+   "mAP50continuous": 0.599306,
+   "mAP50raster": 0.599056
+  },
+  {
+   "cell": "b2",
+   "cssPxPerModelPx": 1.6,
+   "mAP50continuous": 0.660979,
+   "mAP50raster": 0.660979
+  },
+  {
+   "cell": "a1",
+   "cssPxPerModelPx": 1.975,
+   "mAP50continuous": 0.664734,
+   "mAP50raster": 0.676422
+  },
+  {
+   "cell": "a2",
+   "cssPxPerModelPx": 3,
+   "mAP50continuous": 0.060771,
+   "mAP50raster": 0.061918
+  },
+  {
+   "cell": "a3",
+   "cssPxPerModelPx": 3,
+   "mAP50continuous": 0.061703,
+   "mAP50raster": 0.061703
+  },
+  {
+   "cell": "a4",
+   "cssPxPerModelPx": 4,
+   "mAP50continuous": 0.003984,
+   "mAP50raster": 0.003984
+  }
+ ],
+ "verdict": "NOT ATTRIBUTED TO LETTERBOX CONVENTION",
+ "closesQg03aC": false,
+ "retrainingJustified": false,
+ "note": "C3b attributes a cause; it cannot produce a C3 PASS and does not restate C3's criterion. QG-03a-C stays CONDITIONAL."
+}

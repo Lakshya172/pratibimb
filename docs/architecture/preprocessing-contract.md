@@ -205,6 +205,26 @@ which, after this work, it does. So this is not currently producing wrong coordi
 It is still a defect, because it makes the model's behaviour depend on a coincidence rather
 than on a contract.
 
+**Measured 2026-09-12 (QG-03a-C3 / C3b) — the convention is NOT producing wrong coordinates,
+and it is NOT the cause of the off-grid degradation C3 found.** C3 scored the real artifact at
+four capture sizes off the training grid and two on it; C3b then took C3's **retained raw
+outputs** and re-projected them with the **raster** inverse this section prescribes instead of
+the continuous one, changing that single operation and holding everything else byte-identical.
+The inversion difference is bounded at **1.998 CSS px** across 120 samples and is **exactly
+zero** at 1920x1080 and 2560x1600, where the capture scales to integer content and the two
+letterboxes are the same transform — yet those are the two most degraded cells. Where the
+conventions differ most, switching moves mAP@0.5 by **+0.0011** against a -0.54 gap.
+
+Three things follow, and no more than three. **One:** the end-to-end cancellation asserted above
+is now measured on the shipped path at off-grid geometry, not just argued. **Two:** the cause of
+the off-grid degradation is **object scale** (the detector falls off beyond roughly 2 CSS px per
+model px), which is a detector-capability question tracked under adoption item 11, **not a
+preprocessing-contract question**. **Three:** none of this changes the defect's status or its
+fix. It is **still a defect**, the change written below is **still the change**, it is **still not
+worth a retrain on its own**, and it is **NOT fixed** — describing it as fixed would be wrong.
+Evidence: `artifacts/experiments/W1-QG03a-C3-label-raster-generalisation/` and
+`artifacts/experiments/W1-QG03a-C3b-letterbox-inverse-attribution/`.
+
 **The exact change required, for the next task:**
 
 ```python

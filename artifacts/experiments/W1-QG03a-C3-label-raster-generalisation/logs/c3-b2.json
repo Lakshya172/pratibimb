@@ -1,0 +1,732 @@
+{
+ "experiment": "W1-QG03a-C3-label-raster-generalisation",
+ "cell": "b2",
+ "kind": "B",
+ "note": "control: zero-offset training geometry",
+ "trainingGeometry": true,
+ "runAt": "2026-09-12T06:27:45.114Z",
+ "machine": {
+  "hostname": "LAPTOP-SRCINK2B",
+  "node": "v26.4.0"
+ },
+ "dataset": {
+  "name": "t1-ui-c3-b2",
+  "version": "1.0.0",
+  "hash": "6d452206",
+  "samples": 20,
+  "placeholdersNeverEvaluated": 2
+ },
+ "viewport": {
+  "w": 1024,
+  "h": 640
+ },
+ "dpr": 1,
+ "captureSize": {
+  "w": 1024,
+  "h": 640
+ },
+ "cssScale": 1,
+ "letterbox": {
+  "scale": 0.625,
+  "padX": 0,
+  "padY": 120
+ },
+ "model": {
+  "path": "artifacts/models/t1-ui-head/t1-ui-head.onnx",
+  "bytes": 302960,
+  "sha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+  "modelId": "pratibimb-t1-ui-head",
+  "revision": "ba6d9e93695b"
+ },
+ "runtime": {
+  "ortVersions": {
+   "common": "1.29.0",
+   "web": "1.29.0"
+  },
+  "executionProvider": "wasm",
+  "numThreads": 1,
+  "sessionCreateMs": 158
+ },
+ "shippedConstants": {
+  "score": 0.25,
+  "iou": null,
+  "maxDetections": 300
+ },
+ "operatingPoint": 0.55,
+ "decoder": "Pillow 12.3.0",
+ "clippingCeiling": {
+  "evaluatable": 340,
+  "reachable": 316,
+  "clipped": 36,
+  "offscreen": 68,
+  "ceiling": 0.9294117647058824
+ },
+ "views": {
+  "op055": {
+   "predictions": 473,
+   "mAP50": 0.660979,
+   "elementRecall": 0.785294,
+   "groundingAccuracy": 0.564482,
+   "minMatchedIou": 0.500783,
+   "worstMatchedDispCss": 133.519873,
+   "matched": 267,
+   "labels": 340,
+   "smallestMatchedLabelPx": 14,
+   "rejections": null
+  },
+  "shipped": {
+   "predictions": 937,
+   "mAP50": 0.829723,
+   "elementRecall": 0.894118,
+   "groundingAccuracy": 0.32444,
+   "minMatchedIou": 0.500783,
+   "worstMatchedDispCss": 133.519873,
+   "matched": 304,
+   "labels": 340,
+   "smallestMatchedLabelPx": 13,
+   "rejections": null
+  }
+ },
+ "rows": [
+  {
+   "id": "c3-b2-0000",
+   "seed": 20260912,
+   "specSha256": "9dfa1fe25ddc6e8db94b9d13f0a25990ba67fd15bd76352e93f2a57d49337485",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "3a8b344098bbb323dcc124893e8c23a6ff65052ffacec813cdbc276d8ff5ee34",
+   "rgbaSha256": "911b8a8bee7be053feda108fa434bab70da7632903ed3925979d1fbc93e060a4",
+   "tensorSha256": "262bc9a30494a1de90af2403a76e414b3dbbe437ba46ddac47915d6f32d51126",
+   "outputSha256": "040dabe1eb46f720e4e42ed4b80420a25b5a0bad454451234127f67d593b92d0",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 15,
+   "clipped": 1,
+   "offscreen": 1,
+   "decoded": 43,
+   "atOperatingPoint": 20,
+   "preprocessMs": 14,
+   "inferMs": 29,
+   "decodeNmsMs": 0
+  },
+  {
+   "id": "c3-b2-0001",
+   "seed": 20260913,
+   "specSha256": "9e74aeb2eab43958dc60fc929b49e9d35b855da93598b90582b196c4ebcadb13",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "5227d9655b62f3153b4b3a7e201478713b39cff85416591fb8ea56372fc7c990",
+   "rgbaSha256": "39f7c78ee39b1d8d141fb89d692e76c7e7c769bd32bdc90226db065c5208ef44",
+   "tensorSha256": "d8a57096319dff4ec8b8f53f12d956ba9f02c726c1965e0de5d7fc638103f59c",
+   "outputSha256": "ce044f10eddfb3d75c1fd5026737b2a85ba7ceb0239f21866a9d2e29ae8c6dd3",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 15,
+   "clipped": 1,
+   "offscreen": 1,
+   "decoded": 45,
+   "atOperatingPoint": 19,
+   "preprocessMs": 13,
+   "inferMs": 30,
+   "decodeNmsMs": 0
+  },
+  {
+   "id": "c3-b2-0002",
+   "seed": 20260914,
+   "specSha256": "cc6b7df4dadc7b81f06efdbf4ea3b0ae754a97b89d3cfefa31773f4b3a5605a1",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "2c6d098fc8ac63226fc47f225b041d6c26d06771d56600a5da430bf323270630",
+   "rgbaSha256": "15d9ae0c1285c2c1b0ed755a63d9ebecf730fff004356482eb4a5759e33f0378",
+   "tensorSha256": "4a5a563e066452007af3cc08cfb8f62372905be7d9ade89b00e65296d9a77ee7",
+   "outputSha256": "d565baf02f8a3831d733ab0ae0f025fa60bf33cd56c229c1e742d452f3b9f77f",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 15,
+   "clipped": 1,
+   "offscreen": 1,
+   "decoded": 39,
+   "atOperatingPoint": 21,
+   "preprocessMs": 14,
+   "inferMs": 32,
+   "decodeNmsMs": 2
+  },
+  {
+   "id": "c3-b2-0003",
+   "seed": 20260915,
+   "specSha256": "898cc0b3f04383301f8a8ad131dba39f8fbe6b6d2bdcb9fdd3b0998d8ee3538e",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "1efd8e4a06deb0e8002b064cb01f1c36e992204a46ad2edb3d93547cf92d4e47",
+   "rgbaSha256": "d50497d280d304f304578e7ada1a8b6e1867aaf66df6661891ffe3bd3c0691be",
+   "tensorSha256": "e162278853a209c819487428d8fb82cdbbe610bc77a64cd71706ed8e4b8b81b3",
+   "outputSha256": "a288ebb015d2e001572a531e9497b9fd2b51ca567f01760768eef9e5321cc3d4",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 15,
+   "clipped": 1,
+   "offscreen": 1,
+   "decoded": 33,
+   "atOperatingPoint": 17,
+   "preprocessMs": 16,
+   "inferMs": 30,
+   "decodeNmsMs": 0
+  },
+  {
+   "id": "c3-b2-0004",
+   "seed": 20260916,
+   "specSha256": "ead4456ef28d716be1a17bf34ef0ec69bb20442204962491180a532a08d1674f",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "1a7b4d7f5e7061ea584b3e2a29545f96276fb32fd11dc30113540fff974cf25e",
+   "rgbaSha256": "46093b3bceccecd4e6aa0a0154b93a75e8bcf24ad0207baae3723dcf04185224",
+   "tensorSha256": "54e14123ae3fe79247bbf5c584c5d97cf4537cd79140764694f48ed89a32e459",
+   "outputSha256": "4bc81d2de7f6ec019f4d5b85356d8b70734d2b33840c30074dd015084a329f16",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 22,
+   "clipped": 1,
+   "offscreen": 1,
+   "decoded": 62,
+   "atOperatingPoint": 27,
+   "preprocessMs": 12,
+   "inferMs": 29,
+   "decodeNmsMs": 0
+  },
+  {
+   "id": "c3-b2-0005",
+   "seed": 20260917,
+   "specSha256": "522f8dab6184c2940a42a6256e631f114c3d9ae137992b7cf034efa483d0db0d",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "261da07fb9de0f8d3293d9d7d094c03dc427472305d6b634f4b73a17016681df",
+   "rgbaSha256": "1e72a5949c2620315fdb13d569f12386a8341362e5738722f1884f4663bf675c",
+   "tensorSha256": "94bf8dc61f3218336da1169485ba095c21a85c579ff0c53b3eff6fc7d1ba980a",
+   "outputSha256": "f98bea155799a6c7ee26584eda0a6ce511f16ae8260397642dc87f2c56cee801",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 15,
+   "clipped": 1,
+   "offscreen": 1,
+   "decoded": 38,
+   "atOperatingPoint": 18,
+   "preprocessMs": 16,
+   "inferMs": 32,
+   "decodeNmsMs": 1
+  },
+  {
+   "id": "c3-b2-0006",
+   "seed": 20260918,
+   "specSha256": "9ee5a53510c4993c7f3512456e4996b9e589365f5abc0af599e3f159dfefb1ef",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "5ecf9fdd94cd892076fd9df8896b2012afcf6e54ee83e13011c2a320fdf7b8d7",
+   "rgbaSha256": "28fda7181189d6dffa6f89d65d0292e541a53423ca5fbf219d781e7bca094aff",
+   "tensorSha256": "e570378a835d6188d363b67a4d61fa7646e2fd23255f532db1304f31a6bac8a0",
+   "outputSha256": "af4757c18d2eccb76e0f82495d5d6017a86edcc647c6f3f3e69bcde8eb86ffe1",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 26,
+   "clipped": 4,
+   "offscreen": 7,
+   "decoded": 51,
+   "atOperatingPoint": 28,
+   "preprocessMs": 14,
+   "inferMs": 31,
+   "decodeNmsMs": 2
+  },
+  {
+   "id": "c3-b2-0007",
+   "seed": 20260919,
+   "specSha256": "960eefc7b897b6dba50f1a1213a6bbc8533b34b8a7d32783a14d2222d0739c92",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "a21023b9a808902df42f5a167807c1a7d448d90b02ba880f5b3046fc27f16ac7",
+   "rgbaSha256": "6d3d57e70d17f09df90b5f92883113e83181153ddbddbc3d708a20990feedff9",
+   "tensorSha256": "1468b9f535c0e97256353966c625b21c80a9dfb723b0d40e91ada9b9afa7ddd2",
+   "outputSha256": "5fd4138941f7ef806a6540ae94d155d801716bcc37255286bb3fa02f62c1eb5c",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 15,
+   "clipped": 1,
+   "offscreen": 1,
+   "decoded": 35,
+   "atOperatingPoint": 19,
+   "preprocessMs": 12,
+   "inferMs": 29,
+   "decodeNmsMs": 0
+  },
+  {
+   "id": "c3-b2-0008",
+   "seed": 20260920,
+   "specSha256": "9ca148f8c0d66c6492d81e115b26908ffa98eeea9d8ef740fd4ca0ab910ef01d",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "4f6fd26ec8fe521f9b1d735c3db20961e4b943b0d264dbb34f9a3122f6619cbd",
+   "rgbaSha256": "57de7da7e76486f9267d2e375ec0a2259f7966e7dc77c0cf1327d2562e21cc48",
+   "tensorSha256": "1f122173bd00557570dd097f2b4712af9386b86cef7e8dd1ec5128750f5cfccc",
+   "outputSha256": "522f95bbd65c5acbb72a9d19ab96401224e5e8c07834e8c2e0f1ea933f25da73",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 15,
+   "clipped": 1,
+   "offscreen": 1,
+   "decoded": 36,
+   "atOperatingPoint": 16,
+   "preprocessMs": 12,
+   "inferMs": 31,
+   "decodeNmsMs": 0
+  },
+  {
+   "id": "c3-b2-0009",
+   "seed": 20260921,
+   "specSha256": "8a5ee5dd4c6b4e0110e6e4594437c6e82fd7ab49234d3b32516dd8f2127e3270",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "94d2d3d752ae4320928e1af9f5fd9d5864d264e8307bcf1c3487f7403b203c87",
+   "rgbaSha256": "8b03e99c59a410ab2b65805ee8a6759876f209f6e95e32258f293d79d166d235",
+   "tensorSha256": "e7a83bf2744201022a7d9eb893991664b03aaf339c4276db044cc4c5c9229921",
+   "outputSha256": "2a7b1c932fdedcf61eb127b799bc3e48efb4165ccf3081110cc6870487d3f98b",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 22,
+   "clipped": 2,
+   "offscreen": 1,
+   "decoded": 76,
+   "atOperatingPoint": 32,
+   "preprocessMs": 13,
+   "inferMs": 30,
+   "decodeNmsMs": 0
+  },
+  {
+   "id": "c3-b2-0010",
+   "seed": 20260922,
+   "specSha256": "e0bd65631f0b893e1208c9f51f99da1570ea2fccfcc6fef391d50b9d08513d76",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "90afa9af609c0450ded08cf5a326865c3788ad08b18713765b95aff9ae8131b0",
+   "rgbaSha256": "ddf4d6987e70ac6d49617a40adf594118e34a80c7ecad0589ae69664f15125c8",
+   "tensorSha256": "bea0f581c652f29c247bd17880630ca2e5a191a6cca178ace7b50200ee29e51e",
+   "outputSha256": "0ce55b2d268942271b1b147958aec1538dc8ef694f07a180e2c0fb4c38d20232",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 28,
+   "clipped": 4,
+   "offscreen": 7,
+   "decoded": 54,
+   "atOperatingPoint": 28,
+   "preprocessMs": 12,
+   "inferMs": 29,
+   "decodeNmsMs": 0
+  },
+  {
+   "id": "c3-b2-0011",
+   "seed": 20260923,
+   "specSha256": "71d037c121a3d831c69ef58a6b6f36b6efabf2315819e92d3382b102ab13cab6",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "b8404d1a8e1bfb93570d3c688e88d1a2205337b984329204009b1d758d00e1d6",
+   "rgbaSha256": "7b64f9b512c8d382e1d82b0185e1ded23f18bf7d3cd5fdcdae44d46ef4a37754",
+   "tensorSha256": "a7ca36d9fa7aff94873c3c92121233ecaf2b29f24524ed96a591fa9609c98935",
+   "outputSha256": "d2f388354001fc281970dab83cb254c457174e6f0338de22ef272009070dca42",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 26,
+   "clipped": 4,
+   "offscreen": 7,
+   "decoded": 49,
+   "atOperatingPoint": 27,
+   "preprocessMs": 13,
+   "inferMs": 31,
+   "decodeNmsMs": 1
+  },
+  {
+   "id": "c3-b2-0012",
+   "seed": 20260924,
+   "specSha256": "cf387589cc8dc03489e500fa51d3014f97a30d54b2555481e69df3bbc350a850",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "b01a12361262cc13fdc121ba9da5d78a83993a6fd02c73536a8e69b6162a493b",
+   "rgbaSha256": "bdde8fce357e356d274c06aa354ffe7dab2a333194d8e65a12660d097a194081",
+   "tensorSha256": "4c392615d7aafe99b363a64112e1b3872ea6d0f83f429699cca0881621ac1dbe",
+   "outputSha256": "b8b953a58ec36b247e671d83ea7ac1d4a829e838b9a73c0e14c6c21fbc0caff7",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 26,
+   "clipped": 4,
+   "offscreen": 7,
+   "decoded": 54,
+   "atOperatingPoint": 24,
+   "preprocessMs": 13,
+   "inferMs": 29,
+   "decodeNmsMs": 0
+  },
+  {
+   "id": "c3-b2-0013",
+   "seed": 20260925,
+   "specSha256": "9e806c491a60237071f1a5ea8cd3fd79d9e526e0b884a18968eb9e03ed23114e",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "60b8e8681d993b8080f2949ea725ccfdc2864cd39dd85b61090bff628807c17e",
+   "rgbaSha256": "8e025c697040661e8753c603f686d74224949779eece97bbbdc1b72e64b1603d",
+   "tensorSha256": "fd546a29196f3490389fd0810052f0a4e7acdd88f09bfd2aa558f683cb2bc38f",
+   "outputSha256": "f4a1a7ac1a5c18f9a754dc12775254e4f452aea07289c5d04afd85870588232e",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 28,
+   "clipped": 1,
+   "offscreen": 7,
+   "decoded": 49,
+   "atOperatingPoint": 31,
+   "preprocessMs": 13,
+   "inferMs": 31,
+   "decodeNmsMs": 1
+  },
+  {
+   "id": "c3-b2-0014",
+   "seed": 20260926,
+   "specSha256": "32a35fa203d414aee656e0c90d314512a88f7f89dd98ecf0913fc9c4c2276493",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "d2303fec028d1546410d4b0dda08ee2265f516ba44680e6d97478a919875a9c8",
+   "rgbaSha256": "5d8c95677527317f15503a7a9e647ccf343ba2fd2f045db07e9e7e1bba8dd8e7",
+   "tensorSha256": "ff1646bd6811619a383910da849cf37ff728995b9b65cf1454876c7f6d19bb6d",
+   "outputSha256": "d672dd26a7a40226e9b0b1e8b24dc3159efd9e612ce088485240059ecfcf5c8d",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 28,
+   "clipped": 1,
+   "offscreen": 7,
+   "decoded": 53,
+   "atOperatingPoint": 33,
+   "preprocessMs": 19,
+   "inferMs": 29,
+   "decodeNmsMs": 2
+  },
+  {
+   "id": "c3-b2-0015",
+   "seed": 20260927,
+   "specSha256": "e7889666aec46d61b8c6a9f7a13e255e58a3262a996065b0d515394ca2d38332",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "0cec3108bf63702fc36f8c30db2d6b81bea5ebd4ee0452e8c55096e39d671a0c",
+   "rgbaSha256": "a79426da6a8094ce211b3e52921b9bce0769b8ce74ac792e2f68a2d9cf744b20",
+   "tensorSha256": "64b1b259959303c76f1a71af09dfa4a715a2c3632ee96e42f18ac2a8f28e608b",
+   "outputSha256": "14e3492a953f7aa45fd189b5b9a35c6f5b82d186055eacac921d0d95196e7b6b",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 15,
+   "clipped": 1,
+   "offscreen": 1,
+   "decoded": 50,
+   "atOperatingPoint": 18,
+   "preprocessMs": 13,
+   "inferMs": 31,
+   "decodeNmsMs": 0
+  },
+  {
+   "id": "c3-b2-0016",
+   "seed": 20260928,
+   "specSha256": "51ec3ac70df3c199411b179077560de6147b70c4021fd361de5641a447218e4a",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "5ddadb9975cdebaaeae0bfb71859a5aba2e129ab05a0318ebd112c8503e70188",
+   "rgbaSha256": "1288e500b810402cfaf09b18a3b618194932c8a841165c6eb3fb3e6fe4056387",
+   "tensorSha256": "6dc14a5534b0b9111e28f369aa3b5ed343a91672e35acb8b2a76497f10975170",
+   "outputSha256": "5dfddf392c4fe428467b5f670a5339277bd2336393ae6ca8d3c2ea960120cd08",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 26,
+   "clipped": 4,
+   "offscreen": 7,
+   "decoded": 57,
+   "atOperatingPoint": 30,
+   "preprocessMs": 12,
+   "inferMs": 31,
+   "decodeNmsMs": 1
+  },
+  {
+   "id": "c3-b2-0017",
+   "seed": 20260929,
+   "specSha256": "fcfa6c61e62d0f9646c0515f5cb304f841ef0f3e853a042dd0b52f9f80cc584f",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "f33b7fe982a04bb75123cec4e3dba775fb02d1414c7b089bd1fcdd32a1e10368",
+   "rgbaSha256": "4e266ad9c5296ee9e9ec9e39d3d5c525d1c26cc52ef813156f82f728a5647e5c",
+   "tensorSha256": "75552b098beb2c2e7f24ff44a255141cdbfe8db65c9114b58c13637a723c7401",
+   "outputSha256": "9054f6a42ab1bf3b3b19d37ff0864d6fd2edf335b0fbb3f7fe511f46be3a7197",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 15,
+   "clipped": 1,
+   "offscreen": 1,
+   "decoded": 36,
+   "atOperatingPoint": 18,
+   "preprocessMs": 13,
+   "inferMs": 31,
+   "decodeNmsMs": 0
+  },
+  {
+   "id": "c3-b2-0018",
+   "seed": 20260930,
+   "specSha256": "5d0d0741294096085c8fb521f6c45d15f0417c3493ac033036636960512f847d",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "af8706eef481c299b6a17c8f3a2ac098d53fa121a1b2e6f1839abb98e974dcca",
+   "rgbaSha256": "936ea3cdd6266475ca2f6a9baf11a4dfb08ab0e2766ae73634e19665da1d0e5e",
+   "tensorSha256": "7bc63ab0db69f533f46f829f0472b4d9ff1a5cf9e65dabe2f08b474587987016",
+   "outputSha256": "3876d90b4b939b094d38c277c53d48021119bc2eedce8bed989e07210fbf3cfe",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 26,
+   "clipped": 1,
+   "offscreen": 7,
+   "decoded": 48,
+   "atOperatingPoint": 29,
+   "preprocessMs": 14,
+   "inferMs": 30,
+   "decodeNmsMs": 0
+  },
+  {
+   "id": "c3-b2-0019",
+   "seed": 20260931,
+   "specSha256": "eb25ac5a8eada0c6836e8998702c96645e746af7645f8f4a53b75769e8da5426",
+   "viewportCss": {
+    "w": 1024,
+    "h": 640
+   },
+   "dpr": 1,
+   "captureSize": {
+    "w": 1024,
+    "h": 640
+   },
+   "pngSha256": "dca6dcf9ece1f691c36137ba9ab01f85d6fb5923bda5ec9e3d4a18d2da2a91ed",
+   "rgbaSha256": "7f7a7fe049d6f6d179d8877903dd5690a95afe7bbb1ec4f7af6e4e8a9b575102",
+   "tensorSha256": "b676f67020f6ffb9ed3a7a80e0f1224d0ee87998d4a0a51ae54fde5a6dba68a1",
+   "outputSha256": "007d971d238b5fe23cd4e6daaf4b52a8d377b73a0473bc80ad4e4a0b15db4ceb",
+   "outputDims": [
+    1,
+    12,
+    6400
+   ],
+   "nonFinite": 0,
+   "annotations": 15,
+   "clipped": 1,
+   "offscreen": 1,
+   "decoded": 29,
+   "atOperatingPoint": 18,
+   "preprocessMs": 14,
+   "inferMs": 29,
+   "decodeNmsMs": 0
+  }
+ ]
+}
