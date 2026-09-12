@@ -64,7 +64,7 @@ and one is engineering drafting work that still ends in an owner freeze.
 **This is an input to the owner's decision, not a proposed number.** No bar is selected here.
 
 W-1 arm A was reproduced on workstation 1 against workstation 2
-(`AUDIT-0003-w1-arm-a-cross-machine`, carried in **PR #53**, open and unmerged at the time of writing). The V1-vs-V0 **effect** transferred almost
+([AUDIT-0003](AUDIT-0003-w1-arm-a-cross-machine.md)). The V1-vs-V0 **effect** transferred almost
 exactly, but the **absolute** metrics did not:
 
 | | cross-machine variance |
