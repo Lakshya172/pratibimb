@@ -87,9 +87,17 @@ distribution of *matched* pairs, or displacement relative to element size, and p
 
 ## Follow-ups
 
+**Update 2026-09-12 — C3b answered the attribution question.** The retained raw outputs were
+re-inverted with the raster-consistent transform, on identical inputs and with no inference:
+**NOT ATTRIBUTED TO LETTERBOX CONVENTION**. The two most collapsed cells (1920x1080, 2560x1600) have
+an inversion delta of **exactly zero**, because at those geometries the continuous and raster
+letterboxes are the same transform; where the delta is largest (1.998 CSS px) the switch moves
+mAP@0.5 by +0.0011. The convention is eliminated as the cause, and **retraining stays unjustified**.
+Evidence: `../W1-QG03a-C3b-letterbox-inverse-attribution/`.
+
 | id | item |
 |---|---|
-| **QG-03a-C3b** | re-invert the retained raw outputs with the raster transform — isolates the convention, needs no new inference |
-| **QG-03a-C3c** | a scale-controlled attribution cell set, with a pre-registered IoU statistic |
+| ~~**QG-03a-C3b**~~ | **DONE 2026-09-12 — NOT ATTRIBUTED.** See `../W1-QG03a-C3b-letterbox-inverse-attribution/decision.md` |
+| ~~**QG-03a-C3c**~~ | **no longer needed for the convention question**, which C3b settled. A scale-controlled set would now be measuring scale, which is not QG-03a-C business |
 | **QG-03a-C** | the closure decision: on C3b/C3c measurement, or on judgement plus the standing §6 debt record |
 | **detector scale fragility** | collapse beyond ~2 CSS px per model px — for adoption items 11/14, not for C |
