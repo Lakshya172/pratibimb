@@ -1,0 +1,3307 @@
+{
+ "experiment": "W1-detector-precision-scale",
+ "arm": "B — scale control: object scale in model space is the only intended varying quantity",
+ "runAt": "2026-09-12T10:19:56.244Z",
+ "machine": {
+  "hostname": "LAPTOP-SRCINK2B",
+  "node": "v26.4.0"
+ },
+ "model": {
+  "modelId": "pratibimb-t1-ui-head",
+  "revision": "ba6d9e93695b",
+  "sha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+  "bytes": 302960,
+  "path": "artifacts/models/t1-ui-head/t1-ui-head.onnx",
+  "sha256Verified": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0"
+ },
+ "ort": {
+  "version": "1.29.0",
+  "backend": "wasm",
+  "numThreads": 1,
+  "proxy": false
+ },
+ "shippedConstants": {
+  "score": 0.25,
+  "nmsIou": 0.5,
+  "maxDetections": 300,
+  "status": "PROVISIONAL — not derived from project evidence; tune against the QG-05 harness (element mAP@0.5, element recall) over ScreenSpot-v2 plus the 300 self-labelled screens, per the dossier's scored metric."
+ },
+ "operatingPoint": 0.55,
+ "samplesPerCell": 20,
+ "testSplitOpened": false,
+ "design": {
+  "annotationsIdenticalAcrossScaleCells": true,
+  "note": "One fixed 960x640 CSS content block in an iframe at the viewport origin. Only the surrounding viewport grows, so every CSS box is unchanged and only model-space size varies. Every annotation is VISIBLE, so the clipping ceiling is 1.0."
+ },
+ "cells": [
+  {
+   "cell": "s150",
+   "viewport": {
+    "w": 960,
+    "h": 640
+   },
+   "captureSize": {
+    "w": 960,
+    "h": 640
+   },
+   "dpr": 1,
+   "tiled": false,
+   "cssPerModelPx": 1.5,
+   "datasetHash": "1d25ce07",
+   "samples": 20,
+   "groundTruth": 307,
+   "clippingCeiling": {
+    "evaluatable": 307,
+    "clipped": 0,
+    "unreachable": 0,
+    "ceiling": 1
+   },
+   "mAP50": 0.640417,
+   "elementRecall": 0.85342,
+   "groundingAccuracy": 0.484288,
+   "predictions": 541,
+   "predictionsPerScreen": 27.05,
+   "matched": 262,
+   "falsePositives": 279,
+   "falsePositiveTaxonomy": {
+    "duplicate": 84,
+    "classConfusion": 43,
+    "localization": 53,
+    "spurious": 99
+   },
+   "falsePositiveShare": {
+    "duplicate": 0.301075,
+    "classConfusion": 0.154122,
+    "localization": 0.189964,
+    "spurious": 0.354839
+   },
+   "falseNegativeTaxonomy": {
+    "noOverlapAtAll": 36,
+    "overlappedWrongClass": 8,
+    "overlappedPoorLocalization": 1
+   },
+   "matchedIou": {
+    "n": 262,
+    "min": 0.500728,
+    "p10": 0.602095,
+    "p25": 0.693038,
+    "median": 0.800361,
+    "p75": 0.86178,
+    "max": 0.98711
+   },
+   "normalisedDisplacement": {
+    "n": 262,
+    "min": 0.004615,
+    "p10": 0.018406,
+    "p25": 0.049274,
+    "median": 0.122786,
+    "p75": 0.266453,
+    "max": 1.003618
+   },
+   "recallByModelSize": {
+    "model>=16px": {
+     "hit": 178,
+     "n": 191,
+     "recall": 0.931937
+    },
+    "model 8-16px": {
+     "hit": 84,
+     "n": 116,
+     "recall": 0.724138
+    }
+   },
+   "perClassRecall": {
+    "button": 0.912281,
+    "link": 0.946429,
+    "textbox": 1,
+    "checkbox": 0.25,
+    "radio": 0.3,
+    "select": 0.8,
+    "tab": 0.911111,
+    "icon": 1
+   },
+   "rows": [
+    {
+     "id": "w1-s150-0000",
+     "seed": 20260913,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 21,
+     "rgbaSha256": "d305ffbc974022f8a4c9e75c6755fde8981467c7f62f134a50567c3357021e1a",
+     "tensorSha256": "660212440d55a0694d3bc14e9b80ad97389826331f2f8a5bf9cd653c184ae070",
+     "outputSha256": "54393fe91e7005048caf026b2a8d006d31447f5f3eac582c49af810f5f18baa8"
+    },
+    {
+     "id": "w1-s150-0001",
+     "seed": 20260914,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 25,
+     "rgbaSha256": "de9bacb65ac541b1321b8a0676421ff6ebe84e7e0b67c56955b59ce1b3142c04",
+     "tensorSha256": "4996e2a5d781a28b2235ec3f4366887f37c06daa658c54798fd428f668cf6361",
+     "outputSha256": "43c16626e7e2d43e7ae093f73b5ab65047336e4f87e40010e855b864ee4732eb"
+    },
+    {
+     "id": "w1-s150-0002",
+     "seed": 20260915,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 21,
+     "rgbaSha256": "21f6e5c021e7ec2d6dc7f706f0693cd79c11322984921253a3960672e63faf54",
+     "tensorSha256": "125520f6202c9a96e82bf2d98431812a6795346ed9f35971d51e65af077e8ece",
+     "outputSha256": "f982e9dbfea1db4cdfd3a96bdc4dabb044da1de051b6358eabcbcf25f9d4d7d4"
+    },
+    {
+     "id": "w1-s150-0003",
+     "seed": 20260916,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 28,
+     "rgbaSha256": "e4c7fd1f2a9daac65639d78ddb1f2c7c1f62f10ac2b44d284a4785aac3021f9a",
+     "tensorSha256": "e8cb925311271c91f507f9684c0be24272e2f3c6f07fffe7c4dc535ade268232",
+     "outputSha256": "9056b2a05c241f34beadd157d3307fb71cac900db7722dbb6d491cfc6c5a1e6c"
+    },
+    {
+     "id": "w1-s150-0004",
+     "seed": 20260917,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 22,
+     "rgbaSha256": "a3085e8a21e223ff1c7a4c62b8703b37219d21262a02fff76928d86c634e6511",
+     "tensorSha256": "17d72f25632597ac657d16eff2bbe46173e8dd230228a5c016c7cfe0f033bab8",
+     "outputSha256": "37848af50b43a6f2b8cf87c5ce04f1b5c925a7a6acc360c391fdfb4b662a40d0"
+    },
+    {
+     "id": "w1-s150-0005",
+     "seed": 20260918,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 32,
+     "rgbaSha256": "bfdc12492a1167014d4ff3905722678a96b7118ee468f5747a277f0d9c3cf875",
+     "tensorSha256": "7253760a9f8d1a1743cb70c88aa9ab2839e978cc3b2605447459a439be8adef5",
+     "outputSha256": "c895fd7f2fe1828bbc4f57975e845371cc14b07810d311a3f79b84fd229397c4"
+    },
+    {
+     "id": "w1-s150-0006",
+     "seed": 20260919,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 22,
+     "rgbaSha256": "82716d81ae7fec6dc48582ca6ab3db7cd5f25c4a4309105fb4d47835f8de09e1",
+     "tensorSha256": "fb49d227118dea1670006297ff6686ebf0643ca4e15c38b33776e0f5af1a5a57",
+     "outputSha256": "e0a54861541685d83bfe6014b26bea8c9fe14f75a1cf1c03bd4f2fd5465d7adb"
+    },
+    {
+     "id": "w1-s150-0007",
+     "seed": 20260920,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 20,
+     "rgbaSha256": "56d41aeeb1fd39431ed3ecf33884cceb5930246cc9be02601175a863e8257f1d",
+     "tensorSha256": "2ffb0e4ec244f72a629258e83d8e35cb7a683728a22edd5e3c84bdeada826879",
+     "outputSha256": "e8d16bf99ce238b3eac49b88de237998b44263429d6d45da5f367b5a4bcea7f0"
+    },
+    {
+     "id": "w1-s150-0008",
+     "seed": 20260921,
+     "annotations": 19,
+     "evaluatable": 19,
+     "predictionsAtOperatingPoint": 27,
+     "rgbaSha256": "af222a95c61f822492ddfda5f35759bd74b02bc28ff4359fe11cd8a22f74bbf0",
+     "tensorSha256": "e0681d6d7b58a03a7f446993117c7f26d02076c986763f46f3f39582f4061ec6",
+     "outputSha256": "074807e8b613a3cc51ed65b8f427e08252ffc45085ea7fd2375d215dd798c91f"
+    },
+    {
+     "id": "w1-s150-0009",
+     "seed": 20260922,
+     "annotations": 17,
+     "evaluatable": 17,
+     "predictionsAtOperatingPoint": 28,
+     "rgbaSha256": "9b535f0653243d3d0656b14b4633f44540d084ec293fb48d342d5a7af5286539",
+     "tensorSha256": "5f933c17209102bc2b2b5a1053a8eab5964acb8ef2e2304a7c7bb48bd281600b",
+     "outputSha256": "f996a75b674e46ea5c915969d322ef3dbf6a7f792778cc84e213c4981918858b"
+    },
+    {
+     "id": "w1-s150-0010",
+     "seed": 20260923,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 28,
+     "rgbaSha256": "b637b9b6ead908e406a401bc76ca7706c6463003d388da012b8c8f3511d6093c",
+     "tensorSha256": "d8684038b5f790fd6dc51bb8fa845946ffd38917f511f86ff111da592f36a351",
+     "outputSha256": "70207ba23d5fc23683fed0adc9ce68c7744c9cce7980de6787b1ee5428e8b9d3"
+    },
+    {
+     "id": "w1-s150-0011",
+     "seed": 20260924,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 30,
+     "rgbaSha256": "0636be3c96d5b2b41cf553b8e7d3a922a05143c3f18c8fb5bcf64401e0b04ef5",
+     "tensorSha256": "23fbfc73bfd02b6e8b36d59a58aa64aa6354f3c09046cae0e531121ee6535d5f",
+     "outputSha256": "dd113557a5bab315b4582d4f1159b4a670865625de036364aaefc50ecdc6a112"
+    },
+    {
+     "id": "w1-s150-0012",
+     "seed": 20260925,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 36,
+     "rgbaSha256": "e9f5a4219209afa8550cba2169d4afd47cce3c492ed3602919cc02457cfe2fbd",
+     "tensorSha256": "b260e40b3672bab3aeb0e418e9b8bbd87e3a9b313b38c70e2f68e94d4783e384",
+     "outputSha256": "1500b365832575849005c7fffebaaadb77a99d4eb8840f5c5d4f14d571d8caa9"
+    },
+    {
+     "id": "w1-s150-0013",
+     "seed": 20260926,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 29,
+     "rgbaSha256": "956490c37098b4a9a3780b08fc348176e604795eaa2b09d88e40d44504cffd8e",
+     "tensorSha256": "2b15ef05ca65f3c823a2b2946e42dd9d8d6337b5c461d86ff952fccfd8692f68",
+     "outputSha256": "cc786d48b54295968e12115c81cd55a730511fb986e3fab62f19a0226a091c3d"
+    },
+    {
+     "id": "w1-s150-0014",
+     "seed": 20260927,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 25,
+     "rgbaSha256": "0e3d3c20039cca3fd556e01b0250c61d0766f0260b9852dff61681d1824e28be",
+     "tensorSha256": "439b576e6dd56d09d49f7331589920df3d2c723bbcd030df1fdbaf419630fbac",
+     "outputSha256": "7f7f01e27950a70a581670cfecbcf49d84759b7d99d315c707b17d4c1637a2c2"
+    },
+    {
+     "id": "w1-s150-0015",
+     "seed": 20260928,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 32,
+     "rgbaSha256": "e78717b29c614e3ca8e9371b76216d65cb42a4198b256a8491bf4cc570782574",
+     "tensorSha256": "d1791d884770a5e620e0f21332809daad753fd712b53bc4fb357bf84f3b6e1ed",
+     "outputSha256": "7751d96129d43b84e91d986f50d749ba528d0e37b3d4ea48d31190181d5656c7"
+    },
+    {
+     "id": "w1-s150-0016",
+     "seed": 20260929,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 20,
+     "rgbaSha256": "b7f7a036902ad8e9050051f7e234aa6e7df5ba4bd434487ec5ea033f199d973f",
+     "tensorSha256": "0ee236239939bfbe7a461745131588cea3c14f4c8716ed55d860ec789d6e9d96",
+     "outputSha256": "8639c93079a4599996aeff03bf75ff666ad9f399b42ecd5338834e26361d1880"
+    },
+    {
+     "id": "w1-s150-0017",
+     "seed": 20260930,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 36,
+     "rgbaSha256": "4b0c48844337d370c975fa0fd70df6835b6555b431cda0e902d97cdb35369ae3",
+     "tensorSha256": "d992a71a1b811f5399a54ed3a07101a99d7ed8e4b0432be7cbfcf281778e4f66",
+     "outputSha256": "c94e2cb0d0c67c0c60f6487f0fcea19cbb7d665db400c67eec087714da224bef"
+    },
+    {
+     "id": "w1-s150-0018",
+     "seed": 20260931,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 22,
+     "rgbaSha256": "e929e17831e9d7602d7f9bc65db91fed6ab41abdeace0ae0dd185c2b725bd722",
+     "tensorSha256": "8c33ec47ff940689551b5a520585938d2b81b6b2db72c0f02be6e87f7dc4ec23",
+     "outputSha256": "8c81776fc52b58004abdd71c46c011bbd490e462ca8144d5aea86777a68115e8"
+    },
+    {
+     "id": "w1-s150-0019",
+     "seed": 20260932,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 37,
+     "rgbaSha256": "4a328713d255c38c30264617ef6cf49d1c8f0d84f1396e19ec5098a5bf10fe66",
+     "tensorSha256": "b23944724897198bc5928d2ba5c9ce5f1f4ab5095f19cdf68df4f06811e1514c",
+     "outputSha256": "ffb58f95b3ea380abbf8c8579a2298abb81f22fcfcc31675bca26d1c5ef3bc1a"
+    }
+   ]
+  },
+  {
+   "cell": "s175",
+   "viewport": {
+    "w": 1120,
+    "h": 747
+   },
+   "captureSize": {
+    "w": 1120,
+    "h": 747
+   },
+   "dpr": 1,
+   "tiled": false,
+   "cssPerModelPx": 1.75,
+   "datasetHash": "e3a74411",
+   "samples": 20,
+   "groundTruth": 307,
+   "clippingCeiling": {
+    "evaluatable": 307,
+    "clipped": 0,
+    "unreachable": 0,
+    "ceiling": 1
+   },
+   "mAP50": 0.787645,
+   "elementRecall": 0.892508,
+   "groundingAccuracy": 0.621315,
+   "predictions": 441,
+   "predictionsPerScreen": 22.05,
+   "matched": 274,
+   "falsePositives": 167,
+   "falsePositiveTaxonomy": {
+    "duplicate": 65,
+    "classConfusion": 23,
+    "localization": 34,
+    "spurious": 45
+   },
+   "falsePositiveShare": {
+    "duplicate": 0.389222,
+    "classConfusion": 0.137725,
+    "localization": 0.203593,
+    "spurious": 0.269461
+   },
+   "falseNegativeTaxonomy": {
+    "noOverlapAtAll": 20,
+    "overlappedWrongClass": 7,
+    "overlappedPoorLocalization": 6
+   },
+   "matchedIou": {
+    "n": 274,
+    "min": 0.504413,
+    "p10": 0.596807,
+    "p25": 0.677676,
+    "median": 0.770521,
+    "p75": 0.854447,
+    "max": 0.998044
+   },
+   "normalisedDisplacement": {
+    "n": 274,
+    "min": 0.000736,
+    "p10": 0.021301,
+    "p25": 0.051417,
+    "median": 0.114972,
+    "p75": 0.305933,
+    "max": 0.895714
+   },
+   "recallByModelSize": {
+    "model>=16px": {
+     "hit": 145,
+     "n": 153,
+     "recall": 0.947712
+    },
+    "model 8-16px": {
+     "hit": 128,
+     "n": 150,
+     "recall": 0.853333
+    },
+    "model 4-8px": {
+     "hit": 1,
+     "n": 4,
+     "recall": 0.25
+    }
+   },
+   "perClassRecall": {
+    "button": 0.877193,
+    "link": 0.928571,
+    "textbox": 1,
+    "checkbox": 0.65,
+    "radio": 0.35,
+    "select": 0.9,
+    "tab": 1,
+    "icon": 1
+   },
+   "rows": [
+    {
+     "id": "w1-s175-0000",
+     "seed": 20260913,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 18,
+     "rgbaSha256": "ac70bc5499deba0778f3d5dfabfdf717550168958432d55b6f2c9a1d7072ec34",
+     "tensorSha256": "86e4e633f978dd54460ffecd411d43c75bf2161ea6a109fc8718906d95ffaeea",
+     "outputSha256": "8ac9069b88f83adb01b66b759e9c55d6a41e2c1801f7e30b5d9d18c49eec676c"
+    },
+    {
+     "id": "w1-s175-0001",
+     "seed": 20260914,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 21,
+     "rgbaSha256": "14afd4200e24bb8a1217cc8f8e3b14cf8267f77aa60ff25b801a79214c050f87",
+     "tensorSha256": "4618ad19f26efda3c00aab562788e5ef9502c410e9a14bd2dbc65fdb62a9deeb",
+     "outputSha256": "3baf218e8bcf5102e5198fc1089fa87aac6c542c1090389e60a90e86b5ea3239"
+    },
+    {
+     "id": "w1-s175-0002",
+     "seed": 20260915,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 17,
+     "rgbaSha256": "e52472c35f22a751346d11b591ba04918d44d677b125122cf7fd212a3bb65ff6",
+     "tensorSha256": "ba5b4941a7b2c66889b463f4c8db9eca75b5670808e94015113ef1ca94da9836",
+     "outputSha256": "6b2e6ca731945d2c51428ae293cdf8b446b406d5f064e2d6e0e64c34c8a289f1"
+    },
+    {
+     "id": "w1-s175-0003",
+     "seed": 20260916,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 24,
+     "rgbaSha256": "225aa44e72e1f8895c968e09e3d5d6c9bc1992310e0d781fdba2effb1a43a930",
+     "tensorSha256": "e120a3b10c14acdc927ed0ceb7692a4ad73cb86401bcd2b3aa87ba9daa1c1b59",
+     "outputSha256": "3db5ea57004f359fed25cd7b24b6e8aa3dd63f4c863f87468b3a5903406b74de"
+    },
+    {
+     "id": "w1-s175-0004",
+     "seed": 20260917,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 19,
+     "rgbaSha256": "64c8722702ef20e34fb80f0077ad2d5cb72fadcd2dfc5a4185c4e992f1c03156",
+     "tensorSha256": "7a2b33d5b3365899abf614fe2990d55bcc34cf1d049f8d99947a45a053d379d3",
+     "outputSha256": "42078a6d5e0c5dd184caed5dea9bfbffab6cb2be5b279ee1aebd0e4a3a756b14"
+    },
+    {
+     "id": "w1-s175-0005",
+     "seed": 20260918,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 25,
+     "rgbaSha256": "98923129c9855fffab397c22ba8c9d192d90cce25c2dc07d8943d289d6cd3c4f",
+     "tensorSha256": "8bda8719d047bf371178aeff3d94e04234d9810dfd74f3d8dc78616952181c30",
+     "outputSha256": "d16ef40bc0596a92e01811af56cb86e4f12789b527af432687f44c900b2fc59b"
+    },
+    {
+     "id": "w1-s175-0006",
+     "seed": 20260919,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 12,
+     "rgbaSha256": "f148d9d164c7a5cf5ee6f1ac1f90340350998d84fe8eb4edaa67b8c51b69d782",
+     "tensorSha256": "aebc099d92592672b5650a9276678500233f384c5658cc748425833e9421c98b",
+     "outputSha256": "2fb8b38a8e92dab3a51cadc8229b96cab9e37bb6321ea834377c0fa987d8cb4d"
+    },
+    {
+     "id": "w1-s175-0007",
+     "seed": 20260920,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 22,
+     "rgbaSha256": "17e8237530a1588563b973af4a6c704e9205ea88c7ea925616d3066e5d48b891",
+     "tensorSha256": "0e494b76b4d68ecfaaa8851326a9efcdaff4c2039be18f7b57b2f658ab9d0f43",
+     "outputSha256": "e9600c1d47d97d400e5fa0e9af9a3b19117b2219ba5078959261393264a5db57"
+    },
+    {
+     "id": "w1-s175-0008",
+     "seed": 20260921,
+     "annotations": 19,
+     "evaluatable": 19,
+     "predictionsAtOperatingPoint": 26,
+     "rgbaSha256": "6bc228fb02fab224116d11346f847846cd22859554814b765fab063ff8050a01",
+     "tensorSha256": "04d0ff1fdc0fce1b5b972762d6779bde8a10ff81f34fb6528caed07dcb041325",
+     "outputSha256": "52cd7f078eb58835d6dcdb69af4c7a085f6a586a4056a9aee97311e6297324f8"
+    },
+    {
+     "id": "w1-s175-0009",
+     "seed": 20260922,
+     "annotations": 17,
+     "evaluatable": 17,
+     "predictionsAtOperatingPoint": 25,
+     "rgbaSha256": "065968ab733769c9edfb4616684378303d1732443b2583396de4119b3d3db6b6",
+     "tensorSha256": "43b4fdd81d8bd66331554f3f71d72410e453f5c45ef5113a0b748aed5a377f66",
+     "outputSha256": "891074955c0f8381a6b9183c33eeeca197141ed0f15726ac91aef9c95f3d340b"
+    },
+    {
+     "id": "w1-s175-0010",
+     "seed": 20260923,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 23,
+     "rgbaSha256": "37740b547a96357de44dbbf01ddbd9e3398d97045806e4225331409c5729a59d",
+     "tensorSha256": "c49d632bdd40190a59632a59b81b280a257eec5225631e1346b0c815561b848b",
+     "outputSha256": "e1b8c4abe89c55c189b71ae088822262f3d0d0dfbe49123b0f62dd34788a418d"
+    },
+    {
+     "id": "w1-s175-0011",
+     "seed": 20260924,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 23,
+     "rgbaSha256": "9ea5e2e98a1f497bd951dc51ebcc381275820bc0b67c982f9c7542b5340242d4",
+     "tensorSha256": "c47404ec027f5c208284f6ada85740c54f6e89cffd4d37224bcfc430657b8a00",
+     "outputSha256": "c11247ca85f58384a78d1e79ba126f2d7921f8612d9556510ccbaf53b5919773"
+    },
+    {
+     "id": "w1-s175-0012",
+     "seed": 20260925,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 30,
+     "rgbaSha256": "f6563f58731470f5b8461e3d5cef9c86b828db5f26727d05819042a962d837ec",
+     "tensorSha256": "e7d18c970d8914b87039c2b7e68f3bc4e576840ac5f62fd8412c2e6e6c902a06",
+     "outputSha256": "13ad9f0432764779c46ab3b892b6f341bdba14a8bf2450cd83e04cdfb14f64f6"
+    },
+    {
+     "id": "w1-s175-0013",
+     "seed": 20260926,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 22,
+     "rgbaSha256": "02c285a419d146ba280f845c257b7a1b0056a15b2af0163857d21a56fd28e7d2",
+     "tensorSha256": "1fea164e5f2aadd9bf63d54c274b54900a136c95497613e359c8f3cd347fd0c6",
+     "outputSha256": "48e810ff95786a62e5bf60c5258e187fdb9f64443522cd2dc7a5d9157ef0010c"
+    },
+    {
+     "id": "w1-s175-0014",
+     "seed": 20260927,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 24,
+     "rgbaSha256": "4ff6362702d82c0f073572f38e9964934c357a659aae5484aa7afbfeceff3c2e",
+     "tensorSha256": "59e77bd10a1dadd3340381b55320837824a733bebc29a271055b0db0a320c562",
+     "outputSha256": "a7cb4502e91d8108b215cb96ada368d5d45c6d0cbb76fc758498893de1d9772b"
+    },
+    {
+     "id": "w1-s175-0015",
+     "seed": 20260928,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 25,
+     "rgbaSha256": "11fd8a485aea94b66d3875b3327060e13c9ada7ad9a59a80e722ac988a84fae1",
+     "tensorSha256": "fe9981789c03d43c655ccccb705e69ada483d7e8ccd5b37845d157b2de489507",
+     "outputSha256": "b5934b71548d4ea5b29fae9b85c752acc5c95632c193a85f1e7e9c4423abe645"
+    },
+    {
+     "id": "w1-s175-0016",
+     "seed": 20260929,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 18,
+     "rgbaSha256": "08b74c14ec11d6fbbc1b7d80986fd554a0e77b60e417d881b2844a7f123f876f",
+     "tensorSha256": "b336e765a2f97a614327f52a6c1f3c7e131c52e5cbbf54c7825b0705cab32397",
+     "outputSha256": "cf767df1f1d8929ceb786b9f7b3c5111b4e06196359b16054adec9b4a32a7a88"
+    },
+    {
+     "id": "w1-s175-0017",
+     "seed": 20260930,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 25,
+     "rgbaSha256": "9aecab45112397a40325fa179af36f549cdc034561840a53a110f68098d052f7",
+     "tensorSha256": "9c4c081fee772fa81bfae817a2e91b132404fea80a04614f5d3bf5f981d01feb",
+     "outputSha256": "a912b604538b4e3b9a5df7953418ad76d905efab4f6241d029c09747ee2b865f"
+    },
+    {
+     "id": "w1-s175-0018",
+     "seed": 20260931,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 18,
+     "rgbaSha256": "c9f6cc4551d324126fb60efc276fa7aac82e8e45131a9ddec11d62dee2e3cae9",
+     "tensorSha256": "bbd8ba061ecefb8fe804488ef55675e88ef02a864f94bcaa6b1769bafe4ba65d",
+     "outputSha256": "2093b9f9a8a618606454bf8601ef9865d8c6980e3cf1962c81357bfb3d459b2d"
+    },
+    {
+     "id": "w1-s175-0019",
+     "seed": 20260932,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 24,
+     "rgbaSha256": "a1f8a2ca554b4047665f7aaf1bd86bf12564ad0f9b9b32543fcc33869cd41332",
+     "tensorSha256": "64c325a9db91746066903fe421d58c8a6c2fed06759faabea282870fd91c1637",
+     "outputSha256": "c7dadf2c40b7df21653cbc367143a789e405e48c11783718ceb7582019c98d88"
+    }
+   ]
+  },
+  {
+   "cell": "s200",
+   "viewport": {
+    "w": 1280,
+    "h": 853
+   },
+   "captureSize": {
+    "w": 1280,
+    "h": 853
+   },
+   "dpr": 1,
+   "tiled": false,
+   "cssPerModelPx": 2,
+   "datasetHash": "3cb2beff",
+   "samples": 20,
+   "groundTruth": 307,
+   "clippingCeiling": {
+    "evaluatable": 307,
+    "clipped": 0,
+    "unreachable": 0,
+    "ceiling": 1
+   },
+   "mAP50": 0.723375,
+   "elementRecall": 0.869707,
+   "groundingAccuracy": 0.637232,
+   "predictions": 419,
+   "predictionsPerScreen": 20.95,
+   "matched": 267,
+   "falsePositives": 152,
+   "falsePositiveTaxonomy": {
+    "duplicate": 52,
+    "classConfusion": 27,
+    "localization": 35,
+    "spurious": 38
+   },
+   "falsePositiveShare": {
+    "duplicate": 0.342105,
+    "classConfusion": 0.177632,
+    "localization": 0.230263,
+    "spurious": 0.25
+   },
+   "falseNegativeTaxonomy": {
+    "noOverlapAtAll": 20,
+    "overlappedWrongClass": 14,
+    "overlappedPoorLocalization": 6
+   },
+   "matchedIou": {
+    "n": 267,
+    "min": 0.509418,
+    "p10": 0.59455,
+    "p25": 0.693811,
+    "median": 0.78793,
+    "p75": 0.851298,
+    "max": 0.975539
+   },
+   "normalisedDisplacement": {
+    "n": 267,
+    "min": 0.001401,
+    "p10": 0.029331,
+    "p25": 0.062378,
+    "median": 0.124375,
+    "p75": 0.302078,
+    "max": 0.939018
+   },
+   "recallByModelSize": {
+    "model>=16px": {
+     "hit": 63,
+     "n": 70,
+     "recall": 0.9
+    },
+    "model 8-16px": {
+     "hit": 199,
+     "n": 225,
+     "recall": 0.884444
+    },
+    "model 4-8px": {
+     "hit": 5,
+     "n": 12,
+     "recall": 0.416667
+    }
+   },
+   "perClassRecall": {
+    "button": 0.824561,
+    "link": 0.910714,
+    "textbox": 1,
+    "checkbox": 0.55,
+    "radio": 0.35,
+    "select": 0.95,
+    "tab": 0.955556,
+    "icon": 1
+   },
+   "rows": [
+    {
+     "id": "w1-s200-0000",
+     "seed": 20260913,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 19,
+     "rgbaSha256": "e2ec7d29c2bd6f1f11d0bffba5a131fc42337c3b1653d4110a75e0533356bec5",
+     "tensorSha256": "0ae32bcff055bc68d961759b144fe594201dcd64fa81b69d1386ec0ca903e574",
+     "outputSha256": "4707c77dbc38c39d93dd005c43a512c6f7370f8ce0d903f103055677b4fb59f8"
+    },
+    {
+     "id": "w1-s200-0001",
+     "seed": 20260914,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 19,
+     "rgbaSha256": "6bf6d97d22a9b1e297a0dda1023ea83bc93c53a3330fd5b4b40bee5b0cf7e953",
+     "tensorSha256": "c4c2f6b1c3a4a16f82f8d83687134a47e96b3b494b2c6f2b9fd0fb209860666b",
+     "outputSha256": "be8d48b026c79048cf3fb32d9e0f08b0356262822af002a0cd0af15ec97f4a67"
+    },
+    {
+     "id": "w1-s200-0002",
+     "seed": 20260915,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 16,
+     "rgbaSha256": "2ac635c255678fa0788f82c6e52ba4258272b83951feffcf4151a510c1e1436e",
+     "tensorSha256": "bcf04dd5d08de950453becf859c5d214ef2edd2603dae03d0365f580346cfb3b",
+     "outputSha256": "f366759b5bc26a502b7717e1171d088373557cea82e353bc5dac292fa926618b"
+    },
+    {
+     "id": "w1-s200-0003",
+     "seed": 20260916,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 26,
+     "rgbaSha256": "f48a7cf9526eb75729294d3e45c26efc0a4d385b960dbb9ac0d5318f111cbf17",
+     "tensorSha256": "3bf37bc17b220ff25c448a4d0137147ffa3d3a1c208d700e632a5b1c8e8c385a",
+     "outputSha256": "7cad81d40a9a3e32fdf95f9debe7bf435b35d57d3ba6bd58aeccc0f17289034d"
+    },
+    {
+     "id": "w1-s200-0004",
+     "seed": 20260917,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 18,
+     "rgbaSha256": "ebf6ca19d7c3f4c9e12ee8279fff6439bb913ed9e709c21527c6ea75d216b9e1",
+     "tensorSha256": "297bea104f1386b36f12cf552410113883d22a3872fd449d093d632db0f5cb2e",
+     "outputSha256": "568200e2a06a8c44c339758ee9b630dd9a0656abd6cf71a55d56a525d7eea566"
+    },
+    {
+     "id": "w1-s200-0005",
+     "seed": 20260918,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 25,
+     "rgbaSha256": "db4f45ed620d6c7ea49a46aa1d5acbbfda4772165a36b4a2966fd0e29a66f5f4",
+     "tensorSha256": "0ca0430174c68cccd982d7bf44fd5576e568660057d9d37af0470de1a378caba",
+     "outputSha256": "3839486d6c7fc2b0b4c1c782231052cbcc95ebcd638439f8e0a019746ebdaf79"
+    },
+    {
+     "id": "w1-s200-0006",
+     "seed": 20260919,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 12,
+     "rgbaSha256": "f514e763a05bc0c1f45180ccc71330856407759bdc2f147679727a424da72ede",
+     "tensorSha256": "89a8e35aaee8ee6e715b1a61893f26ae67716e69dc427f60551246b2225d5bae",
+     "outputSha256": "f129b0bc8fc1d1eaf6bc7cf1daa6bb7cb5ffb961e499a2ab57b5d8468665a4e7"
+    },
+    {
+     "id": "w1-s200-0007",
+     "seed": 20260920,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 14,
+     "rgbaSha256": "743be5b85b2f06249a7146dd5f9d22796894818e09d9da9c9919be46619264bb",
+     "tensorSha256": "88d25b53016f56dc81c7b0d69edeff9ee4c1c6e793a83ee60416adca526435e4",
+     "outputSha256": "16270edcf4467dc436bef30c524062a97ae86dcd1788c2d46b2f2f5473afd714"
+    },
+    {
+     "id": "w1-s200-0008",
+     "seed": 20260921,
+     "annotations": 19,
+     "evaluatable": 19,
+     "predictionsAtOperatingPoint": 30,
+     "rgbaSha256": "673900e600b7d3ca7852a464d821a4eac49030a1009b843d171c1f866d834254",
+     "tensorSha256": "a0669f11fb14e068aa9c6c9d35bd18cf3d3a3aa0ed0d94880f6ea89854f52be5",
+     "outputSha256": "f6554ee774cba58e8439c558b5f4418b6c4912b6723009f19489d134570d1517"
+    },
+    {
+     "id": "w1-s200-0009",
+     "seed": 20260922,
+     "annotations": 17,
+     "evaluatable": 17,
+     "predictionsAtOperatingPoint": 24,
+     "rgbaSha256": "3fb55c85488dfdc8407e13049cd68d8ae84d14fc2debb6198582033f9928d63d",
+     "tensorSha256": "7c1b302e20c5620b4a687c7019fd9e5e27ef279c5d1c6d927a5e7c2bbf454c44",
+     "outputSha256": "b394677630ae4163bd62892a3c9e5da03ec4f883eed6af1ed5a07fe334e97ae8"
+    },
+    {
+     "id": "w1-s200-0010",
+     "seed": 20260923,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 25,
+     "rgbaSha256": "d3eed0902b142bae5e4df8f8f90df9ad1542de4486cf0479578f908790bc4fd6",
+     "tensorSha256": "5b1452e9486086be3090133a28031f30d0bc71db840293c3653440d0dcb64d3d",
+     "outputSha256": "9a88691f49ee72b5788c8728d7feae11c10562fe4b5e8c362e4c7811f6d18492"
+    },
+    {
+     "id": "w1-s200-0011",
+     "seed": 20260924,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 21,
+     "rgbaSha256": "f154214282a53dcc27c08fe7f7741579ebaab497e7e20d4d9be9367b1bed14e9",
+     "tensorSha256": "8a8872f5427ce657e643ebc211f414ed6b03803fe924daf3bf5ecb7b37dd467c",
+     "outputSha256": "10072e70606b2dd975dd542350bbf0fe61e2bcae3c203264327016fe2e8072cf"
+    },
+    {
+     "id": "w1-s200-0012",
+     "seed": 20260925,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 22,
+     "rgbaSha256": "9b1babe770e2f09fdd75501b7e49adc69ef629273a031f0d0aed2159fd3d7e59",
+     "tensorSha256": "01afa3ffc8280ccaed648fa4972cb9357d459a554917037933ce798d5f3362d9",
+     "outputSha256": "093e7fe9b00ce8e1ed2950c1fd8ad8001615230047c291b29ccae9503ea42fa0"
+    },
+    {
+     "id": "w1-s200-0013",
+     "seed": 20260926,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 23,
+     "rgbaSha256": "f04c1272c8416207bb8810150232c856dd37f37d682cd0fb0cbabdca6d04514e",
+     "tensorSha256": "b17375607d1040bf65be4a84e951d2b9ff1fa0c2e3edf992669653094d5b491f",
+     "outputSha256": "0cd5d2973a9a66fc9516c2c2e9ea50d606e02615f8b99974784519d87ac1d649"
+    },
+    {
+     "id": "w1-s200-0014",
+     "seed": 20260927,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 19,
+     "rgbaSha256": "906ca7e3738876d3cfe0a8ffbbacf21b44febc53dd980e2c1c73fb62b2649bac",
+     "tensorSha256": "e95c732859f17d503e2d63ab1da8907d4ca28ad44da64befe1d96fb9c52588a7",
+     "outputSha256": "79ec4bc778cfbebc6bdceb4450791d594f247db416512c12c42be6e69dec8f7f"
+    },
+    {
+     "id": "w1-s200-0015",
+     "seed": 20260928,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 21,
+     "rgbaSha256": "0fc7bd5a3080a5c9279803f4cd5b16b44dd75ac1c3814ba7b925af3f15aba66b",
+     "tensorSha256": "5a74827b050e9a21ca5b61ed3a89c68fe82fa77f4ec410ef31cd35c8c324544e",
+     "outputSha256": "72499a67d4dc422568e1f5b8ac7390e52b52b987d48627413d79b29267f5a17f"
+    },
+    {
+     "id": "w1-s200-0016",
+     "seed": 20260929,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 17,
+     "rgbaSha256": "ddc8eb70700883a5086441159fc6b36c7d962dccfb03438ac6313dbbafafc156",
+     "tensorSha256": "d77b6510bcd678eddc486f26440b59c5f5d5ba9c38231fcd169929bd922ca3ad",
+     "outputSha256": "5803266b1c258ba282963b9aca8aff1a97558ef4198e9e8d46bec50af82143d9"
+    },
+    {
+     "id": "w1-s200-0017",
+     "seed": 20260930,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 24,
+     "rgbaSha256": "1d2acb0dab3297a5ad1d42e4a19366a62eb59f0c6956e94fdd19bc2dcb04471b",
+     "tensorSha256": "6a1eaa029834324c9859e630b6bdd476f18e18a4711a820bff9484beb19fa451",
+     "outputSha256": "f63d091b6e3c45be081b99bde0a549ae85b319fa64c4a86b1fdd8e7dc7be6edd"
+    },
+    {
+     "id": "w1-s200-0018",
+     "seed": 20260931,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 17,
+     "rgbaSha256": "f1d7dcd37aa2fda9c695045e55b8d397c78caeaaa80b7545b684be4cd1a6defa",
+     "tensorSha256": "ed5e06d1591d63a2e9fbf0c83df2b2d12df8612d0096071a22490c47cf77039c",
+     "outputSha256": "438dd6377350a17a810f11ccc8354d601af9f39063c9b6d76415de278380c244"
+    },
+    {
+     "id": "w1-s200-0019",
+     "seed": 20260932,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 27,
+     "rgbaSha256": "d4c604f3348cbb80f8ad8f72b31a7e9e2b4834948c86e9baabd4c1a5eea2cc7d",
+     "tensorSha256": "46613a253b980ca0441eac0f4ef52ef6611ee7203988e0c9323d30fe887134e9",
+     "outputSha256": "54919fab1433d2f267573303e3cda36bc7b05f5735b1c89bb5294dd86a7f3dcc"
+    }
+   ]
+  },
+  {
+   "cell": "s225",
+   "viewport": {
+    "w": 1440,
+    "h": 960
+   },
+   "captureSize": {
+    "w": 1440,
+    "h": 960
+   },
+   "dpr": 1,
+   "tiled": false,
+   "cssPerModelPx": 2.25,
+   "datasetHash": "eeba9b85",
+   "samples": 20,
+   "groundTruth": 307,
+   "clippingCeiling": {
+    "evaluatable": 307,
+    "clipped": 0,
+    "unreachable": 0,
+    "ceiling": 1
+   },
+   "mAP50": 0.646202,
+   "elementRecall": 0.814332,
+   "groundingAccuracy": 0.608273,
+   "predictions": 411,
+   "predictionsPerScreen": 20.55,
+   "matched": 250,
+   "falsePositives": 161,
+   "falsePositiveTaxonomy": {
+    "duplicate": 41,
+    "classConfusion": 11,
+    "localization": 58,
+    "spurious": 51
+   },
+   "falsePositiveShare": {
+    "duplicate": 0.254658,
+    "classConfusion": 0.068323,
+    "localization": 0.360248,
+    "spurious": 0.31677
+   },
+   "falseNegativeTaxonomy": {
+    "noOverlapAtAll": 34,
+    "overlappedWrongClass": 5,
+    "overlappedPoorLocalization": 18
+   },
+   "matchedIou": {
+    "n": 250,
+    "min": 0.503126,
+    "p10": 0.564223,
+    "p25": 0.636073,
+    "median": 0.707935,
+    "p75": 0.776745,
+    "max": 0.953998
+   },
+   "normalisedDisplacement": {
+    "n": 250,
+    "min": 0.0023,
+    "p10": 0.03587,
+    "p25": 0.085863,
+    "median": 0.15966,
+    "p75": 0.290242,
+    "max": 1.009947
+   },
+   "recallByModelSize": {
+    "model 8-16px": {
+     "hit": 220,
+     "n": 259,
+     "recall": 0.849421
+    },
+    "model 4-8px": {
+     "hit": 26,
+     "n": 42,
+     "recall": 0.619048
+    },
+    "model>=16px": {
+     "hit": 4,
+     "n": 6,
+     "recall": 0.666667
+    }
+   },
+   "perClassRecall": {
+    "button": 0.807018,
+    "link": 0.75,
+    "textbox": 0.985507,
+    "checkbox": 0.45,
+    "radio": 0.2,
+    "select": 0.85,
+    "tab": 0.977778,
+    "icon": 1
+   },
+   "rows": [
+    {
+     "id": "w1-s225-0000",
+     "seed": 20260913,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 19,
+     "rgbaSha256": "2c24a4a171c200a9e2a9abb81c96f1cef23acb85824fe8963e0d90dcc20cfaf3",
+     "tensorSha256": "63d21f8dbaf8dd22d5c3ea656bbdb22419ab12248d29946a29911d18cb87fad4",
+     "outputSha256": "a7098b96b75139f9fcaac78579391d5fca6d4361474dadb536d932bf2d364cbe"
+    },
+    {
+     "id": "w1-s225-0001",
+     "seed": 20260914,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 17,
+     "rgbaSha256": "84de500b13bf94ff79e5bdd1578845ccb9332c24546f5f97ba550fbf20e195bc",
+     "tensorSha256": "adc11d60f2bdc1e1cfa3f67ab5322df53b0d3fff90759d012ef20e65d747756f",
+     "outputSha256": "11ddf4948d2f0ead3f1c05bf085e65593d154a3772997bc33ac48fea4eace354"
+    },
+    {
+     "id": "w1-s225-0002",
+     "seed": 20260915,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 13,
+     "rgbaSha256": "2c458627762f61865b3305663dac447abfa325a3fd7c5267508d77c9e1c69be9",
+     "tensorSha256": "97fc18684efc7ca71f8691498ff1af9d29336b4559dedc2efec7b25628fc0f1c",
+     "outputSha256": "eaf5a743ab5db0a6fa2d690006fb1ec26776dbd56ce39451f34f90b5f7b7faca"
+    },
+    {
+     "id": "w1-s225-0003",
+     "seed": 20260916,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 23,
+     "rgbaSha256": "b543fec457596c0634d32db0339b9eaa62a621fb0fc5324e66c6c191c12f73f8",
+     "tensorSha256": "f5d8fe3f64ca01faa0032f36c6dbd6de3e5db54d2dcf975b604537af8455c100",
+     "outputSha256": "8fef0aaa2da2f8fcc615370d14d340f1f6f7e123a9f5b2c15afb24d751a264c1"
+    },
+    {
+     "id": "w1-s225-0004",
+     "seed": 20260917,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 17,
+     "rgbaSha256": "c218504fd6510e756e6aefb642aa19c24da03f2d1a0049711466bf75ca2819f5",
+     "tensorSha256": "f604d639a9157a00e1f6dc0e7ffafda6676a536001b89f292dca39097f0c6250",
+     "outputSha256": "b94e700f9187df087630ca5ea4dd4b24cd6eec845cfb8fbfe3d4bc103fc0999b"
+    },
+    {
+     "id": "w1-s225-0005",
+     "seed": 20260918,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 22,
+     "rgbaSha256": "7cfd3b64b43caef53c0baf283be2960372f790af7363ff4813ef68e320e5357d",
+     "tensorSha256": "f52ba948aa3371040d07ed63c972b9d37465e307043fab0c9612be415b491836",
+     "outputSha256": "4a9b0829fdc53c32f5b9f43b21332f55015a7d69f5b87700ef4897f933bae959"
+    },
+    {
+     "id": "w1-s225-0006",
+     "seed": 20260919,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 15,
+     "rgbaSha256": "f37080d668eb94dd23d7f57d87a6dedcd2c06a276e63cd682f26404d0ba1d973",
+     "tensorSha256": "dad5055448e5aac2bc6417a57b2b37b7023dc84f9df681a0e84d5e77941a8ba2",
+     "outputSha256": "2e643d3ba084d627a7130d9f044d557130bb7df3972a4aec056ddc2695046df5"
+    },
+    {
+     "id": "w1-s225-0007",
+     "seed": 20260920,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 17,
+     "rgbaSha256": "9ce36b9ea3ac919b4c346a5bad3c59bd972158dacb18649c4f283b4e2736825f",
+     "tensorSha256": "2c55d164a85a8e23b4ade3a9ed14a8adeeba4c75fbd61d0cf1e00f47b510566b",
+     "outputSha256": "444ecec7116ce484e43f361c2f757de07b6213e4a0292acd3c04fe036d5dcc79"
+    },
+    {
+     "id": "w1-s225-0008",
+     "seed": 20260921,
+     "annotations": 19,
+     "evaluatable": 19,
+     "predictionsAtOperatingPoint": 27,
+     "rgbaSha256": "f04ab92592345254a4aa3023324a5e97d848d12b9026f230896d0cc7911f75e5",
+     "tensorSha256": "e7784495d233537e9dd5d758e26ed5b0a5e139d629256730686ae920f397f276",
+     "outputSha256": "1edc1d8608f1d40459a3b718d0ca12106891b09d7ae7fb4706af839c3a6d1b13"
+    },
+    {
+     "id": "w1-s225-0009",
+     "seed": 20260922,
+     "annotations": 17,
+     "evaluatable": 17,
+     "predictionsAtOperatingPoint": 20,
+     "rgbaSha256": "925560153c5b4ab1f2862f3df30d08063c7cb7bb88394b3e2d2735ab19432325",
+     "tensorSha256": "e18b0cb19f9158b6324aaac0b9a7db28dcb5aa1e9a32700144eed05e8fe58e41",
+     "outputSha256": "ead1867c08d359d6bff24373991a6510a16137ce03223e63374d342ca4eb8cb8"
+    },
+    {
+     "id": "w1-s225-0010",
+     "seed": 20260923,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 24,
+     "rgbaSha256": "57adf7b595bf79146d41f985baf1577c3bbbf99156423ba79ff4796b8d985027",
+     "tensorSha256": "ba553a7e268b32378a68fc78eabd29d1ae167ceb2baa340fa1d26949d01d75f3",
+     "outputSha256": "3d0b0691744fba851ccd259863c978765bd2653c853a31078b5849fe556a16c1"
+    },
+    {
+     "id": "w1-s225-0011",
+     "seed": 20260924,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 24,
+     "rgbaSha256": "4ae9eae41e88dc3798542283bed09aa25fec8662eba4d199fb250f27a89c2d64",
+     "tensorSha256": "104addbbc8d0d106936efa01f3b540ac89b627122c28542635150079632abb9c",
+     "outputSha256": "386cc644e568d4db7616deb4e86e0a7cceca96b8822e45fb298278b8ebce4d0f"
+    },
+    {
+     "id": "w1-s225-0012",
+     "seed": 20260925,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 28,
+     "rgbaSha256": "ed0fe0ec434a096fbb1bcff09f0e4e916759c7e69379cd06b84bda5bf859a1da",
+     "tensorSha256": "f570176f7917aec56e5df222701d72384093fa09c89b294eaad71911eba3ec66",
+     "outputSha256": "113b88271300f7be71d2e427b4d33dcad200f9e292dfee0599ee033ed4ce6019"
+    },
+    {
+     "id": "w1-s225-0013",
+     "seed": 20260926,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 25,
+     "rgbaSha256": "6a3df56624b2c6dfe6b4ccffcca74e334a21ddee3eeb32b24365a1bbe414fe28",
+     "tensorSha256": "87de0a521b9001ec3d03c2939d72ea0dc5b07cf1bbc8c0545c511e6041b58837",
+     "outputSha256": "00f033772265de0ad06e023d979294133a06cc62fbc473c2dedd424d48222655"
+    },
+    {
+     "id": "w1-s225-0014",
+     "seed": 20260927,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 19,
+     "rgbaSha256": "c16fe3e0b37231e2e6b1df61e0742dfd8aabec9f535230b844ae23891fdb92a8",
+     "tensorSha256": "f80ef43ec5be4690309ba879390583a42782dd4300ee4e926f1c63883026ba49",
+     "outputSha256": "cc496398319d6f96b837b115ee4239b03469fac67b1c21badef29062329ce540"
+    },
+    {
+     "id": "w1-s225-0015",
+     "seed": 20260928,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 22,
+     "rgbaSha256": "b3a577dd8c781dfeed0aea2edeedd93c177730c044166b38804c7e12beeba1ad",
+     "tensorSha256": "aee99295608955e5d954c5ac9354cea3e9a8a959bb0867eb4d68ca72010670d0",
+     "outputSha256": "7ca7e1d621276ed7eb85eaed701f9f1e57c6f974c215cd8e63bb8fe7b4460cbc"
+    },
+    {
+     "id": "w1-s225-0016",
+     "seed": 20260929,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 16,
+     "rgbaSha256": "3b8c6bc333e7048efeac3a1ff4696a4c350b4805a09beee0b44eb2186bca1db3",
+     "tensorSha256": "c7f1effec12ca78a808640bf3dca40acc2f821f9b5e593c4b9311c3025262fd6",
+     "outputSha256": "ce7ec74d204e9f32843210fd3f3ca807da4f3850efb7400f55bf24eb9f06ce68"
+    },
+    {
+     "id": "w1-s225-0017",
+     "seed": 20260930,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 24,
+     "rgbaSha256": "a198d4ba10110ae7e473e9d67dbc56bb43241f80ec7fc28a6f9e2319d044b6a3",
+     "tensorSha256": "595e5bb6d99a04656d4b777e91033cf78de926f6cfc8597b905a6cfe84489cea",
+     "outputSha256": "27c2caaffe2fe0b7851e02097e3c78a586a320cc43fc587279d3328c375c1d8d"
+    },
+    {
+     "id": "w1-s225-0018",
+     "seed": 20260931,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 16,
+     "rgbaSha256": "e97db37a2851c793cef64a7d0ad696d0d77c230755211c7011b3a849932876dd",
+     "tensorSha256": "fd8ba697d7363324de5e9984df5944bb3d9760270fc485ae53dcad810d9d8b45",
+     "outputSha256": "df7e9e49c8e98ba69c35a0f37ea0424f9411a7a446ec35a95c1390d5547044d8"
+    },
+    {
+     "id": "w1-s225-0019",
+     "seed": 20260932,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 23,
+     "rgbaSha256": "6deaf5231f42bd18fd8b32f23bd9eb94652d2acee867a5a323c494f28f05dae1",
+     "tensorSha256": "53561e0c5e8d358174ddaf50c60e09180eb56945ef7ec1aaa221320cd3555da9",
+     "outputSha256": "d8975de9ffca10d62d4347ae78497710777e64a15fa632ad2db7b77b708f788a"
+    }
+   ]
+  },
+  {
+   "cell": "s250",
+   "viewport": {
+    "w": 1600,
+    "h": 1067
+   },
+   "captureSize": {
+    "w": 1600,
+    "h": 1067
+   },
+   "dpr": 1,
+   "tiled": false,
+   "cssPerModelPx": 2.5,
+   "datasetHash": "82c0c7cd",
+   "samples": 20,
+   "groundTruth": 307,
+   "clippingCeiling": {
+    "evaluatable": 307,
+    "clipped": 0,
+    "unreachable": 0,
+    "ceiling": 1
+   },
+   "mAP50": 0.468486,
+   "elementRecall": 0.644951,
+   "groundingAccuracy": 0.542466,
+   "predictions": 365,
+   "predictionsPerScreen": 18.25,
+   "matched": 198,
+   "falsePositives": 167,
+   "falsePositiveTaxonomy": {
+    "duplicate": 23,
+    "classConfusion": 13,
+    "localization": 78,
+    "spurious": 53
+   },
+   "falsePositiveShare": {
+    "duplicate": 0.137725,
+    "classConfusion": 0.077844,
+    "localization": 0.467066,
+    "spurious": 0.317365
+   },
+   "falseNegativeTaxonomy": {
+    "noOverlapAtAll": 56,
+    "overlappedWrongClass": 10,
+    "overlappedPoorLocalization": 43
+   },
+   "matchedIou": {
+    "n": 198,
+    "min": 0.500042,
+    "p10": 0.533867,
+    "p25": 0.576659,
+    "median": 0.653022,
+    "p75": 0.740107,
+    "max": 0.896762
+   },
+   "normalisedDisplacement": {
+    "n": 198,
+    "min": 0.013037,
+    "p10": 0.045768,
+    "p25": 0.09889,
+    "median": 0.17877,
+    "p75": 0.307479,
+    "max": 1.13469
+   },
+   "recallByModelSize": {
+    "model 8-16px": {
+     "hit": 180,
+     "n": 229,
+     "recall": 0.786026
+    },
+    "model 4-8px": {
+     "hit": 18,
+     "n": 77,
+     "recall": 0.233766
+    },
+    "model>=16px": {
+     "hit": 0,
+     "n": 1,
+     "recall": 0
+    }
+   },
+   "perClassRecall": {
+    "button": 0.77193,
+    "link": 0.446429,
+    "textbox": 0.927536,
+    "checkbox": 0.2,
+    "radio": 0.1,
+    "select": 0.55,
+    "tab": 0.622222,
+    "icon": 1
+   },
+   "rows": [
+    {
+     "id": "w1-s250-0000",
+     "seed": 20260913,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 16,
+     "rgbaSha256": "9fd3dc7e9830d2b5565b5041a6bae9caf0d77cd9131a30a0da50f0db490f5ad8",
+     "tensorSha256": "64ca488ad61f59a27af280ff315fc198b95481382398049364356b2fb9248333",
+     "outputSha256": "8ba60d97efe80a404a6499fc9c0895f0838a2c09b45f26fe0d6c1f093fed4b79"
+    },
+    {
+     "id": "w1-s250-0001",
+     "seed": 20260914,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 15,
+     "rgbaSha256": "7dc5a55c7759536cad8ad1abe5dd0d6a948d2b58a18f22a1e182ec9bc0c9b86a",
+     "tensorSha256": "7e22cfc6385c92c8bfd5b99124076f89f542c412cec73c3e5b8c930345e1fa1f",
+     "outputSha256": "91dcbc86cbc5bcb69ff67f6cfef4157e566f050d2a1200d3611de5cf959f3acc"
+    },
+    {
+     "id": "w1-s250-0002",
+     "seed": 20260915,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 13,
+     "rgbaSha256": "71a5083d4906ad7c970a00c8720ce31ffbb1488803d42cf43deffef5d8c18bb3",
+     "tensorSha256": "3c6f4061c37be06eec6cdf6f524c7853f16b2259e4358f3c1603abcbf997cf7c",
+     "outputSha256": "3306f064619c8592f0044f081d94a8e43e69d94edcba8289c4f001076e9b4abc"
+    },
+    {
+     "id": "w1-s250-0003",
+     "seed": 20260916,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 26,
+     "rgbaSha256": "e97586e12d356649199c55af47d4c42d3477bdab5f530e580313714f5fdb3781",
+     "tensorSha256": "855393184a81d6db3b6db154224c3ddb7c68ef19da914fa5c2ceda1f53c282e4",
+     "outputSha256": "02de54d0f17092b8a858ae1545d45826e062ee364db23a91a8e91374a8df8005"
+    },
+    {
+     "id": "w1-s250-0004",
+     "seed": 20260917,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 12,
+     "rgbaSha256": "9e6101f5346a3e275d7a064bcb088317cacceaf1646b5597db67a0bccdd45eda",
+     "tensorSha256": "a4514e5fe328783d184c94e24b86bf7dbac49f02f4c0bb3c4ef47e9dcf6303c3",
+     "outputSha256": "f1c40b69ad4ab7cbbab1ad64828f626164d37c1815ac7f876260d4a0c3f7af84"
+    },
+    {
+     "id": "w1-s250-0005",
+     "seed": 20260918,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 24,
+     "rgbaSha256": "21ade9ab672d4e50375e0a42017aa22f34f0756b7f5d9e4b18a1c30cb88d08bc",
+     "tensorSha256": "1d1fe84dde8ffc26aff4456ce2f1adae6796b12c7fb9406e066ed85063752f7b",
+     "outputSha256": "bd2aa67237e9014934aa2de464a04b0ada201e7ff08af1545456efc14cd8ad76"
+    },
+    {
+     "id": "w1-s250-0006",
+     "seed": 20260919,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 12,
+     "rgbaSha256": "c4841a6b1e8b513c90ad3fbf5f107053e0eae3caa352b09ac00143da71735e2f",
+     "tensorSha256": "b0fcf7b26dcc55ed21b7f07937473f8c9ef65a6ed81878007e6ca9a3e9232018",
+     "outputSha256": "f9eedcc7e12ed491169bc6e2995ee2774e9b888c91af20fab9e2e2abe48bd75a"
+    },
+    {
+     "id": "w1-s250-0007",
+     "seed": 20260920,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 13,
+     "rgbaSha256": "ef14dac4484e12444d6af5987c2de8b2c0f5ac35f4ab6d466f1d1233554166b8",
+     "tensorSha256": "2fdaf5c5e7851619203d78d97b2c987d7e134272c5465556e2f96d115697d5e8",
+     "outputSha256": "ff7255d4e30afb82da0cf9de33a15321452b9195a659edc09c32a50199880f36"
+    },
+    {
+     "id": "w1-s250-0008",
+     "seed": 20260921,
+     "annotations": 19,
+     "evaluatable": 19,
+     "predictionsAtOperatingPoint": 19,
+     "rgbaSha256": "adcc2236dee51b77967a25fc4f38a93f9c61520582355f7c815182bb4e44155b",
+     "tensorSha256": "7d4b050c8ca7fbfe99a414526fe74de1fcf57d2f5d94355cccfdbd1ddf8ef170",
+     "outputSha256": "908cf171b4f682051a3778a96fcc8f2d08c3f1f971640b27eaf37c3ad4b4b222"
+    },
+    {
+     "id": "w1-s250-0009",
+     "seed": 20260922,
+     "annotations": 17,
+     "evaluatable": 17,
+     "predictionsAtOperatingPoint": 23,
+     "rgbaSha256": "55c611dd11470a6081980d96f133ec33f07ae651b0a08944ef91fb6e97b57dd9",
+     "tensorSha256": "a5cc8730e6d6ea8f90227f0f362a3edc9b0ca2002d9e86d25934f8761dac733e",
+     "outputSha256": "d2e878402d9a71fa29ee1d58a35ef7ad2375feb4a2a3c12f7270858cbe468a00"
+    },
+    {
+     "id": "w1-s250-0010",
+     "seed": 20260923,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 24,
+     "rgbaSha256": "e38a261587a5cce01ade90b3893e4b514ed1b2d669b9e5f71d27bc2d64056d0b",
+     "tensorSha256": "50b82f2d4242fd395d2c09050de8d27fad8409ae327ad20e52487bda0439cfcb",
+     "outputSha256": "bc5602d93d160d8ad7f827f6b684bad06a51355e8344fc2a32d33d242fb8483f"
+    },
+    {
+     "id": "w1-s250-0011",
+     "seed": 20260924,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 20,
+     "rgbaSha256": "5d3d84983e457de50393ddc39a077586188e29d91142c774c4fa902c59ad0280",
+     "tensorSha256": "5b1c532144cc464e21fb6ff89d79b9bb08bd810008886461db73fd2293a4a3d0",
+     "outputSha256": "350e66c4df9c1baa9d5b9c85d3d79aaa78143a60e5119393e8c59aa2bba90552"
+    },
+    {
+     "id": "w1-s250-0012",
+     "seed": 20260925,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 20,
+     "rgbaSha256": "ed0f454d8d5cc44764d80b11cbf56a293ff047fac5c312075981d0f5e3947e92",
+     "tensorSha256": "09bc1175871d410edb9570b78b351a18d92ef4cd185e46b903b03e05c96e9a55",
+     "outputSha256": "9c23eb1454af896395baf0d434f676677fd461398b3986a34b5fe91874136fa4"
+    },
+    {
+     "id": "w1-s250-0013",
+     "seed": 20260926,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 20,
+     "rgbaSha256": "971cf24b421a02156463a75bbeea4e89ed1e11a93fdeaf43a6f995b3646b03a1",
+     "tensorSha256": "adaffb95194c4ac1db13a20007c802f5a6b743a1c7c44b38cc5f2a7b681be193",
+     "outputSha256": "e678007db7dd95521116f0eaf7348cca4f6845e9bc89da13f06967c423e2f1ec"
+    },
+    {
+     "id": "w1-s250-0014",
+     "seed": 20260927,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 15,
+     "rgbaSha256": "92af36d737b2abbd99b1f8a919793ae4ab48309e88325e7b78cf2d9fce99945f",
+     "tensorSha256": "eab261854421a3a43c252f3e8ac999a3d9a2093f8aa53417b2bca6f120231490",
+     "outputSha256": "d7f85b0ed5454dc02c756a5d67cbd0f2a98f9fba2af092832d3a1f4de673afbf"
+    },
+    {
+     "id": "w1-s250-0015",
+     "seed": 20260928,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 25,
+     "rgbaSha256": "bbaf7b99bbbf3e189a45cf9defb4541b913b1cf9cfd8848068c0d912f2d3cd07",
+     "tensorSha256": "2edd13d558812608d6da2cb50b1e0352b34098e0f0da2926bb8a2892c495c368",
+     "outputSha256": "38c752955cee97cc57571e8b8e80ab4b5989e5c845d96ec39c9c63a85c1c3f26"
+    },
+    {
+     "id": "w1-s250-0016",
+     "seed": 20260929,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 12,
+     "rgbaSha256": "f3f80e38aaacebbfe873826825f0317e47eedf316241a802435dd7ca7cde3659",
+     "tensorSha256": "3b658eebc9c13290a1723b31bd87daabc0760d057dc32a15071de87d41a637af",
+     "outputSha256": "ed1dea9c01e6a12ed92f5c7eaf3307b1048fe4534b50c13333aaa2956336380a"
+    },
+    {
+     "id": "w1-s250-0017",
+     "seed": 20260930,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 25,
+     "rgbaSha256": "82e03bdab5b60398fb0701f76a8c292ad9a930277d273aaac774258b52abae6c",
+     "tensorSha256": "d556cf7a94cdfad17a28ffac09bf57f7801dc19358196f9ef932981335b25d26",
+     "outputSha256": "88495abdd35080053b7477fe3c19fceb43143acb3c52cf2ac90067b8b9714ce9"
+    },
+    {
+     "id": "w1-s250-0018",
+     "seed": 20260931,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 14,
+     "rgbaSha256": "ac533069eadca99bd92f985332559c88482fe7cd8f46fb12deb87938d86258c9",
+     "tensorSha256": "d89c7bffaff38d179100f1f98ff7d5e2fff6c08d14c4833bbaa8d900789162e3",
+     "outputSha256": "c339e5c3f508d4324c91931576fc0db26e3cf68386fda658ee9f3a8c9e9949fb"
+    },
+    {
+     "id": "w1-s250-0019",
+     "seed": 20260932,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 17,
+     "rgbaSha256": "1bc1060c0e3a3b602b8cc9c26dd41e3717015e2bae91f7313c92f59a93a2aab8",
+     "tensorSha256": "bdfb2cec5b4f93ca0758f1c89f8db0074c3f52e412d5808d12392217f7b48c85",
+     "outputSha256": "e9c18eb269221a925e13a6ad448c9f6f0f0fecb17bab9d4770ed9dd70dc8a79e"
+    }
+   ]
+  },
+  {
+   "cell": "s300",
+   "viewport": {
+    "w": 1920,
+    "h": 1280
+   },
+   "captureSize": {
+    "w": 1920,
+    "h": 1280
+   },
+   "dpr": 1,
+   "tiled": false,
+   "cssPerModelPx": 3,
+   "datasetHash": "93855f69",
+   "samples": 20,
+   "groundTruth": 307,
+   "clippingCeiling": {
+    "evaluatable": 307,
+    "clipped": 0,
+    "unreachable": 0,
+    "ceiling": 1
+   },
+   "mAP50": 0.078053,
+   "elementRecall": 0.205212,
+   "groundingAccuracy": 0.273913,
+   "predictions": 230,
+   "predictionsPerScreen": 11.5,
+   "matched": 63,
+   "falsePositives": 167,
+   "falsePositiveTaxonomy": {
+    "duplicate": 5,
+    "classConfusion": 5,
+    "localization": 89,
+    "spurious": 68
+   },
+   "falsePositiveShare": {
+    "duplicate": 0.02994,
+    "classConfusion": 0.02994,
+    "localization": 0.532934,
+    "spurious": 0.407186
+   },
+   "falseNegativeTaxonomy": {
+    "noOverlapAtAll": 149,
+    "overlappedWrongClass": 9,
+    "overlappedPoorLocalization": 86
+   },
+   "matchedIou": {
+    "n": 63,
+    "min": 0.505008,
+    "p10": 0.526884,
+    "p25": 0.566215,
+    "median": 0.619332,
+    "p75": 0.71232,
+    "max": 0.857316
+   },
+   "normalisedDisplacement": {
+    "n": 63,
+    "min": 0.032936,
+    "p10": 0.083004,
+    "p25": 0.116448,
+    "median": 0.147167,
+    "p75": 0.258373,
+    "max": 0.769616
+   },
+   "recallByModelSize": {
+    "model 8-16px": {
+     "hit": 56,
+     "n": 191,
+     "recall": 0.293194
+    },
+    "model 4-8px": {
+     "hit": 7,
+     "n": 116,
+     "recall": 0.060345
+    }
+   },
+   "perClassRecall": {
+    "button": 0.245614,
+    "link": 0.125,
+    "textbox": 0.492754,
+    "checkbox": 0,
+    "radio": 0,
+    "select": 0.05,
+    "tab": 0.155556,
+    "icon": 0
+   },
+   "rows": [
+    {
+     "id": "w1-s300-0000",
+     "seed": 20260913,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 6,
+     "rgbaSha256": "bbf3a6273a8a9ba57a1f5b71c4c07dbe25d50cf4d2783fd888fb9bd79f6a38e1",
+     "tensorSha256": "2e24d30fb1ae5adebe9ed74de059fdd1ed518484222176bd0ee49d022d9feb55",
+     "outputSha256": "2a771b3edf7b6c4b80dcc54715deca45724b515e6f72b793c5c08c7e401c8130"
+    },
+    {
+     "id": "w1-s300-0001",
+     "seed": 20260914,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 7,
+     "rgbaSha256": "3050c84dfb61bf795eb774b5211abe5a6b8ea09e4fce94b055a4739db5d6ce40",
+     "tensorSha256": "83529dad302182173b51e784db1d2f70692802d216b3f2e8f4135c92730fe1e8",
+     "outputSha256": "089270ef8688fd6351fa32fcc68c179eaf0218713650b317cb0c02654b973303"
+    },
+    {
+     "id": "w1-s300-0002",
+     "seed": 20260915,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 10,
+     "rgbaSha256": "4a6307bdbc8b98012949801f724b9930fbfb2b4dbcaac440dc5f54fc2cfd5f3e",
+     "tensorSha256": "dc147f50b5acbdfaab5b25fd69ddd2b94840daba86bc4b765ebc8d206b643983",
+     "outputSha256": "952bbdc162b7f0ab399d0a939fd362e4fdfd78e772add291472031412bc1d25b"
+    },
+    {
+     "id": "w1-s300-0003",
+     "seed": 20260916,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 15,
+     "rgbaSha256": "86b78e01d74d1793270990dd68f5132e583109f71670dfc4bdae36a3057cbb40",
+     "tensorSha256": "bbbb1c9120a39e49cc90ebbc4c849d9a4a636b147615627f3606c8b75062aa52",
+     "outputSha256": "2a2556661ba14f0beecf646bd84f668601709f2400710812f283b8a442785db3"
+    },
+    {
+     "id": "w1-s300-0004",
+     "seed": 20260917,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 9,
+     "rgbaSha256": "632824648ab53ffcf29b9d1416ba924ddf2e2c8e76965e6f03bebe444dfe7eed",
+     "tensorSha256": "4cdd0d24060194952abf485878394615f5ba8ab7b1256ce800ac7cff096ecfa2",
+     "outputSha256": "eaafb544d659bd7f949e3ad2b050695fd049aeebcd3421e59167ddb5084d7e07"
+    },
+    {
+     "id": "w1-s300-0005",
+     "seed": 20260918,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 11,
+     "rgbaSha256": "ec51419223249cf9d96be4e4c1ddc07fd75912e52bff1f07ed35924779769ff7",
+     "tensorSha256": "7099f47f545b36840a2bd7b81ffd8881d90dbaab0feac75a065d00fedb63808c",
+     "outputSha256": "be9803b205c680b32549b3eca187ebb148e54f5bb5d391a6b368367623ab8f8d"
+    },
+    {
+     "id": "w1-s300-0006",
+     "seed": 20260919,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 14,
+     "rgbaSha256": "be002687f0a3e2cf27bd02cad3fcf19ccef066b518d6ae01aaf25bb78cf4d912",
+     "tensorSha256": "f5670020a2f479bf2e13dcf39ca7ab5737213ac5073598dc6522dd00bb1fedb7",
+     "outputSha256": "9da6693b8ce66ed0d06fce33bc80d7e385cb8f3bb1aa0b48f150b3e5b8b533a9"
+    },
+    {
+     "id": "w1-s300-0007",
+     "seed": 20260920,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 8,
+     "rgbaSha256": "a6072cc5e263b0ba48e1c16113b09338468562511d2f88a18fdfee3f1c08297e",
+     "tensorSha256": "9ff28dc53475038a03e29a0ba30294e4ed95bb0a7cfdd97f8b0977add0336d89",
+     "outputSha256": "e5cfa097e2929a7d98c93ba9155eb07d2b17736066d755984ac8da8b21bb34a9"
+    },
+    {
+     "id": "w1-s300-0008",
+     "seed": 20260921,
+     "annotations": 19,
+     "evaluatable": 19,
+     "predictionsAtOperatingPoint": 19,
+     "rgbaSha256": "51b01d3a2485994281507240b799266410dc37a8b8285e0da3118bcb1e99c72d",
+     "tensorSha256": "50a81333b48a65295fb7d5b7627f7356c8185667c01fb35376c36a8b9270775f",
+     "outputSha256": "aa847f00962dede172907e22657b8d077fae3c4e69f6b03c99d997d4aafb671b"
+    },
+    {
+     "id": "w1-s300-0009",
+     "seed": 20260922,
+     "annotations": 17,
+     "evaluatable": 17,
+     "predictionsAtOperatingPoint": 17,
+     "rgbaSha256": "a8bc4f6df93bb7f9a5d207f4376374765efe7b9fb0051a947264f51e1bcd7d60",
+     "tensorSha256": "99c8ac736e2794993fa4d8e31f80999bfd85f637af54e4d0c41e80a2a083ad10",
+     "outputSha256": "d4f78565e4f976003464d718029eec90998c5b720765bc5a8fd7f868025a9f6d"
+    },
+    {
+     "id": "w1-s300-0010",
+     "seed": 20260923,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 13,
+     "rgbaSha256": "eee0ba79c46acf4b30960377fa138281442dc87dd911cd011b10bd9db45695d1",
+     "tensorSha256": "feb70b9037cc246ed95925d802b8cf143d7b5f9977ff91014954db82a92e8958",
+     "outputSha256": "bb18496623e8dacabe38c8252dba2d2bf3f8bca051237c754519690fb9b528e6"
+    },
+    {
+     "id": "w1-s300-0011",
+     "seed": 20260924,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 11,
+     "rgbaSha256": "ef319b4e6d63d9395e88cf46ed5eed3557663c3185a7decc208e68d0cbe0667c",
+     "tensorSha256": "7eb54dd899a0f3c18c394facac1f745a2700b23e4c07c1ca1f65d7d0bf285851",
+     "outputSha256": "28fcbaad3c67cd83ca925c0a3c458244f7e27b5440f8cf378e694e694f302c79"
+    },
+    {
+     "id": "w1-s300-0012",
+     "seed": 20260925,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 11,
+     "rgbaSha256": "092b9c7a137ffd2cf2060396d667f87c131a4a729d6d3f3030e42be285e79ef8",
+     "tensorSha256": "086a0fd38215bda7ad464f0e62d635d4d82a9d9efb0c25fb5c485bb485b968ff",
+     "outputSha256": "74059d4f1775afdef0531c7e6a5d3de9d2cc2dcdac8997d49173ac104e238277"
+    },
+    {
+     "id": "w1-s300-0013",
+     "seed": 20260926,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 8,
+     "rgbaSha256": "958f02987b1196b18a9901052cc7137e4853a00413f4df0d510f1cbd1b104a1e",
+     "tensorSha256": "d77a8a1c15cf3e6d294f574210f7f90ae9a078ae071f9f6017dc3656b9e31369",
+     "outputSha256": "43fe81e7da50db7024cf72b3403506912868a9158b624cf2139d509bb8107903"
+    },
+    {
+     "id": "w1-s300-0014",
+     "seed": 20260927,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 8,
+     "rgbaSha256": "3760be25d1f84d5f20a10f5ba383cc9b4c23d76a030925972978a1e1057c270c",
+     "tensorSha256": "49d87603552cc41ee2096d08a75916705024dbae8ac77d22306195b1dfefb85d",
+     "outputSha256": "c96ce81edddb5bd05f17174ae44a19c96edac9e4f5f0c9013ca08b52c1413000"
+    },
+    {
+     "id": "w1-s300-0015",
+     "seed": 20260928,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 14,
+     "rgbaSha256": "ddb5cd96c331a43c60cd1fba5489638d1f73c536fbe10ad549351734c86de900",
+     "tensorSha256": "92ed0ad3aa8d84fddf66a6999595f35395a0f8438ad2702a2bb3b2eb0c86395b",
+     "outputSha256": "3ac0f9b3e0e8e9fc89dea0f06ad1190cccc7327afceee0e34e257e51d0527de7"
+    },
+    {
+     "id": "w1-s300-0016",
+     "seed": 20260929,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 10,
+     "rgbaSha256": "8d595f00e8f8c28d62ee15e5611c73e22e6ae24438008d95515285c2e83784e9",
+     "tensorSha256": "217eec55a0363b312f754ee41968b8bfcd1f69285b07e27bdb7833269eb4b684",
+     "outputSha256": "99d33847cb8ddebabe3d43dd8d4db8b91ec6019c797f84546415df953b1068a7"
+    },
+    {
+     "id": "w1-s300-0017",
+     "seed": 20260930,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 18,
+     "rgbaSha256": "214a5000a033b7042cb68d07304755d7037aa98c0ed2ecfae04ad0b953ef096f",
+     "tensorSha256": "3196596ad759443a3aaa2f5bfa9f3947ea7cf5b4a1c48be4b26a4f746ba97325",
+     "outputSha256": "0c38f4c92e63eaf61e5f3e1ade3554c2070e7030a401d62ed1f5c02be8cd9ff6"
+    },
+    {
+     "id": "w1-s300-0018",
+     "seed": 20260931,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 9,
+     "rgbaSha256": "1ebaf7de4f3cc04f53ce6d40d882a319afc203a14bbd6995251c3f87ec89b573",
+     "tensorSha256": "207d2f0ec156549dac15137172c721c3fd47191c7a2bbd91b46623356720a3f6",
+     "outputSha256": "3c4b5f0a9ace375744b5f1a12d953a5b7f51fd924aeaf0120f11aeb03389b94d"
+    },
+    {
+     "id": "w1-s300-0019",
+     "seed": 20260932,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 12,
+     "rgbaSha256": "219507a5fb33e0bc3e95b2251e533ebd316d520d51f3a45227ae94dd50733f90",
+     "tensorSha256": "ec11337cf278a5183e1022354e08e44b70fa6151139e18bbae60ecb6a1cad3dc",
+     "outputSha256": "ed6750253cb056c3c4eedf2f3a314f1bbbe89f25d384b2085c77ce8c3c6e6cee"
+    }
+   ]
+  },
+  {
+   "cell": "s350",
+   "viewport": {
+    "w": 2240,
+    "h": 1493
+   },
+   "captureSize": {
+    "w": 2240,
+    "h": 1493
+   },
+   "dpr": 1,
+   "tiled": false,
+   "cssPerModelPx": 3.5,
+   "datasetHash": "348f5117",
+   "samples": 20,
+   "groundTruth": 307,
+   "clippingCeiling": {
+    "evaluatable": 307,
+    "clipped": 0,
+    "unreachable": 0,
+    "ceiling": 1
+   },
+   "mAP50": 0.006436,
+   "elementRecall": 0.026059,
+   "groundingAccuracy": 0.054422,
+   "predictions": 147,
+   "predictionsPerScreen": 7.35,
+   "matched": 8,
+   "falsePositives": 139,
+   "falsePositiveTaxonomy": {
+    "duplicate": 0,
+    "classConfusion": 5,
+    "localization": 41,
+    "spurious": 93
+   },
+   "falsePositiveShare": {
+    "duplicate": 0,
+    "classConfusion": 0.035971,
+    "localization": 0.294964,
+    "spurious": 0.669065
+   },
+   "falseNegativeTaxonomy": {
+    "noOverlapAtAll": 202,
+    "overlappedWrongClass": 25,
+    "overlappedPoorLocalization": 72
+   },
+   "matchedIou": {
+    "n": 8,
+    "min": 0.501564,
+    "p10": 0.528121,
+    "p25": 0.529462,
+    "median": 0.637234,
+    "p75": 0.705446,
+    "max": 0.806384
+   },
+   "normalisedDisplacement": {
+    "n": 8,
+    "min": 0.057247,
+    "p10": 0.087648,
+    "p25": 0.092041,
+    "median": 0.146495,
+    "p75": 0.183473,
+    "max": 0.403581
+   },
+   "recallByModelSize": {
+    "model 8-16px": {
+     "hit": 7,
+     "n": 153,
+     "recall": 0.045752
+    },
+    "model 4-8px": {
+     "hit": 1,
+     "n": 150,
+     "recall": 0.006667
+    },
+    "model<4px": {
+     "hit": 0,
+     "n": 4,
+     "recall": 0
+    }
+   },
+   "perClassRecall": {
+    "button": 0.017544,
+    "link": 0,
+    "textbox": 0.101449,
+    "checkbox": 0,
+    "radio": 0,
+    "select": 0,
+    "tab": 0,
+    "icon": 0
+   },
+   "rows": [
+    {
+     "id": "w1-s350-0000",
+     "seed": 20260913,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 6,
+     "rgbaSha256": "fe1c4d37f171e8d087593a2fe3c704fbbfaa31f1fe7257e27403f6dcad3976cc",
+     "tensorSha256": "6fc55dff1e412d1551af8aef3c4274e7e961fceb0e5113581c4d52fa6e96a28a",
+     "outputSha256": "f1112c5d0242db8062d6692f8fd371c4818ae611a99e6d4814192b91779fdf76"
+    },
+    {
+     "id": "w1-s350-0001",
+     "seed": 20260914,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 1,
+     "rgbaSha256": "841b4b00f9f306614002572074302b01de5fd0296c8aca33ae463c408ca9cda0",
+     "tensorSha256": "ee86888ddd10d02611c5bb2d280254d2efee8f14ccdc2223328004bb6a0441de",
+     "outputSha256": "929f4bfa3208ca693daefa673587fd62605006e91bd2e9816677817343195ae3"
+    },
+    {
+     "id": "w1-s350-0002",
+     "seed": 20260915,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 6,
+     "rgbaSha256": "963b8c4308acd8ecbc508bb6d7e18d9bd65a3a40b7e5bf5ba543d693b4249f25",
+     "tensorSha256": "e2246d8b071969698761fbdbbef1a383d6dace66f5eb33dc35f3a1cb9ff608bb",
+     "outputSha256": "b179eb954075293ab3f5ce04d1ef2bcc951a0c8566c9c2d62a07f7900913a19b"
+    },
+    {
+     "id": "w1-s350-0003",
+     "seed": 20260916,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 5,
+     "rgbaSha256": "8aebb9b2e579413df4e72d5016c877997e0e0833e93235cd8b4f7a2893f498f8",
+     "tensorSha256": "ff6c8166f01402ca28fc35ce92acca83939975399757bf116675c7cab3859be4",
+     "outputSha256": "28d0c553a72757f2f7787b603bd14b2ed2446d8fe41c02f9c02125ea8c364a3f"
+    },
+    {
+     "id": "w1-s350-0004",
+     "seed": 20260917,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 2,
+     "rgbaSha256": "1cd9f009dd869a9c6a0ad595219cf8ecebd751d5b60523370b7cb11275a42c7c",
+     "tensorSha256": "28413271ed978af7f161666faffce0bc158e414bb21d280ac99be91a2d861269",
+     "outputSha256": "f33982976d793f71bda7f2464463ada4011e68e645a1055ec4e22c35f1b7eb99"
+    },
+    {
+     "id": "w1-s350-0005",
+     "seed": 20260918,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 6,
+     "rgbaSha256": "8e2f9921bb0d446479d05430d4136bb0947bfb1e79ca565ee9c7e96abf00265f",
+     "tensorSha256": "7c87fd3d657bcbe78b5fc2793001d244e468ba20df63dc06df93fbe02e4be6d8",
+     "outputSha256": "ae6758f03e48d6febc19c328ece065eaa96cdb0b7a990c91553d8d6dab97c752"
+    },
+    {
+     "id": "w1-s350-0006",
+     "seed": 20260919,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 8,
+     "rgbaSha256": "12af6627913e68706f6c5795ecdeef7f7d4d70b5a87022a956577dc9123ca3c6",
+     "tensorSha256": "f339f862f9d702e97929e97d309a0dfc5876fdfc782fc09e37737d9617d9aeab",
+     "outputSha256": "50335d533097fd187e4c6ea272b9dde2e6b26ab584fd0e131b6e57136ef73337"
+    },
+    {
+     "id": "w1-s350-0007",
+     "seed": 20260920,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 3,
+     "rgbaSha256": "ba068bcd525ef23e8c06fe98881353c22dcbd774164588a84c27937454283937",
+     "tensorSha256": "70458254806cba711ba6f3e75fc1b5d3b7fd2175617d260363ff4a5a33f503a0",
+     "outputSha256": "967d6ec21b88bf3b9dcf74b38ac1cf0e56b3141348aecdbcbd321a4cdbfd5e93"
+    },
+    {
+     "id": "w1-s350-0008",
+     "seed": 20260921,
+     "annotations": 19,
+     "evaluatable": 19,
+     "predictionsAtOperatingPoint": 12,
+     "rgbaSha256": "50b19a6ed05c16d65611898df51d41b893e98138c39cd4a057b2f1776f9547e4",
+     "tensorSha256": "fe3b7004c28ef6c0f4ca890eaa3ea53e3d0070910c4b850fd20f43cbdaae2583",
+     "outputSha256": "fb27398b6ddcd53847cd128b0f80b53520c78ac33178e48620bbfc78bbde989d"
+    },
+    {
+     "id": "w1-s350-0009",
+     "seed": 20260922,
+     "annotations": 17,
+     "evaluatable": 17,
+     "predictionsAtOperatingPoint": 14,
+     "rgbaSha256": "269a274145c701a605851c0a40d2b6475eb2354f573b442a8f46b83e28a65abd",
+     "tensorSha256": "ffb5fb72ec090d9059b65d838306bace8cabe811e5fb5c29c378c6301237eecc",
+     "outputSha256": "dcdc6b7cab7eaddf9566c37c8aab3115015611ae5ac59874b41eaf4b6f14ec34"
+    },
+    {
+     "id": "w1-s350-0010",
+     "seed": 20260923,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 6,
+     "rgbaSha256": "da6985ed7463e99b332d94c695bd2ef134773bb9c07eab92591e277cd2e1a50e",
+     "tensorSha256": "dd98ebef47b07bc61816499a7e199f7707a150060973ebe07eea9b3fd489f6a3",
+     "outputSha256": "7a1b611cfdbc9d2150a3fa201e69b3f608c8219efaf46a129b5ae8a79b9b1fa4"
+    },
+    {
+     "id": "w1-s350-0011",
+     "seed": 20260924,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 2,
+     "rgbaSha256": "d471c1edeed57f0570e90226e30647a2f89d6430fcdfaab7fc01f9efb7d5acd3",
+     "tensorSha256": "e8b946210ed0053aed2b5cf4917e8deec689c95f3538fdeaedc04d1564b80c0b",
+     "outputSha256": "56eecaf8dee3c8a889cc7e858d4ee9c344f356eac9a714ac82124de76a68115d"
+    },
+    {
+     "id": "w1-s350-0012",
+     "seed": 20260925,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 20,
+     "rgbaSha256": "eae65b457d94a54afa634c32256cb8c4b477f482c97942e774ec22fbd3e82240",
+     "tensorSha256": "f907fce37c6929556f7bce19ed84289cc6916682b21a95a617de8fc307c65a42",
+     "outputSha256": "1e7f9810a37ee0f6ab5b10cf25eef7d8507d1f7a289aaa37e1fdd2a3755002b5"
+    },
+    {
+     "id": "w1-s350-0013",
+     "seed": 20260926,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 17,
+     "rgbaSha256": "15e6ad90e86d4410af5b1fbfe2ddbcfc39e9462a34f4bfa8a0b564820e8cabac",
+     "tensorSha256": "74b7d96611476caf5b1f6ad0976fa355aed9cb432fe840654fecaa7b9e1ebd1a",
+     "outputSha256": "c98a422c0eca72704f7b3ade34a1eefdb9fe47683d042468aea3df040604f2b7"
+    },
+    {
+     "id": "w1-s350-0014",
+     "seed": 20260927,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 6,
+     "rgbaSha256": "a8e76477e1a6a736e43712d93c8ae42ff38c9c6bdc8f7b77269e8cb316d318cb",
+     "tensorSha256": "ea6575b55e3228d079703f3ff664a64a82f4c6eb1fa598c75a709c0826c9ac49",
+     "outputSha256": "6c9afa145091ff2888e98fd1a211a115a1747a4da1971cf02caf6f3cf797486d"
+    },
+    {
+     "id": "w1-s350-0015",
+     "seed": 20260928,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 4,
+     "rgbaSha256": "9d35255ca1d97388dc05012776f0cb7261b87ab517549d2ba54cc192775fc4e7",
+     "tensorSha256": "7cc9e30fa0ccafdb79d1a177794faade8898dda52baa87e30a81484fec20a897",
+     "outputSha256": "91fd861770818a766293b2e6481ae1cddc4a108fde55ac490b8c2c9fd77f45e3"
+    },
+    {
+     "id": "w1-s350-0016",
+     "seed": 20260929,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 4,
+     "rgbaSha256": "e7b7f671a6132bec9017c8e3f4e85e1195db6f8ccc014025956088c01ff97a90",
+     "tensorSha256": "44d9ddbbc71ee575543e7844d751ebeb6c54986a187f67df7a0fd6989fb23dbf",
+     "outputSha256": "548842240ce86f05009b70350602a4ee93d6be2e67fc7a4c8ae0fcd4cec951ef"
+    },
+    {
+     "id": "w1-s350-0017",
+     "seed": 20260930,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 8,
+     "rgbaSha256": "541c967a9f06d2505ab9d704298561aeb97a8c4df072234a4946a665fdd345e7",
+     "tensorSha256": "0d9297e6e00a8ccb14e64ceb23bc220e070e57e20f434ee0ce2e457ddf59eedd",
+     "outputSha256": "0ddfef650ed5e020be4048d236c8cc86303dd45ce15a060041d35de42883ed5f"
+    },
+    {
+     "id": "w1-s350-0018",
+     "seed": 20260931,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 6,
+     "rgbaSha256": "8bedc82aa9ce49aabad554867e1e737f9784afbdd2e2d79b778f3c8c47a6e81b",
+     "tensorSha256": "9a74f5ef6de6f86c5ba7778482c2b0f384a91b2ac394c370b5d1c3c2223db5dd",
+     "outputSha256": "47d3fe67976237b611fe4a59d674df2673fdd66490fd1121e7889f76a3713bc2"
+    },
+    {
+     "id": "w1-s350-0019",
+     "seed": 20260932,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 11,
+     "rgbaSha256": "ff9a639369ec48a59ac50b0aa610145ed3c4686b6892d0aef2b71b41a6c49a16",
+     "tensorSha256": "85a9d70b7b633d8d77a9c4217faa22f4eba6a853b87f338e18438a74cd0028e5",
+     "outputSha256": "6c410e3d874dc573a9382e9c92c0012170201e2598e014fcf6eba7cb44102c32"
+    }
+   ]
+  },
+  {
+   "cell": "s400",
+   "viewport": {
+    "w": 2560,
+    "h": 1707
+   },
+   "captureSize": {
+    "w": 2560,
+    "h": 1707
+   },
+   "dpr": 1,
+   "tiled": false,
+   "cssPerModelPx": 4,
+   "datasetHash": "938ad407",
+   "samples": 20,
+   "groundTruth": 307,
+   "clippingCeiling": {
+    "evaluatable": 307,
+    "clipped": 0,
+    "unreachable": 0,
+    "ceiling": 1
+   },
+   "mAP50": 0.003542,
+   "elementRecall": 0.016287,
+   "groundingAccuracy": 0.045872,
+   "predictions": 109,
+   "predictionsPerScreen": 5.45,
+   "matched": 5,
+   "falsePositives": 104,
+   "falsePositiveTaxonomy": {
+    "duplicate": 0,
+    "classConfusion": 3,
+    "localization": 27,
+    "spurious": 74
+   },
+   "falsePositiveShare": {
+    "duplicate": 0,
+    "classConfusion": 0.028846,
+    "localization": 0.259615,
+    "spurious": 0.711538
+   },
+   "falseNegativeTaxonomy": {
+    "noOverlapAtAll": 222,
+    "overlappedWrongClass": 17,
+    "overlappedPoorLocalization": 63
+   },
+   "matchedIou": {
+    "n": 5,
+    "min": 0.500031,
+    "p10": 0.500031,
+    "p25": 0.514095,
+    "median": 0.55315,
+    "p75": 0.679923,
+    "max": 0.735755
+   },
+   "normalisedDisplacement": {
+    "n": 5,
+    "min": 0.020466,
+    "p10": 0.020466,
+    "p25": 0.070037,
+    "median": 0.095041,
+    "p75": 0.116447,
+    "max": 0.141857
+   },
+   "recallByModelSize": {
+    "model 8-16px": {
+     "hit": 5,
+     "n": 70,
+     "recall": 0.071429
+    },
+    "model 4-8px": {
+     "hit": 0,
+     "n": 225,
+     "recall": 0
+    },
+    "model<4px": {
+     "hit": 0,
+     "n": 12,
+     "recall": 0
+    }
+   },
+   "perClassRecall": {
+    "button": 0.052632,
+    "link": 0,
+    "textbox": 0.028986,
+    "checkbox": 0,
+    "radio": 0,
+    "select": 0,
+    "tab": 0,
+    "icon": 0
+   },
+   "rows": [
+    {
+     "id": "w1-s400-0000",
+     "seed": 20260913,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 5,
+     "rgbaSha256": "297c1fee7b684190e1d7e5e95511c658719b9b513a028834ae60bc78d6660112",
+     "tensorSha256": "1b1ebdbd78270d93e430cbcd67ad848159ba1139b61084caa72e93ddc2f5ecb2",
+     "outputSha256": "96bb62a968bfa73db592320072d30e4a9d1706580846e079481352383929fb1d"
+    },
+    {
+     "id": "w1-s400-0001",
+     "seed": 20260914,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 1,
+     "rgbaSha256": "e902b4e4ca88c7dbdf468540530fb64a2e82d312d0ceb9992e677ddfddc5797b",
+     "tensorSha256": "19eaf6aa43fffddbb9d01ed2e1463b1dacc7ba3483a2eb21f1742826fbdb7c27",
+     "outputSha256": "3c28e4c19ad600b79218bff03298b769fe482028459583fe20657011a8802a99"
+    },
+    {
+     "id": "w1-s400-0002",
+     "seed": 20260915,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 3,
+     "rgbaSha256": "f95591bfb63b214738874af926a7d1af659a01aa8bca6a1e79c54c02dba05cc5",
+     "tensorSha256": "6b125a9e8eba83681381a0a4247323a10bf4af83c42515db6b2b6446c3e07647",
+     "outputSha256": "e40837bde6a44be9bea72532867bba25b79082cb2cdf9a958925f524cf431c2b"
+    },
+    {
+     "id": "w1-s400-0003",
+     "seed": 20260916,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 11,
+     "rgbaSha256": "4bfc1302af919b1f6ca21918adb4d82fde50ac6f9b21b75eac708e965efe29d6",
+     "tensorSha256": "a00c50cf1c5f1e9a6ad8d635fd290eb50543597754cb04675f8ea8f3b3a6b1f1",
+     "outputSha256": "4014d9bf5917d15c1548cd33e903d0c9811dbeb16b572942d34b33df929e9d8d"
+    },
+    {
+     "id": "w1-s400-0004",
+     "seed": 20260917,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 3,
+     "rgbaSha256": "775c821d3715deb9790483410439ee7ebe2ec43b7ab175ec87cc4ced6b313df3",
+     "tensorSha256": "cc5f62317980a82cdd8548d9683f0283d7a970d6b780a9cdeb01f6e9db10e110",
+     "outputSha256": "6a57929632507e7169666b2308b6e1db4decb4e164c57a4ee52ae8131622cabc"
+    },
+    {
+     "id": "w1-s400-0005",
+     "seed": 20260918,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 11,
+     "rgbaSha256": "06fd4f496b4c86c4146d5b356f0d476ed4efa5441320ace4ccd83d4f82083720",
+     "tensorSha256": "5e01c9da23ea0301f9710086657956d1f3396ec71cb06491004ed3667e62ea43",
+     "outputSha256": "80bab1d52f1f25e446d0b416a94adbaaab6e7c8c7e67f84dae7f92db7f47ba30"
+    },
+    {
+     "id": "w1-s400-0006",
+     "seed": 20260919,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 5,
+     "rgbaSha256": "267c8ded04c820c7c2b00082ba671738ce6208332112f5d65bd4b8d7b8c6478a",
+     "tensorSha256": "35d6da3a42ab2ad9df35d8a188594be57592c532f645cdcf0cf5cae76c34b2b5",
+     "outputSha256": "4c3c0523c9956b7c6c9815fb5b7323ed3f400bbf71d9edccaf4d4143979d46a1"
+    },
+    {
+     "id": "w1-s400-0007",
+     "seed": 20260920,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 1,
+     "rgbaSha256": "93a4e1ba3b3af3783f2fea72649058e09626bf0b455418b8ac0ab4cf5632277a",
+     "tensorSha256": "fd30fc4ee65324a4df23f17eda3a59232e8098accc03b9c701790b5aca18bd03",
+     "outputSha256": "796873ed53275ebe787c7d4b5063f59e5adeeb5554e865a96f6aa16b9ba1c713"
+    },
+    {
+     "id": "w1-s400-0008",
+     "seed": 20260921,
+     "annotations": 19,
+     "evaluatable": 19,
+     "predictionsAtOperatingPoint": 4,
+     "rgbaSha256": "a62cfa4e07bfbb2283059791a8b86628ce0be82b32abaf19be09ef6a7fac12c0",
+     "tensorSha256": "7fffd82eab1024ce1ea9b612ae9b9415106d7a2021c2436817e8a5abb8a6ef5e",
+     "outputSha256": "e9fe9d5e21e3ee870b124dd7db4b232e92b36c4526dd68347d547cdbdd650825"
+    },
+    {
+     "id": "w1-s400-0009",
+     "seed": 20260922,
+     "annotations": 17,
+     "evaluatable": 17,
+     "predictionsAtOperatingPoint": 3,
+     "rgbaSha256": "17f176e10d19f5fa0c0036111c548624b6264cbe321bfd9237631581dda71172",
+     "tensorSha256": "271266a56114dd0b2cf1847ba67d32775962e218870514858d4f86c8dd3999aa",
+     "outputSha256": "a9b3bb109e26e0773c96d646b900329f853c117da49065f0ab10095867a232b0"
+    },
+    {
+     "id": "w1-s400-0010",
+     "seed": 20260923,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 11,
+     "rgbaSha256": "ed24eed2349eb5ee7e7a40ce00d842b37e956944c3c37330628ec16d53cbcb14",
+     "tensorSha256": "4721a263e9b0389ac5b806ac776bc0120bf9699847c3875beb26dad6a3ea4cbf",
+     "outputSha256": "f3de04991897f46c5cdb5c2705b1978dc67d7658fef38512ced0c866bf4849a7"
+    },
+    {
+     "id": "w1-s400-0011",
+     "seed": 20260924,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 10,
+     "rgbaSha256": "ce7306eb5c014d3865e76d3e8565f7580537a9051ca34c23171c3f0240441f93",
+     "tensorSha256": "f09cde066819f37feb28e2f2d5f609170749431e85ab371054ec8506b7177261",
+     "outputSha256": "ade45f7c746e6ccf0744848baba91c214d22d93f9a26f8d24a308d0063c565a6"
+    },
+    {
+     "id": "w1-s400-0012",
+     "seed": 20260925,
+     "annotations": 20,
+     "evaluatable": 20,
+     "predictionsAtOperatingPoint": 3,
+     "rgbaSha256": "560908abd5a530baa882637263b2f5087a730e6c0036648c164772acdb006b30",
+     "tensorSha256": "26ba2d081cb0b89028a0f4db80802c86247a8ff3c6caa776309c5ef261d023d9",
+     "outputSha256": "695d51d8ac61928a777fd31c17e1be12ab7a0d9bd7c58db98d31ca7a9f6bd5e1"
+    },
+    {
+     "id": "w1-s400-0013",
+     "seed": 20260926,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 5,
+     "rgbaSha256": "e1b2032d774c751723560e0e0ae745b7cd041733e5b339e9289b76dcc6d11797",
+     "tensorSha256": "504379638a01a1c337cd23724b69abb66e9d2faefe3990d15da36fe9266d0aa9",
+     "outputSha256": "a693e944727b5b2be02e7b7a7147f77153c3557518e4ce72ae9723105e713a29"
+    },
+    {
+     "id": "w1-s400-0014",
+     "seed": 20260927,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 4,
+     "rgbaSha256": "b770a068568e9da858f70b42bd00a2bbec7add14b137a9c6a1de28b145164ca8",
+     "tensorSha256": "08943939f31986585d506fe6dd3f814052098ed4a1ed19b468b72edc4ac5d193",
+     "outputSha256": "bb4a25f225610d792283572e0d48f6209ac6018489417c6cf7cd36e376a99347"
+    },
+    {
+     "id": "w1-s400-0015",
+     "seed": 20260928,
+     "annotations": 15,
+     "evaluatable": 15,
+     "predictionsAtOperatingPoint": 7,
+     "rgbaSha256": "a5094e5cec3f0914a4d8d72b428d387658e32f53c814b7311aa0d286ba85eb35",
+     "tensorSha256": "008671bd86b62205cad4eb0b394b3b6f1178a8f1554b66500cf5cc81605393f2",
+     "outputSha256": "a455006bb649910a9c05061a9f5c894b2cf13227b0b8be6e6ab37b4c91067255"
+    },
+    {
+     "id": "w1-s400-0016",
+     "seed": 20260929,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 2,
+     "rgbaSha256": "f2dc8564c960a5c53465244e9766fb6675befb12e711812b6df8a31912f2c7b3",
+     "tensorSha256": "00f1369aaa9e82c629ce1c92735e57e5f3bb612440ae3c2d7c943354b41f0ed7",
+     "outputSha256": "ca66f5d29e2ed8ca7952c2405facceb338280ba6bb83813ec069b50bc7cdafc1"
+    },
+    {
+     "id": "w1-s400-0017",
+     "seed": 20260930,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 10,
+     "rgbaSha256": "86e06ce5ac157e273be2bce44ac8e295434440d2ba5abe147ea198cf92395dfd",
+     "tensorSha256": "3eff1782bf8ee3d8bae67389f8003391fc5a6a99ef8f4c1c73b532e25f61e962",
+     "outputSha256": "82a5339ced651ff6a2484c2faebe062807901f22ee9707f8a464d5ef8dc10216"
+    },
+    {
+     "id": "w1-s400-0018",
+     "seed": 20260931,
+     "annotations": 13,
+     "evaluatable": 13,
+     "predictionsAtOperatingPoint": 4,
+     "rgbaSha256": "f4040aedfe81eaa5f22a76af89319ab98c5bf0591e4f5e2fe05daf64a00eb91d",
+     "tensorSha256": "c077ef524a690ff3172ec3af09c9ea573594990dd9c50057dfb55d76fb9a7492",
+     "outputSha256": "6c541291f3d2def854089c0e9a6bef4e9100e6f273e9a9967ff08a94c4de7061"
+    },
+    {
+     "id": "w1-s400-0019",
+     "seed": 20260932,
+     "annotations": 18,
+     "evaluatable": 18,
+     "predictionsAtOperatingPoint": 6,
+     "rgbaSha256": "60b92304eeb74e436332adfbc2a353543394f4e4eeb8271914c0de12726de010",
+     "tensorSha256": "a1ff84ff8bc3e8120f7048d207fc309701d4a2b64bf15d77099703e1918b1f74",
+     "outputSha256": "fb4606d84dc896cc24461b7d43e03d1f2b6b80f5e1a80e5b9e1bc67dafdf9d55"
+    }
+   ]
+  },
+  {
+   "cell": "t300",
+   "viewport": {
+    "w": 1920,
+    "h": 1280
+   },
+   "captureSize": {
+    "w": 1920,
+    "h": 1280
+   },
+   "dpr": 1,
+   "tiled": true,
+   "cssPerModelPx": 3,
+   "datasetHash": "92f62d70",
+   "samples": 20,
+   "groundTruth": 1228,
+   "clippingCeiling": {
+    "evaluatable": 1228,
+    "clipped": 0,
+    "unreachable": 0,
+    "ceiling": 1
+   },
+   "mAP50": 0.050884,
+   "elementRecall": 0.167752,
+   "groundingAccuracy": 0.231982,
+   "predictions": 888,
+   "predictionsPerScreen": 44.4,
+   "matched": 206,
+   "falsePositives": 682,
+   "falsePositiveTaxonomy": {
+    "duplicate": 14,
+    "classConfusion": 34,
+    "localization": 330,
+    "spurious": 304
+   },
+   "falsePositiveShare": {
+    "duplicate": 0.020528,
+    "classConfusion": 0.049853,
+    "localization": 0.483871,
+    "spurious": 0.445748
+   },
+   "falseNegativeTaxonomy": {
+    "noOverlapAtAll": 630,
+    "overlappedWrongClass": 84,
+    "overlappedPoorLocalization": 308
+   },
+   "matchedIou": {
+    "n": 206,
+    "min": 0.50377,
+    "p10": 0.518924,
+    "p25": 0.54784,
+    "median": 0.59003,
+    "p75": 0.665244,
+    "max": 0.857316
+   },
+   "normalisedDisplacement": {
+    "n": 206,
+    "min": 0.002404,
+    "p10": 0.073506,
+    "p25": 0.119939,
+    "median": 0.180755,
+    "p75": 0.363864,
+    "max": 1.002801
+   },
+   "recallByModelSize": {
+    "model 8-16px": {
+     "hit": 176,
+     "n": 764,
+     "recall": 0.230366
+    },
+    "model 4-8px": {
+     "hit": 30,
+     "n": 464,
+     "recall": 0.064655
+    }
+   },
+   "perClassRecall": {
+    "button": 0.219298,
+    "link": 0.116071,
+    "textbox": 0.384058,
+    "checkbox": 0,
+    "radio": 0,
+    "select": 0.1,
+    "tab": 0.066667,
+    "icon": 0.05
+   },
+   "rows": [
+    {
+     "id": "w1-t300-0000",
+     "seed": 20260913,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 27,
+     "rgbaSha256": "583b3809a8737a3d80110fe2e41ad3600dbdc9d155c30d719d90f670ccd09b80",
+     "tensorSha256": "01c14dbc58be8b6bd0487d54973acb58cb35f74ff389d3aa14582a31af2daf26",
+     "outputSha256": "046a50702d632392d53854a70f86513b6b0ab981c1ecbff68bd5eed27ec4b256"
+    },
+    {
+     "id": "w1-t300-0001",
+     "seed": 20260914,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 28,
+     "rgbaSha256": "bf5987574b288cfed9408faa19a3aa38b7d22a79cec1a8a7ef0d5e431075f2a1",
+     "tensorSha256": "bd1b2c13b02a7a16c830e0bd18f5fa4a121be86fb40b728b25b8d899a519a892",
+     "outputSha256": "a2f641b8be46bad9e675f31ef968719aa7a48f8f152147b7f7659498539c9e07"
+    },
+    {
+     "id": "w1-t300-0002",
+     "seed": 20260915,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 36,
+     "rgbaSha256": "e60a654507451ac1e396fe74a11f50e969541e0ad0f445585e5254a497fd4190",
+     "tensorSha256": "2a6151d2b767704753c45702a1e5cff54751087da9780cbe6f2ef15f55dfc7bc",
+     "outputSha256": "5f882d2704806c522d840870aaa4c03e73c91487681520bb42dde7f570455dec"
+    },
+    {
+     "id": "w1-t300-0003",
+     "seed": 20260916,
+     "annotations": 80,
+     "evaluatable": 80,
+     "predictionsAtOperatingPoint": 56,
+     "rgbaSha256": "01911684a92eaa74f153339da961a9ee0d6ba848481e04f2d3dfc2e8c20e0436",
+     "tensorSha256": "6d866d8f7a5d3c0ffbfb838f285c86afa0f35a3148e52d3b441e72f02bf3429e",
+     "outputSha256": "9ba00154409fc19cab956273835b39ed6f370a71187c85427499156871742a4b"
+    },
+    {
+     "id": "w1-t300-0004",
+     "seed": 20260917,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 26,
+     "rgbaSha256": "7e43921a4fe9ccc6b9ad75e7de3d8efaa29cf2588e1c6fb2064841873f31fa2c",
+     "tensorSha256": "514ed4012b0b506cd60587a75d4090aa34e01e8ad3e1278d708e4f68b5cfffce",
+     "outputSha256": "2ff30ef0e58821bb207e4443f8174fc5f821718c90afc59d24938b82cc2d95ef"
+    },
+    {
+     "id": "w1-t300-0005",
+     "seed": 20260918,
+     "annotations": 60,
+     "evaluatable": 60,
+     "predictionsAtOperatingPoint": 51,
+     "rgbaSha256": "5479c523cfcad5150cc8928f92852eb29260b116da8cd74e19557fbdda345ec4",
+     "tensorSha256": "d2f9bb2c3e859cb482b7373ec46239af91c6f2ded2fb9f0705b8d1059ded1c8e",
+     "outputSha256": "e2a7a1ae9aa453687c6f3cc69bf7aad769792d00bf6bc42e8c7fdd0876b87f07"
+    },
+    {
+     "id": "w1-t300-0006",
+     "seed": 20260919,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 42,
+     "rgbaSha256": "555d77bf9ca84c00c1af41e67db4f4f8c61b68e23c37e1d937d5cd83522eab83",
+     "tensorSha256": "47c8bf19c298c95ce37a444e679febc29fb3fca01447c44e7b9b09ee6354f7d2",
+     "outputSha256": "e01d48514df999d8d2124a7ca5d19ed482d91b9ada38462df91cc63abc70787a"
+    },
+    {
+     "id": "w1-t300-0007",
+     "seed": 20260920,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 18,
+     "rgbaSha256": "862c830b52d7d07a63045f8c183c43e89ee4d5a73cc5a191f4e5e03f6485ec34",
+     "tensorSha256": "26cdff54294e8fb693cf8c0b6b3adce0af71eb609c960b28731d8ffa7ea5b4cb",
+     "outputSha256": "9534b2696f3838bb91bf64662e9651bf489b6ba307d86e5b9868ae39b57b32e3"
+    },
+    {
+     "id": "w1-t300-0008",
+     "seed": 20260921,
+     "annotations": 76,
+     "evaluatable": 76,
+     "predictionsAtOperatingPoint": 65,
+     "rgbaSha256": "0b939c5a5694817cfe1b032c7bd1535e11f2b6be831c64509a6f5aa77b09f3c2",
+     "tensorSha256": "1b4a6e7c1a8f1fa7d28ed7eb9263af25b5101abcfd40b7686d5a7aea3304658d",
+     "outputSha256": "5bfd43a2d4b2ee72997b18bd19db3a86a6023b5dc20fbd99d10a26550e3bba73"
+    },
+    {
+     "id": "w1-t300-0009",
+     "seed": 20260922,
+     "annotations": 68,
+     "evaluatable": 68,
+     "predictionsAtOperatingPoint": 54,
+     "rgbaSha256": "e1529ca6643c0f878505d62e2010d11696e059ebd45dd2d8d3e28f6218b34bbf",
+     "tensorSha256": "0d8d18223ca39d56f463c5ff67c0d20318971f97778a35d45564b3e0c11454e1",
+     "outputSha256": "95e5d715955a524553e79b3becea1ba7427ffbdcca13bae451dd0e3ea0e43cc1"
+    },
+    {
+     "id": "w1-t300-0010",
+     "seed": 20260923,
+     "annotations": 60,
+     "evaluatable": 60,
+     "predictionsAtOperatingPoint": 51,
+     "rgbaSha256": "1712dd2334b12385ca0af9b88e70eed3b75196ad2bf2e6a5f500191c726fbaf3",
+     "tensorSha256": "eea47f89a610846464b124b4d244926d1d9ae9545597429f75cc5e0f2ab89676",
+     "outputSha256": "2a3b62126cb1a6ac293b9a854b1ae8b16cc4448d746e4c0d390b43ca13b534f0"
+    },
+    {
+     "id": "w1-t300-0011",
+     "seed": 20260924,
+     "annotations": 60,
+     "evaluatable": 60,
+     "predictionsAtOperatingPoint": 48,
+     "rgbaSha256": "c88847c3d01a190956f3cb93291e0f9d21942162f900948df14bfc07a0223fa7",
+     "tensorSha256": "800cef91b0126d48b9c60c67f6b3651749eba82705496af71074b24271512a6e",
+     "outputSha256": "d73afb32d6a3cdd47d17dae26bf8ff1800e5336a40d4ba30482f075a7dcf605e"
+    },
+    {
+     "id": "w1-t300-0012",
+     "seed": 20260925,
+     "annotations": 80,
+     "evaluatable": 80,
+     "predictionsAtOperatingPoint": 50,
+     "rgbaSha256": "b302f2926a21a38623bcf7c7192e0b85a1b00ce53fdd35239ec48fcd28f45db2",
+     "tensorSha256": "3058e502ca3c30604af1d26fde0427bf9333f5064998ef1f1528adf12afee9d0",
+     "outputSha256": "3d2aeb82a020e7794d2bd41bcf9f913879475710762f604895d8cb14751f06dd"
+    },
+    {
+     "id": "w1-t300-0013",
+     "seed": 20260926,
+     "annotations": 72,
+     "evaluatable": 72,
+     "predictionsAtOperatingPoint": 42,
+     "rgbaSha256": "c8fd8f0fa1682814ce0c7c9ab223bb9cdf8c2d23da47641751e19ce4aae15ad2",
+     "tensorSha256": "fbef9f5ac2579a2342afd0c9efd23a0f336fcb88dde39999415e4510c5a56e79",
+     "outputSha256": "f409ffcc4a687f4cb22b65f59fe81bcfb95e55f2b7086dd5f74f165487fdcc38"
+    },
+    {
+     "id": "w1-t300-0014",
+     "seed": 20260927,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 39,
+     "rgbaSha256": "f042fe82d3934a12117967552a0e9f9ac701105a25dc2afa2453f45af5ab16d5",
+     "tensorSha256": "64e3337e3820a78a9efb4d27fb1527fd3f5de023603e13d8c43dc914545dcf4b",
+     "outputSha256": "f5039d9b01f3cfd51750b5583ea5a8c55b63f3b3d135775694150fbae7f34d3c"
+    },
+    {
+     "id": "w1-t300-0015",
+     "seed": 20260928,
+     "annotations": 60,
+     "evaluatable": 60,
+     "predictionsAtOperatingPoint": 63,
+     "rgbaSha256": "4c3ee6d88ad987d55d06866706195cd1a4b91e45f1232cfac2a3222b0d2a55a4",
+     "tensorSha256": "d39c6e9461e98e01d614f9ca4cd26dd92153f0e5148453dc6ea0059f7e67c454",
+     "outputSha256": "130adaf45cbc349e23be6168bf60c2d927016b2014150235183a55b6d89f0bca"
+    },
+    {
+     "id": "w1-t300-0016",
+     "seed": 20260929,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 30,
+     "rgbaSha256": "15ed7e57eff2fd6a3d50d6b6aa35d3951aa5a987950768c8a9efc6e72cb86324",
+     "tensorSha256": "990d5ea2aef293aa2c0c92147c6e6863af8b239de14678cd26108f22eb0edff3",
+     "outputSha256": "61e01bafe072864d383bb2f87820ad7c2f6f00a298241bce8f5e925d775f813f"
+    },
+    {
+     "id": "w1-t300-0017",
+     "seed": 20260930,
+     "annotations": 72,
+     "evaluatable": 72,
+     "predictionsAtOperatingPoint": 74,
+     "rgbaSha256": "125894b4e670d6dd648a6a87a29be27389fc964037d2dabb415131ccc416f3ea",
+     "tensorSha256": "97aa81b8c85586e9cb263f73de30415da056160b413f30f272d9293493b023d7",
+     "outputSha256": "285f0a4273b5d751759f380f047f6daa716a2fe793f0a7af452a0c0645eaa208"
+    },
+    {
+     "id": "w1-t300-0018",
+     "seed": 20260931,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 28,
+     "rgbaSha256": "451f7c682fc42ad3b4f5c746168dba0e6e887d87db5e31118ca49cbd1b39f539",
+     "tensorSha256": "9db7982bd90caa672ae091fc9c001edb75c34d337ef91e557ff8a55549f21a2b",
+     "outputSha256": "64b4a0b144bed718677e755f8c8518e2b4c18225cd7f68f02cba98e0b18af4fe"
+    },
+    {
+     "id": "w1-t300-0019",
+     "seed": 20260932,
+     "annotations": 72,
+     "evaluatable": 72,
+     "predictionsAtOperatingPoint": 60,
+     "rgbaSha256": "2589b8c140b98bb992043adcd1bf180d607766d1d1ed1cd578fb16db25ae72ef",
+     "tensorSha256": "d036a568fae64c143bb6b69d82cb49377bdaf530435f386ddc3fb1acc2f24057",
+     "outputSha256": "c72df2229902ac23094bade83e894d0ce48091c04928739026b029c410e8c82b"
+    }
+   ]
+  },
+  {
+   "cell": "t400",
+   "viewport": {
+    "w": 2560,
+    "h": 1707
+   },
+   "captureSize": {
+    "w": 2560,
+    "h": 1707
+   },
+   "dpr": 1,
+   "tiled": true,
+   "cssPerModelPx": 4,
+   "datasetHash": "f3d08751",
+   "samples": 20,
+   "groundTruth": 1228,
+   "clippingCeiling": {
+    "evaluatable": 1228,
+    "clipped": 0,
+    "unreachable": 0,
+    "ceiling": 1
+   },
+   "mAP50": 0.001781,
+   "elementRecall": 0.011401,
+   "groundingAccuracy": 0.031818,
+   "predictions": 440,
+   "predictionsPerScreen": 22,
+   "matched": 14,
+   "falsePositives": 426,
+   "falsePositiveTaxonomy": {
+    "duplicate": 0,
+    "classConfusion": 10,
+    "localization": 107,
+    "spurious": 309
+   },
+   "falsePositiveShare": {
+    "duplicate": 0,
+    "classConfusion": 0.023474,
+    "localization": 0.251174,
+    "spurious": 0.725352
+   },
+   "falseNegativeTaxonomy": {
+    "noOverlapAtAll": 902,
+    "overlappedWrongClass": 87,
+    "overlappedPoorLocalization": 225
+   },
+   "matchedIou": {
+    "n": 14,
+    "min": 0.500031,
+    "p10": 0.513597,
+    "p25": 0.525077,
+    "median": 0.55315,
+    "p75": 0.679923,
+    "max": 0.774979
+   },
+   "normalisedDisplacement": {
+    "n": 14,
+    "min": 0.019673,
+    "p10": 0.020466,
+    "p25": 0.070038,
+    "median": 0.098125,
+    "p75": 0.116447,
+    "max": 0.149697
+   },
+   "recallByModelSize": {
+    "model 8-16px": {
+     "hit": 13,
+     "n": 280,
+     "recall": 0.046429
+    },
+    "model 4-8px": {
+     "hit": 1,
+     "n": 900,
+     "recall": 0.001111
+    },
+    "model<4px": {
+     "hit": 0,
+     "n": 48,
+     "recall": 0
+    }
+   },
+   "perClassRecall": {
+    "button": 0.039474,
+    "link": 0,
+    "textbox": 0.018116,
+    "checkbox": 0,
+    "radio": 0,
+    "select": 0,
+    "tab": 0,
+    "icon": 0
+   },
+   "rows": [
+    {
+     "id": "w1-t400-0000",
+     "seed": 20260913,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 20,
+     "rgbaSha256": "40de405bcc167080a31a3bfff46c785ed3c6f877dbc1b35f9d1d71b84185652f",
+     "tensorSha256": "6e07dd87317a0b8bfde082e24fd81764d8c020a3b0af2c7d1ebbe0f634e1a1ca",
+     "outputSha256": "706f0434d7d20a7a2052933f230366a8b687724c1b868531dc1d585a85443ac6"
+    },
+    {
+     "id": "w1-t400-0001",
+     "seed": 20260914,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 6,
+     "rgbaSha256": "4627bf3d2fca1ad8e1e7c00e9ea5270450cba689ae42a5ee252bd1d8d2fb2c6c",
+     "tensorSha256": "c3c9d140b5731b4b86b324e47b53cefbf53692d2f19f69fbd54bbbbeb17284ea",
+     "outputSha256": "458aab747d93ef787c680ae918fd30933d7f1151a85aee72a19fc64434b32890"
+    },
+    {
+     "id": "w1-t400-0002",
+     "seed": 20260915,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 12,
+     "rgbaSha256": "b68585b7c66e4ff5d819be2a38b24fe124b7492a3600f0aa420ec3126ec96ebf",
+     "tensorSha256": "2277eba6d6b2d7610ddc67a422b79f44d4bcc1a9dcc6be43e374999c37225c34",
+     "outputSha256": "89bd292753f74e9cd892da0a9389ab09444fb7ce77c1afe4137f389ed7fc5f10"
+    },
+    {
+     "id": "w1-t400-0003",
+     "seed": 20260916,
+     "annotations": 80,
+     "evaluatable": 80,
+     "predictionsAtOperatingPoint": 48,
+     "rgbaSha256": "8f790949c20bb950ac6f12a2705009949e555b3b3558e918ce5b221f7423bb09",
+     "tensorSha256": "bc3f4ff55bbcc439b735b88259487c10b50d3760081879768fc5ff8d8990ce9c",
+     "outputSha256": "4c359b996c47f8de620be622bdb9525b85e999ac4722d112cc1677c9f4e2f8da"
+    },
+    {
+     "id": "w1-t400-0004",
+     "seed": 20260917,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 10,
+     "rgbaSha256": "bff0ee84b482c5080610cebdbeccf0ee721300a7b2296b3c1b7bac6b93340538",
+     "tensorSha256": "8f90af388483759c824e9509267715015ae2d9dfbe76be1e4185351a67871e09",
+     "outputSha256": "3413cd1eaae1d4f0c8ea708ec32766b9bfd9a69954474d66f9d5f1c4300d005d"
+    },
+    {
+     "id": "w1-t400-0005",
+     "seed": 20260918,
+     "annotations": 60,
+     "evaluatable": 60,
+     "predictionsAtOperatingPoint": 40,
+     "rgbaSha256": "72a1f4ca38596ffd62758894efb8ba7c4646a434333749e04b89da4a4667eb1f",
+     "tensorSha256": "3f6cbb51eba267fca97a1e31cb424f7d701cd28f335c0f6d90b0927867b7a2d6",
+     "outputSha256": "ab0db407fcc302d005689fe1bf1ac203c44499aa044283568582c6df0a79f331"
+    },
+    {
+     "id": "w1-t400-0006",
+     "seed": 20260919,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 18,
+     "rgbaSha256": "08785237d79d9dc88c94b6603e3c09763d05ac98fb78cadc0dce50077e8d1721",
+     "tensorSha256": "778d688cf1571eece67c91933cb16abdf1a11ded5ee0d0391e11d962017b8eda",
+     "outputSha256": "d7c1adeeef62a65f0e87f803acea0a53487c13dab06567bb84b9b072c2d962e5"
+    },
+    {
+     "id": "w1-t400-0007",
+     "seed": 20260920,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 2,
+     "rgbaSha256": "12c22f9aa1fc127870ead1cc15cba91d9343cca6936dd5b804a9590a4143196d",
+     "tensorSha256": "805039e07d885a88bd90999b5d1c19e03f464e6ea9b894621c4c5aa5da8fc9fc",
+     "outputSha256": "ba0d710b3fdd6405916082eb2583ccc51e4d7121a8b9ab4735396a9233af0159"
+    },
+    {
+     "id": "w1-t400-0008",
+     "seed": 20260921,
+     "annotations": 76,
+     "evaluatable": 76,
+     "predictionsAtOperatingPoint": 24,
+     "rgbaSha256": "2e5d2165caf1cdb95a7686bb66afa352289526013557612e87984da6cf1164f4",
+     "tensorSha256": "22bb10c7af89c9918357b216851cec516947f5c7edc2c0adc58088dc9b64f7b0",
+     "outputSha256": "b5989ad73e5db845d8baf096566af4891d14bfc97ac3e93b6e49c4b44568cb08"
+    },
+    {
+     "id": "w1-t400-0009",
+     "seed": 20260922,
+     "annotations": 68,
+     "evaluatable": 68,
+     "predictionsAtOperatingPoint": 16,
+     "rgbaSha256": "ecc68645d9c31f863f3511d7a7572edd41f7879e9d255d16c2ee8b2c1a614b4e",
+     "tensorSha256": "875d5c6344eafa672f6166a4e17f41164c0da784d07e614e52b8128b843895e5",
+     "outputSha256": "080de523a8fa1a7afd640c45d9a7390673f85c21b3415161cd5895fa9e12a234"
+    },
+    {
+     "id": "w1-t400-0010",
+     "seed": 20260923,
+     "annotations": 60,
+     "evaluatable": 60,
+     "predictionsAtOperatingPoint": 38,
+     "rgbaSha256": "b355ab5ddff70391409e2179cdc76389a96bc92e2e826601aac30a32b5b0f688",
+     "tensorSha256": "77162db4218cc7354af267250bbdfee89e0c0f1666dc6164f4c6681f99724caa",
+     "outputSha256": "8c9268b72bb925e53745890dcdb6ee6052e6c493e33926ab802b30dfd2bff552"
+    },
+    {
+     "id": "w1-t400-0011",
+     "seed": 20260924,
+     "annotations": 60,
+     "evaluatable": 60,
+     "predictionsAtOperatingPoint": 40,
+     "rgbaSha256": "8277e761bd40d00ce81494b6749c23fe99c4907ac3c99b8fdf7e9521e572159e",
+     "tensorSha256": "ab3fb4b6b39a58dfde6ba6309bab7671b9dd79444923c3ff8265850a35a2bc90",
+     "outputSha256": "067b52a1868455d7f59f766e1e9cfebb04c80ee82ef5850496cb2b04c67c27cc"
+    },
+    {
+     "id": "w1-t400-0012",
+     "seed": 20260925,
+     "annotations": 80,
+     "evaluatable": 80,
+     "predictionsAtOperatingPoint": 11,
+     "rgbaSha256": "ebcdc23e9da00c1231ed6a87efe511708212458a6e91c43cbd752f8d4bae668d",
+     "tensorSha256": "4dfe44c29f91a64aa31c8a7208e1b2f111497d828838cb75e3ea7629f210382d",
+     "outputSha256": "bd27304b39afe155a1ac52130a3504ae24129763d633d92817fa4617beb6b2d2"
+    },
+    {
+     "id": "w1-t400-0013",
+     "seed": 20260926,
+     "annotations": 72,
+     "evaluatable": 72,
+     "predictionsAtOperatingPoint": 23,
+     "rgbaSha256": "9a959bfd79d39e7ccfe637e14f0a6628572e3c7dad12bd0744ef14f1fb589801",
+     "tensorSha256": "88c694227313f0b02edbd8f87ef33dce281aba83c980c68cb3c4bd462515e471",
+     "outputSha256": "138362f62e9418ffdbcdc7c1e5dbf65bd270c6813797d2893cc76832e2717995"
+    },
+    {
+     "id": "w1-t400-0014",
+     "seed": 20260927,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 12,
+     "rgbaSha256": "51d86bd6821ba2b896fe5c509775a59ef58f1935336777b121f495197e47ff06",
+     "tensorSha256": "53c4d0332328b3e9b3965a5969eb2d44180d247543a9df8d49f6a7fdc3305161",
+     "outputSha256": "014a8fc9e8657fa7910ba98290b0194998ea84f8c0f863dd8a8c9f3f1e4e470d"
+    },
+    {
+     "id": "w1-t400-0015",
+     "seed": 20260928,
+     "annotations": 60,
+     "evaluatable": 60,
+     "predictionsAtOperatingPoint": 40,
+     "rgbaSha256": "1a9ab4b8ad1a6a19005fb753644923891507fbd07947b2a4627d5a756c22b7bf",
+     "tensorSha256": "c585244accc2ca1c945f865352d548d55e9eceb87341910c7b1eeaa749e537bd",
+     "outputSha256": "8ab9eaf0835624bb4cbb8130025c4da7269e209d5637d913cd461ffd24b9d208"
+    },
+    {
+     "id": "w1-t400-0016",
+     "seed": 20260929,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 8,
+     "rgbaSha256": "dd03c7f6f40a1cea5a42f1fc6c981d997515b99266adc2c7bfa94618fddd9a55",
+     "tensorSha256": "4479a2727e427fb51eebac530fd093f36c1769ac465103710ac6483bbd0fbd1c",
+     "outputSha256": "330156a7c09bd4631d8ef99134531ee7094437ae14a1f247da932e81c53e5e8c"
+    },
+    {
+     "id": "w1-t400-0017",
+     "seed": 20260930,
+     "annotations": 72,
+     "evaluatable": 72,
+     "predictionsAtOperatingPoint": 33,
+     "rgbaSha256": "d3b269ba2336ff1ee1cda5eb4fbb988da8ce5b39c037bd81e2108076aae5d1fe",
+     "tensorSha256": "ae114b69dfa386928133ed9beaff8638aafe25deb74af3a2ca662af89237ae1f",
+     "outputSha256": "5243e423ab22000fdcf122e312c0fc5bbd616f2eff6f80d8122bad0e0bd822aa"
+    },
+    {
+     "id": "w1-t400-0018",
+     "seed": 20260931,
+     "annotations": 52,
+     "evaluatable": 52,
+     "predictionsAtOperatingPoint": 14,
+     "rgbaSha256": "866d35f87b1a8f93cf35dd526a706e2bad046e921a5da346d3b6fca7a20000bb",
+     "tensorSha256": "c5792048a7ec7af1179cc8f04de1a492a305e1f705649f2a4cd9101d320d3429",
+     "outputSha256": "007f099cfdfab56bcb4599107a4c9686f488b43e016157be5bf1ee4a490ba902"
+    },
+    {
+     "id": "w1-t400-0019",
+     "seed": 20260932,
+     "annotations": 72,
+     "evaluatable": 72,
+     "predictionsAtOperatingPoint": 25,
+     "rgbaSha256": "59d44bb220140551112cb0b39587c7d7d5a57dc06f4e62ec9e73e66476f5ee8b",
+     "tensorSha256": "2cb8c0fb886059c2a0db91a1a756855365a0a44e286d8f701d0c8fe6888ec730",
+     "outputSha256": "45de715e476fa2994404decdfde66682748dceb3b71e9b9bdf91f4fb03e6f530"
+    }
+   ]
+  }
+ ],
+ "vsLowestScale": {
+  "reference": "s150",
+  "deltas": [
+   {
+    "cell": "s150",
+    "cssPerModelPx": 1.5,
+    "dMAP50": 0,
+    "dRecall": 0,
+    "dGrounding": 0
+   },
+   {
+    "cell": "s175",
+    "cssPerModelPx": 1.75,
+    "dMAP50": 0.147228,
+    "dRecall": 0.039088,
+    "dGrounding": 0.137027
+   },
+   {
+    "cell": "s200",
+    "cssPerModelPx": 2,
+    "dMAP50": 0.082958,
+    "dRecall": 0.016287,
+    "dGrounding": 0.152944
+   },
+   {
+    "cell": "s225",
+    "cssPerModelPx": 2.25,
+    "dMAP50": 0.005785,
+    "dRecall": -0.039088,
+    "dGrounding": 0.123985
+   },
+   {
+    "cell": "s250",
+    "cssPerModelPx": 2.5,
+    "dMAP50": -0.171931,
+    "dRecall": -0.208469,
+    "dGrounding": 0.058178
+   },
+   {
+    "cell": "s300",
+    "cssPerModelPx": 3,
+    "dMAP50": -0.562364,
+    "dRecall": -0.648208,
+    "dGrounding": -0.210375
+   },
+   {
+    "cell": "s350",
+    "cssPerModelPx": 3.5,
+    "dMAP50": -0.633981,
+    "dRecall": -0.827361,
+    "dGrounding": -0.429866
+   },
+   {
+    "cell": "s400",
+    "cssPerModelPx": 4,
+    "dMAP50": -0.636875,
+    "dRecall": -0.837133,
+    "dGrounding": -0.438416
+   }
+  ]
+ },
+ "monotonicity": {
+  "mAP50": {
+   "series": [
+    0.640417,
+    0.787645,
+    0.723375,
+    0.646202,
+    0.468486,
+    0.078053,
+    0.006436,
+    0.003542
+   ],
+   "nonIncreasingInScale": false
+  },
+  "elementRecall": {
+   "series": [
+    0.85342,
+    0.892508,
+    0.869707,
+    0.814332,
+    0.644951,
+    0.205212,
+    0.026059,
+    0.016287
+   ],
+   "nonIncreasingInScale": false
+  },
+  "groundingAccuracy": {
+   "series": [
+    0.484288,
+    0.621315,
+    0.637232,
+    0.608273,
+    0.542466,
+    0.273913,
+    0.054422,
+    0.045872
+   ],
+   "nonIncreasingInScale": false
+  }
+ },
+ "emptinessControls": [
+  {
+   "control": "t300",
+   "twin": "s300",
+   "cssPerModelPx": 3,
+   "dMAP50": -0.027169,
+   "dRecall": -0.03746,
+   "dGrounding": -0.041931
+  },
+  {
+   "control": "t400",
+   "twin": "s400",
+   "cssPerModelPx": 4,
+   "dMAP50": -0.001761,
+   "dRecall": -0.004886,
+   "dGrounding": -0.014054
+  }
+ ],
+ "pairedStrideTest": [
+  {
+   "cell": "s150",
+   "cssPerModelPx": 1.5,
+   "n": 262,
+   "stillFound": 262,
+   "recallOnS150Hits": 1,
+   "byModelSizeHere": {
+    "model>=16px": {
+     "hit": 178,
+     "n": 178,
+     "recall": 1
+    },
+    "model 8-16px": {
+     "hit": 84,
+     "n": 84,
+     "recall": 1
+    }
+   },
+   "atLeast16ModelPx": {
+    "n": 178,
+    "hit": 178,
+    "recall": 1
+   }
+  },
+  {
+   "cell": "s175",
+   "cssPerModelPx": 1.75,
+   "n": 262,
+   "stillFound": 247,
+   "recallOnS150Hits": 0.942748,
+   "byModelSizeHere": {
+    "model>=16px": {
+     "hit": 139,
+     "n": 143,
+     "recall": 0.972028
+    },
+    "model 8-16px": {
+     "hit": 108,
+     "n": 118,
+     "recall": 0.915254
+    },
+    "model 4-8px": {
+     "hit": 0,
+     "n": 1,
+     "recall": 0
+    }
+   },
+   "atLeast16ModelPx": {
+    "n": 143,
+    "hit": 139,
+    "recall": 0.972028
+   }
+  },
+  {
+   "cell": "s200",
+   "cssPerModelPx": 2,
+   "n": 262,
+   "stillFound": 244,
+   "recallOnS150Hits": 0.931298,
+   "byModelSizeHere": {
+    "model>=16px": {
+     "hit": 61,
+     "n": 67,
+     "recall": 0.910448
+    },
+    "model 8-16px": {
+     "hit": 181,
+     "n": 191,
+     "recall": 0.947644
+    },
+    "model 4-8px": {
+     "hit": 2,
+     "n": 4,
+     "recall": 0.5
+    }
+   },
+   "atLeast16ModelPx": {
+    "n": 67,
+    "hit": 61,
+    "recall": 0.910448
+   }
+  },
+  {
+   "cell": "s225",
+   "cssPerModelPx": 2.25,
+   "n": 262,
+   "stillFound": 230,
+   "recallOnS150Hits": 0.877863,
+   "byModelSizeHere": {
+    "model 8-16px": {
+     "hit": 207,
+     "n": 227,
+     "recall": 0.911894
+    },
+    "model 4-8px": {
+     "hit": 20,
+     "n": 30,
+     "recall": 0.666667
+    },
+    "model>=16px": {
+     "hit": 3,
+     "n": 5,
+     "recall": 0.6
+    }
+   },
+   "atLeast16ModelPx": {
+    "n": 5,
+    "hit": 3,
+    "recall": 0.6
+   }
+  },
+  {
+   "cell": "s250",
+   "cssPerModelPx": 2.5,
+   "n": 262,
+   "stillFound": 189,
+   "recallOnS150Hits": 0.721374,
+   "byModelSizeHere": {
+    "model 8-16px": {
+     "hit": 175,
+     "n": 217,
+     "recall": 0.806452
+    },
+    "model 4-8px": {
+     "hit": 14,
+     "n": 45,
+     "recall": 0.311111
+    }
+   },
+   "atLeast16ModelPx": {
+    "n": 0,
+    "hit": 0,
+    "recall": null
+   }
+  },
+  {
+   "cell": "s300",
+   "cssPerModelPx": 3,
+   "n": 262,
+   "stillFound": 60,
+   "recallOnS150Hits": 0.229008,
+   "byModelSizeHere": {
+    "model 8-16px": {
+     "hit": 53,
+     "n": 178,
+     "recall": 0.297753
+    },
+    "model 4-8px": {
+     "hit": 7,
+     "n": 84,
+     "recall": 0.083333
+    }
+   },
+   "atLeast16ModelPx": {
+    "n": 0,
+    "hit": 0,
+    "recall": null
+   }
+  },
+  {
+   "cell": "s350",
+   "cssPerModelPx": 3.5,
+   "n": 262,
+   "stillFound": 8,
+   "recallOnS150Hits": 0.030534,
+   "byModelSizeHere": {
+    "model 8-16px": {
+     "hit": 7,
+     "n": 143,
+     "recall": 0.048951
+    },
+    "model 4-8px": {
+     "hit": 1,
+     "n": 118,
+     "recall": 0.008475
+    },
+    "model<4px": {
+     "hit": 0,
+     "n": 1,
+     "recall": 0
+    }
+   },
+   "atLeast16ModelPx": {
+    "n": 0,
+    "hit": 0,
+    "recall": null
+   }
+  },
+  {
+   "cell": "s400",
+   "cssPerModelPx": 4,
+   "n": 262,
+   "stillFound": 5,
+   "recallOnS150Hits": 0.019084,
+   "byModelSizeHere": {
+    "model 8-16px": {
+     "hit": 5,
+     "n": 67,
+     "recall": 0.074627
+    },
+    "model 4-8px": {
+     "hit": 0,
+     "n": 191,
+     "recall": 0
+    },
+    "model<4px": {
+     "hit": 0,
+     "n": 4,
+     "recall": 0
+    }
+   },
+   "atLeast16ModelPx": {
+    "n": 0,
+    "hit": 0,
+    "recall": null
+   }
+  }
+ ],
+ "notClaimed": [
+  "SYNTHETIC evidence. No production capture limit may be inferred from it.",
+  "This cannot close adoption item 11 and cannot justify retraining by itself.",
+  "The stride-8 hypothesis is tested, not assumed: see recallByModelSize."
+ ]
+}
