@@ -99,5 +99,5 @@ Evidence: `../W1-QG03a-C3b-letterbox-inverse-attribution/`.
 |---|---|
 | ~~**QG-03a-C3b**~~ | **DONE 2026-09-12 — NOT ATTRIBUTED.** See `../W1-QG03a-C3b-letterbox-inverse-attribution/decision.md` |
 | ~~**QG-03a-C3c**~~ | **no longer needed for the convention question**, which C3b settled. A scale-controlled set would now be measuring scale, which is not QG-03a-C business |
-| **QG-03a-C** | the closure decision: on C3b/C3c measurement, or on judgement plus the standing §6 debt record |
+| ~~**QG-03a-C**~~ | **DECIDED 2026-09-12 (owner decision, ronitsaha11) — `RESOLVED / CONDITIONAL-RESOLVED`** on C3b's attribution plus the standing §6 debt record. The geometry concern is closed as **no demonstrated production defect**; the mismatch is **not fixed**, stays technical debt, and **QG-03a stays `OPEN`**. This document's verdict (`INCONCLUSIVE / DECISION REQUIRED`) is **unchanged** |
 | **detector scale fragility** | collapse beyond ~2 CSS px per model px — for adoption items 11/14, not for C |
