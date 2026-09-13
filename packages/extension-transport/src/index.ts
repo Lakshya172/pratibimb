@@ -60,3 +60,9 @@ export {
   type PageSurface,
   type PreparedClick,
 } from "./pageAgent.js";
+
+export {
+  createServiceWorkerRouter,
+  type PortLike,
+  type ServiceWorkerRouter,
+} from "./swRouter.js";
