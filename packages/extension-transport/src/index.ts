@@ -52,3 +52,11 @@ export {
 } from "./contracts.js";
 
 export { TransportRefusal, refuse } from "./errors.js";
+
+export {
+  DEFAULT_CYCLE_CAPACITY,
+  createPageAgent,
+  type PageAgent,
+  type PageSurface,
+  type PreparedClick,
+} from "./pageAgent.js";
