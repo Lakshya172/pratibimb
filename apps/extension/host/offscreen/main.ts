@@ -10,7 +10,9 @@ import { isFromThisExtension, type ToOffscreen } from "../../host-lib/messages";
 
 const instanceId = crypto.randomUUID();
 const createdAt = Date.now();
-const vaultStub = new Map<string, string>([["<PII:PHONE:1>", "9000000001-SYNTHETIC-CANARY"]]);
+// A synthetic canary with a phone's shape (10 digits), so tel and maxlength fixtures behave as they
+// would for a real phone value. It is not a real number and is never sent anywhere.
+const vaultStub = new Map<string, string>([["<PII:PHONE:1>", "9000000001"]]);
 const nonces = new Set<string>();
 
 type OrtGlobal = { InferenceSession: unknown; Tensor: new (type: string, data: Float32Array, dims: number[]) => unknown; env: unknown };
@@ -58,11 +60,50 @@ async function cspProbe(allowed: string, foreign: string) {
   return { allowed: await attempt(allowed), foreign: await attempt(foreign) };
 }
 
+/**
+ * EXPERIMENT E6 — value release bound to a browser-attested document.
+ *
+ * The service worker arms a single-use nonce for (tabId, frameId, documentId). A content script may
+ * redeem it only if the browser reports exactly that tab, frame and document as the sender, before
+ * expiry, once. The value then goes to that content script and nowhere else.
+ */
+const armed = new Map<string, { tabId: number; frameId: number; documentId: string; ref: string; expiresAt: number }>();
+
+function release(msg: { nonce: string }, sender: chrome.runtime.MessageSender): { value: string } | { refused: string } {
+  const a = armed.get(msg.nonce);
+  if (!a) return { refused: "UNKNOWN_OR_CONSUMED_NONCE" };
+  armed.delete(msg.nonce); // consumed on any attempt that names it
+  nonces.delete(msg.nonce);
+  const s = sender as chrome.runtime.MessageSender & { documentId?: string };
+  if (Date.now() >= a.expiresAt) return { refused: "NONCE_EXPIRED" };
+  if (sender.tab?.id !== a.tabId || sender.frameId !== a.frameId || s.documentId !== a.documentId) return { refused: "SENDER_DOCUMENT_MISMATCH" };
+  const value = vaultStub.get(a.ref);
+  return value === undefined ? { refused: "UNKNOWN_REF" } : { value };
+}
+
 chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
-  const msg = raw as ToOffscreen;
+  const msg = raw as ToOffscreen | { target: "offscreen"; kind: "E6_ARM"; nonce: string; tabId: number; frameId: number; documentId: string; ref: string; ttlMs: number } | { target: "offscreen"; kind: "E6_RELEASE"; nonce: string };
   if (msg?.target !== "offscreen") return false;
   if (!isFromThisExtension(sender)) {
     sendResponse({ refused: "SENDER_NOT_ACCEPTED" });
+    return false;
+  }
+  if (msg.kind === "E6_ARM") {
+    if (sender.tab) {
+      sendResponse({ refused: "ARM_ONLY_FROM_SERVICE_WORKER" });
+      return false;
+    }
+    armed.set(msg.nonce, { tabId: msg.tabId, frameId: msg.frameId, documentId: msg.documentId, ref: msg.ref, expiresAt: Date.now() + msg.ttlMs });
+    nonces.add(msg.nonce);
+    sendResponse({ armed: true });
+    return false;
+  }
+  if (msg.kind === "E6_RELEASE") {
+    if (!sender.tab) {
+      sendResponse({ refused: "RELEASE_ONLY_TO_A_CONTENT_SCRIPT" });
+      return false;
+    }
+    sendResponse(release(msg, sender));
     return false;
   }
   if (msg.kind === "ECHO") {
