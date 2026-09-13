@@ -94,7 +94,8 @@ product egress on condition that:
 2. every "0 leaks" statement names the declared blind spots;
 3. every evidence run includes a live sentinel leak on a labelled channel, detected in that same run,
    or the run is void;
-4. **it is re-validated in the cell where it will be used.** This run is Node → loopback on the
+4. identity is checked on **LF-normalised** content, since `core.autocrlf` may check the files out with CRLF;
+5. **it is re-validated in the cell where it will be used.** This run is Node → loopback on the
    Windows host. The product sends from an MV3 offscreen document, and B-02 already showed that
    browser-side observation mechanisms differ.
 

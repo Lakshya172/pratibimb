@@ -245,8 +245,16 @@ async function sendSplit(transport, parts, correlationId, i) {
 
 const TRANSPORTS = ["POST_JSON", "QUERY", "HEADER", "MULTIPART"];
 
-const scannerFile = readFileSync(join(HERE, "scanner.mjs"));
-const collectorFile = readFileSync(join(HERE, "collector.cjs"));
+/**
+ * Instrument identity is the SHA-256 of LF-normalised content. With `core.autocrlf` a checkout may
+ * carry CRLF line endings, which changes raw bytes but not the code; hashing normalised text keeps the
+ * "byte-identical instrument" rule about the instrument rather than about line endings.
+ */
+const lf = (path) => Buffer.from(readFileSync(path, "utf8").replace(/
+/g, "
+"), "utf8");
+const scannerFile = lf(join(HERE, "scanner.mjs"));
+const collectorFile = lf(join(HERE, "collector.cjs"));
 const { server, arrivals } = await collector.start(PORT);
 
 const runs = [];
