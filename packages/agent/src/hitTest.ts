@@ -162,6 +162,19 @@ const attest = <T extends object>(r: T): T => {
   return Object.freeze(r);
 };
 
+/**
+ * Which decision each attested result was established FOR.
+ *
+ * Module-private, keyed by object identity. It lets the execution gate refuse to mint a permit from
+ * a MATCH that was obtained for a different decision — agreement that one target is topmost is not
+ * agreement about another. A copy or a revived result is absent from the map, as it should be.
+ */
+const ESTABLISHED_FOR = new WeakMap<object, FreshnessDecision>();
+
+/** `true` only if `hit` was produced by `establishHitAgreement` for exactly this `decision` object. */
+export const hitAgreementIsFor = (hit: HitTestResult, decision: FreshnessDecision): boolean =>
+  typeof hit === "object" && hit !== null && ESTABLISHED_FOR.get(hit) === decision;
+
 /** Whether a result was produced by `establishHitAgreement` itself. */
 export const bearsHitAgreement = (r: HitTestResult): boolean =>
   (r as unknown as Record<symbol, unknown>)[HIT_TESTED] === true;
@@ -255,6 +268,16 @@ export async function establishHitAgreement(
   decision: FreshnessDecision,
   bridge: HitTestBridge,
   options: HitTestOptions = {}
+): Promise<HitTestResult> {
+  const result = await establish(decision, bridge, options);
+  ESTABLISHED_FOR.set(result, decision);
+  return result;
+}
+
+async function establish(
+  decision: FreshnessDecision,
+  bridge: HitTestBridge,
+  options: HitTestOptions
 ): Promise<HitTestResult> {
   const started = Date.now();
   const since = (): number => Date.now() - started;
