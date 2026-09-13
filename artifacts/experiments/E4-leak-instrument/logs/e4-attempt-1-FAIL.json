@@ -1,0 +1,1933 @@
+{
+  "experiment": "E4-leak-instrument",
+  "recordedAt": "2026-09-13T10:48:45.887Z",
+  "workstation": "W2",
+  "hostname": "LAPTOP-SRCINK2B",
+  "node": "v26.4.0",
+  "cell": "W2 Windows host · Node emitter → 127.0.0.1 collector (no browser)",
+  "instrument": {
+    "scannerVersion": "e4-scanner-1",
+    "scannerSha256": "a6875c18a35bcae21465796bb70d932e3759d75c032d80c0d91ac35a506b44de",
+    "collectorSha256": "1ff60ed52539d6beb6c1f545aea15283a3cb8563eee4994b2b2b1adc4298ea77",
+    "collectorDerivedFrom": "artifacts/experiments/W1-B02-invariant-e-observation/harness/collector.js (unchanged transport and hashing; adds retained bytes)"
+  },
+  "design": {
+    "runs": 10,
+    "baseSeed": 20260913,
+    "transports": [
+      "POST_JSON",
+      "QUERY",
+      "HEADER",
+      "MULTIPART"
+    ],
+    "classes": [
+      "PHONE",
+      "AADHAAR",
+      "DOB",
+      "NAME",
+      "OTP"
+    ]
+  },
+  "passCriterion": "every in-scope positive detected with exactly its own class in every run; zero detections on negative and clean controls; zero detections with an empty canary set; every request arrived; every arrival's recomputed SHA-256 equals the sender's",
+  "totals": {
+    "runs": 10,
+    "requests": 2520,
+    "positives": 1800,
+    "positiveMisses": 100,
+    "positiveExtraClasses": 0,
+    "negativeControls": 480,
+    "falsePositives": 0,
+    "blindInstrumentDetections": 0,
+    "notArrived": 0,
+    "hashIntegrityFailures": 0
+  },
+  "blindSpotSummary": {
+    "PHONE_last_four": {
+      "probes": 40,
+      "detected": 0
+    },
+    "PHONE_embedded_in_longer_run": {
+      "probes": 40,
+      "detected": 0
+    },
+    "AADHAAR_base64_fused_in_text": {
+      "probes": 40,
+      "detected": 0
+    },
+    "PHONE_reversed": {
+      "probes": 40,
+      "detected": 0
+    },
+    "NAME_reversed_order": {
+      "probes": 40,
+      "detected": 0
+    },
+    "PHONE_split_across_fields": {
+      "probes": 40,
+      "detected": 0
+    }
+  },
+  "runs": [
+    {
+      "run": 0,
+      "seed": 20260913,
+      "requests": 252,
+      "positives": 180,
+      "positiveMisses": [
+        {
+          "cls": "NAME",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "PHONE",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "OTP",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "DOB",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "DOB",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "OTP",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "PHONE",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "NAME",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        }
+      ],
+      "positiveExtraClasses": [],
+      "negativeControls": 48,
+      "falsePositives": [],
+      "blindInstrumentDetections": 0,
+      "notArrived": 0,
+      "hashIntegrityFailures": 0,
+      "blindSpotProbes": [
+        {
+          "variant": "PHONE_last_four",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "HEADER",
+          "detected": []
+        }
+      ]
+    },
+    {
+      "run": 1,
+      "seed": 20260914,
+      "requests": 252,
+      "positives": 180,
+      "positiveMisses": [
+        {
+          "cls": "PHONE",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "PHONE",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "DOB",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "NAME",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "OTP",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "OTP",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "DOB",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "NAME",
+          "variant": "base64",
+          "transport": "QUERY"
+        }
+      ],
+      "positiveExtraClasses": [],
+      "negativeControls": 48,
+      "falsePositives": [],
+      "blindInstrumentDetections": 0,
+      "notArrived": 0,
+      "hashIntegrityFailures": 0,
+      "blindSpotProbes": [
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "HEADER",
+          "detected": []
+        }
+      ]
+    },
+    {
+      "run": 2,
+      "seed": 20260915,
+      "requests": 252,
+      "positives": 180,
+      "positiveMisses": [
+        {
+          "cls": "DOB",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "DOB",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "NAME",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "OTP",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "PHONE",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "PHONE",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "NAME",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "OTP",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        }
+      ],
+      "positiveExtraClasses": [],
+      "negativeControls": 48,
+      "falsePositives": [],
+      "blindInstrumentDetections": 0,
+      "notArrived": 0,
+      "hashIntegrityFailures": 0,
+      "blindSpotProbes": [
+        {
+          "variant": "PHONE_last_four",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "POST_JSON",
+          "detected": []
+        }
+      ]
+    },
+    {
+      "run": 3,
+      "seed": 20260916,
+      "requests": 252,
+      "positives": 180,
+      "positiveMisses": [
+        {
+          "cls": "PHONE",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "DOB",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "DOB",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "NAME",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "NAME",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "PHONE",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "OTP",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "OTP",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        }
+      ],
+      "positiveExtraClasses": [],
+      "negativeControls": 48,
+      "falsePositives": [],
+      "blindInstrumentDetections": 0,
+      "notArrived": 0,
+      "hashIntegrityFailures": 0,
+      "blindSpotProbes": [
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "MULTIPART",
+          "detected": []
+        }
+      ]
+    },
+    {
+      "run": 4,
+      "seed": 20260917,
+      "requests": 252,
+      "positives": 180,
+      "positiveMisses": [
+        {
+          "cls": "DOB",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "DOB",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "NAME",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "NAME",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "PHONE",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "OTP",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "PHONE",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "OTP",
+          "variant": "base64",
+          "transport": "QUERY"
+        }
+      ],
+      "positiveExtraClasses": [],
+      "negativeControls": 48,
+      "falsePositives": [],
+      "blindInstrumentDetections": 0,
+      "notArrived": 0,
+      "hashIntegrityFailures": 0,
+      "blindSpotProbes": [
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "QUERY",
+          "detected": []
+        }
+      ]
+    },
+    {
+      "run": 5,
+      "seed": 20260918,
+      "requests": 252,
+      "positives": 180,
+      "positiveMisses": [
+        {
+          "cls": "PHONE",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "OTP",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "NAME",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "DOB",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "DOB",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "PHONE",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "OTP",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "NAME",
+          "variant": "base64",
+          "transport": "QUERY"
+        }
+      ],
+      "positiveExtraClasses": [],
+      "negativeControls": 48,
+      "falsePositives": [],
+      "blindInstrumentDetections": 0,
+      "notArrived": 0,
+      "hashIntegrityFailures": 0,
+      "blindSpotProbes": [
+        {
+          "variant": "PHONE_last_four",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "HEADER",
+          "detected": []
+        }
+      ]
+    },
+    {
+      "run": 6,
+      "seed": 20260919,
+      "requests": 252,
+      "positives": 180,
+      "positiveMisses": [
+        {
+          "cls": "PHONE",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "NAME",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "OTP",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "OTP",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "DOB",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "PHONE",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "DOB",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "NAME",
+          "variant": "base64",
+          "transport": "QUERY"
+        }
+      ],
+      "positiveExtraClasses": [],
+      "negativeControls": 48,
+      "falsePositives": [],
+      "blindInstrumentDetections": 0,
+      "notArrived": 0,
+      "hashIntegrityFailures": 0,
+      "blindSpotProbes": [
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "QUERY",
+          "detected": []
+        }
+      ]
+    },
+    {
+      "run": 7,
+      "seed": 20260920,
+      "requests": 252,
+      "positives": 180,
+      "positiveMisses": [
+        {
+          "cls": "DOB",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "NAME",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "NAME",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "OTP",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "OTP",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "PHONE",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "DOB",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "PHONE",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        }
+      ],
+      "positiveExtraClasses": [],
+      "negativeControls": 48,
+      "falsePositives": [],
+      "blindInstrumentDetections": 0,
+      "notArrived": 0,
+      "hashIntegrityFailures": 0,
+      "blindSpotProbes": [
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "MULTIPART",
+          "detected": []
+        }
+      ]
+    },
+    {
+      "run": 8,
+      "seed": 20260921,
+      "requests": 252,
+      "positives": 180,
+      "positiveMisses": [
+        {
+          "cls": "PHONE",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "NAME",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "NAME",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "PHONE",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "OTP",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "OTP",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "DOB",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "DOB",
+          "variant": "base64",
+          "transport": "QUERY"
+        }
+      ],
+      "positiveExtraClasses": [],
+      "negativeControls": 48,
+      "falsePositives": [],
+      "blindInstrumentDetections": 0,
+      "notArrived": 0,
+      "hashIntegrityFailures": 0,
+      "blindSpotProbes": [
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "POST_JSON",
+          "detected": []
+        }
+      ]
+    },
+    {
+      "run": 9,
+      "seed": 20260922,
+      "requests": 252,
+      "positives": 180,
+      "positiveMisses": [
+        {
+          "cls": "DOB",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "OTP",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "PHONE",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "NAME",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "NAME",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "PHONE",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "DOB",
+          "variant": "base64",
+          "transport": "QUERY"
+        },
+        {
+          "cls": "OTP",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        },
+        {
+          "cls": "AADHAAR",
+          "variant": "json_escape",
+          "transport": "POST_JSON"
+        }
+      ],
+      "positiveExtraClasses": [],
+      "negativeControls": 48,
+      "falsePositives": [],
+      "blindInstrumentDetections": 0,
+      "notArrived": 0,
+      "hashIntegrityFailures": 0,
+      "blindSpotProbes": [
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_last_four",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_reversed",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "NAME_reversed_order",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "HEADER",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_embedded_in_longer_run",
+          "transport": "MULTIPART",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "POST_JSON",
+          "detected": []
+        },
+        {
+          "variant": "AADHAAR_base64_fused_in_text",
+          "transport": "QUERY",
+          "detected": []
+        },
+        {
+          "variant": "PHONE_split_across_fields",
+          "transport": "HEADER",
+          "detected": []
+        }
+      ]
+    }
+  ],
+  "verdict": "FAIL"
+}

@@ -1,30 +1,34 @@
 /**
- * The composed execution path: VALIDATE → HIT-TEST → ACT → VERIFY RESULT. ADR-0007.
+ * The composed execution path: VALIDATE → AUTHORISE → HIT-TEST → MINT → ACT → VERIFY RESULT.
+ * ADR-0007, as amended by ADR-0008 (PROPOSED).
  *
- * The four stages are separate modules on purpose and they stay separate here — this file
- * sequences them, it does not merge them. Each one can refuse, each refusal stops everything
- * after it, and the outcome says exactly how far the action got:
+ * The stages are separate modules on purpose and they stay separate here — this file sequences
+ * them, it does not merge them. Each one can refuse, each refusal stops everything after it, and
+ * the outcome says exactly how far the action got:
  *
  *     PROPOSE
  *         ↓
  *     VALIDATE ──── RE_OBSERVE ───────────────→ stop. nothing was touched.
  *         ↓ ALLOW
- *     HIT-TEST ──── MISMATCH / UNKNOWN ───────→ stop. ACT is never called.
+ *    AUTHORISE ──── no postcondition /
+ *                   UNSUPPORTED / TIER ───────→ stop. the page is not even queried.
+ *         ↓
+ *     HIT-TEST ──── MISMATCH / UNKNOWN ───────→ stop. no permit can be minted.
  *         ↓ MATCH
- *       ACT ─────── REJECTED / UNSUPPORTED ───→ nothing was dispatched.
+ *       MINT ────── any refusal ──────────────→ stop. ACT is never called.
+ *         ↓ single-use permit
+ *       ACT ─────── permit refused ───────────→ nothing was dispatched.
  *         ↓ EXECUTED (dispatched — NOT "worked")
- *   VERIFY RESULT → CONFIRMED / NOT_CONFIRMED / UNKNOWN
+ *   VERIFY RESULT → CONFIRMED / NOT_CONFIRMED / UNKNOWN          (mandatory)
  *
  * TWO PROPERTIES ARE WORTH READING THE FILE FOR.
  *
- * 1. **`act` is called from exactly one place**, inside the `MATCH` branch, and there is no other
- *    statement between the hit test and the dispatch. The gate's whole value is the size of the
- *    window it closes; a caller that re-plans, re-observes or awaits something unrelated in
- *    between has reopened the hole this exists to shut.
- * 2. **A dispatch is never reported as a success.** `EXECUTED` reaches the caller as `EXECUTED`,
- *    and the only thing that can say the action worked is VERIFY RESULT reading the page back. A
- *    caller that supplies no readback gets `verification: null`, which the exported predicate
- *    treats as not-confirmed.
+ * 1. **`act` is called from exactly one place**, with a permit minted synchronously from the MATCH:
+ *    there is no `await` between the agreement, the mint and the dispatch. And `act` cannot be
+ *    reached any other way — it accepts only a permit, and only the execution gate mints one.
+ * 2. **Verification is not optional.** `verify` and `permitTtlMs` are required. A call without a
+ *    usable postcondition is refused before the page is touched, so no dispatch can happen that
+ *    nothing will read back. A dispatch is still never reported as a success on its own.
  *
  * WHAT THIS IS NOT. It is not an agent loop. It does not observe, plan, retry, recover, choose a
  * target, or decide what to do next; every one of those belongs to an orchestration layer that
@@ -38,7 +42,7 @@ import {
   type ProposedAction,
   validateActionFreshness,
 } from "./actionFreshness.js";
-import { act, type ActOptions, type ActResult, type PageActionBridge } from "./act.js";
+import { act, type ActResult, type PageActionBridge } from "./act.js";
 import {
   agreesForDispatch,
   establishHitAgreement,
@@ -46,6 +50,7 @@ import {
   type HitTestOptions,
   type HitTestResult,
 } from "./hitTest.js";
+import { authorisationPreflight, mintDispatchPermit, monotonicNow, type MonotonicClock } from "./permit.js";
 import {
   type ExpectedPostcondition,
   type PostActionObservation,
@@ -54,11 +59,8 @@ import {
 } from "./verifyResult.js";
 
 /**
- * The two bridges, kept apart.
- *
- * Separate fields rather than one object with three methods, because looking and touching are
- * different authorities and an adapter may legitimately hold only one of them. A hit-test bridge
- * cannot click; an action bridge cannot look.
+ * The two bridges, kept apart. Looking and touching are different authorities, and an adapter may
+ * legitimately hold only one of them.
  */
 export interface GuardedBridges {
   readonly action: PageActionBridge;
@@ -66,10 +68,10 @@ export interface GuardedBridges {
 }
 
 /**
- * How to verify the result — both halves or neither.
+ * How to verify the result — both halves, always.
  *
- * Coupled in one object so a caller cannot declare an expectation and then forget to supply the
- * observation that would test it, which would leave an expectation recorded and unchecked.
+ * Coupled in one object so a caller cannot declare an expectation and forget the observation that
+ * would test it.
  */
 export interface VerificationPlan {
   readonly expect: ExpectedPostcondition;
@@ -77,32 +79,37 @@ export interface VerificationPlan {
   readonly observe: () => Promise<PostActionObservation>;
 }
 
-export interface GuardedActOptions extends ActOptions {
+export interface GuardedActOptions {
+  /** REQUIRED. The postcondition and the readback that tests it. */
+  readonly verify: VerificationPlan;
+  /**
+   * REQUIRED. Permit lifetime in milliseconds. There is no default because no repository evidence
+   * supports one (ADR-0008 §5) — the value is an open owner decision.
+   */
+  readonly permitTtlMs: number;
   readonly tolerance?: FreshnessTolerance;
   readonly hitTest?: HitTestOptions;
-  readonly verify?: VerificationPlan;
+  /** Dispatch deadline. */
+  readonly timeoutMs?: number;
+  /** One clock for mint and redemption. */
+  readonly now?: MonotonicClock;
 }
 
 /** The furthest stage the action reached. Nothing after it ran. */
-export type ReachedStage = "VALIDATE" | "HIT_TEST" | "ACT" | "VERIFY_RESULT";
+export type ReachedStage = "VALIDATE" | "AUTHORISE" | "HIT_TEST" | "PERMIT" | "ACT" | "VERIFY_RESULT";
 
 export interface GuardedOutcome {
   readonly reached: ReachedStage;
   readonly decision: FreshnessDecision;
-  /** `null` when validation refused, so the hit test was never performed. */
+  /** `null` when the hit test was never performed. */
   readonly hit: HitTestResult | null;
-  /** `null` when the hit test did not return MATCH, so ACT was never called. */
+  /** The gate's refusal, or ACT's result. `null` only when refused at VALIDATE or HIT_TEST. */
   readonly result: ActResult | null;
-  /** `null` when ACT was never called, or when the caller supplied no readback to verify against. */
+  /** `null` whenever nothing was dispatched. */
   readonly verification: VerificationResult | null;
 }
 
-/**
- * The single predicate for "did this action actually work?".
- *
- * `null` is false, `UNKNOWN` is false, `EXECUTED` on its own is false. Only the page saying so
- * counts, which is the whole point of the stage.
- */
+/** "Did this action actually work?" Only the page saying so counts. */
 export const guardedActionConfirmed = (o: GuardedOutcome): boolean =>
   o.verification !== null && o.verification.verification === "CONFIRMED";
 
@@ -110,53 +117,82 @@ export const guardedActionConfirmed = (o: GuardedOutcome): boolean =>
 export const guardedActionDispatched = (o: GuardedOutcome): boolean =>
   o.result !== null && o.result.status === "EXECUTED";
 
+const planIsUsable = (v: VerificationPlan | undefined): boolean =>
+  typeof v === "object" &&
+  v !== null &&
+  typeof v.observe === "function" &&
+  typeof v.expect === "object" &&
+  v.expect !== null;
+
 /**
  * Run one proposed action through the whole protected sequence.
  *
- * Fail-closed at every boundary, and the failures are structural rather than conditional: the
- * function returns early, so the code that follows a gate is unreachable when the gate refuses.
- * There is no flag that could be set wrong and no default branch that could be mistaken for
- * permission.
+ * Fail-closed at every boundary, structurally: each gate returns early, so the code after it is
+ * unreachable when it refuses.
  */
 export async function guardedAct(
   graph: ElementGraph,
   action: ProposedAction,
   bridges: GuardedBridges,
-  options: GuardedActOptions = {}
+  options: GuardedActOptions
 ): Promise<GuardedOutcome> {
   // ── VALIDATE ───────────────────────────────────────────────────────────────────────────────
-  const decision = validateActionFreshness(graph, action, options.tolerance);
+  const decision = validateActionFreshness(graph, action, options?.tolerance);
   if (decision.decision !== "ALLOW") {
     return { reached: "VALIDATE", decision, hit: null, result: null, verification: null };
   }
 
+  // ── AUTHORISE ──────────────────────────────────────────────────────────────────────────────
+  // The static half of the gate, before the page is queried.
+  if (!planIsUsable(options?.verify)) {
+    return {
+      reached: "AUTHORISE",
+      decision,
+      hit: null,
+      result: {
+        status: "REJECTED",
+        cause: "POSTCONDITION_REQUIRED",
+        detail: "no usable verification plan was supplied. A dispatch that nothing will read back is not authorised.",
+      },
+      verification: null,
+    };
+  }
+  const pre = authorisationPreflight(decision);
+  if (pre) return { reached: "AUTHORISE", decision, hit: null, result: pre, verification: null };
+
   // ── HIT-TEST AGREEMENT ─────────────────────────────────────────────────────────────────────
-  // Immediately before the dispatch, and nothing happens in between.
   const hit = await establishHitAgreement(decision, bridges.hitTest, options.hitTest ?? {});
   if (!agreesForDispatch(hit)) {
-    // MISMATCH and UNKNOWN are both refusals. `act` is not called, so no bridge click occurs.
     return { reached: "HIT_TEST", decision, hit, result: null, verification: null };
   }
 
-  // ── ACT ────────────────────────────────────────────────────────────────────────────────────
-  const result = await act(decision, bridges.action, options);
+  // ── MINT ── synchronous: nothing is awaited between the agreement and the dispatch ───────────
+  const clock = options.now ?? monotonicNow;
+  const minted = mintDispatchPermit(decision, hit, { ttlMs: options.permitTtlMs, now: clock });
+  if (!minted.minted) {
+    return { reached: "PERMIT", decision, hit, result: minted.refusal, verification: null };
+  }
 
-  // ── VERIFY RESULT ──────────────────────────────────────────────────────────────────────────
-  const plan = options.verify;
-  const node = decision.node;
-  const frame = decision.frameId;
-  if (!plan || !node || frame === undefined) {
-    // Either no readback was supplied, or there is no target to verify against — which a MATCH
-    // cannot actually produce, since the hit test refuses a decision without one. Reported as a
-    // dispatch with `verification: null` rather than as an optimistic success.
+  // ── ACT ────────────────────────────────────────────────────────────────────────────────────
+  const result = await act(minted.permit, bridges.action, {
+    ...(options.timeoutMs === undefined ? {} : { timeoutMs: options.timeoutMs }),
+    now: clock,
+  });
+  if (result.status !== "EXECUTED" && result.status !== "EXECUTION_ERROR") {
+    // Refused at redemption: nothing was dispatched, so there is nothing to verify.
     return { reached: "ACT", decision, hit, result, verification: null };
   }
-  const observation = await plan.observe();
+
+  // ── VERIFY RESULT ── mandatory ───────────────────────────────────────────────────────────────
+  // authorisationPreflight established both.
+  const node = decision.node!;
+  const frame = decision.frameId!;
+  const observation = await options.verify.observe();
   const verification = verifyActionResult({
     result,
     acted: node,
     actedFrameId: frame,
-    expected: plan.expect,
+    expected: options.verify.expect,
     observation,
   });
   return { reached: "VERIFY_RESULT", decision, hit, result, verification };

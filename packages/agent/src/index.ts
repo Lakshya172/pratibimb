@@ -1,20 +1,22 @@
 /**
  * `@pratibimb/agent` — the execution-loop stages that exist.
  *
- * Today that is four:
+ * Today that is five:
  *
  * - **VALIDATE + REFRESH** — the action-freshness boundary between perception and any browser
  *   action (ADR-0005);
  * - **HIT-TEST AGREEMENT** — the TOCTOU gate that asks, immediately before the click, whether the
  *   validated element is still topmost at the point about to be clicked (ADR-0007);
- * - **ACT** — the executor, which performs exactly one action kind (`click`) and only on a
- *   decision VALIDATE produced and attested (ADR-0006);
+ * - **THE EXECUTION GATE** — mints a single-use, expiring `DispatchPermit` from an attested ALLOW
+ *   and an attested MATCH established for that decision (ADR-0008, PROPOSED);
+ * - **ACT** — the executor, which redeems a permit and performs the one dispatch it fixes, and
+ *   accepts nothing else (ADR-0006, amended by ADR-0008);
  * - **VERIFY RESULT** — the page readback that decides whether the action actually did anything
  *   (ADR-0007). `EXECUTED` is a dispatch, never a success.
  *
- * `guardedAct` composes all four in order and is the path a caller should use. `act` on its own
- * is the unguarded primitive and performs no hit test; that residual is stated in ADR-0007 §8
- * rather than papered over.
+ * `guardedAct` composes them in order, with a mandatory postcondition. The residual ADR-0007 §8
+ * recorded — `act()` and `validateAndAct()` reaching a page without hit-test agreement — is closed:
+ * `validateAndAct` is removed, and `act` accepts only a permit the gate minted after a MATCH.
  *
  * Deliberately absent, and absent on purpose rather than by oversight: REASON (no server, B-03),
  * PLAN (no planner), SANITIZE (no PII detectors), VERIFY (no privacy verifier), RE-HYDRATE (no
@@ -46,23 +48,37 @@ export {
 } from "./actionFreshness.js";
 
 export {
-  DEFAULT_DISPATCH_TIMEOUT_MS,
   EXECUTABLE_ACTIONS,
   PROPOSED_CONFIRMATION_NAME_PATTERNS,
-  act,
+  authorisationPreflight,
   confirmationTierOf,
-  validateAndAct,
+  isIssuedPermit,
+  mintDispatchPermit,
+  monotonicNow,
+  permitState,
+  type ConfirmationTier,
+  type DispatchPermit,
+  type ExecutableAction,
+  type GateRefusal,
+  type MintOptions,
+  type MintResult,
+  type MonotonicClock,
+  type PermitState,
+  type PermittedTarget,
+  type RejectionCause,
+  type UnsupportedCause,
+} from "./permit.js";
+
+export {
+  DEFAULT_DISPATCH_TIMEOUT_MS,
+  act,
   wasDispatched,
   type ActOptions,
   type ActResult,
   type ActedTarget,
-  type ConfirmationTier,
   type ErrorCategory,
-  type ExecutableAction,
   type ExecutionStatus,
   type PageActionBridge,
-  type RejectionCause,
-  type UnsupportedCause,
 } from "./act.js";
 
 export {
@@ -72,6 +88,7 @@ export {
   bearsHitAgreement,
   dispatchPointOf,
   establishHitAgreement,
+  hitAgreementIsFor,
   type Agreement,
   type HitTestBridge,
   type HitTestOptions,
