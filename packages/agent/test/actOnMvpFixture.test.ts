@@ -21,12 +21,18 @@
 import { describe, expect, it } from "vitest";
 import {
   act,
+  authorisationPreflight,
+  establishHitAgreement,
+  mintDispatchPermit,
   validateActionFreshness,
-  validateAndAct,
   type ActResult,
   type CssPoint,
+  type FreshnessDecision,
+  type HitTestBridge,
   type PageActionBridge,
+  type ProposedAction,
   type TargetClaim,
+  type TopmostElement,
 } from "@pratibimb/agent";
 import {
   buildElementGraph,
@@ -89,6 +95,42 @@ class Bridge implements PageActionBridge {
   }
 }
 
+/** A page that agrees with its own graph: whatever the graph puts at a point is topmost there. */
+class PageAgrees implements HitTestBridge {
+  readonly frameId: FrameId;
+  constructor(private readonly page: ElementGraph) {
+    this.frameId = page.frameId;
+  }
+  async topmostAtCssPoint(p: CssPoint): Promise<TopmostElement | null> {
+    for (const n of this.page.nodes) {
+      const e = n.evidence;
+      if (e.kind !== "OBSERVED" && e.kind !== "CLIPPED") continue;
+      const b = e.viewportBox;
+      if (p.x >= b.x && p.x <= b.x + b.w && p.y >= b.y && p.y <= b.y + b.h) {
+        return { frameId: this.page.frameId, selector: n.domRef.selector, role: n.role, name: n.name, box: b };
+      }
+    }
+    return null;
+  }
+}
+
+/** A TEST lifetime, not a proposal: the gate has no default TTL and ADR-0008 leaves the value open. */
+const TEST_TTL_MS = 60_000;
+
+/**
+ * VALIDATE → AUTHORISE → HIT-TEST → MINT → ACT, through the real gate. Replaces the removed
+ * `validateAndAct`, which reached ACT without any hit-test agreement (ADR-0007 §8, closed by ADR-0008).
+ */
+async function gated(g: ElementGraph, proposal: ProposedAction, b: Bridge): Promise<{ decision: FreshnessDecision; result: ActResult }> {
+  const decision = validateActionFreshness(g, proposal);
+  const pre = authorisationPreflight(decision);
+  if (pre) return { decision, result: pre };
+  const hit = await establishHitAgreement(decision, new PageAgrees(g));
+  const minted = mintDispatchPermit(decision, hit, { ttlMs: TEST_TTL_MS });
+  if (!minted.minted) return { decision, result: minted.refusal };
+  return { decision, result: await act(minted.permit, b) };
+}
+
 const expectNoDispatch = (r: ActResult, b: Bridge): void => {
   expect(b.clicks.length).toBe(0);
   expect(r.status).not.toBe("EXECUTED");
@@ -98,7 +140,7 @@ describe("VALIDATE -> ACT on the controlled MVP fixture's real geometry", () => 
   it("A — clicks the phone field at the centre of its measured box", async () => {
     const g = graph();
     const b = new Bridge();
-    const { decision, result } = await validateAndAct(g, { kind: "click", target: claim(g, "#phone") }, b);
+    const { decision, result } = await gated(g, { kind: "click", target: claim(g, "#phone") }, b);
     expect(decision.decision).toBe("ALLOW");
     expect(result.status).toBe("EXECUTED");
     // the point the real browser run dispatched at: (550, 276)
@@ -110,7 +152,7 @@ describe("VALIDATE -> ACT on the controlled MVP fixture's real geometry", () => 
     const plan = claim(before, "#phone");
     const after = graph([], frameId("mode-a-frame-2"));
     const b = new Bridge(after.frameId);
-    const { decision, result } = await validateAndAct(after, { kind: "click", target: plan }, b);
+    const { decision, result } = await gated(after, { kind: "click", target: plan }, b);
     if (decision.decision === "RE_OBSERVE") expect(decision.reason).toBe("FRAME_MISMATCH");
     expectNoDispatch(result, b);
   });
@@ -120,7 +162,7 @@ describe("VALIDATE -> ACT on the controlled MVP fixture's real geometry", () => 
     const plan = claim(before, "#cancel");
     const after = graph([{}, {}, {}, { rect: { x: 620, y: 420, w: 120, h: 40 } }]);
     const b = new Bridge();
-    const { decision, result } = await validateAndAct(after, { kind: "click", target: plan }, b);
+    const { decision, result } = await gated(after, { kind: "click", target: plan }, b);
     if (decision.decision === "RE_OBSERVE") expect(decision.reason).toBe("MOVED_BEYOND_TOLERANCE");
     expectNoDispatch(result, b);
   });
@@ -130,7 +172,7 @@ describe("VALIDATE -> ACT on the controlled MVP fixture's real geometry", () => 
     const plan = claim(before, "#cancel");
     const after = graph([{}, {}, {}, { name: "Delete my account" }]);
     const b = new Bridge();
-    const { decision, result } = await validateAndAct(after, { kind: "click", target: plan }, b);
+    const { decision, result } = await gated(after, { kind: "click", target: plan }, b);
     if (decision.decision === "RE_OBSERVE") expect(decision.reason).toBe("NAME_CHANGED");
     expectNoDispatch(result, b);
   });
@@ -141,7 +183,7 @@ describe("VALIDATE -> ACT on the controlled MVP fixture's real geometry", () => 
     const plan = claim(before, "#cancel");
     const shorter = buildElementGraph(fixture().filter((m) => m.selector !== "#cancel"), geometry, F);
     const b = new Bridge();
-    const { decision, result } = await validateAndAct(shorter, { kind: "click", target: plan }, b);
+    const { decision, result } = await gated(shorter, { kind: "click", target: plan }, b);
     expect(decision.decision).toBe("RE_OBSERVE");
     if (decision.decision === "RE_OBSERVE") {
       expect(["NAME_CHANGED", "ROLE_CHANGED", "TARGET_MISSING"]).toContain(decision.reason);
@@ -154,10 +196,9 @@ describe("VALIDATE -> ACT on the controlled MVP fixture's real geometry", () => 
     const tall: CaptureGeometry = { ...geometry, viewportCss: { w: 1024, h: 1600 }, captureSize: { w: 1024, h: 1600 } };
     const g = buildElementGraph(fixture(), tall, F);
     expect(bySelector(g, "#submit").evidence.kind).toBe("OBSERVED");
-    const decision = validateActionFreshness(g, { kind: "click", target: claim(g, "#submit") });
-    expect(decision.decision).toBe("ALLOW");
     const b = new Bridge();
-    const result = await act(decision, b);
+    const { decision, result } = await gated(g, { kind: "click", target: claim(g, "#submit") }, b);
+    expect(decision.decision).toBe("ALLOW");
     expect(result.status).toBe("REJECTED");
     if (result.status === "REJECTED") expect(result.cause).toBe("HUMAN_CONFIRMATION_REQUIRED");
     expectNoDispatch(result, b);
@@ -166,7 +207,7 @@ describe("VALIDATE -> ACT on the controlled MVP fixture's real geometry", () => 
   it("G — refuses the help link: the graph cannot say whether it leaves this origin", async () => {
     const g = graph();
     const b = new Bridge();
-    const { decision, result } = await validateAndAct(g, { kind: "click", target: claim(g, "#help-link") }, b);
+    const { decision, result } = await gated(g, { kind: "click", target: claim(g, "#help-link") }, b);
     expect(decision.decision).toBe("ALLOW");
     if (result.status === "REJECTED") expect(result.cause).toBe("HUMAN_CONFIRMATION_REQUIRED");
     expectNoDispatch(result, b);
@@ -183,7 +224,7 @@ describe("VALIDATE -> ACT on the controlled MVP fixture's real geometry", () => 
       viewportBox: { x: 400, y: 1180, w: 120, h: 40 } as TargetClaim["viewportBox"],
     };
     const b = new Bridge();
-    const { decision, result } = await validateAndAct(g, { kind: "click", target: stale }, b);
+    const { decision, result } = await gated(g, { kind: "click", target: stale }, b);
     if (decision.decision === "RE_OBSERVE") expect(decision.reason).toBe("NOT_VISIBLE");
     expectNoDispatch(result, b);
   });
@@ -191,7 +232,7 @@ describe("VALIDATE -> ACT on the controlled MVP fixture's real geometry", () => 
   it("I — refuses to type into the tel field, and nothing about a value is carried", async () => {
     const g = graph();
     const b = new Bridge();
-    const { decision, result } = await validateAndAct(g, { kind: "type", target: claim(g, "#phone") }, b);
+    const { decision, result } = await gated(g, { kind: "type", target: claim(g, "#phone") }, b);
     expect(decision.decision).toBe("ALLOW");
     expect(result.status).toBe("UNSUPPORTED_ACTION");
     if (result.status === "UNSUPPORTED_ACTION") expect(result.cause).toBe("CLEARANCE_PIPELINE_ABSENT");
@@ -204,7 +245,7 @@ describe("VALIDATE -> ACT on the controlled MVP fixture's real geometry", () => 
     const empty = buildElementGraph([], geometry, F);
     expect(empty.nodes.length).toBe(0);
     const b = new Bridge();
-    const { decision, result } = await validateAndAct(
+    const { decision, result } = await gated(
       empty,
       { kind: "click", target: { ...claim(graph(), "#phone") } },
       b
@@ -214,7 +255,7 @@ describe("VALIDATE -> ACT on the controlled MVP fixture's real geometry", () => 
     expectNoDispatch(result, b);
   });
 
-  it("the whole fixture: exactly one of its controls is clickable today, and it is not submit", async () => {
+  it("the whole fixture: exactly three of its controls are clickable today, and submit is not one of them", async () => {
     const g = graph();
     const outcomes: Record<string, string> = {};
     for (const n of g.nodes) {
@@ -224,7 +265,7 @@ describe("VALIDATE -> ACT on the controlled MVP fixture's real geometry", () => 
         outcomes[n.domRef.selector] = `NOT_VISIBLE(${e.kind})`;
         continue;
       }
-      const { result } = await validateAndAct(
+      const { result } = await gated(
         g,
         { kind: "click", target: { nodeId: n.id, role: n.role, name: n.name, frameId: g.frameId, viewportBox: e.viewportBox } },
         b
