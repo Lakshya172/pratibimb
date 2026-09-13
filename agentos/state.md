@@ -111,10 +111,10 @@
 | CPU / integrated GPU | Intel · Intel Graphics | **AMD Ryzen AI 7 350 · Radeon 860M** |
 | Discrete GPU | RTX 5050 Laptop, 8151 MiB | RTX 5050 Laptop, 8151 MiB |
 | Node · Python | 24.19.0 · 3.13.14 | **26.4.0 · 3.12.10** |
-| Docker / WSL | Docker 29.6.2 | **neither** |
+| Docker / WSL | Docker 29.6.2 | **WSL2 Ubuntu 26.04 guest, no Docker** — corrected 2026-09-13; the earlier "neither" was superseded by ENV-0003 and is re-verified, with the GPU UUID link, in ENV-0004 |
 | Browsers | not recorded | Chrome 152, Edge 152, **no Firefox** |
 | Working tree | OneDrive-synced path | plain local path |
-| Evidence recorded on it | S-01 | S-01b, ENV-0002 |
+| Evidence recorded on it | S-01 | S-01b, ENV-0002, ENV-0003, ENV-0004 |
 
 **Client-side work is unblocked on both. Server-side work is blocked on both** (B-03).
 
