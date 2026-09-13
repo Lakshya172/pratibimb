@@ -1,0 +1,311 @@
+{
+  "experiment": "G-mv3-host",
+  "recordedAt": "2026-09-13T11:24:20.083Z",
+  "workstation": "W2",
+  "hostname": "LAPTOP-SRCINK2B",
+  "node": "v26.4.0",
+  "controlPlane": "Playwright launchPersistentContext --load-extension, headful; measurements via service-worker evaluate (DevTools), not any page API",
+  "manifest": {
+    "manifest_version": 3,
+    "name": "PratiBimb minimal MV3 host (experiment — not the product)",
+    "version": "0.0.0",
+    "minimum_chrome_version": "116",
+    "permissions": [
+      "offscreen",
+      "sidePanel"
+    ],
+    "host_permissions": [
+      "http://127.0.0.1/*"
+    ],
+    "content_security_policy": {
+      "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8995"
+    },
+    "side_panel": {
+      "default_path": "sidepanel.html"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": [
+          "http://127.0.0.1/*"
+        ],
+        "run_at": "document_idle",
+        "js": [
+          "content-scripts/content.js"
+        ]
+      }
+    ]
+  },
+  "design": {
+    "idleWaitMs": 45000,
+    "roundtripSamples": 150,
+    "pinnedPort": 8995,
+    "foreignPort": 8998
+  },
+  "results": [
+    {
+      "cell": "chrome-for-testing-153",
+      "browserVersion": "153.0.8010.12",
+      "load": {
+        "serviceWorkerUrl": "chrome-extension://fpdhkglkfnicmbbjnaelbbmipnefbhga/background.js",
+        "extensionId": "fpdhkglkfnicmbbjnaelbbmipnefbhga"
+      },
+      "senderIdentity": {
+        "tabId": 828551363,
+        "frameId": 0,
+        "documentId": "8236C07D2DF780235FBE14A7556DC40F",
+        "origin": "http://127.0.0.1:8999",
+        "documentIdAvailable": true
+      },
+      "pageReachability": {
+        "chromeRuntime": "undefined"
+      },
+      "offscreen": {
+        "contextsAfterEnsure": 1
+      },
+      "ort": {
+        "ok": true,
+        "pinnedArtifact": {
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "bytes": 27797172,
+          "installedAt": "2026-09-13T11:22:29.231Z"
+        },
+        "wasmCompilationAllowed": {
+          "context": "offscreen",
+          "compiled": true,
+          "instantiated": true,
+          "probeResult": 5,
+          "checkedAt": "2026-09-13T11:22:29.147Z"
+        },
+        "modelBytes": 302960,
+        "outputDims": [
+          1,
+          12,
+          6400
+        ],
+        "ms": {
+          "bootstrap": 85,
+          "session": 384,
+          "firstRun": 71
+        }
+      },
+      "roundtrip": {
+        "path": "content script → service worker → offscreen document → back",
+        "samples": 150,
+        "p50ms": 0.8,
+        "p95ms": 1.2,
+        "maxMs": 2.9,
+        "lastEcho": {
+          "bootId": "5a7b1d7e-c7c2-41ba-ad6e-f8601fc67363",
+          "echo": {
+            "instanceId": "22f5cc10-ec00-40f9-bd74-bb7b0a650cef"
+          },
+          "identity": {
+            "tabId": 828551363,
+            "frameId": 0,
+            "documentId": "8236C07D2DF780235FBE14A7556DC40F",
+            "origin": "http://127.0.0.1:8999",
+            "documentIdAvailable": true
+          }
+        }
+      },
+      "csp": {
+        "probe": {
+          "allowed": {
+            "reached": true,
+            "status": 200
+          },
+          "foreign": {
+            "reached": false,
+            "error": "TypeError"
+          }
+        },
+        "pinnedArrivals": 1,
+        "foreignArrivals": 0
+      },
+      "termination": {
+        "idleWaitMs": 45000,
+        "baseline": {
+          "bootId": "5a7b1d7e-c7c2-41ba-ad6e-f8601fc67363",
+          "bootedAt": 1789298548975,
+          "offscreen": {
+            "instanceId": "22f5cc10-ec00-40f9-bd74-bb7b0a650cef",
+            "createdAt": 1789298549138,
+            "vaultStubEntries": 1,
+            "nonces": 0
+          },
+          "offscreenContexts": 1
+        },
+        "afterIdle": {
+          "bootId": "5a7b1d7e-c7c2-41ba-ad6e-f8601fc67363",
+          "bootedAt": 1789298548975,
+          "offscreen": {
+            "instanceId": "22f5cc10-ec00-40f9-bd74-bb7b0a650cef",
+            "createdAt": 1789298549138,
+            "vaultStubEntries": 1,
+            "nonces": 0
+          },
+          "offscreenContexts": 1
+        },
+        "afterForced": {
+          "bootId": "c28ebc1d-b2ba-4da6-8baa-dc88f31ff4a5",
+          "bootedAt": 1789298598460,
+          "offscreen": {
+            "instanceId": "22f5cc10-ec00-40f9-bd74-bb7b0a650cef",
+            "createdAt": 1789298549138,
+            "vaultStubEntries": 1,
+            "nonces": 0
+          },
+          "offscreenContexts": 1
+        },
+        "forced": {
+          "attempted": true,
+          "stopAllWorkers": "sent"
+        },
+        "swRestartedAfterIdle": false,
+        "swRestartedAfterForced": true,
+        "offscreenSurvivedIdle": true,
+        "offscreenSurvivedForced": true
+      },
+      "sidePanel": {
+        "openedAs": "extension page in a tab (the Side Panel API needs a user gesture to open)",
+        "status": "ok",
+        "text": "{\n  \"refused\": \"SENDER_NOT_ACCEPTED\"\n}"
+      }
+    },
+    {
+      "cell": "edge-branded",
+      "browserVersion": "153.0.4234.32",
+      "load": {
+        "serviceWorkerUrl": "chrome-extension://fpdhkglkfnicmbbjnaelbbmipnefbhga/background.js",
+        "extensionId": "fpdhkglkfnicmbbjnaelbbmipnefbhga"
+      },
+      "senderIdentity": {
+        "tabId": 83673356,
+        "frameId": 0,
+        "documentId": "C2C2E68E237898020E31680FA56D346F",
+        "origin": "http://127.0.0.1:8999",
+        "documentIdAvailable": true
+      },
+      "pageReachability": {
+        "chromeRuntime": "undefined"
+      },
+      "offscreen": {
+        "contextsAfterEnsure": 1
+      },
+      "ort": {
+        "ok": true,
+        "pinnedArtifact": {
+          "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+          "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "bytes": 27797172,
+          "installedAt": "2026-09-13T11:23:22.601Z"
+        },
+        "wasmCompilationAllowed": {
+          "context": "offscreen",
+          "compiled": true,
+          "instantiated": true,
+          "probeResult": 5,
+          "checkedAt": "2026-09-13T11:23:22.533Z"
+        },
+        "modelBytes": 302960,
+        "outputDims": [
+          1,
+          12,
+          6400
+        ],
+        "ms": {
+          "bootstrap": 69,
+          "session": 378,
+          "firstRun": 58
+        }
+      },
+      "roundtrip": {
+        "path": "content script → service worker → offscreen document → back",
+        "samples": 150,
+        "p50ms": 1,
+        "p95ms": 1.4,
+        "maxMs": 2.8,
+        "lastEcho": {
+          "bootId": "c1dab8f7-31c3-49ef-a9e6-0a425e86a1d7",
+          "echo": {
+            "instanceId": "d6998e26-e465-4f7d-b53b-ba3b69355ca8"
+          },
+          "identity": {
+            "tabId": 83673356,
+            "frameId": 0,
+            "documentId": "C2C2E68E237898020E31680FA56D346F",
+            "origin": "http://127.0.0.1:8999",
+            "documentIdAvailable": true
+          }
+        }
+      },
+      "csp": {
+        "probe": {
+          "allowed": {
+            "reached": true,
+            "status": 200
+          },
+          "foreign": {
+            "reached": false,
+            "error": "TypeError"
+          }
+        },
+        "pinnedArrivals": 1,
+        "foreignArrivals": 0
+      },
+      "termination": {
+        "idleWaitMs": 45000,
+        "baseline": {
+          "bootId": "c1dab8f7-31c3-49ef-a9e6-0a425e86a1d7",
+          "bootedAt": 1789298602443,
+          "offscreen": {
+            "instanceId": "d6998e26-e465-4f7d-b53b-ba3b69355ca8",
+            "createdAt": 1789298602526,
+            "vaultStubEntries": 1,
+            "nonces": 0
+          },
+          "offscreenContexts": 1
+        },
+        "afterIdle": {
+          "bootId": "c1dab8f7-31c3-49ef-a9e6-0a425e86a1d7",
+          "bootedAt": 1789298602443,
+          "offscreen": {
+            "instanceId": "d6998e26-e465-4f7d-b53b-ba3b69355ca8",
+            "createdAt": 1789298602526,
+            "vaultStubEntries": 1,
+            "nonces": 0
+          },
+          "offscreenContexts": 1
+        },
+        "afterForced": {
+          "bootId": "2fb068c4-58e2-460b-abfc-a9d03dcad4ee",
+          "bootedAt": 1789298651853,
+          "offscreen": {
+            "instanceId": "d6998e26-e465-4f7d-b53b-ba3b69355ca8",
+            "createdAt": 1789298602526,
+            "vaultStubEntries": 1,
+            "nonces": 0
+          },
+          "offscreenContexts": 1
+        },
+        "forced": {
+          "attempted": true,
+          "stopAllWorkers": "sent"
+        },
+        "swRestartedAfterIdle": false,
+        "swRestartedAfterForced": true,
+        "offscreenSurvivedIdle": true,
+        "offscreenSurvivedForced": true
+      },
+      "sidePanel": {
+        "openedAs": "extension page in a tab (the Side Panel API needs a user gesture to open)",
+        "status": "ok",
+        "text": "{\n  \"refused\": \"SENDER_NOT_ACCEPTED\"\n}"
+      }
+    }
+  ]
+}
