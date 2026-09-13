@@ -37,6 +37,18 @@ export default defineBackground(() => {
     },
     toTab: (tabId: number, msg: object) => chrome.tabs.sendMessage(tabId, msg),
     offscreenContexts: async () => (await chrome.runtime.getContexts({ contextTypes: [chrome.runtime.ContextType.OFFSCREEN_DOCUMENT] })).length,
+    // EXPERIMENT E6: arm a single-use value release for the latest document seen in a tab. The worker
+    // handles only the nonce and the document identity — never the value.
+    e6Arm: async (tabId: number, ttlMs: number) => {
+      const hello = [...hellos].reverse().find((h) => h.identity.tabId === tabId);
+      if (!hello || hello.identity.documentId === null || hello.identity.frameId === null) return { refused: "NO_DOCUMENT_FOR_TAB" };
+      await ensureOffscreen();
+      const nonce = crypto.randomUUID();
+      const r = await chrome.runtime.sendMessage({
+        target: "offscreen", kind: "E6_ARM", nonce, tabId, frameId: hello.identity.frameId, documentId: hello.identity.documentId, ref: "<PII:PHONE:1>", ttlMs,
+      });
+      return { nonce, documentId: hello.identity.documentId, armed: r };
+    },
   };
 
   chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
