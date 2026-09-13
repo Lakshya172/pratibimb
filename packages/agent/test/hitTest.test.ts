@@ -15,6 +15,7 @@ import {
   agreesForDispatch,
   bearsHitAgreement,
   dispatchPointOf,
+  mintDispatchPermit,
   establishHitAgreement,
   validateActionFreshness,
   type CssPoint,
@@ -363,7 +364,10 @@ describe("HIT-TEST AGREEMENT — 6: a refusal costs the page nothing", () => {
       const clicker = new Clicker();
       const hit = await establishHitAgreement(d, new Looker(F, a), { timeoutMs: 20 });
       expectRefusal(hit);
-      if (agreesForDispatch(hit)) await act(d, clicker);
+      if (agreesForDispatch(hit)) {
+        const minted = mintDispatchPermit(d, hit, { ttlMs: 60_000 });
+        if (minted.minted) await act(minted.permit, clicker);
+      }
       expect(clicker.clicks.length).toBe(0);
     }
   });
@@ -399,7 +403,15 @@ describe("HIT-TEST AGREEMENT — the hit-tested point is the clicked point", () 
         const d = validateActionFreshness(g, proposal);
         expect(d.decision).toBe("ALLOW");
         const clicker = new Clicker();
-        const r = await act(d, clicker);
+        // ACT no longer derives a point: it clicks the point the permit fixed, which the gate took
+        // from the MATCH. So the pin now spans all three — hit-tested point, permit point, click.
+        const hit = await establishHitAgreement(d, new Looker(F, topmostFor(g, "#t")));
+        expect(hit.agreement).toBe("MATCH");
+        const minted = mintDispatchPermit(d, hit, { ttlMs: 60_000 });
+        if (!minted.minted) throw new Error("test setup: permit refused");
+        expect(minted.permit.point).toEqual(dispatchPointOf(d));
+        expect(minted.permit.point).toEqual(hit.point);
+        const r = await act(minted.permit, clicker);
         expect(r.status).toBe("EXECUTED");
         expect(clicker.clicks[0]).toEqual(dispatchPointOf(d));
       }

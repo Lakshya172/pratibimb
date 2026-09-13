@@ -1,0 +1,678 @@
+{
+  "experiment": "E2-class-binding",
+  "recordedAt": "2026-09-13T11:00:56.088Z",
+  "workstation": "W2",
+  "hostname": "LAPTOP-SRCINK2B",
+  "node": "v26.4.0",
+  "preRegistration": {
+    "casesFile": "harness/cases.mjs",
+    "commit": "277e136",
+    "casesSha256LF": "e20308e16c98859bdbba4df7f4c2d395844cc1296347ffd368df5bd229a7c8bb"
+  },
+  "harnessSha256LF": {
+    "binder": "9209ea62c9e615b585ad777be5aac5a8dfae4a0c710d76d9e1aff437a046cf20",
+    "runner": "07d6be655f51cee67c1804f9689ade9e195313c9e0c43bc4f504d16ca0406570"
+  },
+  "counts": {
+    "classifier": {
+      "total": 27,
+      "legit": 18,
+      "ambiguous": 7,
+      "residual": 2
+    },
+    "binding": {
+      "total": 34,
+      "legit": 9,
+      "adversarial": 23,
+      "residual": 2
+    },
+    "issuance": 4
+  },
+  "summary": {
+    "adversarialAccepts": [],
+    "legitimateRefusals": [],
+    "classifierLegitWrong": [],
+    "classifierAmbiguousGuessed": [],
+    "classifierResidualWrong": [],
+    "sensitiveResidualsRouted": "1/1",
+    "exactBindingMatches": "34/34",
+    "causeDeviations": [],
+    "issuanceWrong": []
+  },
+  "classifierResults": [
+    {
+      "id": "L-PHONE-1",
+      "set": "LEGIT",
+      "expect": "PHONE",
+      "got": "PHONE",
+      "ok": true
+    },
+    {
+      "id": "L-PHONE-2",
+      "set": "LEGIT",
+      "expect": "PHONE",
+      "got": "PHONE",
+      "ok": true
+    },
+    {
+      "id": "L-PHONE-3",
+      "set": "LEGIT",
+      "expect": "PHONE",
+      "got": "PHONE",
+      "ok": true
+    },
+    {
+      "id": "L-NAME-1",
+      "set": "LEGIT",
+      "expect": "NAME",
+      "got": "NAME",
+      "ok": true
+    },
+    {
+      "id": "L-NAME-2",
+      "set": "LEGIT",
+      "expect": "NAME",
+      "got": "NAME",
+      "ok": true
+    },
+    {
+      "id": "L-NAME-3",
+      "set": "LEGIT",
+      "expect": "NAME",
+      "got": "NAME",
+      "ok": true
+    },
+    {
+      "id": "L-DOB-1",
+      "set": "LEGIT",
+      "expect": "DOB",
+      "got": "DOB",
+      "ok": true
+    },
+    {
+      "id": "L-DOB-2",
+      "set": "LEGIT",
+      "expect": "DOB",
+      "got": "DOB",
+      "ok": true
+    },
+    {
+      "id": "L-DOB-3",
+      "set": "LEGIT",
+      "expect": "DOB",
+      "got": "DOB",
+      "ok": true
+    },
+    {
+      "id": "L-AADHAAR-1",
+      "set": "LEGIT",
+      "expect": "AADHAAR",
+      "got": "AADHAAR",
+      "ok": true
+    },
+    {
+      "id": "L-AADHAAR-2",
+      "set": "LEGIT",
+      "expect": "AADHAAR",
+      "got": "AADHAAR",
+      "ok": true
+    },
+    {
+      "id": "L-AADHAAR-3",
+      "set": "LEGIT",
+      "expect": "AADHAAR",
+      "got": "AADHAAR",
+      "ok": true
+    },
+    {
+      "id": "L-OTP-1",
+      "set": "LEGIT",
+      "expect": "OTP",
+      "got": "OTP",
+      "ok": true
+    },
+    {
+      "id": "L-OTP-2",
+      "set": "LEGIT",
+      "expect": "OTP",
+      "got": "OTP",
+      "ok": true
+    },
+    {
+      "id": "L-OTP-3",
+      "set": "LEGIT",
+      "expect": "OTP",
+      "got": "OTP",
+      "ok": true
+    },
+    {
+      "id": "L-FREE-1",
+      "set": "LEGIT",
+      "expect": "FREE_TEXT",
+      "got": "FREE_TEXT",
+      "ok": true
+    },
+    {
+      "id": "L-FREE-2",
+      "set": "LEGIT",
+      "expect": "FREE_TEXT",
+      "got": "FREE_TEXT",
+      "ok": true
+    },
+    {
+      "id": "L-FREE-3",
+      "set": "LEGIT",
+      "expect": "FREE_TEXT",
+      "got": "FREE_TEXT",
+      "ok": true
+    },
+    {
+      "id": "A-CONTACT",
+      "set": "AMBIGUOUS",
+      "expect": "UNKNOWN",
+      "got": "UNKNOWN",
+      "ok": true
+    },
+    {
+      "id": "A-CONFLICT-SIGNALS",
+      "set": "AMBIGUOUS",
+      "expect": "UNKNOWN",
+      "got": "UNKNOWN",
+      "ok": true
+    },
+    {
+      "id": "A-FATHERS-NAME",
+      "set": "AMBIGUOUS",
+      "expect": "UNKNOWN",
+      "got": "UNKNOWN",
+      "ok": true
+    },
+    {
+      "id": "A-COMPANY-NAME",
+      "set": "AMBIGUOUS",
+      "expect": "UNKNOWN",
+      "got": "UNKNOWN",
+      "ok": true
+    },
+    {
+      "id": "A-USERNAME",
+      "set": "AMBIGUOUS",
+      "expect": "UNKNOWN",
+      "got": "UNKNOWN",
+      "ok": true
+    },
+    {
+      "id": "A-NO-SIGNAL",
+      "set": "AMBIGUOUS",
+      "expect": "UNKNOWN",
+      "got": "UNKNOWN",
+      "ok": true
+    },
+    {
+      "id": "A-LABEL-FEEDBACK-NAME-AADHAAR",
+      "set": "AMBIGUOUS",
+      "expect": "UNKNOWN",
+      "got": "UNKNOWN",
+      "ok": true
+    },
+    {
+      "id": "R-SPOOF-AADHAAR",
+      "set": "RESIDUAL",
+      "expect": "AADHAAR",
+      "got": "AADHAAR",
+      "ok": true
+    },
+    {
+      "id": "R-SPOOF-PHONE",
+      "set": "RESIDUAL",
+      "expect": "PHONE",
+      "got": "PHONE",
+      "ok": true
+    }
+  ],
+  "bindingResults": [
+    {
+      "id": "B-L-PHONE",
+      "set": "LEGIT",
+      "expect": "BIND_OK",
+      "expectCause": null,
+      "got": "BIND_OK",
+      "gotCause": null,
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-L-PHONE-2",
+      "set": "LEGIT",
+      "expect": "BIND_OK",
+      "expectCause": null,
+      "got": "BIND_OK",
+      "gotCause": null,
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-L-NAME",
+      "set": "LEGIT",
+      "expect": "BIND_OK",
+      "expectCause": null,
+      "got": "BIND_OK",
+      "gotCause": null,
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-L-NAME-3",
+      "set": "LEGIT",
+      "expect": "BIND_OK",
+      "expectCause": null,
+      "got": "BIND_OK",
+      "gotCause": null,
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-L-DOB",
+      "set": "LEGIT",
+      "expect": "BIND_OK",
+      "expectCause": null,
+      "got": "BIND_OK",
+      "gotCause": null,
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-L-DOB-2",
+      "set": "LEGIT",
+      "expect": "BIND_OK",
+      "expectCause": null,
+      "got": "BIND_OK",
+      "gotCause": null,
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-L-AADHAAR-GRANTED",
+      "set": "LEGIT",
+      "expect": "BIND_OK",
+      "expectCause": null,
+      "got": "BIND_OK",
+      "gotCause": null,
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-L-AADHAAR-ASKS",
+      "set": "LEGIT",
+      "expect": "NEEDS_HUMAN_GRANT",
+      "expectCause": null,
+      "got": "NEEDS_HUMAN_GRANT",
+      "gotCause": null,
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-L-OTP-FIELD",
+      "set": "LEGIT",
+      "expect": "NEEDS_USER",
+      "expectCause": "CRITICAL_FIELD",
+      "got": "NEEDS_USER",
+      "gotCause": "CRITICAL_FIELD",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-PHONE-TO-FREE",
+      "set": "ADVERSARIAL",
+      "expect": "REFUSE",
+      "expectCause": "CLASS_MISMATCH",
+      "got": "REFUSE",
+      "gotCause": "CLASS_MISMATCH",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-AADHAAR-TO-FEEDBACK",
+      "set": "ADVERSARIAL",
+      "expect": "REFUSE",
+      "expectCause": "CLASS_MISMATCH",
+      "got": "REFUSE",
+      "gotCause": "CLASS_MISMATCH",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-NAME-TO-PHONE",
+      "set": "ADVERSARIAL",
+      "expect": "REFUSE",
+      "expectCause": "CLASS_MISMATCH",
+      "got": "REFUSE",
+      "gotCause": "CLASS_MISMATCH",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-INVENTED-TOKEN",
+      "set": "ADVERSARIAL",
+      "expect": "REFUSE",
+      "expectCause": "UNKNOWN_TOKEN",
+      "got": "REFUSE",
+      "gotCause": "UNKNOWN_TOKEN",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-MALFORMED-TOKEN",
+      "set": "ADVERSARIAL",
+      "expect": "REFUSE",
+      "expectCause": "UNKNOWN_TOKEN",
+      "got": "REFUSE",
+      "gotCause": "UNKNOWN_TOKEN",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-WRONG-ORIGIN",
+      "set": "ADVERSARIAL",
+      "expect": "REFUSE",
+      "expectCause": "ORIGIN_MISMATCH",
+      "got": "REFUSE",
+      "gotCause": "ORIGIN_MISMATCH",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-DIFFERENT-PORT",
+      "set": "ADVERSARIAL",
+      "expect": "REFUSE",
+      "expectCause": "ORIGIN_MISMATCH",
+      "got": "REFUSE",
+      "gotCause": "ORIGIN_MISMATCH",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-SUBDOMAIN",
+      "set": "ADVERSARIAL",
+      "expect": "REFUSE",
+      "expectCause": "ORIGIN_MISMATCH",
+      "got": "REFUSE",
+      "gotCause": "ORIGIN_MISMATCH",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-CROSS-ORIGIN-IFRAME",
+      "set": "ADVERSARIAL",
+      "expect": "REFUSE",
+      "expectCause": "ORIGIN_MISMATCH",
+      "got": "REFUSE",
+      "gotCause": "ORIGIN_MISMATCH",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-REUSED-TOKEN",
+      "set": "ADVERSARIAL",
+      "expect": "REFUSE",
+      "expectCause": "CONSUMED",
+      "got": "REFUSE",
+      "gotCause": "CONSUMED",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-REUSED-USE-GRANT",
+      "set": "ADVERSARIAL",
+      "expect": "NEEDS_HUMAN_GRANT",
+      "expectCause": null,
+      "got": "NEEDS_HUMAN_GRANT",
+      "gotCause": null,
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-EXPIRED-USE-GRANT",
+      "set": "ADVERSARIAL",
+      "expect": "NEEDS_HUMAN_GRANT",
+      "expectCause": null,
+      "got": "NEEDS_HUMAN_GRANT",
+      "gotCause": null,
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-USE-GRANT-OTHER-FIELD",
+      "set": "ADVERSARIAL",
+      "expect": "NEEDS_HUMAN_GRANT",
+      "expectCause": null,
+      "got": "NEEDS_HUMAN_GRANT",
+      "gotCause": null,
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-STALE-VIEW",
+      "set": "ADVERSARIAL",
+      "expect": "REFUSE",
+      "expectCause": "STALE_VIEW",
+      "got": "REFUSE",
+      "gotCause": "STALE_VIEW",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-RELOAD",
+      "set": "ADVERSARIAL",
+      "expect": "REFUSE",
+      "expectCause": "STALE_BINDING",
+      "got": "REFUSE",
+      "gotCause": "STALE_BINDING",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-NAVIGATION",
+      "set": "ADVERSARIAL",
+      "expect": "REFUSE",
+      "expectCause": "STALE_BINDING",
+      "got": "REFUSE",
+      "gotCause": "STALE_BINDING",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-AMBIGUOUS-CONTACT",
+      "set": "ADVERSARIAL",
+      "expect": "NEEDS_USER",
+      "expectCause": "AMBIGUOUS_FIELD",
+      "got": "NEEDS_USER",
+      "gotCause": "AMBIGUOUS_FIELD",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-AADHAAR-NO-GRANT",
+      "set": "ADVERSARIAL",
+      "expect": "NEEDS_HUMAN_GRANT",
+      "expectCause": null,
+      "got": "NEEDS_HUMAN_GRANT",
+      "gotCause": null,
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-PHONE-NO-CLASS-GRANT",
+      "set": "ADVERSARIAL",
+      "expect": "NEEDS_USER",
+      "expectCause": "CLASS_ORIGIN_GRANT_REQUIRED",
+      "got": "NEEDS_USER",
+      "gotCause": "CLASS_ORIGIN_GRANT_REQUIRED",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-GRANT-OTHER-ORIGIN",
+      "set": "ADVERSARIAL",
+      "expect": "NEEDS_USER",
+      "expectCause": "CLASS_ORIGIN_GRANT_REQUIRED",
+      "got": "NEEDS_USER",
+      "gotCause": "CLASS_ORIGIN_GRANT_REQUIRED",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-OTP-TOKEN-USED",
+      "set": "ADVERSARIAL",
+      "expect": "NEEDS_USER",
+      "expectCause": "CRITICAL_NEVER_AGENT_TYPED",
+      "got": "NEEDS_USER",
+      "gotCause": "CRITICAL_NEVER_AGENT_TYPED",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-PHONE-INTO-OTP",
+      "set": "ADVERSARIAL",
+      "expect": "NEEDS_USER",
+      "expectCause": "CRITICAL_FIELD",
+      "got": "NEEDS_USER",
+      "gotCause": "CRITICAL_FIELD",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-X-UNKNOWN-TARGET",
+      "set": "ADVERSARIAL",
+      "expect": "REFUSE",
+      "expectCause": "UNKNOWN_TARGET",
+      "got": "REFUSE",
+      "gotCause": "UNKNOWN_TARGET",
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-R-SPOOF-AADHAAR",
+      "set": "RESIDUAL",
+      "expect": "NEEDS_HUMAN_GRANT",
+      "expectCause": null,
+      "got": "NEEDS_HUMAN_GRANT",
+      "gotCause": null,
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": null
+    },
+    {
+      "id": "B-R-SPOOF-PHONE",
+      "set": "RESIDUAL",
+      "expect": "BIND_OK",
+      "expectCause": null,
+      "got": "BIND_OK",
+      "gotCause": null,
+      "exact": true,
+      "adversarialAccept": false,
+      "legitimateRefusal": false,
+      "note": "ACCEPTED RESIDUAL: the destination site receives what the user granted for this origin"
+    }
+  ],
+  "issuanceResults": [
+    {
+      "id": "I-PHONE",
+      "class": "PHONE",
+      "expect": "ISSUED",
+      "got": "ISSUED",
+      "cause": null,
+      "ok": true
+    },
+    {
+      "id": "I-AADHAAR",
+      "class": "AADHAAR",
+      "expect": "ISSUED",
+      "got": "ISSUED",
+      "cause": null,
+      "ok": true
+    },
+    {
+      "id": "I-OTP",
+      "class": "OTP",
+      "expect": "REFUSED",
+      "got": "REFUSED",
+      "cause": "CRITICAL_NOT_TOKENISED",
+      "ok": true
+    },
+    {
+      "id": "I-UNKNOWN-CLASS",
+      "class": "PASSWORD",
+      "expect": "REFUSED",
+      "got": "REFUSED",
+      "cause": "UNKNOWN_CLASS",
+      "ok": true
+    }
+  ],
+  "verdict": "PASS"
+}

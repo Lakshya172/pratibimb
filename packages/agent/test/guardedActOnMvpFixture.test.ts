@@ -117,9 +117,19 @@ class Looker implements HitTestBridge {
 
 const bridges = (click: Clicker, look: Looker): GuardedBridges => ({ action: click, hitTest: look });
 
+/**
+ * A TEST lifetime, not a proposal. The gate has no default permit TTL and ADR-0008 leaves the value
+ * open; a minute is simply long enough that no test here can expire a permit by accident.
+ */
+const TEST_TTL_MS = 60_000;
+
+
 /** A fresh observation, in a NEW frame, reporting where focus went. */
 const after = (focusedSelector: string | null, over: Partial<DomMeasurement>[] = [], drop: string[] = []) =>
   async (): Promise<PostActionObservation> => ({ graph: graph(F2, over, drop), focusedSelector });
+
+/** Options for paths expected to refuse before dispatch: a postcondition is mandatory regardless. */
+const OPTS = { permitTtlMs: TEST_TTL_MS, verify: { expect: { kind: "FOCUS_ON_TARGET" as const }, observe: after(null) } };
 
 describe("13 — a validated click that agrees and whose effect is observed is CONFIRMED", () => {
   it("clicks #phone at its measured centre and the page confirms focus", async () => {
@@ -127,6 +137,7 @@ describe("13 — a validated click that agrees and whose effect is observed is C
     const click = new Clicker();
     const look = new Looker(F1, g);
     const o = await guardedAct(g, { kind: "click", target: claimFor(g, "#phone") }, bridges(click, look), {
+      permitTtlMs: TEST_TTL_MS,
       verify: { expect: { kind: "FOCUS_ON_TARGET" }, observe: after("#phone") },
     });
 
@@ -157,6 +168,7 @@ describe("14 — an overlay over the validated point produces zero click events"
     };
     const look = new Looker(F1, g, banner);
     const o = await guardedAct(g, { kind: "click", target: claimFor(g, "#cancel") }, bridges(click, look), {
+      permitTtlMs: TEST_TTL_MS,
       verify: { expect: { kind: "FOCUS_ON_TARGET" }, observe: after("#cancel") },
     });
 
@@ -177,7 +189,7 @@ describe("14 — an overlay over the validated point produces zero click events"
     // #submit is below the fold, so validation refuses first; use a moved-away #cancel instead.
     const moved = graph(F1, [{}, {}, {}, { rect: { x: 0, y: 0, w: 1, h: 1 } }]);
     const look = new Looker(F1, moved);
-    const o = await guardedAct(g, { kind: "click", target: claimFor(g, "#cancel") }, bridges(click, look));
+    const o = await guardedAct(g, { kind: "click", target: claimFor(g, "#cancel") }, bridges(click, look), OPTS);
     expect(o.hit?.agreement).toBe("MISMATCH");
     if (o.hit?.agreement === "MISMATCH") expect(o.hit.cause).toBe("NOTHING_AT_POINT");
     expect(click.clicks.length).toBe(0);
@@ -188,7 +200,7 @@ describe("15 — an UNKNOWN hit test produces zero click events", () => {
   it("a bridge that cannot answer refuses just as hard as a mismatch", async () => {
     const g = graph();
     const click = new Clicker();
-    const o = await guardedAct(g, { kind: "click", target: claimFor(g, "#cancel") }, bridges(click, new Looker(F1, g, "THROW")));
+    const o = await guardedAct(g, { kind: "click", target: claimFor(g, "#cancel") }, bridges(click, new Looker(F1, g, "THROW")), OPTS);
     expect(o.reached).toBe("HIT_TEST");
     expect(o.hit?.agreement).toBe("UNKNOWN");
     if (o.hit?.agreement === "UNKNOWN") expect(o.hit.cause).toBe("BRIDGE_THREW");
@@ -200,7 +212,7 @@ describe("15 — an UNKNOWN hit test produces zero click events", () => {
     const g = graph();
     const click = new Clicker();
     const look = new Looker(F2, g);
-    const o = await guardedAct(g, { kind: "click", target: claimFor(g, "#cancel") }, bridges(click, look));
+    const o = await guardedAct(g, { kind: "click", target: claimFor(g, "#cancel") }, bridges(click, look), OPTS);
     expect(o.hit?.agreement).toBe("UNKNOWN");
     if (o.hit?.agreement === "UNKNOWN") expect(o.hit.cause).toBe("BRIDGE_FRAME_MISMATCH");
     expect(look.asked.length).toBe(0);
@@ -216,6 +228,7 @@ describe("16 — dispatched, but the expected state never appeared", () => {
     const g = graph();
     const click = new Clicker();
     const o = await guardedAct(g, { kind: "click", target: claimFor(g, "#phone-label") }, bridges(click, new Looker(F1, g)), {
+      permitTtlMs: TEST_TTL_MS,
       verify: { expect: { kind: "FOCUS_ON_TARGET" }, observe: after("#phone") },
     });
 
@@ -232,6 +245,7 @@ describe("16 — dispatched, but the expected state never appeared", () => {
     const g = graph();
     const click = new Clicker();
     const o = await guardedAct(g, { kind: "click", target: claimFor(g, "#cancel") }, bridges(click, new Looker(F1, g)), {
+      permitTtlMs: TEST_TTL_MS,
       verify: { expect: { kind: "FOCUS_ON_TARGET" }, observe: after(null) },
     });
     expect(o.result?.status).toBe("EXECUTED");
@@ -239,14 +253,21 @@ describe("16 — dispatched, but the expected state never appeared", () => {
     if (o.verification?.verification === "NOT_CONFIRMED") expect(o.verification.cause).toBe("FOCUS_ABSENT");
   });
 
-  it("with no readback supplied, a dispatch is reported as a dispatch and confirms nothing", async () => {
+  it("with no readback supplied, NOTHING is dispatched — a postcondition is mandatory (ADR-0008)", async () => {
+    // Changed on purpose. Under ADR-0007 this dispatched and reported `verification: null`; a
+    // dispatch that nothing will read back is now refused before the page is even queried.
     const g = graph();
     const click = new Clicker();
-    const o = await guardedAct(g, { kind: "click", target: claimFor(g, "#cancel") }, bridges(click, new Looker(F1, g)));
-    expect(o.reached).toBe("ACT");
-    expect(o.result?.status).toBe("EXECUTED");
+    const look = new Looker(F1, g);
+    const o = await guardedAct(g, { kind: "click", target: claimFor(g, "#cancel") }, bridges(click, look), {
+      permitTtlMs: TEST_TTL_MS,
+    } as never);
+    expect(o.reached).toBe("AUTHORISE");
+    expect(o.result?.status).toBe("REJECTED");
+    if (o.result?.status === "REJECTED") expect(o.result.cause).toBe("POSTCONDITION_REQUIRED");
+    expect(look.asked.length).toBe(0);
+    expect(click.clicks.length).toBe(0);
     expect(o.verification).toBeNull();
-    expect(guardedActionConfirmed(o)).toBe(false);
   });
 });
 
@@ -255,6 +276,7 @@ describe("17 — a dispatch timeout is UNKNOWN", () => {
     const g = graph();
     const click = new Clicker(F1, "HANG");
     const o = await guardedAct(g, { kind: "click", target: claimFor(g, "#phone") }, bridges(click, new Looker(F1, g)), {
+      permitTtlMs: TEST_TTL_MS,
       timeoutMs: 20,
       // The page LOOKS right. It must still not be read as a confirmation.
       verify: { expect: { kind: "FOCUS_ON_TARGET" }, observe: after("#phone") },
@@ -273,6 +295,7 @@ describe("18 — the target disappears after the action", () => {
     const g = graph();
     const click = new Clicker();
     const o = await guardedAct(g, { kind: "click", target: claimFor(g, "#cancel") }, bridges(click, new Looker(F1, g)), {
+      permitTtlMs: TEST_TTL_MS,
       verify: { expect: { kind: "FOCUS_ON_TARGET" }, observe: after(null, [], ["#cancel"]) },
     });
     expect(o.result?.status).toBe("EXECUTED");
@@ -288,7 +311,7 @@ describe("the earlier safety boundary is not bypassed", () => {
     const nextFrame = graph(F2);
     const click = new Clicker(F2);
     const look = new Looker(F2, nextFrame);
-    const o = await guardedAct(nextFrame, { kind: "click", target: plan }, bridges(click, look));
+    const o = await guardedAct(nextFrame, { kind: "click", target: plan }, bridges(click, look), OPTS);
     expect(o.reached).toBe("VALIDATE");
     expect(o.decision.decision).toBe("RE_OBSERVE");
     if (o.decision.decision === "RE_OBSERVE") expect(o.decision.reason).toBe("FRAME_MISMATCH");
@@ -303,26 +326,31 @@ describe("the earlier safety boundary is not bypassed", () => {
     const moved = graph(F1, [{}, {}, {}, { rect: { x: 620, y: 420, w: 120, h: 40 } }]);
     const click = new Clicker();
     const look = new Looker(F1, moved);
-    const o = await guardedAct(moved, { kind: "click", target: plan }, bridges(click, look));
+    const o = await guardedAct(moved, { kind: "click", target: plan }, bridges(click, look), OPTS);
     expect(o.reached).toBe("VALIDATE");
     if (o.decision.decision === "RE_OBSERVE") expect(o.decision.reason).toBe("MOVED_BEYOND_TOLERANCE");
     expect(look.asked.length).toBe(0);
     expect(click.clicks.length).toBe(0);
   });
 
-  it("the confirmation tier still refuses after a MATCH — a hit test is not a permission", async () => {
+  it("the confirmation tier refuses before the page is queried — and a MATCH would not have been permission", async () => {
+    // Changed on purpose (ADR-0008). The tier is static authorisation, so it now refuses at
+    // AUTHORISE, before the hit test; `permit.test.ts` separately proves that even an attested
+    // MATCH on a tier target cannot mint a permit.
     const g = graph();
     const click = new Clicker();
     const look = new Looker(F1, g);
     const o = await guardedAct(g, { kind: "click", target: claimFor(g, "#help-link") }, bridges(click, look), {
+      permitTtlMs: TEST_TTL_MS,
       verify: { expect: { kind: "FOCUS_ON_TARGET" }, observe: after("#help-link") },
     });
-    expect(o.hit?.agreement).toBe("MATCH");
+    expect(o.reached).toBe("AUTHORISE");
+    expect(o.hit).toBeNull();
+    expect(look.asked.length).toBe(0);
     expect(o.result?.status).toBe("REJECTED");
     if (o.result?.status === "REJECTED") expect(o.result.cause).toBe("HUMAN_CONFIRMATION_REQUIRED");
     expect(click.clicks.length).toBe(0);
-    expect(o.verification?.verification).toBe("NOT_CONFIRMED");
-    if (o.verification?.verification === "NOT_CONFIRMED") expect(o.verification.cause).toBe("ACTION_NOT_DISPATCHED");
+    expect(o.verification).toBeNull();
   });
 
   it("every refusal in the flow leaves the page with zero click events", async () => {
@@ -332,7 +360,7 @@ describe("the earlier safety boundary is not bypassed", () => {
         name: "validation refuses",
         run: async () => {
           const c = new Clicker();
-          await guardedAct(graph(F2), { kind: "click", target: claimFor(g, "#cancel") }, bridges(c, new Looker(F2, graph(F2))));
+          await guardedAct(graph(F2), { kind: "click", target: claimFor(g, "#cancel") }, bridges(c, new Looker(F2, graph(F2))), OPTS);
           return { clicks: c.clicks.length };
         },
       },
@@ -341,7 +369,7 @@ describe("the earlier safety boundary is not bypassed", () => {
         run: async () => {
           const c = new Clicker();
           const overlay: TopmostElement = { frameId: F1, selector: "#modal", role: "dialog", name: "", box: cssBox(0, 0, 1024, 768) };
-          await guardedAct(g, { kind: "click", target: claimFor(g, "#cancel") }, bridges(c, new Looker(F1, g, overlay)));
+          await guardedAct(g, { kind: "click", target: claimFor(g, "#cancel") }, bridges(c, new Looker(F1, g, overlay)), OPTS);
           return { clicks: c.clicks.length };
         },
       },
@@ -349,7 +377,7 @@ describe("the earlier safety boundary is not bypassed", () => {
         name: "hit test is unknown",
         run: async () => {
           const c = new Clicker();
-          await guardedAct(g, { kind: "click", target: claimFor(g, "#cancel") }, bridges(c, new Looker(F1, g, "THROW")));
+          await guardedAct(g, { kind: "click", target: claimFor(g, "#cancel") }, bridges(c, new Looker(F1, g, "THROW")), OPTS);
           return { clicks: c.clicks.length };
         },
       },
@@ -357,7 +385,7 @@ describe("the earlier safety boundary is not bypassed", () => {
         name: "confirmation tier refuses",
         run: async () => {
           const c = new Clicker();
-          await guardedAct(g, { kind: "click", target: claimFor(g, "#help-link") }, bridges(c, new Looker(F1, g)));
+          await guardedAct(g, { kind: "click", target: claimFor(g, "#help-link") }, bridges(c, new Looker(F1, g)), OPTS);
           return { clicks: c.clicks.length };
         },
       },
@@ -365,7 +393,7 @@ describe("the earlier safety boundary is not bypassed", () => {
         name: "the action is unsupported",
         run: async () => {
           const c = new Clicker();
-          await guardedAct(g, { kind: "type", target: claimFor(g, "#phone") }, bridges(c, new Looker(F1, g)));
+          await guardedAct(g, { kind: "type", target: claimFor(g, "#phone") }, bridges(c, new Looker(F1, g)), OPTS);
           return { clicks: c.clicks.length };
         },
       },

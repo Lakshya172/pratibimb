@@ -1,0 +1,109 @@
+{
+  "recordedAt": "2026-09-13T10:59:32.938Z",
+  "rows": [
+    {
+      "id": "C1",
+      "what": "classifier ignores signals that name something else",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "C2",
+      "what": "classifier picks the first of conflicting signals",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "C3",
+      "what": "classifier ignores qualified names (father's, company)",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "C4",
+      "what": "classifier treats a no-signal input as free text",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "T1",
+      "what": "issuance tokenises CRITICAL and unknown classes",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "B1",
+      "what": "binder ignores a stale view",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "B2",
+      "what": "binder ignores reload / navigation",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "B3",
+      "what": "binder accepts an unknown target",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "B4",
+      "what": "binder accepts an invented token",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "B5",
+      "what": "binder types a CRITICAL token",
+      "outcome": "SURVIVED"
+    },
+    {
+      "id": "B6",
+      "what": "binder types into an OTP field",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "B7",
+      "what": "binder guesses an ambiguous field",
+      "outcome": "SURVIVED"
+    },
+    {
+      "id": "B8",
+      "what": "binder ignores class mismatch",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "B9",
+      "what": "binder ignores origin",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "B10",
+      "what": "binder allows reuse",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "B11",
+      "what": "binder ignores the class×origin grant",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "B12",
+      "what": "binder skips the per-use human grant",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "B13",
+      "what": "binder accepts used or expired use-grants",
+      "outcome": "KILLED"
+    },
+    {
+      "id": "B14",
+      "what": "binder accepts a use-grant made for another field",
+      "outcome": "KILLED"
+    }
+  ],
+  "summary": {
+    "total": 19,
+    "killed": 17,
+    "survived": [
+      "B5",
+      "B7"
+    ],
+    "notApplied": []
+  }
+}
