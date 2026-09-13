@@ -250,9 +250,7 @@ const TRANSPORTS = ["POST_JSON", "QUERY", "HEADER", "MULTIPART"];
  * carry CRLF line endings, which changes raw bytes but not the code; hashing normalised text keeps the
  * "byte-identical instrument" rule about the instrument rather than about line endings.
  */
-const lf = (path) => Buffer.from(readFileSync(path, "utf8").replace(/
-/g, "
-"), "utf8");
+const lf = (path) => Buffer.from(readFileSync(path, "utf8").replace(/\r\n/g, "\n"), "utf8");
 const scannerFile = lf(join(HERE, "scanner.mjs"));
 const collectorFile = lf(join(HERE, "collector.cjs"));
 const { server, arrivals } = await collector.start(PORT);
