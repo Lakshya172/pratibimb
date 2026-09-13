@@ -10,7 +10,7 @@
 | Question | Answer |
 |---|---|
 | Is the task dominated by UNKNOWN? | **No.** 10 of 100 dispatched runs, all from the self-removing Next button |
-| Does CONFIRMED mean the intended effect happened? | **Not in general.** 10 of 70 CONFIRMED runs had the effect absent (A5) |
+| Does CONFIRMED mean the intended effect happened? | **Not in general.** 10 of 80 CONFIRMED runs had the effect absent (A5) |
 | Do existing kinds cover the demo's clicks? | Textbox and select focus: yes. Checkbox, radio, disclosure, toggle: landing only. Label: wrong rule |
 | Prediction accuracy | 10 / 11 (A8 miss: identity is selector + role, names not compared) |
 

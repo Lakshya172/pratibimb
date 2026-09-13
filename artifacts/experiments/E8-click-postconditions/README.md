@@ -48,7 +48,7 @@ Every action gave the same outcome in all 10 runs.
 | A10 State select | listbox | CONFIRMED | yes | **yes** (focus) | ✓ |
 | A11 Help link | link | NOT_CONFIRMED `ACTION_NOT_DISPATCHED` (confirmation tier) | no | — | ✓ |
 
-**Totals over 110 runs:** 100 dispatched · 70 CONFIRMED · 20 NOT_CONFIRMED · 10 UNKNOWN ·
+**Totals over 110 runs:** 100 dispatched · 80 CONFIRMED · 20 NOT_CONFIRMED (10 of them A11, never dispatched) · 10 UNKNOWN ·
 **10 CONFIRMED with the effect absent** (A5) · **20 not confirmed with the effect present** (A3, A9).
 Predictions matched for 10 of 11 actions.
 
