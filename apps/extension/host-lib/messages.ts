@@ -9,6 +9,8 @@
  *    listener. A page cannot command the extension.
  *
  * No message type carries a value. The vault stub holds synthetic canaries and never sends them.
+ * The one exception is `E4_EMIT` (experiment E4-offscreen): it carries a harness-built loopback
+ * request whose bytes are E4's synthetic, seeded canaries — never a vault value.
  */
 
 export type ToSw =
@@ -20,7 +22,15 @@ export type ToOffscreen =
   | { readonly target: "offscreen"; readonly kind: "ECHO" }
   | { readonly target: "offscreen"; readonly kind: "STATE" }
   | { readonly target: "offscreen"; readonly kind: "ORT_SMOKE" }
-  | { readonly target: "offscreen"; readonly kind: "CSP_PROBE"; readonly allowed: string; readonly foreign: string };
+  | { readonly target: "offscreen"; readonly kind: "CSP_PROBE"; readonly allowed: string; readonly foreign: string }
+  | {
+      readonly target: "offscreen";
+      readonly kind: "E4_EMIT";
+      readonly url: string;
+      readonly method: string;
+      readonly headers: Readonly<Record<string, string>>;
+      readonly bodyB64: string | null;
+    };
 
 export type ToContent = { readonly kind: "MEASURE" } | { readonly kind: "ROUNDTRIP"; readonly samples: number };
 

@@ -61,6 +61,31 @@ async function cspProbe(allowed: string, foreign: string) {
 }
 
 /**
+ * EXPERIMENT E4-offscreen — emit ONE request, built elsewhere, from this document.
+ *
+ * The harness builds every byte (URL, method, headers, body) with E4's own code; this document only
+ * performs the fetch, so the bytes leave from the cell the product would send from. It chooses
+ * nothing, builds nothing, and reaches only the E4 loopback collector, which is also the manifest's
+ * one pinned connect-src origin. The payloads are synthetic canaries, never vault values.
+ *
+ * A rejected fetch is reported, not hidden: whether bytes reached the wire is the collector's call.
+ */
+const E4_COLLECTOR = "http://127.0.0.1:8995/";
+
+async function e4Emit(msg: { url: string; method: string; headers: Readonly<Record<string, string>>; bodyB64: string | null }) {
+  if (typeof msg.url !== "string" || !msg.url.startsWith(E4_COLLECTOR)) return { refused: "NOT_THE_E4_COLLECTOR" };
+  const body = msg.bodyB64 === null ? undefined : Uint8Array.from(atob(msg.bodyB64), (c) => c.charCodeAt(0));
+  const emitter = location.href;
+  const t0 = performance.now();
+  try {
+    const r = await fetch(msg.url, { method: msg.method, headers: msg.headers, body });
+    return { settled: "resolved", status: r.status, emitter, ms: performance.now() - t0 };
+  } catch (e) {
+    return { settled: "rejected", fetchError: e instanceof Error ? `${e.name}: ${e.message}` : String(e), emitter, ms: performance.now() - t0 };
+  }
+}
+
+/**
  * EXPERIMENT E6 — value release bound to a browser-attested document.
  *
  * The service worker arms a single-use nonce for (tabId, frameId, documentId). A content script may
@@ -121,6 +146,14 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
   }
   if (msg.kind === "CSP_PROBE") {
     void cspProbe(msg.allowed, msg.foreign).then(sendResponse);
+    return true;
+  }
+  if (msg.kind === "E4_EMIT") {
+    if (sender.tab) {
+      sendResponse({ refused: "EMIT_ONLY_FROM_SERVICE_WORKER" });
+      return false;
+    }
+    void e4Emit(msg).then(sendResponse);
     return true;
   }
   sendResponse({ refused: "UNKNOWN_KIND" });
