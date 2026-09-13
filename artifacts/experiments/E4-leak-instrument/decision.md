@@ -27,3 +27,28 @@ The instrument may measure product egress, **only**:
 
 A scanner change needs a new `SCANNER_VERSION`, a fresh seed block and a full E4 re-run. No earlier
 PASS carries over to changed code.
+
+## Instrument identity — correction recorded 2026-09-13
+
+The attempt-2 log records `scannerSha256 = feeb1be894ae91c8da9071920609ee6379a3b5a94b5df432a8abe55084c3d606`.
+That is the SHA-256 of the scanner **as it sat in the working tree with CRLF line endings** at run
+time. The committed file is stored with LF endings, and its SHA-256 is
+`96979ebde6774f734fa14e4ae94dcabc33c962358874e850148cdccb0f0b6fab`.
+
+**Verified:** the run-time scanner, LF-normalised, is byte-identical to the committed blob. So the
+code that passed is the code that is committed; only the line endings differ. The collector's logged
+hash (`1ff60ed52539d6be…`) was already over LF bytes and equals the committed blob.
+
+**The instrument's identity is therefore `96979ebde6774f73…` (LF-normalised)**, and the runner now
+computes identity that way. The log is not rewritten.
+
+**Correction to commit `c497aee`:** its message states that the PASS log's scanner hash "was computed
+on an LF file and equals the LF-normalised hash of the committed scanner, verified". **That is
+false.** The check run at the time printed `False`, and the commit went in regardless. The facts are
+as above. History is not rewritten; this record supersedes that sentence.
+
+Reproduce the check:
+
+```bash
+python -c "import hashlib,subprocess;b=subprocess.run(['git','show','HEAD:artifacts/experiments/E4-leak-instrument/harness/scanner.mjs'],capture_output=True).stdout;print(hashlib.sha256(b).hexdigest())"
+```

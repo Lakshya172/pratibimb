@@ -26,7 +26,7 @@ misses, clean traffic, or an empty canary set.
 | | |
 |---|---|
 | Collector | `harness/collector.cjs`, **derived from B-02's** `W1-B02-invariant-e-observation/harness/collector.js` (recorded on W2). The transport (Node `http`, 127.0.0.1 only), body accumulation, SHA-256 recomputation and declared-hash header are unchanged. **The one addition:** it keeps the received request line, raw headers and body, because a scanner needs bytes and B-02 only needed a hash. B-02's file is not edited |
-| Scanner | `harness/scanner.mjs`, `e4-scanner-2`, SHA-256 `feeb1be894ae91c8…` (full hash in the log) |
+| Scanner | `harness/scanner.mjs`, `e4-scanner-2`. **Identity (LF-normalised) SHA-256 `96979ebde6774f73…`.** The log's `feeb1be8…` is the same code with CRLF line endings; see `decision.md`, *Instrument identity* |
 | Emitter | `harness/run-e4.mjs`, Node `fetch`, sequential |
 | Canaries | Synthetic, fresh per run from `mulberry32(seed)`: PHONE (10 digits, leading 6–9), AADHAAR (12 digits), DOB (day 13–28, so D-M-Y and M-D-Y cannot collide; a property of the canary, not of users), NAME (two synthetic tokens), OTP (6 digits) |
 | Correlation ids | Letters only, so the instrument's own metadata cannot resemble a numeric canary |
