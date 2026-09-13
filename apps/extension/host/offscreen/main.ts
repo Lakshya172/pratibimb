@@ -7,6 +7,7 @@
  */
 import { bootstrapOrtRealm, createPinnedInferenceSession, resolvePackagedAsset } from "../../entrypoints/ortRuntime";
 import { isFromThisExtension, type ToOffscreen } from "../../host-lib/messages";
+import { installTransportControlPlane } from "../../host-lib/transport-control-plane";
 
 const instanceId = crypto.randomUUID();
 const createdAt = Date.now();
@@ -105,6 +106,16 @@ function release(msg: { nonce: string }, sender: chrome.runtime.MessageSender): 
   const value = vaultStub.get(a.ref);
   return value === undefined ? { refused: "UNKNOWN_REF" } : { value };
 }
+
+/**
+ * EXPERIMENT D-E6-4: this document is the core realm (TR-9).
+ *
+ * It survives a service-worker restart, which the execution gate's same-realm registry of issued
+ * permits needs, and it keeps the worker a router rather than a place authority lives. The control
+ * plane starts nothing: it exposes the unchanged stages and the transport's constructors for an
+ * evidence run to compose through the DevTools protocol, exactly as Track G and E6 are driven.
+ */
+installTransportControlPlane();
 
 chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
   const msg = raw as ToOffscreen | { target: "offscreen"; kind: "E6_ARM"; nonce: string; tabId: number; frameId: number; documentId: string; ref: string; ttlMs: number } | { target: "offscreen"; kind: "E6_RELEASE"; nonce: string };
