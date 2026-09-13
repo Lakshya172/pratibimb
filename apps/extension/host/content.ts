@@ -6,8 +6,12 @@
  * page has no way to command it. Reads only what a content script may read: role, accessible name,
  * geometry, enabled, CSS visibility.
  */
+import { createPageAgent } from "@pratibimb/extension-transport";
+
 import type { ToContent } from "../host-lib/messages";
 import { clickOn, typeInto, type ClickMechanism, type TypeMechanism } from "../host-lib/e6-mechanisms";
+import { domPageSurface } from "../host-lib/page-surface-dom";
+import { connectPageTransport } from "../host-lib/transport-chrome";
 
 export default defineContentScript({
   matches: ["http://127.0.0.1/*"],
@@ -90,6 +94,12 @@ export default defineContentScript({
       sendResponse({ refused: "UNKNOWN_KIND" });
       return false;
     });
+
+    // EXPERIMENT D-E6-4: the page transport. One agent per document, so the cycles this document has
+    // answered stay with it across a service-worker restart — and the port carries the browser's
+    // attestation of which document that is. It answers hit tests, one dispatch per cycle at the
+    // exact authorised point, and observations. It has no selector to click and no page-facing input.
+    connectPageTransport(createPageAgent(domPageSurface));
 
     void chrome.runtime.sendMessage({ kind: "HELLO" });
   },

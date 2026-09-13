@@ -30,6 +30,21 @@ const MODEL = join(ROOT, "artifacts", "models", "t1-ui-head", "t1-ui-head.onnx")
 
 export default defineConfig({
   entrypointsDir: "host",
+  /**
+   * Workspace packages are bundled from TypeScript source rather than from `dist/`, so a host build
+   * cannot silently ship a stale compile of the agent core. `npm run typecheck` still type-checks
+   * those packages; this only decides what the bundler reads.
+   */
+  vite: () => ({
+    resolve: {
+      alias: {
+        "@pratibimb/agent": join(ROOT, "packages", "agent", "src", "index.ts"),
+        "@pratibimb/perception": join(ROOT, "packages", "perception", "src", "index.ts"),
+        "@pratibimb/security": join(ROOT, "packages", "security", "src", "index.ts"),
+        "@pratibimb/extension-transport": join(ROOT, "packages", "extension-transport", "src", "index.ts"),
+      },
+    },
+  }),
   manifest: {
     name: "PratiBimb minimal MV3 host (experiment — not the product)",
     version: "0.0.0",

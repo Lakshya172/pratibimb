@@ -5,10 +5,20 @@
  * lost on termination by design. `bootId` exists only so an evidence run can tell whether this
  * worker was restarted.
  */
+import { createServiceWorkerRouter, relayRefused, TRANSPORT_CHANNEL, TRANSPORT_PORT_NAME } from "@pratibimb/extension-transport";
+
 import { identityOf, isFromContentScript, isFromExtensionPage, type SenderIdentity, type ToSw } from "../host-lib/messages";
+import { adaptPort, isFromOffscreenDocument } from "../host-lib/transport-chrome";
 
 export default defineBackground(() => {
   const bootId = crypto.randomUUID();
+  /**
+   * EXPERIMENT D-E6-4: the page transport's router. Stateless — it holds no permit, no value and no
+   * decision, and adds only the browser's attestation of which document answered. `bootId` is what
+   * ties a delivery to the worker that relayed its hit test, so a restart cannot finish an
+   * interrupted attempt.
+   */
+  const transport = createServiceWorkerRouter({ bootId });
   const bootedAt = Date.now();
   const hellos: { at: number; identity: SenderIdentity }[] = [];
 
@@ -37,6 +47,8 @@ export default defineBackground(() => {
     },
     toTab: (tabId: number, msg: object) => chrome.tabs.sendMessage(tabId, msg),
     offscreenContexts: async () => (await chrome.runtime.getContexts({ contextTypes: [chrome.runtime.ContextType.OFFSCREEN_DOCUMENT] })).length,
+    // EXPERIMENT D-E6-4: how many documents currently hold a transport port, for diagnosis only.
+    transportConnections: () => transport.connectionCount(),
     // EXPERIMENT E6: arm a single-use value release for the latest document seen in a tab. The worker
     // handles only the nonce and the document identity — never the value.
     e6Arm: async (tabId: number, ttlMs: number) => {
@@ -51,8 +63,27 @@ export default defineBackground(() => {
     },
   };
 
+  // EXPERIMENT D-E6-4. A content script opens a port; the browser attests who it is through
+  // `port.sender`. A port we cannot fully attest, or one from an origin outside loopback, is dropped.
+  chrome.runtime.onConnect.addListener((port) => {
+    if (port.name !== TRANSPORT_PORT_NAME) return;
+    if (!transport.acceptPort(adaptPort(port))) port.disconnect();
+  });
+
   chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
     const msg = raw as ToSw & { target?: string };
+
+    // EXPERIMENT D-E6-4: relay one page request for the core realm. Only the offscreen document may
+    // ask; a tab, the side panel or anything else is refused before a page is touched.
+    if (typeof raw === "object" && raw !== null && (raw as { channel?: unknown }).channel === TRANSPORT_CHANNEL) {
+      if (!isFromOffscreenDocument(sender)) {
+        sendResponse(relayRefused("SENDER_NOT_ACCEPTED", bootId));
+        return false;
+      }
+      void transport.relay(raw).then(sendResponse);
+      return true;
+    }
+
     if (msg?.target === "offscreen") return false; // addressed to the offscreen document, not here
     if (msg?.kind === "HOST_STATUS" && isFromExtensionPage(sender)) {
       void ensureOffscreen().then((n) => sendResponse({ bootId, bootedAt, offscreenContexts: n, hellos: hellos.length }));
