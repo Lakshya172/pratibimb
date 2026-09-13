@@ -66,3 +66,29 @@ export {
   type PortLike,
   type ServiceWorkerRouter,
 } from "./swRouter.js";
+
+export {
+  askPage,
+  createTransportCycle,
+  transportDeps,
+  type CycleReport,
+  type PageAnswer,
+  type PageAsk,
+  type TransportBinding,
+  type TransportCycle,
+  type TransportDeps,
+  type TransportRelay,
+} from "./coreTransport.js";
+
+export {
+  createPostActionObserver,
+  emptyGraph,
+  observeBoundDocument,
+  observePage,
+  observationDeps,
+  toPostActionObservation,
+  type ObservationDeps,
+  type ObservationReport,
+  type PageObservation,
+  type PostActionObserver,
+} from "./observation.js";
