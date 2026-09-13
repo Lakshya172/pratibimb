@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>PratiBimb — minimal host</title>
+  <style>
+    body { font: 13px/1.4 system-ui, sans-serif; margin: 12px; color: #111; }
+    h1 { font-size: 15px; margin: 0 0 8px; }
+    fieldset { border: 1px solid #ccd; margin: 8px 0; padding: 8px; }
+    textarea, input { width: 100%; box-sizing: border-box; font: inherit; }
+    pre { background: #f4f5f7; padding: 6px; white-space: pre-wrap; min-height: 40px; }
+    .warn { color: #8a2d00; }
+  </style>
+</head>
+<body>
+  <h1>PratiBimb minimal host</h1>
+  <p class="warn">Experiment shell. Not the product: no sanitizer, no verifier, no server, no real values.</p>
+  <fieldset><legend>Goal</legend><input id="goal" placeholder="Synthetic goal text"></fieldset>
+  <fieldset><legend>Synthetic profile</legend><textarea id="profile" rows="3" placeholder="Synthetic values only"></textarea></fieldset>
+  <fieldset><legend>Grants (inert placeholders)</legend>
+    <button id="grant-class" type="button" disabled>Allow PHONE on this origin</button>
+    <button id="grant-use" type="button" disabled>Approve one use</button>
+  </fieldset>
+  <fieldset><legend>Payload Inspector (placeholder)</legend><pre id="payload">No payload: there is no egress path in this host.</pre></fieldset>
+  <fieldset><legend>Status</legend><pre id="status">…</pre><div id="needs-user">NEEDS_USER: none</div></fieldset>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>
