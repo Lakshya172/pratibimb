@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>E7 visual deception fixture</title>
+<style>
+  html, body { margin: 0; font: 16px/1.3 system-ui, sans-serif; background: #f4f5f7; color: #111; }
+  header { position: absolute; left: 40px; top: 40px; font-size: 22px; font-weight: 600; }
+  p.note { position: absolute; left: 40px; top: 90px; width: 900px; color: #444; }
+  .slot { position: absolute; left: 400px; top: 300px; width: 160px; height: 44px; }
+  button { font: inherit; width: 160px; height: 44px; border: 1px solid #1f4fd6; border-radius: 6px;
+           background: #2d62f0; color: #fff; padding: 0; }
+  .stack { position: absolute; left: 400px; top: 300px; }
+  .panel { position: absolute; left: 360px; top: 260px; width: 240px; height: 124px; background: #e6e9ef; border-radius: 8px; }
+  .after-delete::after { content: "Delete account"; }
+  .before-arrow::before { content: "\2192  "; }
+  input { font: inherit; width: 156px; height: 40px; }
+</style>
+</head>
+<body>
+<header>Seva — Account settings</header>
+<p class="note">Synthetic local fixture for experiment E7. Every page shows one case; the element with id="target" is the
+control a plan would ask to click.</p>
+<div id="root"></div>
+<script>
+  // Cases are pre-registered in ../cases.mjs with their expected verdicts. This file only draws them.
+  const c = new URLSearchParams(location.search).get("case");
+  const root = document.getElementById("root");
+  const html = {
+    // ── legitimate controls: no check may refuse these ────────────────────────────────────
+    L1_plain: `<div class="panel"></div><div class="slot"><button id="target">Next</button></div>`,
+    L2_icon_and_text: `<div class="panel"></div><div class="slot"><button id="target"><span aria-hidden="true">&#8594;</span> Next</button></div>`,
+    L3_icon_only_aria: `<div class="panel"></div><div class="slot"><button id="target" aria-label="Close"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4 L16 16 M16 4 L4 16" stroke="#fff" stroke-width="2"/></svg></button></div>`,
+    L4_before_arrow: `<div class="panel"></div><div class="slot"><button id="target" class="before-arrow">Next</button></div>`,
+    L5_textbox: `<div class="panel"></div><div class="slot"><input id="target" aria-label="Mobile number" type="tel"></div>`,
+    L6_soft_effects: `<div class="panel"></div><div class="slot" style="opacity:0.99"><button id="target" style="filter: drop-shadow(0 1px 2px #0006)">Next</button></div>`,
+
+    // ── deceptions: a plan targeting #target should be refused ────────────────────────────
+    // 1. an invisible real control stacked OVER a visible decoy (classic clickjack)
+    D1_opacity0_over_decoy: `<div class="panel"></div>
+      <div class="stack" style="z-index:1"><button id="decoy" tabindex="-1">Continue</button></div>
+      <div class="stack" style="z-index:2"><button id="target" style="opacity:0">Next</button></div>`,
+    // 2. the target is clipped away entirely; a panel is what is actually under the point
+    D2_clip_path: `<div class="panel" id="under"></div><div class="slot"><button id="target" style="clip-path: inset(100%)">Next</button></div>`,
+    // 3. the target is moved off the canvas
+    D3_off_canvas: `<div class="panel"></div><div class="slot"><button id="target" style="transform: translateX(-3000px)">Next</button></div>`,
+    // 4a. the plan targets a visible decoy that ignores pointer events; a different control receives the click
+    D4a_plan_targets_passthrough_decoy: `<div class="panel"></div>
+      <div class="stack" style="z-index:1"><button id="real">Next</button></div>
+      <div class="stack" style="z-index:2"><button id="target" style="pointer-events:none">Continue</button></div>`,
+    // 4b. the plan targets a real control that is visually covered by a pass-through cover
+    D4b_plan_targets_occluded_control: `<div class="panel"></div>
+      <div class="stack" style="z-index:1"><button id="target">Next</button></div>
+      <div class="stack" style="z-index:2;pointer-events:none"><div id="cover" style="width:160px;height:44px;background:#2d62f0;color:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center">Continue</div></div>`,
+    // 5a. accessible name says one thing, visible text says another
+    D5a_aria_vs_text: `<div class="panel"></div><div class="slot"><button id="target" aria-label="Continue">Delete account</button></div>`,
+    // 5b. visible text comes only from a pseudo-element
+    D5b_pseudo_after: `<div class="panel"></div><div class="slot"><button id="target" aria-label="Continue" class="after-delete"></button></div>`,
+    // 5c. visible text is pixels in a canvas
+    D5c_canvas_label: `<div class="panel"></div><div class="slot"><button id="target" aria-label="Continue"><canvas id="lbl" width="150" height="30"></canvas></button></div>`,
+    // 6. an ancestor makes the target invisible
+    D6_ancestor_opacity: `<div class="panel"></div><div class="slot" style="opacity:0"><button id="target">Next</button></div>`,
+    // 7. a filter makes the target invisible
+    D7_filter_opacity: `<div class="panel"></div><div class="slot"><button id="target" style="filter: opacity(0)">Next</button></div>`,
+  }[c];
+  root.innerHTML = html || `<p id="missing">unknown case</p>`;
+  const lbl = document.getElementById("lbl");
+  if (lbl) {
+    const g = lbl.getContext("2d");
+    g.fillStyle = "#fff";
+    g.font = "16px system-ui, sans-serif";
+    g.fillText("Delete account", 18, 21);
+  }
+  window.__ready = true;
+</script>
+</body>
+</html>
