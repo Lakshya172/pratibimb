@@ -7,6 +7,11 @@
     "onnxruntime-web": "1.29.0"
   },
   "devDependencies": {
-    "@pratibimb/security": "*"
+    "@pratibimb/security": "*",
+    "wxt": "0.21.4"
+  },
+  "scripts": {
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox"
   }
 }
