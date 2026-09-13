@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>E8 click postconditions fixture</title>
+<style>
+  html, body { margin: 0; font: 15px/1.35 system-ui, sans-serif; background: #f6f7f9; color: #111; }
+  main { position: absolute; left: 40px; top: 30px; width: 900px; }
+  h1 { font-size: 22px; margin: 0 0 14px; }
+  .row { display: flex; align-items: center; gap: 12px; margin: 8px 0; height: 36px; }
+  label { width: 190px; }
+  input[type=text], input[type=tel], select { width: 260px; height: 30px; font: inherit; }
+  button { font: inherit; height: 32px; padding: 0 14px; }
+  #address-fields[hidden], #alt-row[hidden] { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Residence certificate — step <span id="stepno">1</span></h1>
+  <section id="step1">
+    <div class="row"><label for="fullname">Full name</label><input id="fullname" type="text" aria-label="Full name"></div>
+    <div class="row"><label for="mobile">Mobile number</label><input id="mobile" type="tel" aria-label="Mobile number"></div>
+    <div class="row"><label id="dob-label" for="dob">Date of birth</label><input id="dob" type="text" aria-label="Date of birth"></div>
+    <div class="row"><input id="same-address" type="checkbox" aria-label="Same as permanent address"><span>Same as permanent address</span></div>
+    <div class="row"><input id="sms" type="checkbox" aria-label="SMS updates"><span>SMS updates (locked by this page)</span></div>
+    <div class="row"><input id="urban" type="radio" name="area" aria-label="Urban"><span>Urban</span>
+                     <input id="rural" type="radio" name="area" aria-label="Rural"><span>Rural</span></div>
+    <div class="row"><button id="show-address" type="button" aria-expanded="false" aria-controls="address-fields">Show address fields</button></div>
+    <div id="address-fields" hidden><div class="row"><label for="line1">Address line 1</label><input id="line1" type="text" aria-label="Address line 1"></div></div>
+    <div class="row"><button id="alt-toggle" type="button">Add alternate number</button></div>
+    <div id="alt-row" hidden class="row"><label for="alt">Alternate number</label><input id="alt" type="tel" aria-label="Alternate number"></div>
+    <div class="row"><label for="state">State</label><select id="state" aria-label="State"><option>Select</option><option>Karnataka</option></select></div>
+    <div class="row"><button id="next" type="button">Next step</button><a id="help" href="#help">Help</a></div>
+  </section>
+  <section id="step2" hidden>
+    <div class="row"><button id="submit" type="button">Submit application</button></div>
+  </section>
+</main>
+<script>
+  // Page behaviour the actions exercise. Nothing here is aware of the harness.
+  document.getElementById("sms").addEventListener("click", (e) => e.preventDefault()); // the page refuses the toggle
+  const show = document.getElementById("show-address");
+  show.addEventListener("click", () => {
+    const open = show.getAttribute("aria-expanded") === "true";
+    show.setAttribute("aria-expanded", String(!open));
+    document.getElementById("address-fields").hidden = open;
+  });
+  const alt = document.getElementById("alt-toggle");
+  alt.addEventListener("click", () => {
+    const row = document.getElementById("alt-row");
+    row.hidden = !row.hidden;
+    alt.textContent = row.hidden ? "Add alternate number" : "Remove alternate number";
+  });
+  document.getElementById("next").addEventListener("click", () => {
+    document.getElementById("step1").remove();
+    document.getElementById("step2").hidden = false;
+    document.getElementById("stepno").textContent = "2";
+  });
+  window.__ready = true;
+</script>
+</body>
+</html>
