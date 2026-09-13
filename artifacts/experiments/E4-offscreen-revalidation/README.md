@@ -154,11 +154,65 @@ changed scanner is a new instrument version and requires a new seed block and a 
 
 ## Actual result
 
-**NOT RUN.** To be filled from `logs/e4-offscreen.json` by the run described above.
+**MEASURED 2026-09-13T15:21:23Z on W2.** Everything above this section is unchanged from the
+pre-registration (`3a9e572`). The harness is `8abca54` and the host emitter `930ad93`; the run
+recorded `git HEAD` `8abca54` with a clean tree. Log: [`logs/e4-offscreen.json`](logs/e4-offscreen.json)
+(SHA-256 as written `a2006853c32a20b43cd78af4c1b1d084e76628302efbff12ae987f1cb6bd1efd`).
+
+**Provenance, from the log:**
+- `LAPTOP-SRCINK2B` · RTX 5050 `GPU-acde8e3a-c29b-9943-557e-04dd0b20a09a`, driver 592.82;
+- Node v26.4.0 · Playwright 1.63.0 · Chrome for Testing **153.0.8010.12**;
+- extension `pgpklppkdeekblhldmoggnhhfjalhebo`, one offscreen context;
+- built manifest SHA-256 `1d6556db8d70a9826606560686baa8cd9b4aca916344f2f20450dafe49072d01`.
+
+**Instrument identity, checked by the harness before running:**
+- scanner `e4-scanner-2` `96979ebd…f0b6fab`;
+- collector `1ff60ed5…98ea77`;
+- runner blob `b027fc5` `21f8e2ab…b2a226`;
+- verbatim regions: prefix `141347f8…`, body `bcbaaec7…`, summary `eedccb5f…`.
+
+### Phase A — Node control
+
+| | |
+|---|---|
+| Reproduces the committed attempt-2 per-run records | **yes** |
+| Totals / blind-spot summary equal to the committed log | **yes / yes** |
+| Arrivals | 2,520, no `Origin` header |
+
+### Phase B — MV3 offscreen document as the emitter
+
+| Measure | Result |
+|---|---|
+| Requests · positives · negative controls | **2,520 · 1,800 · 480** |
+| Positives detected with exactly their own class | **1,800 / 1,800** |
+| False positives (negative + clean controls) | **0 / 480** |
+| Detections with an empty canary set | **0 / 2,520** |
+| Not arrived · hash-integrity failures | **0 · 0** |
+| Blind-spot probes detected | **0 / 240** (reported, not counted) |
+| Live sentinels (arrived, intact, detected as PHONE) | **20 / 20** |
+| Offscreen `instanceId` stable across every run | **yes**: one instance, `52d908e7-…` |
+| Relays whose emitter was `chrome-extension://…/offscreen.html` | **2,540 / 2,540**, all fetches resolved, 0 refused |
+| Arrivals at the collector | **2,540**, all correlated; **0** uncorrelated (no preflight) |
+| `Origin` header | `chrome-extension://pgpklppkdeekblhldmoggnhhfjalhebo` on 1,280 (all POSTs); absent on 1,260 (all GETs) |
+| Playwright `context.on("request")` observed | **0 / 2,540** |
+| Per-run records vs committed attempt-2 | equal |
+| In-document fetch duration | p50 3.3 ms · p95 15.1 ms |
+
+**No deviation from the pre-registered protocol.**
+
+One limit surfaced in audit. The 1,260 GET arrivals carry no `Origin` header, so their attribution to
+the offscreen document rests on the emitter report and the phase separation, not on a
+collector-side header.
 
 ## Conclusion
 
-**None yet.**
+**PASS.** The byte-identical E4 instrument keeps its detection, silence, integrity and blind-spot
+behaviour when the bytes leave from the MV3 offscreen document of a real loaded extension. It is now
+validated in the cell of use for this browser and machine. The page-side observer saw none of these
+requests, and the collector saw all of them. **Instrument validation only.** Verdict record:
+[`decision.md`](decision.md).
+
+The pre-registered statements below stand unchanged.
 
 - **Would prove, if PASS:** the byte-identical E4 instrument detects the declared canary encodings in
   bytes emitted by an MV3 offscreen document's `fetch`, in Chrome for Testing 153.0.8010.12 on W2,
