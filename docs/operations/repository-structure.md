@@ -13,6 +13,7 @@
 | `docs/testing/` | Benchmark and measurement contract | Defines what every implementation must emit |
 | `docs/operations/` | Git workflow, this file | Repository governance is itself engineering |
 | `docs/adr/` | Architecture decision records and index | Decisions precede code |
+| `docs/handoff/` | Machine-to-machine engineering handoffs | Work must survive the machine it was done on |
 | `agentos/` | Development-time engineering OS: agents, workflows, gates, registries, state | Governs how we build. **Never part of the product.** |
 | `artifacts/experiments/` | Reproducible spike evidence | Week-1 output; promotes UNKNOWN to FACT |
 | `artifacts/environment/` | **Per-workstation environment audits**, one file per machine | More than one workstation is now in use, and no capability result transfers between them |
