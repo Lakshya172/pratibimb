@@ -169,6 +169,65 @@ describe("the refusal path", () => {
   });
 });
 
+describe("a safe literal takes the other path", () => {
+  /**
+   * A reasoner that types a non-sensitive string into the free-text field.
+   *
+   * The contract permits this and the validator now accepts it. The point of the test is the
+   * *asymmetry*: no vault reference, no human grant, no rehydration — and the click afterwards is
+   * still gated exactly as before.
+   */
+  const typing = (literal: string): ReasonerClient => ({
+    name: "typing",
+    transport: "IN_PROCESS",
+    async propose(request) {
+      return {
+        planVersion: "1",
+        steps: [
+          { op: "insert", target: "#notes", literal },
+          { op: "click", target: "#submit" },
+        ],
+        provenance: {
+          requestId: request.requestId,
+          sessionId: request.sessionId,
+          viewId: request.handoff.request.requestId,
+          origin: request.origin,
+        },
+      };
+    },
+  });
+
+  it("inserts it without asking a human and without touching the vault", async () => {
+    const { page, record } = await run({ reasoner: typing("Chandrayaan-3"), withNotesField: true });
+    expect(record.state).toBe("DONE");
+    expect(record.grant.requested).toBe(false);
+    expect(record.rehydrated).toEqual([]);
+    expect(record.literalsInserted).toEqual([{ target: "#notes", inserted: true }]);
+    expect(page.find("#notes")?.value).toBe("Chandrayaan-3");
+  });
+
+  it("still gates the click exactly as before", async () => {
+    const { page, record } = await run({ reasoner: typing("Punjab"), withNotesField: true });
+    expect(page.clicks).toBe(1);
+    expect(record.confirmation).not.toBeNull();
+    expect(record.act?.result?.status).toBe("EXECUTED");
+  });
+
+  it("keeps the reasoner's text out of the record, even when it is safe", async () => {
+    const { record } = await run({ reasoner: typing("Chandrayaan-3"), withNotesField: true });
+    const serialized = JSON.stringify({ ...record, observation: null, initialObservation: null });
+    expect(serialized).not.toContain("Chandrayaan-3");
+  });
+
+  it("refuses the same step when the literal is a value the vault holds", async () => {
+    const { page, record } = await run({ reasoner: typing(DEMO.mobile), withNotesField: true });
+    expect(record.state).toBe("REFUSED");
+    expect(record.refusal?.planRefusal?.literalCause).toBe("VAULT_LITERAL_ECHO");
+    expect(page.find("#notes")?.value).toBe("");
+    expect(page.clicks).toBe(0);
+  });
+});
+
 describe("every other way it can stop", () => {
   it("refuses a reasoner that returns something that is not a plan", async () => {
     for (const malformed of ["not-an-object", "missing-steps", "empty-steps", "unknown-op"] as const) {

@@ -79,6 +79,8 @@ const initial = (): Element[] => [
 ];
 
 export interface PageOptions {
+  /** Add a free-text "Notes" field, which carries no redaction token: where a safe literal may go. */
+  readonly withNotesField?: boolean;
   /** Refuse to write the value, to exercise a failed restoration. */
   readonly insertFails?: boolean;
   /** Throw from `observe`, to exercise an unreadable page. */
@@ -94,7 +96,7 @@ export interface PageOptions {
 }
 
 export class SimulatedPage {
-  elements = initial();
+  elements: Element[];
   statusText = "Not submitted";
   submitted = false;
   documentId = "orch-doc-1";
@@ -103,7 +105,23 @@ export class SimulatedPage {
   observations = 0;
   #frame = 0;
 
-  constructor(private readonly options: PageOptions = {}) {}
+  constructor(private readonly options: PageOptions = {}) {
+    this.elements = initial();
+    if (options.withNotesField) {
+      this.elements.splice(6, 0, {
+        selector: "#notes",
+        role: "textbox",
+        name: "Notes",
+        rect: { x: 320, y: 415, w: 300, h: 30 },
+        enabled: true,
+        cssHidden: false,
+        value: "",
+        label: "Notes",
+        type: "text",
+        isField: true,
+      });
+    }
+  }
 
   get currentFrame(): FrameId {
     return frameId(`orch-frame-${this.#frame}`);

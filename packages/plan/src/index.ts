@@ -40,5 +40,7 @@ export {
   type PlanValidationContext,
   type ValidatedClick,
   type ValidatedInsert,
+  type ValidatedLiteralInsert,
+  type ValidatedReferenceInsert,
   type ValidatedStep,
 } from "./validate.js";

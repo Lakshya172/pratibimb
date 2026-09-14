@@ -11,19 +11,24 @@
  */
 import { describe, expect, it } from "vitest";
 import {
+  act,
   authorisationPreflight,
   confirmationCovers,
   confirmationState,
   establishHitAgreement,
+  guardedAct,
   isHumanConfirmation,
   mintDispatchPermit,
   recordHumanConfirmation,
   validateActionFreshness,
   type ConfirmationSubject,
   type CssPoint,
+  type DispatchPermit,
   type FreshnessDecision,
   type HitTestBridge,
   type HumanConfirmation,
+  type PageActionBridge,
+  type ProposedAction,
   type TopmostElement,
 } from "@pratibimb/agent";
 import {
@@ -99,6 +104,16 @@ const confirmFor = (g: ElementGraph, selector: string, over: Partial<Confirmatio
   });
   if (!outcome.recorded) throw new Error(`test setup: ${outcome.cause}`);
   return outcome.confirmation;
+};
+
+/** The proposed action `guardedAct` validates, built from the live graph. */
+const allowAction = (g: ElementGraph, selector: string): ProposedAction => {
+  const n = g.nodes.find((x) => x.domRef.selector === selector);
+  if (!n || (n.evidence.kind !== "OBSERVED" && n.evidence.kind !== "CLIPPED")) throw new Error("test setup");
+  return {
+    kind: "click",
+    target: { nodeId: n.id, role: n.role, name: n.name, frameId: g.frameId, viewportBox: n.evidence.viewportBox },
+  };
 };
 
 const mint = async (g: ElementGraph, selector: string, options: Record<string, unknown>) => {
@@ -277,6 +292,100 @@ describe("recording a confirmation is itself fail-closed", () => {
     expect(Object.keys(confirmation.subject).sort()).toEqual(
       ["frameId", "name", "nodeId", "origin", "role", "selector"].sort()
     );
+  });
+});
+
+/**
+ * THE CHAIN, AND THE ABSENCE OF A SHORTCUT AROUND IT.
+ *
+ *   HumanConfirmation → DispatchPermit → guardedAct → one dispatch
+ *
+ * A confirmation is an *input to the mint*, never a substitute for a permit. These cases assert the
+ * shape structurally rather than by reading the code: a confirmation cannot be redeemed, cannot be
+ * spent by anyone but the mint, and going through the whole composition produces exactly one
+ * dispatch for one consent.
+ */
+describe("confirmation → permit → guardedAct, with no way round", () => {
+  it("a confirmation is not a permit: act refuses it outright", async () => {
+    const g = page();
+    const confirmation = confirmFor(g, "#submit");
+    let clicks = 0;
+    const bridge: PageActionBridge = {
+      frameId: g.frameId,
+      async clickAtCssPoint() {
+        clicks += 1;
+      },
+    };
+    // Deliberately mis-typed: this is the bypass a caller would attempt if one existed.
+    const result = await act(confirmation as unknown as DispatchPermit, bridge);
+    expect(result.status).toBe("REJECTED");
+    if (result.status === "REJECTED") expect(result.cause).toBe("NOT_PERMITTED");
+    expect(clicks).toBe(0);
+  });
+
+  it("the whole composition dispatches once for one consent, and refuses the replay", async () => {
+    const g = page();
+    let clicks = 0;
+    const bridges = {
+      action: {
+        frameId: g.frameId,
+        async clickAtCssPoint() {
+          clicks += 1;
+        },
+      },
+      hitTest: new Looker(g),
+    };
+    const verify = {
+      expect: { kind: "TARGET_ENABLED", expected: true } as const,
+      observe: async () => ({ graph: page(F2) }),
+    };
+
+    const first = await guardedAct(g, allowAction(g, "#submit"), bridges, {
+      verify,
+      permitTtlMs: TTL,
+      confirmation: confirmFor(g, "#submit"),
+      origin: ORIGIN,
+      now: () => 1,
+    });
+    expect(first.reached).toBe("VERIFY_RESULT");
+    expect(first.result?.status).toBe("EXECUTED");
+    expect(clicks).toBe(1);
+
+    // The same consent again: refused at AUTHORISE, before the page is touched a second time.
+    const spent = confirmFor(g, "#submit");
+    expect((await mint(g, "#submit", { confirmation: spent, origin: ORIGIN })).minted).toBe(true);
+    const replay = await guardedAct(g, allowAction(g, "#submit"), bridges, {
+      verify,
+      permitTtlMs: TTL,
+      confirmation: spent,
+      origin: ORIGIN,
+      now: () => 1,
+    });
+    expect(replay.reached).toBe("AUTHORISE");
+    expect(clicks).toBe(1);
+  });
+
+  it("without a confirmation the composition still refuses, exactly as it did before", async () => {
+    const g = page();
+    let clicks = 0;
+    const outcome = await guardedAct(
+      g,
+      allowAction(g, "#submit"),
+      {
+        action: {
+          frameId: g.frameId,
+          async clickAtCssPoint() {
+            clicks += 1;
+          },
+        },
+        hitTest: new Looker(g),
+      },
+      { verify: { expect: { kind: "TARGET_ENABLED", expected: true }, observe: async () => ({ graph: page(F2) }) }, permitTtlMs: TTL }
+    );
+    expect(outcome.reached).toBe("AUTHORISE");
+    expect(outcome.result?.status).toBe("REJECTED");
+    if (outcome.result?.status === "REJECTED") expect(outcome.result.cause).toBe("HUMAN_CONFIRMATION_REQUIRED");
+    expect(clicks).toBe(0);
   });
 });
 

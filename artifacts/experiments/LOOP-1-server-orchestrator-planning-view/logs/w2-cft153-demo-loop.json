@@ -1,7 +1,7 @@
 {
   "experiment": "LOOP-1 — server client → planner → validation → orchestrator → grant → rehydration → guarded click → VERIFY RESULT → Planning View",
   "verdict": "PASS",
-  "recordedAt": "2026-09-14T10:44:18.887Z",
+  "recordedAt": "2026-09-14T14:34:28.195Z",
   "provenance": {
     "workstation": "W2",
     "host": "LAPTOP-SRCINK2B",
@@ -78,17 +78,17 @@
       ],
       "refusal": null,
       "timings": {
-        "observeMs": 3,
-        "sanitizeMs": 6,
+        "observeMs": 2,
+        "sanitizeMs": 8,
         "verifyPayloadMs": 0,
-        "sendMs": 1,
+        "sendMs": 0,
         "validatePlanMs": 1,
         "grantMs": 0,
-        "rehydrateMs": 1,
-        "refreshMs": 4,
+        "rehydrateMs": 0,
+        "refreshMs": 2,
         "verifyResultMs": 1,
-        "actMs": 5,
-        "totalMs": 22
+        "actMs": 2,
+        "totalMs": 16
       },
       "reasoner": "deterministic:reference",
       "transport": "IN_PROCESS",
@@ -148,7 +148,7 @@
       },
       "handoffBytes": 3389,
       "ledger": {
-        "payloadSha256": "2269ce1aba0d88a0f8acc6ba7e9130611ef47aa87e772d4c85fd6203f272fd8e",
+        "payloadSha256": "069a97dd8b726cd0424476650facd407e1de078deee3a4b3dfff63e76a19eb37",
         "payloadBytes": 3389,
         "references": [
           "<PII:NAME:1>",
@@ -207,7 +207,7 @@
       "page": "(not captured: the local pane shows the values by design; see localPane checks)",
       "server": "Checked: none of the 5 local values appears in these 3389 bytes.\n\nELEMENT\tREFERENCE\tCLASS\tMETHOD\tSAFE HINT\n#name\t<PII:NAME:1>\tNAME\ttoken_reference\tlen 12 · alpha · name\n#mobile\t<PII:PHONE:1>\tPHONE\ttoken_reference\tlen 10 · numeric · tel\n#aadhaar\t<PII:AADHAAR:1>\tAADHAAR\ttoken_reference\tlen 14 · numeric\n#dob\t<PII:DOB:1>\tDOB\ttoken_reference\tlen 10 · date · date\n#otp\tno reference\tOTP\tmasked_no_token\tlen 6 · numeric · one-time-code\n\nGoal sent: Submit my application with my registered mobile number.\n\nthe exact payload (3389 bytes)",
       "plan": "from deterministic:reference via IN_PROCESS\n\ninsert <PII:PHONE:1> → #mobile_confirm\nclick #submit\nvalidation\nVALID\ntarget\n#mobile_confirm, #submit\nfreshness\nALLOW · hit-test MATCH · reached VERIFY_RESULT\nhuman grant\nGRANTED one-shot · bound to reference, field, origin and session · used: yes\nrehydration\nREHYDRATED LOCALLY <PII:PHONE:1> → #mobile_confirm (PHONE)",
-      "egress": "request\ndemo-request-1\nsession\ndemo-session-1\ndestination\n(no egress client in this phase)\nverification\nverified handoff\npayload sha-256\n2269ce1aba0d88a0f8acc6ba7e9130611ef47aa87e772d4c85fd6203f272fd8e\npayload bytes\n3389\nreferences\n<PII:NAME:1> <PII:PHONE:1> <PII:AADHAAR:1> <PII:DOB:1>\nmasked, no reference\n1\nleak check\nCLEAN\nVERIFY RESULT\nCONFIRMED #submit is disabled, as expected.\n\nobserve 3ms\nsanitize 6ms\nverifyPayload 0ms\nsend 1ms\nvalidatePlan 1ms\ngrant 0ms\nrehydrate 1ms\nrefresh 4ms\nverifyResult 1ms\nact 5ms\ntotal 22ms\n\nprivacy-layer record only: this phase has no egress client, so this is not evidence of a network send This pane is a privacy-layer record, not evidence that any byte left the machine.",
+      "egress": "request\ndemo-request-1\nsession\ndemo-session-1\ndestination\n(no egress client in this phase)\nverification\nverified handoff\npayload sha-256\n069a97dd8b726cd0424476650facd407e1de078deee3a4b3dfff63e76a19eb37\npayload bytes\n3389\nreferences\n<PII:NAME:1> <PII:PHONE:1> <PII:AADHAAR:1> <PII:DOB:1>\nmasked, no reference\n1\nleak check\nCLEAN\nVERIFY RESULT\nCONFIRMED #submit is disabled, as expected.\n\nobserve 2ms\nsanitize 8ms\nverifyPayload 0ms\nsend 0ms\nvalidatePlan 1ms\ngrant 0ms\nrehydrate 0ms\nrefresh 2ms\nverifyResult 1ms\nact 2ms\ntotal 16ms\n\nprivacy-layer record only: this phase has no egress client, so this is not evidence of a network send This pane is a privacy-layer record, not evidence that any byte left the machine.",
       "wall": "LOCAL VALUE\n→\nSANITIZE\n→\nTOKEN\n→\nSERVER\n→\nPLAN\n→\nHUMAN GRANT\n→\nLOCAL REHYDRATION\n→\nCLICK\n→\nVERIFIED",
       "verdict": "DONE · VERIFY RESULT = CONFIRMED"
     },
@@ -256,12 +256,12 @@
         }
       },
       "timings": {
-        "observeMs": 1,
-        "sanitizeMs": 3,
+        "observeMs": 0,
+        "sanitizeMs": 2,
         "verifyPayloadMs": 0,
         "sendMs": 0,
         "validatePlanMs": 0,
-        "totalMs": 5
+        "totalMs": 2
       },
       "reasoner": "deterministic:literal-echo",
       "transport": "IN_PROCESS",
@@ -290,7 +290,7 @@
       "act": null,
       "handoffBytes": 3389,
       "ledger": {
-        "payloadSha256": "5430d26e5e996eaf95cd6051d499a209ccb48a45d47ede5942d74eafccc86252",
+        "payloadSha256": "f6eb480f3ff9b9eb9bf0470face7a599ad76acf47f248d31e30e065cb8fb3cfc",
         "payloadBytes": 3389,
         "references": [
           "<PII:NAME:1>",
@@ -322,7 +322,7 @@
       "page": "(not captured: the local pane shows the values by design; see localPane checks)",
       "server": "Checked: none of the 5 local values appears in these 3389 bytes.\n\nELEMENT\tREFERENCE\tCLASS\tMETHOD\tSAFE HINT\n#name\t<PII:NAME:1>\tNAME\ttoken_reference\tlen 12 · alpha · name\n#mobile\t<PII:PHONE:1>\tPHONE\ttoken_reference\tlen 10 · numeric · tel\n#aadhaar\t<PII:AADHAAR:1>\tAADHAAR\ttoken_reference\tlen 14 · numeric\n#dob\t<PII:DOB:1>\tDOB\ttoken_reference\tlen 10 · date · date\n#otp\tno reference\tOTP\tmasked_no_token\tlen 6 · numeric · one-time-code\n\nGoal sent: Submit my application with my registered mobile number.\n\nthe exact payload (3389 bytes)",
       "plan": "from deterministic:literal-echo via IN_PROCESS\n\ninsert ⟨literal:PHONE⟩ → #mobile_confirm\nclick #submit\n\nLITERAL ECHO — the reasoner returned a PHONE this client holds locally and never sent. Refused before rehydration and before any action. The value is not quoted here, and it was not kept.\n\nvalidation\nREFUSED · VAULT_LITERAL_ECHO\ntarget\n#mobile_confirm\nfreshness\nnot reached\nhuman grant\nnot reached\nrehydration\nnothing was rehydrated",
-      "egress": "request\ndemo-request-2\nsession\ndemo-session-2\ndestination\n(no egress client in this phase)\nverification\nverified handoff\npayload sha-256\n5430d26e5e996eaf95cd6051d499a209ccb48a45d47ede5942d74eafccc86252\npayload bytes\n3389\nreferences\n<PII:NAME:1> <PII:PHONE:1> <PII:AADHAAR:1> <PII:DOB:1>\nmasked, no reference\n1\nleak check\nCLEAN\nVERIFY RESULT\nno action was dispatched\n\nobserve 1ms\nsanitize 3ms\nverifyPayload 0ms\nsend 0ms\nvalidatePlan 0ms\ntotal 5ms\n\nprivacy-layer record only: this phase has no egress client, so this is not evidence of a network send This pane is a privacy-layer record, not evidence that any byte left the machine.",
+      "egress": "request\ndemo-request-2\nsession\ndemo-session-2\ndestination\n(no egress client in this phase)\nverification\nverified handoff\npayload sha-256\nf6eb480f3ff9b9eb9bf0470face7a599ad76acf47f248d31e30e065cb8fb3cfc\npayload bytes\n3389\nreferences\n<PII:NAME:1> <PII:PHONE:1> <PII:AADHAAR:1> <PII:DOB:1>\nmasked, no reference\n1\nleak check\nCLEAN\nVERIFY RESULT\nno action was dispatched\n\nobserve 0ms\nsanitize 2ms\nverifyPayload 0ms\nsend 0ms\nvalidatePlan 0ms\ntotal 2ms\n\nprivacy-layer record only: this phase has no egress client, so this is not evidence of a network send This pane is a privacy-layer record, not evidence that any byte left the machine.",
       "wall": "LOCAL VALUE\n→\nSANITIZE\n→\nTOKEN\n→\nSERVER\n→\nPLAN\n→\nHUMAN GRANT\n→\nLOCAL REHYDRATION\n→\nCLICK\n→\nVERIFIED",
       "verdict": "REFUSED at VALIDATE_PLAN — LITERAL_REFUSED · nothing executed"
     },

@@ -127,6 +127,29 @@ number out of its own DOM and gives it to the simulated attacker. That necessity
 One sample per stage on one machine. The reasoner is in-process, so `send` measures a function call
 and **not** a network round trip; a real model would dominate this table entirely.
 
+## What ran through the extension: nothing
+
+**The loop is NOT PROVEN through the real extension path**, and the evidence above must not be
+described as extension end-to-end proof.
+
+| Path | How the loop actually ran |
+|---|---|
+| Observation, insertion, hit test, dispatch | `apps/demo/src/pageAdapter.ts`, driving a **same-origin frame directly**. It imports no `chrome.*` API and nothing from `@pratibimb/extension-transport`. |
+| Content script · service worker · offscreen document · side panel | **took no part** |
+| Browser | headless, **no extension loaded** |
+
+Running the loop through the extension needs a content-script surface, a side-panel host for the
+Planning View, and a host-side command surface that does not exist — the offscreen control plane is
+reachable only from inside the offscreen realm. That is integration work, not a test, and it was out
+of scope for this section.
+
+What *was* checked, as a narrow host regression:
+[`logs/w2-cft153-extension-load.json`](logs/w2-cft153-extension-load.json) — the built MV3 host still
+loads in **Chrome for Testing 153, headed** (`launchPersistentContext` with
+`--disable-extensions-except` + `--load-extension`), its service worker boots, and the manifest's
+pinned `connect-src` and loopback-only host permission are intact. `loopExercisedThroughExtension` is
+recorded as `false` in that file.
+
 ## Three things the runs caught
 
 1. **The gate refused to click an offscreen control.** The first browser attempt failed at ACT with
@@ -155,6 +178,26 @@ The claim this supports is narrow and worth stating exactly: **the privacy bound
 real task completes through it, and it stops the task when the boundary is violated.** It is one
 task, one page, one action, one machine, and one deterministic planner standing where a model will
 go.
+
+## The hardening pass, and the two defects it found
+
+A review of this section against the frozen contracts, before any reasoner work, corrected two things
+in the code it had just built. Both were places where a layer had quietly become more opinionated
+than the contract allows.
+
+1. **`validatePlan` refused every literal.** `docs/architecture/action-schema.md` calls a schema that
+   cannot express a non-sensitive literal *"a functional defect"* — *search for Chandrayaan-3, select
+   Punjab, enter 2026* has to be expressible — and answers it with three checks, not a prohibition.
+   The validator now accepts a literal that passes all three (no redaction token on the target,
+   nothing PII-shaped, not a value the vault holds) as a distinct `source: "literal"` step that needs
+   no vault reference, no rehydration and no human grant, because there is no secret to release. The
+   three refusals are unchanged and re-asserted at the same target.
+2. **The orchestrator had a second field classifier.** `machine.ts` decided what a field accepts with
+   a handful of regular expressions over accessible names, and that answer fed `bind()`'s class
+   check — two classifiers that could disagree about what a field is, with the weaker one deciding.
+   It now calls `classifyField`, privacy's own D1 channel, which reads the autocomplete attribute,
+   the input type, the name and the label, and returns `UNKNOWN` when signals conflict.
+   `packages/orchestrator/test/boundaries.test.ts` scans the source so it cannot come back.
 
 ## Reproducibility
 

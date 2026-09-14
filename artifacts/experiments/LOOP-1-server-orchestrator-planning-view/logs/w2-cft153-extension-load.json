@@ -1,0 +1,47 @@
+{
+  "experiment": "LOOP-1 — extension load smoke (host regression only)",
+  "verdict": "PASS",
+  "claim": "the built MV3 host loads and its service worker boots in Chrome for Testing 153",
+  "notAClaim": [
+    "the product loop does NOT run through the extension: apps/demo drives a same-origin frame through its own PageAdapter",
+    "no content script, side panel, offscreen document or extension transport took part in the LOOP-1 evidence",
+    "extension end-to-end integration of the loop is NOT PROVEN and needs integration work that is out of scope"
+  ],
+  "loopExercisedThroughExtension": false,
+  "recordedAt": "2026-09-14T14:34:09.170Z",
+  "provenance": {
+    "workstation": "W2",
+    "host": "LAPTOP-SRCINK2B",
+    "os": "win32 10.0.26200",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M              ",
+    "gpu": "not used by this run, so not recorded",
+    "node": "v26.4.0",
+    "playwright": "1.63.0",
+    "browserBinary": "C:\\Users\\OMEN\\cft\\chrome.exe",
+    "launch": "playwright chromium.launchPersistentContext, headed, --disable-extensions-except + --load-extension",
+    "headless": false,
+    "extensionLoaded": true,
+    "extensionPath": "C:\\Users\\OMEN\\Desktop\\PratiBimb\\.claude\\worktrees\\pratibimb-context-bootstrap-b8c1c9\\apps\\extension\\.output\\chrome-mv3",
+    "extensionId": "pgpklppkdeekblhldmoggnhhfjalhebo",
+    "serviceWorkerUrl": "chrome-extension://pgpklppkdeekblhldmoggnhhfjalhebo/background.js"
+  },
+  "manifest": {
+    "manifestVersion": 3,
+    "permissions": [
+      "offscreen",
+      "sidePanel"
+    ],
+    "hostPermissions": [
+      "http://127.0.0.1/*"
+    ]
+  },
+  "checks": {
+    "builtHostPresent": true,
+    "manifestIsV3": true,
+    "serviceWorkerBooted": true,
+    "extensionIdResolved": true,
+    "connectSrcStillPinned": true,
+    "noHostPermissionBeyondLoopback": true
+  },
+  "failure": null
+}

@@ -63,8 +63,12 @@ export type PlanRefusalCause =
   | "PRIVACY_REFUSED"
   | "LITERAL_REFUSED";
 
-export interface ValidatedInsert {
+/**
+ * An insert backed by a vault reference. The value comes from `rehydrate`, after a human agrees.
+ */
+export interface ValidatedReferenceInsert {
   readonly op: "insert";
+  readonly source: "reference";
   readonly index: number;
   readonly target: string;
   readonly ref: string;
@@ -74,6 +78,30 @@ export interface ValidatedInsert {
   /** True when privacy says a human must decide before this step may proceed. */
   readonly needsHuman: boolean;
 }
+
+/**
+ * An insert carrying a literal that passed **all three checks**: the target holds no redaction
+ * token, the literal is not PII-shaped, and the vault does not hold it.
+ *
+ * `docs/architecture/action-schema.md` is explicit that this must exist — it calls a schema that
+ * cannot express a non-sensitive literal *"a functional defect"*, because most of what an agent
+ * types is not secret. There is no vault reference, no rehydration and no human grant: a grant
+ * authorises the use of a **locally held secret**, and this is not one.
+ *
+ * The text itself is deliberately **not carried here**. It is reasoner-supplied, it is already in
+ * the parsed plan the caller holds, and keeping a second copy in a result that gets recorded and
+ * rendered is how text ends up somewhere it was not meant to be.
+ */
+export interface ValidatedLiteralInsert {
+  readonly op: "insert";
+  readonly source: "literal";
+  readonly index: number;
+  readonly target: string;
+  /** Always false. A safe literal is not a secret, so there is nothing for a human to release. */
+  readonly needsHuman: false;
+}
+
+export type ValidatedInsert = ValidatedReferenceInsert | ValidatedLiteralInsert;
 
 export interface ValidatedClick {
   readonly op: "click";
@@ -252,18 +280,10 @@ function validateInsert(
       ...(ctx.today ? { today: ctx.today } : {}),
     });
     if (verdict.allowed) {
-      // A literal that passes all three checks is a legitimate plan step — but this client has no
-      // contract for restoring a non-sensitive literal into a page, so it refuses rather than
-      // inventing one. Refusing an allowed literal is this layer's prerogative; allowing a refused
-      // one is not.
-      return {
-        refusal: {
-          cause: "LITERAL_REFUSED",
-          at: index,
-          target,
-          detail: "this client restores values by reference only; no literal-insertion contract exists in this phase.",
-        },
-      };
+      // All three checks passed: no redaction token on the target, nothing PII-shaped, and the
+      // vault does not hold it. The contract permits this and says so in terms — refusing it would
+      // reintroduce the v3.0 defect where a schema cannot express "search for Chandrayaan-3".
+      return { step: { op: "insert", source: "literal", index, target, needsHuman: false } };
     }
     return {
       refusal: {
@@ -314,6 +334,7 @@ function validateInsert(
   return {
     step: {
       op: "insert",
+      source: "reference",
       index,
       target,
       ref: step.ref,

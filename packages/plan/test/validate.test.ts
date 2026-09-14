@@ -10,12 +10,25 @@
  *    refusals of its own; it never adds a permission.
  */
 import { describe, expect, it } from "vitest";
-import { parsePlan, validatePlan, type Plan, type PlanValidationContext } from "../src/index.js";
+import {
+  parsePlan,
+  validatePlan,
+  type Plan,
+  type PlanValidationContext,
+  type ValidatedInsert,
+  type ValidatedReferenceInsert,
+} from "../src/index.js";
 import { classOriginKey } from "@pratibimb/privacy";
 import { DEMO, NOW, ORIGIN, REQUEST, SESSION, grantFor, rawPlan, scenario } from "./support/scenario.js";
 
 const clickStep = { op: "click", target: "#submit" };
 const insertRef = (ref: string, target = "#mobile_confirm") => ({ op: "insert", target, ref });
+
+/** Narrow to a reference-backed insert, failing loudly if the step is not one. */
+const byReference = (step: ValidatedInsert | undefined): ValidatedReferenceInsert => {
+  if (!step || step.source !== "reference") throw new Error("expected a reference-backed insert");
+  return step;
+};
 
 const parse = (raw: unknown): Plan => {
   const parsed = parsePlan(raw);
@@ -37,7 +50,7 @@ describe("the accepted plan", () => {
     if (!result.ok) return;
     expect(result.steps.map((x) => x.op)).toEqual(["insert", "click"]);
     const insert = result.steps[0];
-    if (insert?.op !== "insert") throw new Error("shape");
+    if (insert?.op !== "insert" || insert.source !== "reference") throw new Error("shape");
     expect(insert.piiClass).toBe("PHONE");
     expect(insert.ref).toBe(s.phoneRef);
     expect(insert.binding).toEqual({ decision: "BIND_OK" });
@@ -51,7 +64,7 @@ describe("the accepted plan", () => {
     expect(result.ok).toBe(true);
     if (!result.ok) return;
     expect(result.needsHuman).toHaveLength(1);
-    expect(result.needsHuman[0]?.binding).toEqual({ decision: "NEEDS_HUMAN_GRANT" });
+    expect(byReference(result.needsHuman[0]).binding).toEqual({ decision: "NEEDS_HUMAN_GRANT" });
   });
 
   it("accepts the SENSITIVE step once a matching human grant exists — decided by bind, not here", async () => {
@@ -117,14 +130,92 @@ describe("the literal that must not get through", () => {
     expect(result.refusal.literalSeverity).toBe("PLAN_DEFECT");
   });
 
-  it("refuses even a harmless literal, because no literal-insertion contract exists yet", async () => {
+});
+
+/**
+ * THE SAFE LITERAL — the half of the policy that must NOT be "refuse everything".
+ *
+ * `docs/architecture/action-schema.md` calls a schema that cannot express a non-sensitive literal
+ * *"a functional defect"*: most of what an agent types is not secret, and *search for Chandrayaan-3,
+ * select Punjab, enter 2026* has to be expressible. The contract's answer is not prohibition, it is
+ * three checks — target, shape, vault — and a literal that passes all three is legitimate.
+ *
+ * These cases pin all four arms of the policy so neither half can drift: a safe literal is accepted
+ * with no vault involvement and no human grant, and the three refusals above still refuse.
+ */
+describe("the safe literal", () => {
+  const safeInsert = (literal: string, target = "#notes") => ({ op: "insert", target, literal });
+
+  /** A free-text field carrying no redaction token — the contract's own example of where literals go. */
+  const withFreeTextField = async () => {
     const s = await scenario();
-    const plan = parse(rawPlan([{ op: "insert", target: "#mobile_confirm", literal: "Punjab" }, clickStep]));
-    const result = validatePlan(plan, s.ctx);
-    expect(result.ok).toBe(false);
-    if (result.ok) return;
-    expect(result.refusal.cause).toBe("LITERAL_REFUSED");
-    expect(result.refusal.detail).toContain("reference only");
+    const fields = new Map(s.ctx.view.fields);
+    fields.set("#notes", { accepts: "FREE_TEXT", origin: ORIGIN, fingerprint: "#notes|textbox|Notes" });
+    const ctx = {
+      ...s.ctx,
+      view: { ...s.ctx.view, fields },
+      actionableTargets: new Set([...s.ctx.actionableTargets, "#notes"]),
+    };
+    return { s, ctx };
+  };
+
+  it("accepts a literal that passes all three checks", async () => {
+    const { ctx } = await withFreeTextField();
+    const result = validatePlan(parse(rawPlan([safeInsert("Chandrayaan-3"), clickStep])), ctx);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.steps[0]).toEqual({ op: "insert", source: "literal", index: 0, target: "#notes", needsHuman: false });
+  });
+
+  it("needs no human grant: there is no secret to release", async () => {
+    const { ctx } = await withFreeTextField();
+    const result = validatePlan(parse(rawPlan([safeInsert("Punjab"), clickStep])), ctx);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.needsHuman).toEqual([]);
+  });
+
+  it("does not carry the reasoner's text into the result the client keeps", async () => {
+    const { ctx } = await withFreeTextField();
+    const result = validatePlan(parse(rawPlan([safeInsert("Chandrayaan-3"), clickStep])), ctx);
+    expect(JSON.stringify(result)).not.toContain("Chandrayaan-3");
+  });
+
+  it("touches the vault only to ask, never to spend", async () => {
+    const { s, ctx } = await withFreeTextField();
+    validatePlan(parse(rawPlan([safeInsert("Punjab"), clickStep])), ctx);
+    expect(s.vault.size).toBe(4);
+    expect(s.vault.describe(s.phoneRef)?.consumed).toBe(false);
+  });
+
+  it("still refuses the three unsafe cases at the same target", async () => {
+    const { s, ctx } = await withFreeTextField();
+    // C — the literal is a value the vault holds.
+    const echo = validatePlan(parse(rawPlan([safeInsert(DEMO.mobile), clickStep])), ctx);
+    expect(echo.ok).toBe(false);
+    if (!echo.ok) expect(echo.refusal.literalCause).toBe("VAULT_LITERAL_ECHO");
+
+    // B — the literal is PII-shaped, even though the vault has never seen it.
+    const shaped = validatePlan(parse(rawPlan([safeInsert("9876543210"), clickStep])), ctx);
+    expect(shaped.ok).toBe(false);
+    if (!shaped.ok) expect(shaped.refusal.literalCause).toBe("PII_SHAPED_LITERAL");
+
+    // D — a perfectly harmless literal aimed at a field that carries a redaction token.
+    const atRedacted = validatePlan(parse(rawPlan([safeInsert("Punjab", "#mobile"), clickStep])), s.ctx);
+    expect(atRedacted.ok).toBe(false);
+    if (!atRedacted.ok) expect(atRedacted.refusal.literalCause).toBe("LITERAL_AT_REDACTED_FIELD");
+  });
+
+  it("keeps a reference and a safe literal distinguishable in one plan", async () => {
+    const { s, ctx } = await withFreeTextField();
+    const result = validatePlan(
+      parse(rawPlan([insertRef(s.phoneRef), safeInsert("Punjab"), clickStep])),
+      ctx
+    );
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    const sources = result.steps.filter((x) => x.op === "insert").map((x) => (x.op === "insert" ? x.source : ""));
+    expect(sources).toEqual(["reference", "literal"]);
   });
 });
 
@@ -287,7 +378,7 @@ describe("privacy decides about references, and this layer reports it", () => {
     const result = validatePlan(plan, s.ctx);
     expect(result.ok).toBe(true); // NEEDS_USER is not a refusal; it is a question for a human.
     if (!result.ok) return;
-    expect(result.needsHuman[0]?.binding).toEqual({
+    expect(byReference(result.needsHuman[0]).binding).toEqual({
       decision: "NEEDS_USER",
       cause: "CLASS_ORIGIN_GRANT_REQUIRED",
     });

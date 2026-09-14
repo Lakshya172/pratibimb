@@ -34,9 +34,10 @@ import {
   type HumanConfirmation,
   type ProposedAction,
 } from "@pratibimb/agent";
-import { cssPx, type ElementNode } from "@pratibimb/perception";
+import { cssPx } from "@pratibimb/perception";
 import {
   classOriginKey,
+  classifyField,
   fingerprintOf,
   findUseGrant,
   isVerifiedHandoff,
@@ -57,6 +58,8 @@ import {
   type PlanValidation,
   type SafePlan,
   type ValidatedInsert,
+  type ValidatedLiteralInsert,
+  type ValidatedReferenceInsert,
 } from "@pratibimb/plan";
 import { sendToReasoner, type ReasonerResponse } from "@pratibimb/reasoner";
 
@@ -159,6 +162,13 @@ export interface RunRecord {
   readonly validation: PlanValidation | null;
   readonly grant: { readonly requested: boolean; readonly decision: GrantDecision | null; readonly useGrant: UseGrant | null };
   readonly rehydrated: readonly { readonly ref: string; readonly target: string; readonly piiClass: string; readonly inserted: boolean }[];
+  /**
+   * Safe literals the plan inserted: targets only, never the text.
+   *
+   * A literal that reaches here passed all three checks on a literal, so it is provably not a value
+   * this client holds — but it is still reasoner-supplied text, and the record is written to files.
+   */
+  readonly literalsInserted: readonly { readonly target: string; readonly inserted: boolean }[];
   readonly confirmation: HumanConfirmation | null;
   readonly act: GuardedOutcome | null;
 }
@@ -185,36 +195,33 @@ export interface RunOptions {
 const labelOf = (observation: Observation, selector: string): string =>
   observation.graph.nodes.find((n) => n.domRef.selector === selector)?.name ?? selector;
 
-/** The view the binder and the validator both read. Built from one observation, never assembled twice. */
+/**
+ * The view the binder and the validator both read. Built from one observation, never assembled twice.
+ *
+ * **What a field accepts is decided by `classifyField`, privacy's own D1 channel** — not by anything
+ * here. This file briefly had a second classifier of its own, a handful of regular expressions over
+ * accessible names, and that was a duplicated privacy authority in the plainest sense: its answer
+ * feeds `bind()`'s class check, so the two could have disagreed about what a field is and the weaker
+ * one would have won. D1 reads the autocomplete attribute, the input type, the name and the label,
+ * and returns `UNKNOWN` when more than one signal fires — ambiguity the binder then routes to a
+ * human rather than guessing.
+ *
+ * Graph nodes that are not form fields (buttons, labels, status text) carry no value and accept
+ * nothing, so they are `UNKNOWN` and a reference can never bind into one.
+ */
 const viewFrom = (observation: Observation, viewId: string, origin: string): BindView => {
+  const observedBySelector = new Map(observation.fields.map((field) => [field.id, field]));
   const fields = new Map<string, ViewField>();
   for (const node of observation.graph.nodes) {
-    const accepts = acceptsOf(node);
-    fields.set(node.domRef.selector, {
-      accepts,
+    const selector = node.domRef.selector;
+    const observed = observedBySelector.get(selector);
+    fields.set(selector, {
+      accepts: observed ? classifyField(observed) : "UNKNOWN",
       origin,
-      fingerprint: fingerprintOf(node.domRef.selector, node.role, node.name),
+      fingerprint: fingerprintOf(selector, node.role, node.name),
     });
   }
   return { viewId, documentId: observation.documentId, fields };
-};
-
-/**
- * What a field accepts, from its accessible name and role.
- *
- * The same D1 vocabulary `@pratibimb/privacy` classifies with, applied to the live view so the binder
- * has something to compare a reference's class against. A field this cannot read confidently is
- * `UNKNOWN`, which the binder routes to a human rather than guessing.
- */
-const acceptsOf = (node: ElementNode): ViewField["accepts"] => {
-  if (node.role !== "textbox") return "UNKNOWN";
-  const name = node.name.toLowerCase();
-  if (/one[- ]?time|otp|verification code/.test(name)) return "OTP";
-  if (/mobile|phone|tel\b/.test(name)) return "PHONE";
-  if (/aadhaar|aadhar/.test(name)) return "AADHAAR";
-  if (/date of birth|dob|birth/.test(name)) return "DOB";
-  if (/name/.test(name)) return "NAME";
-  return "UNKNOWN";
 };
 
 /**
@@ -231,6 +238,7 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
   const transitions: Transition[] = [];
   const timings: RunTimings = {};
   const rehydrated: RunRecord["rehydrated"][number][] = [];
+  const literalsInserted: RunRecord["literalsInserted"][number][] = [];
 
   let observation: Observation | null = null;
   let initialObservation: Observation | null = null;
@@ -276,6 +284,7 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
     validation,
     grant: { requested: grantRequested, decision: grantDecision, useGrant },
     rehydrated,
+    literalsInserted,
     confirmation,
     act,
   });
@@ -400,7 +409,16 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
     return stop("VALIDATE_PLAN", validation.refusal.cause, validation.refusal.detail, validation.refusal);
   }
 
+  // Two kinds of insert, and only one of them involves a secret.
+  //
+  // A reference-backed insert needs a human grant and goes through `rehydrate`. A literal-backed
+  // one passed all three checks on a literal — no redaction token on the target, nothing PII-shaped,
+  // and not a value the vault holds — so there is no secret to release and nothing for a human to
+  // authorise. Conflating them would either ask for consent that means nothing, or release a value
+  // without asking.
   const inserts = validation.steps.filter((s): s is ValidatedInsert => s.op === "insert");
+  const referenceInserts = inserts.filter((s): s is ValidatedReferenceInsert => s.source === "reference");
+  const literalInserts = inserts.filter((s): s is ValidatedLiteralInsert => s.source === "literal");
   const click = validation.steps.find((s) => s.op === "click");
   if (!click) {
     return stop("VALIDATE_PLAN", "NO_EXECUTABLE_STEP", "the plan proposes no action.");
@@ -413,7 +431,7 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
   go("AWAIT_GRANT");
   const clickLabel = labelOf(observation, click.target);
   const grantResult = await timed("grantMs", async () => {
-    for (const insert of inserts) {
+    for (const insert of referenceInserts) {
       const field = view.fields.get(insert.target);
       if (!field) return { stopped: "UNKNOWN_TARGET" as const };
       grantRequested = true;
@@ -469,7 +487,19 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
   // spent by `rehydrate` before the value is returned, so a dropped value costs the authority.
   go("REHYDRATE");
   const rehydrateOutcome = await timed("rehydrateMs", async () => {
-    for (const insert of validation!.ok ? inserts : []) {
+    // Safe literals first, and they never touch the vault. The text comes from the parsed plan the
+    // validator approved — not from the record, which keeps only a marker.
+    for (const insert of literalInserts) {
+      const step = parsedPlan.steps[insert.index];
+      if (!step || step.op !== "insert" || typeof step.literal !== "string") {
+        return { cause: "LITERAL_STEP_LOST" };
+      }
+      const inserted = await ports.insert(insert.target, step.literal);
+      literalsInserted.push({ target: insert.target, inserted });
+      if (!inserted) return { cause: "INSERTION_REFUSED" };
+    }
+
+    for (const insert of referenceInserts) {
       const outcome = rehydrate(
         { ref: insert.ref, targetId: insert.target, viewId },
         {
