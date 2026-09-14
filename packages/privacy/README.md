@@ -51,6 +51,29 @@ Nothing here is invented where the repository already decided something:
 - **`SanitizedHandoff`** — `@pratibimb/perception`. `perceptionState.ts` is **unchanged**:
   `VerifiedHandoff` widens one field, in this package, exactly as that file's comment anticipated.
 
+## Where this package stops
+
+Three different things in this repository are called "validation", and conflating any two of them
+would move one layer's authority inside another. They are separate on purpose:
+
+| Layer | Where | The question it answers | Authority over |
+|---|---|---|---|
+| **`bind()` / `rehydrate()`** | here | May this *reference* become a secret again, into this field, on this origin, in this session, now? | **values** |
+| **`validatePlan()`** | the next section — **does not exist yet** | Is this *plan* well formed: does every token exist, is every target one the current view has? | **plan structure** |
+| **`guardedAct`'s VALIDATE stage** | `@pratibimb/agent`, built and unchanged | Is this *one live action* still valid against the page — freshness, HIT-TEST, permit, dispatch, VERIFY RESULT? | **one action** |
+
+Two rules follow, and `test/boundaries.test.ts` enforces them by scanning this package's source:
+
+- **`validatePlan()` must call `bind()` for the value question, never re-answer it.** Reimplementing
+  the class, origin, session, grant or consumed checks inside a plan validator would create a second
+  privacy authority — two places that could disagree about whether a secret may be used, which is the
+  failure mode the single `bind()` chain exists to prevent. A plan validator may reject a plan that
+  `bind()` would have allowed; it may never allow one `bind()` refuses.
+- **`guardedAct` remains the final and only click execution layer.** Nothing here dispatches. This
+  package does not depend on `@pratibimb/agent` or `@pratibimb/extension-transport`, names no permit
+  or hit-test symbol, and contains no `.click()`, `dispatchEvent` or DOM write. The dependency arrow
+  points one way: privacy → perception, and nothing else.
+
 ## The two properties worth reviewing
 
 1. **A sensitive value does not reach the handoff**, enforced twice: the assembler writes only
@@ -75,6 +98,11 @@ Nothing here is invented where the repository already decided something:
 - **No server, no planner, no orchestrator, no UI, and no rehydration into a real page** — those are
   the next section, deliberately absent from this one.
 - **One machine.** Every artifact here is W2 evidence.
+- **A second thing is called a vault.** `apps/extension/host/offscreen/main.ts` holds a `vaultStub` —
+  a `Map` of synthetic E4 canaries, predating this package and documented there as a stub. It is not
+  a privacy authority (no classification, tokenisation, verification or binding) and this package does
+  not reference it, but the two must be reconciled before the host is wired to a real one, and they
+  happen to share a demo phone value, so a naive leak grep hits both.
 
 ## Running it
 

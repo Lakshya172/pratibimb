@@ -82,6 +82,51 @@ describe("the permitted path", () => {
   });
 });
 
+/**
+ * The binder's own consumed-state invariant.
+ *
+ * `rehydrate` refusing a replay is not the same property as `bind` refusing one, and the difference
+ * is not academic: `bind` is exported as a question a caller may ask *without* spending anything, and
+ * the next section's plan validation and Planning View are exactly such callers. A binder that
+ * answered `BIND_OK` for a spent reference would have the panel offer an action that cannot happen,
+ * and would ask a human to authorise a value that can never be released. These three cases exercise
+ * the guard on line `if (descriptor.consumed)` directly, rather than through the vault's `consume()`.
+ */
+describe("a spent reference is refused by the binder itself", () => {
+  it("answers REFUSE/CONSUMED to a direct question, with nothing spent", async () => {
+    const { ctx, phone } = await scenario();
+    const step = { ref: phone, targetId: "#mobile", viewId: "view-1" };
+    expect(bind(step, ctx)).toEqual({ decision: "BIND_OK" });
+
+    expect(ctx.vault.consume(phone)).toBe(true); // spent by some earlier use
+    expect(bind(step, ctx)).toEqual({ decision: "REFUSE", cause: "CONSUMED" });
+  });
+
+  it("refuses a spent SENSITIVE reference instead of asking a human to authorise it", async () => {
+    const { ctx, aadhaar } = await scenario();
+    const step = { ref: aadhaar, targetId: "#aadhaar", viewId: "view-1" };
+    expect(bind(step, ctx)).toEqual({ decision: "NEEDS_HUMAN_GRANT" });
+
+    expect(ctx.vault.consume(aadhaar)).toBe(true);
+    // CONSUMED is checked before either grant question, so the cause stays honest and no panel is
+    // raised for a value that could not be released even if the human said yes.
+    expect(bind(step, ctx)).toEqual({ decision: "REFUSE", cause: "CONSUMED" });
+  });
+
+  it("does not burn a human grant on a reference that was already spent", async () => {
+    const { ctx, aadhaar } = await scenario();
+    const grant = grantFor(aadhaar, "#aadhaar");
+    const granted = { ...ctx, useGrants: [grant] };
+    expect(ctx.vault.consume(aadhaar)).toBe(true);
+
+    const outcome = rehydrate({ ref: aadhaar, targetId: "#aadhaar", viewId: "view-1" }, granted);
+    expect(outcome).toEqual({ ok: false, decision: { decision: "REFUSE", cause: "CONSUMED" } });
+    // A one-shot human decision is scarce. Binding stops before `rehydrate` marks it used, so a
+    // replayed reference cannot exhaust outstanding grants.
+    expect(grant.used).toBe(false);
+  });
+});
+
 describe("the ordered refusals", () => {
   it("refuses a plan made against a view that has moved on", async () => {
     const { ctx, phone } = await scenario();

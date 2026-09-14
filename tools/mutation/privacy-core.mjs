@@ -88,8 +88,12 @@ const MUTATIONS = [
     find: '  if (descriptor.consumed) return refuse("CONSUMED");',
     replace: "",
     what: "binding no longer refuses a spent reference",
-    layered:
-      "rehydrate still refuses: the vault's own consume() returns false the second time, so no value is recovered",
+    // This carried a `layered` note until the PRIV-0 security review, on the grounds that
+    // `rehydrate` still refuses when the vault's own `consume()` returns false. That was the wrong
+    // conclusion: `bind` is a question a caller may ask WITHOUT spending anything, so the vault's
+    // guard cannot stand in for the binder's. Removing this line makes `bind` answer BIND_OK for a
+    // spent reference, makes a spent SENSITIVE reference raise a human grant prompt it could never
+    // honour, and lets a replay burn that grant. The note is gone and the mutation must be killed.
   },
   {
     id: "P10",

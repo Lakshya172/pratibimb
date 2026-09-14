@@ -49,7 +49,10 @@ handoff or the ledger entry; the OTP receiving a reference; or the sanitizer fai
 
 ## Actual result
 
-**PASS**, recorded 2026-09-14T06:36:10Z. Every check above returned true.
+**PASS**, recorded 2026-09-14T09:49:28Z. Every check above returned true. (First recorded
+2026-09-14T06:36:10Z; re-run unchanged after the security review, which touched only tests and
+documentation. The payload digest differs between runs because the handoff carries the run's own
+timestamp and session id — the log is the current run's.)
 
 | Check | Result |
 |---|---|
@@ -72,19 +75,38 @@ to describe it without writing it; the check was not weakened.
 ### Mutation check — do the guards carry weight?
 
 `node tools/mutation/privacy-core.mjs` disables one enforcement at a time and runs the suite:
-**12 mutations, 11 killed, 1 survived (layered), 0 unexpected survivors.**
+**12 mutations, 12 killed, 0 survivors.**
 
 | | |
 |---|---|
-| Killed | literal-echo check, protection ranking, verifier provenance, forged `verified` flag, value-aware residual scan, OTP tokenisation refused at issuance, session check, origin check, per-use human grant, element-name scrubbing, class match |
-| Survived | **P09** — removing the binder's `CONSUMED` check. Rehydration still refuses, because the vault's own `consume()` returns `false` the second time. Defence in depth, reported rather than hidden |
+| Killed | literal-echo check, protection ranking, verifier provenance, forged `verified` flag, value-aware residual scan, OTP tokenisation refused at issuance, session check, origin check, consumed-reference check, per-use human grant, element-name scrubbing, class match |
+
+**P09 was reported as a layered survivor on 2026-09-14 and that was wrong.** The first campaign
+recorded it as equivalent defence in depth, on the grounds that removing the binder's `CONSUMED`
+check still leaves `rehydrate` refusing when the vault's own `consume()` returns `false`. The
+security review revisited it and found the binder's guard to be independently meaningful, for three
+reasons:
+
+1. **`bind()` is a question, not a spend.** It is exported so a caller can ask "may this reference go
+   into this field?" without consuming anything, and the next section's plan validation and Planning
+   View are precisely such callers. The vault's guard only fires on the way to a value, so it cannot
+   answer for the binder.
+2. **The cause stops being evidence.** Without the check, a spent SENSITIVE reference falls through to
+   `NEEDS_HUMAN_GRANT` — the system would raise a consent panel for a value it could never release.
+3. **A replay could burn a human grant.** `rehydrate` marks the grant used before calling `consume()`,
+   so a mutated binder lets a replayed reference spend a one-shot human decision and return a refusal.
+
+The fix was three focused tests that exercise the binder's own consumed-state invariant directly
+(`packages/privacy/test/bind.test.ts`, "a spent reference is refused by the binder itself"). **No
+source behaviour changed** — the guard was already correct; nothing had been asking it the question.
+P09's `layered` annotation has been removed from the mutation script, so any future survival of it
+counts as an unexpected survivor and fails the run.
 
 ## Conclusion
 
 On W2, in Chrome for Testing 153.0.8010.12, the reconstructed privacy layer sanitized a real page's
 real values into a verified representation that contained none of them, kept them locally, and refused
-the OTP a reference. The guards are not decorative: eleven of twelve mutations were caught, and the
-twelfth is covered by a second layer.
+the OTP a reference. The guards are not decorative: every one of the twelve mutations was caught.
 
 **What this does not establish:** anything about a complete agent loop (there is no planner,
 orchestrator, grant UI or click here); anything about network egress (there is no client, so the

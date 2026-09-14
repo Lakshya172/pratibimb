@@ -11,8 +11,14 @@
 | OTP masked, never tokenised | **yes** |
 | Values held locally in the memory-only vault | **4** |
 | Any value in the handoff or ledger (exact or normalised) | **none** |
-| Unit suite | **106 tests, all passing** |
-| Mutation check | **12 mutations · 11 killed · 1 layered survivor · 0 unexpected** |
+| Unit suite | **126 tests, all passing** |
+| Mutation check | **12 mutations · 12 killed · 0 survivors** |
+
+> Updated by the security foundation review (2026-09-14, W2). The first campaign recorded P09 — the
+> binder's `CONSUMED` check — as a layered survivor. That was wrong: `bind()` is a question a caller
+> may ask without spending, so the vault's guard cannot answer for it. Three focused tests now
+> exercise the binder's own consumed-state invariant, and the mutation is killed. No source behaviour
+> changed. See the [experiment record](README.md#mutation-check--do-the-guards-carry-weight).
 
 ## What this licenses
 
