@@ -37,6 +37,7 @@ const PACKAGES = {
   plan: "packages/plan/dist/src",
   reasoner: "packages/reasoner/dist/src",
   orchestrator: "packages/orchestrator/dist/src",
+  egress: "packages/egress/dist/src",
 };
 
 /** Resolve a request path to a file inside the repository, or `null`. Never escapes ROOT. */

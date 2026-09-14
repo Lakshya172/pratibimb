@@ -17,8 +17,9 @@
  * number out of the local DOM and gives it to the simulated attacker. That necessity is the evidence,
  * and the UI says so rather than hiding it.
  */
+import { type EgressRecord, type EgressRefusal } from "@pratibimb/egress";
 import { runTask, type GrantDecision, type GrantRequest, type RunRecord } from "@pratibimb/orchestrator";
-import { deterministicReasoner } from "@pratibimb/reasoner";
+import { deterministicReasoner, localModelReasoner, unavailableReasoner } from "@pratibimb/reasoner";
 
 import { PageAdapter, portsFrom } from "./pageAdapter.js";
 import { renderAll } from "./view.js";
@@ -82,7 +83,21 @@ export interface RunRequest {
   readonly mode?: "reference" | "literal-echo";
   /** Skip the modal, for the automated runs. The decision is still explicit and still one-shot. */
   readonly auto?: boolean;
+  /**
+   * Which reasoner answers first.
+   *
+   * `local-model` is a REAL HTTP request to a service on this machine; `deterministic` is the
+   * in-process planner. `unavailable` is how the fallback path is forced without touching any
+   * security code. In every case the deterministic planner stays behind as the fallback, and every
+   * answer goes through the same validation.
+   */
+  readonly reasoner?: "deterministic" | "local-model" | "unavailable";
+  /** The loopback endpoint for the local model. */
+  readonly endpoint?: string;
 }
+
+/** Every egress attempt this page made, for the evidence runner and the result pane. */
+export const egressLog: { record?: EgressRecord; refusal?: EgressRefusal }[] = [];
 
 export async function run(request: RunRequest = {}): Promise<RunRecord> {
   const iframe = frame();
@@ -97,13 +112,32 @@ export async function run(request: RunRequest = {}): Promise<RunRecord> {
   // come from — the handoff contains no values.
   const registered = (doc.getElementById("mobile") as HTMLInputElement | null)?.value ?? "";
 
-  const reasoner =
+  const onEgress = (event: { record?: EgressRecord; refusal?: EgressRefusal }): void => {
+    egressLog.push(event);
+  };
+
+  // The deterministic planner, always available behind whatever answers first.
+  const deterministic =
     request.mode === "literal-echo"
       ? deterministicReasoner({ mode: "literal-echo", literal: registered })
       : deterministicReasoner();
 
+  const pick = request.reasoner ?? "deterministic";
+  const reasoner =
+    pick === "local-model"
+      ? localModelReasoner({ ...(request.endpoint ? { endpoint: request.endpoint } : {}), onEgress })
+      : pick === "unavailable"
+        ? unavailableReasoner()
+        : deterministic;
+  const reasonerKind = pick === "deterministic" ? ("DETERMINISTIC_FALLBACK" as const) : ("LOCAL_MODEL" as const);
+
   const record = await runTask(
-    portsFrom(adapter, { reasoner, requestGrant: request.auto ? autoGrant : askHuman }),
+    portsFrom(adapter, {
+      reasoner,
+      reasonerKind,
+      fallback: deterministic,
+      requestGrant: request.auto ? autoGrant : askHuman,
+    }),
     {
       goal: GOAL,
       sessionId: `demo-session-${runs}`,
@@ -131,11 +165,16 @@ export function resetPage(): Promise<void> {
 declare global {
   interface Window {
     /** The automated browser runs drive exactly what the buttons drive. */
-    __demo: { run: typeof run; resetPage: typeof resetPage; last: RunRecord | null };
+    __demo: {
+      run: typeof run;
+      resetPage: typeof resetPage;
+      last: RunRecord | null;
+      egressLog: typeof egressLog;
+    };
   }
 }
 
-window.__demo = { run, resetPage, last: null };
+window.__demo = { run, resetPage, last: null, egressLog };
 
 const wire = (id: string, mode: NonNullable<RunRequest["mode"]>): void => {
   document.getElementById(id)?.addEventListener("click", () => {

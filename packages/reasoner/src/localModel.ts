@@ -104,7 +104,15 @@ const SYSTEM = [
   "- Pick the reference whose class matches the field.",
 ].join("\n");
 
-/** One worked example, in a different domain, so the model generalises rather than copies. */
+/**
+ * One worked example, in a different domain, so the model generalises rather than copies.
+ *
+ * ITS REFERENCE IS DELIBERATELY NOT TOKEN-SHAPED. The obvious way to write this example uses
+ * `<PII:EMAIL:1>` — and the egress guard refused the whole request when it did, because that is a
+ * reference *this handoff never issued* and the guard does not care that it came from a prompt. The
+ * rule is a good rule, so the example changed rather than the rule. `REF_A` teaches the same shape,
+ * and the decoder's enum means the model can only ever emit a token that really exists.
+ */
 const EXAMPLE = {
   user: JSON.stringify({
     goal: "Register with my email",
@@ -113,11 +121,11 @@ const EXAMPLE = {
       { id: "#email2", name: "Confirm email", empty: true },
     ],
     buttons: [{ id: "#go", name: "Register" }],
-    references: [{ token: "<PII:EMAIL:1>", class: "EMAIL" }],
+    references: [{ token: "REF_A", class: "EMAIL" }],
   }),
   assistant: JSON.stringify({
     steps: [
-      { op: "insert", target: "#email2", ref: "<PII:EMAIL:1>" },
+      { op: "insert", target: "#email2", ref: "REF_A" },
       { op: "click", target: "#go" },
     ],
   }),

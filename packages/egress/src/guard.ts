@@ -35,6 +35,14 @@
  */
 import { isVerifiedHandoff, scanForVaultValues, sha256Hex, type PiiClass, type Vault, type VerifiedHandoff } from "@pratibimb/privacy";
 
+/**
+ * Byte length of a UTF-8 string, without `Buffer`.
+ *
+ * This module runs in a browser as well as in Node — the Planning View imports it — so it uses only
+ * platform-neutral APIs, the same rule `@pratibimb/security` follows.
+ */
+const utf8Length = (text: string): number => new TextEncoder().encode(text).length;
+
 /** Every reference token looks like this. Used to check nothing undeclared is leaving. */
 const TOKEN_PATTERN = /<PII:[A-Z]+:\d+>/g;
 
@@ -200,32 +208,22 @@ export async function sendVerified(request: EgressRequest): Promise<EgressOutcom
   // ── 7. send exactly them ──────────────────────────────────────────────────────────────────
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), request.timeoutMs ?? DEFAULT_EGRESS_TIMEOUT_MS);
+
+  // The try wraps the network call and **nothing else**. An earlier revision wrapped the record
+  // construction too, and when `Buffer.byteLength` — a Node-only global — threw in a browser, the
+  // resulting `ReferenceError` was reported as `TRANSPORT_FAILED`. A bug in this module was
+  // indistinguishable from the service being down, which is exactly the kind of misreport the rest
+  // of this codebase refuses to make about anything else.
+  let response: Response;
+  let responseText: string;
   try {
-    const response = await fetch(request.destination, {
+    response = await fetch(request.destination, {
       method: "POST",
       headers: { "content-type": "application/json", ...(request.headers ?? {}) },
       body: bytes,
       signal: controller.signal,
     });
-    const responseText = await response.text();
-    return {
-      sent: true,
-      responseText,
-      record: {
-        ...base,
-        at: clock(),
-        transport: "LOOPBACK_HTTP",
-        reasoner: request.reasoner,
-        verified: true,
-        payloadSha256,
-        payloadBytes: Buffer.byteLength(bytes, "utf8"),
-        leakCheck: "CLEAN",
-        references: carried,
-        responseStatus: response.status,
-        responseBytes: Buffer.byteLength(responseText, "utf8"),
-        elapsedMs: clock() - startedAt,
-      },
-    };
+    responseText = await response.text();
   } catch (error) {
     // The message is dropped: a transport error can quote the URL and, in some runtimes, the body.
     const timedOut = error instanceof Error && error.name === "AbortError";
@@ -237,4 +235,23 @@ export async function sendVerified(request: EgressRequest): Promise<EgressOutcom
   } finally {
     clearTimeout(timer);
   }
+
+  return {
+    sent: true,
+    responseText,
+    record: {
+      ...base,
+      at: clock(),
+      transport: "LOOPBACK_HTTP",
+      reasoner: request.reasoner,
+      verified: true,
+      payloadSha256,
+      payloadBytes: utf8Length(bytes),
+      leakCheck: "CLEAN",
+      references: carried,
+      responseStatus: response.status,
+      responseBytes: utf8Length(responseText),
+      elapsedMs: clock() - startedAt,
+    },
+  };
 }

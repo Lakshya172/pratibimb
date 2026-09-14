@@ -18,6 +18,7 @@
         "imports": {
           "@pratibimb/perception": "/pkg/perception/index.js",
           "@pratibimb/privacy": "/pkg/privacy/index.js",
+          "@pratibimb/egress": "/pkg/egress/index.js",
           "@pratibimb/agent": "/pkg/agent/index.js",
           "@pratibimb/plan": "/pkg/plan/index.js",
           "@pratibimb/reasoner": "/pkg/reasoner/index.js",
@@ -35,6 +36,7 @@
       <div class="actions">
         <button id="run-happy" type="button" class="primary">Run the task</button>
         <button id="run-refusal" type="button" class="danger">Run with a compromised reasoner</button>
+        <label class="reasoner-pick"><input id="use-model" type="checkbox" /> local model</label>
       </div>
     </header>
 
