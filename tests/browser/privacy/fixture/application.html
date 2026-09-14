@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>State Services — application</title>
+    <style>
+      body { font: 14px system-ui, sans-serif; margin: 24px; max-width: 560px; }
+      label { display: block; margin: 12px 0 4px; font-weight: 600; }
+      input { width: 100%; padding: 6px 8px; font: inherit; box-sizing: border-box; }
+      button { margin-top: 16px; padding: 8px 14px; font: inherit; }
+      #status { margin-top: 16px; padding: 8px; background: #f3f3f3; }
+    </style>
+  </head>
+  <body>
+    <!--
+      SYNTHETIC FIXTURE. Every value below is invented for this repository (SECURITY.md §2): no real
+      person, no real mobile number, no real Aadhaar number. The Aadhaar value passes the Verhoeff
+      checksum on purpose, so the deterministic validator has a true positive to find. The
+      checksum-invalid variant lives in the unit suite as a negative vector and is deliberately not
+      written anywhere in this file — the smoke test asserts its absence, so quoting it here, even in
+      a comment, would fail the run.
+
+      The page is served from 127.0.0.1 and talks to nothing. Submitting changes one line of text.
+    -->
+    <h1>Apply for a State Services certificate</h1>
+
+    <form id="application" autocomplete="on" onsubmit="return false">
+      <label for="name">Full name</label>
+      <input id="name" name="applicant_name" type="text" autocomplete="name" value="Ramesh Kumar" />
+
+      <label for="mobile">Mobile number</label>
+      <input id="mobile" name="mobile_number" type="tel" autocomplete="tel" value="9000000001" />
+
+      <label for="aadhaar">Aadhaar number</label>
+      <input id="aadhaar" name="aadhaar_number" type="text" value="2345 6789 0124" />
+
+      <label for="dob">Date of birth</label>
+      <input id="dob" name="date_of_birth" type="date" value="1998-04-12" />
+
+      <label for="otp">OTP</label>
+      <input id="otp" name="one_time_code" type="text" autocomplete="one-time-code" value="482913" />
+
+      <button id="submit" type="button">Submit application</button>
+    </form>
+
+    <p id="status" role="status" data-submitted="false">Not submitted</p>
+
+    <script>
+      // Deterministic and local: one click, one status change, no network and no timers.
+      document.getElementById("submit").addEventListener("click", () => {
+        const status = document.getElementById("status");
+        status.textContent = "Application submitted";
+        status.dataset.submitted = "true";
+      });
+      window.__fixtureReady = true;
+    </script>
+  </body>
+</html>
