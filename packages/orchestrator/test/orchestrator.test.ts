@@ -14,7 +14,7 @@
  *    reference is still unspent afterwards.
  */
 import { describe, expect, it } from "vitest";
-import { deterministicReasoner, type ReasonerClient } from "@pratibimb/reasoner";
+import { deterministicReasoner, unavailableReasoner, type ReasonerClient } from "@pratibimb/reasoner";
 import { resultOf, runTask, succeeded, type RunState } from "../src/index.js";
 import { DEMO, ORIGIN, RUN_OPTIONS, SimulatedPage, portsFor, type PortOptions } from "./support/simulatedPage.js";
 
@@ -355,5 +355,159 @@ describe("REFUSED is terminal", () => {
     expect(record.sessionId).toBe(RUN_OPTIONS.sessionId);
     expect(record.requestId).toBe(RUN_OPTIONS.requestId);
     expect(record.ledgerEntry?.payloadSha256).toMatch(/^[0-9a-f]{64}$/);
+  });
+});
+
+/**
+ * THE REASONER IS REPLACEABLE, AND HAS NO AUTHORITY.
+ *
+ * The model was swapped in behind the same boundary the deterministic planner sat behind. These
+ * cases assert the swap changed nothing that matters: the same states, the same gates, the same
+ * refusals — plus the one rule the fallback adds, which is that a plan the client *refused* does not
+ * get quietly replaced by one it would accept.
+ */
+describe("the reasoner is replaceable", () => {
+  /** A stand-in for the model: answers with whatever the case needs, over the same interface. */
+  const answering = (steps: unknown): ReasonerClient => ({
+    name: "local-model:test",
+    transport: "LOOPBACK_HTTP",
+    async propose(request) {
+      return {
+        planVersion: "1",
+        goal: request.goal,
+        steps,
+        provenance: {
+          requestId: request.requestId,
+          sessionId: request.sessionId,
+          viewId: request.handoff.request.requestId,
+          origin: request.origin,
+        },
+      };
+    },
+  });
+
+  const good = [
+    { op: "insert", target: "#mobile_confirm", ref: "<PII:PHONE:1>" },
+    { op: "click", target: "#submit" },
+  ];
+
+  const withFallback = (reasoner: ReasonerClient, options: PortOptions = {}) => {
+    const page = new SimulatedPage(options);
+    const ports = {
+      ...portsFor(page, options),
+      reasoner,
+      reasonerKind: "LOCAL_MODEL" as const,
+      fallback: deterministicReasoner(),
+    };
+    return { page, ports };
+  };
+
+  it("completes through a model answer, with every state unchanged", async () => {
+    const { page, ports } = withFallback(answering(good));
+    const record = await runTask(ports, RUN_OPTIONS);
+    expect(path(record)).toEqual(HAPPY_PATH);
+    expect(record.reasonerKind).toBe("LOCAL_MODEL");
+    expect(record.fallback).toBeNull();
+    expect(resultOf(record)?.verification).toBe("CONFIRMED");
+    expect(page.clicks).toBe(1);
+  });
+
+  it("falls back when the model is unavailable, and still goes through every gate", async () => {
+    const { page, ports } = withFallback(unavailableReasoner());
+    const record = await runTask(ports, RUN_OPTIONS);
+    expect(record.reasonerKind).toBe("DETERMINISTIC_FALLBACK");
+    expect(record.fallback?.fellBack).toBe(true);
+    expect(record.fallback?.outcome).toBe("UNAVAILABLE");
+    expect(path(record)).toEqual(HAPPY_PATH);
+    expect(record.grant.requested).toBe(true);
+    expect(resultOf(record)?.verification).toBe("CONFIRMED");
+    expect(page.clicks).toBe(1);
+  });
+
+  it("falls back when the model returns something that is not a plan", async () => {
+    const nonsense: ReasonerClient = {
+      name: "local-model:test",
+      transport: "LOOPBACK_HTTP",
+      async propose() {
+        return "here is your plan, boss";
+      },
+    };
+    const { record } = await (async () => {
+      const { page, ports } = withFallback(nonsense);
+      return { record: await runTask(ports, RUN_OPTIONS), page };
+    })();
+    expect(record.fallback?.outcome).toBe("MALFORMED");
+    expect(record.reasonerKind).toBe("DETERMINISTIC_FALLBACK");
+    expect(resultOf(record)?.verification).toBe("CONFIRMED");
+  });
+
+  it("falls back when the model names an element that is not there", async () => {
+    const { record, page } = await (async () => {
+      const { page, ports } = withFallback(answering([{ op: "click", target: "#invented" }]));
+      return { record: await runTask(ports, RUN_OPTIONS), page };
+    })();
+    // Incompetence, not hostility: the fallback is exactly what this is for.
+    expect(record.fallback?.outcome).toBe("UNUSABLE");
+    expect(record.reasonerKind).toBe("DETERMINISTIC_FALLBACK");
+    expect(resultOf(record)?.verification).toBe("CONFIRMED");
+    expect(page.clicks).toBe(1);
+  });
+
+  it("does NOT fall back when the model echoes a secret", async () => {
+    // The rule the fallback policy exists for. Falling back here would replace a caught leakage
+    // event with a success and leave nothing in the record to find.
+    const { page, ports } = withFallback(answering([{ op: "insert", target: "#mobile_confirm", literal: DEMO.mobile }, { op: "click", target: "#submit" }]));
+    const record = await runTask(ports, RUN_OPTIONS);
+
+    expect(record.state).toBe("REFUSED");
+    expect(record.refusal?.planRefusal?.literalCause).toBe("VAULT_LITERAL_ECHO");
+    expect(record.fallback?.fellBack).toBe(false);
+    expect(record.fallback?.outcome).toBe("HOSTILE");
+    expect(record.rehydrated).toEqual([]);
+    expect(page.clicks).toBe(0);
+    expect(page.find("#mobile_confirm")?.value).toBe("");
+    expect(JSON.stringify(record.refusal)).not.toContain(DEMO.mobile);
+  });
+
+  it("gives the model no way to widen what the agent may do", async () => {
+    // Every one of these is refused, and none of them reaches a permit or a page.
+    for (const steps of [
+      [{ op: "type", target: "#mobile_confirm", literal: "x" }],
+      [{ op: "execute_javascript", target: "#submit" }],
+      [{ op: "navigate", target: "https://example.invalid" }],
+      [{ op: "click", target: "#mobile_confirm" }, { op: "eval", target: "#submit" }],
+    ]) {
+      // No fallback at all here: the point is that the MODEL's plan reaches nothing, not that a
+      // different plan rescued the run.
+      const { page, ports } = withFallback(answering(steps), { insertFails: true });
+      const { fallback: _unused, ...withoutFallback } = ports;
+      const record = await runTask(withoutFallback, RUN_OPTIONS);
+      expect(record.state, JSON.stringify(steps)).toBe("REFUSED");
+      expect(page.clicks).toBe(0);
+    }
+  });
+
+  it("gives the model no way to bypass the human, the binder or the permit", async () => {
+    // A plan that is structurally perfect still stops at AWAIT_GRANT when the human says no.
+    const { page, ports } = withFallback(answering(good), { grant: { granted: false, reason: "DENIED" } });
+    const record = await runTask(ports, RUN_OPTIONS);
+    expect(record.state).toBe("REFUSED");
+    expect(record.refusal?.stage).toBe("AWAIT_GRANT");
+    expect(record.rehydrated).toEqual([]);
+    expect(record.confirmation).toBeNull();
+    expect(page.clicks).toBe(0);
+  });
+
+  it("cannot reach a value, whatever it asks for", async () => {
+    const { record } = await (async () => {
+      const { page, ports } = withFallback(answering(good));
+      return { record: await runTask(ports, RUN_OPTIONS), page };
+    })();
+    // The model's own record carries references and classes; the values are only in the local
+    // observation, which is never sent.
+    const serialized = JSON.stringify({ ...record, observation: null, initialObservation: null });
+    for (const secret of [DEMO.mobile, DEMO.aadhaar, DEMO.name, DEMO.dob, DEMO.otp]) {
+      expect(serialized, secret.slice(0, 4)).not.toContain(secret);
+    }
   });
 });

@@ -32,9 +32,15 @@ lifetime and does not gate anything.
 | Dispatch bridge | `DEFAULT_DISPATCH_TIMEOUT_MS` = 5 000 ms | `packages/agent/src/act.ts` |
 | Hit-test bridge | `DEFAULT_HIT_TEST_TIMEOUT_MS` = 2 000 ms | `packages/agent/src/hitTest.ts` |
 | Reasoner | `DEFAULT_REASONER_TIMEOUT_MS` = 10 000 ms | `packages/reasoner/src/contract.ts` |
+| Egress (network) | `DEFAULT_EGRESS_TIMEOUT_MS` = 30 000 ms | `packages/egress/src/guard.ts` |
 
 A dispatch deadline that expires is reported as `BRIDGE_TIMEOUT` and the outcome is **UNKNOWN**,
 never "did not happen" — the click may well have landed.
+
+The egress deadline is the one that now bounds a **real network request**. Measured against it: the
+local model's cold request took 2 020 ms and warm requests 579–623 ms on W2 (LOOP-2), so 30 000 ms is
+loose by a factor of roughly fifty. It is still an instrument value — nobody has decided what a
+reasonable ceiling is for a model that is allowed to think.
 
 ## What is deliberately not time-based
 
