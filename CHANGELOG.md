@@ -31,12 +31,38 @@ fixture in Chrome for Testing 153.0.8010.12
   origin, expiring, and spent as the permit is minted. Entirely additive — omitted, every
   pre-existing behaviour is unchanged, and all 173 previous agent tests pass untouched.
 
+### Fixed
+A hardening review against the frozen contracts, run before any reasoner work, corrected two places
+where a layer had become more opinionated than the contract allows (both in `216ed7c`, which also
+carries the documentation below):
+
+- **`validatePlan` refused every literal.** `action-schema.md` calls a schema that cannot express a
+  non-sensitive literal *"a functional defect"* and answers it with three checks, not a prohibition.
+  A literal passing all three is now accepted as a `source: "literal"` step needing no vault
+  reference, no rehydration and no human grant. The three refusals — vault echo, PII-shaped literal,
+  literal at a redacted field — are unchanged.
+- **The orchestrator had a second field classifier**, whose answer fed `bind()`'s class check. It now
+  calls `classifyField`, privacy's own D1 channel. `packages/orchestrator/test/boundaries.test.ts`
+  scans the source so neither defect can return.
+
+### Documentation
+- `docs/architecture/human-confirmation.md` — a PROVISIONAL implementation note for the confirmation
+  channel: what it is, where each property is tested, the `HumanConfirmation → DispatchPermit →
+  guardedAct` chain and the four structural facts that leave no way round it, and what it cannot
+  establish.
+- `docs/architecture/prototype-lifetimes.md` — every lifetime and deadline in one table, headed
+  **"Prototype TTL; not performance/security-policy proof."**
+
 ### Notes
 - `EXECUTABLE_ACTIONS` remains `["click"]`; there is no TYPE action. `insert` is a request to the
   **trusted client**, not an agent action: the value never enters a plan, a permit, or the reasoner.
 - `packages/privacy` is unchanged and remains the sole privacy authority.
-- Three lifetimes (permit, confirmation, grant) are now stated by callers with **no measurement
-  behind any of them**; ADR-0008 §5 remains open.
+- Three lifetimes (permit, confirmation, grant) are stated by callers with **no measurement behind
+  any of them**; ADR-0008 §5 remains open.
+- **Extension end-to-end integration of the loop is NOT PROVEN.** `apps/demo` drives a same-origin
+  frame directly; no content script, service worker, offscreen document or side panel took part, and
+  the browser evidence ran headless with no extension loaded. A separate headed CfT 153 smoke
+  confirms only that the built MV3 host still loads and its service worker boots.
 
 ---
 
