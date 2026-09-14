@@ -17,6 +17,7 @@ export default defineConfig({
       "@pratibimb/agent": new URL("./packages/agent/src/index.ts", import.meta.url).pathname,
       "@pratibimb/extension-transport": new URL("./packages/extension-transport/src/index.ts", import.meta.url).pathname,
       "@pratibimb/privacy": new URL("./packages/privacy/src/index.ts", import.meta.url).pathname,
+      "@pratibimb/egress": new URL("./packages/egress/src/index.ts", import.meta.url).pathname,
       "@pratibimb/reasoner": new URL("./packages/reasoner/src/index.ts", import.meta.url).pathname,
       "@pratibimb/plan": new URL("./packages/plan/src/index.ts", import.meta.url).pathname,
       "@pratibimb/orchestrator": new URL("./packages/orchestrator/src/index.ts", import.meta.url).pathname,

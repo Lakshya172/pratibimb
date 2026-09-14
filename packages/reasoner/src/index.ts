@@ -22,3 +22,23 @@ export {
 } from "./contract.js";
 
 export { deterministicReasoner, type DeterministicOptions, type ReasonerMode } from "./deterministic.js";
+
+export {
+  DEFAULT_MODEL_ENDPOINT,
+  localModelReasoner,
+  type LocalModelOptions,
+} from "./localModel.js";
+
+export {
+  DEFAULT_FALLBACK_POLICY,
+  NEVER_FALLBACK,
+  decideFallback,
+  HOSTILE_REFUSAL_CAUSES,
+  outcomeOfRefusal,
+  outcomeOfResponse,
+  unavailableReasoner,
+  type FallbackDecision,
+  type FallbackPolicy,
+  type ModelOutcome,
+  type ReasonerKind,
+} from "./fallback.js";

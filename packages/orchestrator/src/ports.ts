@@ -21,7 +21,7 @@
 import { type GuardedBridges } from "@pratibimb/agent";
 import { type ElementGraph } from "@pratibimb/perception";
 import { type ObservedField, type PiiClass } from "@pratibimb/privacy";
-import { type ReasonerClient } from "@pratibimb/reasoner";
+import { type ReasonerClient, type ReasonerKind } from "@pratibimb/reasoner";
 
 /**
  * One reading of the page.
@@ -78,8 +78,18 @@ export type GrantDecision =
 export interface ClientPorts {
   /** Read the page. Called for OBSERVE, for REFRESH before ACT, and for VERIFY RESULT. */
   observe(): Promise<Observation>;
-  /** The untrusted reasoner. Deterministic in this phase; a model later, with no other change. */
+  /** The untrusted reasoner asked first. A local model, or the deterministic planner. */
   readonly reasoner: ReasonerClient;
+  /** What to call the primary reasoner in the record. Defaults to `LOCAL_MODEL`. */
+  readonly reasonerKind?: ReasonerKind;
+  /**
+   * The deterministic planner, kept alive behind the model.
+   *
+   * Asked only when the fallback policy permits it, and its output goes through parse → validate →
+   * bind → grant → confirm → act exactly like the model's. "Known-good" describes its reliability,
+   * never its authority.
+   */
+  readonly fallback?: ReasonerClient;
   /** Ask a human. The only source of consent. */
   requestGrant(request: GrantRequest): Promise<GrantDecision>;
   /**

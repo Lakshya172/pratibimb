@@ -55,13 +55,26 @@ import {
   redactPlan,
   validatePlan,
   type PlanRefusal,
+  type Plan,
   type PlanValidation,
   type SafePlan,
   type ValidatedInsert,
   type ValidatedLiteralInsert,
   type ValidatedReferenceInsert,
 } from "@pratibimb/plan";
-import { sendToReasoner, type ReasonerResponse } from "@pratibimb/reasoner";
+import {
+  DEFAULT_FALLBACK_POLICY,
+  decideFallback,
+  outcomeOfRefusal,
+  outcomeOfResponse,
+  sendToReasoner,
+  type FallbackDecision,
+  type FallbackPolicy,
+  type ModelOutcome,
+  type ReasonerClient,
+  type ReasonerKind,
+  type ReasonerResponse,
+} from "@pratibimb/reasoner";
 
 import { type ClientPorts, type GrantDecision, type Observation } from "./ports.js";
 
@@ -116,6 +129,7 @@ export interface RunTimings {
   verifyPayloadMs?: number;
   sendMs?: number;
   validatePlanMs?: number;
+  fallbackMs?: number;
   grantMs?: number;
   rehydrateMs?: number;
   refreshMs?: number;
@@ -159,6 +173,10 @@ export interface RunRecord {
   readonly response: Omit<Extract<ReasonerResponse, { received: true }>, "raw"> | Extract<ReasonerResponse, { received: false }> | null;
   /** The plan, with any literal replaced by a class marker. Never the reasoner's text. */
   readonly plan: SafePlan | null;
+  /** Which reasoner produced the plan that was acted on. */
+  readonly reasonerKind: ReasonerKind | null;
+  /** Whether the deterministic planner was allowed to answer, and why. `null` if never asked. */
+  readonly fallback: FallbackDecision | null;
   readonly validation: PlanValidation | null;
   readonly grant: { readonly requested: boolean; readonly decision: GrantDecision | null; readonly useGrant: UseGrant | null };
   readonly rehydrated: readonly { readonly ref: string; readonly target: string; readonly piiClass: string; readonly inserted: boolean }[];
@@ -190,6 +208,8 @@ export interface RunOptions {
   readonly now?: () => number;
   readonly today?: Date;
   readonly reasonerTimeoutMs?: number;
+  /** Governs whether the deterministic planner may answer after a model outcome. */
+  readonly fallbackPolicy?: FallbackPolicy;
 }
 
 const labelOf = (observation: Observation, selector: string): string =>
@@ -254,6 +274,8 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
   let confirmation: HumanConfirmation | null = null;
   let act: GuardedOutcome | null = null;
   let refusal: RunRefusal | null = null;
+  let reasonerKind: ReasonerKind | null = null;
+  let fallback: FallbackDecision | null = null;
 
   /** The only way `state` changes. Refuses to move once the run has ended. */
   const go = (to: RunState): void => {
@@ -282,6 +304,8 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
     response,
     plan,
     validation,
+    reasonerKind,
+    fallback,
     grant: { requested: grantRequested, decision: grantDecision, useGrant },
     rehydrated,
     literalsInserted,
@@ -345,37 +369,85 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
   handoffSerialized = serializeHandoff(handoff);
 
   // ── SEND ─────────────────────────────────────────────────────────────────────────────────
+  //
+  // One stage, two possible reasoners, and the choice between them is a recorded decision rather
+  // than a silent retry. `askReasoner` is the only thing that changed for the model: everything
+  // after VALIDATE_PLAN is exactly what it was.
   go("SEND");
-  const sent = await timed("sendMs", () =>
-    sendToReasoner(
-      ports.reasoner,
+  const policy = options.fallbackPolicy ?? DEFAULT_FALLBACK_POLICY;
+
+  /**
+   * Ask one reasoner and try to read its answer.
+   *
+   * The two ways this fails are kept apart, because the cause is evidence: **nothing came back** is
+   * a SEND failure, and **something came back that is not a plan** is a PARSE_PLAN failure. A run
+   * that reported "could not parse" for a service that was never running would send someone
+   * debugging the wrong thing.
+   */
+  const askReasoner = async (
+    client: ReasonerClient,
+    kind: ReasonerKind
+  ): Promise<
+    | { readonly usable: true; readonly plan: Plan }
+    | { readonly usable: false; readonly outcome: ModelOutcome; readonly stage: "SEND" | "PARSE_PLAN"; readonly cause: string }
+  > => {
+    const sent = await sendToReasoner(
+      client,
       {
         handoff: handoff!,
         goal: options.goal,
         requestId: options.requestId,
         sessionId: options.sessionId,
         origin: options.origin,
+        vault,
       },
       { ...(options.reasonerTimeoutMs === undefined ? {} : { timeoutMs: options.reasonerTimeoutMs }) }
-    )
-  );
-  if (!sent.received) {
-    response = sent;
-    return stop("SEND", sent.cause, "the reasoner produced nothing usable; no plan exists to validate.");
+    );
+    reasonerKind = kind;
+    if (!sent.received) {
+      response = sent;
+      return { usable: false, outcome: outcomeOfResponse(sent), stage: "SEND", cause: sent.cause };
+    }
+    const { raw: rawBody, ...withoutRaw } = sent;
+    response = withoutRaw;
+    if (rawBody === undefined || rawBody === null) {
+      // A reasoner that resolved with nothing did not answer; the adapter reports a failed request
+      // this way rather than by throwing.
+      return { usable: false, outcome: "UNAVAILABLE", stage: "SEND", cause: "NO_RESPONSE" };
+    }
+    const parsedAttempt = parsePlan(rawBody);
+    if (!parsedAttempt.ok) {
+      return { usable: false, outcome: "MALFORMED", stage: "PARSE_PLAN", cause: parsedAttempt.cause };
+    }
+    return { usable: true, plan: parsedAttempt.plan };
+  };
+
+  let attempt = await timed("sendMs", () => askReasoner(ports.reasoner, ports.reasonerKind ?? "LOCAL_MODEL"));
+
+  // The model produced nothing usable. Whether the deterministic planner may answer is the
+  // policy's decision, and it is recorded either way.
+  if (!attempt.usable && ports.fallback) {
+    const decision = decideFallback(attempt.outcome, policy);
+    fallback = decision;
+    if (decision.fellBack) {
+      attempt = await timed("fallbackMs", () => askReasoner(ports.fallback!, "DETERMINISTIC_FALLBACK"));
+    }
   }
-  // Everything except the bytes. See `RunRecord.response`.
-  const { raw, ...withoutRaw } = sent;
-  response = withoutRaw;
+  if (!attempt.usable) {
+    return stop(
+      attempt.stage,
+      attempt.cause,
+      attempt.stage === "SEND"
+        ? "the reasoner produced nothing usable; no plan exists to validate."
+        : "the reasoner's response is not a plan this client can read."
+    );
+  }
 
   // ── VALIDATE PLAN ────────────────────────────────────────────────────────────────────────
   go("VALIDATE_PLAN");
-  const parsed = parsePlan(raw);
-  if (!parsed.ok) {
-    return stop("PARSE_PLAN", parsed.cause, "the reasoner's response is not a plan this client can read.");
-  }
   // `parsedPlan` stays local and is what the validator sees; the record keeps only the projection,
   // so a literal the reasoner echoed is never retained or displayed.
-  const parsedPlan = parsed.plan;
+  let parsedPlan = attempt.plan;
   plan = redactPlan(parsedPlan, vault);
 
   const viewId = options.requestId;
@@ -405,6 +477,25 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
     });
 
   validation = await timed("validatePlanMs", async () => validateNow());
+
+  // A refused plan is where the fallback policy earns its keep.
+  //
+  // `HOSTILE` — a leaked secret, a reference the vault never issued, a plan this client did not
+  // parse — stops the run. Quietly running a different plan would turn a caught event into a
+  // success and leave nothing in the record to find. Anything else is a model being bad at its job,
+  // which is what a fallback is for. The decision is recorded either way.
+  if (!validation.ok && ports.fallback && fallback === null) {
+    const decision = decideFallback(outcomeOfRefusal(validation.refusal.cause), policy);
+    fallback = decision;
+    if (decision.fellBack) {
+      const retry = await timed("fallbackMs", () => askReasoner(ports.fallback!, "DETERMINISTIC_FALLBACK"));
+      if (retry.usable) {
+        parsedPlan = retry.plan;
+        plan = redactPlan(parsedPlan, vault);
+        validation = validateNow();
+      }
+    }
+  }
   if (!validation.ok) {
     return stop("VALIDATE_PLAN", validation.refusal.cause, validation.refusal.detail, validation.refusal);
   }

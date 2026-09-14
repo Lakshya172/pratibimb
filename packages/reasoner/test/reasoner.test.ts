@@ -16,17 +16,18 @@ import { deterministicReasoner, sendToReasoner, type ReasonerClient } from "../s
 import { DEMO, GOAL, ORIGIN, REQUEST, SESSION, verifiedHandoff } from "./support/handoff.js";
 
 const request = async (over: Record<string, unknown> = {}) => {
-  const { handoff } = await verifiedHandoff();
-  return { handoff, goal: GOAL, requestId: REQUEST, sessionId: SESSION, origin: ORIGIN, ...over } as never;
+  const { handoff, vault } = await verifiedHandoff();
+  return { handoff, vault, goal: GOAL, requestId: REQUEST, sessionId: SESSION, origin: ORIGIN, ...over } as never;
 };
 
 describe("SEND refuses before it sends", () => {
   it("refuses a handoff the privacy verifier did not produce", async () => {
-    const { handoff } = await verifiedHandoff();
+    const { handoff, vault } = await verifiedHandoff();
     const forged = JSON.parse(JSON.stringify(handoff)) as typeof handoff;
     expect(forged.verified).toBe(true); // the flag is right; the membership is not
     const response = await sendToReasoner(deterministicReasoner(), {
       handoff: forged,
+      vault,
       goal: GOAL,
       requestId: REQUEST,
       sessionId: SESSION,
@@ -162,7 +163,7 @@ describe("the deterministic planner", () => {
   });
 
   it("says so rather than guessing when the page lacks what the goal needs", async () => {
-    const { handoff } = await verifiedHandoff();
+    const { handoff, vault } = await verifiedHandoff();
     const withoutFields = {
       ...handoff,
       elements: handoff.elements.filter((e) => e.id !== "#mobile_confirm"),
@@ -170,6 +171,7 @@ describe("the deterministic planner", () => {
     // Passed directly to the planner: SEND would refuse this object, which is the point of SEND.
     const raw = (await deterministicReasoner().propose({
       handoff: withoutFields as never,
+      vault,
       goal: GOAL,
       requestId: REQUEST,
       sessionId: SESSION,
