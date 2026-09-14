@@ -1,0 +1,174 @@
+# Presenter runbook — SIH internal / inter-level selection
+
+> **W2 (`LAPTOP-SRCINK2B`), Chrome for Testing 153.0.8010.12.** Five minutes. Three acts. One line
+> to land: **the model proposes, the client decides.**
+
+## Before the room fills
+
+```bash
+npm run typecheck
+npm run demo -- --rehearse 3
+```
+
+Expect `PASS`, and three rows where success is `CONFIRMED`, refusal is `LEAKAGE_BLOCKED`, fallback is
+`CONFIRMED_VIA_FALLBACK` and `unexpected=false`. If any row disagrees, **do not present that act** —
+go to [Contingency](#contingency).
+
+Then start the live system and leave it alone:
+
+```bash
+npm run demo:present
+```
+
+It prints `READY` and hands you a browser at `http://127.0.0.1:8975/`. Model load is about a second.
+Ctrl-C stops everything.
+
+**Press `Reset` before your first act.** The rehearsal leaves the page in whatever state it ended in.
+
+---
+
+## The script
+
+### 00:00–00:30 · The problem
+
+> "Browser agents need to see your page to act on it. That means your name, your phone number, your
+> Aadhaar number, your date of birth go to whatever model is doing the reasoning. PratiBimb is a
+> privacy firewall that happens to power an agent."
+
+Point at **pane 2** — the page has all five. Point at the title: *A privacy firewall that happens to
+power an agent.*
+
+### 00:30–01:00 · The goal
+
+> "One instruction: **submit my application with my registered mobile number.** The number is on the
+> page. The agent has to use it. It must never leave this laptop."
+
+Read **pane 1** aloud. It is deliberately large.
+
+### 01:00–01:45 · Local versus server — *the whole demo is this one comparison*
+
+Press **Run the task**. While it runs, put a finger on each pane:
+
+| Pane 2 — **LOCAL ONLY** | Pane 3 — **LEAVES THIS MACHINE** |
+|---|---|
+| the real mobile number | `<PII:PHONE:1>` |
+| the real Aadhaar number | `<PII:AADHAAR:1>` |
+| the real date of birth | `<PII:DOB:1>` |
+| the real name | `<PII:NAME:1>` |
+| the OTP | **no reference at all** |
+
+> "Left is this machine. Right is what crosses the boundary. Same row, same field — a value on the
+> left, an opaque reference on the right. The OTP does not even get a reference: it is classified
+> CRITICAL, so it is masked with no way to ask for it back."
+
+Pane 3 also shows the safe hint the model *does* get: `len 10 · numeric · tel`. Enough to plan with,
+not enough to be the number.
+
+### 01:45–02:15 · The reasoner
+
+> "That went over real HTTP to a real language model running on this laptop — Qwen2.5-0.5B, on the
+> CPU, no GPU. It planned from references it cannot resolve."
+
+**Pane 4** shows the plan it returned:
+
+```
+insert <PII:PHONE:1> → #mobile_confirm
+click #submit
+```
+
+> "It asked for a reference to be put somewhere. It never saw a value and it never asks for one."
+
+### 02:15–02:45 · The human
+
+The permission dialog is open. Read it:
+
+> "Allow PratiBimb to use your **registered phone** for *Confirm mobile number*? — and it names the
+> reference, the field, the page and the session. **Once.** Not stored, not a standing permission."
+
+Press **Allow once**.
+
+### 02:45–03:15 · Local rehydration
+
+> "The value is restored **here**, by the trusted client, after you said yes. It did not come back
+> from the model — the model never had it."
+
+Pane 4: `REHYDRATED LOCALLY <PII:PHONE:1> → #mobile_confirm`.
+
+### 03:15–03:45 · The action, and the result
+
+> "Then one click, through the existing permit gate — hit-tested, freshness-checked, dispatched as a
+> real pointer sequence. And the result is *read back off the page*, not assumed."
+
+**CONFIRMED** is on screen. The form says *Application submitted*.
+
+### 03:45–04:15 · What actually left
+
+**Pane 5.** This is the one to linger on.
+
+> "Two thousand six hundred and seventy-nine bytes left this device. Here is their SHA-256. Here is
+> the digest the receiving service computed **independently** on the bytes it received. They match.
+> Four references went; zero of the five values did."
+
+### 04:15–04:45 · The adversarial model
+
+Press **Compromised reasoner**.
+
+> "Now the reasoner is hostile. It answers with the actual mobile number instead of the reference —
+> the number it was never given."
+
+### 04:45–05:00 · The line
+
+**LEAKAGE BLOCKED**, in red, with `VAULT_LITERAL_ECHO · 0 rehydrations · 0 clicks · nothing executed`.
+
+> "The client recognised a value it holds locally and never sent. Refused before rehydration, before
+> the human was asked, before anything was clicked. And it did **not** quietly fall back to a plan
+> that would have worked — that would turn a caught attack into a success.
+>
+> **The model proposes. The client decides.**"
+
+---
+
+## If you have a spare minute
+
+Press **Model outage** — a real refused connection to a dead port.
+
+> "The model is gone. The deterministic planner answers instead, through the same validation, the
+> same human grant, the same permit gate. **CONFIRMED · FALLBACK.** The security pipeline does not
+> depend on the model being there — or on it being honest."
+
+---
+
+## Contingency
+
+Nothing here disables a security check. If a gate refuses, **that is the product working**; say so.
+
+| What happens | What to do |
+|---|---|
+| **Model will not start / weights missing** | `node artifacts/experiments/LOOP-2-local-reasoner-egress/harness/fetch-model.mjs`. If there is no time: present **Model outage** first and narrate the deterministic path. The loop is complete without the model. |
+| **Reasoner slow or times out** | Wait — cold is ~1.1 s, warm ~0.5 s. If it hangs, press `Reset`, then **Model outage**, and say the model is a replaceable component. |
+| **Page in a strange state** | `Reset`. It reloads the frame, clears the view and the egress log, and gives the document a fresh identity. |
+| **Browser crashes** | Ctrl-C, `npm run demo:present` again. Under ten seconds. |
+| **An unexpected refusal** | Read it out. Pane 4 names the stage and the authority that refused. A refusal you did not plan is still the system doing its job — do not retry it hoping for a different answer. |
+| **Extension question** | Answer honestly: this is the **direct / in-process** path. The extension host builds and loads; the loop has not been run through it. See the cheat sheet. |
+| **Anything looks fabricated** | Open `artifacts/experiments/DEMO-1-sih-rehearsal/logs/` and the LOOP-2 payload artifact. Offer the runner. |
+
+**Never** say a number, a guarantee or a capability that is not on screen. The
+[judge cheat sheet](judge-cheat-sheet.md) has the defensible answers.
+
+---
+
+## What the rehearsal measured
+
+**DEMO REHEARSAL MEASUREMENTS — not benchmark results.** Five rounds, one machine, one fixture, CPU
+only, no GPU.
+
+| | |
+|---|---|
+| Rounds, all three acts | **5 of 5 clean**, no unexpected failures |
+| Model ready | ~1.0 s from cold start |
+| Success act | 1 074 ms cold, then 471–550 ms |
+| Whole round (three acts + resets) | 553–1 509 ms |
+| `llama-server.exe` | 558 MB · `node.exe` 126 MB · GPU unused |
+
+These say what "normal" looks like so you can tell a slow model from a broken one. They are not
+evidence of performance and must not be quoted as such.

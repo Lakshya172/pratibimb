@@ -52,6 +52,36 @@ fixture in Chrome for Testing 153.0.8010.12
   values**, and the client's digest matched the receiving service's independently computed one
   (`26d7c09f…`). Bodies are on disk under the experiment's `logs/captures/`.
 
+**The demo, rehearsed until it is boring** — W2, Chrome for Testing 153.0.8010.12, 5 rounds, 15 acts,
+no unexpected failures ([DEMO-1](artifacts/experiments/DEMO-1-sih-rehearsal/README.md)).
+
+- **`npm run demo`** starts every service, rehearses all three acts and judges itself against
+  declared expectations; **`npm run demo:present`** hands a headful browser to a presenter. The acts
+  live in `apps/demo/src/demoScript.ts` as data, so the buttons, the runner and the tests read one
+  definition — and an act chooses only **which reasoner answers and at what address**. No security
+  layer beneath can tell which act is running.
+- **The compromised and honest reasoners listen at the same time** on different ports, so a presenter
+  can run success → reset → refusal → reset → outage without restarting anything. The outage act
+  addresses a port with nothing behind it, so the connection is genuinely refused; the resulting
+  `ERR_CONNECTION_REFUSED` is **asserted as evidence**, because a clean console there would mean the
+  act had become a simulation.
+- **The digest comparison is now visible during the demo.** The receiving service reports what it got
+  in a response header and `sendVerified` records the claim beside its own digest. **This is not a
+  security control**: it is read after the send, gates nothing, and a hostile peer could put any
+  string in it. The guarantee is unchanged — the bytes that were scanned are the bytes that were sent.
+- Presenter material: [`presenter-runbook.md`](docs/demo/presenter-runbook.md) and
+  [`judge-cheat-sheet.md`](docs/demo/judge-cheat-sheet.md), whose answers use demonstrated facts only
+  and say "NOT PROVEN" where that is the honest answer.
+
+### Fixed in the demo surface
+- **The `local model` checkbox was dead UI** — nothing read it, so ticking it silently ran the
+  deterministic planner. A control that implied a path which was not exercised.
+- **The footer and pane 5 still claimed "no model, no network client" and "no egress client exists in
+  this phase"**, both untrue since LOOP-2.
+- **`sweep` threw on a cyclic object**, which mid-demo would have taken out the evidence pane — and a
+  caller catching that throw would have been one line from reporting a leak check as clean because it
+  could not run. It now prunes cycles and reports that it did.
+
 ### Notes on the model
 - **`MODEL_PATH = EXPERIMENTAL`, `FALLBACK_PATH = VERIFIED`.** A 0.5B model given the bare schema
   produced schema-valid nonsense; it needed enum-constrained decoding and a worked example before it
