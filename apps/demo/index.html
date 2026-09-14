@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PratiBimb — Planning View</title>
+    <!-- An empty icon, so the browser makes no request the server would have to answer with a 404.
+         The demo run asserts a clean console, and a tolerated error is a place a real one can hide. -->
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./planning-view.css" />
+    <!--
+      Bare specifiers resolve to the BUILT packages, served by tests/browser/demo/server.mjs. The
+      page runs the same dist/ the rest of the repository builds; there is no bundler step and no
+      re-implementation for the browser.
+    -->
+    <script type="importmap">
+      {
+        "imports": {
+          "@pratibimb/perception": "/pkg/perception/index.js",
+          "@pratibimb/privacy": "/pkg/privacy/index.js",
+          "@pratibimb/agent": "/pkg/agent/index.js",
+          "@pratibimb/plan": "/pkg/plan/index.js",
+          "@pratibimb/reasoner": "/pkg/reasoner/index.js",
+          "@pratibimb/orchestrator": "/pkg/orchestrator/index.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <div class="title">
+        <h1>PratiBimb</h1>
+        <p>A privacy firewall that happens to power an agent.</p>
+      </div>
+      <div class="actions">
+        <button id="run-happy" type="button" class="primary">Run the task</button>
+        <button id="run-refusal" type="button" class="danger">Run with a compromised reasoner</button>
+      </div>
+    </header>
+
+    <section id="wall-strip">
+      <div id="wall"></div>
+      <p id="wall-verdict" class="verdict"></p>
+    </section>
+
+    <main>
+      <section class="pane span-2">
+        <h2><span class="n">1</span> Goal</h2>
+        <div id="pane-goal"></div>
+      </section>
+
+      <section class="pane span-2">
+        <h2><span class="n">5</span> Egress &amp; result</h2>
+        <div id="pane-egress"></div>
+      </section>
+
+      <section class="pane local">
+        <h2><span class="n">2</span> Page — local</h2>
+        <div id="pane-page"></div>
+      </section>
+
+      <section class="pane server">
+        <h2><span class="n">3</span> Server view — what actually crossed the boundary</h2>
+        <div id="pane-server"></div>
+      </section>
+
+      <section class="pane span-2">
+        <h2><span class="n">4</span> Plan · validation · grant</h2>
+        <div id="pane-plan"></div>
+      </section>
+
+      <section class="pane span-2 page-frame">
+        <h2>The page</h2>
+        <iframe id="page" src="/fixture/" title="State Services application"></iframe>
+      </section>
+    </main>
+
+    <dialog id="grant">
+      <h3>Permission required</h3>
+      <div id="grant-body"></div>
+      <div class="dialog-actions">
+        <button id="grant-deny" type="button">Don't allow</button>
+        <button id="grant-allow" type="button" class="primary">Allow once</button>
+      </div>
+    </dialog>
+
+    <footer>
+      <p>
+        Single-task prototype. No model, no network client, no screen capture, no VLM. The vault is a
+        memory-only prototype and not production storage; the egress pane is a privacy-layer record and
+        is not evidence that any byte left this machine.
+      </p>
+    </footer>
+
+    <script type="module" src="/demo/main.js"></script>
+  </body>
+</html>

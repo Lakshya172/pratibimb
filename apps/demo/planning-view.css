@@ -1,0 +1,141 @@
+/* The Planning View's appearance. No behaviour lives here. */
+:root {
+  --bg: #11141a;
+  --panel: #181c24;
+  --panel-2: #1e232d;
+  --line: #2b3240;
+  --ink: #e8ecf3;
+  --muted: #8e99ac;
+  --local: #f0b03c;
+  --server: #4ea3f0;
+  --ok: #3fbf7f;
+  --bad: #e4574d;
+  --warn: #e0a63a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 13px/1.5 ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+}
+
+code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 12px; }
+
+header {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 14px 20px; border-bottom: 1px solid var(--line); background: var(--panel);
+}
+header h1 { margin: 0; font-size: 17px; letter-spacing: .2px; }
+header .title p { margin: 2px 0 0; color: var(--muted); font-size: 12px; }
+header button {
+  font: inherit; font-weight: 600; padding: 8px 14px; border-radius: 6px;
+  border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); cursor: pointer;
+}
+header button.primary { background: #1d6b48; border-color: #2a8c5f; }
+header button.danger { background: #6d2b27; border-color: #8f3a35; }
+header button:disabled { opacity: .5; cursor: default; }
+
+#wall-strip { padding: 12px 20px; border-bottom: 1px solid var(--line); background: #0d1016; }
+#wall { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.wall-step {
+  padding: 4px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .4px;
+  border: 1px solid var(--line); color: var(--muted); background: var(--panel);
+}
+.wall-step.on { color: #0d1016; background: var(--ok); border-color: var(--ok); }
+.wall-step.blocked { color: var(--muted); border-style: dashed; }
+.wall-arrow { color: var(--muted); }
+.verdict { margin: 9px 0 0; font-weight: 700; font-size: 12px; letter-spacing: .3px; }
+.verdict.confirmed { color: var(--ok); }
+.verdict.refused { color: var(--bad); }
+.verdict.uncertain { color: var(--warn); }
+
+main {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 16px 20px 28px; align-items: start;
+}
+.pane { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; min-width: 0; }
+.pane.span-2 { grid-column: span 2; }
+.pane h2 { margin: 0 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); }
+.pane h2 .n {
+  display: inline-grid; place-items: center; width: 18px; height: 18px; margin-right: 7px;
+  border-radius: 5px; background: var(--panel-2); color: var(--ink); font-size: 11px;
+}
+.pane.local { border-top: 2px solid var(--local); }
+.pane.server { border-top: 2px solid var(--server); }
+
+.goal { margin: 0 0 8px; font-size: 15px; font-weight: 600; }
+.muted { color: var(--muted); }
+.sub { color: var(--muted); font-size: 11.5px; margin: 6px 0 0; }
+
+dl.kv { display: grid; grid-template-columns: 150px 1fr; gap: 4px 10px; margin: 0; }
+dl.kv dt { color: var(--muted); font-size: 11.5px; }
+dl.kv dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 12px; }
+th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; }
+td.local { color: var(--local); font-family: ui-monospace, Consolas, monospace; }
+td.geo { color: var(--muted); font-size: 11px; white-space: nowrap; }
+
+.token { color: var(--server); background: #13283c; padding: 1px 5px; border-radius: 4px; }
+.marker { color: var(--bad); background: #37191a; padding: 1px 5px; border-radius: 4px; font-family: ui-monospace, Consolas, monospace; }
+.hash { color: var(--muted); overflow-wrap: anywhere; }
+
+.tag { display: inline-block; padding: 1px 7px; border-radius: 4px; font-size: 11px; font-weight: 700; letter-spacing: .3px; }
+.t-critical { background: #4a1f1c; color: #ff9d96; }
+.t-sensitive { background: #4a3a17; color: #ffd27a; }
+.t-personal { background: #1d3550; color: #9ecbff; }
+.t-public, .t-confidential { background: var(--panel-2); color: var(--muted); }
+.t-ok { background: #17402d; color: #6fe0a8; }
+.t-bad { background: #4a1f1c; color: #ff9d96; }
+
+.note { margin: 0 0 10px; padding: 7px 9px; border-radius: 6px; font-size: 11.5px; background: var(--panel-2); color: var(--muted); }
+.note.local-note { border-left: 3px solid var(--local); }
+.note.clean { border-left: 3px solid var(--ok); color: #9be3bf; }
+.note.dirty { border-left: 3px solid var(--bad); color: #ffb3ac; }
+
+ol.plan { margin: 0 0 10px; padding-left: 20px; }
+ol.plan li { margin: 3px 0; }
+
+.timings { margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 5px; }
+.chip { background: var(--panel-2); color: var(--muted); border-radius: 4px; padding: 2px 7px; font-size: 11px; }
+
+details { margin-top: 10px; }
+summary { cursor: pointer; color: var(--muted); font-size: 11.5px; }
+pre {
+  max-height: 260px; overflow: auto; background: #0d1016; border: 1px solid var(--line);
+  border-radius: 6px; padding: 9px; font-size: 11px; margin: 8px 0 0;
+}
+
+/*
+  Tall enough that the whole form, including the submit button, is inside the frame's viewport.
+  This is not cosmetic: perception marks an element below the fold OFFSCREEN, and the gate refuses
+  to dispatch at a point it cannot attest is on screen — correctly. A shorter frame makes the demo
+  fail at ACT with TARGET_ABSENT_AFTER_REFRESH, which is the system working, not a bug to route
+  around.
+*/
+.page-frame iframe { width: 100%; height: 740px; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+
+dialog {
+  border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--ink);
+  max-width: 480px; padding: 18px 20px;
+}
+dialog::backdrop { background: rgba(5, 7, 11, .7); }
+dialog h3 { margin: 0 0 10px; font-size: 15px; }
+.ask { font-size: 14px; margin: 0 0 12px; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+.dialog-actions button {
+  font: inherit; font-weight: 600; padding: 8px 14px; border-radius: 6px;
+  border: 1px solid var(--line); background: var(--panel-2); color: var(--ink); cursor: pointer;
+}
+.dialog-actions button.primary { background: #1d6b48; border-color: #2a8c5f; }
+
+footer { padding: 0 20px 24px; color: var(--muted); font-size: 11.5px; max-width: 900px; }
+
+@media (max-width: 900px) {
+  main { grid-template-columns: 1fr; }
+  .pane.span-2 { grid-column: span 1; }
+}
