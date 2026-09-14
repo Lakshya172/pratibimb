@@ -33,7 +33,7 @@ handoff or the ledger entry; the OTP receiving a reference; or the sanitizer fai
 | Fixture | [`tests/browser/privacy/fixture/application.html`](../../../tests/browser/privacy/fixture/application.html), served from `http://127.0.0.1:8971` by the runner |
 | Runner | [`tests/browser/privacy/run-privacy-smoke.mjs`](../../../tests/browser/privacy/run-privacy-smoke.mjs) |
 | Code under test | the **built** packages (`packages/*/dist`), so the run exercises what would ship |
-| Values | synthetic (SECURITY.md §2): `Ramesh Kumar`, a `9…` mobile number, a Verhoeff-valid Aadhaar number, `1998-04-12`, a six-digit OTP |
+| Values | synthetic (SECURITY.md §2), and named here by class rather than written out: a two-word person name, a ten-digit Indian mobile number, a Verhoeff-valid Aadhaar number, an ISO date of birth, a six-digit OTP. They live in the fixture and the test support module; this record does not restate them |
 | Not present | no extension, no planner, no orchestrator, no click, no rehydration, no network client |
 
 ## Expected result

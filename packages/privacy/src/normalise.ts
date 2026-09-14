@@ -18,7 +18,10 @@ const CONFUSIONS: Readonly<Record<string, string>> = { o: "0", O: "0", l: "1", I
 /**
  * Digits as an attacker would read them back: confusions folded, everything else dropped.
  *
- * `+91 90000-00001` and `9OOOO00001` both reduce to the same digit string as `9000000001`.
+ * A number written with a country code and hyphens, and the same number with letters standing in for
+ * digits, both reduce to the digit string the vault holds. No example is written out here: a
+ * synthetic demo value in a source comment is still a value in the source (SECURITY.md §2), and the
+ * test suite is where those live.
  */
 export function digitFold(raw: string): string {
   let out = "";
