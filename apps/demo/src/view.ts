@@ -11,7 +11,9 @@
  * THE ONE ASYMMETRY, AND IT IS THE POINT. Pane 2 is the **local** view and may show the real values:
  * that is what makes the contrast visible. Pane 3 is the **server** view and must not — so it prints
  * bytes that provably contain none, and a check beside it says so. The judge is meant to read the two
- * panes side by side and see `9000000001` on the left and `<PII:PHONE:1>` on the right.
+ * panes side by side and see the mobile number itself on the left and `<PII:PHONE:1>` on the right.
+ * (No value is written out in this file: a synthetic demo value in source is still a value in the
+ * source, SECURITY.md §2. They live in the fixture, which is where they belong.)
  *
  * NOTHING HERE ANIMATES PAST THE SYSTEM. The privacy-wall strip lights a step only when the run
  * actually reached the state behind it, read from `record.transitions`.
