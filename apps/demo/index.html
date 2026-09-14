@@ -35,12 +35,14 @@
       </div>
       <div class="actions">
         <button id="run-happy" type="button" class="primary">Run the task</button>
-        <button id="run-refusal" type="button" class="danger">Run with a compromised reasoner</button>
-        <label class="reasoner-pick"><input id="use-model" type="checkbox" /> local model</label>
+        <button id="run-refusal" type="button" class="danger">Compromised reasoner</button>
+        <button id="run-outage" type="button">Model outage</button>
+        <button id="reset-demo" type="button" class="quiet">Reset</button>
       </div>
     </header>
 
     <section id="wall-strip">
+      <p id="act-label" class="act-label"></p>
       <div id="wall"></div>
       <p id="wall-verdict" class="verdict"></p>
     </section>
@@ -52,22 +54,22 @@
       </section>
 
       <section class="pane span-2">
-        <h2><span class="n">5</span> Egress &amp; result</h2>
+        <h2><span class="n">5</span> Privacy ledger — what actually left this device</h2>
         <div id="pane-egress"></div>
       </section>
 
       <section class="pane local">
-        <h2><span class="n">2</span> Page — local</h2>
+        <h2><span class="n">2</span> What the page contains <span class="side-tag side-local">LOCAL ONLY</span></h2>
         <div id="pane-page"></div>
       </section>
 
       <section class="pane server">
-        <h2><span class="n">3</span> Server view — what actually crossed the boundary</h2>
+        <h2><span class="n">3</span> What the reasoner receives <span class="side-tag side-server">LEAVES THIS MACHINE</span></h2>
         <div id="pane-server"></div>
       </section>
 
       <section class="pane span-2">
-        <h2><span class="n">4</span> Plan · validation · grant</h2>
+        <h2><span class="n">4</span> Plan · validation · human grant · action</h2>
         <div id="pane-plan"></div>
       </section>
 
@@ -88,9 +90,11 @@
 
     <footer>
       <p>
-        Single-task prototype. No model, no network client, no screen capture, no VLM. The vault is a
-        memory-only prototype and not production storage; the egress pane is a privacy-layer record and
-        is not evidence that any byte left this machine.
+        Single-task prototype on synthetic data. The reasoner is a local Qwen2.5-0.5B over loopback
+        HTTP — <b>experimental</b>; the deterministic planner behind it is the verified path. No screen
+        capture, no VLM, and the loop does not run through the browser extension. The vault is a
+        memory-only prototype, not production storage. Not production-ready and not a general privacy
+        guarantee.
       </p>
     </footer>
 

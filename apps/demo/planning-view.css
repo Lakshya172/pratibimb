@@ -47,10 +47,23 @@ header button:disabled { opacity: .5; cursor: default; }
 .wall-step.on { color: #0d1016; background: var(--ok); border-color: var(--ok); }
 .wall-step.blocked { color: var(--muted); border-style: dashed; }
 .wall-arrow { color: var(--muted); }
-.verdict { margin: 9px 0 0; font-weight: 700; font-size: 12px; letter-spacing: .3px; }
-.verdict.confirmed { color: var(--ok); }
-.verdict.refused { color: var(--bad); }
-.verdict.uncertain { color: var(--warn); }
+/*
+  THE HEADLINE. A judge reads this from the back of a room, in about a second, and it is the only
+  thing on screen that is allowed to be loud. The word itself comes from `headlineOf`, which the
+  rehearsal artifact also prints, so the projector and the JSON can never disagree.
+*/
+.verdict { margin: 9px 0 0; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.verdict .headline { font-weight: 800; font-size: 30px; letter-spacing: 1px; line-height: 1.1; }
+.verdict .detail { color: var(--muted); font-size: 12px; font-weight: 600; }
+.verdict.confirmed .headline { color: var(--ok); }
+.verdict.refused .headline, .verdict.blocked .headline { color: var(--bad); }
+.verdict.uncertain .headline { color: var(--warn); }
+/* Leakage blocked is a refusal, but it is the refusal the second act exists to show. */
+.verdict.blocked .headline { text-shadow: 0 0 22px rgba(228, 87, 77, .45); }
+
+.act-label { margin: 0 0 10px; color: var(--muted); font-size: 12px; font-weight: 600; min-height: 16px; }
+.act-label[data-act="REFUSAL"] { color: #ffb3ac; }
+.act-label[data-act="OUTAGE"] { color: #ffd27a; }
 
 main {
   display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 16px 20px 28px; align-items: start;
@@ -140,5 +153,27 @@ footer { padding: 0 20px 24px; color: var(--muted); font-size: 11.5px; max-width
   .pane.span-2 { grid-column: span 1; }
 }
 
-.reasoner-pick { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 12px; margin-left: 10px; }
-.reasoner-pick input { accent-color: var(--ok); }
+header button.quiet { background: transparent; color: var(--muted); }
+body[data-busy="yes"] { cursor: progress; }
+
+/*
+  LOCAL vs SERVER, made impossible to miss. Panes 2 and 3 are the comparison the whole demo rests on,
+  so each carries its side's colour in its heading as well as its top border: amber is this machine,
+  blue is what crosses the boundary.
+*/
+.side-tag {
+  float: right; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 800;
+  letter-spacing: .6px; text-transform: uppercase;
+}
+.side-local { background: #3b2e10; color: var(--local); }
+.side-server { background: #12283d; color: var(--server); }
+
+/* The two digests, side by side, with the comparison between them. */
+.digests { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.digests .sub { flex-basis: 100%; margin: 2px 0 0; }
+.eq { font-weight: 800; font-size: 15px; }
+.eq.ok { color: var(--ok); }
+.eq.bad { color: var(--bad); }
+
+.blocked { margin-top: 8px; font-size: 11.5px; color: #ffb3ac; }
+.t-model { background: #12283d; color: #9ecbff; }
