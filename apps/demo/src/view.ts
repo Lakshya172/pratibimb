@@ -21,6 +21,8 @@
 import { type RunRecord, type RunState } from "@pratibimb/orchestrator";
 import { type SafeStep } from "@pratibimb/plan";
 
+import { egressEvidenceOf, headlineOf, HEADLINE_TEXT, type EgressAttempt } from "./evidence.js";
+
 const el = (id: string): HTMLElement => {
   const found = document.getElementById(id);
   if (!found) throw new Error(`planning view: #${id} is missing`);
@@ -53,19 +55,37 @@ export function renderWall(record: RunRecord | null): void {
   }).join('<span class="wall-arrow">→</span>');
 
   const banner = el("wall-verdict");
+  const headline = headlineOf(record);
   if (!record) {
-    banner.textContent = "";
+    banner.innerHTML = "";
     banner.className = "verdict";
     return;
   }
-  if (refused) {
-    banner.textContent = `REFUSED at ${record.refusal?.stage ?? "?"} — ${record.refusal?.cause ?? ""} · nothing executed`;
-    banner.className = "verdict refused";
-    return;
-  }
-  const verification = record.act?.verification?.verification ?? "NO RESULT";
-  banner.textContent = `${record.state} · VERIFY RESULT = ${verification}`;
-  banner.className = `verdict ${verification === "CONFIRMED" ? "confirmed" : "uncertain"}`;
+
+  // One word large enough to read from the back of the room, and one line of detail under it. The
+  // word comes from `headlineOf`, which the rehearsal artifact also uses, so a screenshot and the
+  // JSON cannot disagree.
+  // Prefer the privacy layer's own cause over the validator's wrapper: "VAULT_LITERAL_ECHO" names
+  // what actually happened, where "LITERAL_REFUSED" only says a literal was rejected.
+  const cause = record?.refusal?.planRefusal?.literalCause ?? record?.refusal?.cause ?? "";
+  const detail = refused
+    ? `at ${record.refusal?.stage ?? "?"} · ${cause} · 0 rehydrations · 0 clicks · nothing executed`
+    : `${record.state} · VERIFY RESULT = ${record.act?.verification?.verification ?? "NO RESULT"}${
+        record.fallback?.fellBack === true ? " · answered by the deterministic planner" : ""
+      }`;
+
+  const tone =
+    headline === "CONFIRMED" || headline === "CONFIRMED_VIA_FALLBACK"
+      ? "confirmed"
+      : headline === "LEAKAGE_BLOCKED"
+        ? "blocked"
+        : headline === "REFUSED"
+          ? "refused"
+          : "uncertain";
+
+  banner.innerHTML = `<span class="headline">${escapeHtml(HEADLINE_TEXT[headline])}</span>
+    <span class="detail">${escapeHtml(detail)}</span>`;
+  banner.className = `verdict ${tone}`;
 }
 
 /** PANE 1 — the user's own words, carried separately from anything the page said. */
@@ -156,7 +176,9 @@ export function renderServerView(record: RunRecord | null): void {
       <tbody>${spans}</tbody>
     </table></div>
     <p class="sub">Goal sent: <em>${escapeHtml(handoff.goal)}</em></p>
-    <details><summary>the exact payload (${record.handoffSerialized.length} bytes)</summary>
+    <p class="sub">This is the sanitized representation. The request that actually went on the wire is
+      built from it and prompt scaffolding — pane 5 has those bytes and their digest.</p>
+    <details><summary>the sanitized representation (${record.handoffSerialized.length} bytes)</summary>
       <pre>${escapeHtml(JSON.stringify(JSON.parse(record.handoffSerialized), null, 1))}</pre>
     </details>`;
 }
@@ -223,12 +245,45 @@ export function renderPlan(record: RunRecord | null): void {
 }
 
 /** PANE 5 — identity, the digest, the classes, and the verifier's own answer. */
-export function renderEgress(record: RunRecord | null): void {
+export function renderEgress(record: RunRecord | null, attempts: readonly EgressAttempt[] = []): void {
   if (!record) {
     el("pane-egress").innerHTML = `<p class="muted">Nothing recorded.</p>`;
     return;
   }
   const entry = record.ledgerEntry;
+  const evidence = egressEvidenceOf(record, attempts);
+  const sent = evidence?.sent ?? null;
+
+  /**
+   * THE TWO-SIDED PROOF, live.
+   *
+   * Left: the digest this machine computed over the bytes it serialized and sent. Right: the digest
+   * the receiving service reported for the bytes it got. The client's guarantee is that the bytes it
+   * *scanned* are the bytes it *sent* — that holds regardless. Agreement additionally says nothing
+   * altered them in flight, and it is labelled as the peer's claim because a hostile service could
+   * report anything. `null` means the peer claimed nothing, which is shown as "not claimed" and
+   * never as a mismatch.
+   */
+  const digestRow =
+    sent === null
+      ? `<span class="muted">nothing was sent</span>`
+      : sent.digestsAgree === null
+        ? `<code class="hash">${escapeHtml(sent.clientSha256.slice(0, 24))}…</code>
+           <span class="sub">the receiving service claimed no digest</span>`
+        : `<code class="hash">${escapeHtml(sent.clientSha256.slice(0, 24))}…</code>
+           <span class="eq ${sent.digestsAgree ? "ok" : "bad"}">${sent.digestsAgree ? "==" : "≠"}</span>
+           <code class="hash">${escapeHtml((sent.peerSha256 ?? "").slice(0, 24))}…</code>
+           <span class="sub">client digest ${sent.digestsAgree ? "matches" : "DIFFERS FROM"} the digest the
+             receiving service reported (its claim, not a guarantee)</span>`;
+
+  const blockedRows = (evidence?.blocked ?? [])
+    .map(
+      (b) =>
+        `<div class="blocked"><span class="tag t-bad">NOT SENT</span> ${escapeHtml(b.cause)} at ${escapeHtml(b.stage)}${
+          b.leakedClass ? ` · ${escapeHtml(b.leakedClass)}` : ""
+        }</div>`
+    )
+    .join("");
   const verification = record.act?.verification;
   const resultTag = !verification
     ? `<span class="muted">no action was dispatched</span>`
@@ -244,26 +299,36 @@ export function renderEgress(record: RunRecord | null): void {
   el("pane-egress").innerHTML = `
     <dl class="kv">
       <dt>request</dt><dd>${escapeHtml(record.requestId)}</dd>
-      <dt>session</dt><dd>${escapeHtml(record.sessionId)}</dd>
-      <dt>destination</dt><dd>${escapeHtml(entry?.destination ?? "—")}</dd>
+      <dt>reasoner</dt><dd><span class="tag ${record.reasonerKind === "LOCAL_MODEL" ? "t-model" : "t-ok"}">${escapeHtml(
+        record.reasonerKind ?? "—"
+      )}</span> ${record.fallback?.fellBack === true ? `<span class="sub">model outcome ${escapeHtml(record.fallback.outcome ?? "")}</span>` : ""}</dd>
+      <dt>destination</dt><dd><code>${escapeHtml(sent?.destination ?? entry?.destination ?? "—")}</code>
+        ${sent ? `<span class="tag t-ok">${escapeHtml(sent.transport)}</span>` : ""}</dd>
       <dt>verification</dt><dd>${entry?.verified ? `<span class="tag t-ok">verified handoff</span>` : `<span class="muted">—</span>`}</dd>
-      <dt>payload sha-256</dt><dd><code class="hash">${escapeHtml(entry?.payloadSha256 ?? "—")}</code></dd>
-      <dt>payload bytes</dt><dd>${entry ? String(entry.payloadBytes) : "—"}</dd>
-      <dt>references</dt><dd>${(entry?.references ?? []).map((r) => `<code class="token">${escapeHtml(r.token)}</code>`).join(" ") || "—"}</dd>
-      <dt>masked, no reference</dt><dd>${entry ? String(entry.maskedWithoutReference) : "—"}</dd>
-      <dt>leak check</dt><dd>${escapeHtml(entry?.leakCheck ?? "—")}</dd>
+      <dt>payload bytes</dt><dd>${sent ? String(sent.payloadBytes) : entry ? String(entry.payloadBytes) : "—"}</dd>
+      <dt>client == server</dt><dd class="digests">${digestRow}</dd>
+      <dt>references sent</dt><dd>${
+        (sent?.references ?? (entry?.references ?? []).map((r) => r.token)).map((t) => `<code class="token">${escapeHtml(t)}</code>`).join(" ") ||
+        "—"
+      }</dd>
+      <dt>leak scan</dt><dd>${
+        sent ? `<span class="tag t-ok">${escapeHtml(sent.leakCheck)}</span>` : escapeHtml(entry?.leakCheck ?? "—")
+      }</dd>
       <dt>VERIFY RESULT</dt><dd>${resultTag}</dd>
     </dl>
+    ${blockedRows}
     <p class="timings">${timings}</p>
-    <p class="note">${escapeHtml(entry?.note ?? "No egress client exists in this phase.")}
-      This pane is a privacy-layer record, not evidence that any byte left the machine.</p>`;
+    <p class="note">The digest on the left is of the exact bytes this client serialized, scanned and
+      sent — one string, produced once. The one on the right is what the receiving service said it got.
+      Synthetic data, one loopback destination, no TLS and no authentication: this is not production
+      egress security.</p>`;
 }
 
-export function renderAll(goal: string, record: RunRecord | null): void {
+export function renderAll(goal: string, record: RunRecord | null, attempts: readonly EgressAttempt[] = []): void {
   renderGoal(goal, record);
   renderPage(record);
   renderServerView(record);
   renderPlan(record);
-  renderEgress(record);
+  renderEgress(record, attempts);
   renderWall(record);
 }

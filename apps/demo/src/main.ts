@@ -1,26 +1,28 @@
 /**
  * The demo, wired up.
  *
- * WHAT IS REAL HERE. Everything except the reasoner's intelligence. The page is a real page in a real
- * same-origin frame; the observation, sanitization, verification, plan parsing, validation, binding,
- * grant, rehydration, permit, hit test, dispatch and result verification are the shipped packages.
- * The reasoner is deterministic, by design for this phase, behind a boundary built so that swapping
- * it for a small open-weight model on loopback changes nothing after it.
+ * WHAT IS REAL HERE. All of it. The page is a real page in a real same-origin frame; the observation,
+ * sanitization, verification, egress, plan parsing, validation, binding, grant, rehydration, permit,
+ * hit test, dispatch and result verification are the shipped packages. The reasoner is a real
+ * Qwen2.5-0.5B answering over real loopback HTTP, behind a boundary built so that replacing it
+ * changes nothing after it.
  *
- * THE TWO BUTTONS ARE THE SAME CODE PATH. "Run" and "Run with a compromised reasoner" differ by one
- * argument to `deterministicReasoner`. There is no demo-only branch anywhere below, and no UI-only
- * refusal: the second run is refused by the same `validatePlan` → `checkLiteral` the first one passes
- * through.
+ * THE THREE BUTTONS ARE THE SAME CODE PATH. Success, compromised reasoner and model outage differ
+ * only in **which reasoner answers and at what address** (`demoScript.ts`). There is no demo-only
+ * branch anywhere below this file, no mode the security layers can see, and no UI-only refusal: act
+ * two is refused by the same `validatePlan` → `checkLiteral` act one passes through, and act three
+ * reaches the same permit gate act one does.
  *
  * WHY THE HOSTILE REASONER HAS TO BE HANDED THE NUMBER. It cannot obtain it from the handoff — the
- * handoff contains no values, which is the thing being demonstrated. So the page reads the registered
- * number out of the local DOM and gives it to the simulated attacker. That necessity is the evidence,
- * and the UI says so rather than hiding it.
+ * handoff contains no values, which is the thing being demonstrated. So the harness reads the
+ * registered number out of the local DOM and gives it to the simulated attacker. That necessity is
+ * the evidence, and the UI says so rather than hiding it.
  */
 import { type EgressRecord, type EgressRefusal } from "@pratibimb/egress";
 import { runTask, type GrantDecision, type GrantRequest, type RunRecord } from "@pratibimb/orchestrator";
 import { deterministicReasoner, localModelReasoner, unavailableReasoner } from "@pratibimb/reasoner";
 
+import { ACTS, ENDPOINTS, type ActId } from "./demoScript.js";
 import { PageAdapter, portsFrom } from "./pageAdapter.js";
 import { renderAll } from "./view.js";
 
@@ -107,6 +109,8 @@ export async function run(request: RunRequest = {}): Promise<RunRecord> {
 
   runs += 1;
   const adapter = new PageAdapter(doc, win, { origin, framePrefix: `demo-r${runs}` });
+  // Only this run's egress attempts reach this run's ledger pane.
+  const egressBefore = egressLog.length;
 
   // The attacker's input. It is read from the LOCAL page, because there is nowhere else it could
   // come from — the handoff contains no values.
@@ -149,7 +153,7 @@ export async function run(request: RunRequest = {}): Promise<RunRecord> {
     }
   );
 
-  renderAll(GOAL, record);
+  renderAll(GOAL, record, egressLog.slice(egressBefore));
   return record;
 }
 
@@ -162,35 +166,97 @@ export function resetPage(): Promise<void> {
   });
 }
 
+/**
+ * RESET DEMO — everything `RESET_CONTRACT` names, so the next act starts from nothing.
+ *
+ * Reloading the frame is what clears the form, the submit events and the status line, and it gives
+ * the document a new identity so no binding, grant or permit from the previous act could still
+ * apply even if one had survived. The Planning View and the egress log are cleared here because
+ * they are the two things that live in *this* document and would otherwise carry act one into act
+ * two — in front of judges.
+ *
+ * The vault, the handoff and the use-grant need no clearing: `sanitize()` builds a new vault per
+ * run and nothing outlives the record.
+ */
+export async function resetDemo(): Promise<void> {
+  egressLog.splice(0, egressLog.length);
+  window.__demo.last = null;
+  await resetPage();
+  renderAll(GOAL, null);
+  setAct(null);
+}
+
+/** Run one act of the demo script. The buttons and the rehearsal runner both come through here. */
+export async function runAct(id: ActId, options: { readonly auto?: boolean } = {}): Promise<RunRecord> {
+  const act = ACTS[id];
+  setAct(id);
+  const record = await run({
+    reasoner: act.reasoner,
+    mode: act.mode,
+    ...(act.endpoint ? { endpoint: ENDPOINTS[act.endpoint] } : {}),
+    ...(options.auto === true ? { auto: true } : {}),
+  });
+  window.__demo.last = record;
+  return record;
+}
+
+/** Name the act on screen, so nobody has to remember which button was pressed. */
+function setAct(id: ActId | null): void {
+  const strip = document.getElementById("act-label");
+  if (!strip) return;
+  strip.textContent = id === null ? "" : `${ACTS[id].label} — ${ACTS[id].blurb}`;
+  strip.dataset["act"] = id ?? "";
+}
+
 declare global {
   interface Window {
     /** The automated browser runs drive exactly what the buttons drive. */
     __demo: {
       run: typeof run;
+      runAct: typeof runAct;
       resetPage: typeof resetPage;
+      resetDemo: typeof resetDemo;
+      endpoints: typeof ENDPOINTS;
       last: RunRecord | null;
       egressLog: typeof egressLog;
     };
   }
 }
 
-window.__demo = { run, resetPage, last: null, egressLog };
+window.__demo = { run, runAct, resetPage, resetDemo, endpoints: ENDPOINTS, last: null, egressLog };
 
-const wire = (id: string, mode: NonNullable<RunRequest["mode"]>): void => {
+const busy = (on: boolean): void => {
+  document.querySelectorAll<HTMLButtonElement>("header button").forEach((b) => (b.disabled = on));
+  document.body.dataset["busy"] = on ? "yes" : "no";
+};
+
+const wireAct = (id: string, act: ActId): void => {
   document.getElementById(id)?.addEventListener("click", () => {
     void (async () => {
-      const buttons = document.querySelectorAll<HTMLButtonElement>("header button");
-      buttons.forEach((b) => (b.disabled = true));
+      busy(true);
       try {
-        await resetPage();
-        window.__demo.last = await run({ mode });
+        await resetDemo();
+        await runAct(act);
       } finally {
-        buttons.forEach((b) => (b.disabled = false));
+        busy(false);
       }
     })();
   });
 };
 
-wire("run-happy", "reference");
-wire("run-refusal", "literal-echo");
+wireAct("run-happy", "SUCCESS");
+wireAct("run-refusal", "REFUSAL");
+wireAct("run-outage", "OUTAGE");
+
+document.getElementById("reset-demo")?.addEventListener("click", () => {
+  void (async () => {
+    busy(true);
+    try {
+      await resetDemo();
+    } finally {
+      busy(false);
+    }
+  })();
+});
+
 renderAll(GOAL, null);
