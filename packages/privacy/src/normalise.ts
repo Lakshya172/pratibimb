@@ -41,8 +41,9 @@ export const textFold = (raw: string): string => raw.toLowerCase().replace(/[^\p
 /**
  * Does `candidate` contain `secret`, under either folding?
  *
- * Containment rather than equality, because "my number is 9000000001" leaks exactly as much as
- * "9000000001". The digit comparison only runs when the secret is mostly digits, so a two-letter
+ * Containment rather than equality, because a sentence with the number embedded in it — "my number
+ * is <the number>" — leaks exactly as much as the number alone. The digit comparison only runs when
+ * the secret is mostly digits, so a two-letter
  * name cannot collide with an unrelated number.
  *
  * Returns a boolean and nothing else — never the match, the offset, or the secret.
