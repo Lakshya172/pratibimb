@@ -111,12 +111,34 @@ for (const signal of ["SIGINT", "SIGTERM"]) {
 }
 
 // ── 2. the services ─────────────────────────────────────────────────────────────────────────
+/**
+ * Start something, and if the port is taken say what to do about it.
+ *
+ * A presenter who left `demo:present` running and then runs `npm run demo` would otherwise get a raw
+ * `EADDRINUSE` stack trace, which is the least useful thing to read thirty seconds before going on.
+ */
+const startOrExplain = async (what, start) => {
+  try {
+    return await start();
+  } catch (error) {
+    if (error && error.code === "EADDRINUSE") {
+      refuse(
+        `${what} — port ${error.port} is already in use.\n` +
+          `  Another demo is probably still running. Stop it (Ctrl-C in its terminal), or:\n` +
+          `    powershell -c "Get-NetTCPConnection -LocalPort ${error.port} -State Listen | ` +
+          `ForEach-Object { Stop-Process -Id $_.OwningProcess -Force }"`
+      );
+    }
+    throw error;
+  }
+};
+
 console.log("starting services on 127.0.0.1 …");
-const { server: demoServer, origin } = await startDemoServer(8975);
+const { server: demoServer, origin } = await startOrExplain("the Planning View server", () => startDemoServer(8975));
 shutdown.push(() => demoServer.close());
 
 const modelReadyT0 = Date.now();
-const honest = await startReasonerService({ mode: "forward" });
+const honest = await startOrExplain("the reasoner service", () => startReasonerService({ mode: "forward" }));
 const modelReadyMs = Date.now() - modelReadyT0;
 shutdown.push(() => honest.stop());
 console.log(`  model ready in ${modelReadyMs} ms · ${honest.url}`);
@@ -149,7 +171,9 @@ const secrets = await page.evaluate(() => {
 });
 const registered = await page.evaluate(() => document.getElementById("page").contentDocument.getElementById("mobile").value);
 
-const hostile = await startReasonerService({ mode: "hostile", port: HOSTILE_PORT, literal: registered });
+const hostile = await startOrExplain("the compromised reasoner service", () =>
+  startReasonerService({ mode: "hostile", port: HOSTILE_PORT, literal: registered })
+);
 shutdown.push(() => hostile.stop());
 console.log(`  compromised reasoner at ${hostile.url}`);
 

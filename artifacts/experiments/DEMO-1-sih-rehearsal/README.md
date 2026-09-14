@@ -11,15 +11,29 @@
 - **Presenter material:** [`presenter-runbook.md`](../../../docs/demo/presenter-runbook.md) ·
   [`judge-cheat-sheet.md`](../../../docs/demo/judge-cheat-sheet.md)
 
-## The question
+## Hypothesis
 
-Not *"does the system work"* — LOOP-1 and LOOP-2 answered that. The question here is narrower and
-more practical: **can a judge sit down at W2 and understand the privacy boundary within five
-minutes, and will the demo do the same thing every time it is run?**
+Not *"does the system work"* — LOOP-1 and LOOP-2 answered that. The hypothesis here is narrower and
+more practical: **a judge can sit down at W2 and understand the privacy boundary within five minutes,
+and the demo does the same thing every time it is run** — without any security gate being softened to
+make it smoother.
 
 **What would falsify it:** an act that behaves differently between rehearsals; a reset that leaves
-state behind; a UI that claims a path the run did not take; any value appearing in a pane, a ledger,
-a refusal or an artifact that is supposed to be free of them.
+state behind; a UI that claims a path the run did not take; a security check relaxed so the demo
+passes; any value appearing in a pane, a ledger, a refusal or an artifact that is supposed to be free
+of them.
+
+## Environment
+
+| | |
+|---|---|
+| Runner | [`tests/browser/demo/run-sih-demo.mjs`](../../../tests/browser/demo/run-sih-demo.mjs) — `npm run demo` |
+| Presenter mode | the same file, `npm run demo:present` |
+| Acts | [`apps/demo/src/demoScript.ts`](../../../apps/demo/src/demoScript.ts), read by the buttons, the runner and the tests alike |
+| Services | Planning View `8975` · honest reasoner `8978` → llama-server `8977` · compromised reasoner `8979` · outage `8989` (nothing listening) |
+| Code under test | the **built** packages the Planning View imports |
+| Model | Qwen2.5-0.5B-Instruct Q4_K_M @ `9217f5db…`, llama.cpp `b10956` CPU x64 |
+| Not present | no extension, no GPU, no VLM, no screen capture, no OCR, no detector |
 
 ## The three acts
 
@@ -40,17 +54,31 @@ with the UI.
 **The outage is a real refused connection.** The resulting `ERR_CONNECTION_REFUSED` is *asserted as
 evidence*: a clean console there would mean the third act had quietly become a simulation.
 
+## Expected result
+
+1. Every round runs all three acts and each reaches exactly what `ACTS[id].expect` declares.
+2. Reset restores every item in `RESET_CONTRACT`, checked **before every act** rather than once.
+3. The outbound body carries reference tokens and **none** of the five values, and the client's
+   digest agrees with the receiving service's — visibly, in the page.
+4. No value appears in the sanitized representation, the ledger, the plan, the refusal or the
+   response, in any act, in any round.
+5. The refusal act executes nothing and does **not** fall back.
+6. The only console errors are the refused connections the outage act causes.
+
 ## Actual result
 
-**PASS** — 5 rounds, 15 acts, **no unexpected failures**.
+**PASS** — 5 rounds, 15 acts, **23 of 23 checks**, **no unexpected failures**.
 
 | Run | Success | Refusal | Fallback | Unexpected | Total |
 |---|---|---|---|---|---|
-| 1 | `CONFIRMED` | `LEAKAGE_BLOCKED` | `CONFIRMED_VIA_FALLBACK` | no | 1 509 ms |
-| 2 | `CONFIRMED` | `LEAKAGE_BLOCKED` | `CONFIRMED_VIA_FALLBACK` | no | 663 ms |
-| 3 | `CONFIRMED` | `LEAKAGE_BLOCKED` | `CONFIRMED_VIA_FALLBACK` | no | 598 ms |
-| 4 | `CONFIRMED` | `LEAKAGE_BLOCKED` | `CONFIRMED_VIA_FALLBACK` | no | 563 ms |
-| 5 | `CONFIRMED` | `LEAKAGE_BLOCKED` | `CONFIRMED_VIA_FALLBACK` | no | 553 ms |
+| 1 | `CONFIRMED` | `LEAKAGE_BLOCKED` | `CONFIRMED_VIA_FALLBACK` | no | 1 789 ms |
+| 2 | `CONFIRMED` | `LEAKAGE_BLOCKED` | `CONFIRMED_VIA_FALLBACK` | no | 688 ms |
+| 3 | `CONFIRMED` | `LEAKAGE_BLOCKED` | `CONFIRMED_VIA_FALLBACK` | no | 602 ms |
+| 4 | `CONFIRMED` | `LEAKAGE_BLOCKED` | `CONFIRMED_VIA_FALLBACK` | no | 635 ms |
+| 5 | `CONFIRMED` | `LEAKAGE_BLOCKED` | `CONFIRMED_VIA_FALLBACK` | no | 635 ms |
+
+The console carried exactly five errors, all `ERR_CONNECTION_REFUSED` — one per outage act — and
+**zero unexpected ones**.
 
 ### What left the device
 
@@ -77,10 +105,15 @@ and recorded as a claim rather than a verdict.
 
 | | |
 |---|---|
-| Model ready from cold | **~1.0 s** |
-| Success act | 1 074 ms cold, then 471–550 ms |
-| Whole round, three acts and resets | 553–1 509 ms |
-| `llama-server.exe` | 558 MB · `node.exe` 126 MB · GPU unused |
+| Services up and model ready | **1 563 ms** |
+| Success act | **1 219 ms** cold, then 519 · 532 · 545 · 597 ms |
+| Success act p50 · max | **545 · 1 219 ms** |
+| Whole round, three acts and resets | 602 – 1 789 ms |
+| `llama-server.exe` | 558 MB · `node.exe` 55 MB · GPU unused |
+
+Per stage on a warm success: `send` **529 ms**, and every enforcement stage — sanitize, verify
+payload, validate, grant, rehydrate, refresh, act, verify result — **0 or 1 ms each**. The reasoner
+dominates completely; the privacy machinery costs nothing a presenter will notice.
 
 Five rounds, one machine, one fixture, one quantisation, CPU only. These exist so a presenter can
 tell a slow model from a broken one. **No statistical generalisation is claimed.**
@@ -107,7 +140,28 @@ remains `["click"]`. No new capability, no new authority, no weakened gate.
    it could not run*. It now prunes cycles and reports that it did.
 
 A fourth, found by running it: `--rehearse 3` silently rehearsed once, because the argument parser
-rejected a flag in first position.
+rejected a flag in first position. A fifth, found by trying presenter mode: it crashed on launch,
+because `deviceScaleFactor` cannot be combined with the real window's viewport — the exact path a
+presenter would have hit live.
+
+## Conclusion
+
+On W2, the demo ran fifteen acts across five rounds with no unexpected failures and 23 of 23 checks
+passing. The success act completes and the page confirms it; the compromised reasoner is refused at
+plan validation with nothing rehydrated and nothing clicked, and is **not** quietly replaced by a
+plan that would have worked; the outage act survives a genuinely refused connection and finishes
+through the same gates. The bytes that left carried four references and none of the five values, and
+two parties agreed on their digest — now visibly, during the demo, rather than only in a log
+afterwards.
+
+Nothing was softened to achieve this. The three acts differ only in which reasoner answers and at
+what address; every layer beneath is identical in all three and cannot tell them apart. The defects
+this section found were in the demo's own presentation and tooling — a dead control, two stale
+claims, a crash, a silent argument, and a leak-check helper that could throw — not in the security
+pipeline.
+
+**The demo is ready to present.** It is not production, not a benchmark, and not extension
+end-to-end, and the presenter material says so in those words.
 
 ## What this does not establish
 

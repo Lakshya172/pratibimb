@@ -20,8 +20,8 @@ Then start the live system and leave it alone:
 npm run demo:present
 ```
 
-It prints `READY` and hands you a browser at `http://127.0.0.1:8975/`. Model load is about a second.
-Ctrl-C stops everything.
+It prints `READY` and hands you a browser at `http://127.0.0.1:8975/`. Services and model come up in
+under two seconds. Ctrl-C stops everything.
 
 **Press `Reset` before your first act.** The rehearsal leaves the page in whatever state it ended in.
 
@@ -145,7 +145,8 @@ Nothing here disables a security check. If a gate refuses, **that is the product
 | What happens | What to do |
 |---|---|
 | **Model will not start / weights missing** | `node artifacts/experiments/LOOP-2-local-reasoner-egress/harness/fetch-model.mjs`. If there is no time: present **Model outage** first and narrate the deterministic path. The loop is complete without the model. |
-| **Reasoner slow or times out** | Wait — cold is ~1.1 s, warm ~0.5 s. If it hangs, press `Reset`, then **Model outage**, and say the model is a replaceable component. |
+| **Port already in use** | A previous demo is still running. The runner tells you the exact command to free the port; or Ctrl-C in the other terminal. |
+| **Reasoner slow or times out** | Wait — cold is ~1.2 s, warm ~0.5 s. If it hangs, press `Reset`, then **Model outage**, and say the model is a replaceable component. |
 | **Page in a strange state** | `Reset`. It reloads the frame, clears the view and the egress log, and gives the document a fresh identity. |
 | **Browser crashes** | Ctrl-C, `npm run demo:present` again. Under ten seconds. |
 | **An unexpected refusal** | Read it out. Pane 4 names the stage and the authority that refused. A refusal you did not plan is still the system doing its job — do not retry it hoping for a different answer. |
@@ -164,11 +165,14 @@ only, no GPU.
 
 | | |
 |---|---|
-| Rounds, all three acts | **5 of 5 clean**, no unexpected failures |
-| Model ready | ~1.0 s from cold start |
-| Success act | 1 074 ms cold, then 471–550 ms |
-| Whole round (three acts + resets) | 553–1 509 ms |
-| `llama-server.exe` | 558 MB · `node.exe` 126 MB · GPU unused |
+| Rounds, all three acts | **5 of 5 clean**, 23 of 23 checks, no unexpected failures |
+| Services up and model ready | **1.6 s** |
+| Success act | **1.2 s** cold, then **0.5–0.6 s** |
+| Whole round (three acts + resets) | 0.6–1.8 s |
+| `llama-server.exe` | 558 MB · `node.exe` 55 MB · GPU unused |
+
+If the success act takes noticeably longer than a second when warm, something is wrong — that is the
+signal to reach for the contingency table, not to press it again.
 
 These say what "normal" looks like so you can tell a slow model from a broken one. They are not
 evidence of performance and must not be quoted as such.
