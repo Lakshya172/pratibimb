@@ -50,6 +50,7 @@ import {
   type HitTestOptions,
   type HitTestResult,
 } from "./hitTest.js";
+import { type HumanConfirmation } from "./humanConfirmation.js";
 import { authorisationPreflight, mintDispatchPermit, monotonicNow, type MonotonicClock } from "./permit.js";
 import {
   type ExpectedPostcondition,
@@ -93,6 +94,13 @@ export interface GuardedActOptions {
   readonly timeoutMs?: number;
   /** One clock for mint and redemption. */
   readonly now?: MonotonicClock;
+  /**
+   * A human's consent, required only for a target in the action schema's confirmation tier.
+   * Omitted, such a target is refused at AUTHORISE exactly as it always was.
+   */
+  readonly confirmation?: HumanConfirmation;
+  /** The page origin a confirmation is bound to. Required whenever `confirmation` is supplied. */
+  readonly origin?: string;
 }
 
 /** The furthest stage the action reached. Nothing after it ran. */
@@ -157,7 +165,12 @@ export async function guardedAct(
       verification: null,
     };
   }
-  const pre = authorisationPreflight(decision);
+  const evidence = {
+    ...(options.confirmation === undefined ? {} : { confirmation: options.confirmation }),
+    ...(options.origin === undefined ? {} : { origin: options.origin }),
+    ...(options.now === undefined ? {} : { now: options.now }),
+  };
+  const pre = authorisationPreflight(decision, evidence);
   if (pre) return { reached: "AUTHORISE", decision, hit: null, result: pre, verification: null };
 
   // ── HIT-TEST AGREEMENT ─────────────────────────────────────────────────────────────────────
@@ -168,7 +181,12 @@ export async function guardedAct(
 
   // ── MINT ── synchronous: nothing is awaited between the agreement and the dispatch ───────────
   const clock = options.now ?? monotonicNow;
-  const minted = mintDispatchPermit(decision, hit, { ttlMs: options.permitTtlMs, now: clock });
+  const minted = mintDispatchPermit(decision, hit, {
+    ttlMs: options.permitTtlMs,
+    now: clock,
+    ...(options.confirmation === undefined ? {} : { confirmation: options.confirmation }),
+    ...(options.origin === undefined ? {} : { origin: options.origin }),
+  });
   if (!minted.minted) {
     return { reached: "PERMIT", decision, hit, result: minted.refusal, verification: null };
   }
