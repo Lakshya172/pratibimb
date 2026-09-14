@@ -22,24 +22,11 @@ import { type EgressRecord, type EgressRefusal } from "@pratibimb/egress";
 import { runTask, type GrantDecision, type GrantRequest, type RunRecord } from "@pratibimb/orchestrator";
 import { deterministicReasoner, localModelReasoner, unavailableReasoner } from "@pratibimb/reasoner";
 
-import { ACTS, type ActId } from "./demoScript.js";
+import { ACTS, ENDPOINTS, type ActId } from "./demoScript.js";
 import { PageAdapter, portsFrom } from "./pageAdapter.js";
 import { renderAll } from "./view.js";
 
 const GOAL = "Submit my application with my registered mobile number.";
-
-/**
- * Where each act sends. All three are loopback, and `@pratibimb/egress` refuses anything that is not.
- *
- * `outage` points at a port with nothing behind it on purpose: the outage act must be a real refused
- * connection, not a flag that makes the client pretend. These are overridable so the rehearsal runner
- * can pass the addresses it actually started services on.
- */
-export const ENDPOINTS: Record<"model" | "hostile" | "outage", string> = {
-  model: "http://127.0.0.1:8978/v1/chat/completions",
-  hostile: "http://127.0.0.1:8979/v1/chat/completions",
-  outage: "http://127.0.0.1:8989/v1/chat/completions",
-};
 
 /**
  * Instrument values for this demo. **No lifetime in this file is approved by the repository**:

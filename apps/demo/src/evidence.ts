@@ -139,7 +139,42 @@ export interface SweepResult {
   readonly clean: boolean;
   /** Positional indices of the values that were found, so a failure can be located without quoting it. */
   readonly foundAt: readonly number[];
+  /**
+   * Whether the whole subject could be searched.
+   *
+   * `false` means a cycle was pruned, so `clean` is a statement about what was reachable and not
+   * about everything that exists. A caller that needs certainty must treat this as "not checked"
+   * rather than as "checked and clean".
+   */
+  readonly complete: boolean;
 }
+
+/**
+ * Serialize for searching, surviving the shapes a real run record actually has.
+ *
+ * A run record is assembled from live objects, and an earlier version of this function threw
+ * `Converting circular structure to JSON` on one. Throwing here is the worst possible failure mode:
+ * mid-demo it takes out the evidence pane, and a caller that caught it would be one line away from
+ * reporting a leak check as clean *because* it could not run. So cycles are pruned and the pruning
+ * is reported instead.
+ */
+const searchable = (subject: unknown): { readonly text: string; readonly complete: boolean } => {
+  if (typeof subject === "string") return { text: subject, complete: true };
+  const seen = new WeakSet<object>();
+  let complete = true;
+  const text =
+    JSON.stringify(subject, (_key, value: unknown) => {
+      if (typeof value === "object" && value !== null) {
+        if (seen.has(value)) {
+          complete = false;
+          return "[circular]";
+        }
+        seen.add(value);
+      }
+      return value;
+    }) ?? "";
+  return { text, complete };
+};
 
 /**
  * Look for any of `secrets` inside `subject`, and report **counts, never content**.
@@ -153,11 +188,11 @@ export interface SweepResult {
  * the same question again, later, of the things that are about to be *displayed and written down*.
  */
 export function sweep(subject: unknown, secrets: readonly string[]): SweepResult {
-  const haystack = typeof subject === "string" ? subject : JSON.stringify(subject) ?? "";
+  const { text, complete } = searchable(subject);
   const candidates = secrets.filter((secret) => secret.trim() !== "");
   const foundAt: number[] = [];
   candidates.forEach((secret, index) => {
-    if (haystack.includes(secret)) foundAt.push(index);
+    if (text.includes(secret)) foundAt.push(index);
   });
-  return { checked: candidates.length, found: foundAt.length, clean: foundAt.length === 0, foundAt };
+  return { checked: candidates.length, found: foundAt.length, clean: foundAt.length === 0, foundAt, complete };
 }

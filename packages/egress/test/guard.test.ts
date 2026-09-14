@@ -227,3 +227,109 @@ describe("it runs where it is imported", () => {
     expect(tryBlock).not.toContain("record:");
   });
 });
+
+/**
+ * THE PEER'S RECEIPT — a second party's arithmetic, and nothing more.
+ *
+ * The client's guarantee is that the bytes it scanned are the bytes it sent. The receipt adds
+ * whether they were still those bytes on arrival. It is read after the send, it gates nothing, and a
+ * hostile service can put any string in the header — which is exactly why none of this is allowed to
+ * become a check anything depends on.
+ */
+describe("what the receiving service says it got", () => {
+  /** A server that can be told how to answer, so a lying peer can be tested as easily as an honest one. */
+  let receiptServer: Server;
+  let receiptEndpoint: string;
+  let behaviour: "honest" | "silent" | "lying" | "malformed-bytes" = "honest";
+  const received: string[] = [];
+
+  beforeAll(async () => {
+    receiptServer = createServer((req, res) => {
+      const chunks: Buffer[] = [];
+      req.on("data", (c: Buffer) => chunks.push(c));
+      req.on("end", () => {
+        const body = Buffer.concat(chunks).toString("utf8");
+        received.push(body);
+        const digest = createHash("sha256").update(body, "utf8").digest("hex");
+        const headers: Record<string, string> = { "content-type": "application/json" };
+        if (behaviour === "honest") {
+          headers["x-pratibimb-received-sha256"] = digest;
+          headers["x-pratibimb-received-bytes"] = String(Buffer.byteLength(body, "utf8"));
+        } else if (behaviour === "lying") {
+          headers["x-pratibimb-received-sha256"] = "0".repeat(64);
+          headers["x-pratibimb-received-bytes"] = "1";
+        } else if (behaviour === "malformed-bytes") {
+          headers["x-pratibimb-received-sha256"] = digest;
+          headers["x-pratibimb-received-bytes"] = "not a number";
+        }
+        res.writeHead(200, headers);
+        res.end(JSON.stringify({ ok: true }));
+      });
+    });
+    await new Promise<void>((ok) => receiptServer.listen(0, "127.0.0.1", ok));
+    const address = receiptServer.address();
+    if (typeof address === "string" || address === null) throw new Error("test setup");
+    receiptEndpoint = `http://127.0.0.1:${address.port}/v1/chat/completions`;
+  });
+
+  afterAll(async () => {
+    await new Promise((r) => receiptServer.close(r));
+  });
+
+  const sendTo = async () => sendVerified(await request({ destination: receiptEndpoint }));
+
+  it("records agreement when the peer computed the same digest over the same bytes", async () => {
+    behaviour = "honest";
+    const outcome = await sendTo();
+    if (!outcome.sent) throw new Error("setup");
+    expect(outcome.record.peerReceipt?.sha256).toBe(outcome.record.payloadSha256);
+    expect(outcome.record.peerReceipt?.agrees).toBe(true);
+    expect(outcome.record.peerReceipt?.bytes).toBe(outcome.record.payloadBytes);
+  });
+
+  /**
+   * A peer that claims nothing must be recorded as *no claim*, never as a mismatch. Rendering the
+   * absence of a cross-check as a failed one would put a red cross on a correct run.
+   */
+  it("records a silent peer as no claim rather than as disagreement", async () => {
+    behaviour = "silent";
+    const outcome = await sendTo();
+    if (!outcome.sent) throw new Error("setup");
+    expect(outcome.record.peerReceipt).toBeUndefined();
+  });
+
+  it("records a peer whose digest differs as a disagreement", async () => {
+    behaviour = "lying";
+    const outcome = await sendTo();
+    if (!outcome.sent) throw new Error("setup");
+    expect(outcome.record.peerReceipt?.agrees).toBe(false);
+  });
+
+  /** A peer's claim is parsed defensively: it is untrusted input like everything else that comes back. */
+  it("survives a peer that sends a byte count that is not a number", async () => {
+    behaviour = "malformed-bytes";
+    const outcome = await sendTo();
+    if (!outcome.sent) throw new Error("setup");
+    expect(outcome.record.peerReceipt?.bytes).toBeNull();
+    expect(outcome.record.peerReceipt?.agrees).toBe(true);
+  });
+
+  /** The decisive property: a lying peer changes the record and nothing else. The send still happened. */
+  it("lets a disagreeing peer change no decision — the payload was still checked before it left", async () => {
+    behaviour = "lying";
+    const before = received.length;
+    const outcome = await sendTo();
+    expect(outcome.sent).toBe(true);
+    if (!outcome.sent) return;
+    expect(received).toHaveLength(before + 1);
+    expect(outcome.record.leakCheck).toBe("CLEAN");
+    expect(outcome.record.verified).toBe(true);
+    // The client's own digest is of its own bytes, and the peer's claim did not touch it.
+    expect(outcome.record.payloadSha256).toBe(createHash("sha256").update(received[received.length - 1]!, "utf8").digest("hex"));
+  });
+
+  it("reads the receipt after the send, so it can gate nothing", () => {
+    const source = readFileSync(fileURLToPath(new URL("../src/guard.ts", import.meta.url)), "utf8");
+    expect(source.indexOf("await fetch")).toBeLessThan(source.indexOf("PEER_SHA_HEADER)"));
+  });
+});

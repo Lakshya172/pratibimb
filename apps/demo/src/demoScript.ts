@@ -29,6 +29,18 @@
  * the UI says so rather than hiding it.
  */
 
+/**
+ * Where each act sends. All three are loopback, and `@pratibimb/egress` refuses anything that is not.
+ *
+ * `outage` points at a port with nothing behind it on purpose: that act must be a real refused
+ * connection, not a flag that makes the client pretend.
+ */
+export const ENDPOINTS: Readonly<Record<"model" | "hostile" | "outage", string>> = {
+  model: "http://127.0.0.1:8978/v1/chat/completions",
+  hostile: "http://127.0.0.1:8979/v1/chat/completions",
+  outage: "http://127.0.0.1:8989/v1/chat/completions",
+} as const;
+
 /** Which reasoner answers first. `unavailable` is in-process; the others are real HTTP. */
 export type ReasonerChoice = "deterministic" | "local-model" | "unavailable";
 
