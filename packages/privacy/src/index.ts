@@ -105,3 +105,27 @@ export {
   type SanitizeRefusalCause,
   type SanitizeReport,
 } from "./sanitize.js";
+
+export {
+  bind,
+  classOriginKey,
+  findUseGrant,
+  rehydrate,
+  type BindCause,
+  type BindContext,
+  type BindDecision,
+  type BindStep,
+  type BindView,
+  type RehydrateOutcome,
+  type UseGrant,
+  type ViewField,
+} from "./bind.js";
+
+export {
+  checkLiteral,
+  type LiteralCause,
+  type LiteralContext,
+  type LiteralFinding,
+  type LiteralSeverity,
+  type LiteralVerdict,
+} from "./literalCheck.js";
