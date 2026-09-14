@@ -9,7 +9,8 @@
 - **GPU: not used.** The llama.cpp **CPU x64** build was chosen deliberately, so these numbers are
   the ones a judging machine without a GPU would see. No CUDA runtime was downloaded.
 - **Log:** [`logs/w2-cft153-reasoner-loop.json`](logs/w2-cft153-reasoner-loop.json) ·
-  **Captures:** [`logs/captures/`](logs/captures) · **Verdict:** [`decision.md`](decision.md)
+  **The outbound bytes:** [`logs/w2-outbound-payload.json`](logs/w2-outbound-payload.json) ·
+  **Verdict:** [`decision.md`](decision.md)
 
 ## Approval, and why this record starts with it
 
@@ -87,8 +88,14 @@ Captured by the receiving service, not reconstructed by the sender.
 | Server digest | `26d7c09f78e318eb…` |
 | Agree | **yes** |
 
-Two parties computed that digest separately. The bodies are on disk in
-[`logs/captures/`](logs/captures) for anyone who wants to look rather than take our word for it.
+Two parties computed that digest separately.
+
+**The exact body is committed** as [`logs/w2-outbound-payload.json`](logs/w2-outbound-payload.json) —
+the bytes as the receiving service got them, not a reconstruction by the sender — so it can be read
+rather than taken on trust. The runner **refuses to write that file unless the value check passed**,
+so the artifact guards itself. The per-request working captures under `logs/captures/` are not
+committed: `.gitignore` excludes `captures/` to keep screen captures out of the repository, and that
+rule was left alone rather than routed around.
 
 ### Latency — **small sample, not a benchmark**
 

@@ -1,7 +1,7 @@
 {
   "experiment": "LOOP-2 — local model, real loopback network, egress choke point, deterministic fallback",
   "verdict": "PASS",
-  "recordedAt": "2026-09-14T15:22:18.473Z",
+  "recordedAt": "2026-09-14T15:30:08.233Z",
   "provenance": {
     "workstation": "W2",
     "host": "LAPTOP-SRCINK2B",
@@ -74,7 +74,7 @@
   },
   "runs": {
     "model": {
-      "wallMs": 2040,
+      "wallMs": 2262,
       "state": "DONE",
       "path": [
         "OBSERVE",
@@ -95,16 +95,16 @@
       "refusal": null,
       "timings": {
         "observeMs": 3,
-        "sanitizeMs": 7,
+        "sanitizeMs": 8,
         "verifyPayloadMs": 0,
-        "sendMs": 2020,
-        "validatePlanMs": 0,
+        "sendMs": 2238,
+        "validatePlanMs": 1,
         "grantMs": 0,
         "rehydrateMs": 1,
-        "refreshMs": 1,
+        "refreshMs": 0,
         "verifyResultMs": 1,
         "actMs": 4,
-        "totalMs": 2037
+        "totalMs": 2256
       },
       "planSteps": [
         {
@@ -137,7 +137,7 @@
             "requestId": "demo-request-1",
             "sessionId": "demo-session-1",
             "destination": "http://127.0.0.1:8978/v1/chat/completions",
-            "at": 1789399333745,
+            "at": 1789399802440,
             "transport": "LOOPBACK_HTTP",
             "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
             "verified": true,
@@ -152,7 +152,7 @@
             ],
             "responseStatus": 200,
             "responseBytes": 914,
-            "elapsedMs": 2019
+            "elapsedMs": 2236
           }
         }
       ],
@@ -209,7 +209,7 @@
         }
       },
       "timings": {
-        "observeMs": 1,
+        "observeMs": 0,
         "sanitizeMs": 2,
         "verifyPayloadMs": 0,
         "sendMs": 7,
@@ -237,7 +237,7 @@
             "requestId": "demo-request-8",
             "sessionId": "demo-session-8",
             "destination": "http://127.0.0.1:8978/v1/chat/completions",
-            "at": 1789399338335,
+            "at": 1789399808051,
             "transport": "LOOPBACK_HTTP",
             "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
             "verified": true,
@@ -264,7 +264,7 @@
       }
     },
     "fallback": {
-      "wallMs": 8,
+      "wallMs": 7,
       "state": "DONE",
       "path": [
         "OBSERVE",
@@ -288,18 +288,18 @@
       },
       "refusal": null,
       "timings": {
-        "observeMs": 1,
-        "sanitizeMs": 1,
+        "observeMs": 0,
+        "sanitizeMs": 2,
         "verifyPayloadMs": 0,
         "sendMs": 0,
-        "fallbackMs": 1,
+        "fallbackMs": 0,
         "validatePlanMs": 0,
         "grantMs": 0,
         "rehydrateMs": 0,
         "refreshMs": 1,
         "verifyResultMs": 1,
         "actMs": 1,
-        "totalMs": 5
+        "totalMs": 4
       },
       "planSteps": [
         {
@@ -382,31 +382,31 @@
   },
   "latency": {
     "note": "SMALL SAMPLE — 6 warm repetitions on one machine. Not a benchmark and not a generalisable distribution.",
-    "serviceStartupMsIncludingModelLoad": 2124,
-    "coldRunWallMs": 2040,
+    "serviceStartupMsIncludingModelLoad": 2129,
+    "coldRunWallMs": 2262,
     "warmRunsWallMs": [
-      579,
-      587,
-      595,
-      609,
-      616,
-      623
+      662,
+      665,
+      692,
+      709,
+      886,
+      980
     ],
-    "p50": 609,
-    "p95": 623,
-    "max": 623,
+    "p50": 709,
+    "p95": 980,
+    "max": 980,
     "perStageCold": {
       "observeMs": 3,
-      "sanitizeMs": 7,
+      "sanitizeMs": 8,
       "verifyPayloadMs": 0,
-      "sendMs": 2020,
-      "validatePlanMs": 0,
+      "sendMs": 2238,
+      "validatePlanMs": 1,
       "grantMs": 0,
       "rehydrateMs": 1,
-      "refreshMs": 1,
+      "refreshMs": 0,
       "verifyResultMs": 1,
       "actMs": 4,
-      "totalMs": 2037
+      "totalMs": 2256
     }
   },
   "resource": {

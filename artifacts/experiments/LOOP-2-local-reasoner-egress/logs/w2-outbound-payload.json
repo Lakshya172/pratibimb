@@ -1,0 +1,134 @@
+{
+  "note": "The EXACT body received by the loopback reasoner service, as bytes on the wire. Written only because the value check below passed.",
+  "capturedBy": "tests/browser/demo/reasoner-service.mjs (the receiving end, not the sender)",
+  "bytes": 2679,
+  "sha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+  "clientSha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+  "digestsAgree": true,
+  "vaultValuesPresent": 0,
+  "vaultValuesChecked": 5,
+  "referencesPresent": [
+    "<PII:AADHAAR:1>",
+    "<PII:DOB:1>",
+    "<PII:NAME:1>",
+    "<PII:PHONE:1>"
+  ],
+  "body": {
+    "messages": [
+      {
+        "role": "system",
+        "content": "Plan the fewest browser steps that achieve the goal.\n- 'insert' puts a stored value into an EMPTY text field. Never into a button, never into a field that already has a value.\n- 'click' presses a button. Never a text field.\n- Pick the reference whose class matches the field."
+      },
+      {
+        "role": "user",
+        "content": "{\"goal\":\"Register with my email\",\"fields\":[{\"id\":\"#email\",\"name\":\"Email\",\"empty\":false},{\"id\":\"#email2\",\"name\":\"Confirm email\",\"empty\":true}],\"buttons\":[{\"id\":\"#go\",\"name\":\"Register\"}],\"references\":[{\"token\":\"REF_A\",\"class\":\"EMAIL\"}]}"
+      },
+      {
+        "role": "assistant",
+        "content": "{\"steps\":[{\"op\":\"insert\",\"target\":\"#email2\",\"ref\":\"REF_A\"},{\"op\":\"click\",\"target\":\"#go\"}]}"
+      },
+      {
+        "role": "user",
+        "content": "{\"goal\":\"Submit my application with my registered mobile number.\",\"fields\":[{\"id\":\"#name\",\"name\":\"Full name\",\"empty\":false},{\"id\":\"#mobile\",\"name\":\"Mobile number\",\"empty\":false},{\"id\":\"#aadhaar\",\"name\":\"Aadhaar number\",\"empty\":false},{\"id\":\"#dob\",\"name\":\"Date of birth\",\"empty\":false},{\"id\":\"#otp\",\"name\":\"OTP\",\"empty\":false},{\"id\":\"#mobile_confirm\",\"name\":\"Confirm mobile number\",\"empty\":true}],\"buttons\":[{\"id\":\"#submit\",\"name\":\"Submit application\"}],\"references\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"}},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"}},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"hint\":{\"len\":14,\"kind\":\"numeric\"}},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"}}]}"
+      }
+    ],
+    "temperature": 0,
+    "max_tokens": 160,
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "plan",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "steps": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 4,
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "op": {
+                        "const": "insert"
+                      },
+                      "target": {
+                        "enum": [
+                          "label",
+                          "#name",
+                          "label",
+                          "#mobile",
+                          "label",
+                          "#aadhaar",
+                          "label",
+                          "#dob",
+                          "label",
+                          "#otp",
+                          "label",
+                          "#mobile_confirm",
+                          "#submit",
+                          "#status"
+                        ]
+                      },
+                      "ref": {
+                        "enum": [
+                          "<PII:NAME:1>",
+                          "<PII:PHONE:1>",
+                          "<PII:AADHAAR:1>",
+                          "<PII:DOB:1>"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "target",
+                      "ref"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "op": {
+                        "const": "click"
+                      },
+                      "target": {
+                        "enum": [
+                          "label",
+                          "#name",
+                          "label",
+                          "#mobile",
+                          "label",
+                          "#aadhaar",
+                          "label",
+                          "#dob",
+                          "label",
+                          "#otp",
+                          "label",
+                          "#mobile_confirm",
+                          "#submit",
+                          "#status"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "op",
+                      "target"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            }
+          },
+          "required": [
+            "steps"
+          ],
+          "additionalProperties": false
+        },
+        "strict": true
+      }
+    }
+  }
+}

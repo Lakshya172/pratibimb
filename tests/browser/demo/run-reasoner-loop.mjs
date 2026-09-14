@@ -252,6 +252,41 @@ const record = {
 };
 
 mkdirSync(OUT, { recursive: true });
+
+/**
+ * The exact outbound body, committed as evidence — but only if it is provably safe to commit.
+ *
+ * The working captures live under `logs/captures/`, which `.gitignore` excludes (that rule exists to
+ * keep screen captures out of the repository, and is not one to route around). So one representative
+ * body is written here instead, and **this file refuses to write it unless the value check passed**.
+ * An artifact that guards itself is worth more than a promise in a README.
+ */
+if (payloadProof.secretsPresent === 0 && body !== "") {
+  writeFileSync(
+    join(OUT, "w2-outbound-payload.json"),
+    `${JSON.stringify(
+      {
+        note: "The EXACT body received by the loopback reasoner service, as bytes on the wire. Written only because the value check below passed.",
+        capturedBy: "tests/browser/demo/reasoner-service.mjs (the receiving end, not the sender)",
+        bytes: payloadProof.bytes,
+        sha256: payloadProof.serverSha256,
+        clientSha256: payloadProof.clientSha256,
+        digestsAgree: payloadProof.digestsAgree,
+        vaultValuesPresent: payloadProof.secretsPresent,
+        vaultValuesChecked: payloadProof.secretsChecked,
+        referencesPresent: payloadProof.tokensPresent,
+        body: JSON.parse(body),
+      },
+      null,
+      2
+    )}
+`,
+    "utf8"
+  );
+} else if (body !== "") {
+  console.error("REFUSING to write the payload artifact: the value check did not pass.");
+}
+
 const target = join(OUT, "w2-cft153-reasoner-loop.json");
 writeFileSync(target, `${JSON.stringify(record, null, 2)}\n`, "utf8");
 
