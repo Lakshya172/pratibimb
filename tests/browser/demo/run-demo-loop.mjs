@@ -156,7 +156,33 @@ const runOnce = async (mode) => {
         }
         return { secretsOnPage: secrets.length, surfacesContainingASecret: [...new Set(found)] };
       })(),
-      paneLocalShowsValue: document.getElementById("pane-page").innerText.includes(doc.getElementById("mobile").value),
+      /**
+       * What the panes render.
+       *
+       * Captured as text so the checks are about what a judge would read, not about the objects
+       * behind it — a pane that silently stopped rendering passes a leak check and fails these.
+       *
+       * **The local pane's text is deliberately NOT captured.** It contains the values, by design,
+       * and this record is written to a file in the repository. So the local pane is checked *here*,
+       * inside the page, and only the booleans travel out (SECURITY.md §2 — an artifact must not
+       * carry the values either).
+       */
+      panes: {
+        goal: paneText("pane-goal"),
+        page: "(not captured: the local pane shows the values by design; see localPane checks)",
+        server: paneText("pane-server"),
+        plan: paneText("pane-plan"),
+        egress: paneText("pane-egress"),
+        wall: document.getElementById("wall").innerText,
+        verdict: document.getElementById("wall-verdict").innerText,
+      },
+      localPane: {
+        showsTheRegisteredValue: paneText("pane-page").includes(doc.getElementById("mobile").value),
+        showsObservedStructure: paneText("pane-page").includes("Confirm mobile number"),
+        showsSensitivityClasses:
+          paneText("pane-page").includes("PHONE · PERSONAL") && paneText("pane-page").includes("AADHAAR · SENSITIVE"),
+        saysValuesStayLocal: paneText("pane-page").includes("never leave this machine"),
+      },
     };
   }, mode);
 };
@@ -213,11 +239,41 @@ const checks = {
   // ── the privacy claim, on both runs ───────────────────────────────────────────────────────
   noSecretInAnySentOrLoggedSurface:
     success.leaks.surfacesContainingASecret.length === 0 && refusal.leaks.surfacesContainingASecret.length === 0,
-  localPaneDoesShowTheValue: success.paneLocalShowsValue === true,
+  localPaneDoesShowTheValue: success.localPane.showsTheRegisteredValue === true,
+  localPaneSaysTheValuesStayLocal: success.localPane.saysValuesStayLocal === true,
   otpNeverReceivedAReference:
     !success.record.ledger?.references.some((t) => t.includes("OTP")) &&
     success.record.ledger?.maskedWithoutReference === 1,
   noConsoleErrors: consoleErrors.length === 0,
+
+  // ── the Planning View shows what actually happened ────────────────────────────────────────
+  // Each pane is checked against the run's own facts, so a pane that stopped rendering, or that
+  // rendered something the system did not do, fails here rather than looking fine.
+  paneGoalShowsTheRealGoalAndState:
+    success.panes.goal.includes("Submit my application with my registered mobile number.") &&
+    success.panes.goal.includes("DONE"),
+  panePageShowsObservedStructureAndSensitivity:
+    success.localPane.showsObservedStructure && success.localPane.showsSensitivityClasses,
+  paneServerShowsReferencesHintsAndNoValues:
+    success.panes.server.includes("<PII:PHONE:1>") &&
+    success.panes.server.includes("numeric") &&
+    success.panes.server.includes("no reference") &&
+    !success.panes.server.includes("<PII:OTP"),
+  panePlanShowsThePlanValidationAndGrant:
+    success.panes.plan.includes("<PII:PHONE:1>") &&
+    success.panes.plan.includes("VALID") &&
+    success.panes.plan.includes("GRANTED") &&
+    success.panes.plan.includes("REHYDRATED LOCALLY"),
+  paneEgressShowsIdentityDigestAndResult:
+    success.panes.egress.includes(success.record.ledger?.payloadSha256 ?? " ") &&
+    success.panes.egress.includes("CONFIRMED") &&
+    success.panes.egress.includes("no egress client"),
+  paneWallReflectsTheRunItself:
+    success.panes.verdict.includes("CONFIRMED") && refusal.panes.verdict.includes("REFUSED"),
+  paneRefusalStateIsShownWithoutTheSecret:
+    refusal.panes.plan.includes("LITERAL ECHO") &&
+    refusal.panes.plan.includes("⟨literal:PHONE⟩") &&
+    refusal.panes.egress.includes("no action was dispatched"),
 };
 
 const passed = Object.values(checks).every(Boolean);
