@@ -34,7 +34,7 @@ import {
   type HumanConfirmation,
   type ProposedAction,
 } from "@pratibimb/agent";
-import { type ElementNode } from "@pratibimb/perception";
+import { cssPx, type ElementNode } from "@pratibimb/perception";
 import {
   classOriginKey,
   fingerprintOf,
@@ -138,6 +138,9 @@ export interface RunRecord {
   readonly timings: RunTimings;
   readonly refusal: RunRefusal | null;
 
+  /** The reading the plan was made against. What Pane 2 shows; never overwritten by later reads. */
+  readonly initialObservation: Observation | null;
+  /** The most recent reading, which after a completed run is the post-action one. */
   readonly observation: Observation | null;
   readonly handoff: VerifiedHandoff | null;
   /** The exact bytes that were handed to the reasoner. */
@@ -230,6 +233,7 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
   const rehydrated: RunRecord["rehydrated"][number][] = [];
 
   let observation: Observation | null = null;
+  let initialObservation: Observation | null = null;
   let handoff: VerifiedHandoff | null = null;
   let handoffSerialized: string | null = null;
   let ledgerEntry: LedgerEntry | null = null;
@@ -262,6 +266,7 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
     transitions,
     timings: { ...timings, totalMs: clock() - startedAt },
     refusal,
+    initialObservation,
     observation,
     handoff,
     handoffSerialized,
@@ -294,6 +299,7 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
   go("OBSERVE");
   try {
     observation = await timed("observeMs", () => ports.observe());
+    initialObservation = observation;
   } catch {
     return stop("OBSERVE", "OBSERVER_THREW", "the page could not be read; nothing was planned or done.");
   }
@@ -538,8 +544,16 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
   // Through the audited path, and only it: VALIDATE → AUTHORISE → HIT-TEST → MINT → ACT →
   // VERIFY RESULT. This file dispatches nothing itself.
   go("ACT");
-  // No `point`: the gate derives the centre itself (`dispatchPointOf`), so there is exactly one
-  // place in the system that decides where a click lands, and it is not this one.
+  // THE POINT IS AN INTEGER, ON PURPOSE.
+  //
+  // Left to itself the gate derives the box centre, which for a real layout is fractional. Browsers
+  // truncate `MouseEvent.clientX`/`clientY` to integers, so a fractional permit point can never be
+  // dispatched exactly — and the page agent's exactness check correctly refuses to fire a sequence
+  // whose coordinates the browser did not keep. Rounding here, before the permit is minted, means
+  // the point the permit fixes is a point the browser can actually reproduce. Every gate still runs
+  // against it: the gate checks it lies inside the validated box, and the hit test must agree that
+  // this target is topmost at exactly this point.
+  const box = node.evidence.viewportBox;
   const action: ProposedAction = {
     kind: "click",
     target: {
@@ -547,8 +561,9 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
       role: node.role,
       name: node.name,
       frameId: fresh.graph.frameId,
-      viewportBox: node.evidence.viewportBox,
+      viewportBox: box,
     },
+    point: { x: cssPx(Math.round(box.x + box.w / 2)), y: cssPx(Math.round(box.y + box.h / 2)) },
   };
 
   go("VERIFY_RESULT");

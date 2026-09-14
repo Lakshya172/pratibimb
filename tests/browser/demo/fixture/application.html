@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>State Services — application</title>
+    <link rel="icon" href="data:," />
+    <style>
+      body { font: 14px system-ui, sans-serif; margin: 20px; max-width: 520px; color: #1a1a1a; }
+      h1 { font-size: 18px; margin: 0 0 4px; }
+      p.lede { margin: 0 0 16px; color: #555; }
+      fieldset { border: 1px solid #ddd; border-radius: 6px; margin: 0 0 16px; padding: 12px 14px; }
+      legend { font-weight: 600; padding: 0 6px; color: #444; }
+      label { display: block; margin: 10px 0 4px; font-weight: 600; }
+      input { width: 100%; padding: 6px 8px; font: inherit; box-sizing: border-box; border: 1px solid #bbb; border-radius: 4px; }
+      input:disabled { background: #f4f4f4; color: #444; }
+      button { margin-top: 12px; padding: 9px 16px; font: inherit; font-weight: 600; border-radius: 4px; border: 1px solid #2f6f4f; background: #35815b; color: #fff; }
+      button:disabled { background: #ccc; border-color: #bbb; color: #666; }
+      #status { margin-top: 16px; padding: 9px 10px; background: #f3f3f3; border-radius: 4px; border-left: 4px solid #999; }
+      #status[data-submitted="true"] { background: #e7f5ec; border-left-color: #35815b; }
+    </style>
+  </head>
+  <body>
+    <!--
+      SYNTHETIC FIXTURE. Every value below is invented for this repository (SECURITY.md §2): no real
+      person, no real mobile number, no real Aadhaar number. The Aadhaar value passes the Verhoeff
+      checksum on purpose, so the deterministic validator has a true positive to find. The
+      checksum-invalid variant lives in the unit suite as a negative vector and is deliberately not
+      written anywhere in this file.
+
+      WHAT MAKES THIS A DEMO RATHER THAN A FORM. The registered details are already on the page and
+      read-only. "Confirm mobile number" is EMPTY, and the page accepts the application only if it
+      ends up holding the registered number. So a run that reaches "Application submitted" has
+      necessarily restored the right value locally — which is what the verifier reads back, via the
+      submit button disabling itself.
+
+      The page is served from 127.0.0.1 and talks to nothing. Submitting changes two lines of text.
+    -->
+    <h1>Apply for a State Services certificate</h1>
+    <p class="lede">Confirm your registered mobile number to submit this application.</p>
+
+    <form id="application" autocomplete="on" onsubmit="return false">
+      <fieldset>
+        <legend>Your registered details</legend>
+
+        <label for="name">Full name</label>
+        <input id="name" name="applicant_name" type="text" autocomplete="name" value="Ramesh Kumar" readonly />
+
+        <label for="mobile">Mobile number</label>
+        <input id="mobile" name="mobile_number" type="tel" autocomplete="tel" value="9000000001" readonly />
+
+        <label for="aadhaar">Aadhaar number</label>
+        <input id="aadhaar" name="aadhaar_number" type="text" value="2345 6789 0124" readonly />
+
+        <label for="dob">Date of birth</label>
+        <input id="dob" name="date_of_birth" type="date" value="1998-04-12" readonly />
+
+        <label for="otp">OTP</label>
+        <input id="otp" name="one_time_code" type="text" autocomplete="one-time-code" value="482913" readonly />
+      </fieldset>
+
+      <fieldset>
+        <legend>Confirm to submit</legend>
+        <label for="mobile_confirm">Confirm mobile number</label>
+        <input id="mobile_confirm" name="mobile_confirm" type="tel" autocomplete="tel" value="" />
+        <button id="submit" type="button">Submit application</button>
+      </fieldset>
+    </form>
+
+    <p id="status" role="status" data-submitted="false">Not submitted</p>
+
+    <script>
+      // Deterministic and local: no network, no timers, no animation.
+      (function () {
+        const submit = document.getElementById("submit");
+        const status = document.getElementById("status");
+
+        // Which raw events actually reached the button. The browser test asserts this is E6
+        // mechanism B — the same pointer/mouse sequence the extension host dispatches — so the demo
+        // cannot quietly be using `el.click()` instead.
+        window.__submitEvents = [];
+        for (const type of ["pointerdown", "mousedown", "pointerup", "mouseup", "click"]) {
+          submit.addEventListener(type, (event) => {
+            window.__submitEvents.push({ type: event.type, x: event.clientX, y: event.clientY });
+          });
+        }
+
+        submit.addEventListener("click", () => {
+          if (submit.disabled) return;
+          const confirmed = document.getElementById("mobile_confirm").value.trim();
+          const registered = document.getElementById("mobile").value.trim();
+          if (confirmed !== "" && confirmed === registered) {
+            status.textContent = "Application submitted";
+            status.dataset.submitted = "true";
+            // A submitted form does not offer to submit again. This is the postcondition VERIFY
+            // RESULT reads back, and it can only be reached by restoring the right value first.
+            submit.disabled = true;
+            return;
+          }
+          status.textContent = "Mobile number does not match";
+          status.dataset.submitted = "false";
+        });
+
+        window.__fixtureReady = true;
+      })();
+    </script>
+  </body>
+</html>

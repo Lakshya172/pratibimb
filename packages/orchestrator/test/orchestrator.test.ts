@@ -98,11 +98,24 @@ describe("the happy path", () => {
     }
   });
 
-  it("holds no secret anywhere in the record it hands the UI", async () => {
+  it("keeps every secret out of the record, except the local observation that is meant to hold them", async () => {
+    // The observations ARE the local view: they are what the client read off its own page, and the
+    // Planning View's local pane shows them on purpose — that contrast is the demo. Everything else
+    // in the record crosses a boundary or gets logged, and must be clean.
     const { record } = await run();
-    const serialized = JSON.stringify({ ...record, observation: null });
+    const serialized = JSON.stringify({ ...record, observation: null, initialObservation: null });
     for (const secret of [DEMO.mobile, DEMO.aadhaar, DEMO.name, DEMO.dob, DEMO.otp]) {
       expect(serialized, secret.slice(0, 3)).not.toContain(secret);
+    }
+  });
+
+  it("puts the values only there, and nowhere a later stage would carry them", async () => {
+    const { record } = await run();
+    // The local reading holds them...
+    expect(JSON.stringify(record.initialObservation)).toContain(DEMO.mobile);
+    // ...and the payload, the ledger, the plan and the grant do not.
+    for (const part of [record.handoffSerialized, JSON.stringify(record.ledgerEntry), JSON.stringify(record.plan), JSON.stringify(record.grant)]) {
+      expect(part).not.toContain(DEMO.mobile);
     }
   });
 });
@@ -137,10 +150,14 @@ describe("the refusal path", () => {
     expect(succeeded(record)).toBe(false);
   });
 
-  it("never quotes the secret in the refusal it shows a human", async () => {
+  it("never quotes the secret in the refusal, the kept plan, or the response record", async () => {
     const { record } = await run({ reasoner: leaking() });
-    const serialized = JSON.stringify({ ...record, observation: null });
+    // The reasoner echoed the number back. Nothing the client keeps reproduces it: the raw bytes
+    // were parsed and dropped, and the kept plan carries a class marker in the literal's place.
+    const serialized = JSON.stringify({ ...record, observation: null, initialObservation: null });
     expect(serialized).not.toContain(DEMO.mobile);
+    expect(JSON.stringify(record.plan)).toContain("⟨literal:PHONE⟩");
+    expect(record.response && "raw" in record.response).toBe(false);
   });
 
   it("leaves the reference unspent, so the refusal costs nothing", async () => {
