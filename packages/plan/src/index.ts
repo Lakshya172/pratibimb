@@ -24,6 +24,15 @@ export {
 } from "./schema.js";
 
 export {
+  literalMarker,
+  redactPlan,
+  type SafeClickStep,
+  type SafeInsertStep,
+  type SafePlan,
+  type SafeStep,
+} from "./display.js";
+
+export {
   validatePlan,
   type PlanRefusal,
   type PlanRefusalCause,
