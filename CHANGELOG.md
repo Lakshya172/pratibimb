@@ -31,6 +31,35 @@ fixture in Chrome for Testing 153.0.8010.12
   origin, expiring, and spent as the permit is minted. Entirely additive — omitted, every
   pre-existing behaviour is unchanged, and all 173 previous agent tests pass untouched.
 
+**A local model, a real network, and the first proof of what leaves** — W2, Chrome for Testing
+153.0.8010.12, 17/17 checks
+([LOOP-2](artifacts/experiments/LOOP-2-local-reasoner-egress/README.md)).
+
+- `@pratibimb/egress` — **the single module through which bytes leave this machine**, which is what
+  `SECURITY.md` §5's stop condition has always been about. `sendVerified` is the only network call in
+  the repository: verified handoff → loopback destination → only declared tokens → value-aware
+  residual scan → digest → record → send. The bytes are serialized **once**, and that same string is
+  scanned, hashed, recorded and sent, closing "a payload can be mutated between verification and
+  transmission" by construction.
+- `localModelReasoner` — **Qwen2.5-0.5B-Instruct** (Q4_K_M, revision `9217f5db…`, Apache-2.0
+  **verified at that revision**) behind llama.cpp `b10956` on `127.0.0.1`. Download approval was
+  **explicit**: work stopped at the boundary E9 was blocked at, reported the requirement, and did not
+  proceed without it. **No weights are committed.**
+- **Deterministic fallback with a policy, not a catch block.** A model that *failed* may be replaced
+  by the deterministic planner; a model that *misbehaved* may not — falling back from a refused plan
+  would replace a caught leakage event with a success. `HOSTILE` outcomes stop the run.
+- Evidence: the actual HTTP request body carried **four reference tokens and none of the five vault
+  values**, and the client's digest matched the receiving service's independently computed one
+  (`26d7c09f…`). Bodies are on disk under the experiment's `logs/captures/`.
+
+### Notes on the model
+- **`MODEL_PATH = EXPERIMENTAL`, `FALLBACK_PATH = VERIFIED`.** A 0.5B model given the bare schema
+  produced schema-valid nonsense; it needed enum-constrained decoding and a worked example before it
+  planned correctly. Nothing in the security pipeline was weakened to accommodate it.
+- Registry status is **`PINNED`**, not `ADOPTED` — adoption still needs QG-03 and a benchmark.
+- Latency (6 warm runs, one machine, **not a benchmark**): p50 609 ms, p95 623 ms end to end; the
+  reasoner is 2 020 ms cold and every enforcement stage together is under 20 ms.
+
 ### Fixed
 A hardening review against the frozen contracts, run before any reasoner work, corrected two places
 where a layer had become more opinionated than the contract allows (both in `216ed7c`, which also
@@ -59,7 +88,7 @@ carries the documentation below):
 - `packages/privacy` is unchanged and remains the sole privacy authority.
 - Three lifetimes (permit, confirmation, grant) are stated by callers with **no measurement behind
   any of them**; ADR-0008 §5 remains open.
-- **Extension end-to-end integration of the loop is NOT PROVEN.** `apps/demo` drives a same-origin
+- **Extension end-to-end integration of the loop is still NOT PROVEN**, unchanged by LOOP-2. `apps/demo` drives a same-origin
   frame directly; no content script, service worker, offscreen document or side panel took part, and
   the browser evidence ran headless with no extension loaded. A separate headed CfT 153 smoke
   confirms only that the built MV3 host still loads and its service worker boots.
