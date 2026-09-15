@@ -9,7 +9,7 @@
 ### 1. Where is the AI?
 
 On this laptop. **Qwen2.5-0.5B-Instruct**, Q4_K_M, running under llama.cpp bound to `127.0.0.1`, CPU
-only — the GPU is not used. The demo reaches it over real HTTP, which is why pane 5 can show you the
+only — the GPU is not used. The demo reaches it over real HTTP, which is why the **Data leaving device** panel can show you the
 exact bytes and their digest.
 
 It is a **replaceable component, not a security authority**. Swap it for any other model behind the
@@ -17,7 +17,7 @@ same interface and nothing after the boundary changes.
 
 ### 2. What does the server receive?
 
-Pane 3, live. The page structure, the goal in the user's words, and one opaque reference per
+**What the reasoner sees**, live. The page structure, the goal in the user's words, and one opaque reference per
 sensitive field — `<PII:PHONE:1>`, `<PII:AADHAAR:1>`, `<PII:DOB:1>`, `<PII:NAME:1>` — each with a
 **safe hint**: length, character kind, and field role. `len 10 · numeric · tel` is enough to plan
 with and is not the number.
@@ -32,7 +32,7 @@ Three independent things, and you can check all of them:
 1. **The bytes are scanned before they go.** The egress module serializes once and that same string
    is scanned against the values the vault actually holds — exactly, and under normalisation — then
    hashed, recorded and sent. There is no path where one thing is checked and another transmitted.
-2. **Two parties agree on the digest.** Pane 5 shows this client's SHA-256 of what it sent beside the
+2. **Two parties agree on the digest.** **Data leaving device** shows this client's SHA-256 of what it sent beside the
    digest the receiving service computed on what it got. In the rehearsal both were
    `26d7c09f78e318eb…`.
 3. **The body is on disk.** `artifacts/experiments/LOOP-2-local-reasoner-egress/logs/w2-outbound-payload.json`
@@ -72,7 +72,7 @@ that happens.
 
 Press **Model outage**. The client makes a real request to an address with nothing behind it, the
 connection is genuinely refused, and the deterministic planner answers instead — through the same
-validation, the same human grant, the same permit gate. **CONFIRMED · FALLBACK.**
+validation, the same human grant, the same permit gate. **TASK COMPLETED — via fallback.**
 
 `MODEL_PATH = EXPERIMENTAL`. `FALLBACK_PATH = VERIFIED`.
 

@@ -3,10 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PratiBimb — Planning View</title>
+    <title>PratiBimb — Privacy-Preserving Browser Agent</title>
     <!-- An empty icon, so the browser makes no request the server would have to answer with a 404.
          The demo run asserts a clean console, and a tolerated error is a place a real one can hide. -->
     <link rel="icon" href="data:," />
+    <!-- System fonts only. A web-font request from a privacy demo would be a network call to a third
+         party, which is exactly what this page exists to prevent. -->
     <link rel="stylesheet" href="./planning-view.css" />
     <!--
       Bare specifiers resolve to the BUILT packages, served by tests/browser/demo/server.mjs. The
@@ -27,75 +29,101 @@
       }
     </script>
   </head>
-  <body>
-    <header>
-      <div class="title">
-        <h1>PratiBimb</h1>
-        <p>A privacy firewall that happens to power an agent.</p>
+  <body data-phase="idle">
+    <header class="topbar">
+      <div class="brand">
+        <!-- A shield and its reflection: the structure survives, the identity does not. -->
+        <svg class="mark" viewBox="0 0 40 40" aria-hidden="true">
+          <rect width="40" height="40" rx="11" fill="#0B1220" />
+          <path d="M20 7.5l10 4v7.3H10v-7.3z" fill="#FFFFFF" />
+          <path d="M10 21.2h20v.9c0 4.8-4.2 8.5-10 10.4-5.8-1.9-10-5.6-10-10.4z" fill="#FFFFFF" opacity=".34" />
+        </svg>
+        <div class="brand-text">
+          <span class="brand-name">PratiBimb</span>
+          <span class="brand-sub">Privacy-Preserving Browser Agent</span>
+        </div>
       </div>
-      <div class="actions">
-        <button id="run-happy" type="button" class="primary">Run the task</button>
-        <button id="run-refusal" type="button" class="danger">Compromised reasoner</button>
-        <button id="run-outage" type="button">Model outage</button>
-        <button id="reset-demo" type="button" class="quiet">Reset</button>
-      </div>
+
+      <p class="motto">The model proposes. <strong>The client decides.</strong></p>
+
+      <span class="protected" title="Every outbound request passes the verified-payload egress guard, to loopback only.">
+        <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3l7.5 3v5.4c0 4.6-3.2 8.4-7.5 9.9-4.3-1.5-7.5-5.3-7.5-9.9V6z" /><path d="M8.7 12.2l2.3 2.3 4.4-4.6" />
+        </svg>
+        PROTECTED
+      </span>
+
+      <nav class="actions" aria-label="Demo acts">
+        <button id="run-happy" type="button" class="btn btn-primary"><span class="num">1</span>Run the task</button>
+        <button id="run-refusal" type="button" class="btn btn-danger"><span class="num">2</span>Compromised reasoner</button>
+        <button id="run-outage" type="button" class="btn btn-outline"><span class="num">3</span>Model outage</button>
+        <button id="reset-demo" type="button" class="btn btn-ghost">Reset</button>
+      </nav>
     </header>
 
-    <section id="wall-strip">
-      <p id="act-label" class="act-label"></p>
-      <div id="wall"></div>
-      <p id="wall-verdict" class="verdict"></p>
+    <div class="shell">
+      <main class="story">
+        <section class="card task" aria-label="Task">
+          <div id="task"></div>
+          <div id="wall" class="pipeline" aria-label="Progress"></div>
+        </section>
+
+        <section id="boundary" class="boundary" aria-label="Privacy boundary"></section>
+
+        <div class="decisions">
+          <section id="d-model" class="card dcard" aria-label="Model proposes"></section>
+          <section id="d-client" class="card dcard" aria-label="Client decides"></section>
+          <section id="d-human" class="card dcard" aria-label="Human approval"></section>
+          <section id="d-act" class="card dcard" aria-label="Restore and act"></section>
+        </div>
+
+        <section id="wall-verdict" class="outcome k-none" aria-live="polite"></section>
+
+        <div class="duo">
+          <section id="leaving" class="card panel" aria-label="Data leaving device"></section>
+          <section id="trust" class="card panel" aria-label="Who is trusted with what"></section>
+        </div>
+      </main>
+
+      <aside class="rail" aria-label="The page the agent operates">
+        <div class="rail-head">
+          <span class="eyebrow">The page · on your device</span>
+          <span class="rail-sub">Synthetic State Services form</span>
+        </div>
+        <div class="browser">
+          <div class="browser-bar" aria-hidden="true">
+            <i></i><i></i><i></i>
+            <span class="url">127.0.0.1 · State Services — application</span>
+          </div>
+          <!--
+            740px is not cosmetic. The whole form, including the submit button, must be inside the
+            frame's own viewport: perception marks an element below the fold OFFSCREEN, and the gate
+            refuses to dispatch at a point it cannot attest is on screen — correctly. A shorter frame
+            makes the demo fail at ACT with TARGET_ABSENT_AFTER_REFRESH, which is the system working.
+          -->
+          <iframe id="page" src="/fixture/" title="State Services application"></iframe>
+        </div>
+      </aside>
+    </div>
+
+    <section class="evidence" aria-label="Technical evidence">
+      <div class="evidence-head">
+        <h2>Technical evidence</h2>
+        <p>The proof behind every line above, read from the same run record.</p>
+      </div>
+      <div class="evidence-grid">
+        <article class="ev"><h3>Run</h3><div id="pane-goal"></div></article>
+        <article class="ev"><h3>Privacy ledger &amp; egress</h3><div id="pane-egress"></div></article>
+        <article class="ev wide"><h3>Page observation <span class="side-tag">local only</span></h3><div id="pane-page"></div></article>
+        <article class="ev"><h3>Sanitized representation</h3><div id="pane-server"></div></article>
+        <article class="ev"><h3>Plan, gates &amp; approval</h3><div id="pane-plan"></div></article>
+      </div>
     </section>
 
-    <main>
-      <section class="pane span-2">
-        <h2><span class="n">1</span> Goal</h2>
-        <div id="pane-goal"></div>
-      </section>
-
-      <section class="pane span-2">
-        <h2><span class="n">5</span> Privacy ledger — what actually left this device</h2>
-        <div id="pane-egress"></div>
-      </section>
-
-      <section class="pane local">
-        <h2><span class="n">2</span> What the page contains <span class="side-tag side-local">LOCAL ONLY</span></h2>
-        <div id="pane-page"></div>
-      </section>
-
-      <section class="pane server">
-        <h2><span class="n">3</span> What the reasoner receives <span class="side-tag side-server">LEAVES THIS MACHINE</span></h2>
-        <div id="pane-server"></div>
-      </section>
-
-      <section class="pane span-2">
-        <h2><span class="n">4</span> Plan · validation · human grant · action</h2>
-        <div id="pane-plan"></div>
-      </section>
-
-      <section class="pane span-2 page-frame">
-        <h2>The page</h2>
-        <iframe id="page" src="/fixture/" title="State Services application"></iframe>
-      </section>
-    </main>
-
-    <dialog id="grant">
-      <h3>Permission required</h3>
-      <div id="grant-body"></div>
-      <div class="dialog-actions">
-        <button id="grant-deny" type="button">Don't allow</button>
-        <button id="grant-allow" type="button" class="primary">Allow once</button>
-      </div>
-    </dialog>
-
-    <footer>
-      <p>
-        Single-task prototype on synthetic data. The reasoner is a local Qwen2.5-0.5B over loopback
-        HTTP — <b>experimental</b>; the deterministic planner behind it is the verified path. No screen
-        capture, no VLM, and the loop does not run through the browser extension. The vault is a
-        memory-only prototype, not production storage. Not production-ready and not a general privacy
-        guarantee.
-      </p>
+    <footer class="foot">
+      Prototype on synthetic data. The local model path is experimental; the deterministic planner is the
+      verified path. This demo runs the agent in this page — not yet inside the browser extension. Not
+      production-ready, and not a general privacy guarantee.
     </footer>
 
     <script type="module" src="/demo/main.js"></script>
