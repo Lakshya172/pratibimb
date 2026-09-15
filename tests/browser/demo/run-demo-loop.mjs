@@ -264,12 +264,18 @@ const checks = {
     success.panes.plan.includes("VALID") &&
     success.panes.plan.includes("GRANTED") &&
     success.panes.plan.includes("REHYDRATED LOCALLY"),
+  // These two checks used to assert the words "no egress client" and "REFUSED". Both became untrue
+  // copy: LOOP-2 added a real egress client, and the upgraded view headlines a caught leak as
+  // BLOCKED. They now assert what the panes truthfully say about this in-process run; every
+  // security check above is unchanged.
   paneEgressShowsIdentityDigestAndResult:
     success.panes.egress.includes(success.record.ledger?.payloadSha256 ?? " ") &&
     success.panes.egress.includes("CONFIRMED") &&
-    success.panes.egress.includes("no egress client"),
+    success.panes.egress.includes("IN_PROCESS"),
   paneWallReflectsTheRunItself:
-    success.panes.verdict.includes("CONFIRMED") && refusal.panes.verdict.includes("REFUSED"),
+    success.panes.verdict.includes("TASK COMPLETED") &&
+    success.panes.verdict.includes("CONFIRMED") &&
+    refusal.panes.verdict.includes("BLOCKED"),
   paneRefusalStateIsShownWithoutTheSecret:
     refusal.panes.plan.includes("LITERAL ECHO") &&
     refusal.panes.plan.includes("⟨literal:PHONE⟩") &&
