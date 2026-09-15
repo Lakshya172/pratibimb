@@ -17,14 +17,25 @@
  * handoff contains no values, which is the thing being demonstrated. So the harness reads the
  * registered number out of the local DOM and gives it to the simulated attacker. That necessity is
  * the evidence, and the UI says so rather than hiding it.
+ *
+ * WHAT THE SCREEN SHOWS DURING A RUN, AND HOW IT KNOWS. The orchestrator returns its record only when
+ * the run ends, but the story a judge follows — the boundary filling in, the model planning, the
+ * approval request — happens before that. So three READ-ONLY TAPS watch the ports as the pipeline uses
+ * them: the first page reading, the verified handoff a reasoner is given, and the grant request. They
+ * pass every call through unchanged and alter no argument or result. Each catches its own rendering
+ * errors, because an exception thrown inside `propose` would be read by `sendToReasoner` as
+ * `REASONER_THREW` and trigger a fallback — a display bug silently changing what the system does.
+ * When the run ends, the record replaces everything the taps saw.
  */
 import { type EgressRecord, type EgressRefusal } from "@pratibimb/egress";
-import { runTask, type GrantDecision, type GrantRequest, type RunRecord } from "@pratibimb/orchestrator";
-import { deterministicReasoner, localModelReasoner, unavailableReasoner } from "@pratibimb/reasoner";
+import { runTask, type ClientPorts, type GrantDecision, type GrantRequest, type RunRecord } from "@pratibimb/orchestrator";
+import { deterministicReasoner, localModelReasoner, unavailableReasoner, type ReasonerClient } from "@pratibimb/reasoner";
 
 import { ACTS, ENDPOINTS, type ActId } from "./demoScript.js";
+import { type EgressAttempt } from "./evidence.js";
 import { PageAdapter, portsFrom } from "./pageAdapter.js";
-import { renderAll } from "./view.js";
+import { IDLE, type Asked, type StoryInput } from "./story.js";
+import { render } from "./view.js";
 
 const GOAL = "Submit my application with my registered mobile number.";
 
@@ -43,47 +54,80 @@ const frame = (): HTMLIFrameElement => {
   return found;
 };
 
-/** The human grant dialog. The only place a consent can come from. */
-function askHuman(request: GrantRequest): Promise<GrantDecision> {
-  return new Promise((resolve) => {
-    const dialog = document.getElementById("grant") as HTMLDialogElement;
-    const body = document.getElementById("grant-body") as HTMLElement;
-    body.innerHTML = `
-      <p class="ask">Allow PratiBimb to use your <b>registered ${request.piiClass.toLowerCase()}</b>
-        for &ldquo;${request.targetLabel}&rdquo;?</p>
-      <dl class="kv">
-        <dt>value</dt><dd><code class="token">${request.ref}</code> — held locally, never sent</dd>
-        <dt>into</dt><dd><code>${request.target}</code></dd>
-        <dt>then</dt><dd>click <code>${request.action.target}</code> (&ldquo;${request.action.label}&rdquo;)</dd>
-        <dt>on</dt><dd><code>${request.origin}</code></dd>
-        <dt>session</dt><dd><code>${request.sessionId}</code></dd>
-      </dl>
-      <p class="sub">This permission is for this value, this field, this page and this session, once.
-        It is not stored, and it does not cover anything else.</p>`;
+// ── what the screen is showing ───────────────────────────────────────────────────────────────
 
-    const finish = (decision: GrantDecision) => {
-      dialog.close();
-      allow.removeEventListener("click", onAllow);
-      deny.removeEventListener("click", onDeny);
-      resolve(decision);
-    };
-    const allow = document.getElementById("grant-allow") as HTMLButtonElement;
-    const deny = document.getElementById("grant-deny") as HTMLButtonElement;
-    const onAllow = () => finish({ granted: true });
-    const onDeny = () => finish({ granted: false, reason: "DENIED" });
-    allow.addEventListener("click", onAllow);
-    deny.addEventListener("click", onDeny);
-    dialog.showModal();
-  });
-}
+let screen: StoryInput = IDLE;
+let currentAct: ActId | null = null;
+/**
+ * Which run owns the screen. A reset bumps it, so a run that finishes after a reset cannot paint its
+ * result over the cleared view.
+ */
+let generation = 0;
 
-/** Approve without a dialog — used only by the automated browser runs. */
-const autoGrant = async (): Promise<GrantDecision> => ({ granted: true });
+const paint = (): void => render(GOAL, screen, currentAct);
+
+/** Update the screen from inside the pipeline. Never throws into it. */
+const live = (owner: number, update: (current: StoryInput) => StoryInput): void => {
+  if (owner !== generation) return;
+  try {
+    screen = update(screen);
+    paint();
+  } catch (error) {
+    console.error("planning view: a live update could not be shown", error);
+  }
+};
+
+// ── the human ────────────────────────────────────────────────────────────────────────────────
+
+/** The answer to the approval currently on screen, if one is. The only place consent comes from. */
+let answer: ((decision: GrantDecision) => void) | null = null;
+
+document.addEventListener("click", (event) => {
+  const button = (event.target as Element | null)?.closest<HTMLElement>("[data-grant]");
+  if (!button || !answer) return;
+  answer(button.dataset["grant"] === "allow" ? { granted: true } : { granted: false, reason: "DENIED" });
+});
+
+/** Ask a human, on the approval card. */
+const askHuman =
+  (owner: number) =>
+  (request: GrantRequest): Promise<GrantDecision> =>
+    new Promise((resolve) => {
+      answer = (decision) => {
+        answer = null;
+        live(owner, (s) => ({ ...s, phase: "running", approved: decision.granted }));
+        resolve(decision);
+      };
+      live(owner, (s) => ({ ...s, phase: "approval", grant: request, approved: null }));
+
+      const allow = document.getElementById("grant-allow");
+      if (!allow) {
+        // The approval card did not render. Ask through the browser instead: still an explicit human
+        // decision, and never an automatic one.
+        const decided = window.confirm(`${request.purpose}?\n\nThis permission covers this value, this field, this page and this session, once.`);
+        answer(decided ? { granted: true } : { granted: false, reason: "DENIED" });
+        return;
+      }
+      allow.focus({ preventScroll: true });
+      allow.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    });
+
+/**
+ * Approve without a human — used only by the automated browser runs. It passes through the same
+ * approval states on screen, so a rendering fault in them fails the rehearsal instead of the demo.
+ */
+const autoGrant =
+  (owner: number) =>
+  async (request: GrantRequest): Promise<GrantDecision> => {
+    live(owner, (s) => ({ ...s, phase: "approval", grant: request, approved: null }));
+    live(owner, (s) => ({ ...s, phase: "running", approved: true }));
+    return { granted: true };
+  };
 
 export interface RunRequest {
   /** `literal-echo` simulates a reasoner that returns the secret instead of the reference. */
   readonly mode?: "reference" | "literal-echo";
-  /** Skip the modal, for the automated runs. The decision is still explicit and still one-shot. */
+  /** Skip the approval card, for the automated runs. The decision is still explicit and still one-shot. */
   readonly auto?: boolean;
   /**
    * Which reasoner answers first.
@@ -98,7 +142,7 @@ export interface RunRequest {
   readonly endpoint?: string;
 }
 
-/** Every egress attempt this page made, for the evidence runner and the result pane. */
+/** Every egress attempt this page made, for the evidence runner and the ledger. */
 export const egressLog: { record?: EgressRecord; refusal?: EgressRefusal }[] = [];
 
 export async function run(request: RunRequest = {}): Promise<RunRecord> {
@@ -108,9 +152,12 @@ export async function run(request: RunRequest = {}): Promise<RunRecord> {
   const origin = win.location.origin;
 
   runs += 1;
+  generation += 1;
+  const owner = generation;
   const adapter = new PageAdapter(doc, win, { origin, framePrefix: `demo-r${runs}` });
-  // Only this run's egress attempts reach this run's ledger pane.
+  // Only this run's egress attempts reach this run's ledger.
   const egressBefore = egressLog.length;
+  const thisRun = (): EgressAttempt[] => egressLog.slice(egressBefore);
 
   // The attacker's input. It is read from the LOCAL page, because there is nowhere else it could
   // come from — the handoff contains no values.
@@ -118,6 +165,7 @@ export async function run(request: RunRequest = {}): Promise<RunRecord> {
 
   const onEgress = (event: { record?: EgressRecord; refusal?: EgressRefusal }): void => {
     egressLog.push(event);
+    live(owner, (s) => ({ ...s, attempts: thisRun() }));
   };
 
   // The deterministic planner, always available behind whatever answers first.
@@ -135,25 +183,55 @@ export async function run(request: RunRequest = {}): Promise<RunRecord> {
         : deterministic;
   const reasonerKind = pick === "deterministic" ? ("DETERMINISTIC_FALLBACK" as const) : ("LOCAL_MODEL" as const);
 
-  const record = await runTask(
-    portsFrom(adapter, {
-      reasoner,
-      reasonerKind,
-      fallback: deterministic,
-      requestGrant: request.auto ? autoGrant : askHuman,
-    }),
-    {
-      goal: GOAL,
-      sessionId: `demo-session-${runs}`,
-      requestId: `demo-request-${runs}`,
-      origin,
-      permitTtlMs: TTL.permitMs,
-      confirmationTtlMs: TTL.confirmationMs,
-      grantTtlMs: TTL.grantMs,
-    }
-  );
+  // TAP: note which reasoner was asked and the verified handoff it was given, then call it exactly
+  // as before. The request is passed through untouched; nothing reads the vault it carries.
+  const tap = (client: ReasonerClient, asked: Asked): ReasonerClient => ({
+    ...client,
+    propose: (proposal) => {
+      live(owner, (s) => ({ ...s, handoff: proposal.handoff, asked: [...s.asked, asked] }));
+      return client.propose(proposal);
+    },
+  });
 
-  renderAll(GOAL, record, egressLog.slice(egressBefore));
+  const ports = portsFrom(adapter, {
+    reasoner: tap(reasoner, pick === "deterministic" ? "planner" : "model"),
+    reasonerKind,
+    fallback: tap(deterministic, "fallback"),
+    requestGrant: request.auto ? autoGrant(owner) : askHuman(owner),
+  });
+
+  // TAP: the first reading of the page, so the device side of the boundary fills in as it happens.
+  let firstReading = true;
+  const tapped: ClientPorts = {
+    ...ports,
+    observe: async () => {
+      const reading = await ports.observe();
+      if (firstReading) {
+        firstReading = false;
+        live(owner, (s) => ({ ...s, observation: reading }));
+      }
+      return reading;
+    },
+  };
+
+  screen = { ...IDLE, phase: "running" };
+  paint();
+
+  const record = await runTask(tapped, {
+    goal: GOAL,
+    sessionId: `demo-session-${runs}`,
+    requestId: `demo-request-${runs}`,
+    origin,
+    permitTtlMs: TTL.permitMs,
+    confirmationTtlMs: TTL.confirmationMs,
+    grantTtlMs: TTL.grantMs,
+  });
+
+  // The record replaces everything the taps saw. Not guarded: a fault here should fail loudly.
+  if (owner === generation) {
+    screen = { ...screen, phase: "done", record, attempts: thisRun() };
+    paint();
+  }
   return record;
 }
 
@@ -171,25 +249,31 @@ export function resetPage(): Promise<void> {
  *
  * Reloading the frame is what clears the form, the submit events and the status line, and it gives
  * the document a new identity so no binding, grant or permit from the previous act could still
- * apply even if one had survived. The Planning View and the egress log are cleared here because
- * they are the two things that live in *this* document and would otherwise carry act one into act
- * two — in front of judges.
+ * apply even if one had survived. The screen and the egress log are cleared here because they are the
+ * two things that live in *this* document and would otherwise carry act one into act two — in front of
+ * judges.
+ *
+ * An approval still on screen is answered as DISMISSED — never as approved — so the run it belonged
+ * to ends as a refusal rather than hanging, and the generation bump keeps it from painting afterwards.
  *
  * The vault, the handoff and the use-grant need no clearing: `sanitize()` builds a new vault per
  * run and nothing outlives the record.
  */
 export async function resetDemo(): Promise<void> {
+  generation += 1;
+  answer?.({ granted: false, reason: "DISMISSED" });
   egressLog.splice(0, egressLog.length);
   window.__demo.last = null;
   await resetPage();
-  renderAll(GOAL, null);
-  setAct(null);
+  screen = IDLE;
+  currentAct = null;
+  paint();
 }
 
 /** Run one act of the demo script. The buttons and the rehearsal runner both come through here. */
 export async function runAct(id: ActId, options: { readonly auto?: boolean } = {}): Promise<RunRecord> {
   const act = ACTS[id];
-  setAct(id);
+  currentAct = id;
   const record = await run({
     reasoner: act.reasoner,
     mode: act.mode,
@@ -198,14 +282,6 @@ export async function runAct(id: ActId, options: { readonly auto?: boolean } = {
   });
   window.__demo.last = record;
   return record;
-}
-
-/** Name the act on screen, so nobody has to remember which button was pressed. */
-function setAct(id: ActId | null): void {
-  const strip = document.getElementById("act-label");
-  if (!strip) return;
-  strip.textContent = id === null ? "" : `${ACTS[id].label} — ${ACTS[id].blurb}`;
-  strip.dataset["act"] = id ?? "";
 }
 
 declare global {
@@ -259,4 +335,4 @@ document.getElementById("reset-demo")?.addEventListener("click", () => {
   })();
 });
 
-renderAll(GOAL, null);
+paint();
