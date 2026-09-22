@@ -1,0 +1,151 @@
+/**
+ * ONE TASK, RUN FROM THE OFFSCREEN DOCUMENT, THROUGH THE REAL EXTENSION.
+ *
+ * This is the demo's `apps/demo/src/main.ts` with the same parts in the same order and a different
+ * page underneath it: the page is in a tab, reached through the content script and the service
+ * worker, instead of a same-origin frame in the same realm. Everything between `runTask` and the
+ * click is the shipped packages, unmodified and unwrapped.
+ *
+ * WHAT THIS FILE IS ALLOWED TO DECIDE: nothing. It chooses which reasoner is asked and at what
+ * address — the two things a deployment chooses — and it holds the lifetimes, which ADR-0008 §5
+ * leaves open and which therefore have to be stated somewhere. Every refusal in the run belongs to
+ * a package.
+ *
+ * THE THREE ACTS DIFFER BY ONE THING. Not a flag, not a mode, not a branch: **what is listening at
+ * the reasoner's address**. An honest front, a hostile front, or nothing at all. The security path is
+ * the same object graph in all three, which is the claim the evidence has to be able to make.
+ *
+ * WHY THE ADDRESS IS ALWAYS THE SAME ONE. The manifest pins `connect-src` to a single loopback
+ * origin (ADR-0001 §7.2), and M1 does not widen it. So the acts share an address and differ in what
+ * answers there — which is closer to a real outage than three addresses would be.
+ *
+ * THE HUMAN. `requestGrant` is left pending until something outside this realm answers it. Nothing
+ * here can answer it, the reasoner cannot reach it, and the service worker only carries the answer.
+ * In an automated run the operator answers through the harness, exactly as the demo rehearsal's
+ * `auto` mode does — and M1 does not claim to have built a human-facing grant surface.
+ */
+import { type EgressRecord, type EgressRefusal } from "@pratibimb/egress";
+import { observePage, type TransportBinding, type TransportRelay } from "@pratibimb/extension-transport";
+import { runTask, type GrantDecision, type GrantRequest, type RunRecord } from "@pratibimb/orchestrator";
+import { deterministicReasoner, localModelReasoner, type ReasonerClient } from "@pratibimb/reasoner";
+
+import { clientHeldFields } from "./client-held-fields";
+import { createExtensionPorts, type ExtensionPortsReport, type RehydrationOutcome } from "./extension-ports";
+import { createReleaseAuthority } from "./value-release";
+
+/**
+ * Lifetimes. **None of these is approved by the repository** — ADR-0008 §5 leaves the permit TTL an
+ * open owner decision, and the rest are stated here for the same reason: so that something has to
+ * state them. The release TTL is the shortest, because it is the only one that gates a value.
+ */
+export const TTL = { permitMs: 5_000, confirmationMs: 60_000, grantMs: 60_000, releaseMs: 10_000 } as const;
+
+export type ExtensionActId = "SUCCESS" | "REFUSAL" | "OUTAGE";
+
+export interface ExtensionRunRequest {
+  readonly tabId: number;
+  readonly frameId: number;
+  readonly goal: string;
+  readonly act: ExtensionActId;
+  /** The reasoner's address. The manifest's one pinned origin, or `null` for the in-process planner. */
+  readonly endpoint: string | null;
+  readonly sessionId: string;
+  readonly requestId: string;
+}
+
+export interface ExtensionRunResult {
+  readonly record: RunRecord;
+  readonly binding: {
+    readonly origin: string;
+    readonly documentId: string;
+    readonly tabId: number;
+    readonly frameId: number;
+    readonly swBootId: string;
+  };
+  readonly ports: ExtensionPortsReport;
+  /** Every egress attempt this run made, as `packages/egress` recorded it. */
+  readonly egress: readonly { record?: EgressRecord; refusal?: EgressRefusal }[];
+  readonly grant: { readonly asked: boolean; readonly granted: boolean | null };
+}
+
+/** How the offscreen realm asks the page to come and collect, and how a human answers. */
+export interface ExtensionRunDeps {
+  readonly relay: TransportRelay;
+  rehydrate(binding: TransportBinding, nonce: string, target: string): Promise<RehydrationOutcome>;
+  /** Park the request until someone outside this realm decides. Never resolved from in here. */
+  askHuman(request: GrantRequest): Promise<GrantDecision>;
+}
+
+export async function runExtensionTask(
+  deps: ExtensionRunDeps,
+  request: ExtensionRunRequest
+): Promise<ExtensionRunResult> {
+  // The binding comes first and everything else is bound to it: the browser attests which document
+  // answered, and no later message may name a different one.
+  const observation = await observePage(deps.relay, { tabId: request.tabId, frameId: request.frameId });
+  const binding = observation.binding;
+  const origin = binding.document.origin;
+
+  const egress: { record?: EgressRecord; refusal?: EgressRefusal }[] = [];
+  const onEgress = (event: { record?: EgressRecord; refusal?: EgressRefusal }): void => {
+    egress.push(event);
+  };
+
+  // The deterministic planner, always behind whatever answers first. It is the fallback in every
+  // act, including the one where the primary reasoner is hostile — where the client must NOT fall
+  // back, and the record has to show that it did not.
+  const deterministic: ReasonerClient = deterministicReasoner();
+  const reasoner: ReasonerClient =
+    request.endpoint === null ? deterministic : localModelReasoner({ endpoint: request.endpoint, onEgress });
+
+  const grant = { asked: false, granted: null as boolean | null };
+
+  const release = createReleaseAuthority();
+  const { ports, report } = createExtensionPorts({
+    relay: deps.relay,
+    binding,
+    origin,
+    fields: clientHeldFields(origin),
+    release,
+    rehydrate: (nonce, target) => deps.rehydrate(binding, nonce, target),
+    releaseTtlMs: TTL.releaseMs,
+    reasoner,
+    reasonerKind: request.endpoint === null ? "DETERMINISTIC_FALLBACK" : "LOCAL_MODEL",
+    fallback: deterministic,
+    requestGrant: async (grantRequest) => {
+      grant.asked = true;
+      const decision = await deps.askHuman(grantRequest);
+      grant.granted = decision.granted;
+      return decision;
+    },
+  });
+
+  try {
+    const record = await runTask(ports, {
+      goal: request.goal,
+      sessionId: request.sessionId,
+      requestId: request.requestId,
+      origin,
+      permitTtlMs: TTL.permitMs,
+      confirmationTtlMs: TTL.confirmationMs,
+      grantTtlMs: TTL.grantMs,
+    });
+
+    return {
+      record,
+      binding: {
+        origin,
+        documentId: binding.document.documentId,
+        tabId: binding.document.tabId,
+        frameId: binding.document.frameId,
+        swBootId: binding.swBootId,
+      },
+      ports: report,
+      egress,
+      grant,
+    };
+  } finally {
+    // However the run ended — success, refusal, or a throw — no capability outlives it.
+    release.revokeAll();
+  }
+}

@@ -42,6 +42,14 @@ export default defineConfig({
         "@pratibimb/perception": join(ROOT, "packages", "perception", "src", "index.ts"),
         "@pratibimb/security": join(ROOT, "packages", "security", "src", "index.ts"),
         "@pratibimb/extension-transport": join(ROOT, "packages", "extension-transport", "src", "index.ts"),
+        // M1: the product authorities, so the loop the demo already runs can run in the offscreen
+        // realm instead of being reimplemented for it. Source, not `dist/`, for the same reason as
+        // above: a host build must not ship a stale compile of a security layer.
+        "@pratibimb/privacy": join(ROOT, "packages", "privacy", "src", "index.ts"),
+        "@pratibimb/plan": join(ROOT, "packages", "plan", "src", "index.ts"),
+        "@pratibimb/reasoner": join(ROOT, "packages", "reasoner", "src", "index.ts"),
+        "@pratibimb/egress": join(ROOT, "packages", "egress", "src", "index.ts"),
+        "@pratibimb/orchestrator": join(ROOT, "packages", "orchestrator", "src", "index.ts"),
       },
     },
   }),

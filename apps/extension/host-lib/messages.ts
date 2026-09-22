@@ -16,7 +16,20 @@
 export type ToSw =
   | { readonly kind: "HELLO" }
   | { readonly kind: "RELAY_ECHO"; readonly sentAt: number }
-  | { readonly kind: "HOST_STATUS" };
+  | { readonly kind: "HOST_STATUS" }
+  /**
+   * M1 — the offscreen document asking the worker to carry a release capability to a tab.
+   *
+   * A nonce and a field name. There is no value field here and there must never be one: the value
+   * is fetched by the content script from the core realm, in a reply this worker never sees.
+   */
+  | {
+      readonly kind: "REHYDRATE_REQUEST";
+      readonly tabId: number;
+      readonly frameId: number;
+      readonly nonce: string;
+      readonly target: string;
+    };
 
 export type ToOffscreen =
   | { readonly target: "offscreen"; readonly kind: "ECHO" }
@@ -32,7 +45,11 @@ export type ToOffscreen =
       readonly bodyB64: string | null;
     };
 
-export type ToContent = { readonly kind: "MEASURE" } | { readonly kind: "ROUNDTRIP"; readonly samples: number };
+export type ToContent =
+  | { readonly kind: "MEASURE" }
+  | { readonly kind: "ROUNDTRIP"; readonly samples: number }
+  /** M1 — "a capability is waiting for this field". Carries no value; see `value-release.ts`. */
+  | { readonly kind: "REHYDRATE"; readonly nonce: string; readonly target: string };
 
 export interface SenderIdentity {
   readonly tabId: number | null;

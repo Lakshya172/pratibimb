@@ -5,19 +5,23 @@
  * never written to storage. It exists so later experiments can check that a value stays on this side.
  * There is no production vault, sanitizer, verifier or egress module in this host.
  */
-import { observePage } from "@pratibimb/extension-transport";
+import { observePage, type TransportBinding } from "@pratibimb/extension-transport";
+import { type GrantDecision, type GrantRequest } from "@pratibimb/orchestrator";
 
 import { bootstrapOrtRealm, createPinnedInferenceSession, resolvePackagedAsset } from "../../entrypoints/ortRuntime";
-import { isFromThisExtension, type ToOffscreen } from "../../host-lib/messages";
+import { clientHeldFieldCount } from "../../host-lib/client-held-fields";
+import { type RehydrationOutcome } from "../../host-lib/extension-ports";
+import { runExtensionTask, type ExtensionRunRequest, type ExtensionRunResult } from "../../host-lib/extension-run";
+import { identityOf, isFromThisExtension, type ToOffscreen } from "../../host-lib/messages";
 import { chromeRelay } from "../../host-lib/transport-chrome";
 import { installTransportControlPlane } from "../../host-lib/transport-control-plane";
+import { createReleaseAuthority, type AttestedAsker } from "../../host-lib/value-release";
 
 const instanceId = crypto.randomUUID();
 const createdAt = Date.now();
 // A synthetic canary with a phone's shape (10 digits), so tel and maxlength fixtures behave as they
 // would for a real phone value. It is not a real number and is never sent anywhere.
 const vaultStub = new Map<string, string>([["<PII:PHONE:1>", "9000000001"]]);
-const nonces = new Set<string>();
 
 type OrtGlobal = { InferenceSession: unknown; Tensor: new (type: string, data: Float32Array, dims: number[]) => unknown; env: unknown };
 
@@ -96,19 +100,22 @@ async function e4Emit(msg: { url: string; method: string; headers: Readonly<Reco
  * redeem it only if the browser reports exactly that tab, frame and document as the sender, before
  * expiry, once. The value then goes to that content script and nowhere else.
  */
-const armed = new Map<string, { tabId: number; frameId: number; documentId: string; ref: string; expiresAt: number }>();
+const valueRelease = createReleaseAuthority();
 
-function release(msg: { nonce: string }, sender: chrome.runtime.MessageSender): { value: string } | { refused: string } {
-  const a = armed.get(msg.nonce);
-  if (!a) return { refused: "UNKNOWN_OR_CONSUMED_NONCE" };
-  armed.delete(msg.nonce); // consumed on any attempt that names it
-  nonces.delete(msg.nonce);
-  const s = sender as chrome.runtime.MessageSender & { documentId?: string };
-  if (Date.now() >= a.expiresAt) return { refused: "NONCE_EXPIRED" };
-  if (sender.tab?.id !== a.tabId || sender.frameId !== a.frameId || s.documentId !== a.documentId) return { refused: "SENDER_DOCUMENT_MISMATCH" };
-  const value = vaultStub.get(a.ref);
-  return value === undefined ? { refused: "UNKNOWN_REF" } : { value };
-}
+/** The browser's word for who is asking, reduced to what a capability is bound to. */
+const askerOf = (sender: chrome.runtime.MessageSender): AttestedAsker => {
+  const id = identityOf(sender);
+  return { tabId: id.tabId, frameId: id.frameId, documentId: id.documentId };
+};
+
+/**
+ * Answer one redemption, from either the E6 experiment or the product run — there is one authority
+ * and one set of refusals, so the mechanism the experiment measured is the mechanism that ships.
+ */
+const redeem = (nonce: string, target: string, sender: chrome.runtime.MessageSender): { value: string } | { refused: string } => {
+  const outcome = valueRelease.redeem(nonce, target, askerOf(sender));
+  return outcome.released ? { value: outcome.value } : { refused: outcome.refused };
+};
 
 /**
  * EXPERIMENT D-E6-4: this document is the core realm (TR-9).
@@ -118,11 +125,80 @@ function release(msg: { nonce: string }, sender: chrome.runtime.MessageSender): 
  * plane starts nothing: it exposes the unchanged stages and the transport's constructors for an
  * evidence run to compose through the DevTools protocol, exactly as Track G and E6 are driven.
  */
+/**
+ * THE PRODUCT RUN, HOSTED WHERE AUTHORITY LIVES.
+ *
+ * One run at a time, in the realm that survives a service-worker restart. The three things this
+ * realm has that no other context does are all here: the vault the privacy layer builds, the
+ * capability authority, and the approval a human has not yet answered.
+ *
+ * NOTHING BELOW CAN APPROVE ITSELF. `askHuman` parks the request and returns a promise nothing in
+ * this file resolves; only a `GRANT_DECIDE` from outside a page does, and the reasoner has no way to
+ * reach it at all.
+ */
+let running: Promise<ExtensionRunResult> | null = null;
+let pendingGrant: { request: GrantRequest; answer: (decision: GrantDecision) => void } | null = null;
+
+/** Answer the approval currently outstanding. `false` means there was nothing to answer. */
+function decideGrant(granted: boolean): boolean {
+  if (pendingGrant === null) return false;
+  const { answer } = pendingGrant;
+  pendingGrant = null;
+  answer(granted ? { granted: true } : { granted: false, reason: "DENIED" });
+  return true;
+}
+
+/**
+ * Tell the bound document that a capability is waiting.
+ *
+ * Through the worker, because an offscreen document cannot address a tab — and what it carries is a
+ * nonce and a field name, neither of which is a secret. The value does not travel this way: the page
+ * comes and asks for it, and is answered directly.
+ */
+async function rehydrate(binding: TransportBinding, nonce: string, target: string): Promise<RehydrationOutcome> {
+  const reply = (await chrome.runtime.sendMessage({
+    kind: "REHYDRATE_REQUEST",
+    tabId: binding.document.tabId,
+    frameId: binding.document.frameId,
+    nonce,
+    target,
+  })) as RehydrationOutcome | { refused: string } | undefined;
+  if (!reply) return { written: false, refused: "NO_RESPONSE" };
+  return "written" in reply ? reply : { written: false, refused: reply.refused };
+}
+
+async function runTask(request: ExtensionRunRequest): Promise<ExtensionRunResult> {
+  if (running !== null) throw new Error("A_RUN_IS_ALREADY_IN_PROGRESS");
+  const task = runExtensionTask(
+    {
+      relay: chromeRelay,
+      rehydrate,
+      askHuman: (grantRequest) =>
+        new Promise<GrantDecision>((resolve) => {
+          pendingGrant = { request: grantRequest, answer: resolve };
+        }),
+    },
+    request
+  );
+  running = task;
+  try {
+    return await task;
+  } finally {
+    running = null;
+    // An approval nobody answered does not outlive the run it belonged to.
+    pendingGrant = null;
+  }
+}
+
 installTransportControlPlane();
 
 chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
-  const msg = raw as ToOffscreen | { target: "offscreen"; kind: "E6_ARM"; nonce: string; tabId: number; frameId: number; documentId: string; ref: string; ttlMs: number } | { target: "offscreen"; kind: "E6_RELEASE"; nonce: string }
-    | { target: "offscreen"; kind: "TRANSPORT_OBSERVE"; tabId: number; frameId: number };
+  const msg = raw as ToOffscreen | { target: "offscreen"; kind: "E6_ARM"; tabId: number; frameId: number; documentId: string; ref: string; selector: string; ttlMs: number } | { target: "offscreen"; kind: "E6_RELEASE"; nonce: string; target2: string }
+    | { target: "offscreen"; kind: "TRANSPORT_OBSERVE"; tabId: number; frameId: number }
+    | { target: "offscreen"; kind: "VALUE_RELEASE"; nonce: string; field: string }
+    | { target: "offscreen"; kind: "RUN_TASK"; request: ExtensionRunRequest }
+    | { target: "offscreen"; kind: "GRANT_PEEK" }
+    | { target: "offscreen"; kind: "GRANT_DECIDE"; granted: boolean };
   if (msg?.target !== "offscreen") return false;
   if (!isFromThisExtension(sender)) {
     sendResponse({ refused: "SENDER_NOT_ACCEPTED" });
@@ -133,9 +209,15 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
       sendResponse({ refused: "ARM_ONLY_FROM_SERVICE_WORKER" });
       return false;
     }
-    armed.set(msg.nonce, { tabId: msg.tabId, frameId: msg.frameId, documentId: msg.documentId, ref: msg.ref, expiresAt: Date.now() + msg.ttlMs });
-    nonces.add(msg.nonce);
-    sendResponse({ armed: true });
+    // THE NONCE IS MINTED HERE, not by the worker that carries it. A router that chose the nonce
+    // could arm itself a capability; a router that only carries one cannot.
+    const value = vaultStub.get(msg.ref);
+    if (value === undefined) {
+      sendResponse({ armed: false, refused: "UNKNOWN_REF" });
+      return false;
+    }
+    const nonce = valueRelease.arm({ tabId: msg.tabId, frameId: msg.frameId, documentId: msg.documentId }, msg.selector, value, msg.ttlMs);
+    sendResponse({ armed: true, nonce });
     return false;
   }
   if (msg.kind === "E6_RELEASE") {
@@ -143,7 +225,44 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
       sendResponse({ refused: "RELEASE_ONLY_TO_A_CONTENT_SCRIPT" });
       return false;
     }
-    sendResponse(release(msg, sender));
+    sendResponse(redeem(msg.nonce, msg.target2, sender));
+    return false;
+  }
+  /**
+   * THE PRODUCT REDEMPTION. A content script presents a capability and is answered **directly**:
+   * this reply goes to the sender and to nobody else, which is the one direction MV3 offers that the
+   * service worker does not see. Everything that got us here — the nonce and the field — crossed the
+   * worker; the value does not.
+   */
+  if (msg.kind === "VALUE_RELEASE") {
+    if (!sender.tab) {
+      sendResponse({ refused: "RELEASE_ONLY_TO_A_CONTENT_SCRIPT" });
+      return false;
+    }
+    sendResponse(redeem(msg.nonce, msg.field, sender));
+    return false;
+  }
+  if (msg.kind === "RUN_TASK") {
+    if (sender.tab) {
+      sendResponse({ refused: "RUN_ONLY_FROM_SERVICE_WORKER" });
+      return false;
+    }
+    void runTask(msg.request)
+      .then((result) => sendResponse({ ok: true, result }))
+      .catch((error: unknown) => sendResponse({ ok: false, refused: error instanceof Error ? `${error.name}: ${error.message}` : String(error) }));
+    return true;
+  }
+  if (msg.kind === "GRANT_PEEK") {
+    sendResponse({ pending: pendingGrant === null ? null : pendingGrant.request });
+    return false;
+  }
+  if (msg.kind === "GRANT_DECIDE") {
+    if (sender.tab) {
+      // A page's own content script answering the grant would be the page approving itself.
+      sendResponse({ refused: "DECISION_NOT_FROM_A_PAGE" });
+      return false;
+    }
+    sendResponse({ answered: decideGrant(msg.granted) });
     return false;
   }
   /**
@@ -175,7 +294,7 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
   }
   if (msg.kind === "STATE") {
     // Sizes only. The stub's values never leave this document.
-    sendResponse({ instanceId, createdAt, vaultStubEntries: vaultStub.size, nonces: nonces.size });
+    sendResponse({ instanceId, createdAt, vaultStubEntries: vaultStub.size, nonces: valueRelease.armedCount(), clientHeldFields: clientHeldFieldCount(), running: running !== null });
     return false;
   }
   if (msg.kind === "ORT_SMOKE") {

@@ -49,17 +49,39 @@ export default defineBackground(() => {
     offscreenContexts: async () => (await chrome.runtime.getContexts({ contextTypes: [chrome.runtime.ContextType.OFFSCREEN_DOCUMENT] })).length,
     // EXPERIMENT D-E6-4: how many documents currently hold a transport port, for diagnosis only.
     transportConnections: () => transport.connectionCount(),
+    /**
+     * M1: drive one product run in the core realm, and carry a human's answer to it.
+     *
+     * The worker starts nothing and decides nothing here. `runTask` hands the request to the
+     * offscreen document and waits; `grantPeek` reads what a person is being asked, which contains a
+     * token and a field label and no value; `grantDecide` carries an answer that came from outside
+     * this extension entirely. An automated run's operator answers through these, exactly as the
+     * demo rehearsal's `auto` mode answers on the page.
+     */
+    runTask: async (request: object) => {
+      await ensureOffscreen();
+      return chrome.runtime.sendMessage({ target: "offscreen", kind: "RUN_TASK", request });
+    },
+    grantPeek: async () => {
+      await ensureOffscreen();
+      return chrome.runtime.sendMessage({ target: "offscreen", kind: "GRANT_PEEK" });
+    },
+    grantDecide: async (granted: boolean) => {
+      await ensureOffscreen();
+      return chrome.runtime.sendMessage({ target: "offscreen", kind: "GRANT_DECIDE", granted });
+    },
     // EXPERIMENT E6: arm a single-use value release for the latest document seen in a tab. The worker
     // handles only the nonce and the document identity — never the value.
     e6Arm: async (tabId: number, ttlMs: number) => {
       const hello = [...hellos].reverse().find((h) => h.identity.tabId === tabId);
       if (!hello || hello.identity.documentId === null || hello.identity.frameId === null) return { refused: "NO_DOCUMENT_FOR_TAB" };
       await ensureOffscreen();
-      const nonce = crypto.randomUUID();
-      const r = await chrome.runtime.sendMessage({
-        target: "offscreen", kind: "E6_ARM", nonce, tabId, frameId: hello.identity.frameId, documentId: hello.identity.documentId, ref: "<PII:PHONE:1>", ttlMs,
-      });
-      return { nonce, documentId: hello.identity.documentId, armed: r };
+      const r = (await chrome.runtime.sendMessage({
+        target: "offscreen", kind: "E6_ARM", tabId, frameId: hello.identity.frameId, documentId: hello.identity.documentId, ref: "<PII:PHONE:1>", selector: "#t", ttlMs,
+      })) as { armed: boolean; nonce?: string; refused?: string };
+      // The nonce is minted by the core realm, not here. This worker asks for a capability and is
+      // told what it is called; it cannot name one into existence.
+      return { nonce: r.nonce ?? null, documentId: hello.identity.documentId, armed: r };
     },
   };
 
@@ -85,6 +107,29 @@ export default defineBackground(() => {
     }
 
     if (msg?.target === "offscreen") return false; // addressed to the offscreen document, not here
+
+    /**
+     * M1 — carry a release capability to the bound document.
+     *
+     * THE WORKER IS THE POSTMAN AND IT IS NOT GIVEN THE LETTER. What passes through here is a nonce
+     * and a field name. There is no value in this message, no value in the reply, and no branch
+     * below that could add one: the page fetches the value from the core realm directly, and that
+     * reply never reaches this context. Only the offscreen document may ask, and it may only ask for
+     * a tab — it cannot make this worker do anything else.
+     */
+    if (msg?.kind === "REHYDRATE_REQUEST") {
+      if (!isFromOffscreenDocument(sender)) {
+        sendResponse({ refused: "SENDER_NOT_ACCEPTED" });
+        return false;
+      }
+      const ask = raw as { tabId: number; frameId: number; nonce: string; target: string };
+      chrome.tabs
+        .sendMessage(ask.tabId, { kind: "REHYDRATE", nonce: ask.nonce, target: ask.target }, { frameId: ask.frameId })
+        .then(sendResponse)
+        .catch((error: unknown) => sendResponse({ written: false, refused: error instanceof Error ? error.message : String(error) }));
+      return true;
+    }
+
     if (msg?.kind === "HOST_STATUS" && isFromExtensionPage(sender)) {
       void ensureOffscreen().then((n) => sendResponse({ bootId, bootedAt, offscreenContexts: n, hellos: hellos.length }));
       return true;
