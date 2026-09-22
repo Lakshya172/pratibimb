@@ -36,7 +36,8 @@ import { runTask, type GrantDecision, type GrantRequest, type Observation, type 
 import { deterministicReasoner, localModelReasoner, type ReasonerClient } from "@pratibimb/reasoner";
 
 import { type BoundaryReply, type BoundaryRequest, type CapabilityPayload } from "./boundary-protocol";
-import { createExtensionPorts, type ExtensionPortsReport } from "./extension-ports";
+import { createExtensionPorts, type ExtensionPortsOptions, type ExtensionPortsReport } from "./extension-ports";
+import { type PerceptionSummary } from "./perception-realm";
 import { createRemotePrivacyBoundary, type RemoteBoundaryReport } from "./remote-privacy-boundary";
 import { type ReleaseAuthority } from "./value-release";
 
@@ -104,6 +105,8 @@ export interface ExtensionRunResult {
   readonly boundary: RemoteBoundaryReport;
   /** Every egress attempt this run made, as `packages/egress` recorded it. */
   readonly egress: readonly { record?: EgressRecord; refusal?: EgressRefusal }[];
+  /** M3: how the perception realm came up. Null when this build ran the DOM-only floor. */
+  readonly perceptionBoot: unknown;
   readonly grant: { readonly asked: boolean; readonly granted: boolean | null };
 }
 
@@ -122,6 +125,16 @@ export interface ExtensionRunDeps {
   sendToBoundary(binding: TransportBinding, body: BoundaryRequest): Promise<BoundaryReply>;
   /** Park the request until someone outside this realm decides. Never resolved from in here. */
   askHuman(request: GrantRequest): Promise<GrantDecision>;
+  /**
+   * M3 — the local perception pass, or nothing.
+   *
+   * Handed in for the same reason the reasoner and the capability authority are: this file decides
+   * nothing, and a realm that built its own perception would be a second place that knows how to
+   * look at a page. Absent means the DOM-only floor.
+   */
+  perceive?: ExtensionPortsOptions["perceive"];
+  /** What happened when the ORT session was brought up, for the evidence record. */
+  perceptionBoot?: () => unknown;
 }
 
 const summarise = (observation: Observation | null): ObservationSummary | null =>
@@ -175,11 +188,32 @@ export async function runExtensionTask(
 
   const grant = { asked: false, granted: null as boolean | null };
 
+  /**
+   * M3 — the most recent perception pass, for the manifest the core realm assembles.
+   *
+   * Held here, between the port that produces it and the boundary that declares it, so neither has
+   * to know about the other. It carries counts, geometry, codes and a source per element id; there
+   * is no pixel-bearing type in `PerceptionSummary` and no string in it that came from the page's
+   * rendering.
+   */
+  let seen: PerceptionSummary | null = null;
+
   const privacy = createRemotePrivacyBoundary({
     binding,
     send: (body) => deps.sendToBoundary(binding, body),
     capabilities: deps.capabilities,
     capabilityTtlMs: TTL.releaseMs,
+    visual: () => {
+      // A pass that refused declares nothing. The floor is the honest claim, not a hopeful one.
+      if (seen === null || !seen.ran || !seen.detector.ran || seen.capture === null) return null;
+      return {
+        backend: seen.detector.backend,
+        tiersFired: ["T0", "T1", "T2"],
+        scaleToCss: seen.capture.scaleToCss,
+        // Keyed by selector, which is how the privacy layer identifies an element.
+        sourceById: seen.sourceBySelector,
+      };
+    },
   });
 
   const { ports, report } = createExtensionPorts({
@@ -190,6 +224,15 @@ export async function runExtensionTask(
     reasoner,
     reasonerKind: request.endpoint === null ? "DETERMINISTIC_FALLBACK" : "LOCAL_MODEL",
     fallback: deterministic,
+    ...(deps.perceive
+      ? {
+          perceive: async (graph, measurement) => {
+            const summary = await deps.perceive!(graph, measurement);
+            seen = summary;
+            return summary;
+          },
+        }
+      : {}),
     requestGrant: async (grantRequest) => {
       grant.asked = true;
       const decision = await deps.askHuman(grantRequest);
@@ -219,6 +262,7 @@ export async function runExtensionTask(
         swBootId: binding.swBootId,
       },
       ports: report,
+      perceptionBoot: deps.perceptionBoot ? deps.perceptionBoot() : null,
       boundary: privacy.report,
       egress,
       grant,

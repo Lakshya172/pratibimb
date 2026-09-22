@@ -85,6 +85,27 @@ export interface AssembleContext {
   readonly viewport: SanitizeContext["viewport"];
   readonly now?: number;
   readonly backend?: string;
+  /**
+   * Which perception tiers produced the evidence in this manifest.
+   *
+   * `["T0", "T2"]` — structure and sanitization — is the DOM-only floor and stays the default, so a
+   * client that captured nothing says so. A client that ran the visual tier passes `["T0", "T1",
+   * "T2"]`, and the difference is a CLAIM: it tells the reasoner that the boxes it is reading have
+   * pixel evidence behind them and not only a DOM assertion. A caller that captured nothing and
+   * declared T1 would be lying to the one party that cannot check.
+   */
+  readonly tiersFired?: readonly string[];
+  /** The captured frame's CSS-per-capture-pixel scale, when a frame was captured. */
+  readonly scaleToCss?: number;
+  /**
+   * Where each element's evidence came from, by element id — `packages/perception`'s own fusion
+   * provenance, which is a discriminated source and never a blended confidence.
+   *
+   * Applied at assembly rather than at classification because fusion happens in the realm that has
+   * the pixels, and classification happens in the realm that has the values. Those are different
+   * realms by design, and this is the join.
+   */
+  readonly sourceById?: Readonly<Record<string, SanitizedElement["source"]>>;
 }
 
 /** The value-free parts a manifest is assembled from. */
@@ -295,13 +316,22 @@ export function buildHandoffDraft(parts: HandoffParts, goal: string, ctx: Assemb
       h: ctx.viewport.h,
       dpr: ctx.viewport.dpr,
       zoom: ctx.viewport.zoom,
-      // No frame is captured on this path: structural perception only, so the scale is exactly 1.
-      scale_to_css: 1,
+      // 1 on the structural path, where no frame was captured and no capture-pixel conversion is
+      // performed anywhere. A client that captured a frame passes the scale its geometry derived —
+      // measured from the frame's real dimensions, never assumed to be `viewportCss * dpr`, which
+      // is exactly what CAPTURE_DIMENSION_MISMATCH exists to catch.
+      scale_to_css: ctx.scaleToCss ?? 1,
       scroll: { x: ctx.viewport.scrollX, y: ctx.viewport.scrollY },
       origin: ctx.origin,
     },
-    capability: { backend: (ctx.backend ?? "none") as never, tiers_fired: ["T0", "T2"] },
-    elements: parts.elements,
+    capability: { backend: (ctx.backend ?? "none") as never, tiers_fired: ctx.tiersFired ?? ["T0", "T2"] },
+    elements:
+      ctx.sourceById === undefined
+        ? parts.elements
+        : parts.elements.map((element) => {
+            const source = ctx.sourceById?.[element.id];
+            return source === undefined || source === element.source ? element : { ...element, source };
+          }),
     goal,
     redactions: parts.redactions,
     request: { requestId: ctx.requestId, sessionId: ctx.sessionId, issuedAt: ctx.now ?? Date.now() },

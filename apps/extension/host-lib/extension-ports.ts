@@ -32,6 +32,7 @@ import {
   type TransportBinding,
   type TransportRelay,
 } from "@pratibimb/extension-transport";
+import { type ElementGraph, type ViewportMeasurement } from "@pratibimb/perception";
 import {
   type ClientPorts,
   type GrantDecision,
@@ -40,6 +41,8 @@ import {
   type PrivacyBoundary,
 } from "@pratibimb/orchestrator";
 import { type ReasonerClient, type ReasonerKind } from "@pratibimb/reasoner";
+
+import { type PerceptionSummary } from "./perception-realm";
 
 
 export interface ExtensionPortsOptions {
@@ -53,6 +56,15 @@ export interface ExtensionPortsOptions {
   readonly reasonerKind?: ReasonerKind;
   readonly fallback?: ReasonerClient;
   requestGrant(request: GrantRequest): Promise<GrantDecision>;
+  /**
+   * M3 — look at the page as well as reading it.
+   *
+   * Optional, and absent means the DOM-only floor, which is the configuration every milestone
+   * before this one ran on. A perception pass that refuses is recorded and the reading continues:
+   * the DOM substrate is the reliable one and vision is evidence ADDED to it, so a detector that
+   * cannot run must not be able to stop the loop.
+   */
+  perceive?(graph: ElementGraph, measurement: ViewportMeasurement): Promise<PerceptionSummary>;
 }
 
 /** Counts of what the ports were actually asked to do. The refusal run's claim is `clicks === 0`. */
@@ -63,6 +75,8 @@ export interface ExtensionPortsReport {
   readonly insertRefusals: string[];
   /** The transport's own account of the one action cycle, or `null` if no action was reached. */
   cycle: CycleReport | null;
+  /** M3: what each perception pass produced. Counts, geometry, codes and timings only. */
+  readonly perception: PerceptionSummary[];
 }
 
 export interface ExtensionPorts {
@@ -76,6 +90,7 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
     inserts: 0,
     insertRefusals: [],
     cycle: null,
+    perception: [],
   };
 
   /**
@@ -115,6 +130,34 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
     report.observations += 1;
     const { graph, focus, viewport } = await observeBoundDocument(options.relay, options.binding);
     latestFrame = graph.frameId;
+
+    /**
+     * M3 — CAPTURE, DETECT AND FUSE, AGAINST THE READING THAT WAS JUST TAKEN.
+     *
+     * After the DOM reading and against the same frame, so the join is between one moment's DOM and
+     * one moment's pixels. `fuse` refuses outright if the detections name a different frame.
+     *
+     * What comes back is value-free by construction: counts, boxes, class labels drawn from a fixed
+     * list of eight, and timings. The pixels stay in the realm that decoded them.
+     *
+     * A REFUSED PASS IS RECORDED AND THE READING CONTINUES. The DOM is the actionable substrate and
+     * always has been; vision is evidence added to it. A detector that cannot run degrades what the
+     * client can SAY about the page, never what it can do safely.
+     */
+    if (options.perceive) {
+      const summary = await options.perceive(graph, {
+        dpr: viewport.dpr,
+        // A content script cannot read the browser's zoom factor, so it is recorded as 1 and
+        // nothing is derived from it — the coordinate contract forbids using it as a multiplier.
+        zoom: 1,
+        viewportCssWidth: viewport.w,
+        viewportCssHeight: viewport.h,
+        scrollX: viewport.scrollX,
+        scrollY: viewport.scrollY,
+        origin: options.origin,
+      });
+      report.perception.push(summary);
+    }
 
     // Present, visible and enabled right now. `OFFSCREEN` evidence means the element exists but was
     // not in frame, which is not something to act on.

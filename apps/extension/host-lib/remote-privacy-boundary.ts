@@ -75,6 +75,22 @@ export interface RemoteBoundaryDeps {
   readonly capabilities: ReleaseAuthority<CapabilityPayload>;
   readonly capabilityTtlMs: number;
   readonly ledger?: EgressLedger;
+  /**
+   * M3 — what the local visual tier saw, for the manifest this realm assembles.
+   *
+   * A getter rather than a value: the perception pass happens on each reading, and the manifest is
+   * assembled from the most recent one. Everything it returns is value-free — a backend name, a
+   * tier list, a derived scale, and a source per element id — and the source strings come from
+   * `packages/perception`'s own fusion provenance rather than from anything this file decides.
+   *
+   * Absent means the DOM-only floor, which is what every milestone before M3 declared.
+   */
+  visual?: () => {
+    readonly backend: string;
+    readonly tiersFired: readonly string[];
+    readonly scaleToCss: number;
+    readonly sourceById: Readonly<Record<string, "dom" | "vision" | "dom+vision">>;
+  } | null;
 }
 
 export interface RemotePrivacyBoundary extends PrivacyBoundary {
@@ -197,6 +213,7 @@ export function createRemotePrivacyBoundary(deps: RemoteBoundaryDeps): RemotePri
         fields: new Map(classified.view.fields),
       };
 
+      const visual = deps.visual?.() ?? null;
       // Assemble here, verify here. `buildHandoffDraft` marks the draft in this realm, so the
       // verifier's provenance check is about something that actually happened on this side.
       const draft = buildHandoffDraft(
@@ -208,6 +225,17 @@ export function createRemotePrivacyBoundary(deps: RemoteBoundaryDeps): RemotePri
           origin: ask.origin,
           viewport: ask.viewport,
           now: ask.now,
+          // The visual tier's claim, or nothing. A client that captured no frame declares the
+          // structural floor, because saying T1 fired when it did not would mislead the one party
+          // that cannot check.
+          ...(visual === null
+            ? {}
+            : {
+                backend: visual.backend,
+                tiersFired: visual.tiersFired,
+                scaleToCss: visual.scaleToCss,
+                sourceById: visual.sourceById,
+              }),
         }
       );
 
