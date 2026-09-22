@@ -107,6 +107,15 @@ export default defineBackground(() => {
       })) as { nonce?: string };
       return { nonce: r.nonce ?? null, documentId: hello.identity.documentId, tabId };
     },
+    /**
+     * TEST-ONLY: what the page agent in a document actually did.
+     *
+     * The question this answers is the one a DISPATCH reply cannot: **how many times did the
+     * isolated world put events into this document?** A reply says a dispatch was answered; this
+     * says how many were performed. Counts, refusal codes, minted ids and page-clock timestamps.
+     */
+    pageAudit: (tabId: number, frameId: number) =>
+      chrome.tabs.sendMessage(tabId, { kind: "DISPATCH_AUDIT" }, { frameId }),
     /** TEST-ONLY: present a capability to a tab exactly as the core realm would. */
     presentCapability: (tabId: number, frameId: number, nonce: string, target: string) =>
       chrome.tabs.sendMessage(tabId, { kind: "BOUNDARY", body: { kind: "CAPABILITY", nonce, target } }, { frameId }),

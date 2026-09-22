@@ -46,6 +46,19 @@ export default defineContentScript({
   runAt: "document_idle",
   main() {
     /**
+     * HOW MANY TIMES THIS RAN IN THIS DOCUMENT.
+     *
+     * Content scripts for one document share one isolated-world global, so a second injection is
+     * visible here and nowhere else. It is recorded because "two of everything" is the first thing
+     * a duplicate-action symptom should be checked against, and the check has to be able to come
+     * back negative — an instance count that is always 1 is evidence, not decoration.
+     */
+    const world = globalThis as unknown as { __pratibimbInstances?: number };
+    world.__pratibimbInstances = (world.__pratibimbInstances ?? 0) + 1;
+    /** E6's click mechanism is the other code path in this world that can dispatch at a page. */
+    let e6Clicks = 0;
+
+    /**
      * THE PRIVACY BOUNDARY LIVES HERE, because the page's values do.
      *
      * One per document. It opens a vault per run, destroys it when the run ends, and nothing it
@@ -121,7 +134,17 @@ export default defineContentScript({
         })();
         return true;
       }
+      if (msg.kind === "DISPATCH_AUDIT") {
+        sendResponse({
+          ok: true,
+          instances: world.__pratibimbInstances ?? 0,
+          e6Clicks,
+          transport: agent.audit(),
+        });
+        return false;
+      }
       if (msg.kind === "E6_CLICK") {
+        e6Clicks += 1;
         const el = document.querySelector(msg.selector);
         if (!(el instanceof HTMLElement)) {
           sendResponse({ ok: false, error: "NO_ELEMENT" });
@@ -159,7 +182,8 @@ export default defineContentScript({
     // answered stay with it across a service-worker restart — and the port carries the browser's
     // attestation of which document that is. It answers hit tests, one dispatch per cycle at the
     // exact authorised point, and observations. It has no selector to click and no page-facing input.
-    connectPageTransport(createPageAgent(domPageSurface));
+    const agent = createPageAgent(domPageSurface);
+    connectPageTransport(agent);
 
     void chrome.runtime.sendMessage({ kind: "HELLO" });
   },

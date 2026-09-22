@@ -56,7 +56,9 @@ export { TransportRefusal, refuse } from "./errors.js";
 export {
   DEFAULT_CYCLE_CAPACITY,
   createPageAgent,
+  type FireNote,
   type PageAgent,
+  type PageAgentAudit,
   type PageSurface,
   type PreparedClick,
 } from "./pageAgent.js";

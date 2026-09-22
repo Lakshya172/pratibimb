@@ -52,6 +52,14 @@ export type ToOffscreen =
 export type ToContent =
   | { readonly kind: "MEASURE" }
   | { readonly kind: "ROUNDTRIP"; readonly samples: number }
+  /**
+   * TEST AND EVIDENCE ONLY: what this document's page agent actually did.
+   *
+   * Counts, refusal codes, the ids the core realm minted, a structural selector and two page-clock
+   * timestamps. There is no field here that could hold a page value, and the boundary's own
+   * outgoing check would withhold the reply if there were.
+   */
+  | { readonly kind: "DISPATCH_AUDIT" }
   /** One request for the privacy boundary that lives in this world. See `boundary-protocol.ts`. */
   | { readonly kind: "BOUNDARY"; readonly body: BoundaryRequest };
 
