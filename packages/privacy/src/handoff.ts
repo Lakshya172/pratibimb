@@ -37,7 +37,7 @@ import { type Hint } from "./hints.js";
 import { containsSecret } from "./normalise.js";
 import { parseToken } from "./tokens.js";
 import { type Vault } from "./vault.js";
-import { type AsyncLiteralOracle, type LiteralOracle } from "./vaultView.js";
+import { type AsyncLiteralOracle, type LiteralOracle, type VaultFacade } from "./vaultView.js";
 
 /** One redaction span, as `docs/architecture/manifest-schema.md` §redactions defines it. */
 export interface Redaction {
@@ -97,7 +97,15 @@ export interface VerificationContext {
   readonly sessionId: string;
   readonly requestId: string;
   readonly origin: string;
-  readonly vault: Vault;
+  /**
+   * The vault the references belong to, or a reader over one in another realm.
+   *
+   * Every question asked of it here is answerable without a value: identity, origin, whether a
+   * reference exists, and whether the finished bytes contain anything it holds. The last of those is
+   * the leak scan, and a reader that cannot answer it must say so rather than answer "no" — see
+   * `vaultView.ts`.
+   */
+  readonly vault: VaultFacade;
 }
 
 /** Drafts this package built. A handoff assembled anywhere else is not verifiable. */

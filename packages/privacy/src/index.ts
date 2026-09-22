@@ -109,8 +109,14 @@ export {
 } from "./ledger.js";
 
 export {
+  buildHandoffDraft,
+  classifyObservation,
   fingerprintOf,
   sanitize,
+  type AssembleContext,
+  type ClassifyContext,
+  type ClassifyOutcome,
+  type HandoffParts,
   type SanitizeContext,
   type SanitizeInput,
   type SanitizeOutcome,

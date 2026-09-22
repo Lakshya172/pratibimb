@@ -74,6 +74,36 @@ export interface SanitizeContext {
   readonly backend?: string;
 }
 
+/** Everything classification needs. The vault it stores into, or a new one for this session. */
+export interface ClassifyContext extends Omit<SanitizeContext, "destination" | "ledger"> {}
+
+/** What assembly needs. No vault: it decides nothing and holds nothing. */
+export interface AssembleContext {
+  readonly sessionId: string;
+  readonly requestId: string;
+  readonly origin: string;
+  readonly viewport: SanitizeContext["viewport"];
+  readonly now?: number;
+  readonly backend?: string;
+}
+
+/** The value-free parts a manifest is assembled from. */
+export interface HandoffParts {
+  readonly redactions: readonly Redaction[];
+  readonly elements: readonly SanitizedElement[];
+}
+
+export type ClassifyOutcome =
+  | {
+      readonly ok: true;
+      /** The vault the values went into. Stays in the realm that classified them. */
+      readonly vault: Vault;
+      readonly redactions: readonly Redaction[];
+      readonly elements: readonly SanitizedElement[];
+      readonly report: SanitizeReport;
+    }
+  | { readonly ok: false; readonly refused: "VAULT_DESTROYED" | "ORIGIN_MISMATCH" };
+
 export interface SanitizeInput {
   /** What the client read locally. The only place raw values enter this package. */
   readonly fields: readonly ObservedField[];
@@ -138,18 +168,24 @@ const projectNode = (node: ElementNode, name: string): SanitizedElement => {
  * page, and `input` carries the values the client read. Returns a verified handoff, a ledger entry
  * and the vault handle — or a refusal, with nothing partially sent.
  */
-export async function sanitize(
+/**
+ * CLASSIFY — steps 2 to 7, and the only part of sanitizing that needs the values.
+ *
+ * It reads the fields, decides what each one is, puts what needs protecting into the vault, and
+ * produces the spans and the scrubbed element names that replace them. **Everything it returns is
+ * value-free**: references, classes, tiers, boxes, hints and structural text. That is what makes it
+ * separable — a client whose values live in another realm runs this where they are and sends the
+ * result on, and there is nothing in the result to send that should not be sent.
+ */
+export function classifyObservation(
   graph: ElementGraph,
-  goal: string,
-  ctx: SanitizeContext,
+  ctx: ClassifyContext,
   input: SanitizeInput
-): Promise<SanitizeOutcome> {
+): ClassifyOutcome {
   const now = ctx.now ?? Date.now();
   const today = ctx.today ?? new Date(now);
   const vault = ctx.vault ?? createVault({ sessionId: ctx.sessionId, origin: ctx.origin, now: () => now });
-  const ledger = ctx.ledger ?? createLedger();
 
-  if (goal.trim() === "") return { ok: false, refused: "EMPTY_GOAL" };
   if (vault.isDestroyed) return { ok: false, refused: "VAULT_DESTROYED" };
   if (!vault.enforceOrigin(ctx.origin)) return { ok: false, refused: "ORIGIN_MISMATCH" };
 
@@ -238,8 +274,21 @@ export async function sanitize(
 
   const report: SanitizeReport = { classified, scrubbedElementNames };
 
-  // ── 8: assemble ───────────────────────────────────────────────────────────────────────────
-  const draft = markDraft<HandoffDraft>({
+  return { ok: true, vault, redactions, elements, report };
+}
+
+/**
+ * ASSEMBLE — step 8. The manifest, built from parts that carry no value.
+ *
+ * Pure, and deliberately so. It has no vault, nothing to decide and nothing to refuse: it arranges
+ * what classification produced into manifest v1.1 and marks the result as something the sanitizer
+ * built. **The marking is why this is here rather than inlined** — `verifyHandoff`'s first check is
+ * that a draft came from this package, and a draft assembled in the realm that will verify it keeps
+ * that check meaningful. A client whose values are elsewhere assembles here, from parts, and
+ * verifies here too; nothing has to be taken on trust across the crossing.
+ */
+export function buildHandoffDraft(parts: HandoffParts, goal: string, ctx: AssembleContext): HandoffDraft {
+  return markDraft<HandoffDraft>({
     manifestVersion: "1.1",
     capture: {
       w: ctx.viewport.w,
@@ -252,12 +301,32 @@ export async function sanitize(
       origin: ctx.origin,
     },
     capability: { backend: (ctx.backend ?? "none") as never, tiers_fired: ["T0", "T2"] },
-    elements,
+    elements: parts.elements,
     goal,
-    redactions,
-    request: { requestId: ctx.requestId, sessionId: ctx.sessionId, issuedAt: now },
+    redactions: parts.redactions,
+    request: { requestId: ctx.requestId, sessionId: ctx.sessionId, issuedAt: ctx.now ?? Date.now() },
     verified: false,
   });
+}
+
+export async function sanitize(
+  graph: ElementGraph,
+  goal: string,
+  ctx: SanitizeContext,
+  input: SanitizeInput
+): Promise<SanitizeOutcome> {
+  const now = ctx.now ?? Date.now();
+  const vault = ctx.vault ?? createVault({ sessionId: ctx.sessionId, origin: ctx.origin, now: () => now });
+  const ledger = ctx.ledger ?? createLedger();
+
+  if (goal.trim() === "") return { ok: false, refused: "EMPTY_GOAL" };
+
+  const classifyOutcome = classifyObservation(graph, { ...ctx, vault, now }, input);
+  if (!classifyOutcome.ok) return { ok: false, refused: classifyOutcome.refused };
+  const { redactions, elements, report } = classifyOutcome;
+
+  // ── 8: assemble ───────────────────────────────────────────────────────────────────────────
+  const draft = buildHandoffDraft({ redactions, elements }, goal, { ...ctx, now });
 
   // ── 9: verify ─────────────────────────────────────────────────────────────────────────────
   const verification = verifyHandoff(draft, {

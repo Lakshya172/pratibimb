@@ -52,6 +52,8 @@ export interface VaultReader {
   readonly sessionId: string;
   readonly origin: string;
   readonly isDestroyed: boolean;
+  /** Does this exact reference exist? No fuzzy matching (INV-08). */
+  has(ref: unknown): boolean;
   describe(ref: unknown): RefDescriptor | null;
   isConsumed(ref: string): boolean;
   consume(ref: string): boolean;
@@ -94,6 +96,8 @@ export function createVaultView(context: VaultViewContext): VaultView {
     get isDestroyed() {
       return destroyed;
     },
+
+    has: (ref) => !destroyed && typeof ref === "string" && byRef.has(ref),
 
     describe(ref) {
       if (destroyed || typeof ref !== "string") return null;
