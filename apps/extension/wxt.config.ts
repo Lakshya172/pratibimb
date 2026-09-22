@@ -39,6 +39,29 @@ export const HOST_COLLECTOR_ORIGIN = "http://127.0.0.1:8995";
  */
 const E6_PROBE = process.env.E6_PROBE === "1";
 
+/**
+ * HOW M3's CAPTURE GETS ITS PERMISSION, AND WHY THERE ARE TWO ANSWERS.
+ *
+ * `chrome.tabs.captureVisibleTab` requires `activeTab` or `<all_urls>` — MEASURED on W1, not read
+ * off a doc page: with only `http://127.0.0.1/*` the call refuses with
+ * "Either the '<all_urls>' or 'activeTab' permission is required."
+ *
+ * `activeTab` is the right product permission and the one the default build declares: an agent acts
+ * on the tab a person invoked it on, and the grant arrives with that invocation. But `activeTab` is
+ * granted by a USER GESTURE — a toolbar click, a context menu, a command — and a Playwright harness
+ * cannot produce one. So the evidence harness builds with `M3_CAPTURE_WITHOUT_GESTURE=1`, which
+ * substitutes `<all_urls>` for the gesture and changes nothing else: the same capture call, the same
+ * transfer, the same perception realm, the same everything downstream.
+ *
+ * The default build does NOT carry `<all_urls>`, and a test asserts that. Widening a manifest to
+ * every origin is exactly the kind of thing that arrives quietly in a privacy milestone, so it is a
+ * flag with a name that says what it is.
+ */
+const HOST_PERMISSIONS =
+  process.env.M3_CAPTURE_WITHOUT_GESTURE === "1"
+    ? ["http://127.0.0.1/*", "<all_urls>"]
+    : ["http://127.0.0.1/*"];
+
 const ORT_DIST = join(ROOT, "node_modules", "onnxruntime-web", "dist");
 const MODEL = join(ROOT, "artifacts", "models", "t1-ui-head", "t1-ui-head.onnx");
 
@@ -73,8 +96,8 @@ export default defineConfig({
     name: "PratiBimb minimal MV3 host (experiment — not the product)",
     version: "0.0.0",
     minimum_chrome_version: "116",
-    permissions: ["offscreen", "sidePanel"],
-    host_permissions: ["http://127.0.0.1/*"],
+    permissions: ["offscreen", "sidePanel", "activeTab"],
+    host_permissions: HOST_PERMISSIONS,
     content_security_policy: { extension_pages: buildExtensionPagesCsp(HOST_COLLECTOR_ORIGIN) },
     side_panel: { default_path: "sidepanel.html" },
   },

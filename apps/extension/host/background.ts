@@ -185,6 +185,41 @@ export default defineBackground(() => {
      * the content script as a reply this context never sees. Only the offscreen document may ask,
      * and it may only ask for a tab.
      */
+    /**
+     * M3 — CAPTURE ONE FRAME, BECAUSE NOTHING ELSE CAN.
+     *
+     * MEASURED on W1 (`REALM_PROBE`): an offscreen document has no `chrome.tabs` at all, and a
+     * content script has none either. `captureVisibleTab` exists in exactly one realm, so the
+     * perception realm has to ask this one for a frame.
+     *
+     * **This is the single hop where a page's pixels are in a worker, and it is stated rather than
+     * hidden.** M2's guarantee — no page value in any service-worker message — does not extend to
+     * pixels, because Chrome offers no door that avoids this context without a user gesture. What
+     * IS enforced here is that the hop is the only one:
+     *
+     *   - the bytes are handed straight to the sender and this context keeps no reference;
+     *   - the traffic recorder notes the SHAPE of this exchange and never its payload, because a
+     *     diagnostic that stored every frame would be the leak it exists to detect;
+     *   - only the offscreen document may ask, and it may only ask for the active tab.
+     */
+    if (msg?.kind === "CAPTURE_FRAME") {
+      if (!isFromOffscreenDocument(sender)) {
+        sendResponse({ ok: false, refused: "SENDER_NOT_ACCEPTED" });
+        return false;
+      }
+      chrome.tabs
+        .captureVisibleTab({ format: "png" })
+        .then((dataUrl) => {
+          // Shape only: the kind, and how many characters came back. Never the characters.
+          note("to-tab", { kind: "CAPTURE_FRAME_REPLY", dataUrlLength: dataUrl.length });
+          sendResponse({ ok: true, dataUrl });
+        })
+        .catch((error: unknown) =>
+          sendResponse({ ok: false, refused: error instanceof Error ? error.message : String(error) })
+        );
+      return true;
+    }
+
     if (msg?.kind === "TO_PAGE_BOUNDARY") {
       if (!isFromOffscreenDocument(sender)) {
         sendResponse({ ok: false, refused: "SENDER_NOT_ACCEPTED" });

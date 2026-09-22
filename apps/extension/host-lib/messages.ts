@@ -28,6 +28,14 @@ export type ToSw =
    * name. Whatever a capability actually holds is collected by the content script as a reply this
    * worker never sees.
    */
+  /**
+   * M3: the perception realm asking for one frame.
+   *
+   * The REQUEST carries nothing. The REPLY carries the encoded frame, and it is the one place in
+   * this system where a page's pixels are in a worker — see the handler for why there is no other
+   * door and what is done about it.
+   */
+  | { readonly kind: "CAPTURE_FRAME" }
   | {
       readonly kind: "TO_PAGE_BOUNDARY";
       readonly tabId: number;

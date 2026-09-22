@@ -14,6 +14,7 @@ import { runExtensionTask, type ExtensionRunRequest, type ExtensionRunResult } f
 import { identityOf, isFromThisExtension, type ToOffscreen } from "../../host-lib/messages";
 import { chromeRelay } from "../../host-lib/transport-chrome";
 import { installTransportControlPlane } from "../../host-lib/transport-control-plane";
+import { createPerceptionRealm, type PerceptionRealm } from "../../host-lib/perception-realm";
 import { createReleaseAuthority, type AttestedAsker } from "../../host-lib/value-release";
 
 const instanceId = crypto.randomUUID();
@@ -53,6 +54,63 @@ async function ortSmoke() {
   } catch (e) {
     return { ok: false, stage: "BOOTSTRAP_OR_RUN", error: e instanceof Error ? `${e.name}: ${e.message}` : String(e) };
   }
+}
+
+/**
+ * THE PERCEPTION REALM, built once and kept.
+ *
+ * ONE SESSION PER DOCUMENT, not one per observation. A run observes several times (the first
+ * reading, the refresh before acting, the reading VERIFY RESULT is given), and creating a pinned
+ * ORT session each time would make the milestone's latency numbers a measurement of session setup
+ * rather than of perception. The pin is re-verified on the one bootstrap, as ADR-0001 requires.
+ *
+ * THE BACKENDS THIS ARTIFACT IS ACCEPTED ON ARE AN EVIDENCE CLAIM, NOT A SETTING. W1-QG03 measured
+ * `wasm` for `ba6d9e93695b`: it executes correctly, deterministically and cheaply through the
+ * pinned runtime, and its detections are NOT robust to the preprocessing a browser can perform
+ * (16-34% move). That is why the feasibility cell is CONDITIONAL, and why M3 records what the
+ * detector produced without asserting that it is right.
+ */
+const MODEL_ID = "pratibimb-t1-ui-head";
+const MODEL_REVISION = "ba6d9e93695b";
+
+let perceptionRealm: PerceptionRealm | null = null;
+let perceptionBoot: { ok: boolean; error: string | null; ms: number; pin: unknown } | null = null;
+
+async function ensurePerception(): Promise<PerceptionRealm> {
+  if (perceptionRealm !== null) return perceptionRealm;
+  const t0 = performance.now();
+  let session: unknown = null;
+  let ort: unknown = null;
+  let error: string | null = null;
+  let pin: unknown = null;
+  try {
+    ort = (globalThis as unknown as { ort?: unknown }).ort ?? null;
+    if (!ort) throw new Error("ort global missing");
+    const realm = await bootstrapOrtRealm("offscreen", ort as never);
+    pin = realm.pin;
+    const modelBytes = new Uint8Array(await (await fetch(resolvePackagedAsset("t1-ui-head.onnx"))).arrayBuffer());
+    session = await createPinnedInferenceSession(ort as never, modelBytes, { executionProviders: ["wasm"] });
+  } catch (e) {
+    error = e instanceof Error ? `${e.name}: ${e.message}` : String(e);
+    session = null;
+  }
+  perceptionBoot = { ok: error === null, error, ms: Math.round(performance.now() - t0), pin };
+  perceptionRealm = createPerceptionRealm({
+    // The worker is the only realm that can capture; it hands the frame straight back and keeps
+    // no reference. See its handler for the whole of why, and what that costs.
+    requestCapture: () =>
+      chrome.runtime.sendMessage({ kind: "CAPTURE_FRAME" }) as Promise<
+        { ok: true; dataUrl: string } | { ok: false; refused: string }
+      >,
+    session: session as never,
+    ort: ort as never,
+    modelId: MODEL_ID,
+    revision: MODEL_REVISION,
+    // Empty when the session did not come up: a detector with no runtime REFUSES rather than
+    // returning zero detections, which is indistinguishable from a page with no controls.
+    acceptedBackends: error === null ? ["wasm"] : [],
+  });
+  return perceptionRealm;
 }
 
 async function cspProbe(allowed: string, foreign: string) {
@@ -195,6 +253,8 @@ async function runTask(request: ExtensionRunRequest): Promise<ExtensionRunResult
       relay: chromeRelay,
       capabilities,
       sendToBoundary,
+      perceive: async (graph, measurement) => (await ensurePerception()).perceive(graph, measurement),
+      perceptionBoot: () => perceptionBoot,
       askHuman: (grantRequest) =>
         new Promise<GrantDecision>((resolve) => {
           pendingGrant = { request: grantRequest, answer: resolve };
@@ -221,11 +281,48 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
     | { target: "offscreen"; kind: "ARM_BOUNDARY_CAPABILITY"; tabId: number; frameId: number; documentId: string; field: string; ttlMs: number }
     | { target: "offscreen"; kind: "RUN_TASK"; request: ExtensionRunRequest }
     | { target: "offscreen"; kind: "GRANT_PEEK" }
-    | { target: "offscreen"; kind: "GRANT_DECIDE"; granted: boolean };
+    | { target: "offscreen"; kind: "GRANT_DECIDE"; granted: boolean }
+    | { target: "offscreen"; kind: "REALM_PROBE" };
   if (msg?.target !== "offscreen") return false;
   if (!isFromThisExtension(sender)) {
     sendResponse({ refused: "SENDER_NOT_ACCEPTED" });
     return false;
+  }
+  /**
+   * WHICH REALM MAY HOLD RAW PAGE PIXELS — measured here rather than assumed.
+   *
+   * M3's capture architecture turns entirely on one question the documentation answers and the
+   * runtime settles: can an offscreen document call `chrome.tabs.captureVisibleTab`? If it can,
+   * pixels can reach the realm that already holds ORT without crossing the worker. If it cannot,
+   * the worker is the only context that can capture, and that is a boundary to state rather than
+   * to work around.
+   *
+   * It reports the SHAPE of the API surface and, if a capture is attempted, the length and the
+   * first bytes' signature of what came back — never the image.
+   */
+  if (msg.kind === "REALM_PROBE") {
+    void (async () => {
+      const tabs = (chrome as unknown as { tabs?: { captureVisibleTab?: unknown } }).tabs;
+      const surface = {
+        hasChromeTabs: typeof tabs === "object" && tabs !== null,
+        hasCaptureVisibleTab: typeof tabs?.captureVisibleTab === "function",
+        hasOffscreenCanvas: typeof OffscreenCanvas === "function",
+        hasCreateImageBitmap: typeof createImageBitmap === "function",
+        hasWebAssembly: typeof WebAssembly === "object",
+        hasDocument: typeof document === "object",
+      };
+      let capture: unknown = { attempted: false };
+      if (surface.hasCaptureVisibleTab) {
+        try {
+          const url = (await (tabs as { captureVisibleTab: (o: object) => Promise<string> }).captureVisibleTab({ format: "png" })) as string;
+          capture = { attempted: true, ok: true, length: url.length, prefix: url.slice(0, 22) };
+        } catch (e) {
+          capture = { attempted: true, ok: false, error: e instanceof Error ? `${e.name}: ${e.message}` : String(e) };
+        }
+      }
+      sendResponse({ realm: "offscreen", surface, capture, perceptionBoot });
+    })();
+    return true;
   }
   if (msg.kind === "E6_ARM") {
     if (sender.tab) {
