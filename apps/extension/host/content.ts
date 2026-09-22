@@ -11,7 +11,7 @@ import { createPageAgent } from "@pratibimb/extension-transport";
 import { type BoundaryReply, type BoundaryRequest, type CapabilityPayload } from "../host-lib/boundary-protocol";
 import { createPagePrivacyBoundary, type PagePrivacyBoundary } from "../host-lib/page-privacy-boundary";
 import type { ToContent } from "../host-lib/messages";
-import { clickOn, typeInto, type ClickMechanism, type TypeMechanism } from "../host-lib/e6-mechanisms";
+import { serveE6 } from "#e6-probe";
 import { domPageSurface } from "../host-lib/page-surface-dom";
 import { connectPageTransport } from "../host-lib/transport-chrome";
 
@@ -84,7 +84,7 @@ export default defineContentScript({
         sendResponse({ refused: "SENDER_NOT_ACCEPTED" });
         return false;
       }
-      const msg = raw as ToContent | { kind: "E6_TYPE"; mechanism: TypeMechanism; selector: string; nonce: string } | { kind: "E6_CLICK"; mechanism: ClickMechanism; selector: string } | { kind: "BOUNDARY"; body: BoundaryRequest };
+      const msg = raw as ToContent | { kind: "BOUNDARY"; body: BoundaryRequest };
       /**
        * M1 — THE AUTHORISED LOCAL WRITE.
        *
@@ -108,32 +108,6 @@ export default defineContentScript({
         );
         return true;
       }
-      if (msg.kind === "E6_TYPE") {
-        // EXPERIMENT E6. Fetch the value from the offscreen document against a nonce armed for THIS
-        // tab/frame/document, insert it, and report booleans and timings — never the value itself.
-        void (async () => {
-          const el = document.querySelector(msg.selector);
-          if (!(el instanceof HTMLInputElement)) return sendResponse({ ok: false, error: "NO_INPUT" });
-          const t0 = performance.now();
-          const release = (await chrome.runtime.sendMessage({ target: "offscreen", kind: "E6_RELEASE", nonce: msg.nonce, target2: msg.selector })) as { value?: string; refused?: string };
-          const fetchMs = performance.now() - t0;
-          if (typeof release?.value !== "string") return sendResponse({ ok: false, released: false, refused: release?.refused ?? "NO_RESPONSE", fetchMs });
-          let value: string | null = release.value;
-          const t1 = performance.now();
-          let error: string | null = null;
-          try {
-            typeInto(el, value, msg.mechanism);
-          } catch (e) {
-            error = e instanceof Error ? e.message : String(e);
-          }
-          const insertMs = performance.now() - t1;
-          const valueEqualsReleased = el.value === value;
-          const finalLength = el.value.length;
-          value = null; // drop the only reference this world held
-          sendResponse({ ok: error === null, released: true, error, fetchMs, insertMs, valueEqualsReleased, finalLength, focusMoved: document.activeElement === el });
-        })();
-        return true;
-      }
       if (msg.kind === "DISPATCH_AUDIT") {
         sendResponse({
           ok: true,
@@ -141,20 +115,6 @@ export default defineContentScript({
           e6Clicks,
           transport: agent.audit(),
         });
-        return false;
-      }
-      if (msg.kind === "E6_CLICK") {
-        e6Clicks += 1;
-        const el = document.querySelector(msg.selector);
-        if (!(el instanceof HTMLElement)) {
-          sendResponse({ ok: false, error: "NO_ELEMENT" });
-          return false;
-        }
-        try {
-          sendResponse({ ok: true, ...clickOn(el, msg.mechanism) });
-        } catch (e) {
-          sendResponse({ ok: false, error: e instanceof Error ? e.message : String(e) });
-        }
         return false;
       }
       if (msg.kind === "MEASURE") {
@@ -174,6 +134,16 @@ export default defineContentScript({
         })();
         return true;
       }
+      /**
+       * EXPERIMENT E6, IF THIS BUILD HAS IT — and a production build does not.
+       *
+       * `#e6-probe` resolves to `e6/absent.ts` unless the build sets `E6_PROBE=1`, and that stub
+       * contains no mechanism at all: it answers `false` and this falls through to UNKNOWN_KIND.
+       * The mechanisms live in `e6/probe.ts`, outside the bundle, because nothing in them consults
+       * a permit, a hit test, a plan or a binding. See `e6/absent.ts` for why that matters.
+       */
+      if (serveE6(msg, sendResponse)) return true;
+
       sendResponse({ refused: "UNKNOWN_KIND" });
       return false;
     });

@@ -32,7 +32,7 @@
  * Usage: CHROME_PATH="<chrome for testing>" node tests/browser/extension/run-extension-loop.mjs
  */
 import { createRequire } from "node:module";
-import { existsSync, mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { cpus, release as osRelease, tmpdir } from "node:os";
 
@@ -90,12 +90,40 @@ const leaks = (anything) => {
   return FIXTURE_VALUES.filter((value) => text.includes(value));
 };
 
+/**
+ * WHAT IS ACTUALLY IN THE BUILD THAT IS ABOUT TO BE LOADED.
+ *
+ * The source rule lives in `apps/extension/test/oneClickAuthority.test.ts`; this is the other half,
+ * and neither subsumes the other. Source can be right while the build graph pulls in something
+ * else, and a bundle can be clean today by an accident of tree-shaking. This reads the exact file
+ * Chrome is given.
+ *
+ * `new PointerEvent(` twice and `new MouseEvent(` three times is one E6 mechanism-B sequence:
+ * pointerdown, mousedown, pointerup, mouseup, click. Exactly one such site is the whole claim —
+ * more would mean a second route to a click, fewer would mean the transport could not act.
+ */
+const scanBundle = () => {
+  const file = join(EXT, "content-scripts", "content.js");
+  const code = readFileSync(file, "utf8");
+  const count = (needle) => code.split(needle).length - 1;
+  return {
+    bytes: code.length,
+    pointerEventSites: count("new PointerEvent("),
+    mouseEventSites: count("new MouseEvent("),
+    elementClickCalls: count(".click()"),
+    e6Surface: ["E6_CLICK", "E6_TYPE", "E6_RELEASE", "B_point_pointer_sequence", "A_element_click", "execCommand", "setRangeText", "A_native_setter_events"].filter(
+      (needle) => code.includes(needle)
+    ),
+  };
+};
+
 let context = null;
 let stopServer = null;
 let service = null;
 let failure = null;
 
 const acts = {};
+const bundle = scanBundle();
 const releaseTests = {};
 let pageForgery = null;
 let workerTraffic = null;
@@ -469,6 +497,15 @@ const checks = {
   nothingLeakedToTheReasoner: (acts.SUCCESS?.leaked?.length ?? 1) === 0 && (acts.REFUSAL?.leaked?.length ?? 1) === 0,
   egressReportedClean: (recordOf("SUCCESS")?.ledgerEntry ?? null) !== null,
 
+  // ── one executable click authority, in the bundle Chrome was handed ─────────────────────────
+  //
+  // M2-EXEC's report named E6_CLICK as a second production click path: a full pointer sequence at
+  // any selector, with no permit, no hit test and no plan validation. It is now resolved out of the
+  // build graph rather than guarded inside it, and this reads the artifact to say so.
+  theBundleHasNoE6Surface: bundle.e6Surface.length === 0,
+  theBundleHasExactlyOneClickSite: bundle.pointerEventSites === 2 && bundle.mouseEventSites === 3,
+  theBundleNeverCallsElementClick: bundle.elementClickCalls === 0,
+
   // ── one approved task, one browser action (M2-EXEC) ─────────────────────────────────────────
   //
   // Four measurements, at the four places the five candidate explanations live: the isolated world's
@@ -524,6 +561,7 @@ const record = {
   checks,
   failure,
   acts,
+  bundle,
   singleAction,
   releaseTests,
   pageForgery,
@@ -557,6 +595,9 @@ for (const act of ["SUCCESS", "REFUSAL", "OUTAGE"]) {
       `rehydrated=${run?.rehydrated?.length ?? "—"} fieldsRead=${b?.fieldsSeenByThePageRealm ?? "—"} refs=${b?.referencesIssued ?? "—"}`
   );
 }
+console.log(
+  `  bundle: ${bundle.bytes} bytes, ${bundle.pointerEventSites + bundle.mouseEventSites} click-event sites, E6 surface: ${bundle.e6Surface.length === 0 ? "none" : bundle.e6Surface.join(",")}`
+);
 console.log(
   `  worker saw ${workerTraffic?.messages ?? "—"} messages (${workerTraffic?.bytes ?? "—"} bytes); fixture values found in them: ${workerTraffic?.matchedValueIndexes?.length ?? "—"}`
 );

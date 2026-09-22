@@ -25,11 +25,27 @@ const ROOT = resolve(HERE, "..", "..");
  */
 export const HOST_COLLECTOR_ORIGIN = "http://127.0.0.1:8995";
 
+/**
+ * WHETHER THIS BUILD CARRIES E6's MECHANISMS. It does not, unless something asks for them.
+ *
+ * `e6/probe.ts` holds a pointer/mouse sequence and three text-insertion mechanisms that consult no
+ * permit, no hit test, no plan and no binding — E6 asked what a content script can do at all, which
+ * is the opposite of an authority. Shipping them behind a message kind made the extension have two
+ * execution paths and one of them ungated, so the alias below resolves to a stub containing no
+ * mechanism unless `E6_PROBE=1` is set. The only caller that sets it is E6's own harness.
+ *
+ * This is a build-graph decision, not a runtime flag: the code is absent from the bundle rather
+ * than present and refused.
+ */
+const E6_PROBE = process.env.E6_PROBE === "1";
+
 const ORT_DIST = join(ROOT, "node_modules", "onnxruntime-web", "dist");
 const MODEL = join(ROOT, "artifacts", "models", "t1-ui-head", "t1-ui-head.onnx");
 
 export default defineConfig({
   entrypointsDir: "host",
+  /** Resolved for both the bundler and the generated tsconfig. See `E6_PROBE` above. */
+  alias: { "#e6-probe": E6_PROBE ? "e6/probe.ts" : "e6/absent.ts" },
   /**
    * Workspace packages are bundled from TypeScript source rather than from `dist/`, so a host build
    * cannot silently ship a stale compile of the agent core. `npm run typecheck` still type-checks
