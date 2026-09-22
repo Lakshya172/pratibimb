@@ -1,5 +1,13 @@
 # M1 — the product loop through the real MV3 extension
 
+> **SUPERSEDED, 2026-09-22, by [`M2-page-value-boundary`](../M2-page-value-boundary/README.md).**
+> The architecture this record describes — the privacy layer working on details compiled into the
+> extension rather than on values read from the page — no longer exists, and
+> `client-held-fields.ts` has been deleted. The loop, the capability and the three acts described
+> below all still hold; what changed is where the values come from and where the vault lives. The
+> runner named here now writes M2's evidence, so this log is not reproducible as written. It is kept
+> because the boundary it names in `decision.md` is the boundary M2 closed.
+
 > **W1 evidence, 2026-09-22.** A real page in a real tab is observed, sanitized, sent to a real local
 > model over loopback, planned, validated, approved by a human, restored through a one-shot
 > capability, clicked through `guardedAct`, and verified by reading the page back — **inside the

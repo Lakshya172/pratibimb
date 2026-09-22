@@ -159,8 +159,8 @@ try {
       goal: GOAL,
       act,
       endpoint,
-      sessionId: `m1-${act.toLowerCase()}-session`,
-      requestId: `m1-${act.toLowerCase()}-request`,
+      sessionId: `m2-${act.toLowerCase()}-session`,
+      requestId: `m2-${act.toLowerCase()}-request`,
     };
     await worker.evaluate((req) => {
       globalThis.__m1 = null;

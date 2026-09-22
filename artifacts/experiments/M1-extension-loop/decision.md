@@ -1,5 +1,10 @@
 # Decision — M1 extension loop
 
+> **SUPERSEDED, 2026-09-22.** "The open boundary, stated plainly" below was the finding this record
+> existed for, and it recommended option 1: move the privacy layer to the values. That was approved
+> and done — see [`M2-page-value-boundary`](../M2-page-value-boundary/decision.md). The rest of this
+> record stands as the state of the system before that change.
+
 | Field | Value |
 |---|---|
 | **Verdict** | **PASS** — 30 of 30 checks |
