@@ -32,13 +32,22 @@
 import { createRequire } from "node:module";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { hostname, cpus, release, totalmem } from "node:os";
+import { cpus, release, totalmem } from "node:os";
 import { execFileSync } from "node:child_process";
 
 import { ROOT, startDemoServer } from "./server.mjs";
 import { FRONT_URL, HOSTILE_PORT, HOSTILE_URL, OUTAGE_URL, startReasonerService } from "./reasoner-service.mjs";
 import { MODEL, MODEL_PATH, RUNTIME } from "../../../artifacts/experiments/LOOP-2-local-reasoner-egress/harness/fetch-model.mjs";
 import { ACTS, RUNNING_ORDER, RESET_CONTRACT, isLoopbackUrl } from "../../../apps/demo/dist/src/demoScript.js";
+
+import { assertOwnEvidencePath, evidenceFileName, provenanceOf, resolveWorkstation } from "../support/workstation.mjs";
+
+/**
+ * Which machine is writing this evidence. Resolved from the host, never hardcoded: this
+ * runner used to stamp "W2" on whatever machine it ran on, which silently relabelled W1
+ * results. An unregistered machine refuses rather than guessing.
+ */
+const WS = resolveWorkstation();
 
 const OUT = join(ROOT, "artifacts", "experiments", "DEMO-1-sih-rehearsal", "logs");
 
@@ -391,8 +400,7 @@ const record = {
   verdict: passed ? "PASS" : "FAIL",
   recordedAt: new Date().toISOString(),
   provenance: {
-    workstation: "W2",
-    host: hostname(),
+    ...provenanceOf(WS),
     os: `${process.platform} ${release()}`,
     cpu: cpus()[0]?.model ?? "unknown",
     cores: cpus().length,
@@ -452,13 +460,13 @@ const record = {
 };
 
 mkdirSync(OUT, { recursive: true });
-const target = join(OUT, "w2-cft153-sih-rehearsal.json");
+const target = assertOwnEvidencePath(join(OUT, evidenceFileName(WS, "cft153-sih-rehearsal.json")), WS);
 writeFileSync(target, `${JSON.stringify(record, null, 2)}\n`, "utf8");
 
 await stopEverything();
 
 // ── 8. the final status ─────────────────────────────────────────────────────────────────────
-console.log(`\n${record.verdict}  Chromium ${record.provenance.browser.split(" ")[1]} on ${record.provenance.host} (W2)`);
+console.log(`\n${record.verdict}  Chromium ${record.provenance.browser.split(" ")[1]} on ${record.provenance.host} (${WS.id})`);
 for (const row of rehearsalTable) {
   console.log(
     `  run ${row.run}: success=${row.success}  refusal=${row.refusal}  fallback=${row.fallback}  unexpected=${row.unexpectedFailure}  ${row.totalMs} ms`

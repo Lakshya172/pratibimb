@@ -23,12 +23,21 @@
 import { createRequire } from "node:module";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { hostname, cpus, release, totalmem } from "node:os";
+import { cpus, release, totalmem } from "node:os";
 import { execFileSync } from "node:child_process";
 
 import { ROOT, startDemoServer } from "./server.mjs";
 import { FRONT_URL, startReasonerService } from "./reasoner-service.mjs";
 import { MODEL, MODEL_PATH, RUNTIME } from "../../../artifacts/experiments/LOOP-2-local-reasoner-egress/harness/fetch-model.mjs";
+
+import { assertOwnEvidencePath, evidenceFileName, provenanceOf, resolveWorkstation } from "../support/workstation.mjs";
+
+/**
+ * Which machine is writing this evidence. Resolved from the host, never hardcoded: this
+ * runner used to stamp "W2" on whatever machine it ran on, which silently relabelled W1
+ * results. An unregistered machine refuses rather than guessing.
+ */
+const WS = resolveWorkstation();
 
 const OUT = join(ROOT, "artifacts", "experiments", "LOOP-2-local-reasoner-egress", "logs");
 const ACQUISITION = join(ROOT, "models", "qwen2.5-0.5b-instruct-gguf", "acquisition.json");
@@ -196,8 +205,7 @@ const record = {
   verdict: passed ? "PASS" : "FAIL",
   recordedAt: new Date().toISOString(),
   provenance: {
-    workstation: "W2",
-    host: hostname(),
+    ...provenanceOf(WS),
     os: `${process.platform} ${release()}`,
     cpu: cpus()[0]?.model ?? "unknown",
     cores: cpus().length,
@@ -263,7 +271,7 @@ mkdirSync(OUT, { recursive: true });
  */
 if (payloadProof.secretsPresent === 0 && body !== "") {
   writeFileSync(
-    join(OUT, "w2-outbound-payload.json"),
+    assertOwnEvidencePath(join(OUT, evidenceFileName(WS, "outbound-payload.json")), WS),
     `${JSON.stringify(
       {
         note: "The EXACT body received by the loopback reasoner service, as bytes on the wire. Written only because the value check below passed.",
@@ -287,13 +295,13 @@ if (payloadProof.secretsPresent === 0 && body !== "") {
   console.error("REFUSING to write the payload artifact: the value check did not pass.");
 }
 
-const target = join(OUT, "w2-cft153-reasoner-loop.json");
+const target = assertOwnEvidencePath(join(OUT, evidenceFileName(WS, "cft153-reasoner-loop.json")), WS);
 writeFileSync(target, `${JSON.stringify(record, null, 2)}\n`, "utf8");
 
 await browser.close();
 demoServer.close();
 
-console.log(`${record.verdict}  Chromium ${browser.version()} on ${record.provenance.host} (W2)`);
+console.log(`${record.verdict}  Chromium ${browser.version()} on ${record.provenance.host} (${WS.id})`);
 console.log(`  model    : ${runs.model.state} · ${runs.model.verification?.verification} · ${runs.model.wallMs} ms`);
 console.log(`  refusal  : ${runs.refusal.state} at ${runs.refusal.refusal?.stage} · fellBack=${runs.refusal.fallback?.fellBack}`);
 console.log(`  fallback : ${runs.fallback.state} · ${runs.fallback.verification?.verification} · ${runs.fallback.reasonerKind}`);

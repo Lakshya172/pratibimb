@@ -24,9 +24,18 @@
 import { createRequire } from "node:module";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { hostname, cpus, release } from "node:os";
+import { cpus, release } from "node:os";
 
 import { ROOT, startDemoServer } from "./server.mjs";
+
+import { assertOwnEvidencePath, evidenceFileName, provenanceOf, resolveWorkstation } from "../support/workstation.mjs";
+
+/**
+ * Which machine is writing this evidence. Resolved from the host, never hardcoded: this
+ * runner used to stamp "W2" on whatever machine it ran on, which silently relabelled W1
+ * results. An unregistered machine refuses rather than guessing.
+ */
+const WS = resolveWorkstation();
 
 const OUT = join(ROOT, "artifacts", "experiments", "LOOP-1-server-orchestrator-planning-view", "logs");
 const PORT = 8975;
@@ -289,8 +298,7 @@ const record = {
   verdict: passed ? "PASS" : "FAIL",
   recordedAt: new Date().toISOString(),
   provenance: {
-    workstation: "W2",
-    host: hostname(),
+    ...provenanceOf(WS),
     os: `${process.platform} ${release()}`,
     cpu: cpus()[0]?.model ?? "unknown",
     gpu: "not used by this run, so not recorded",
@@ -320,13 +328,13 @@ const record = {
 };
 
 mkdirSync(OUT, { recursive: true });
-const target = join(OUT, "w2-cft153-demo-loop.json");
+const target = assertOwnEvidencePath(join(OUT, evidenceFileName(WS, "cft153-demo-loop.json")), WS);
 writeFileSync(target, `${JSON.stringify(record, null, 2)}\n`, "utf8");
 
 await browser.close();
 server.close();
 
-console.log(`${record.verdict}  ${record.provenance.browser}  on ${record.provenance.host} (W2)`);
+console.log(`${record.verdict}  ${record.provenance.browser}  on ${record.provenance.host} (${WS.id})`);
 console.log(
   `  success: ${success.record.state} · ${success.record.act?.verification?.verification} · ${success.record.timings.totalMs}ms`
 );

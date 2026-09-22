@@ -8,7 +8,14 @@ export default defineConfig({
     environment: "node",
     // `apps/*/test` holds the demo-reliability suite: the presenter-facing behaviour that has to
     // keep working, checked without a browser so it runs in the ordinary gate.
-    include: ["packages/*/test/**/*.test.ts", "apps/*/test/**/*.test.ts"],
+    // `tests/browser/support` holds the small modules the browser runners share. They are plain
+    // .mjs because the runners are, and they are covered here so a provenance regression is caught
+    // by the ordinary gate rather than by noticing a mislabelled evidence file after the fact.
+    include: [
+      "packages/*/test/**/*.test.ts",
+      "apps/*/test/**/*.test.ts",
+      "tests/browser/support/**/*.test.mjs",
+    ],
     reporters: ["default"],
   },
   resolve: {

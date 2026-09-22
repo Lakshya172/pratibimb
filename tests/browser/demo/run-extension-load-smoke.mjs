@@ -24,9 +24,18 @@
 import { createRequire } from "node:module";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { hostname, cpus, release, tmpdir } from "node:os";
+import { cpus, release, tmpdir } from "node:os";
 
 import { ROOT } from "./server.mjs";
+
+import { assertOwnEvidencePath, evidenceFileName, provenanceOf, resolveWorkstation } from "../support/workstation.mjs";
+
+/**
+ * Which machine is writing this evidence. Resolved from the host, never hardcoded: this
+ * runner used to stamp "W2" on whatever machine it ran on, which silently relabelled W1
+ * results. An unregistered machine refuses rather than guessing.
+ */
+const WS = resolveWorkstation();
 
 const EXT = join(ROOT, "apps", "extension", ".output", "chrome-mv3");
 const OUT = join(ROOT, "artifacts", "experiments", "LOOP-1-server-orchestrator-planning-view", "logs");
@@ -88,8 +97,7 @@ const record = {
   loopExercisedThroughExtension: false,
   recordedAt: new Date().toISOString(),
   provenance: {
-    workstation: "W2",
-    host: hostname(),
+    ...provenanceOf(WS),
     os: `${process.platform} ${release()}`,
     cpu: cpus()[0]?.model ?? "unknown",
     gpu: "not used by this run, so not recorded",
@@ -113,10 +121,10 @@ const record = {
 };
 
 mkdirSync(OUT, { recursive: true });
-const target = join(OUT, "w2-cft153-extension-load.json");
+const target = assertOwnEvidencePath(join(OUT, evidenceFileName(WS, "cft153-extension-load.json")), WS);
 writeFileSync(target, `${JSON.stringify(record, null, 2)}\n`, "utf8");
 
-console.log(`${record.verdict}  extension load smoke  on ${record.provenance.host} (W2)`);
+console.log(`${record.verdict}  extension load smoke  on ${record.provenance.host} (${WS.id})`);
 console.log(`  service worker: ${serviceWorkerUrl ?? "did not boot"}`);
 console.log(`  the product loop did NOT run through the extension — that remains NOT PROVEN`);
 console.log(`written: ${target}`);
