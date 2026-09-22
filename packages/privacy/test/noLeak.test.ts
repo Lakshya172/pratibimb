@@ -19,7 +19,7 @@ import {
   sanitize,
   serializeHandoff,
   verifyHandoff,
-  type BindContext,
+  type RehydrateContext,
   type BindView,
 } from "../src/index.js";
 import { markDraft, type HandoffDraft } from "../src/handoff.js";
@@ -69,7 +69,7 @@ describe("nothing this package emits carries a secret", () => {
       documentId: "doc-1",
       fields: new Map([["#mobile", { accepts: "PHONE" as const, origin: ORIGIN, fingerprint: demoFingerprint("#mobile") }]]),
     };
-    const ctx: BindContext = {
+    const ctx: RehydrateContext = {
       vault: outcome.vault,
       sessionId: "session-1",
       view,

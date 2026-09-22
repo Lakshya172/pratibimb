@@ -38,7 +38,7 @@ import {
   type LiteralFinding,
   type LiteralSeverity,
   type PiiClass,
-  type Vault,
+  type VaultFacade,
 } from "@pratibimb/privacy";
 
 import { isParsedPlan, type Plan, type PlanStep } from "./schema.js";
@@ -133,8 +133,12 @@ export type PlanValidation =
   | { readonly ok: false; readonly refusal: PlanRefusal; readonly checked: readonly ValidatedStep[] };
 
 export interface PlanValidationContext {
-  /** Everything privacy needs to answer about a reference. Passed straight through. */
-  readonly vault: Vault;
+  /**
+   * Everything privacy needs to answer about a reference, and about a literal. Passed straight
+   * through. Descriptors and one oracle — never a way to reach a value, so this stage can run in a
+   * realm that does not hold them.
+   */
+  readonly vault: VaultFacade;
   readonly sessionId: string;
   readonly requestId: string;
   readonly origin: string;

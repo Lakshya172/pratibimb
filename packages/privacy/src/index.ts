@@ -73,8 +73,20 @@ export {
 } from "./vault.js";
 
 export {
+  createVaultView,
+  type AsyncLiteralOracle,
+  type HeldLiteral,
+  type LiteralOracle,
+  type VaultFacade,
+  type VaultReader,
+  type VaultView,
+  type VaultViewContext,
+} from "./vaultView.js";
+
+export {
   isVerifiedHandoff,
   scanForVaultValues,
+  scanForVaultValuesAsync,
   serializeHandoff,
   verifyHandoff,
   type HandoffBody,
@@ -113,6 +125,7 @@ export {
   rehydrate,
   type BindCause,
   type BindContext,
+  type RehydrateContext,
   type BindDecision,
   type BindStep,
   type BindView,

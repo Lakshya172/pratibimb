@@ -11,7 +11,7 @@ import {
   classOriginKey,
   rehydrate,
   sanitize,
-  type BindContext,
+  type RehydrateContext,
   type BindView,
   type UseGrant,
 } from "../src/index.js";
@@ -36,7 +36,7 @@ const scenario = async () => {
     ]),
   };
 
-  const ctx: BindContext = {
+  const ctx: RehydrateContext = {
     vault: outcome.vault,
     sessionId: "session-1",
     view,

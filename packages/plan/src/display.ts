@@ -16,7 +16,7 @@
  * References are **not** redacted. `<PII:PHONE:1>` is an opaque token that stands for a value without
  * revealing anything about it — showing it is the entire point of the demo.
  */
-import { type PiiClass, type Vault } from "@pratibimb/privacy";
+import { type LiteralOracle, type PiiClass } from "@pratibimb/privacy";
 
 import { type Plan } from "./schema.js";
 
@@ -55,7 +55,7 @@ export const literalMarker = (piiClass: PiiClass | null): string =>
  * and under normalisation, and returns a class. A literal the vault does not recognise is still
  * masked — the client has no reason to retain reasoner-supplied text either way.
  */
-export function redactPlan(plan: Plan, vault: Vault): SafePlan {
+export function redactPlan(plan: Plan, vault: LiteralOracle): SafePlan {
   return {
     planVersion: plan.planVersion,
     provenance: plan.provenance,

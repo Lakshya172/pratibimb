@@ -23,7 +23,7 @@
  * proof, and the transport below is an in-process function call. `ReasonerResponse.transport` says
  * which, in the record, so no artifact can imply otherwise.
  */
-import { isVerifiedHandoff, type Vault, type VerifiedHandoff } from "@pratibimb/privacy";
+import { isVerifiedHandoff, type AsyncLiteralOracle, type VerifiedHandoff } from "@pratibimb/privacy";
 
 /** What the client asks for. The handoff is the only page-derived thing in it. */
 export interface ReasonerRequest {
@@ -45,7 +45,7 @@ export interface ReasonerRequest {
    * cannot import. An adapter can ask "do you hold this?" — which is exactly what the leak scan is —
    * and can learn nothing else. A test asserts no reasoner source reaches for the value path.
    */
-  readonly vault: Vault;
+  readonly vault: AsyncLiteralOracle;
 }
 
 /**

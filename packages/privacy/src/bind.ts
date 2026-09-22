@@ -31,6 +31,7 @@ import { TIER_OF, type FieldClass, type PiiClass } from "./classes.js";
 import { REVEAL } from "./internal.js";
 import { parseToken } from "./tokens.js";
 import { type Vault } from "./vault.js";
+import { type VaultFacade } from "./vaultView.js";
 
 export type BindCause =
   | "VAULT_DESTROYED"
@@ -100,7 +101,14 @@ export interface UseGrant {
 }
 
 export interface BindContext {
-  readonly vault: Vault;
+  /**
+   * Descriptors and identity — never a value.
+   *
+   * Every check `bind()` performs is answerable from what a reference *stands for*, which is why
+   * binding can be decided in a realm that does not hold the values. Recovering one is a different
+   * operation with a different context; see `RehydrateContext`.
+   */
+  readonly vault: VaultFacade;
   readonly sessionId: string;
   readonly view: BindView;
   /** The document the page is in *now*. Compared against the view's. */
@@ -183,7 +191,16 @@ export type RehydrateOutcome =
  * The value is returned to the caller and to nobody else. It is not logged, not stored, not put in
  * an error, and not echoed in any refusal (INV-21).
  */
-export function rehydrate(step: BindStep, ctx: BindContext): RehydrateOutcome {
+/**
+ * Recovering a value needs the vault itself, not a view of it.
+ *
+ * The type is the enforcement: a realm holding only descriptors cannot call `rehydrate`, because it
+ * has nothing to pass. That is not a convention this file asks callers to respect — it is the
+ * reason `BindContext` was narrowed in the first place.
+ */
+export type RehydrateContext = Omit<BindContext, "vault"> & { readonly vault: Vault };
+
+export function rehydrate(step: BindStep, ctx: RehydrateContext): RehydrateOutcome {
   const decision = bind(step, ctx);
   if (decision.decision !== "BIND_OK") return { ok: false, decision };
 

@@ -26,7 +26,7 @@
  */
 import { type PiiClass } from "./classes.js";
 import { classifyValue } from "./classify.js";
-import { type Vault } from "./vault.js";
+import { type LiteralOracle } from "./vaultView.js";
 
 export type LiteralCause = "VAULT_LITERAL_ECHO" | "LITERAL_AT_REDACTED_FIELD" | "PII_SHAPED_LITERAL";
 
@@ -58,7 +58,14 @@ export type LiteralVerdict =
     };
 
 export interface LiteralContext {
-  readonly vault: Vault;
+  /**
+   * Whoever can answer "do you hold this?".
+   *
+   * `Vault` itself in a client that holds its own values; a view onto a vault in another realm when
+   * the values are where the page is. The narrower type is the point: this check needs exactly one
+   * question answered and must not be able to ask for a value.
+   */
+  readonly vault: LiteralOracle;
   /** Does the target field carry a redaction token in the handoff that was sent? */
   readonly targetIsRedacted: boolean;
   readonly today?: Date;

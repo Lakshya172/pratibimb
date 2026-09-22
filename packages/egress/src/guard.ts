@@ -33,7 +33,7 @@
  * for leakage is not recorded either: it is a hash *of the secret-bearing bytes*, and publishing it
  * would be publishing an oracle.
  */
-import { isVerifiedHandoff, scanForVaultValues, sha256Hex, type PiiClass, type Vault, type VerifiedHandoff } from "@pratibimb/privacy";
+import { isVerifiedHandoff, scanForVaultValuesAsync, sha256Hex, type AsyncLiteralOracle, type PiiClass, type VerifiedHandoff } from "@pratibimb/privacy";
 
 /**
  * Byte length of a UTF-8 string, without `Buffer`.
@@ -142,8 +142,14 @@ export type EgressOutcome =
 export interface EgressRequest {
   /** The verified handoff this payload was built from. Its tokens bound what may leave. */
   readonly handoff: VerifiedHandoff;
-  /** The vault whose values the outgoing bytes are scanned against. */
-  readonly vault: Vault;
+  /**
+   * Whoever can say whether the outgoing bytes contain a value that is being held.
+   *
+   * The vault itself where the client holds its own values; a view onto the realm that does when
+   * they live with the page. Either way the bytes scanned are the bytes sent, and the answer is a
+   * class or nothing — this guard is never given a value to compare against.
+   */
+  readonly vault: AsyncLiteralOracle;
   /** The request body. Serialized here, once, and the result is what is sent. */
   readonly body: unknown;
   readonly destination: string;
@@ -231,7 +237,7 @@ export async function sendVerified(request: EgressRequest): Promise<EgressOutcom
   }
 
   // ── 5. the value-aware residual scan, over the bytes that would actually go ────────────────
-  const leaked = scanForVaultValues(bytes, request.vault);
+  const leaked = await scanForVaultValuesAsync(bytes, request.vault);
   if (leaked) {
     return refuse("LEAK_SCAN", "VAULT_VALUE_IN_PAYLOAD", "a value this client holds locally appears in the outgoing bytes.", {
       leakedClass: leaked,

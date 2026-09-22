@@ -37,6 +37,7 @@ import { type Hint } from "./hints.js";
 import { containsSecret } from "./normalise.js";
 import { parseToken } from "./tokens.js";
 import { type Vault } from "./vault.js";
+import { type AsyncLiteralOracle, type LiteralOracle } from "./vaultView.js";
 
 /** One redaction span, as `docs/architecture/manifest-schema.md` §redactions defines it. */
 export interface Redaction {
@@ -212,8 +213,20 @@ export function verifyHandoff(draft: HandoffDraft, context: VerificationContext)
  * Returns the class so a ledger can record *what kind* of thing leaked; the value itself is never
  * returned, logged or thrown (INV-21).
  */
-export function scanForVaultValues(serialized: string, vault: Vault): PiiClass | null {
+export function scanForVaultValues(serialized: string, vault: LiteralOracle): PiiClass | null {
   const hit = vault.holdsLiteral(serialized);
+  return hit.held ? hit.piiClass : null;
+}
+
+/**
+ * The same scan, for a caller whose vault is in another realm.
+ *
+ * Identical question, identical answer — `holdsLiteral` over the exact bytes — differing only in
+ * that the asking may have to travel. The egress guard uses this one, because it cannot know the
+ * bytes it is about to send until it has built them, so it cannot arrange an answer in advance.
+ */
+export async function scanForVaultValuesAsync(serialized: string, vault: AsyncLiteralOracle): Promise<PiiClass | null> {
+  const hit = await vault.holdsLiteral(serialized);
   return hit.held ? hit.piiClass : null;
 }
 
