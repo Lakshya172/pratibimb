@@ -1,0 +1,2371 @@
+{
+  "experiment": "M1 — the product loop through the real MV3 extension",
+  "verdict": "PASS",
+  "status": "EXPERIMENTALLY VERIFIED (one run of each act, one fixture, one browser cell)",
+  "claim": "a real page in a real tab is observed, sanitized, reasoned about, validated, approved by a human, rehydrated through a one-shot capability and clicked through guardedAct, entirely inside the MV3 extension, with the value never present in a service-worker message",
+  "notAClaim": [
+    "the field values the privacy layer works on are the client's own synthetic details, NOT values read from the page — see decision.md",
+    "the human's answer comes from the harness through the worker's control plane, exactly as the demo rehearsal's auto mode does; no human-facing grant surface was built in M1",
+    "one run of each act on one machine in one browser cell is not a benchmark and not a reliability claim",
+    "no visual perception, capture, detector, OCR or pixel redaction took part"
+  ],
+  "loopExercisedThroughExtension": true,
+  "checks": {
+    "successReachedTheEnd": true,
+    "successWasConfirmed": true,
+    "successDidNotFallBack": true,
+    "successAskedAHuman": true,
+    "successRestoredOneValue": true,
+    "successClickedOnce": true,
+    "successSubmittedThePage": true,
+    "successRestoredTheRightValue": true,
+    "refusalWasRefused": true,
+    "refusalWasBlockedAtTheLiteral": true,
+    "refusalSanitizedAndSent": true,
+    "refusalNeverAskedAHuman": true,
+    "refusalArmedNothing": true,
+    "refusalRestoredNothing": true,
+    "refusalClickedNothing": true,
+    "refusalLeftTheFieldEmpty": true,
+    "refusalDidNotFallBack": true,
+    "outageReachedTheEnd": true,
+    "outageWasConfirmed": true,
+    "outageFellBack": true,
+    "outageAskedAHuman": true,
+    "outageRestoredOneValue": true,
+    "outageSubmittedThePage": true,
+    "forgedNonceRefused": true,
+    "armedCapabilityWorksOnce": true,
+    "reusedNonceRefused": true,
+    "wrongDocumentRefused": true,
+    "wrongTabRefused": true,
+    "pageCannotReachTheCoreRealm": true,
+    "noValueInAnythingTheHarnessSaw": true,
+    "nothingLeakedToTheReasoner": true
+  },
+  "failure": null,
+  "acts": {
+    "SUCCESS": {
+      "outcome": {
+        "ok": true,
+        "result": {
+          "record": {
+            "goal": "Submit my application with my registered mobile number.",
+            "sessionId": "m1-success-session",
+            "requestId": "m1-success-request",
+            "origin": "http://127.0.0.1:8975",
+            "state": "DONE",
+            "transitions": [
+              {
+                "from": "IDLE",
+                "to": "OBSERVE",
+                "at": 1790052317619,
+                "elapsedMs": 0
+              },
+              {
+                "from": "OBSERVE",
+                "to": "SANITIZE",
+                "at": 1790052317630,
+                "elapsedMs": 11
+              },
+              {
+                "from": "SANITIZE",
+                "to": "VERIFY_PAYLOAD",
+                "at": 1790052317653,
+                "elapsedMs": 34
+              },
+              {
+                "from": "VERIFY_PAYLOAD",
+                "to": "SEND",
+                "at": 1790052317653,
+                "elapsedMs": 34
+              },
+              {
+                "from": "SEND",
+                "to": "VALIDATE_PLAN",
+                "at": 1790052319641,
+                "elapsedMs": 2022
+              },
+              {
+                "from": "VALIDATE_PLAN",
+                "to": "AWAIT_GRANT",
+                "at": 1790052319643,
+                "elapsedMs": 2024
+              },
+              {
+                "from": "AWAIT_GRANT",
+                "to": "REHYDRATE",
+                "at": 1790052319878,
+                "elapsedMs": 2259
+              },
+              {
+                "from": "REHYDRATE",
+                "to": "ACT",
+                "at": 1790052319931,
+                "elapsedMs": 2312
+              },
+              {
+                "from": "ACT",
+                "to": "VERIFY_RESULT",
+                "at": 1790052319932,
+                "elapsedMs": 2313
+              },
+              {
+                "from": "VERIFY_RESULT",
+                "to": "DONE",
+                "at": 1790052320002,
+                "elapsedMs": 2383
+              }
+            ],
+            "timings": {
+              "observeMs": 10,
+              "sanitizeMs": 23,
+              "verifyPayloadMs": 0,
+              "sendMs": 1988,
+              "validatePlanMs": 2,
+              "grantMs": 235,
+              "rehydrateMs": 43,
+              "refreshMs": 10,
+              "verifyResultMs": 12,
+              "actMs": 70,
+              "totalMs": 2383
+            },
+            "refusal": null,
+            "initialObservation": {
+              "nodes": 14,
+              "fields": 6,
+              "frameId": "transport-583d0be9-1d5e-40db-b2e0-f9a67807ebf7",
+              "viewport": {
+                "w": 1280,
+                "h": 720,
+                "dpr": 1.0000000149011612,
+                "zoom": 1,
+                "scrollX": 0,
+                "scrollY": 0
+              },
+              "documentId": "7F7002E5C5F2BB0089CB13B2BEAD9A07",
+              "focusedSelector": null,
+              "actionable": [
+                "label",
+                "#name",
+                "#mobile",
+                "#aadhaar",
+                "#dob",
+                "#otp",
+                "#mobile_confirm",
+                "#submit",
+                "#status"
+              ]
+            },
+            "observation": {
+              "nodes": 14,
+              "fields": 6,
+              "frameId": "transport-94842638-3054-4be1-9a2d-0d4eff35cdd6",
+              "viewport": {
+                "w": 1280,
+                "h": 720,
+                "dpr": 1.0000000149011612,
+                "zoom": 1,
+                "scrollX": 0,
+                "scrollY": 0
+              },
+              "documentId": "7F7002E5C5F2BB0089CB13B2BEAD9A07",
+              "focusedSelector": null,
+              "actionable": [
+                "label",
+                "#name",
+                "#mobile",
+                "#aadhaar",
+                "#dob",
+                "#otp",
+                "#mobile_confirm",
+                "#status"
+              ]
+            },
+            "handoff": {
+              "manifestVersion": "1.1",
+              "capture": {
+                "w": 1280,
+                "h": 720,
+                "dpr": 1.0000000149011612,
+                "zoom": 1,
+                "scale_to_css": 1,
+                "scroll": {
+                  "x": 0,
+                  "y": 0
+                },
+                "origin": "http://127.0.0.1:8975"
+              },
+              "capability": {
+                "backend": "none",
+                "tiers_fired": [
+                  "T0",
+                  "T2"
+                ]
+              },
+              "elements": [
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "Full name",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    122.80000305175781,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#name",
+                  "role": "textbox",
+                  "name": "Full name",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    145.1999969482422,
+                    490.3999938964844,
+                    32
+                  ]
+                },
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "Mobile number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    187.1999969482422,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#mobile",
+                  "role": "textbox",
+                  "name": "Mobile number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    209.60000610351562,
+                    490.3999938964844,
+                    32
+                  ]
+                },
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "Aadhaar number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    251.60000610351562,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#aadhaar",
+                  "role": "textbox",
+                  "name": "Aadhaar number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    274,
+                    490.3999938964844,
+                    32
+                  ]
+                },
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "Date of birth",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    316,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#dob",
+                  "role": "textbox",
+                  "name": "Date of birth",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    338.3999938964844,
+                    490.3999938964844,
+                    34
+                  ]
+                },
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "OTP",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    382.3999938964844,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#otp",
+                  "role": "textbox",
+                  "name": "OTP",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    404.8000183105469,
+                    490.3999938964844,
+                    32
+                  ]
+                },
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "Confirm mobile number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    506,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#mobile_confirm",
+                  "role": "textbox",
+                  "name": "Confirm mobile number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    528.4000244140625,
+                    490.3999938964844,
+                    32
+                  ]
+                },
+                {
+                  "id": "#submit",
+                  "role": "button",
+                  "name": "Submit application",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    572.4000244140625,
+                    153.4250030517578,
+                    38
+                  ]
+                },
+                {
+                  "id": "#status",
+                  "role": "status",
+                  "name": "Not submitted",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    20,
+                    639.2000122070312,
+                    520,
+                    36.400001525878906
+                  ]
+                }
+              ],
+              "goal": "Submit my application with my registered mobile number.",
+              "redactions": [
+                {
+                  "token": "<PII:NAME:1>",
+                  "class": "NAME",
+                  "tier": "PERSONAL",
+                  "bbox": [
+                    34.79999923706055,
+                    145.1999969482422,
+                    490.3999938964844,
+                    32
+                  ],
+                  "method": "token_reference",
+                  "detectors": [
+                    "D1",
+                    "D2"
+                  ],
+                  "hint": {
+                    "len": 12,
+                    "kind": "alpha",
+                    "field_role": "name"
+                  },
+                  "targetId": "#name"
+                },
+                {
+                  "token": "<PII:PHONE:1>",
+                  "class": "PHONE",
+                  "tier": "PERSONAL",
+                  "bbox": [
+                    34.79999923706055,
+                    209.60000610351562,
+                    490.3999938964844,
+                    32
+                  ],
+                  "method": "token_reference",
+                  "detectors": [
+                    "D1",
+                    "D2"
+                  ],
+                  "hint": {
+                    "len": 10,
+                    "kind": "numeric",
+                    "field_role": "tel"
+                  },
+                  "targetId": "#mobile"
+                },
+                {
+                  "token": "<PII:AADHAAR:1>",
+                  "class": "AADHAAR",
+                  "tier": "SENSITIVE",
+                  "bbox": [
+                    34.79999923706055,
+                    274,
+                    490.3999938964844,
+                    32
+                  ],
+                  "method": "token_reference",
+                  "detectors": [
+                    "D1",
+                    "D2"
+                  ],
+                  "hint": {
+                    "len": 14,
+                    "kind": "numeric"
+                  },
+                  "targetId": "#aadhaar"
+                },
+                {
+                  "token": "<PII:DOB:1>",
+                  "class": "DOB",
+                  "tier": "PERSONAL",
+                  "bbox": [
+                    34.79999923706055,
+                    338.3999938964844,
+                    490.3999938964844,
+                    34
+                  ],
+                  "method": "token_reference",
+                  "detectors": [
+                    "D1",
+                    "D2"
+                  ],
+                  "hint": {
+                    "len": 10,
+                    "kind": "date",
+                    "field_role": "date"
+                  },
+                  "targetId": "#dob"
+                },
+                {
+                  "token": "",
+                  "class": "OTP",
+                  "tier": "CRITICAL",
+                  "bbox": [
+                    34.79999923706055,
+                    404.8000183105469,
+                    490.3999938964844,
+                    32
+                  ],
+                  "method": "masked_no_token",
+                  "detectors": [
+                    "D1"
+                  ],
+                  "hint": {
+                    "len": 6,
+                    "kind": "numeric",
+                    "field_role": "one-time-code"
+                  },
+                  "targetId": "#otp"
+                }
+              ],
+              "request": {
+                "requestId": "m1-success-request",
+                "sessionId": "m1-success-session",
+                "issuedAt": 1790052317630
+              },
+              "verified": true
+            },
+            "handoffSerialized": "{\"manifestVersion\":\"1.1\",\"capture\":{\"w\":1280,\"h\":720,\"dpr\":1.0000000149011612,\"zoom\":1,\"scale_to_css\":1,\"scroll\":{\"x\":0,\"y\":0},\"origin\":\"http://127.0.0.1:8975\"},\"capability\":{\"backend\":\"none\",\"tiers_fired\":[\"T0\",\"T2\"]},\"elements\":[{\"id\":\"label\",\"role\":\"label\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,122.80000305175781,490.3999938964844,18.399999618530273]},{\"id\":\"#name\",\"role\":\"textbox\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,187.1999969482422,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile\",\"role\":\"textbox\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,251.60000610351562,490.3999938964844,18.399999618530273]},{\"id\":\"#aadhaar\",\"role\":\"textbox\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,274,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,316,490.3999938964844,18.399999618530273]},{\"id\":\"#dob\",\"role\":\"textbox\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,382.3999938964844,490.3999938964844,18.399999618530273]},{\"id\":\"#otp\",\"role\":\"textbox\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,506,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile_confirm\",\"role\":\"textbox\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,528.4000244140625,490.3999938964844,32]},{\"id\":\"#submit\",\"role\":\"button\",\"name\":\"Submit application\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,572.4000244140625,153.4250030517578,38]},{\"id\":\"#status\",\"role\":\"status\",\"name\":\"Not submitted\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[20,639.2000122070312,520,36.400001525878906]}],\"goal\":\"Submit my application with my registered mobile number.\",\"redactions\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"},\"targetId\":\"#name\"},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"},\"targetId\":\"#mobile\"},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"tier\":\"SENSITIVE\",\"bbox\":[34.79999923706055,274,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":14,\"kind\":\"numeric\"},\"targetId\":\"#aadhaar\"},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"},\"targetId\":\"#dob\"},{\"token\":\"\",\"class\":\"OTP\",\"tier\":\"CRITICAL\",\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32],\"method\":\"masked_no_token\",\"detectors\":[\"D1\"],\"hint\":{\"len\":6,\"kind\":\"numeric\",\"field_role\":\"one-time-code\"},\"targetId\":\"#otp\"}],\"request\":{\"requestId\":\"m1-success-request\",\"sessionId\":\"m1-success-session\",\"issuedAt\":1790052317630},\"verified\":true}",
+            "ledgerEntry": {
+              "sessionId": "m1-success-session",
+              "requestId": "m1-success-request",
+              "at": 1790052317630,
+              "destination": "(no egress client in this phase)",
+              "payloadSha256": "ae002643e18300b997d56f6f2e9f4444b1fcef1b3ebae0f2f1e4afdd120d583c",
+              "payloadBytes": 4255,
+              "verified": true,
+              "leakCheck": "CLEAN",
+              "elements": 14,
+              "references": [
+                {
+                  "token": "<PII:NAME:1>",
+                  "class": "NAME",
+                  "tier": "PERSONAL"
+                },
+                {
+                  "token": "<PII:PHONE:1>",
+                  "class": "PHONE",
+                  "tier": "PERSONAL"
+                },
+                {
+                  "token": "<PII:AADHAAR:1>",
+                  "class": "AADHAAR",
+                  "tier": "SENSITIVE"
+                },
+                {
+                  "token": "<PII:DOB:1>",
+                  "class": "DOB",
+                  "tier": "PERSONAL"
+                }
+              ],
+              "maskedWithoutReference": 1,
+              "note": "privacy-layer record only: this phase has no egress client, so this is not evidence of a network send"
+            },
+            "response": {
+              "received": true,
+              "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
+              "transport": "LOOPBACK_HTTP",
+              "elapsedMs": 1986,
+              "requestId": "m1-success-request"
+            },
+            "plan": {
+              "planVersion": "1",
+              "provenance": {
+                "requestId": "m1-success-request",
+                "sessionId": "m1-success-session",
+                "viewId": "m1-success-request",
+                "origin": "http://127.0.0.1:8975"
+              },
+              "goal": "Submit my application with my registered mobile number.",
+              "steps": [
+                {
+                  "op": "insert",
+                  "target": "#mobile_confirm",
+                  "ref": "<PII:PHONE:1>"
+                },
+                {
+                  "op": "click",
+                  "target": "#submit"
+                }
+              ]
+            },
+            "validation": {
+              "ok": true,
+              "steps": [
+                {
+                  "op": "insert",
+                  "source": "reference",
+                  "index": 0,
+                  "target": "#mobile_confirm",
+                  "ref": "<PII:PHONE:1>",
+                  "piiClass": "PHONE",
+                  "binding": {
+                    "decision": "BIND_OK"
+                  },
+                  "needsHuman": false
+                },
+                {
+                  "op": "click",
+                  "index": 1,
+                  "target": "#submit"
+                }
+              ],
+              "needsHuman": []
+            },
+            "reasonerKind": "LOCAL_MODEL",
+            "fallback": null,
+            "grant": {
+              "requested": true,
+              "decision": {
+                "granted": true
+              },
+              "useGrant": {
+                "ref": "<PII:PHONE:1>",
+                "piiClass": "PHONE",
+                "fingerprint": "#mobile_confirm|textbox|Confirm mobile number",
+                "origin": "http://127.0.0.1:8975",
+                "sessionId": "m1-success-session",
+                "purpose": "Use of PHONE for \"Confirm mobile number\"",
+                "actionContext": "insert into #mobile_confirm, then click #submit",
+                "grantedAt": 1790052319878,
+                "expiresAt": 1790052379878,
+                "used": true
+              }
+            },
+            "rehydrated": [
+              {
+                "ref": "<PII:PHONE:1>",
+                "target": "#mobile_confirm",
+                "piiClass": "PHONE",
+                "inserted": true
+              }
+            ],
+            "literalsInserted": [],
+            "confirmation": {
+              "subject": {
+                "nodeId": "e12",
+                "selector": "#submit",
+                "role": "button",
+                "name": "Submit application",
+                "frameId": "transport-39d6d9d8-f0ef-4462-b4bd-235f9bb796a9",
+                "origin": "http://127.0.0.1:8975"
+              },
+              "purpose": "Click \"Submit application\" to submit this application",
+              "confirmedAt": 1790052319931,
+              "expiresAt": 1790052379931
+            },
+            "act": {
+              "reached": "VERIFY_RESULT",
+              "decision": {
+                "decision": "ALLOW",
+                "kind": "click",
+                "node": {
+                  "id": "e12",
+                  "role": "button",
+                  "name": "Submit application",
+                  "domRef": {
+                    "selector": "#submit"
+                  },
+                  "evidence": {
+                    "kind": "OBSERVED",
+                    "frameId": "transport-39d6d9d8-f0ef-4462-b4bd-235f9bb796a9",
+                    "viewportBox": {
+                      "x": 34.79999923706055,
+                      "y": 572.4000244140625,
+                      "w": 153.4250030517578,
+                      "h": 38
+                    },
+                    "documentBox": {
+                      "x": 34.79999923706055,
+                      "y": 572.4000244140625,
+                      "w": 153.4250030517578,
+                      "h": 38
+                    }
+                  },
+                  "enabled": true,
+                  "parent": null,
+                  "children": []
+                },
+                "frameId": "transport-39d6d9d8-f0ef-4462-b4bd-235f9bb796a9",
+                "viewportBox": {
+                  "x": 34.79999923706055,
+                  "y": 572.4000244140625,
+                  "w": 153.4250030517578,
+                  "h": 38
+                },
+                "movedCssPx": 0,
+                "boxIou": 1,
+                "point": {
+                  "x": 112,
+                  "y": 591
+                }
+              },
+              "hit": {
+                "agreement": "MATCH",
+                "point": {
+                  "x": 112,
+                  "y": 591
+                },
+                "observed": {
+                  "frameId": "transport-39d6d9d8-f0ef-4462-b4bd-235f9bb796a9",
+                  "selector": "#submit",
+                  "role": "button",
+                  "name": "Submit application",
+                  "box": {
+                    "x": 34.79999923706055,
+                    "y": 572.4000244140625,
+                    "w": 153.4250030517578,
+                    "h": 38
+                  }
+                },
+                "boxIou": 1,
+                "elapsedMs": 9
+              },
+              "result": {
+                "status": "EXECUTED",
+                "kind": "click",
+                "target": {
+                  "nodeId": "e12",
+                  "role": "button",
+                  "name": "Submit application",
+                  "point": {
+                    "x": 112,
+                    "y": 591
+                  },
+                  "box": {
+                    "x": 34.79999923706055,
+                    "y": 572.4000244140625,
+                    "w": 153.4250030517578,
+                    "h": 38
+                  }
+                },
+                "dispatchMs": 44
+              },
+              "verification": {
+                "verification": "CONFIRMED",
+                "postcondition": "TARGET_ENABLED",
+                "evidence": "#submit is disabled, as expected."
+              }
+            }
+          },
+          "binding": {
+            "origin": "http://127.0.0.1:8975",
+            "documentId": "7F7002E5C5F2BB0089CB13B2BEAD9A07",
+            "tabId": 772473242,
+            "frameId": 0,
+            "swBootId": "289240b5-b449-48db-9052-502bdfac3114"
+          },
+          "ports": {
+            "observations": 3,
+            "inserts": 1,
+            "armed": 1,
+            "written": 1,
+            "rehydrationRefusals": [],
+            "cycle": {
+              "cycleId": "33d5814b-3cb0-4065-b8f2-ab23aae86b4b",
+              "hitTest": {
+                "point": {
+                  "x": 112,
+                  "y": 591
+                },
+                "topmost": "#submit",
+                "receivedAt": 1790052319940.6,
+                "sampledAt": 1790052319940.8
+              },
+              "dispatch": {
+                "deliveryId": "b84672cf-e536-4cb0-b8c8-c6a698a6815d",
+                "point": {
+                  "x": 112,
+                  "y": 591
+                },
+                "dispatchedTo": "#submit",
+                "receivedAt": 1790052319949,
+                "dispatchedAt": 1790052319950.5
+              },
+              "refusals": []
+            }
+          },
+          "egress": [
+            {
+              "record": {
+                "requestId": "m1-success-request",
+                "sessionId": "m1-success-session",
+                "destination": "http://127.0.0.1:8995/v1/chat/completions",
+                "at": 1790052319640,
+                "transport": "LOOPBACK_HTTP",
+                "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
+                "verified": true,
+                "payloadSha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+                "payloadBytes": 2679,
+                "leakCheck": "CLEAN",
+                "references": [
+                  "<PII:NAME:1>",
+                  "<PII:PHONE:1>",
+                  "<PII:AADHAAR:1>",
+                  "<PII:DOB:1>"
+                ],
+                "responseStatus": 200,
+                "responseBytes": 836,
+                "peerReceipt": {
+                  "sha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+                  "bytes": 2679,
+                  "agrees": true
+                },
+                "elapsedMs": 1985
+              }
+            }
+          ],
+          "grant": {
+            "asked": true,
+            "granted": true
+          }
+        }
+      },
+      "error": null,
+      "grantAsked": {
+        "ref": "<PII:PHONE:1>",
+        "piiClass": "PHONE",
+        "target": "#mobile_confirm",
+        "targetLabel": "Confirm mobile number",
+        "fingerprint": "#mobile_confirm|textbox|Confirm mobile number",
+        "origin": "http://127.0.0.1:8975",
+        "sessionId": "m1-success-session",
+        "purpose": "Allow PratiBimb to use your phone for \"Confirm mobile number\" on this page",
+        "actionContext": "restore it into #mobile_confirm, then click #submit (\"Submit application\")",
+        "action": {
+          "target": "#submit",
+          "label": "Submit application"
+        }
+      },
+      "page": {
+        "confirmValue": "9000000001",
+        "submitted": "true",
+        "statusText": "Application submitted",
+        "submitEvents": [
+          "pointerdown",
+          "mousedown",
+          "pointerup",
+          "mouseup",
+          "click"
+        ],
+        "submitDisabled": true
+      },
+      "served": 1,
+      "leaked": []
+    },
+    "REFUSAL": {
+      "outcome": {
+        "ok": true,
+        "result": {
+          "record": {
+            "goal": "Submit my application with my registered mobile number.",
+            "sessionId": "m1-refusal-session",
+            "requestId": "m1-refusal-request",
+            "origin": "http://127.0.0.1:8975",
+            "state": "REFUSED",
+            "transitions": [
+              {
+                "from": "IDLE",
+                "to": "OBSERVE",
+                "at": 1790052320664,
+                "elapsedMs": 0
+              },
+              {
+                "from": "OBSERVE",
+                "to": "SANITIZE",
+                "at": 1790052320675,
+                "elapsedMs": 11
+              },
+              {
+                "from": "SANITIZE",
+                "to": "VERIFY_PAYLOAD",
+                "at": 1790052320679,
+                "elapsedMs": 15
+              },
+              {
+                "from": "VERIFY_PAYLOAD",
+                "to": "SEND",
+                "at": 1790052320679,
+                "elapsedMs": 15
+              },
+              {
+                "from": "SEND",
+                "to": "VALIDATE_PLAN",
+                "at": 1790052320697,
+                "elapsedMs": 33
+              },
+              {
+                "from": "VALIDATE_PLAN",
+                "to": "REFUSED",
+                "at": 1790052320698,
+                "elapsedMs": 34
+              }
+            ],
+            "timings": {
+              "observeMs": 11,
+              "sanitizeMs": 4,
+              "verifyPayloadMs": 0,
+              "sendMs": 18,
+              "validatePlanMs": 1,
+              "totalMs": 34
+            },
+            "refusal": {
+              "stage": "VALIDATE_PLAN",
+              "cause": "LITERAL_REFUSED",
+              "detail": "the plan returned a value this client holds locally and never sent. Refused before rehydration and before any action; the value is not quoted.",
+              "planRefusal": {
+                "cause": "LITERAL_REFUSED",
+                "at": 0,
+                "target": "#mobile_confirm",
+                "literalCause": "VAULT_LITERAL_ECHO",
+                "literalSeverity": "LEAKAGE_EVENT",
+                "literalFindings": [
+                  {
+                    "cause": "VAULT_LITERAL_ECHO",
+                    "severity": "LEAKAGE_EVENT",
+                    "piiClass": "PHONE"
+                  },
+                  {
+                    "cause": "PII_SHAPED_LITERAL",
+                    "severity": "PLAN_DEFECT",
+                    "piiClass": "PHONE"
+                  }
+                ],
+                "piiClass": "PHONE",
+                "detail": "the plan returned a value this client holds locally and never sent. Refused before rehydration and before any action; the value is not quoted."
+              }
+            },
+            "initialObservation": {
+              "nodes": 14,
+              "fields": 6,
+              "frameId": "transport-6db77779-575d-4e99-b930-a8e08fbc9c4a",
+              "viewport": {
+                "w": 1280,
+                "h": 720,
+                "dpr": 1.0000000149011612,
+                "zoom": 1,
+                "scrollX": 0,
+                "scrollY": 0
+              },
+              "documentId": "C5D6690E7E335D16D787377A23474081",
+              "focusedSelector": null,
+              "actionable": [
+                "label",
+                "#name",
+                "#mobile",
+                "#aadhaar",
+                "#dob",
+                "#otp",
+                "#mobile_confirm",
+                "#submit",
+                "#status"
+              ]
+            },
+            "observation": {
+              "nodes": 14,
+              "fields": 6,
+              "frameId": "transport-6db77779-575d-4e99-b930-a8e08fbc9c4a",
+              "viewport": {
+                "w": 1280,
+                "h": 720,
+                "dpr": 1.0000000149011612,
+                "zoom": 1,
+                "scrollX": 0,
+                "scrollY": 0
+              },
+              "documentId": "C5D6690E7E335D16D787377A23474081",
+              "focusedSelector": null,
+              "actionable": [
+                "label",
+                "#name",
+                "#mobile",
+                "#aadhaar",
+                "#dob",
+                "#otp",
+                "#mobile_confirm",
+                "#submit",
+                "#status"
+              ]
+            },
+            "handoff": {
+              "manifestVersion": "1.1",
+              "capture": {
+                "w": 1280,
+                "h": 720,
+                "dpr": 1.0000000149011612,
+                "zoom": 1,
+                "scale_to_css": 1,
+                "scroll": {
+                  "x": 0,
+                  "y": 0
+                },
+                "origin": "http://127.0.0.1:8975"
+              },
+              "capability": {
+                "backend": "none",
+                "tiers_fired": [
+                  "T0",
+                  "T2"
+                ]
+              },
+              "elements": [
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "Full name",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    122.80000305175781,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#name",
+                  "role": "textbox",
+                  "name": "Full name",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    145.1999969482422,
+                    490.3999938964844,
+                    32
+                  ]
+                },
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "Mobile number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    187.1999969482422,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#mobile",
+                  "role": "textbox",
+                  "name": "Mobile number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    209.60000610351562,
+                    490.3999938964844,
+                    32
+                  ]
+                },
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "Aadhaar number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    251.60000610351562,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#aadhaar",
+                  "role": "textbox",
+                  "name": "Aadhaar number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    274,
+                    490.3999938964844,
+                    32
+                  ]
+                },
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "Date of birth",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    316,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#dob",
+                  "role": "textbox",
+                  "name": "Date of birth",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    338.3999938964844,
+                    490.3999938964844,
+                    34
+                  ]
+                },
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "OTP",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    382.3999938964844,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#otp",
+                  "role": "textbox",
+                  "name": "OTP",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    404.8000183105469,
+                    490.3999938964844,
+                    32
+                  ]
+                },
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "Confirm mobile number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    506,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#mobile_confirm",
+                  "role": "textbox",
+                  "name": "Confirm mobile number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    528.4000244140625,
+                    490.3999938964844,
+                    32
+                  ]
+                },
+                {
+                  "id": "#submit",
+                  "role": "button",
+                  "name": "Submit application",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    572.4000244140625,
+                    153.4250030517578,
+                    38
+                  ]
+                },
+                {
+                  "id": "#status",
+                  "role": "status",
+                  "name": "Not submitted",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    20,
+                    639.2000122070312,
+                    520,
+                    36.400001525878906
+                  ]
+                }
+              ],
+              "goal": "Submit my application with my registered mobile number.",
+              "redactions": [
+                {
+                  "token": "<PII:NAME:1>",
+                  "class": "NAME",
+                  "tier": "PERSONAL",
+                  "bbox": [
+                    34.79999923706055,
+                    145.1999969482422,
+                    490.3999938964844,
+                    32
+                  ],
+                  "method": "token_reference",
+                  "detectors": [
+                    "D1",
+                    "D2"
+                  ],
+                  "hint": {
+                    "len": 12,
+                    "kind": "alpha",
+                    "field_role": "name"
+                  },
+                  "targetId": "#name"
+                },
+                {
+                  "token": "<PII:PHONE:1>",
+                  "class": "PHONE",
+                  "tier": "PERSONAL",
+                  "bbox": [
+                    34.79999923706055,
+                    209.60000610351562,
+                    490.3999938964844,
+                    32
+                  ],
+                  "method": "token_reference",
+                  "detectors": [
+                    "D1",
+                    "D2"
+                  ],
+                  "hint": {
+                    "len": 10,
+                    "kind": "numeric",
+                    "field_role": "tel"
+                  },
+                  "targetId": "#mobile"
+                },
+                {
+                  "token": "<PII:AADHAAR:1>",
+                  "class": "AADHAAR",
+                  "tier": "SENSITIVE",
+                  "bbox": [
+                    34.79999923706055,
+                    274,
+                    490.3999938964844,
+                    32
+                  ],
+                  "method": "token_reference",
+                  "detectors": [
+                    "D1",
+                    "D2"
+                  ],
+                  "hint": {
+                    "len": 14,
+                    "kind": "numeric"
+                  },
+                  "targetId": "#aadhaar"
+                },
+                {
+                  "token": "<PII:DOB:1>",
+                  "class": "DOB",
+                  "tier": "PERSONAL",
+                  "bbox": [
+                    34.79999923706055,
+                    338.3999938964844,
+                    490.3999938964844,
+                    34
+                  ],
+                  "method": "token_reference",
+                  "detectors": [
+                    "D1",
+                    "D2"
+                  ],
+                  "hint": {
+                    "len": 10,
+                    "kind": "date",
+                    "field_role": "date"
+                  },
+                  "targetId": "#dob"
+                },
+                {
+                  "token": "",
+                  "class": "OTP",
+                  "tier": "CRITICAL",
+                  "bbox": [
+                    34.79999923706055,
+                    404.8000183105469,
+                    490.3999938964844,
+                    32
+                  ],
+                  "method": "masked_no_token",
+                  "detectors": [
+                    "D1"
+                  ],
+                  "hint": {
+                    "len": 6,
+                    "kind": "numeric",
+                    "field_role": "one-time-code"
+                  },
+                  "targetId": "#otp"
+                }
+              ],
+              "request": {
+                "requestId": "m1-refusal-request",
+                "sessionId": "m1-refusal-session",
+                "issuedAt": 1790052320675
+              },
+              "verified": true
+            },
+            "handoffSerialized": "{\"manifestVersion\":\"1.1\",\"capture\":{\"w\":1280,\"h\":720,\"dpr\":1.0000000149011612,\"zoom\":1,\"scale_to_css\":1,\"scroll\":{\"x\":0,\"y\":0},\"origin\":\"http://127.0.0.1:8975\"},\"capability\":{\"backend\":\"none\",\"tiers_fired\":[\"T0\",\"T2\"]},\"elements\":[{\"id\":\"label\",\"role\":\"label\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,122.80000305175781,490.3999938964844,18.399999618530273]},{\"id\":\"#name\",\"role\":\"textbox\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,187.1999969482422,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile\",\"role\":\"textbox\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,251.60000610351562,490.3999938964844,18.399999618530273]},{\"id\":\"#aadhaar\",\"role\":\"textbox\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,274,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,316,490.3999938964844,18.399999618530273]},{\"id\":\"#dob\",\"role\":\"textbox\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,382.3999938964844,490.3999938964844,18.399999618530273]},{\"id\":\"#otp\",\"role\":\"textbox\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,506,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile_confirm\",\"role\":\"textbox\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,528.4000244140625,490.3999938964844,32]},{\"id\":\"#submit\",\"role\":\"button\",\"name\":\"Submit application\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,572.4000244140625,153.4250030517578,38]},{\"id\":\"#status\",\"role\":\"status\",\"name\":\"Not submitted\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[20,639.2000122070312,520,36.400001525878906]}],\"goal\":\"Submit my application with my registered mobile number.\",\"redactions\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"},\"targetId\":\"#name\"},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"},\"targetId\":\"#mobile\"},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"tier\":\"SENSITIVE\",\"bbox\":[34.79999923706055,274,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":14,\"kind\":\"numeric\"},\"targetId\":\"#aadhaar\"},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"},\"targetId\":\"#dob\"},{\"token\":\"\",\"class\":\"OTP\",\"tier\":\"CRITICAL\",\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32],\"method\":\"masked_no_token\",\"detectors\":[\"D1\"],\"hint\":{\"len\":6,\"kind\":\"numeric\",\"field_role\":\"one-time-code\"},\"targetId\":\"#otp\"}],\"request\":{\"requestId\":\"m1-refusal-request\",\"sessionId\":\"m1-refusal-session\",\"issuedAt\":1790052320675},\"verified\":true}",
+            "ledgerEntry": {
+              "sessionId": "m1-refusal-session",
+              "requestId": "m1-refusal-request",
+              "at": 1790052320675,
+              "destination": "(no egress client in this phase)",
+              "payloadSha256": "c39a33916c773c68dc88d5ca95ba651146b48547c7e32c526bccc77421b969d2",
+              "payloadBytes": 4255,
+              "verified": true,
+              "leakCheck": "CLEAN",
+              "elements": 14,
+              "references": [
+                {
+                  "token": "<PII:NAME:1>",
+                  "class": "NAME",
+                  "tier": "PERSONAL"
+                },
+                {
+                  "token": "<PII:PHONE:1>",
+                  "class": "PHONE",
+                  "tier": "PERSONAL"
+                },
+                {
+                  "token": "<PII:AADHAAR:1>",
+                  "class": "AADHAAR",
+                  "tier": "SENSITIVE"
+                },
+                {
+                  "token": "<PII:DOB:1>",
+                  "class": "DOB",
+                  "tier": "PERSONAL"
+                }
+              ],
+              "maskedWithoutReference": 1,
+              "note": "privacy-layer record only: this phase has no egress client, so this is not evidence of a network send"
+            },
+            "response": {
+              "received": true,
+              "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
+              "transport": "LOOPBACK_HTTP",
+              "elapsedMs": 18,
+              "requestId": "m1-refusal-request"
+            },
+            "plan": {
+              "planVersion": "1",
+              "provenance": {
+                "requestId": "m1-refusal-request",
+                "sessionId": "m1-refusal-session",
+                "viewId": "m1-refusal-request",
+                "origin": "http://127.0.0.1:8975"
+              },
+              "goal": "Submit my application with my registered mobile number.",
+              "steps": [
+                {
+                  "op": "insert",
+                  "target": "#mobile_confirm",
+                  "literalMarker": "⟨literal:PHONE⟩",
+                  "literalClass": "PHONE"
+                },
+                {
+                  "op": "click",
+                  "target": "#submit"
+                }
+              ]
+            },
+            "validation": {
+              "ok": false,
+              "refusal": {
+                "cause": "LITERAL_REFUSED",
+                "at": 0,
+                "target": "#mobile_confirm",
+                "literalCause": "VAULT_LITERAL_ECHO",
+                "literalSeverity": "LEAKAGE_EVENT",
+                "literalFindings": [
+                  {
+                    "cause": "VAULT_LITERAL_ECHO",
+                    "severity": "LEAKAGE_EVENT",
+                    "piiClass": "PHONE"
+                  },
+                  {
+                    "cause": "PII_SHAPED_LITERAL",
+                    "severity": "PLAN_DEFECT",
+                    "piiClass": "PHONE"
+                  }
+                ],
+                "piiClass": "PHONE",
+                "detail": "the plan returned a value this client holds locally and never sent. Refused before rehydration and before any action; the value is not quoted."
+              },
+              "checked": []
+            },
+            "reasonerKind": "LOCAL_MODEL",
+            "fallback": {
+              "outcome": "HOSTILE",
+              "fellBack": false,
+              "reason": "the model returned a plan the client refused; falling back would hide a caught event behind a success."
+            },
+            "grant": {
+              "requested": false,
+              "decision": null,
+              "useGrant": null
+            },
+            "rehydrated": [],
+            "literalsInserted": [],
+            "confirmation": null,
+            "act": null
+          },
+          "binding": {
+            "origin": "http://127.0.0.1:8975",
+            "documentId": "C5D6690E7E335D16D787377A23474081",
+            "tabId": 772473242,
+            "frameId": 0,
+            "swBootId": "289240b5-b449-48db-9052-502bdfac3114"
+          },
+          "ports": {
+            "observations": 1,
+            "inserts": 0,
+            "armed": 0,
+            "written": 0,
+            "rehydrationRefusals": [],
+            "cycle": null
+          },
+          "egress": [
+            {
+              "record": {
+                "requestId": "m1-refusal-request",
+                "sessionId": "m1-refusal-session",
+                "destination": "http://127.0.0.1:8995/v1/chat/completions",
+                "at": 1790052320696,
+                "transport": "LOOPBACK_HTTP",
+                "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
+                "verified": true,
+                "payloadSha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+                "payloadBytes": 2679,
+                "leakCheck": "CLEAN",
+                "references": [
+                  "<PII:NAME:1>",
+                  "<PII:PHONE:1>",
+                  "<PII:AADHAAR:1>",
+                  "<PII:DOB:1>"
+                ],
+                "responseStatus": 200,
+                "responseBytes": 173,
+                "peerReceipt": {
+                  "sha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+                  "bytes": 2679,
+                  "agrees": true
+                },
+                "elapsedMs": 18
+              }
+            }
+          ],
+          "grant": {
+            "asked": false,
+            "granted": null
+          }
+        }
+      },
+      "error": null,
+      "grantAsked": null,
+      "page": {
+        "confirmValue": "",
+        "submitted": "false",
+        "statusText": "Not submitted",
+        "submitEvents": [],
+        "submitDisabled": false
+      },
+      "served": 1,
+      "leaked": []
+    },
+    "OUTAGE": {
+      "outcome": {
+        "ok": true,
+        "result": {
+          "record": {
+            "goal": "Submit my application with my registered mobile number.",
+            "sessionId": "m1-outage-session",
+            "requestId": "m1-outage-request",
+            "origin": "http://127.0.0.1:8975",
+            "state": "DONE",
+            "transitions": [
+              {
+                "from": "IDLE",
+                "to": "OBSERVE",
+                "at": 1790052321340,
+                "elapsedMs": 0
+              },
+              {
+                "from": "OBSERVE",
+                "to": "SANITIZE",
+                "at": 1790052321357,
+                "elapsedMs": 17
+              },
+              {
+                "from": "SANITIZE",
+                "to": "VERIFY_PAYLOAD",
+                "at": 1790052321362,
+                "elapsedMs": 22
+              },
+              {
+                "from": "VERIFY_PAYLOAD",
+                "to": "SEND",
+                "at": 1790052321362,
+                "elapsedMs": 22
+              },
+              {
+                "from": "SEND",
+                "to": "VALIDATE_PLAN",
+                "at": 1790052321376,
+                "elapsedMs": 36
+              },
+              {
+                "from": "VALIDATE_PLAN",
+                "to": "AWAIT_GRANT",
+                "at": 1790052321377,
+                "elapsedMs": 37
+              },
+              {
+                "from": "AWAIT_GRANT",
+                "to": "REHYDRATE",
+                "at": 1790052321511,
+                "elapsedMs": 171
+              },
+              {
+                "from": "REHYDRATE",
+                "to": "ACT",
+                "at": 1790052321537,
+                "elapsedMs": 197
+              },
+              {
+                "from": "ACT",
+                "to": "VERIFY_RESULT",
+                "at": 1790052321537,
+                "elapsedMs": 197
+              },
+              {
+                "from": "VERIFY_RESULT",
+                "to": "DONE",
+                "at": 1790052321565,
+                "elapsedMs": 225
+              }
+            ],
+            "timings": {
+              "observeMs": 17,
+              "sanitizeMs": 5,
+              "verifyPayloadMs": 0,
+              "sendMs": 13,
+              "fallbackMs": 1,
+              "validatePlanMs": 0,
+              "grantMs": 134,
+              "rehydrateMs": 14,
+              "refreshMs": 12,
+              "verifyResultMs": 13,
+              "actMs": 28,
+              "totalMs": 225
+            },
+            "refusal": null,
+            "initialObservation": {
+              "nodes": 14,
+              "fields": 6,
+              "frameId": "transport-4fe262e6-b653-4d6f-ab22-f67720ff6da9",
+              "viewport": {
+                "w": 1280,
+                "h": 720,
+                "dpr": 1.0000000149011612,
+                "zoom": 1,
+                "scrollX": 0,
+                "scrollY": 0
+              },
+              "documentId": "D454C653A40340EE6307F04E981D35D6",
+              "focusedSelector": null,
+              "actionable": [
+                "label",
+                "#name",
+                "#mobile",
+                "#aadhaar",
+                "#dob",
+                "#otp",
+                "#mobile_confirm",
+                "#submit",
+                "#status"
+              ]
+            },
+            "observation": {
+              "nodes": 14,
+              "fields": 6,
+              "frameId": "transport-b63bef24-57e3-4da0-b528-ed20cdfb4f84",
+              "viewport": {
+                "w": 1280,
+                "h": 720,
+                "dpr": 1.0000000149011612,
+                "zoom": 1,
+                "scrollX": 0,
+                "scrollY": 0
+              },
+              "documentId": "D454C653A40340EE6307F04E981D35D6",
+              "focusedSelector": null,
+              "actionable": [
+                "label",
+                "#name",
+                "#mobile",
+                "#aadhaar",
+                "#dob",
+                "#otp",
+                "#mobile_confirm",
+                "#status"
+              ]
+            },
+            "handoff": {
+              "manifestVersion": "1.1",
+              "capture": {
+                "w": 1280,
+                "h": 720,
+                "dpr": 1.0000000149011612,
+                "zoom": 1,
+                "scale_to_css": 1,
+                "scroll": {
+                  "x": 0,
+                  "y": 0
+                },
+                "origin": "http://127.0.0.1:8975"
+              },
+              "capability": {
+                "backend": "none",
+                "tiers_fired": [
+                  "T0",
+                  "T2"
+                ]
+              },
+              "elements": [
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "Full name",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    122.80000305175781,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#name",
+                  "role": "textbox",
+                  "name": "Full name",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    145.1999969482422,
+                    490.3999938964844,
+                    32
+                  ]
+                },
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "Mobile number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    187.1999969482422,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#mobile",
+                  "role": "textbox",
+                  "name": "Mobile number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    209.60000610351562,
+                    490.3999938964844,
+                    32
+                  ]
+                },
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "Aadhaar number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    251.60000610351562,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#aadhaar",
+                  "role": "textbox",
+                  "name": "Aadhaar number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    274,
+                    490.3999938964844,
+                    32
+                  ]
+                },
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "Date of birth",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    316,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#dob",
+                  "role": "textbox",
+                  "name": "Date of birth",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    338.3999938964844,
+                    490.3999938964844,
+                    34
+                  ]
+                },
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "OTP",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    382.3999938964844,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#otp",
+                  "role": "textbox",
+                  "name": "OTP",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    404.8000183105469,
+                    490.3999938964844,
+                    32
+                  ]
+                },
+                {
+                  "id": "label",
+                  "role": "label",
+                  "name": "Confirm mobile number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    506,
+                    490.3999938964844,
+                    18.399999618530273
+                  ]
+                },
+                {
+                  "id": "#mobile_confirm",
+                  "role": "textbox",
+                  "name": "Confirm mobile number",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    528.4000244140625,
+                    490.3999938964844,
+                    32
+                  ]
+                },
+                {
+                  "id": "#submit",
+                  "role": "button",
+                  "name": "Submit application",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    34.79999923706055,
+                    572.4000244140625,
+                    153.4250030517578,
+                    38
+                  ]
+                },
+                {
+                  "id": "#status",
+                  "role": "status",
+                  "name": "Not submitted",
+                  "source": "dom",
+                  "visible": true,
+                  "offscreen": false,
+                  "enabled": true,
+                  "bbox": [
+                    20,
+                    639.2000122070312,
+                    520,
+                    36.400001525878906
+                  ]
+                }
+              ],
+              "goal": "Submit my application with my registered mobile number.",
+              "redactions": [
+                {
+                  "token": "<PII:NAME:1>",
+                  "class": "NAME",
+                  "tier": "PERSONAL",
+                  "bbox": [
+                    34.79999923706055,
+                    145.1999969482422,
+                    490.3999938964844,
+                    32
+                  ],
+                  "method": "token_reference",
+                  "detectors": [
+                    "D1",
+                    "D2"
+                  ],
+                  "hint": {
+                    "len": 12,
+                    "kind": "alpha",
+                    "field_role": "name"
+                  },
+                  "targetId": "#name"
+                },
+                {
+                  "token": "<PII:PHONE:1>",
+                  "class": "PHONE",
+                  "tier": "PERSONAL",
+                  "bbox": [
+                    34.79999923706055,
+                    209.60000610351562,
+                    490.3999938964844,
+                    32
+                  ],
+                  "method": "token_reference",
+                  "detectors": [
+                    "D1",
+                    "D2"
+                  ],
+                  "hint": {
+                    "len": 10,
+                    "kind": "numeric",
+                    "field_role": "tel"
+                  },
+                  "targetId": "#mobile"
+                },
+                {
+                  "token": "<PII:AADHAAR:1>",
+                  "class": "AADHAAR",
+                  "tier": "SENSITIVE",
+                  "bbox": [
+                    34.79999923706055,
+                    274,
+                    490.3999938964844,
+                    32
+                  ],
+                  "method": "token_reference",
+                  "detectors": [
+                    "D1",
+                    "D2"
+                  ],
+                  "hint": {
+                    "len": 14,
+                    "kind": "numeric"
+                  },
+                  "targetId": "#aadhaar"
+                },
+                {
+                  "token": "<PII:DOB:1>",
+                  "class": "DOB",
+                  "tier": "PERSONAL",
+                  "bbox": [
+                    34.79999923706055,
+                    338.3999938964844,
+                    490.3999938964844,
+                    34
+                  ],
+                  "method": "token_reference",
+                  "detectors": [
+                    "D1",
+                    "D2"
+                  ],
+                  "hint": {
+                    "len": 10,
+                    "kind": "date",
+                    "field_role": "date"
+                  },
+                  "targetId": "#dob"
+                },
+                {
+                  "token": "",
+                  "class": "OTP",
+                  "tier": "CRITICAL",
+                  "bbox": [
+                    34.79999923706055,
+                    404.8000183105469,
+                    490.3999938964844,
+                    32
+                  ],
+                  "method": "masked_no_token",
+                  "detectors": [
+                    "D1"
+                  ],
+                  "hint": {
+                    "len": 6,
+                    "kind": "numeric",
+                    "field_role": "one-time-code"
+                  },
+                  "targetId": "#otp"
+                }
+              ],
+              "request": {
+                "requestId": "m1-outage-request",
+                "sessionId": "m1-outage-session",
+                "issuedAt": 1790052321357
+              },
+              "verified": true
+            },
+            "handoffSerialized": "{\"manifestVersion\":\"1.1\",\"capture\":{\"w\":1280,\"h\":720,\"dpr\":1.0000000149011612,\"zoom\":1,\"scale_to_css\":1,\"scroll\":{\"x\":0,\"y\":0},\"origin\":\"http://127.0.0.1:8975\"},\"capability\":{\"backend\":\"none\",\"tiers_fired\":[\"T0\",\"T2\"]},\"elements\":[{\"id\":\"label\",\"role\":\"label\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,122.80000305175781,490.3999938964844,18.399999618530273]},{\"id\":\"#name\",\"role\":\"textbox\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,187.1999969482422,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile\",\"role\":\"textbox\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,251.60000610351562,490.3999938964844,18.399999618530273]},{\"id\":\"#aadhaar\",\"role\":\"textbox\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,274,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,316,490.3999938964844,18.399999618530273]},{\"id\":\"#dob\",\"role\":\"textbox\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,382.3999938964844,490.3999938964844,18.399999618530273]},{\"id\":\"#otp\",\"role\":\"textbox\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,506,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile_confirm\",\"role\":\"textbox\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,528.4000244140625,490.3999938964844,32]},{\"id\":\"#submit\",\"role\":\"button\",\"name\":\"Submit application\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,572.4000244140625,153.4250030517578,38]},{\"id\":\"#status\",\"role\":\"status\",\"name\":\"Not submitted\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[20,639.2000122070312,520,36.400001525878906]}],\"goal\":\"Submit my application with my registered mobile number.\",\"redactions\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"},\"targetId\":\"#name\"},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"},\"targetId\":\"#mobile\"},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"tier\":\"SENSITIVE\",\"bbox\":[34.79999923706055,274,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":14,\"kind\":\"numeric\"},\"targetId\":\"#aadhaar\"},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"},\"targetId\":\"#dob\"},{\"token\":\"\",\"class\":\"OTP\",\"tier\":\"CRITICAL\",\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32],\"method\":\"masked_no_token\",\"detectors\":[\"D1\"],\"hint\":{\"len\":6,\"kind\":\"numeric\",\"field_role\":\"one-time-code\"},\"targetId\":\"#otp\"}],\"request\":{\"requestId\":\"m1-outage-request\",\"sessionId\":\"m1-outage-session\",\"issuedAt\":1790052321357},\"verified\":true}",
+            "ledgerEntry": {
+              "sessionId": "m1-outage-session",
+              "requestId": "m1-outage-request",
+              "at": 1790052321357,
+              "destination": "(no egress client in this phase)",
+              "payloadSha256": "83ac9d488e8a7358ed1715107234fe73c733a20e6144951c0c0464e0d30f31c8",
+              "payloadBytes": 4253,
+              "verified": true,
+              "leakCheck": "CLEAN",
+              "elements": 14,
+              "references": [
+                {
+                  "token": "<PII:NAME:1>",
+                  "class": "NAME",
+                  "tier": "PERSONAL"
+                },
+                {
+                  "token": "<PII:PHONE:1>",
+                  "class": "PHONE",
+                  "tier": "PERSONAL"
+                },
+                {
+                  "token": "<PII:AADHAAR:1>",
+                  "class": "AADHAAR",
+                  "tier": "SENSITIVE"
+                },
+                {
+                  "token": "<PII:DOB:1>",
+                  "class": "DOB",
+                  "tier": "PERSONAL"
+                }
+              ],
+              "maskedWithoutReference": 1,
+              "note": "privacy-layer record only: this phase has no egress client, so this is not evidence of a network send"
+            },
+            "response": {
+              "received": true,
+              "reasoner": "deterministic:reference",
+              "transport": "IN_PROCESS",
+              "elapsedMs": 1,
+              "requestId": "m1-outage-request"
+            },
+            "plan": {
+              "planVersion": "1",
+              "provenance": {
+                "requestId": "m1-outage-request",
+                "sessionId": "m1-outage-session",
+                "viewId": "m1-outage-request",
+                "origin": "http://127.0.0.1:8975"
+              },
+              "goal": "Submit my application with my registered mobile number.",
+              "steps": [
+                {
+                  "op": "insert",
+                  "target": "#mobile_confirm",
+                  "ref": "<PII:PHONE:1>"
+                },
+                {
+                  "op": "click",
+                  "target": "#submit"
+                }
+              ]
+            },
+            "validation": {
+              "ok": true,
+              "steps": [
+                {
+                  "op": "insert",
+                  "source": "reference",
+                  "index": 0,
+                  "target": "#mobile_confirm",
+                  "ref": "<PII:PHONE:1>",
+                  "piiClass": "PHONE",
+                  "binding": {
+                    "decision": "BIND_OK"
+                  },
+                  "needsHuman": false
+                },
+                {
+                  "op": "click",
+                  "index": 1,
+                  "target": "#submit"
+                }
+              ],
+              "needsHuman": []
+            },
+            "reasonerKind": "DETERMINISTIC_FALLBACK",
+            "fallback": {
+              "outcome": "UNAVAILABLE",
+              "fellBack": true,
+              "reason": "the model produced no usable plan (UNAVAILABLE), so the deterministic planner answers instead."
+            },
+            "grant": {
+              "requested": true,
+              "decision": {
+                "granted": true
+              },
+              "useGrant": {
+                "ref": "<PII:PHONE:1>",
+                "piiClass": "PHONE",
+                "fingerprint": "#mobile_confirm|textbox|Confirm mobile number",
+                "origin": "http://127.0.0.1:8975",
+                "sessionId": "m1-outage-session",
+                "purpose": "Use of PHONE for \"Confirm mobile number\"",
+                "actionContext": "insert into #mobile_confirm, then click #submit",
+                "grantedAt": 1790052321511,
+                "expiresAt": 1790052381511,
+                "used": true
+              }
+            },
+            "rehydrated": [
+              {
+                "ref": "<PII:PHONE:1>",
+                "target": "#mobile_confirm",
+                "piiClass": "PHONE",
+                "inserted": true
+              }
+            ],
+            "literalsInserted": [],
+            "confirmation": {
+              "subject": {
+                "nodeId": "e12",
+                "selector": "#submit",
+                "role": "button",
+                "name": "Submit application",
+                "frameId": "transport-a53e3987-3489-47b0-8138-5e1e5e208311",
+                "origin": "http://127.0.0.1:8975"
+              },
+              "purpose": "Click \"Submit application\" to submit this application",
+              "confirmedAt": 1790052321537,
+              "expiresAt": 1790052381537
+            },
+            "act": {
+              "reached": "VERIFY_RESULT",
+              "decision": {
+                "decision": "ALLOW",
+                "kind": "click",
+                "node": {
+                  "id": "e12",
+                  "role": "button",
+                  "name": "Submit application",
+                  "domRef": {
+                    "selector": "#submit"
+                  },
+                  "evidence": {
+                    "kind": "OBSERVED",
+                    "frameId": "transport-a53e3987-3489-47b0-8138-5e1e5e208311",
+                    "viewportBox": {
+                      "x": 34.79999923706055,
+                      "y": 572.4000244140625,
+                      "w": 153.4250030517578,
+                      "h": 38
+                    },
+                    "documentBox": {
+                      "x": 34.79999923706055,
+                      "y": 572.4000244140625,
+                      "w": 153.4250030517578,
+                      "h": 38
+                    }
+                  },
+                  "enabled": true,
+                  "parent": null,
+                  "children": []
+                },
+                "frameId": "transport-a53e3987-3489-47b0-8138-5e1e5e208311",
+                "viewportBox": {
+                  "x": 34.79999923706055,
+                  "y": 572.4000244140625,
+                  "w": 153.4250030517578,
+                  "h": 38
+                },
+                "movedCssPx": 0,
+                "boxIou": 1,
+                "point": {
+                  "x": 112,
+                  "y": 591
+                }
+              },
+              "hit": {
+                "agreement": "MATCH",
+                "point": {
+                  "x": 112,
+                  "y": 591
+                },
+                "observed": {
+                  "frameId": "transport-a53e3987-3489-47b0-8138-5e1e5e208311",
+                  "selector": "#submit",
+                  "role": "button",
+                  "name": "Submit application",
+                  "box": {
+                    "x": 34.79999923706055,
+                    "y": 572.4000244140625,
+                    "w": 153.4250030517578,
+                    "h": 38
+                  }
+                },
+                "boxIou": 1,
+                "elapsedMs": 5
+              },
+              "result": {
+                "status": "EXECUTED",
+                "kind": "click",
+                "target": {
+                  "nodeId": "e12",
+                  "role": "button",
+                  "name": "Submit application",
+                  "point": {
+                    "x": 112,
+                    "y": 591
+                  },
+                  "box": {
+                    "x": 34.79999923706055,
+                    "y": 572.4000244140625,
+                    "w": 153.4250030517578,
+                    "h": 38
+                  }
+                },
+                "dispatchMs": 8
+              },
+              "verification": {
+                "verification": "CONFIRMED",
+                "postcondition": "TARGET_ENABLED",
+                "evidence": "#submit is disabled, as expected."
+              }
+            }
+          },
+          "binding": {
+            "origin": "http://127.0.0.1:8975",
+            "documentId": "D454C653A40340EE6307F04E981D35D6",
+            "tabId": 772473242,
+            "frameId": 0,
+            "swBootId": "289240b5-b449-48db-9052-502bdfac3114"
+          },
+          "ports": {
+            "observations": 3,
+            "inserts": 1,
+            "armed": 1,
+            "written": 1,
+            "rehydrationRefusals": [],
+            "cycle": {
+              "cycleId": "38ffb294-975c-4986-98fa-a2bc77b8404b",
+              "hitTest": {
+                "point": {
+                  "x": 112,
+                  "y": 591
+                },
+                "topmost": "#submit",
+                "receivedAt": 1790052321541,
+                "sampledAt": 1790052321541.1
+              },
+              "dispatch": {
+                "deliveryId": "0416a6c5-d5f4-4ab4-8e22-9e43044afe56",
+                "point": {
+                  "x": 112,
+                  "y": 591
+                },
+                "dispatchedTo": "#submit",
+                "receivedAt": 1790052321546.9,
+                "dispatchedAt": 1790052321547.7
+              },
+              "refusals": []
+            }
+          },
+          "egress": [
+            {
+              "refusal": {
+                "requestId": "m1-outage-request",
+                "sessionId": "m1-outage-session",
+                "destination": "http://127.0.0.1:8995/v1/chat/completions",
+                "at": 1790052321375,
+                "stage": "TRANSPORT",
+                "cause": "TRANSPORT_FAILED",
+                "severity": "REFUSED",
+                "detail": "the request could not be completed."
+              }
+            }
+          ],
+          "grant": {
+            "asked": true,
+            "granted": true
+          }
+        }
+      },
+      "error": null,
+      "grantAsked": {
+        "ref": "<PII:PHONE:1>",
+        "piiClass": "PHONE",
+        "target": "#mobile_confirm",
+        "targetLabel": "Confirm mobile number",
+        "fingerprint": "#mobile_confirm|textbox|Confirm mobile number",
+        "origin": "http://127.0.0.1:8975",
+        "sessionId": "m1-outage-session",
+        "purpose": "Allow PratiBimb to use your phone for \"Confirm mobile number\" on this page",
+        "actionContext": "restore it into #mobile_confirm, then click #submit (\"Submit application\")",
+        "action": {
+          "target": "#submit",
+          "label": "Submit application"
+        }
+      },
+      "page": {
+        "confirmValue": "9000000001",
+        "submitted": "true",
+        "statusText": "Application submitted",
+        "submitEvents": [
+          "pointerdown",
+          "mousedown",
+          "pointerup",
+          "mouseup",
+          "click"
+        ],
+        "submitDisabled": true
+      },
+      "served": 0,
+      "leaked": []
+    }
+  },
+  "releaseTests": {
+    "forgedNonce": {
+      "written": false,
+      "refused": "UNKNOWN_OR_CONSUMED_NONCE"
+    },
+    "firstUse": {
+      "written": true,
+      "length": 10,
+      "target": "#mobile_confirm"
+    },
+    "secondUse": {
+      "written": false,
+      "refused": "UNKNOWN_OR_CONSUMED_NONCE"
+    },
+    "wrongDocument": {
+      "armedFor": "8E926E0145CA7D92863ECBC166F15A21",
+      "presentedBy": "745AB2A847351E7FFB936F071D77769F",
+      "documentChanged": true,
+      "written": false,
+      "refused": "SENDER_DOCUMENT_MISMATCH"
+    },
+    "wrongTab": {
+      "armedForTab": 772473243,
+      "presentedByTab": 772473242,
+      "differentTab": true,
+      "written": false,
+      "refused": "SENDER_DOCUMENT_MISMATCH"
+    }
+  },
+  "pageForgery": {
+    "reachable": false,
+    "why": "NO_SEND_MESSAGE_IN_PAGE_WORLD"
+  },
+  "recordedAt": "2026-09-22T04:45:34.775Z",
+  "provenance": {
+    "workstation": "W1",
+    "host": "LAPTOP-6E14K34L",
+    "workstationSource": "registry",
+    "os": "win32 10.0.26200",
+    "cpu": "Intel(R) Core(TM) 7 240H",
+    "node": "v24.19.0",
+    "playwright": "1.63.0",
+    "browserBinary": "C:/Users/RONIT/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe",
+    "headless": false,
+    "extensionPath": "D:\\PratiBimb\\apps\\extension\\.output\\chrome-mv3",
+    "reasonerAddress": "http://127.0.0.1:8995/v1/chat/completions"
+  }
+}
