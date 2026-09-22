@@ -49,7 +49,19 @@ extension — is superseded and its module is deleted.
 
 ## Open, and stated rather than hidden
 
-### 1. An unexplained double dispatch, seen once in five runs
+### 1. An unexplained double dispatch, seen once in five runs — **RESOLVED**
+
+> **Closed 2026-09-22 by [`M2-EXEC-single-action`](../M2-EXEC-single-action/decision.md).** The
+> hypothesis below was right about where the problem was and could not show it. It can now be shown:
+> a negative control reproduces the symptom **field for field** — ten raw events at `#submit`, one
+> dispatch, zero refusals, one release, one write, CONFIRMED — while the isolated world reports
+> firing exactly once. Ten entries in this counter is reachable with one extension action, because
+> the counter counts events arriving at a button and the claim was about actions performed. 100
+> SUCCESS acts (50 warm, 50 cold) and 30 more across ten full runs of this harness found no second
+> fire, no second dispatch request, and no second content-script instance. The extension now counts
+> its own actions where it performs them, and this harness carries seven further checks.
+
+The original observation, unedited:
 
 On the first of five runs of this harness, the SUCCESS act's fixture recorded **ten** raw events at
 `#submit` — two complete pointer/mouse sequences — where one was expected. Four subsequent runs,
@@ -67,6 +79,10 @@ artefact in the harness's page snapshot rather than a second click — but **tha
 a finding, and this is not resolved.** The check remains a hard failure in the harness so the next
 occurrence cannot pass unnoticed. It should be reproduced and explained before anything in this area
 is called PROVEN.
+
+**What stayed unknown.** Which non-extension cause produced the extra five events on that particular
+run. The log was overwritten before it could be analysed, and `isTrusted` — the one field that would
+have settled it in place — was not recorded at the time. It is recorded now.
 
 ### 2. A reasoner's literal cannot be written to the page
 

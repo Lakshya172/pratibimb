@@ -1,0 +1,3517 @@
+{
+  "experiment": "M2-EXEC-single-action",
+  "mode": "COLD",
+  "claim": "one approved task produces exactly one browser action: one logical dispatch, one transport delivery, one fire in the isolated world, and one five-event sequence observed at the button — measured separately at each of those four places, over consecutive runs",
+  "notAClaim": [
+    "not a reliability claim beyond the run count recorded here, on one machine, in one browser cell",
+    "no claim about a page the fixture does not resemble, or about a browser under load this run did not create",
+    "no claim of production readiness"
+  ],
+  "recordedAt": "2026-09-22T15:35:48.919Z",
+  "provenance": {
+    "workstation": "W1",
+    "host": "LAPTOP-6E14K34L",
+    "workstationSource": "registry",
+    "os": "win32 10.0.26200",
+    "cpu": "Intel(R) Core(TM) 7 240H",
+    "cpus": 16,
+    "node": "v24.19.0",
+    "playwright": "1.63.0",
+    "browserBinary": "C:/Users/RONIT/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe",
+    "headless": false,
+    "extensionPath": "D:\\PratiBimb\\apps\\extension\\.output\\chrome-mv3",
+    "reasonerAddress": "http://127.0.0.1:8995/v1/chat/completions"
+  },
+  "runsRequested": 50,
+  "runsCompleted": 50,
+  "failure": null,
+  "verdict": "PASS",
+  "summary": {
+    "firesStarted": {
+      "1": 50
+    },
+    "probeUntrusted": {
+      "5": 50
+    },
+    "probeTrusted": {
+      "0": 50
+    },
+    "fixtureEvents": {
+      "5": 50
+    },
+    "contentInstances": {
+      "1": 50
+    },
+    "listenersOnSubmit": {
+      "6": 50
+    },
+    "objectSeenTwice": {
+      "0": 50
+    },
+    "unattributed": {
+      "0": 50
+    },
+    "releases": {
+      "1": 50
+    },
+    "writes": {
+      "1": 50
+    },
+    "verify": {
+      "CONFIRMED": 50
+    }
+  },
+  "badRuns": [],
+  "runs": [
+    {
+      "index": 1,
+      "ms": 1861,
+      "documentId": "3E457114E3ED463F4F810D50ADFCB793",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "152659be-52f7-4a44-853f-cea6cc1f81ec",
+      "deliveryId": "686cc407-bde4-4bc1-9dcb-9dab7dfa72a6",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.3
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 2,
+      "ms": 840,
+      "documentId": "05A64134001BFBC64C012B5644DDC62D",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "073e86d1-93e3-40d2-9f4d-17116de32444",
+      "deliveryId": "33e2602a-92b1-40d1-b2d2-047d0398d199",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.4
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 3,
+      "ms": 1021,
+      "documentId": "B96DFFEBD02084CDB04AEEC77822E126",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "4cae9a3e-9562-4715-ad83-0b59da113ab3",
+      "deliveryId": "3997343c-f624-4002-b075-06968b70834c",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.3
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.1
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.1
+        },
+        {
+          "type": "click",
+          "ms": 0.1
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 4,
+      "ms": 1012,
+      "documentId": "6B5585ACDA98BD60CA8FD653460682C1",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "7cc1212f-7a05-405d-b467-5ebd27cd8974",
+      "deliveryId": "7376ddfc-7204-4821-a4d9-56c7f70d5384",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.1,
+          "dispatchMs": 0.3
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.1
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.1
+        },
+        {
+          "type": "click",
+          "ms": 0.1
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 5,
+      "ms": 1012,
+      "documentId": "90F8EB7F12DDF9513B2382B4C079E466",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "47cabc78-e3c6-414c-938e-ab0305ccdef9",
+      "deliveryId": "9789f32c-cb63-49c3-89ad-c072a356d42d",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.1,
+          "dispatchMs": 0.4
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.1
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.1
+        },
+        {
+          "type": "click",
+          "ms": 0.1
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 6,
+      "ms": 863,
+      "documentId": "D3CB298ED38BDE2C8D5D1FE300602FA9",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "b099e629-16b3-475d-8f4e-ce0534f4e0db",
+      "deliveryId": "7c2cd4be-c3fb-4c7d-9012-cd57e9ca4c79",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.3
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 7,
+      "ms": 860,
+      "documentId": "C4BB49AE4467587D776E4925E5294518",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "d4a725cd-c6f6-4e08-9cfb-9b8ffb191c40",
+      "deliveryId": "0f77ebd4-c42f-47a0-b222-d4b6f8e0451b",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.1,
+          "dispatchMs": 0.4
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.1
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.1
+        },
+        {
+          "type": "click",
+          "ms": 0.1
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 8,
+      "ms": 859,
+      "documentId": "8624CD4F2BB68D41B996D8F074AB5D69",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "6c4ddd42-3318-468f-918b-07a5c54776ec",
+      "deliveryId": "6473d805-5620-4ee4-84a8-ea4cc531fe4c",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.4
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 9,
+      "ms": 844,
+      "documentId": "86C2CDD790246D007D53BBDB2238C288",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "d836a90f-24ba-4a11-a680-72248a0e721b",
+      "deliveryId": "4cc9743c-5ef9-45a6-8b14-8a265c86e524",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.5
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 10,
+      "ms": 872,
+      "documentId": "9C7FBD3347274560B38067972CDFB9C5",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "54560bf2-91c1-4cd6-bb86-a3d42b6b95c6",
+      "deliveryId": "c0a158c4-752f-4ed1-94c7-fb507d504597",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.4
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 11,
+      "ms": 874,
+      "documentId": "37319876E89DA4C2496FD115F3CDAFD6",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "a6222138-60cb-4cd1-b983-ccddb0cab559",
+      "deliveryId": "37264ba9-54bb-4806-b7c1-f4a4714b4159",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.4
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 12,
+      "ms": 870,
+      "documentId": "A667E4641E915AB816159A4662A6145C",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "f9530663-230c-49d8-bbb3-4d7144aa673a",
+      "deliveryId": "66197234-81cc-491e-bb79-55053058ed6e",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.1,
+          "dispatchMs": 0.4
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.1
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.1
+        },
+        {
+          "type": "click",
+          "ms": 0.1
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 13,
+      "ms": 861,
+      "documentId": "C699AC3F16446AA3F0DE19E8551D9953",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "ec93a0ed-62a4-40d3-8c94-8adf61b0e0e9",
+      "deliveryId": "9ac17edf-0e67-43b2-aa5d-d49e272f9aa6",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.6
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 14,
+      "ms": 862,
+      "documentId": "64FA3F94879F2E3DFB811F6063A34873",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "2b4fdb20-6048-46c4-bab7-6e5c6b7794c3",
+      "deliveryId": "5f60c4b7-2acb-4c89-b63e-b5729d7cecb1",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.3
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.1
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.1
+        },
+        {
+          "type": "click",
+          "ms": 0.1
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 15,
+      "ms": 864,
+      "documentId": "64170CF7683C84E3DF7A166E2E85CC00",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "88fd0324-ff1d-457a-962f-9bdccb01eb3b",
+      "deliveryId": "dd27a521-2117-4a67-a436-56a6fb4277b5",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.3
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 16,
+      "ms": 1010,
+      "documentId": "7DD574ED803E7B7A34FEEEB291723B6A",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "7096b460-c703-4800-848d-d79cd5387bcb",
+      "deliveryId": "43d6f71e-1ff1-4ca0-ba77-6fcb47947bf5",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.1,
+          "dispatchMs": 0.4
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.1
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.1
+        },
+        {
+          "type": "click",
+          "ms": 0.1
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 17,
+      "ms": 865,
+      "documentId": "A4D82E78A3A4D24A1D0F8369553C6BD7",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "6af17bd3-aa48-4f58-b713-8364aff97f8e",
+      "deliveryId": "654e6bc7-72e5-4d35-be47-234e4416ac0c",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.1,
+          "dispatchMs": 0.4
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.1
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.1
+        },
+        {
+          "type": "click",
+          "ms": 0.1
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 18,
+      "ms": 859,
+      "documentId": "C332B90371C2B403892B0A0A3731ECC2",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "211d2e6b-3f8d-40ae-8c60-8bc4a3f686b8",
+      "deliveryId": "1b2600c5-4192-442c-bb63-0e31e6c6121f",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.1,
+          "dispatchMs": 0.4
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.1
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.1
+        },
+        {
+          "type": "click",
+          "ms": 0.1
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 19,
+      "ms": 864,
+      "documentId": "ADAFF80CB6C1F118DB0519A7205B9F4B",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "790a655b-15a1-4c43-9735-4ecbcdb69b80",
+      "deliveryId": "1af3f28c-9040-4071-a431-9f635fb8d6d4",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.4
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 20,
+      "ms": 2864,
+      "documentId": "44914109E2756E8C9C2C437CA9041A3A",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "5f90e925-ac9d-4ec5-9ff0-6393ed6fe938",
+      "deliveryId": "63720654-7f47-4992-a406-db0a4a465679",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.4,
+          "dispatchMs": 0.8
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.3
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.3
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.3
+        },
+        {
+          "type": "click",
+          "ms": 0.3
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 21,
+      "ms": 1035,
+      "documentId": "4DF5201F0378451DBFD6D07B646A8C3E",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "ef20c0f1-4d36-4238-95ea-85b53afa715d",
+      "deliveryId": "3c98e599-0bc3-4dc0-bb9d-9839732679b9",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.5
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.3
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.3
+        },
+        {
+          "type": "click",
+          "ms": 0.3
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 22,
+      "ms": 866,
+      "documentId": "A3CA0D592E829CC6982AA128A7769155",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "d99a65b1-504f-412b-b3cc-cfef9f0ce54a",
+      "deliveryId": "af047e3d-99c1-4025-8072-c3348d2cddd2",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.5
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.3
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.3
+        },
+        {
+          "type": "click",
+          "ms": 0.3
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 23,
+      "ms": 881,
+      "documentId": "17DB947217648551843205B09F92796E",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "f2cb82a1-ba62-400c-885f-28390feb74c5",
+      "deliveryId": "6bed0125-5492-4942-b030-b20ccfb65f6b",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.4,
+          "dispatchMs": 0.5
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.3
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.3
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.3
+        },
+        {
+          "type": "click",
+          "ms": 0.3
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 24,
+      "ms": 905,
+      "documentId": "0CD899E6652729349B4B0EEF74DB5744",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "04d6f366-08be-478c-a6f4-3988a3bf22f1",
+      "deliveryId": "ba662b3d-4ef8-4841-8055-dbec31c5f521",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.6
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 25,
+      "ms": 905,
+      "documentId": "8FD9AD0F631AF4AFEA0470B99068AD9C",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "b580edaf-3471-4f63-bdcf-46f5cfccb5fc",
+      "deliveryId": "bc3df586-6739-4438-82f7-5f402aafa240",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.4,
+          "dispatchMs": 0.5
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.3
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.3
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.3
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.3
+        },
+        {
+          "type": "click",
+          "ms": 0.3
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 26,
+      "ms": 1034,
+      "documentId": "E0429A5AA0BDFBD9C70E59108DD6A39E",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "2b1cf12e-d272-4ed9-98c0-618c837adb5b",
+      "deliveryId": "37e26cba-c39d-4929-8c24-ff345cb62e08",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.5
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.1
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 27,
+      "ms": 890,
+      "documentId": "A83B2D7164ECB1E5D62C017BF17CA21D",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "e7981aaa-cb37-44cb-8f88-e5ca32370234",
+      "deliveryId": "c23d06ae-a1d2-48ab-afbf-0ffaab87f07f",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.4,
+          "dispatchMs": 0.7
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.4
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.4
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.4
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.4
+        },
+        {
+          "type": "click",
+          "ms": 0.4
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 28,
+      "ms": 883,
+      "documentId": "C0A3A8EC5D0AA2A457F7357B1B0E4F09",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "1ba4d30d-676b-4591-bf41-355e2eac6d99",
+      "deliveryId": "879fc92b-75f0-442d-8a1b-18a96a13f184",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.6
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 29,
+      "ms": 1039,
+      "documentId": "E371BF92FA4E309AB8954F483CD2EB86",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "632bd980-1e98-4540-8cd6-ddb6bb67cb44",
+      "deliveryId": "a6e7de41-8515-4751-994c-5ad4ffc18ea6",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.6
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 30,
+      "ms": 1066,
+      "documentId": "96C22664B6E6059BDC63EBF8EC0F278C",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "f27a25b0-fbae-4377-aef5-9150c04b72f2",
+      "deliveryId": "9ab6c195-b026-442c-8c3e-dc3382c13141",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.5
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 31,
+      "ms": 1026,
+      "documentId": "6111BA15D98CEDB4190BB7D7C9292124",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "099d4986-38fd-4da0-b74d-844d54878a71",
+      "deliveryId": "a3b80cea-856a-4c0b-ace1-5ccc42890311",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.6
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.3
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.3
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.3
+        },
+        {
+          "type": "click",
+          "ms": 0.3
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 32,
+      "ms": 874,
+      "documentId": "41C7258355080EF8B7A02425B8CCB324",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "e8bd68e6-1df2-408c-a373-cf7439a51ca8",
+      "deliveryId": "f36b1d18-3250-4b00-a23f-4aec1a56d432",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.4
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.3
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.3
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.3
+        },
+        {
+          "type": "click",
+          "ms": 0.3
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 33,
+      "ms": 1019,
+      "documentId": "0CCE55A6192994CBDD5F51B7EF7B6C54",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "8550e073-d8d9-41a6-9c72-7fc6c70033cb",
+      "deliveryId": "679a9771-42cb-49a9-a8b3-fdc8331cb6a2",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.6
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 34,
+      "ms": 1010,
+      "documentId": "DAC3258A59E745ECD91FE5F24FA9C932",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "0972b11a-37e3-41ea-8767-dca190cc2c72",
+      "deliveryId": "1ed57e5d-8ddd-443a-bdcd-3247ebf5b0cb",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.4,
+          "dispatchMs": 0.6
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.3
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.3
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.3
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.3
+        },
+        {
+          "type": "click",
+          "ms": 0.3
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 35,
+      "ms": 1041,
+      "documentId": "A50AF5C6681C4AD118AFC10FFDD27130",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "5f215ebd-73b5-4201-b0ed-6e3bc2e0b3d0",
+      "deliveryId": "32d4370d-2c7a-49a8-9901-b1a0f39adb48",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.5
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 36,
+      "ms": 882,
+      "documentId": "4A918C6A5CCD0ED3B4A8CB6FF3FC13C1",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "b68a2e95-ea95-4a04-989b-653af448c74d",
+      "deliveryId": "191b5f48-f25b-4757-b835-5c7c7219dc2b",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.6
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.1
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.1
+        },
+        {
+          "type": "click",
+          "ms": 0.1
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 37,
+      "ms": 1030,
+      "documentId": "4181E4B5A7F86B6C8AC519C502F13D92",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "702b55c3-b14f-4ed0-8aab-2221a03c4b10",
+      "deliveryId": "32cecc34-5019-40f5-b0fe-7d08571b6e3e",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.7
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 38,
+      "ms": 876,
+      "documentId": "2EFCA29A081D550AA9D052EBE964EC31",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "48552fb1-2a11-4218-8851-84828a3e9c2b",
+      "deliveryId": "84aee9ab-2e26-4f11-bde4-5989ca245ea6",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.6
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 39,
+      "ms": 1029,
+      "documentId": "84A6CA801C6C7BCBA117848D3770FEB6",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "2b6810c3-5531-4f3d-a46d-de322a3078d3",
+      "deliveryId": "e6a798e7-b490-42d0-90e6-a4df63325bd0",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.5
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.3
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.3
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.3
+        },
+        {
+          "type": "click",
+          "ms": 0.3
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 40,
+      "ms": 856,
+      "documentId": "9F36433065A3F82665C3C18838555DF3",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "aedd37f4-10c4-46b7-b0df-47be9168c86a",
+      "deliveryId": "7d82c66b-9d91-40ca-be0c-9b538ea061a5",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.4
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 41,
+      "ms": 880,
+      "documentId": "53A4D9BCDE4EC7E3368692896A836893",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "ec54e46b-87ba-425f-bd55-112f090d4045",
+      "deliveryId": "55b57b46-e3c1-462e-91e4-6ecc7e994581",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.6
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.1
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.1
+        },
+        {
+          "type": "click",
+          "ms": 0.1
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 42,
+      "ms": 883,
+      "documentId": "D3781F3CE23365BA8EF6B32B88273A77",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "8fa118eb-b24b-4557-b948-445a28486824",
+      "deliveryId": "0ea1dc11-4578-4079-999c-c91c5bc80884",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.5
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 43,
+      "ms": 883,
+      "documentId": "A9F1C6AEC317F218BA3DF55A27E7EA93",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "7279415a-0ac2-4ff1-bf56-f23c3ddae49a",
+      "deliveryId": "f481be19-9459-4b91-9fe7-811670d8d524",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.7
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.3
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.3
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.3
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.3
+        },
+        {
+          "type": "click",
+          "ms": 0.3
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 44,
+      "ms": 873,
+      "documentId": "BC69A539076A09581B99BB44BE8EE1F3",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "c30d6542-7158-48e5-9360-722ccd5bda71",
+      "deliveryId": "ec3585a5-334e-482b-8d59-86040b851fc5",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.5
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.1
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 45,
+      "ms": 878,
+      "documentId": "A4F825E6030810E708F3717930215F87",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "0b47c03d-2600-4665-9a12-c3a1e55c8826",
+      "deliveryId": "e7a531d1-b8a9-4288-8a93-e58304113426",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.5
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.1
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.1
+        },
+        {
+          "type": "click",
+          "ms": 0.1
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 46,
+      "ms": 1024,
+      "documentId": "4792B14CAFC8FF68C143D0901E3AE77B",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "f06f5e02-5324-4f67-8c0e-8a47e3006519",
+      "deliveryId": "da705cb1-7dd4-4339-bb18-3f1f1953cb6f",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.6
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.3
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.3
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.3
+        },
+        {
+          "type": "click",
+          "ms": 0.3
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 47,
+      "ms": 1022,
+      "documentId": "804AE143BDDD65E9184A6F16BA3C0FA9",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "89b231f9-a816-4b5c-ad34-f703f0a4c13b",
+      "deliveryId": "61348f77-4571-41a7-99ca-ae8544d7fb8c",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.6
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 48,
+      "ms": 1026,
+      "documentId": "05F69181B67E22E42C431AFC47FCE135",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "4c14d452-37ff-4eba-bb3a-dfb1ff0eca25",
+      "deliveryId": "3a219b14-1ecc-4fc6-a86e-42940f052e98",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.6
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.2
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.2
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.2
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.2
+        },
+        {
+          "type": "click",
+          "ms": 0.2
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 49,
+      "ms": 1041,
+      "documentId": "B86A2AFA8D70AAB4058224D77AB459AF",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "9143673c-0aeb-4e77-ac35-e1c6294a20cc",
+      "deliveryId": "e55554db-06c0-45f3-8de1-650a0d8602ef",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.3,
+          "dispatchMs": 0.7
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.3
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.3
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.3
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.3
+        },
+        {
+          "type": "click",
+          "ms": 0.3
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    },
+    {
+      "index": 50,
+      "ms": 884,
+      "documentId": "077E4E72E1DA9DEB1F3239BB0A3CD8EC",
+      "state": "DONE",
+      "verify": "CONFIRMED",
+      "fellBack": false,
+      "error": null,
+      "cycleId": "0db19638-65a6-4ff7-8b17-83bc85452779",
+      "deliveryId": "14578e06-96b3-4629-8e82-0c1ad67263c6",
+      "transportRefusals": [],
+      "portOps": {
+        "OBSERVE": 8,
+        "HIT_TEST": 2,
+        "DISPATCH": 2
+      },
+      "contentInstances": 1,
+      "e6Clicks": 0,
+      "dispatchRequests": 1,
+      "firesStarted": 1,
+      "firesCompleted": 1,
+      "agentRefusals": [],
+      "firedAt": [
+        "#submit"
+      ],
+      "fireWindows": [
+        {
+          "prepareMs": 0.2,
+          "dispatchMs": 0.4
+        }
+      ],
+      "eventOffsets": [
+        {
+          "type": "pointerdown",
+          "ms": 0.1
+        },
+        {
+          "type": "mousedown",
+          "ms": 0.1
+        },
+        {
+          "type": "pointerup",
+          "ms": 0.1
+        },
+        {
+          "type": "mouseup",
+          "ms": 0.1
+        },
+        {
+          "type": "click",
+          "ms": 0.1
+        }
+      ],
+      "fixtureEvents": 5,
+      "probeInstalls": 1,
+      "probeUntrusted": 5,
+      "probeTrusted": 0,
+      "objectSeenTwice": 0,
+      "listenersOnSubmit": 6,
+      "unattributed": 0,
+      "releases": 1,
+      "writes": 1,
+      "rehydrated": 1,
+      "inserts": 0,
+      "confirmMatchesRegistered": true,
+      "submitted": "true",
+      "submitDisabled": true,
+      "broke": []
+    }
+  ]
+}
