@@ -77,6 +77,17 @@ import {
 } from "@pratibimb/reasoner";
 
 import { type ClientPorts, type GrantDecision, type Observation } from "./ports.js";
+import { createLocalPrivacyBoundary } from "./privacyBoundary.js";
+
+/**
+ * Every literal this plan carries, in the order the steps do.
+ *
+ * Exactly the strings `redactPlan` and `checkLiteral` will ask the vault about, read off the same
+ * steps they walk — so establishing an answer for each of these establishes an answer for every
+ * question those two will ask.
+ */
+const literalsOf = (plan: Plan): readonly string[] =>
+  plan.steps.flatMap((step) => (step.op === "insert" && typeof step.literal === "string" ? [step.literal] : []));
 
 export type RunState =
   | "IDLE"
@@ -216,35 +227,6 @@ const labelOf = (observation: Observation, selector: string): string =>
   observation.graph.nodes.find((n) => n.domRef.selector === selector)?.name ?? selector;
 
 /**
- * The view the binder and the validator both read. Built from one observation, never assembled twice.
- *
- * **What a field accepts is decided by `classifyField`, privacy's own D1 channel** — not by anything
- * here. This file briefly had a second classifier of its own, a handful of regular expressions over
- * accessible names, and that was a duplicated privacy authority in the plainest sense: its answer
- * feeds `bind()`'s class check, so the two could have disagreed about what a field is and the weaker
- * one would have won. D1 reads the autocomplete attribute, the input type, the name and the label,
- * and returns `UNKNOWN` when more than one signal fires — ambiguity the binder then routes to a
- * human rather than guessing.
- *
- * Graph nodes that are not form fields (buttons, labels, status text) carry no value and accept
- * nothing, so they are `UNKNOWN` and a reference can never bind into one.
- */
-const viewFrom = (observation: Observation, viewId: string, origin: string): BindView => {
-  const observedBySelector = new Map(observation.fields.map((field) => [field.id, field]));
-  const fields = new Map<string, ViewField>();
-  for (const node of observation.graph.nodes) {
-    const selector = node.domRef.selector;
-    const observed = observedBySelector.get(selector);
-    fields.set(selector, {
-      accepts: observed ? classifyField(observed) : "UNKNOWN",
-      origin,
-      fingerprint: fingerprintOf(selector, node.role, node.name),
-    });
-  }
-  return { viewId, documentId: observation.documentId, fields };
-};
-
-/**
  * Run the task.
  *
  * One page, one plan, one action. Returns the record whatever happens; it does not throw for a
@@ -328,6 +310,27 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
     }
   };
 
+  /**
+   * WHERE THE PAGE'S VALUES ARE.
+   *
+   * By default: here, in this realm, in a vault this run owns — which is what a client that reads
+   * its own page does, and what every test below this package assumes. A client whose values live
+   * somewhere else (the MV3 extension reads them in the content script's isolated world, because
+   * that is the only place they can be without crossing a message the service worker receives)
+   * supplies its own boundary and this file cannot tell the difference.
+   *
+   * Either way the orchestrator holds no value at any point. It never did; until now that was a
+   * consequence of how the code happened to be arranged, and it is now a property of the types.
+   */
+  const boundary =
+    ports.privacy ??
+    createLocalPrivacyBoundary({
+      fieldsFor: () => observation?.fields ?? [],
+      insert: (target, value) => ports.insert(target, value),
+    });
+
+  const viewId = options.requestId;
+
   // ── OBSERVE ──────────────────────────────────────────────────────────────────────────────
   go("OBSERVE");
   try {
@@ -340,22 +343,27 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
   // ── SANITIZE ─────────────────────────────────────────────────────────────────────────────
   go("SANITIZE");
   const sanitized = await timed("sanitizeMs", () =>
-    sanitize(observation!.graph, options.goal, {
+    boundary.sanitize({
+      graph: observation!.graph,
+      goal: options.goal,
       sessionId: options.sessionId,
       requestId: options.requestId,
+      viewId,
       origin: options.origin,
+      documentId: observation!.documentId,
       viewport: observation!.viewport,
       now: clock(),
       ...(options.today ? { today: options.today } : {}),
       destination: "(no egress client in this phase)",
-    }, { fields: observation!.fields })
+    })
   );
   if (!sanitized.ok) {
     return stop("SANITIZE", sanitized.refused, "the observation could not be sanitized, so nothing was sent.");
   }
   handoff = sanitized.handoff;
   ledgerEntry = sanitized.ledgerEntry;
-  const vault = sanitized.vault;
+  const view = sanitized.view;
+  const vault = boundary.reader;
 
   // ── VERIFY PAYLOAD ───────────────────────────────────────────────────────────────────────
   // Asked of the verifier, never of `handoff.verified`: the flag type-checks, the membership does
@@ -399,7 +407,7 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
         requestId: options.requestId,
         sessionId: options.sessionId,
         origin: options.origin,
-        vault,
+        vault: boundary.oracle,
       },
       { ...(options.reasonerTimeoutMs === undefined ? {} : { timeoutMs: options.reasonerTimeoutMs }) }
     );
@@ -448,10 +456,21 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
   // `parsedPlan` stays local and is what the validator sees; the record keeps only the projection,
   // so a literal the reasoner echoed is never retained or displayed.
   let parsedPlan = attempt.plan;
-  plan = redactPlan(parsedPlan, vault);
+  /**
+   * Establish the vault's answer for every literal this plan carries, before anything asks.
+   *
+   * `redactPlan` and `checkLiteral` are synchronous and the vault may be a message away, so the
+   * questions are asked in one round trip and in advance. The set is exactly the literals those two
+   * will ask about, because it is read off the same steps they walk — and a reader asked about a
+   * literal nobody established an answer for throws rather than shrugging.
+   */
+  const adopt = async (candidate: Plan): Promise<void> => {
+    await boundary.inspect(literalsOf(candidate));
+    parsedPlan = candidate;
+    plan = boundary.redact(candidate);
+  };
+  await adopt(parsedPlan);
 
-  const viewId = options.requestId;
-  const view = viewFrom(observation, viewId, options.origin);
   const redactedTargets = new Set(handoff.redactions.map((r) => r.targetId));
   // The class×origin grants this session holds. In this phase the user's per-use decision covers
   // both levels at once; there is no blanket grant and nothing is persisted.
@@ -490,8 +509,7 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
     if (decision.fellBack) {
       const retry = await timed("fallbackMs", () => askReasoner(ports.fallback!, "DETERMINISTIC_FALLBACK"));
       if (retry.usable) {
-        parsedPlan = retry.plan;
-        plan = redactPlan(parsedPlan, vault);
+        await adopt(retry.plan);
         validation = validateNow();
       }
     }
@@ -591,21 +609,20 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
     }
 
     for (const insert of referenceInserts) {
-      const outcome = rehydrate(
-        { ref: insert.ref, targetId: insert.target, viewId },
-        {
-          vault,
-          sessionId: options.sessionId,
-          view,
-          currentDocumentId: observation!.documentId,
-          classOriginGrants,
-          useGrants,
-          now: clock(),
-        }
-      );
-      if (!outcome.ok) {
-        return { cause: outcome.decision.decision === "REFUSE" ? outcome.decision.cause : outcome.decision.decision };
-      }
+      // THE VALUE IS RECOVERED WHERE IT LIVES, AND PUT BACK WHERE IT CAME FROM, WITHOUT PASSING
+      // THROUGH HERE. The boundary runs privacy's own `rehydrate` — every check, in order — and
+      // performs the local write. What comes back is a class and a boolean.
+      const outcome = await boundary.releaseInto({
+        ref: insert.ref,
+        target: insert.target,
+        viewId,
+        sessionId: options.sessionId,
+        currentDocumentId: observation!.documentId,
+        classOriginGrants: [...classOriginGrants],
+        useGrants,
+        now: clock(),
+      });
+      if (!outcome.ok) return { cause: outcome.cause };
       // A PERSONAL-tier grant is not spent by privacy (it only requires one for SENSITIVE), so this
       // client spends it: one human decision authorises one restoration.
       const spent = findUseGrant(insert.ref, view.fields.get(insert.target)!, {
@@ -619,9 +636,8 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
       });
       if (spent) spent.used = true;
 
-      const inserted = await ports.insert(insert.target, outcome.value);
-      rehydrated.push({ ref: insert.ref, target: insert.target, piiClass: insert.piiClass, inserted });
-      if (!inserted) return { cause: "INSERTION_REFUSED" };
+      rehydrated.push({ ref: insert.ref, target: insert.target, piiClass: insert.piiClass, inserted: outcome.inserted });
+      if (!outcome.inserted) return { cause: "INSERTION_REFUSED" };
     }
     return { cause: null };
   });

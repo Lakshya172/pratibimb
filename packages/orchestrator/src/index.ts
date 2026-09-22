@@ -21,3 +21,14 @@ export {
 } from "./machine.js";
 
 export { type ClientPorts, type GrantDecision, type GrantRequest, type Observation } from "./ports.js";
+
+export {
+  createLocalPrivacyBoundary,
+  viewFrom,
+  type LocalBoundaryDeps,
+  type PrivacyBoundary,
+  type ReleaseAnswer,
+  type ReleaseAsk,
+  type SanitizeAnswer,
+  type SanitizeAsk,
+} from "./privacyBoundary.js";

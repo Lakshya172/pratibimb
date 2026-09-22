@@ -23,6 +23,8 @@ import { type ElementGraph } from "@pratibimb/perception";
 import { type ObservedField, type PiiClass } from "@pratibimb/privacy";
 import { type ReasonerClient, type ReasonerKind } from "@pratibimb/reasoner";
 
+import { type PrivacyBoundary } from "./privacyBoundary.js";
+
 /**
  * One reading of the page.
  *
@@ -101,4 +103,19 @@ export interface ClientPorts {
   insert(target: string, value: string): Promise<boolean>;
   /** The audited bridges `guardedAct` drives. Looking and touching, kept apart. */
   readonly bridges: GuardedBridges;
+  /**
+   * Where the page's values are, when that is not this realm.
+   *
+   * ABSENT — the default, the demo, every test in this repository — means the vault is here: the
+   * orchestrator opens one, sanitizes into it, and releases from it. That is the arrangement a
+   * client reading its own page in its own realm has, and nothing about it changes.
+   *
+   * PRESENT means the values are somewhere this realm cannot reach, and the three operations that
+   * need them happen there instead. The MV3 extension supplies one, because a value read from a
+   * page cannot reach any other extension context without being in a message the service worker
+   * receives — so it never leaves the content script's isolated world at all.
+   *
+   * It is a port like the others: it can refuse, it cannot grant, and nothing it returns is a value.
+   */
+  readonly privacy?: PrivacyBoundary;
 }
