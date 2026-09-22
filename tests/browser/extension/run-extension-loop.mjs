@@ -71,6 +71,15 @@ const FIXTURE_VALUES = [REGISTERED, "Ramesh Kumar", "2345 6789 0124", "234567890
 /** The fixture's form controls: five registered details plus the empty field the run has to fill. */
 const FIXTURE_FIELDS = 6;
 
+/**
+ * The eight classes `@pratibimb/perception`'s head is defined over.
+ *
+ * Named here so the harness can assert that every label the detector emitted came from this fixed
+ * list — which is the structural reason a detection cannot carry the characters on the screen.
+ * There is no text class and no OCR in this milestone.
+ */
+const UI_CLASSES = ["button", "link", "textbox", "checkbox", "radio", "select", "tab", "icon"];
+
 const refuse = (message) => {
   console.error(`REFUSING: ${message}`);
   process.exit(2);
@@ -367,6 +376,21 @@ try {
   workerTraffic = await worker.evaluate((values) => {
     const seen = globalThis.__host.seen;
     const text = JSON.stringify(seen);
+    /**
+     * M3 — DID A FRAME'S PIXELS END UP IN THIS RECORDING?
+     *
+     * The worker is the only realm that can capture, so a page's pixels pass through it once. That
+     * hop is stated rather than denied — but the worker must not RETAIN them, and a diagnostic that
+     * stored every frame would be the leak it exists to detect. So the same recording that proves
+     * no value crossed is asked the same question about pixels: `iVBORw0KGgo` is the base64 PNG
+     * signature and `data:image` is the URL form, and neither may appear.
+     */
+    const pixels = {
+      pngSignature: text.includes("iVBORw0KGgo"),
+      dataImageUrl: text.includes("data:image"),
+      /** The longest base64-looking run anywhere in the recording. A frame is tens of thousands. */
+      longestBase64Run: (text.match(/[A-Za-z0-9+/]{200,}/g) ?? []).reduce((m, r) => Math.max(m, r.length), 0),
+    };
     const kinds = {};
     for (const entry of seen) {
       const kind = `${entry.way}:${entry.message?.kind ?? entry.message?.body?.kind ?? entry.message?.op ?? "?"}`;
@@ -377,6 +401,7 @@ try {
       bytes: text.length,
       kinds,
       matchedValueIndexes: values.map((v, i) => (text.includes(v) ? i : -1)).filter((i) => i >= 0),
+      pixels,
     };
   }, FIXTURE_VALUES);
 } catch (error) {
@@ -403,6 +428,27 @@ const boundaryOf = (act) => resultOf(act)?.boundary ?? null;
  * falls inside no fire's window, is an event this extension did not cause — which is a different
  * fact from firing twice, and the distinction M2's evidence could not make.
  */
+/**
+ * M3 — what the local visual tier did, per act.
+ *
+ * `passes` is one entry per reading: a run observes several times, and each one captures, detects
+ * and fuses against that reading's own frame.
+ */
+const perceptionOf = (act) => resultOf(act)?.ports?.perception ?? [];
+const firstPassOf = (act) => perceptionOf(act)[0] ?? null;
+const handoffOf = (act) => {
+  try {
+    return JSON.parse(recordOf(act)?.handoffSerialized ?? "null");
+  } catch {
+    return null;
+  }
+};
+/** Anything that looks like an encoded image, anywhere in a structure. */
+const carriesPixels = (anything) => {
+  const text = typeof anything === "string" ? anything : JSON.stringify(anything ?? null);
+  return text.includes("iVBORw0KGgo") || text.includes("data:image") || /[A-Za-z0-9+/]{200,}/.test(text);
+};
+
 const firesOf = (act) => acts[act]?.audit?.transport?.fires ?? [];
 const actionOf = (act) => ({
   contentInstances: acts[act]?.audit?.instances ?? null,
@@ -497,6 +543,75 @@ const checks = {
   nothingLeakedToTheReasoner: (acts.SUCCESS?.leaked?.length ?? 1) === 0 && (acts.REFUSAL?.leaked?.length ?? 1) === 0,
   egressReportedClean: (recordOf("SUCCESS")?.ledgerEntry ?? null) !== null,
 
+  // ── M3: the client looked at the page, locally ──────────────────────────────────────────────
+  //
+  // Every reading captures, detects and fuses. A pass that refused is recorded as a refusal and the
+  // reading continues, because the DOM is the actionable substrate and vision is evidence added to
+  // it — so these assert that the tier RAN, not that the loop depended on it.
+  perceptionWasAttemptedOnEveryReading: ["SUCCESS", "REFUSAL", "OUTAGE"].every(
+    (act) => perceptionOf(act).length > 0 && perceptionOf(act).length === (resultOf(act)?.observations ?? perceptionOf(act).length)
+  ),
+  perceptionRanForRealAtLeastOnce: perceptionOf("SUCCESS").every((p) => p.ran === true && p.refusal === null),
+  /**
+   * CHROME'S CAPTURE QUOTA FIRES IN A REAL RUN, AND THE DEGRADATION IS THE POINT.
+   *
+   * `MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND` is S-05's open question, and three acts of three
+   * readings each is enough to cross it. Every such pass must be a TYPED refusal — the adapter
+   * classifies the browser's own quota message rather than retrying into it — and the loop must
+   * carry on, because the DOM is the actionable substrate and vision is evidence added to it.
+   */
+  everyRefusedPassIsTyped: ["SUCCESS", "REFUSAL", "OUTAGE"].every((act) =>
+    perceptionOf(act).every((p) => p.ran === true || typeof p.refusal?.code === "string")
+  ),
+  /**
+   * A CLIENT THAT SAW NOTHING SAYS SO.
+   *
+   * The tier list in the manifest is a claim to the one party that cannot check it. An act whose
+   * reading was throttled must declare the structural floor, not the tier it wanted to run.
+   */
+  theTierClaimMatchesWhatActuallyRan: ["SUCCESS", "REFUSAL", "OUTAGE"].every((act) => {
+    const handoff = handoffOf(act);
+    if (handoff === null) return true;
+    // The manifest is assembled at SANITIZE, which follows the FIRST reading. A later pass that
+    // was throttled cannot retroactively change a claim that was already made and verified.
+    const ranVisually = firstPassOf(act)?.detector?.ran === true;
+    const claimed = JSON.stringify(handoff.capability?.tiers_fired);
+    return claimed === JSON.stringify(ranVisually ? ["T0", "T1", "T2"] : ["T0", "T2"]);
+  }),
+  aRealFrameWasCaptured:
+    (firstPassOf("SUCCESS")?.capture?.w ?? 0) > 0 &&
+    (firstPassOf("SUCCESS")?.capture?.h ?? 0) > 0 &&
+    firstPassOf("SUCCESS")?.capture?.format === "png" &&
+    (firstPassOf("SUCCESS")?.capture?.bytes ?? 0) > 1000,
+  theDetectorRanOnThePinnedArtifact:
+    firstPassOf("SUCCESS")?.detector?.ran === true &&
+    firstPassOf("SUCCESS")?.detector?.modelId === "pratibimb-t1-ui-head" &&
+    firstPassOf("SUCCESS")?.detector?.revision === "ba6d9e93695b" &&
+    firstPassOf("SUCCESS")?.detector?.backend === "wasm",
+  theDetectorProducedGeometryNotText: perceptionOf("SUCCESS").every((p) =>
+    Object.keys(p.detector.byClass).every((label) => UI_CLASSES.includes(label))
+  ),
+  fusionJoinedDomAndVision: (firstPassOf("SUCCESS")?.fusion?.matched ?? 0) > 0,
+  theCoordinateContractIsDerivedNotAssumed:
+    typeof firstPassOf("SUCCESS")?.capture?.scaleToCss === "number" &&
+    handoffOf("SUCCESS")?.capture?.scale_to_css === firstPassOf("SUCCESS")?.capture?.scaleToCss,
+
+  // ── M3: the visual tier's claim reaches the reasoner, and its pixels do not ──────────────────
+  theHandoffDeclaresTheVisualTier:
+    handoffOf("SUCCESS")?.capability?.backend === "wasm" &&
+    JSON.stringify(handoffOf("SUCCESS")?.capability?.tiers_fired) === JSON.stringify(["T0", "T1", "T2"]),
+  elementsCarryFusionProvenance: (handoffOf("SUCCESS")?.elements ?? []).some((e) => e.source === "dom+vision"),
+  noPixelsInTheHandoffThatWasSent: ["SUCCESS", "REFUSAL", "OUTAGE"].every(
+    (act) => !carriesPixels(recordOf(act)?.handoffSerialized ?? "")
+  ),
+  noPixelsInAnythingTheReasonerReceived: ["SUCCESS", "REFUSAL"].every((act) => !carriesPixels(acts[act]?.served ?? 0)),
+  noPixelsInTheRunRecord: ["SUCCESS", "REFUSAL", "OUTAGE"].every((act) => !carriesPixels(resultOf(act))),
+  noPixelsRetainedByTheWorker:
+    workerTraffic?.pixels?.pngSignature === false &&
+    workerTraffic?.pixels?.dataImageUrl === false &&
+    (workerTraffic?.pixels?.longestBase64Run ?? 1) < 200,
+  noPixelsInAnythingTheHarnessSaw: !carriesPixels(everythingThatCrossed),
+
   // ── one executable click authority, in the bundle Chrome was handed ─────────────────────────
   //
   // M2-EXEC's report named E6_CLICK as a second production click path: a full pointer sequence at
@@ -561,6 +676,12 @@ const record = {
   checks,
   failure,
   acts,
+  perception: {
+    SUCCESS: perceptionOf("SUCCESS"),
+    REFUSAL: perceptionOf("REFUSAL"),
+    OUTAGE: perceptionOf("OUTAGE"),
+    boot: resultOf("SUCCESS")?.perceptionBoot ?? null,
+  },
   bundle,
   singleAction,
   releaseTests,
@@ -593,6 +714,15 @@ for (const act of ["SUCCESS", "REFUSAL", "OUTAGE"]) {
   console.log(
     `  ${act}: state=${run?.state ?? "—"} verify=${verificationOf(act) ?? "—"} clicks=${submitEventsOf(act)} ` +
       `rehydrated=${run?.rehydrated?.length ?? "—"} fieldsRead=${b?.fieldsSeenByThePageRealm ?? "—"} refs=${b?.referencesIssued ?? "—"}`
+  );
+}
+for (const act of ["SUCCESS", "REFUSAL", "OUTAGE"]) {
+  const p = firstPassOf(act);
+  if (!p) continue;
+  console.log(
+    `  ${act} perception: ${p.capture?.w}x${p.capture?.h} ${p.capture?.bytes}B -> ${p.detector.detections} detections ` +
+      `(fused ${p.fusion?.matched} matched / ${p.fusion?.visionOnly} vision-only) in ${p.ms.total}ms ` +
+      `[capture ${p.ms.capture} decode ${p.ms.decode} pre ${p.ms.preprocess} infer ${p.ms.infer} fuse ${p.ms.fuse}]`
   );
 }
 console.log(
