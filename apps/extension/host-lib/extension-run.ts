@@ -19,6 +19,12 @@
  * origin (ADR-0001 §7.2), and M1 does not widen it. So the acts share an address and differ in what
  * answers there — which is closer to a real outage than three addresses would be.
  *
+ * WHERE THE PAGE'S VALUES ARE. Not here. They are read, classified and held in the content
+ * script's isolated world, and this realm is handed a `PrivacyBoundary` onto that world rather than
+ * a vault. Nothing in this file, in the orchestrator, in the planner, in the reasoner or in the
+ * egress guard ever holds one — which is checkable by reading what `createRemotePrivacyBoundary`
+ * is able to return.
+ *
  * THE HUMAN. `requestGrant` is left pending until something outside this realm answers it. Nothing
  * here can answer it, the reasoner cannot reach it, and the service worker only carries the answer.
  * In an automated run the operator answers through the harness, exactly as the demo rehearsal's
@@ -29,8 +35,9 @@ import { observePage, type TransportBinding, type TransportRelay } from "@pratib
 import { runTask, type GrantDecision, type GrantRequest, type Observation, type RunRecord } from "@pratibimb/orchestrator";
 import { deterministicReasoner, localModelReasoner, type ReasonerClient } from "@pratibimb/reasoner";
 
-import { clientHeldFields } from "./client-held-fields";
-import { createExtensionPorts, type ExtensionPortsReport, type RehydrationOutcome } from "./extension-ports";
+import { type BoundaryReply, type BoundaryRequest, type CapabilityPayload } from "./boundary-protocol";
+import { createExtensionPorts, type ExtensionPortsReport } from "./extension-ports";
+import { createRemotePrivacyBoundary, type RemoteBoundaryReport } from "./remote-privacy-boundary";
 import { type ReleaseAuthority } from "./value-release";
 
 /**
@@ -93,6 +100,8 @@ export interface ExtensionRunResult {
     readonly swBootId: string;
   };
   readonly ports: ExtensionPortsReport;
+  /** What the privacy boundary did, in counts. Never text. */
+  readonly boundary: RemoteBoundaryReport;
   /** Every egress attempt this run made, as `packages/egress` recorded it. */
   readonly egress: readonly { record?: EgressRecord; refusal?: EgressRefusal }[];
   readonly grant: { readonly asked: boolean; readonly granted: boolean | null };
@@ -102,15 +111,15 @@ export interface ExtensionRunResult {
 export interface ExtensionRunDeps {
   readonly relay: TransportRelay;
   /**
-   * The realm's ONE release authority — the same object the `VALUE_RELEASE` handler consults.
+   * The realm's ONE capability authority — the same object the collection handler redeems from.
    *
    * It is passed in rather than created here for a reason worth keeping: a run that made its own
-   * would arm capabilities into a map nothing redeems from, and every restoration would refuse with
+   * would arm capabilities into a map nothing redeems from, and every collection would refuse with
    * `UNKNOWN_OR_CONSUMED_NONCE` while looking, from the outside, exactly like a capability system
    * working correctly. Arming and redeeming must be the same authority or neither is evidence.
    */
-  readonly release: ReleaseAuthority;
-  rehydrate(binding: TransportBinding, nonce: string, target: string): Promise<RehydrationOutcome>;
+  readonly capabilities: ReleaseAuthority<CapabilityPayload>;
+  sendToBoundary(binding: TransportBinding, body: BoundaryRequest): Promise<BoundaryReply>;
   /** Park the request until someone outside this realm decides. Never resolved from in here. */
   askHuman(request: GrantRequest): Promise<GrantDecision>;
 }
@@ -166,14 +175,18 @@ export async function runExtensionTask(
 
   const grant = { asked: false, granted: null as boolean | null };
 
+  const privacy = createRemotePrivacyBoundary({
+    binding,
+    send: (body) => deps.sendToBoundary(binding, body),
+    capabilities: deps.capabilities,
+    capabilityTtlMs: TTL.releaseMs,
+  });
+
   const { ports, report } = createExtensionPorts({
     relay: deps.relay,
     binding,
     origin,
-    fields: clientHeldFields(origin),
-    release: deps.release,
-    rehydrate: (nonce, target) => deps.rehydrate(binding, nonce, target),
-    releaseTtlMs: TTL.releaseMs,
+    privacy,
     reasoner,
     reasonerKind: request.endpoint === null ? "DETERMINISTIC_FALLBACK" : "LOCAL_MODEL",
     fallback: deterministic,
@@ -206,11 +219,14 @@ export async function runExtensionTask(
         swBootId: binding.swBootId,
       },
       ports: report,
+      boundary: privacy.report,
       egress,
       grant,
     };
   } finally {
     // However the run ended — success, refusal, or a throw — no capability outlives it.
-    deps.release.revokeAll();
+    deps.capabilities.revokeAll();
+    // The vault in the page's world is destroyed rather than left to expire.
+    await privacy.forget().catch(() => 0);
   }
 }

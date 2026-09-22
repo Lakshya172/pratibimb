@@ -32,7 +32,7 @@ describe("the one-shot value release", () => {
   it("releases to the document it was armed for, for the target it was armed for", () => {
     const { release } = authority();
     const nonce = release.arm(DOC, TARGET, VALUE, 5_000);
-    expect(release.redeem(nonce, TARGET, ASKER)).toEqual({ released: true, value: VALUE, target: TARGET });
+    expect(release.redeem(nonce, TARGET, ASKER)).toEqual({ released: true, payload: VALUE, target: TARGET });
   });
 
   it("does not put the value in the nonce", () => {
@@ -187,7 +187,7 @@ describe("the one-shot value release", () => {
       const first = release.arm(DOC, TARGET, VALUE, 5_000);
       const second = release.arm(DOC, "#other", "482913", 5_000);
       release.redeem(first, TARGET, ASKER);
-      expect(release.redeem(second, "#other", ASKER)).toEqual({ released: true, value: "482913", target: "#other" });
+      expect(release.redeem(second, "#other", ASKER)).toEqual({ released: true, payload: "482913", target: "#other" });
     });
   });
 });

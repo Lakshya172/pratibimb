@@ -13,22 +13,26 @@
  * request whose bytes are E4's synthetic, seeded canaries — never a vault value.
  */
 
+import { type BoundaryRequest } from "./boundary-protocol";
+
 export type ToSw =
   | { readonly kind: "HELLO" }
   | { readonly kind: "RELAY_ECHO"; readonly sentAt: number }
   | { readonly kind: "HOST_STATUS" }
   /**
-   * M1 — the offscreen document asking the worker to carry a release capability to a tab.
+   * The offscreen document asking the worker to carry one boundary request to a tab.
    *
-   * A nonce and a field name. There is no value field here and there must never be one: the value
-   * is fetched by the content script from the core realm, in a reply this worker never sees.
+   * The body is `BoundaryRequest`, whose members are enumerated in `boundary-protocol.ts` and
+   * contain no value field in either direction. What the worker carries is a value-free element
+   * graph, references, targets, identities and grants — and, for a capability, a nonce and a field
+   * name. Whatever a capability actually holds is collected by the content script as a reply this
+   * worker never sees.
    */
   | {
-      readonly kind: "REHYDRATE_REQUEST";
+      readonly kind: "TO_PAGE_BOUNDARY";
       readonly tabId: number;
       readonly frameId: number;
-      readonly nonce: string;
-      readonly target: string;
+      readonly body: BoundaryRequest;
     };
 
 export type ToOffscreen =
@@ -48,8 +52,8 @@ export type ToOffscreen =
 export type ToContent =
   | { readonly kind: "MEASURE" }
   | { readonly kind: "ROUNDTRIP"; readonly samples: number }
-  /** M1 — "a capability is waiting for this field". Carries no value; see `value-release.ts`. */
-  | { readonly kind: "REHYDRATE"; readonly nonce: string; readonly target: string };
+  /** One request for the privacy boundary that lives in this world. See `boundary-protocol.ts`. */
+  | { readonly kind: "BOUNDARY"; readonly body: BoundaryRequest };
 
 export interface SenderIdentity {
   readonly tabId: number | null;

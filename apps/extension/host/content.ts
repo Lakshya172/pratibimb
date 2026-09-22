@@ -8,15 +8,52 @@
  */
 import { createPageAgent } from "@pratibimb/extension-transport";
 
+import { type BoundaryReply, type BoundaryRequest, type CapabilityPayload } from "../host-lib/boundary-protocol";
+import { createPagePrivacyBoundary, type PagePrivacyBoundary } from "../host-lib/page-privacy-boundary";
 import type { ToContent } from "../host-lib/messages";
 import { clickOn, typeInto, type ClickMechanism, type TypeMechanism } from "../host-lib/e6-mechanisms";
 import { domPageSurface } from "../host-lib/page-surface-dom";
 import { connectPageTransport } from "../host-lib/transport-chrome";
 
+/**
+ * Serve one request from the core realm.
+ *
+ * `CLASSIFY` and `FORGET` are answered directly: neither carries anything secret in either
+ * direction. `CAPABILITY` is different — it says only that something is waiting, so this world goes
+ * and collects it, and the collection is a **reply**, which is the one direction in MV3 the service
+ * worker does not see. Whatever the capability held never appears in a message at all.
+ */
+async function serveBoundary(boundary: PagePrivacyBoundary, request: BoundaryRequest): Promise<BoundaryReply> {
+  if (request.kind === "CLASSIFY") return boundary.classify(request.ask);
+  if (request.kind === "FORGET") return boundary.forget();
+
+  const collected = (await chrome.runtime.sendMessage({
+    target: "offscreen",
+    kind: "BOUNDARY_COLLECT",
+    nonce: request.nonce,
+    field: request.target,
+  })) as { released?: boolean; payload?: CapabilityPayload; refused?: string } | undefined;
+
+  if (collected?.released !== true || collected.payload === undefined) {
+    return { ok: false, refused: collected?.refused ?? "NO_RESPONSE" };
+  }
+  const payload = collected.payload;
+  return payload.kind === "QUESTION" ? boundary.answer(payload.texts) : boundary.release(payload.ask);
+}
+
 export default defineContentScript({
   matches: ["http://127.0.0.1/*"],
   runAt: "document_idle",
   main() {
+    /**
+     * THE PRIVACY BOUNDARY LIVES HERE, because the page's values do.
+     *
+     * One per document. It opens a vault per run, destroys it when the run ends, and nothing it
+     * sends upward has ever contained a value — the last check before any reply leaves is the vault
+     * being asked whether it recognises the reply itself.
+     */
+    const privacy = createPagePrivacyBoundary();
+
     const measure = () =>
       Array.from(document.querySelectorAll("a, button, input, select, textarea, label, [role]")).map((el) => {
         const r = el.getBoundingClientRect();
@@ -34,7 +71,7 @@ export default defineContentScript({
         sendResponse({ refused: "SENDER_NOT_ACCEPTED" });
         return false;
       }
-      const msg = raw as ToContent | { kind: "E6_TYPE"; mechanism: TypeMechanism; selector: string; nonce: string } | { kind: "E6_CLICK"; mechanism: ClickMechanism; selector: string } | { kind: "REHYDRATE"; nonce: string; target: string };
+      const msg = raw as ToContent | { kind: "E6_TYPE"; mechanism: TypeMechanism; selector: string; nonce: string } | { kind: "E6_CLICK"; mechanism: ClickMechanism; selector: string } | { kind: "BOUNDARY"; body: BoundaryRequest };
       /**
        * M1 — THE AUTHORISED LOCAL WRITE.
        *
@@ -52,39 +89,10 @@ export default defineContentScript({
        * the trusted client restoring a value the user already owns, which is why there is no TYPE in
        * `EXECUTABLE_ACTIONS` and why this path cannot be reached by a plan on its own.
        */
-      if (msg.kind === "REHYDRATE") {
-        void (async () => {
-          const found = document.querySelector(msg.target);
-          if (found === null || found.tagName !== "INPUT") {
-            sendResponse({ written: false, refused: "NO_INPUT" });
-            return;
-          }
-          const element = found as HTMLInputElement;
-          if (element.disabled || element.readOnly) {
-            sendResponse({ written: false, refused: "FIELD_NOT_WRITABLE" });
-            return;
-          }
-          const released = (await chrome.runtime.sendMessage({
-            target: "offscreen",
-            kind: "VALUE_RELEASE",
-            nonce: msg.nonce,
-            field: msg.target,
-          })) as { value?: string; refused?: string } | undefined;
-          if (typeof released?.value !== "string") {
-            sendResponse({ written: false, refused: released?.refused ?? "NO_RESPONSE" });
-            return;
-          }
-          let value: string | null = released.value;
-          element.value = value;
-          // What any framework on the page needs in order to see the change. They carry no pointer
-          // and click nothing.
-          element.dispatchEvent(new Event("input", { bubbles: true }));
-          element.dispatchEvent(new Event("change", { bubbles: true }));
-          const written = element.value === value;
-          const length = element.value.length;
-          value = null; // drop the only reference this world held
-          sendResponse({ written, length, target: msg.target });
-        })();
+      if (msg.kind === "BOUNDARY") {
+        void serveBoundary(privacy, msg.body).then(sendResponse, (error: unknown) =>
+          sendResponse({ ok: false, refused: error instanceof Error ? error.message.slice(0, 120) : "BOUNDARY_THREW" })
+        );
         return true;
       }
       if (msg.kind === "E6_TYPE") {

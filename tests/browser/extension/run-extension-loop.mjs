@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * M1 — THE PRODUCT LOOP, THROUGH THE REAL MV3 EXTENSION.
+ * M2 — THE REAL PAGE-VALUE BOUNDARY, THROUGH THE REAL MV3 EXTENSION.
  *
  * WHAT THIS DRIVES. A real page in a real tab, read by the content script, routed by the service
  * worker, reasoned about in the offscreen document by the shipped orchestrator, privacy layer,
@@ -12,11 +12,18 @@
  * nothing at all. The address is the same in all three because the manifest pins `connect-src` to
  * one loopback origin. Nothing in the extension is told which act is running.
  *
- * WHAT IT ALSO PROVES, and this is the half that matters more: the value's path. The harness never
- * learns the nonce of a real run -- it cannot, because the core realm mints it and the page collects
- * it -- so the release tests here use the E6 arming hook against the same authority, and check the
- * four ways a capability must fail in a real browser: forged, reused, wrong document, wrong tab.
- * Then it asks the page itself to try, from the page's own world, and watches it fail.
+ * WHAT IT ALSO PROVES, and this is the half that matters more: the value's path. The page's own
+ * field values are read from the DOM by the content script, classified there, and held in a vault
+ * there. So the question is no longer "did the value travel safely?" but "did it travel at all?" --
+ * and the worker is made to answer it. Every message delivered to the service worker, every message
+ * it sends to a tab and every frame on a transport port is recorded in the worker itself, and the
+ * whole recording is scanned against the fixture's values at the end. The worker is asked to
+ * incriminate itself; the check passes only when it cannot.
+ *
+ * The capability tests drive the production path: a forged nonce, a reused one, one for the wrong
+ * field, one presented after the document under it was replaced, and one presented by a different
+ * tab. Then it asks the page itself to reach the core realm, from the page's own world, and watches
+ * it fail.
  *
  * WHAT IT DOES NOT PROVE. One run of each act on one machine in one browser cell. That is
  * EXPERIMENTALLY VERIFIED, never PROVEN. And the field values the privacy layer works on are the
@@ -41,7 +48,7 @@ import {
 const WS = resolveWorkstation();
 
 const EXT = join(ROOT, "apps", "extension", ".output", "chrome-mv3");
-const OUT = join(ROOT, "artifacts", "experiments", "M1-extension-loop", "logs");
+const OUT = join(ROOT, "artifacts", "experiments", "M2-page-value-boundary", "logs");
 
 const GOAL = "Submit my application with my registered mobile number.";
 
@@ -60,6 +67,8 @@ const REASONER_URL = `http://127.0.0.1:${REASONER_PORT}/v1/chat/completions`;
  */
 const REGISTERED = "9000000001";
 const FIXTURE_VALUES = [REGISTERED, "Ramesh Kumar", "2345 6789 0124", "234567890124", "1998-04-12", "482913"];
+/** The fixture's form controls: five registered details plus the empty field the run has to fill. */
+const FIXTURE_FIELDS = 6;
 
 const refuse = (message) => {
   console.error(`REFUSING: ${message}`);
@@ -88,6 +97,7 @@ let failure = null;
 const acts = {};
 const releaseTests = {};
 let pageForgery = null;
+let workerTraffic = null;
 
 try {
   const { server, origin } = await startDemoServer(8975);
@@ -190,7 +200,7 @@ try {
       confirmValue: document.getElementById("mobile_confirm")?.value ?? null,
       submitted: document.getElementById("status")?.dataset.submitted ?? null,
       statusText: document.getElementById("status")?.textContent ?? null,
-      submitEvents: (window.__submitEvents ?? []).map((event) => event.type),
+      submitEvents: (window.__submitEvents ?? []).map((event) => `${event.type}@${event.x},${event.y}`),
       submitDisabled: document.getElementById("submit")?.disabled ?? null,
     }));
 
@@ -198,8 +208,9 @@ try {
   {
     service = await startReasonerService({ mode: "forward", port: REASONER_PORT });
     const identity = await freshDocument();
+    const connections = await worker.evaluate(() => globalThis.__host.transportConnections());
     const run = await runAct("SUCCESS", identity, REASONER_URL);
-    acts.SUCCESS = { ...run, page: await pageTruth(), served: service.captures.length, leaked: leaks(service.captures) };
+    acts.SUCCESS = { ...run, page: await pageTruth(), connections, served: service.captures.length, leaked: leaks(service.captures) };
     await service.stop();
     service = null;
   }
@@ -223,40 +234,46 @@ try {
 
   // ── THE CAPABILITY, IN A REAL BROWSER ───────────────────────────────────────────────────────
   //
-  // A real run's nonce never reaches this harness, which is the design working. So these use the E6
-  // arming hook, which since this milestone goes through the same authority and the same refusals.
+  // A real run's nonce never reaches this harness, and cannot: the core realm mints it and the page
+  // realm collects it. So these arm one through the worker's test hook -- the same authority, the
+  // same refusals, the same production collection path -- and then present it wrongly.
+  //
+  // A capability that IS accepted still refuses, with NO_VAULT, because no run is in progress and
+  // the page realm has nothing to release from. That difference is the signal: NO_VAULT means the
+  // capability was spent, and UNKNOWN_OR_CONSUMED_NONCE means it was not there to spend.
   {
     const identity = await freshDocument();
-    const rehydrate = (tabId, nonce, target) =>
-      worker.evaluate(({ tabId: t, nonce: n, target: g }) => globalThis.__host.toTab(t, { kind: "REHYDRATE", nonce: n, target: g }), {
-        tabId,
-        nonce,
-        target,
-      });
+    const present = (tabId, frameId, nonce, target) =>
+      worker.evaluate(
+        ({ tabId: t, frameId: f, nonce: n, target: g }) => globalThis.__host.presentCapability(t, f, n, g),
+        { tabId, frameId, nonce, target }
+      );
+    const armFor = (tabId) =>
+      worker.evaluate(({ tabId: t }) => globalThis.__host.armBoundaryCapability(t, "#mobile_confirm", 30_000), { tabId });
 
     // 1. A nonce nobody armed.
-    releaseTests.forgedNonce = await rehydrate(identity.tabId, `forged-${Date.now()}`, "#mobile_confirm");
+    releaseTests.forgedNonce = await present(identity.tabId, identity.frameId, `forged-${Date.now()}`, "#mobile_confirm");
 
-    // 2. Armed, used, and used again.
-    const armed = await worker.evaluate(({ tabId }) => globalThis.__host.e6Arm(tabId, 30_000, "#mobile_confirm"), {
-      tabId: identity.tabId,
-    });
-    releaseTests.firstUse = await rehydrate(identity.tabId, armed.nonce, "#mobile_confirm");
-    releaseTests.secondUse = await rehydrate(identity.tabId, armed.nonce, "#mobile_confirm");
+    // 2. Armed, presented correctly, then presented again.
+    const armed = await armFor(identity.tabId);
+    releaseTests.firstUse = await present(identity.tabId, identity.frameId, armed.nonce, "#mobile_confirm");
+    releaseTests.secondUse = await present(identity.tabId, identity.frameId, armed.nonce, "#mobile_confirm");
 
-    // 3. Armed for this document, presented by the one that replaces it.
-    const stale = await worker.evaluate(({ tabId }) => globalThis.__host.e6Arm(tabId, 30_000, "#mobile_confirm"), {
-      tabId: identity.tabId,
-    });
+    // 3. Armed for one field, presented for another.
+    const forConfirm = await armFor(identity.tabId);
+    releaseTests.wrongTarget = await present(identity.tabId, identity.frameId, forConfirm.nonce, "#name");
+
+    // 4. Armed for this document, presented by the one that replaces it.
+    const stale = await armFor(identity.tabId);
     const afterReload = await freshDocument();
     releaseTests.wrongDocument = {
       armedFor: stale.documentId,
       presentedBy: afterReload.documentId,
       documentChanged: stale.documentId !== afterReload.documentId,
-      ...(await rehydrate(identity.tabId, stale.nonce, "#mobile_confirm")),
+      ...(await present(identity.tabId, identity.frameId, stale.nonce, "#mobile_confirm")),
     };
 
-    // 4. Armed for this tab, presented by another one.
+    // 5. Armed for one tab, presented by another.
     const second = await context.newPage();
     await second.goto(fixtureUrl, { waitUntil: "load" });
     await second.waitForSelector("#submit");
@@ -265,26 +282,23 @@ try {
       const last = [...globalThis.__host.hellos].reverse()[0];
       return last ? last.identity : null;
     });
-    // Armed for the second tab, then presented by the first: a different tab entirely.
-    const forOtherTab = await worker.evaluate(({ tabId }) => globalThis.__host.e6Arm(tabId, 30_000, "#mobile_confirm"), {
-      tabId: otherTab.tabId,
-    });
+    const forOtherTab = await armFor(otherTab.tabId);
     releaseTests.wrongTab = {
       armedForTab: otherTab.tabId,
       presentedByTab: identity.tabId,
       differentTab: otherTab.tabId !== identity.tabId,
-      ...(await rehydrate(identity.tabId, forOtherTab.nonce, "#mobile_confirm")),
+      ...(await present(identity.tabId, identity.frameId, forOtherTab.nonce, "#mobile_confirm")),
     };
     await second.close();
 
-    // 5. The page's own world tries to ask the core realm directly.
+    // 6. The page's own world tries to reach the core realm directly.
     pageForgery = await page.evaluate(async (id) => {
       const sendMessage = globalThis.chrome?.runtime?.sendMessage;
       if (typeof sendMessage !== "function") return { reachable: false, why: "NO_SEND_MESSAGE_IN_PAGE_WORLD" };
       try {
         const reply = await globalThis.chrome.runtime.sendMessage(id, {
           target: "offscreen",
-          kind: "VALUE_RELEASE",
+          kind: "BOUNDARY_COLLECT",
           nonce: "page-forged",
           field: "#mobile_confirm",
         });
@@ -294,6 +308,27 @@ try {
       }
     }, extensionId);
   }
+
+  // ── WHAT THE SERVICE WORKER ACTUALLY SAW ────────────────────────────────────────────────────
+  //
+  // Scanned inside the worker, so the traffic is never pulled out here: what comes back is how much
+  // there was and WHICH of the fixture values were found in it, by index. A value is not carried out
+  // of the browser in order to prove that it was not carried out of the browser.
+  workerTraffic = await worker.evaluate((values) => {
+    const seen = globalThis.__host.seen;
+    const text = JSON.stringify(seen);
+    const kinds = {};
+    for (const entry of seen) {
+      const kind = `${entry.way}:${entry.message?.kind ?? entry.message?.body?.kind ?? entry.message?.op ?? "?"}`;
+      kinds[kind] = (kinds[kind] ?? 0) + 1;
+    }
+    return {
+      messages: seen.length,
+      bytes: text.length,
+      kinds,
+      matchedValueIndexes: values.map((v, i) => (text.includes(v) ? i : -1)).filter((i) => i >= 0),
+    };
+  }, FIXTURE_VALUES);
 } catch (error) {
   failure = `${error.name}: ${String(error.message).slice(0, 400)}`;
 } finally {
@@ -308,6 +343,8 @@ const recordOf = (act) => acts[act]?.outcome?.result?.record ?? null;
 const resultOf = (act) => acts[act]?.outcome?.result ?? null;
 const verificationOf = (act) => recordOf(act)?.act?.verification?.verification ?? null;
 const submitEventsOf = (act) => acts[act]?.page?.submitEvents?.length ?? -1;
+const boundaryOf = (act) => resultOf(act)?.boundary ?? null;
+const redactionsOf = (act) => recordOf(act)?.handoff?.redactions ?? [];
 
 /**
  * Everything that CROSSED A BOUNDARY, which is not the same as everything the harness saw.
@@ -324,32 +361,29 @@ const everythingThatCrossed = JSON.stringify({
 });
 
 const checks = {
-  // The loop ran where M1 says it must, over the path the observation leg proved.
+  // ── the loop, where M1 left it ──────────────────────────────────────────────────────────────
   successReachedTheEnd: recordOf("SUCCESS")?.state === "DONE",
   successWasConfirmed: verificationOf("SUCCESS") === "CONFIRMED",
   successDidNotFallBack: recordOf("SUCCESS")?.fallback?.fellBack !== true,
   successAskedAHuman: acts.SUCCESS?.grantAsked != null,
-  successRestoredOneValue: recordOf("SUCCESS")?.rehydrated?.length === 1 && recordOf("SUCCESS")?.rehydrated?.[0]?.inserted === true,
+  successRestoredOneValue:
+    recordOf("SUCCESS")?.rehydrated?.length === 1 && recordOf("SUCCESS")?.rehydrated?.[0]?.inserted === true,
   successClickedOnce: submitEventsOf("SUCCESS") === 5,
   successSubmittedThePage: acts.SUCCESS?.page?.submitted === "true",
   successRestoredTheRightValue: acts.SUCCESS?.page?.confirmValue === REGISTERED,
 
-  // The refusal: blocked before a human was asked, with nothing released and nothing clicked.
-  // Refused, and refused for the RIGHT reason. An earlier stage failing would refuse too, and would
-  // prove nothing about the literal check that act two exists to demonstrate.
   refusalWasRefused: recordOf("REFUSAL")?.state === "REFUSED",
   refusalWasBlockedAtTheLiteral:
     recordOf("REFUSAL")?.refusal?.stage === "VALIDATE_PLAN" &&
     recordOf("REFUSAL")?.validation?.refusal?.literalSeverity === "LEAKAGE_EVENT",
   refusalSanitizedAndSent: (recordOf("REFUSAL")?.handoffSerialized?.length ?? 0) > 0,
   refusalNeverAskedAHuman: acts.REFUSAL?.grantAsked == null,
-  refusalArmedNothing: resultOf("REFUSAL")?.ports?.armed === 0,
+  refusalReleasedNothing: boundaryOf("REFUSAL")?.releases === 0 && boundaryOf("REFUSAL")?.writes === 0,
   refusalRestoredNothing: (recordOf("REFUSAL")?.rehydrated?.length ?? -1) === 0,
   refusalClickedNothing: submitEventsOf("REFUSAL") === 0,
   refusalLeftTheFieldEmpty: acts.REFUSAL?.page?.confirmValue === "",
   refusalDidNotFallBack: recordOf("REFUSAL")?.fallback?.fellBack !== true,
 
-  // The outage: the same gates, a different planner, the same ending.
   outageReachedTheEnd: recordOf("OUTAGE")?.state === "DONE",
   outageWasConfirmed: verificationOf("OUTAGE") === "CONFIRMED",
   outageFellBack: recordOf("OUTAGE")?.fallback?.fellBack === true,
@@ -357,23 +391,41 @@ const checks = {
   outageRestoredOneValue: recordOf("OUTAGE")?.rehydrated?.length === 1,
   outageSubmittedThePage: acts.OUTAGE?.page?.submitted === "true",
 
-  // The capability, in a real browser.
-  forgedNonceRefused: releaseTests.forgedNonce?.written === false && releaseTests.forgedNonce?.refused === "UNKNOWN_OR_CONSUMED_NONCE",
-  armedCapabilityWorksOnce: releaseTests.firstUse?.written === true,
-  reusedNonceRefused: releaseTests.secondUse?.written === false && releaseTests.secondUse?.refused === "UNKNOWN_OR_CONSUMED_NONCE",
+  // ── the boundary: the values are read from the page, and they are read where they stay ──────
+  //
+  // The whole milestone in six checks. The page realm saw every form control on the page and
+  // classified them; references were issued for what is tokenisable; the OTP got no reference at
+  // all, because a CRITICAL class is masked and there is therefore nothing to rehydrate later; and
+  // exactly one value was released back, into the field a human approved.
+  pageRealmReadTheRealPage: boundaryOf("SUCCESS")?.fieldsSeenByThePageRealm === FIXTURE_FIELDS,
+  referencesWereIssued: (boundaryOf("SUCCESS")?.referencesIssued ?? 0) >= 3,
+  otpWasMaskedNotTokenised: redactionsOf("SUCCESS").some((r) => r.class === "OTP" && r.method === "masked_no_token" && r.token === ""),
+  otpGotNoReference: redactionsOf("SUCCESS").every((r) => r.class !== "OTP" || r.token === ""),
+  exactlyOneRelease: boundaryOf("SUCCESS")?.releases === 1 && boundaryOf("SUCCESS")?.writes === 1,
+  noLiteralWasEverWritten:
+    ["SUCCESS", "REFUSAL", "OUTAGE"].every((act) => (resultOf(act)?.ports?.inserts ?? 0) === 0),
+
+  // ── the capability, on the production path, in a real browser ───────────────────────────────
+  forgedNonceRefused: releaseTests.forgedNonce?.refused === "UNKNOWN_OR_CONSUMED_NONCE",
+  armedCapabilityIsAccepted: releaseTests.firstUse?.refused === "NO_VAULT",
+  reusedNonceRefused: releaseTests.secondUse?.refused === "UNKNOWN_OR_CONSUMED_NONCE",
+  wrongTargetRefused: releaseTests.wrongTarget?.refused === "TARGET_MISMATCH",
   wrongDocumentRefused:
     releaseTests.wrongDocument?.documentChanged === true &&
-    releaseTests.wrongDocument?.written === false &&
     releaseTests.wrongDocument?.refused === "SENDER_DOCUMENT_MISMATCH",
   wrongTabRefused:
-    releaseTests.wrongTab?.differentTab === true &&
-    releaseTests.wrongTab?.written === false &&
-    releaseTests.wrongTab?.refused === "SENDER_DOCUMENT_MISMATCH",
+    releaseTests.wrongTab?.differentTab === true && releaseTests.wrongTab?.refused === "SENDER_DOCUMENT_MISMATCH",
   pageCannotReachTheCoreRealm: pageForgery?.reachable === false,
 
-  // The value's path, end to end.
+  // ── what crossed, and what did not ──────────────────────────────────────────────────────────
+  theWorkerSawTraffic: (workerTraffic?.messages ?? 0) > 20,
+  noFixtureValueInAnyWorkerMessage: workerTraffic?.matchedValueIndexes?.length === 0,
   noValueInAnythingTheHarnessSaw: leaks(everythingThatCrossed).length === 0,
+  noValueInTheHandoffThatWasSent: ["SUCCESS", "REFUSAL", "OUTAGE"].every(
+    (act) => leaks(recordOf(act)?.handoffSerialized ?? "").length === 0
+  ),
   nothingLeakedToTheReasoner: (acts.SUCCESS?.leaked?.length ?? 1) === 0 && (acts.REFUSAL?.leaked?.length ?? 1) === 0,
+  egressReportedClean: (recordOf("SUCCESS")?.ledgerEntry ?? null) !== null,
 };
 
 const passed = failure === null && Object.values(checks).every(Boolean);
@@ -383,11 +435,14 @@ const record = {
   verdict: passed ? "PASS" : "FAIL",
   status: passed ? "EXPERIMENTALLY VERIFIED (one run of each act, one fixture, one browser cell)" : "FAIL",
   claim:
-    "a real page in a real tab is observed, sanitized, reasoned about, validated, approved by a human, " +
-    "rehydrated through a one-shot capability and clicked through guardedAct, entirely inside the MV3 " +
-    "extension, with the value never present in a service-worker message",
+    "the page's own field values are read, classified and held in the content script's isolated world; " +
+    "only the sanitized handoff crosses the service worker; the plan refers to references; the value is " +
+    "rehydrated locally under a one-shot capability and clicked through guardedAct — and the worker's own " +
+    "recording of every message it saw contains none of the page's values",
   notAClaim: [
-    "the field values the privacy layer works on are the client's own synthetic details, NOT values read from the page — see decision.md",
+    "no claim of perfect PII recall: detection is the repository's deterministic D1/D2 channels on one synthetic fixture, and a value they do not classify is a value that is not protected",
+    "no claim of zero leakage in general: what is checked is this fixture's values against this run's traffic",
+    "no claim of production readiness: memory-only vault, one loopback origin, no TLS, no auth, no real user data",
     "the human's answer comes from the harness through the worker's control plane, exactly as the demo rehearsal's auto mode does; no human-facing grant surface was built in M1",
     "one run of each act on one machine in one browser cell is not a benchmark and not a reliability claim",
     "no visual perception, capture, detector, OCR or pixel redaction took part",
@@ -398,6 +453,7 @@ const record = {
   acts,
   releaseTests,
   pageForgery,
+  workerTraffic,
   recordedAt: new Date().toISOString(),
   provenance: {
     ...provenanceOf(WS),
@@ -421,7 +477,14 @@ for (const [name, ok] of Object.entries(checks)) console.log(`  ${ok ? "PASS" : 
 if (failure) console.log(`  failure: ${failure}`);
 for (const act of ["SUCCESS", "REFUSAL", "OUTAGE"]) {
   const run = recordOf(act);
-  console.log(`  ${act}: state=${run?.state ?? "—"} verify=${verificationOf(act) ?? "—"} clicks=${submitEventsOf(act)} rehydrated=${run?.rehydrated?.length ?? "—"}`);
+  const b = boundaryOf(act);
+  console.log(
+    `  ${act}: state=${run?.state ?? "—"} verify=${verificationOf(act) ?? "—"} clicks=${submitEventsOf(act)} ` +
+      `rehydrated=${run?.rehydrated?.length ?? "—"} fieldsRead=${b?.fieldsSeenByThePageRealm ?? "—"} refs=${b?.referencesIssued ?? "—"}`
+  );
 }
+console.log(
+  `  worker saw ${workerTraffic?.messages ?? "—"} messages (${workerTraffic?.bytes ?? "—"} bytes); fixture values found in them: ${workerTraffic?.matchedValueIndexes?.length ?? "—"}`
+);
 console.log(`written: ${target}`);
 process.exit(passed ? 0 : 1);

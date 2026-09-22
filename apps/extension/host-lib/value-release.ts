@@ -1,17 +1,25 @@
 /**
- * THE ONE-SHOT VALUE RELEASE — the production form of the mechanism E6 measured.
+ * THE ONE-SHOT CAPABILITY — the production form of the mechanism E6 measured.
  *
- * WHAT IT IS FOR. The core realm (the offscreen document) holds a value the privacy layer protected
- * and a human approved. The page needs that value in one field. MV3 gives no way to hand it over
- * that the service worker cannot read: `chrome.runtime.sendMessage` is delivered to **every**
- * listening context in the extension, which is why `background.ts` has to say "not for me" out loud.
- * The single exception is a **reply**: the response to a content script's message goes to that
- * content script and nowhere else.
+ * WHAT IT IS FOR. Something in one extension realm has to reach exactly one other realm, exactly
+ * once, with the service worker unable to read what passes. MV3 offers one way and only one:
+ * `chrome.runtime.sendMessage` is delivered to **every** listening context — which is why
+ * `background.ts` has to say "not for me" out loud — but a **reply** goes to the sender and to
+ * nobody else.
  *
- * SO THE DIRECTION IS INVERTED, AND THAT IS THE WHOLE DESIGN. The core realm never sends the value.
- * It arms a capability and says so; the service worker carries a nonce and a selector, which are not
- * secrets; the content script comes and asks; the core realm answers it directly. The value crosses
- * exactly one boundary, as a reply, at the last possible moment.
+ * SO THE DIRECTION IS INVERTED, AND THAT IS THE WHOLE DESIGN. The holder never sends. It arms a
+ * capability and says so; the service worker carries a nonce and a field name, which are not
+ * secrets; the other realm comes and asks; the holder answers it directly. Whatever is being handed
+ * over crosses exactly one boundary, as a reply, at the last possible moment.
+ *
+ * WHAT A CAPABILITY CARRIES depends on which way the page's values are living:
+ *   - **E6** — a value held in the offscreen document, released to a content script.
+ *   - **A release authorisation** — a reference and a target, once the vault is where the page is.
+ *     Nothing secret, and the capability is what makes the write one-shot and document-bound.
+ *   - **A question for the vault** — text a reasoner returned, carried down to be compared against
+ *     values that never come up.
+ * One authority, one set of refusals, three payloads. A second capability system would be a second
+ * set of rules about when something may be handed over, which is the last thing to have two of.
  *
  * WHAT A CAPABILITY IS BOUND TO — all of it, every time:
  *   - the tab, the frame and the **document identity** the browser attests for the asker;
@@ -58,8 +66,8 @@ export const RELEASE_REFUSAL_CODES = [
 
 export type ReleaseRefusalCode = (typeof RELEASE_REFUSAL_CODES)[number];
 
-export type Redemption =
-  | { readonly released: true; readonly value: string; readonly target: string }
+export type Redemption<T> =
+  | { readonly released: true; readonly payload: T; readonly target: string }
   | { readonly released: false; readonly refused: ReleaseRefusalCode };
 
 export interface ReleaseAuthorityDeps {
@@ -67,38 +75,38 @@ export interface ReleaseAuthorityDeps {
   readonly newNonce?: () => string;
 }
 
-export interface ReleaseAuthority {
+export interface ReleaseAuthority<T = string> {
   /**
    * Arm one capability. Returns the nonce, which is safe to route: it names a capability, it is not
    * a secret, and on its own it releases nothing.
    */
-  arm(binding: ReleaseBinding, target: string, value: string, ttlMs: number): string;
+  arm(binding: ReleaseBinding, target: string, payload: T, ttlMs: number): string;
   /** Present a capability. Spends it either way. */
-  redeem(nonce: string, target: string, asker: AttestedAsker): Redemption;
+  redeem(nonce: string, target: string, asker: AttestedAsker): Redemption<T>;
   /** How many capabilities are outstanding. Sizes only — never contents. */
   armedCount(): number;
   /** Drop every outstanding capability. Called when a run ends, however it ends. */
   revokeAll(): number;
 }
 
-interface ArmedCapability extends ReleaseBinding {
+interface ArmedCapability<T> extends ReleaseBinding {
   readonly target: string;
-  readonly value: string;
+  readonly payload: T;
   readonly expiresAt: number;
 }
 
 const sameDocument = (a: ReleaseBinding, asker: AttestedAsker): boolean =>
   asker.tabId === a.tabId && asker.frameId === a.frameId && asker.documentId === a.documentId;
 
-export function createReleaseAuthority(deps: ReleaseAuthorityDeps = {}): ReleaseAuthority {
+export function createReleaseAuthority<T = string>(deps: ReleaseAuthorityDeps = {}): ReleaseAuthority<T> {
   const now = deps.now ?? (() => Date.now());
   const newNonce = deps.newNonce ?? (() => globalThis.crypto.randomUUID());
-  const armed = new Map<string, ArmedCapability>();
+  const armed = new Map<string, ArmedCapability<T>>();
 
   return {
-    arm(binding, target, value, ttlMs) {
+    arm(binding, target, payload, ttlMs) {
       const nonce = newNonce();
-      armed.set(nonce, { ...binding, target, value, expiresAt: now() + ttlMs });
+      armed.set(nonce, { ...binding, target, payload, expiresAt: now() + ttlMs });
       return nonce;
     },
 
@@ -110,7 +118,7 @@ export function createReleaseAuthority(deps: ReleaseAuthorityDeps = {}): Release
       if (now() >= capability.expiresAt) return { released: false, refused: "NONCE_EXPIRED" };
       if (!sameDocument(capability, asker)) return { released: false, refused: "SENDER_DOCUMENT_MISMATCH" };
       if (capability.target !== target) return { released: false, refused: "TARGET_MISMATCH" };
-      return { released: true, value: capability.value, target: capability.target };
+      return { released: true, payload: capability.payload, target: capability.target };
     },
 
     armedCount: () => armed.size,

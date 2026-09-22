@@ -16,8 +16,10 @@
  *   is strictly better evidence than the demo's: a reload changes it whether or not we are watching.
  * - `bridges` is one `TransportCycle`, created once, which looks once and acts once. A second look
  *   or a second act refuses inside the transport, so replay is not a policy this file enforces.
- * - `insert()` is the one that could not be ported directly, and the way it is done is the point:
- *   **the value is not sent**. See `value-release.ts`.
+ * - `insert()` **refuses**. It is the port for writing a literal a reasoner supplied, and this
+ *   client has no way to carry one to the page that the service worker would not read — so it does
+ *   not carry one at all. A reference-backed restoration does not come through here: it goes to the
+ *   privacy boundary, where the value already is. The agent gains no arbitrary write primitive.
  *
  * WHAT IS NOT HERE. No fetch, no classifier, no vault, no planner, no permit, no consent. The
  * reasoner, the grant prompt and the release authority are all handed in.
@@ -35,34 +37,18 @@ import {
   type GrantDecision,
   type GrantRequest,
   type Observation,
+  type PrivacyBoundary,
 } from "@pratibimb/orchestrator";
-import { type ObservedField } from "@pratibimb/privacy";
 import { type ReasonerClient, type ReasonerKind } from "@pratibimb/reasoner";
 
-import { type ReleaseAuthority, type ReleaseBinding } from "./value-release";
-
-/** What the content script reports back. Booleans and codes — never the value it wrote. */
-export interface RehydrationOutcome {
-  readonly written: boolean;
-  readonly refused?: string;
-}
 
 export interface ExtensionPortsOptions {
   readonly relay: TransportRelay;
   readonly binding: TransportBinding;
-  /** The origin the run is bound to. `sanitize()` refuses details held for anywhere else. */
+  /** The origin the run is bound to. */
   readonly origin: string;
-  /** The client's own details. Never read from the page — see `client-held-fields.ts`. */
-  readonly fields: readonly ObservedField[];
-  readonly release: ReleaseAuthority;
-  /**
-   * Ask the bound document to come and collect one capability.
-   *
-   * Carries a nonce and a target and returns booleans. If this ever needs a value parameter,
-   * something has gone wrong upstream of it.
-   */
-  rehydrate(nonce: string, target: string): Promise<RehydrationOutcome>;
-  readonly releaseTtlMs: number;
+  /** Where the page's values are: the content script's isolated world. */
+  readonly privacy: PrivacyBoundary;
   readonly reasoner: ReasonerClient;
   readonly reasonerKind?: ReasonerKind;
   readonly fallback?: ReasonerClient;
@@ -72,12 +58,9 @@ export interface ExtensionPortsOptions {
 /** Counts of what the ports were actually asked to do. The refusal run's claim is `clicks === 0`. */
 export interface ExtensionPortsReport {
   observations: number;
+  /** Literal inserts the plan asked for. Every one of them is refused; see `insert` below. */
   inserts: number;
-  /** Capabilities armed, and how many of those the page actually collected. */
-  armed: number;
-  written: number;
-  /** Every refusal the rehydration path reported, in order. */
-  readonly rehydrationRefusals: string[];
+  readonly insertRefusals: string[];
   /** The transport's own account of the one action cycle, or `null` if no action was reached. */
   cycle: CycleReport | null;
 }
@@ -91,16 +74,8 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
   const report: ExtensionPortsReport = {
     observations: 0,
     inserts: 0,
-    armed: 0,
-    written: 0,
-    rehydrationRefusals: [],
+    insertRefusals: [],
     cycle: null,
-  };
-
-  const document: ReleaseBinding = {
-    tabId: options.binding.document.tabId,
-    frameId: options.binding.document.frameId,
-    documentId: options.binding.document.documentId,
   };
 
   /**
@@ -158,7 +133,10 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
 
     return {
       graph,
-      fields: options.fields,
+      // THE READING CARRIES NO VALUES, and nothing above needs it to. The transport has no field for
+      // one (TR-10, INV-21), and the privacy boundary reads the page's values where they are. An
+      // empty list here is the literal truth about what crossed the worker.
+      fields: [],
       viewport: {
         w: viewport.w,
         h: viewport.h,
@@ -180,28 +158,19 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
   };
 
   /**
-   * Restore one value into one target — without sending it.
+   * Write a literal a reasoner supplied. **Refused, always.**
    *
-   * Arm a capability for exactly this document and exactly this target, tell the page that one is
-   * waiting, and let it come and ask. Whatever happens, nothing stays armed afterwards: a capability
-   * that outlived the insert that created it would be a standing permission, which is the opposite
-   * of what this is.
+   * The orchestrator reaches this port only for a plan step carrying text of the reasoner's own —
+   * text that has already passed all three checks on a literal and is provably not a value this
+   * client holds. It is still refused here, for a reason about this client rather than about that
+   * text: there is no way to carry it to the page that the service worker would not read, and this
+   * milestone does not add one. A reference-backed restoration never comes through here.
    */
-  const insert = async (target: string, value: string): Promise<boolean> => {
+  // eslint-disable-next-line @typescript-eslint/require-await
+  const insert = async (target: string): Promise<boolean> => {
     report.inserts += 1;
-    const nonce = options.release.arm(document, target, value, options.releaseTtlMs);
-    report.armed += 1;
-    try {
-      const outcome = await options.rehydrate(nonce, target);
-      if (outcome.refused !== undefined) report.rehydrationRefusals.push(outcome.refused);
-      if (outcome.written) report.written += 1;
-      return outcome.written;
-    } catch (error) {
-      report.rehydrationRefusals.push(error instanceof Error ? error.message : String(error));
-      return false;
-    } finally {
-      options.release.revokeAll();
-    }
+    report.insertRefusals.push(`LITERAL_INSERT_NOT_CARRIED:${target}`);
+    return false;
   };
 
   return {
@@ -210,6 +179,7 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
       observe,
       insert,
       bridges,
+      privacy: options.privacy,
       reasoner: options.reasoner,
       ...(options.reasonerKind ? { reasonerKind: options.reasonerKind } : {}),
       ...(options.fallback ? { fallback: options.fallback } : {}),

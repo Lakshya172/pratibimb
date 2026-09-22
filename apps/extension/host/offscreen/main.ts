@@ -9,8 +9,7 @@ import { observePage, type TransportBinding } from "@pratibimb/extension-transpo
 import { type GrantDecision, type GrantRequest } from "@pratibimb/orchestrator";
 
 import { bootstrapOrtRealm, createPinnedInferenceSession, resolvePackagedAsset } from "../../entrypoints/ortRuntime";
-import { clientHeldFieldCount } from "../../host-lib/client-held-fields";
-import { type RehydrationOutcome } from "../../host-lib/extension-ports";
+import { type BoundaryReply, type BoundaryRequest, type CapabilityPayload } from "../../host-lib/boundary-protocol";
 import { runExtensionTask, type ExtensionRunRequest, type ExtensionRunResult } from "../../host-lib/extension-run";
 import { identityOf, isFromThisExtension, type ToOffscreen } from "../../host-lib/messages";
 import { chromeRelay } from "../../host-lib/transport-chrome";
@@ -100,7 +99,17 @@ async function e4Emit(msg: { url: string; method: string; headers: Readonly<Reco
  * redeem it only if the browser reports exactly that tab, frame and document as the sender, before
  * expiry, once. The value then goes to that content script and nowhere else.
  */
-const valueRelease = createReleaseAuthority();
+/**
+ * TWO INSTANCES OF ONE AUTHORITY, separated by payload type rather than by rules.
+ *
+ * `valueRelease` is E6's: a synthetic canary this document holds, released to a content script.
+ * `capabilities` is the product's: a release authorisation, or a question for the vault that holds
+ * the page's values. The refusals, the binding and the one-shot semantics are the same code in
+ * both — a second capability system would be a second set of rules about when something may be
+ * handed over, which is the last thing to have two of.
+ */
+const valueRelease = createReleaseAuthority<string>();
+const capabilities = createReleaseAuthority<CapabilityPayload>();
 
 /** The browser's word for who is asking, reduced to what a capability is bound to. */
 const askerOf = (sender: chrome.runtime.MessageSender): AttestedAsker => {
@@ -108,13 +117,27 @@ const askerOf = (sender: chrome.runtime.MessageSender): AttestedAsker => {
   return { tabId: id.tabId, frameId: id.frameId, documentId: id.documentId };
 };
 
-/**
- * Answer one redemption, from either the E6 experiment or the product run — there is one authority
- * and one set of refusals, so the mechanism the experiment measured is the mechanism that ships.
- */
+/** EXPERIMENT E6's redemption: a canary this document holds, answered to the content script. */
 const redeem = (nonce: string, target: string, sender: chrome.runtime.MessageSender): { value: string } | { refused: string } => {
   const outcome = valueRelease.redeem(nonce, target, askerOf(sender));
-  return outcome.released ? { value: outcome.value } : { refused: outcome.refused };
+  return outcome.released ? { value: outcome.payload } : { refused: outcome.refused };
+};
+
+/**
+ * Hand one boundary capability to the content script that came for it.
+ *
+ * This reply goes to the sender and to nobody else, which is the entire reason the direction is
+ * inverted. What it carries is a release authorisation — a reference and a target — or text a
+ * reasoner returned that the page realm is being asked to recognise. Never a page value: those are
+ * in the content script already and have no reason to come here.
+ */
+const collect = (
+  nonce: string,
+  field: string,
+  sender: chrome.runtime.MessageSender
+): { released: true; payload: CapabilityPayload } | { released: false; refused: string } => {
+  const outcome = capabilities.redeem(nonce, field, askerOf(sender));
+  return outcome.released ? { released: true, payload: outcome.payload } : { released: false, refused: outcome.refused };
 };
 
 /**
@@ -149,22 +172,20 @@ function decideGrant(granted: boolean): boolean {
 }
 
 /**
- * Tell the bound document that a capability is waiting.
+ * Carry one request to the privacy boundary in the page's own world.
  *
- * Through the worker, because an offscreen document cannot address a tab — and what it carries is a
- * nonce and a field name, neither of which is a secret. The value does not travel this way: the page
- * comes and asks for it, and is answered directly.
+ * Through the worker, because an offscreen document cannot address a tab. Everything in
+ * `BoundaryRequest` is value-free by construction; a capability carries only its nonce and the
+ * field it names, and whatever it actually holds is collected as a reply the worker never sees.
  */
-async function rehydrate(binding: TransportBinding, nonce: string, target: string): Promise<RehydrationOutcome> {
+async function sendToBoundary(binding: TransportBinding, body: BoundaryRequest): Promise<BoundaryReply> {
   const reply = (await chrome.runtime.sendMessage({
-    kind: "REHYDRATE_REQUEST",
+    kind: "TO_PAGE_BOUNDARY",
     tabId: binding.document.tabId,
     frameId: binding.document.frameId,
-    nonce,
-    target,
-  })) as RehydrationOutcome | { refused: string } | undefined;
-  if (!reply) return { written: false, refused: "NO_RESPONSE" };
-  return "written" in reply ? reply : { written: false, refused: reply.refused };
+    body,
+  })) as BoundaryReply | undefined;
+  return reply ?? { ok: false, refused: "NO_RESPONSE" };
 }
 
 async function runTask(request: ExtensionRunRequest): Promise<ExtensionRunResult> {
@@ -172,8 +193,8 @@ async function runTask(request: ExtensionRunRequest): Promise<ExtensionRunResult
   const task = runExtensionTask(
     {
       relay: chromeRelay,
-      release: valueRelease,
-      rehydrate,
+      capabilities,
+      sendToBoundary,
       askHuman: (grantRequest) =>
         new Promise<GrantDecision>((resolve) => {
           pendingGrant = { request: grantRequest, answer: resolve };
@@ -196,7 +217,8 @@ installTransportControlPlane();
 chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
   const msg = raw as ToOffscreen | { target: "offscreen"; kind: "E6_ARM"; tabId: number; frameId: number; documentId: string; ref: string; selector: string; ttlMs: number } | { target: "offscreen"; kind: "E6_RELEASE"; nonce: string; target2: string }
     | { target: "offscreen"; kind: "TRANSPORT_OBSERVE"; tabId: number; frameId: number }
-    | { target: "offscreen"; kind: "VALUE_RELEASE"; nonce: string; field: string }
+    | { target: "offscreen"; kind: "BOUNDARY_COLLECT"; nonce: string; field: string }
+    | { target: "offscreen"; kind: "ARM_BOUNDARY_CAPABILITY"; tabId: number; frameId: number; documentId: string; field: string; ttlMs: number }
     | { target: "offscreen"; kind: "RUN_TASK"; request: ExtensionRunRequest }
     | { target: "offscreen"; kind: "GRANT_PEEK" }
     | { target: "offscreen"; kind: "GRANT_DECIDE"; granted: boolean };
@@ -235,12 +257,40 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
    * service worker does not see. Everything that got us here — the nonce and the field — crossed the
    * worker; the value does not.
    */
-  if (msg.kind === "VALUE_RELEASE") {
+  if (msg.kind === "BOUNDARY_COLLECT") {
     if (!sender.tab) {
-      sendResponse({ refused: "RELEASE_ONLY_TO_A_CONTENT_SCRIPT" });
+      sendResponse({ released: false, refused: "RELEASE_ONLY_TO_A_CONTENT_SCRIPT" });
       return false;
     }
-    sendResponse(redeem(msg.nonce, msg.field, sender));
+    sendResponse(collect(msg.nonce, msg.field, sender));
+    return false;
+  }
+  if (msg.kind === "ARM_BOUNDARY_CAPABILITY") {
+    // TEST-ONLY, service-worker only. Arms a release authorisation naming a reference no vault ever
+    // issued, so an evidence run can present a real capability wrongly without a run in progress.
+    if (sender.tab) {
+      sendResponse({ refused: "ARM_ONLY_FROM_SERVICE_WORKER" });
+      return false;
+    }
+    const nonce = capabilities.arm(
+      { tabId: msg.tabId, frameId: msg.frameId, documentId: msg.documentId },
+      msg.field,
+      {
+        kind: "RELEASE",
+        ask: {
+          ref: "<PII:PHONE:99>",
+          target: msg.field,
+          viewId: "probe",
+          sessionId: "probe",
+          currentDocumentId: msg.documentId,
+          classOriginGrants: [],
+          useGrants: [],
+          now: Date.now(),
+        },
+      },
+      msg.ttlMs
+    );
+    sendResponse({ nonce });
     return false;
   }
   if (msg.kind === "RUN_TASK") {
@@ -295,7 +345,7 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
   }
   if (msg.kind === "STATE") {
     // Sizes only. The stub's values never leave this document.
-    sendResponse({ instanceId, createdAt, vaultStubEntries: vaultStub.size, nonces: valueRelease.armedCount(), clientHeldFields: clientHeldFieldCount(), running: running !== null });
+    sendResponse({ instanceId, createdAt, vaultStubEntries: vaultStub.size, nonces: valueRelease.armedCount(), capabilities: capabilities.armedCount(), running: running !== null });
     return false;
   }
   if (msg.kind === "ORT_SMOKE") {

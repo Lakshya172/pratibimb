@@ -22,6 +22,24 @@ export default defineBackground(() => {
   const bootedAt = Date.now();
   const hellos: { at: number; identity: SenderIdentity }[] = [];
 
+  /**
+   * TEST-ONLY: everything this worker actually saw.
+   *
+   * The claim "no page value crosses the service worker" is worth very little as a reading of the
+   * code and a great deal as a recording of the traffic. So every message delivered to this
+   * context's listeners, every message it sends to a tab, and every frame on a transport port is
+   * kept here, and an evidence run scans the lot against the fixture's own values. If a value ever
+   * crossed, it is in this list — which is the point: the worker is being asked to incriminate
+   * itself, and the test passes only when it cannot.
+   *
+   * Bounded, in memory, reachable only through the DevTools protocol, and gone when MV3 terminates
+   * this worker. No page can read it.
+   */
+  const seen: { at: number; way: "in" | "to-tab" | "port"; message: unknown }[] = [];
+  const note = (way: "in" | "to-tab" | "port", message: unknown): void => {
+    if (seen.length < 2_000) seen.push({ at: Date.now(), way, message });
+  };
+
   async function ensureOffscreen(): Promise<number> {
     const existing = await chrome.runtime.getContexts({ contextTypes: [chrome.runtime.ContextType.OFFSCREEN_DOCUMENT] });
     if (existing.length === 0) {
@@ -45,7 +63,16 @@ export default defineBackground(() => {
       await ensureOffscreen();
       return chrome.runtime.sendMessage({ target: "offscreen", ...msg });
     },
-    toTab: (tabId: number, msg: object) => chrome.tabs.sendMessage(tabId, msg),
+    toTab: (tabId: number, msg: object) => {
+      note("to-tab", msg);
+      return chrome.tabs.sendMessage(tabId, msg);
+    },
+    /** TEST-ONLY: everything this worker saw, for an evidence run to scan. */
+    seen,
+    forgetSeen: () => {
+      seen.length = 0;
+      return true;
+    },
     offscreenContexts: async () => (await chrome.runtime.getContexts({ contextTypes: [chrome.runtime.ContextType.OFFSCREEN_DOCUMENT] })).length,
     // EXPERIMENT D-E6-4: how many documents currently hold a transport port, for diagnosis only.
     transportConnections: () => transport.connectionCount(),
@@ -66,6 +93,23 @@ export default defineBackground(() => {
       await ensureOffscreen();
       return chrome.runtime.sendMessage({ target: "offscreen", kind: "GRANT_PEEK" });
     },
+    /**
+     * TEST-ONLY: arm one boundary capability outside a run, so an evidence run can present it
+     * wrongly. Reachable only through the DevTools protocol, exactly as `e6Arm` is; no page can
+     * reach it, and the capability it arms carries a reference and a target, never a value.
+     */
+    armBoundaryCapability: async (tabId: number, target: string, ttlMs: number) => {
+      const hello = [...hellos].reverse().find((h) => h.identity.tabId === tabId);
+      if (!hello || hello.identity.documentId === null || hello.identity.frameId === null) return { refused: "NO_DOCUMENT_FOR_TAB" };
+      await ensureOffscreen();
+      const r = (await chrome.runtime.sendMessage({
+        target: "offscreen", kind: "ARM_BOUNDARY_CAPABILITY", tabId, frameId: hello.identity.frameId, documentId: hello.identity.documentId, field: target, ttlMs,
+      })) as { nonce?: string };
+      return { nonce: r.nonce ?? null, documentId: hello.identity.documentId, tabId };
+    },
+    /** TEST-ONLY: present a capability to a tab exactly as the core realm would. */
+    presentCapability: (tabId: number, frameId: number, nonce: string, target: string) =>
+      chrome.tabs.sendMessage(tabId, { kind: "BOUNDARY", body: { kind: "CAPABILITY", nonce, target } }, { frameId }),
     grantDecide: async (granted: boolean) => {
       await ensureOffscreen();
       return chrome.runtime.sendMessage({ target: "offscreen", kind: "GRANT_DECIDE", granted });
@@ -89,10 +133,25 @@ export default defineBackground(() => {
   // `port.sender`. A port we cannot fully attest, or one from an origin outside loopback, is dropped.
   chrome.runtime.onConnect.addListener((port) => {
     if (port.name !== TRANSPORT_PORT_NAME) return;
-    if (!transport.acceptPort(adaptPort(port))) port.disconnect();
+    const adapted = adaptPort(port);
+    // Same recording, for the one channel that is not a runtime message.
+    const watched = {
+      ...adapted,
+      postMessage: (message: unknown) => {
+        note("port", message);
+        adapted.postMessage(message as never);
+      },
+      onMessage: (listener: (message: unknown) => void) =>
+        adapted.onMessage((message) => {
+          note("port", message);
+          listener(message);
+        }),
+    };
+    if (!transport.acceptPort(watched)) port.disconnect();
   });
 
   chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
+    note("in", raw);
     const msg = raw as ToSw & { target?: string };
 
     // EXPERIMENT D-E6-4: relay one page request for the core realm. Only the offscreen document may
@@ -109,24 +168,25 @@ export default defineBackground(() => {
     if (msg?.target === "offscreen") return false; // addressed to the offscreen document, not here
 
     /**
-     * M1 — carry a release capability to the bound document.
+     * Carry one privacy-boundary request to the bound document.
      *
-     * THE WORKER IS THE POSTMAN AND IT IS NOT GIVEN THE LETTER. What passes through here is a nonce
-     * and a field name. There is no value in this message, no value in the reply, and no branch
-     * below that could add one: the page fetches the value from the core realm directly, and that
-     * reply never reaches this context. Only the offscreen document may ask, and it may only ask for
-     * a tab — it cannot make this worker do anything else.
+     * THE WORKER IS THE POSTMAN AND IT IS NOT GIVEN THE LETTER. What passes through here is a
+     * value-free element graph on the way down, spans and descriptors and counts on the way back,
+     * and — for a capability — a nonce and a field name. Whatever a capability holds is collected by
+     * the content script as a reply this context never sees. Only the offscreen document may ask,
+     * and it may only ask for a tab.
      */
-    if (msg?.kind === "REHYDRATE_REQUEST") {
+    if (msg?.kind === "TO_PAGE_BOUNDARY") {
       if (!isFromOffscreenDocument(sender)) {
-        sendResponse({ refused: "SENDER_NOT_ACCEPTED" });
+        sendResponse({ ok: false, refused: "SENDER_NOT_ACCEPTED" });
         return false;
       }
-      const ask = raw as { tabId: number; frameId: number; nonce: string; target: string };
+      const ask = raw as { tabId: number; frameId: number; body: unknown };
+      note("to-tab", ask.body);
       chrome.tabs
-        .sendMessage(ask.tabId, { kind: "REHYDRATE", nonce: ask.nonce, target: ask.target }, { frameId: ask.frameId })
+        .sendMessage(ask.tabId, { kind: "BOUNDARY", body: ask.body }, { frameId: ask.frameId })
         .then(sendResponse)
-        .catch((error: unknown) => sendResponse({ written: false, refused: error instanceof Error ? error.message : String(error) }));
+        .catch((error: unknown) => sendResponse({ ok: false, refused: error instanceof Error ? error.message : String(error) }));
       return true;
     }
 
