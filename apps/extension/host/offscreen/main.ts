@@ -5,8 +5,11 @@
  * never written to storage. It exists so later experiments can check that a value stays on this side.
  * There is no production vault, sanitizer, verifier or egress module in this host.
  */
+import { observePage } from "@pratibimb/extension-transport";
+
 import { bootstrapOrtRealm, createPinnedInferenceSession, resolvePackagedAsset } from "../../entrypoints/ortRuntime";
 import { isFromThisExtension, type ToOffscreen } from "../../host-lib/messages";
+import { chromeRelay } from "../../host-lib/transport-chrome";
 import { installTransportControlPlane } from "../../host-lib/transport-control-plane";
 
 const instanceId = crypto.randomUUID();
@@ -118,7 +121,8 @@ function release(msg: { nonce: string }, sender: chrome.runtime.MessageSender): 
 installTransportControlPlane();
 
 chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
-  const msg = raw as ToOffscreen | { target: "offscreen"; kind: "E6_ARM"; nonce: string; tabId: number; frameId: number; documentId: string; ref: string; ttlMs: number } | { target: "offscreen"; kind: "E6_RELEASE"; nonce: string };
+  const msg = raw as ToOffscreen | { target: "offscreen"; kind: "E6_ARM"; nonce: string; tabId: number; frameId: number; documentId: string; ref: string; ttlMs: number } | { target: "offscreen"; kind: "E6_RELEASE"; nonce: string }
+    | { target: "offscreen"; kind: "TRANSPORT_OBSERVE"; tabId: number; frameId: number };
   if (msg?.target !== "offscreen") return false;
   if (!isFromThisExtension(sender)) {
     sendResponse({ refused: "SENDER_NOT_ACCEPTED" });
@@ -141,6 +145,29 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
     }
     sendResponse(release(msg, sender));
     return false;
+  }
+  /**
+   * M1: read a real page through the real transport, from the realm that will own the loop.
+   *
+   * This drives the unchanged `observePage` — offscreen → service worker → content script and back —
+   * so an evidence run can compare the element graph the core realm actually receives against the
+   * one the demo's in-process PageAdapter produces. It is the same control-plane shape as `E6_ARM`:
+   * **service worker only** (`sender.tab` is refused), so a content script cannot ask the core realm
+   * to observe on its behalf, and a page cannot reach it at all.
+   *
+   * NO PAGE VALUE CROSSES. `observePage` returns the transport's own vocabulary — selector, role,
+   * accessible name, geometry, visibility — which `contracts.ts` already bounds (TR-10, INV-21).
+   * There is no field for a form value here and none is read.
+   */
+  if (msg.kind === "TRANSPORT_OBSERVE") {
+    if (sender.tab) {
+      sendResponse({ refused: "OBSERVE_ONLY_FROM_SERVICE_WORKER" });
+      return false;
+    }
+    void observePage(chromeRelay, { tabId: msg.tabId, frameId: msg.frameId })
+      .then((observation) => sendResponse({ ok: true, observation }))
+      .catch((error: unknown) => sendResponse({ ok: false, refused: error instanceof Error ? error.message : String(error) }));
+    return true;
   }
   if (msg.kind === "ECHO") {
     sendResponse({ instanceId });
