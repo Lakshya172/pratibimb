@@ -44,6 +44,7 @@ import {
   provenanceOf,
   resolveWorkstation,
 } from "../support/workstation.mjs";
+import { attribute, installProbe, SEQUENCE_LENGTH } from "./single-action-probe.mjs";
 
 const WS = resolveWorkstation();
 
@@ -115,6 +116,13 @@ try {
   const extensionId = await worker.evaluate(() => chrome.runtime.id);
 
   const page = await context.newPage();
+  /**
+   * THE INDEPENDENT WITNESS. M2 recorded ten raw events at the button on one run and could not say
+   * what had happened, because the only instrument was a count. This one records whether each event
+   * was trusted, whether the same event object was seen twice, and when it happened — so the next
+   * ambiguous ten is not ambiguous. See `single-action-probe.mjs`.
+   */
+  await page.addInitScript(installProbe);
   await page.goto(fixtureUrl, { waitUntil: "load" });
   await page.waitForSelector("#submit");
 
@@ -202,7 +210,21 @@ try {
       statusText: document.getElementById("status")?.textContent ?? null,
       submitEvents: (window.__submitEvents ?? []).map((event) => `${event.type}@${event.x},${event.y}`),
       submitDisabled: document.getElementById("submit")?.disabled ?? null,
+      probeInstalls: window.__probeInstalls ?? 0,
+      probe: window.__probe ?? null,
     }));
+
+  /**
+   * What the isolated world says it did, read out of the world that did it.
+   *
+   * A DISPATCH reply says a dispatch was answered; only this says how many were performed. Counts,
+   * refusal codes, ids the core realm minted, a structural selector and page-clock timestamps.
+   */
+  const pageAudit = (identity) =>
+    worker.evaluate(({ tabId, frameId }) => globalThis.__host.pageAudit(tabId, frameId), {
+      tabId: identity.tabId,
+      frameId: identity.frameId,
+    });
 
   // ── ACT 1 — SUCCESS: a real local model answers ─────────────────────────────────────────────
   {
@@ -210,7 +232,7 @@ try {
     const identity = await freshDocument();
     const connections = await worker.evaluate(() => globalThis.__host.transportConnections());
     const run = await runAct("SUCCESS", identity, REASONER_URL);
-    acts.SUCCESS = { ...run, page: await pageTruth(), connections, served: service.captures.length, leaked: leaks(service.captures) };
+    acts.SUCCESS = { ...run, page: await pageTruth(), audit: await pageAudit(identity), connections, served: service.captures.length, leaked: leaks(service.captures) };
     await service.stop();
     service = null;
   }
@@ -220,7 +242,7 @@ try {
     service = await startReasonerService({ mode: "hostile", port: REASONER_PORT, literal: REGISTERED });
     const identity = await freshDocument();
     const run = await runAct("REFUSAL", identity, REASONER_URL);
-    acts.REFUSAL = { ...run, page: await pageTruth(), served: service.captures.length, leaked: leaks(service.captures) };
+    acts.REFUSAL = { ...run, page: await pageTruth(), audit: await pageAudit(identity), served: service.captures.length, leaked: leaks(service.captures) };
     await service.stop();
     service = null;
   }
@@ -229,7 +251,7 @@ try {
   {
     const identity = await freshDocument();
     const run = await runAct("OUTAGE", identity, REASONER_URL);
-    acts.OUTAGE = { ...run, page: await pageTruth(), served: 0, leaked: [] };
+    acts.OUTAGE = { ...run, page: await pageTruth(), audit: await pageAudit(identity), served: 0, leaked: [] };
   }
 
   // ── THE CAPABILITY, IN A REAL BROWSER ───────────────────────────────────────────────────────
@@ -344,6 +366,26 @@ const resultOf = (act) => acts[act]?.outcome?.result ?? null;
 const verificationOf = (act) => recordOf(act)?.act?.verification?.verification ?? null;
 const submitEventsOf = (act) => acts[act]?.page?.submitEvents?.length ?? -1;
 const boundaryOf = (act) => resultOf(act)?.boundary ?? null;
+
+/**
+ * THE SINGLE-ACTION INVARIANT, measured in four places rather than counted in one.
+ *
+ * `fires` is what the isolated world says it dispatched; `seen` is what the page's own main world
+ * witnessed, split by `isTrusted` and matched against those fires. An event that is trusted, or that
+ * falls inside no fire's window, is an event this extension did not cause — which is a different
+ * fact from firing twice, and the distinction M2's evidence could not make.
+ */
+const firesOf = (act) => acts[act]?.audit?.transport?.fires ?? [];
+const actionOf = (act) => ({
+  contentInstances: acts[act]?.audit?.instances ?? null,
+  e6Clicks: acts[act]?.audit?.e6Clicks ?? null,
+  dispatchRequests: acts[act]?.audit?.transport?.dispatchRequests ?? null,
+  firesStarted: acts[act]?.audit?.transport?.firesStarted ?? null,
+  firesCompleted: acts[act]?.audit?.transport?.firesCompleted ?? null,
+  agentRefusals: acts[act]?.audit?.transport?.refusals ?? [],
+  seen: attribute(acts[act]?.page?.probe, firesOf(act)),
+});
+const singleAction = { SUCCESS: actionOf("SUCCESS"), REFUSAL: actionOf("REFUSAL"), OUTAGE: actionOf("OUTAGE") };
 const redactionsOf = (act) => recordOf(act)?.handoff?.redactions ?? [];
 
 /**
@@ -368,7 +410,7 @@ const checks = {
   successAskedAHuman: acts.SUCCESS?.grantAsked != null,
   successRestoredOneValue:
     recordOf("SUCCESS")?.rehydrated?.length === 1 && recordOf("SUCCESS")?.rehydrated?.[0]?.inserted === true,
-  successClickedOnce: submitEventsOf("SUCCESS") === 5,
+  successClickedOnce: submitEventsOf("SUCCESS") === SEQUENCE_LENGTH,
   successSubmittedThePage: acts.SUCCESS?.page?.submitted === "true",
   successRestoredTheRightValue: acts.SUCCESS?.page?.confirmValue === REGISTERED,
 
@@ -426,6 +468,37 @@ const checks = {
   ),
   nothingLeakedToTheReasoner: (acts.SUCCESS?.leaked?.length ?? 1) === 0 && (acts.REFUSAL?.leaked?.length ?? 1) === 0,
   egressReportedClean: (recordOf("SUCCESS")?.ledgerEntry ?? null) !== null,
+
+  // ── one approved task, one browser action (M2-EXEC) ─────────────────────────────────────────
+  //
+  // Four measurements, at the four places the five candidate explanations live: the isolated world's
+  // own fire counter, the content script's instance count, the page's independent witness, and
+  // `isTrusted`. A run that dispatched twice and a run that recorded one dispatch twice now look
+  // different from each other, which they did not before.
+  oneContentScriptPerDocument: ["SUCCESS", "REFUSAL", "OUTAGE"].every((act) => singleAction[act].contentInstances === 1),
+  noOtherClickPathRan: ["SUCCESS", "REFUSAL", "OUTAGE"].every((act) => singleAction[act].e6Clicks === 0),
+  successFiredExactlyOnce:
+    singleAction.SUCCESS.firesStarted === 1 &&
+    singleAction.SUCCESS.firesCompleted === 1 &&
+    singleAction.SUCCESS.dispatchRequests === 1,
+  outageFiredExactlyOnce:
+    singleAction.OUTAGE.firesStarted === 1 &&
+    singleAction.OUTAGE.firesCompleted === 1 &&
+    singleAction.OUTAGE.dispatchRequests === 1,
+  refusalFiredNothing:
+    singleAction.REFUSAL.firesStarted === 0 &&
+    singleAction.REFUSAL.dispatchRequests === 0 &&
+    singleAction.REFUSAL.seen.total === 0,
+  everyObservedEventIsOurs: ["SUCCESS", "OUTAGE"].every(
+    (act) =>
+      singleAction[act].seen.untrusted === SEQUENCE_LENGTH &&
+      singleAction[act].seen.trusted === 0 &&
+      singleAction[act].seen.unattributed === 0 &&
+      singleAction[act].seen.objectSeenTwice === 0
+  ),
+  thePageRegisteredItsOwnListenersOnce: ["SUCCESS", "OUTAGE"].every(
+    (act) => singleAction[act].seen.listenersOnSubmit === SEQUENCE_LENGTH + 1
+  ),
 };
 
 const passed = failure === null && Object.values(checks).every(Boolean);
@@ -451,6 +524,7 @@ const record = {
   checks,
   failure,
   acts,
+  singleAction,
   releaseTests,
   pageForgery,
   workerTraffic,
