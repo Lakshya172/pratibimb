@@ -26,12 +26,12 @@
  */
 import { type EgressRecord, type EgressRefusal } from "@pratibimb/egress";
 import { observePage, type TransportBinding, type TransportRelay } from "@pratibimb/extension-transport";
-import { runTask, type GrantDecision, type GrantRequest, type RunRecord } from "@pratibimb/orchestrator";
+import { runTask, type GrantDecision, type GrantRequest, type Observation, type RunRecord } from "@pratibimb/orchestrator";
 import { deterministicReasoner, localModelReasoner, type ReasonerClient } from "@pratibimb/reasoner";
 
 import { clientHeldFields } from "./client-held-fields";
 import { createExtensionPorts, type ExtensionPortsReport, type RehydrationOutcome } from "./extension-ports";
-import { createReleaseAuthority } from "./value-release";
+import { type ReleaseAuthority } from "./value-release";
 
 /**
  * Lifetimes. **None of these is approved by the repository** — ADR-0008 §5 leaves the permit TTL an
@@ -53,8 +53,38 @@ export interface ExtensionRunRequest {
   readonly requestId: string;
 }
 
+/**
+ * A reading, with everything that could carry a value taken out.
+ *
+ * `fields` holds the client's own details and `graph.nodes` hold accessible names read from the
+ * page, and both would otherwise be in the record that crosses the worker. An allow-list, not a
+ * deny-list: what is listed here is everything that crosses, and adding to it is a decision.
+ */
+export interface ObservationSummary {
+  readonly nodes: number;
+  readonly fields: number;
+  readonly frameId: string;
+  readonly viewport: Observation["viewport"];
+  readonly documentId: string;
+  readonly focusedSelector?: string | null;
+  readonly actionable: readonly string[];
+}
+
+/**
+ * The record, minus the two readings.
+ *
+ * Everything else in a `RunRecord` is value-free by construction and by test: the handoff is the
+ * verified one, the plan is redacted, the reasoner's raw response is dropped before it is stored,
+ * and `rehydrated` carries references and booleans. The observations are the exception, and they
+ * are the reason this projection exists at all.
+ */
+export type CrossableRunRecord = Omit<RunRecord, "initialObservation" | "observation"> & {
+  readonly initialObservation: ObservationSummary | null;
+  readonly observation: ObservationSummary | null;
+};
+
 export interface ExtensionRunResult {
-  readonly record: RunRecord;
+  readonly record: CrossableRunRecord;
   readonly binding: {
     readonly origin: string;
     readonly documentId: string;
@@ -71,10 +101,46 @@ export interface ExtensionRunResult {
 /** How the offscreen realm asks the page to come and collect, and how a human answers. */
 export interface ExtensionRunDeps {
   readonly relay: TransportRelay;
+  /**
+   * The realm's ONE release authority — the same object the `VALUE_RELEASE` handler consults.
+   *
+   * It is passed in rather than created here for a reason worth keeping: a run that made its own
+   * would arm capabilities into a map nothing redeems from, and every restoration would refuse with
+   * `UNKNOWN_OR_CONSUMED_NONCE` while looking, from the outside, exactly like a capability system
+   * working correctly. Arming and redeeming must be the same authority or neither is evidence.
+   */
+  readonly release: ReleaseAuthority;
   rehydrate(binding: TransportBinding, nonce: string, target: string): Promise<RehydrationOutcome>;
   /** Park the request until someone outside this realm decides. Never resolved from in here. */
   askHuman(request: GrantRequest): Promise<GrantDecision>;
 }
+
+const summarise = (observation: Observation | null): ObservationSummary | null =>
+  observation === null
+    ? null
+    : {
+        nodes: observation.graph.nodes.length,
+        fields: observation.fields.length,
+        frameId: String(observation.graph.frameId),
+        viewport: observation.viewport,
+        documentId: observation.documentId,
+        ...(observation.focusedSelector === undefined ? {} : { focusedSelector: observation.focusedSelector }),
+        actionable: [...observation.actionable],
+      };
+
+/**
+ * WHAT MAY LEAVE THIS REALM.
+ *
+ * The run's record is an object of the core realm. Handing it to the worker whole would put the
+ * client's own details into a message every listening context receives — which is the exact thing
+ * the release mechanism exists to avoid, undone by a convenience. So the two readings are replaced
+ * by counts before anything crosses.
+ */
+const crossable = (record: RunRecord): CrossableRunRecord => ({
+  ...record,
+  initialObservation: summarise(record.initialObservation),
+  observation: summarise(record.observation),
+});
 
 export async function runExtensionTask(
   deps: ExtensionRunDeps,
@@ -100,13 +166,12 @@ export async function runExtensionTask(
 
   const grant = { asked: false, granted: null as boolean | null };
 
-  const release = createReleaseAuthority();
   const { ports, report } = createExtensionPorts({
     relay: deps.relay,
     binding,
     origin,
     fields: clientHeldFields(origin),
-    release,
+    release: deps.release,
     rehydrate: (nonce, target) => deps.rehydrate(binding, nonce, target),
     releaseTtlMs: TTL.releaseMs,
     reasoner,
@@ -132,7 +197,7 @@ export async function runExtensionTask(
     });
 
     return {
-      record,
+      record: crossable(record),
       binding: {
         origin,
         documentId: binding.document.documentId,
@@ -146,6 +211,6 @@ export async function runExtensionTask(
     };
   } finally {
     // However the run ended — success, refusal, or a throw — no capability outlives it.
-    release.revokeAll();
+    deps.release.revokeAll();
   }
 }

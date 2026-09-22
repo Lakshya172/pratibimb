@@ -103,12 +103,25 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
     documentId: options.binding.document.documentId,
   };
 
-  // One cycle for the run, built on first use. `guardedAct` reads both bridges from the same object,
-  // and they must belong to the same cycle or the hit test would not be the one the dispatch honours.
+  /**
+   * The frame the most recent reading was taken against.
+   *
+   * THE BRIDGES MUST SPEAK FOR THE FRESH FRAME, NOT THE FIRST ONE. Freshness is decided against the
+   * graph REFRESH produced, and the execution gate then requires the hit-test bridge to be in that
+   * same frame — a bridge still naming the binding's original observation frame is refused with
+   * `BRIDGE_FRAME_MISMATCH`, correctly: it would be looking at a page reading older than the one the
+   * decision was made on. The demo's adapter gets this for free because its bridges read a counter
+   * the adapter bumps; over the transport it has to be carried deliberately.
+   */
+  let latestFrame = options.binding.observationFrameId;
+
+  // One cycle for the run, built on first use — which is after REFRESH, so it inherits that frame.
+  // `guardedAct` reads both bridges from the same object, and they must belong to the same cycle or
+  // the hit test would not be the one the dispatch honours.
   let cycle: ReturnType<typeof createTransportCycle> | null = null;
   const theCycle = (): ReturnType<typeof createTransportCycle> => {
     if (cycle === null) {
-      cycle = createTransportCycle(options.relay, options.binding);
+      cycle = createTransportCycle(options.relay, { ...options.binding, observationFrameId: latestFrame });
       report.cycle = cycle.report;
     }
     return cycle;
@@ -126,6 +139,7 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
   const observe = async (): Promise<Observation> => {
     report.observations += 1;
     const { graph, focus, viewport } = await observeBoundDocument(options.relay, options.binding);
+    latestFrame = graph.frameId;
 
     // Present, visible and enabled right now. `OFFSCREEN` evidence means the element exists but was
     // not in frame, which is not something to act on.
@@ -149,7 +163,11 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
         w: viewport.w,
         h: viewport.h,
         dpr: viewport.dpr,
-        zoom: viewport.zoom,
+        // A content script cannot read the browser's zoom factor, so the transport does not report
+        // one and this records 1 — the same value, and the same reasoning, as the transport's own
+        // `geometryOf`. The coordinate contract forbids using zoom as a multiplier, so nothing is
+        // derived from it. Reporting `undefined` here is what the manifest verifier refuses.
+        zoom: 1,
         scrollX: viewport.scrollX,
         scrollY: viewport.scrollY,
       },

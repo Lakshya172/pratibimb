@@ -72,12 +72,12 @@ export default defineBackground(() => {
     },
     // EXPERIMENT E6: arm a single-use value release for the latest document seen in a tab. The worker
     // handles only the nonce and the document identity — never the value.
-    e6Arm: async (tabId: number, ttlMs: number) => {
+    e6Arm: async (tabId: number, ttlMs: number, selector = "#t") => {
       const hello = [...hellos].reverse().find((h) => h.identity.tabId === tabId);
       if (!hello || hello.identity.documentId === null || hello.identity.frameId === null) return { refused: "NO_DOCUMENT_FOR_TAB" };
       await ensureOffscreen();
       const r = (await chrome.runtime.sendMessage({
-        target: "offscreen", kind: "E6_ARM", tabId, frameId: hello.identity.frameId, documentId: hello.identity.documentId, ref: "<PII:PHONE:1>", selector: "#t", ttlMs,
+        target: "offscreen", kind: "E6_ARM", tabId, frameId: hello.identity.frameId, documentId: hello.identity.documentId, ref: "<PII:PHONE:1>", selector, ttlMs,
       })) as { armed: boolean; nonce?: string; refused?: string };
       // The nonce is minted by the core realm, not here. This worker asks for a capability and is
       // told what it is called; it cannot name one into existence.

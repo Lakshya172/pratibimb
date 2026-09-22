@@ -22,8 +22,17 @@
 import { type ObservedField } from "@pratibimb/privacy";
 
 /**
- * The details a user of the M1 fixture would already have given this client, keyed by the field each
- * one belongs to. `#mobile_confirm` is deliberately absent: it is what the run has to fill in.
+ * The form controls of the M1 fixture, with the values the client already holds.
+ *
+ * TWO DIFFERENT THINGS ARE IN THIS TABLE and the distinction matters. The **descriptors** — id,
+ * label, input type, autocomplete — are page structure, the same class of thing the element graph
+ * already carries across the transport. The **values** are the client's own. Only the second kind is
+ * a secret, and only the second kind is why this table is compiled in rather than observed.
+ *
+ * `#mobile_confirm` is here with an empty value on purpose. It holds nothing, so it tokenises
+ * nothing and reaches no vault — but without it the binder sees a field it cannot classify, answers
+ * `AMBIGUOUS_FIELD`, and no human grant can authorise a restoration into it. A field's declared
+ * class is what makes consent about something specific.
  */
 const SYNTHETIC_PROFILE: readonly Omit<ObservedField, "origin">[] = Object.freeze([
   { id: "#name", value: "Ramesh Kumar", label: "Full name", type: "text", autocomplete: "name" },
@@ -31,6 +40,7 @@ const SYNTHETIC_PROFILE: readonly Omit<ObservedField, "origin">[] = Object.freez
   { id: "#aadhaar", value: "2345 6789 0124", label: "Aadhaar number", type: "text" },
   { id: "#dob", value: "1998-04-12", label: "Date of birth", type: "date" },
   { id: "#otp", value: "482913", label: "OTP", type: "text", autocomplete: "one-time-code" },
+  { id: "#mobile_confirm", value: "", label: "Confirm mobile number", type: "tel", autocomplete: "tel" },
 ]);
 
 /**

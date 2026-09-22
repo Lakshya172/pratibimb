@@ -50,9 +50,24 @@ export function roleOf(element: Element): string {
   return "generic";
 }
 
-/** MVP-2's name template, unchanged: structural UI text only, bounded. */
+/**
+ * The accessible name: a control's label, bounded. Structural UI text only.
+ *
+ * A `<label for=…>` FIRST, because that is what a person reads beside the field and what an
+ * accessible name is. An input has no text of its own, so a rule that starts at `textContent` names
+ * every form control the empty string — and an unnamed field is one the planner cannot find, the
+ * binder cannot classify, and a human cannot be meaningfully asked about. This is the same template
+ * `apps/demo/src/pageAdapter.ts` uses, deliberately: the two sides must read one page the same way.
+ *
+ * Never a value, never an `href`, never the inner text of an arbitrary node.
+ */
 export function nameOf(element: Element): string {
-  return (element.getAttribute("aria-label") || element.textContent || "").trim().slice(0, 60);
+  const labelled = (element as HTMLInputElement).labels?.[0];
+  if (labelled?.textContent) return labelled.textContent.trim().slice(0, 60);
+  const aria = element.getAttribute("aria-label");
+  if (aria) return aria.trim().slice(0, 60);
+  if (element.tagName === "INPUT") return "";
+  return (element.textContent ?? "").trim().slice(0, 60);
 }
 
 /**

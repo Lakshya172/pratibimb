@@ -172,6 +172,7 @@ async function runTask(request: ExtensionRunRequest): Promise<ExtensionRunResult
   const task = runExtensionTask(
     {
       relay: chromeRelay,
+      release: valueRelease,
       rehydrate,
       askHuman: (grantRequest) =>
         new Promise<GrantDecision>((resolve) => {
