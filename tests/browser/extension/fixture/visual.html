@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>State Services — document check</title>
+    <link rel="icon" href="data:," />
+    <style>
+      /* Fixed everything. A perception fixture whose geometry moves measures the browser's
+         layout engine rather than the detector. No web fonts, no transitions, no media queries. */
+      * { box-sizing: border-box; }
+      body { font: 14px/1.4 Arial, Helvetica, sans-serif; margin: 0; padding: 24px; color: #1a1a1a; background: #fff; width: 1024px; }
+      h1 { font-size: 18px; margin: 0 0 4px; }
+      p.lede { margin: 0 0 16px; color: #555; }
+      fieldset { border: 1px solid #ddd; border-radius: 6px; margin: 0 0 16px; padding: 12px 14px; }
+      legend { font-weight: 700; padding: 0 6px; color: #444; }
+      label { display: block; margin: 10px 0 4px; font-weight: 700; }
+      input { width: 400px; height: 32px; padding: 6px 8px; font: inherit; border: 1px solid #bbb; border-radius: 4px; }
+      button { margin-top: 12px; width: 180px; height: 36px; font: inherit; font-weight: 700; border-radius: 4px; border: 1px solid #2f6f4f; background: #35815b; color: #fff; }
+      #idcard { display: block; border: 1px solid #999; }
+      nav a { margin-right: 16px; color: #14488f; }
+      #status { margin-top: 16px; padding: 9px 10px; background: #f3f3f3; border-radius: 4px; border-left: 4px solid #999; width: 600px; }
+    </style>
+  </head>
+  <body>
+    <!--
+      M3.1 PERCEPTION FIXTURE. Separate from the demo's `application.html`, which belongs to the
+      frozen presentation branch and is not touched.
+
+      WHAT THIS PAGE EXISTS TO SEPARATE. One region carries a sensitive-looking identifier that is
+      **not recoverable from the DOM at all**: it is drawn into a canvas, so there is no value, no
+      accessible name, no attribute and no text node anywhere that holds it. Everything the DOM path
+      can say about it is "there is a canvas here, 420x260, at this position".
+
+      That is the honest distinction this milestone needs, and it cuts both ways. It is what makes
+      "DOM evidence" and "visual evidence" different things rather than two names for the same
+      reading — and it is also the case the client CANNOT protect, because there is no OCR in this
+      milestone and the detector emits boxes and class labels, never characters. A number the client
+      cannot read is a number the client cannot redact. That is recorded as a limitation, not
+      papered over.
+
+      Every value is synthetic (SECURITY.md §2): no real person, no real number. The canvas
+      identifier is deliberately NOT Verhoeff-valid, so that nothing here can be mistaken for the
+      demo's true-positive Aadhaar vector.
+    -->
+    <h1>Upload your identity document</h1>
+    <p class="lede">Check the scanned document below, then type the reference shown on it.</p>
+
+    <nav>
+      <a href="#help" id="help-link">Help</a>
+      <a href="#privacy" id="privacy-link">Privacy notice</a>
+    </nav>
+
+    <fieldset>
+      <legend>Scanned document</legend>
+      <!--
+        THE VISUAL-ONLY REGION. A canvas, and therefore opaque to every DOM reader in this
+        repository: `value` does not exist on it, `textContent` is empty, and there is no label,
+        placeholder or aria attribute carrying what it shows.
+      -->
+      <canvas id="idcard" width="420" height="260" aria-label="Scanned identity document"></canvas>
+    </fieldset>
+
+    <fieldset>
+      <legend>Confirm</legend>
+      <label for="reference">Document reference</label>
+      <input id="reference" name="document_reference" type="text" value="" autocomplete="off" />
+      <button id="submit" type="button">Submit check</button>
+    </fieldset>
+
+    <p id="status" role="status" data-submitted="false">Not submitted</p>
+
+    <script>
+      // Deterministic and local: no network, no timers, no animation, no randomness.
+      (function () {
+        const canvas = document.getElementById("idcard");
+        const ctx = canvas.getContext("2d");
+
+        // A card-looking block. Solid fills and integer coordinates, so the rendering is the same
+        // on every run; only text antialiasing can differ, and no measurement here depends on it.
+        ctx.fillStyle = "#eef2f7";
+        ctx.fillRect(0, 0, 420, 260);
+        ctx.fillStyle = "#14488f";
+        ctx.fillRect(0, 0, 420, 44);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 16px Arial";
+        ctx.fillText("STATE SERVICES — IDENTITY", 14, 28);
+
+        // The photo box: a plain rectangle, so the fixture has a non-text visual region too.
+        ctx.fillStyle = "#c9d3e0";
+        ctx.fillRect(14, 60, 110, 130);
+        ctx.strokeStyle = "#8a97a8";
+        ctx.strokeRect(14, 60, 110, 130);
+
+        ctx.fillStyle = "#1a1a1a";
+        ctx.font = "13px Arial";
+        ctx.fillText("Name", 140, 80);
+        ctx.font = "bold 15px Arial";
+        ctx.fillText("Ramesh Kumar", 140, 100);
+
+        ctx.font = "13px Arial";
+        ctx.fillStyle = "#555";
+        ctx.fillText("Document reference", 140, 132);
+        // SYNTHETIC, and deliberately not a valid Aadhaar: this must never be confused with the
+        // demo fixture's checksum-valid true-positive vector.
+        ctx.fillStyle = "#1a1a1a";
+        ctx.font = "bold 20px Arial";
+        ctx.fillText("7712 4408 9931", 140, 158);
+
+        ctx.font = "13px Arial";
+        ctx.fillStyle = "#555";
+        ctx.fillText("Issued", 140, 188);
+        ctx.fillStyle = "#1a1a1a";
+        ctx.font = "bold 15px Arial";
+        ctx.fillText("2021-06-04", 140, 208);
+
+        ctx.strokeStyle = "#999";
+        ctx.strokeRect(0.5, 0.5, 419, 259);
+
+        /**
+         * The page accepts only the reference that is on the card — which the DOM does not hold.
+         * So a run that submits successfully has necessarily read it from PIXELS, and in this
+         * milestone nothing can, which is the point the fixture is here to make measurable.
+         */
+        const submit = document.getElementById("submit");
+        const status = document.getElementById("status");
+        window.__submitEvents = [];
+        for (const type of ["pointerdown", "mousedown", "pointerup", "mouseup", "click"]) {
+          submit.addEventListener(type, (event) => {
+            window.__submitEvents.push({ type: event.type, x: event.clientX, y: event.clientY });
+          });
+        }
+        submit.addEventListener("click", () => {
+          if (submit.disabled) return;
+          const typed = document.getElementById("reference").value.trim();
+          if (typed === "7712 4408 9931") {
+            status.textContent = "Document check submitted";
+            status.dataset.submitted = "true";
+            submit.disabled = true;
+            return;
+          }
+          status.textContent = "Reference does not match the document";
+          status.dataset.submitted = "false";
+        });
+
+        /**
+         * The ground truth this fixture is evaluated against, in CSS pixels.
+         *
+         * Written by the page itself rather than by the harness, because the page is the only thing
+         * that knows where it laid itself out. Read back with `getBoundingClientRect`, so a layout
+         * that shifted is a changed number rather than a silent mismatch.
+         *
+         * `targets` are regions a UI detector could reasonably be expected to find. `empty` are
+         * regions with nothing interactable in them at all, for counting false positives.
+         */
+        const rect = (id) => {
+          const r = document.getElementById(id).getBoundingClientRect();
+          return { id, x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) };
+        };
+        window.__groundTruth = {
+          // Interactable, and described by the DOM.
+          targets: [rect("reference"), rect("submit"), rect("help-link"), rect("privacy-link")],
+          // Visible, sensitive-looking, and NOT described by the DOM beyond its own box.
+          visualOnly: [rect("idcard")],
+          // Nothing interactable lives here. A detection inside one is a false positive.
+          empty: [
+            { id: "lede", ...(() => { const r = document.querySelector("p.lede").getBoundingClientRect(); return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) }; })() },
+            { id: "status", ...(() => { const r = document.getElementById("status").getBoundingClientRect(); return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) }; })() },
+          ],
+        };
+        window.__fixtureReady = true;
+      })();
+    </script>
+  </body>
+</html>

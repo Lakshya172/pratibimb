@@ -65,6 +65,7 @@ import {
   geometryFrom,
   isThrottleSignature,
   preprocessToTensor,
+  PROVISIONAL_THRESHOLDS,
   projectElement,
   toVisualDetections,
 } from "@pratibimb/perception";
@@ -139,6 +140,28 @@ export interface PerceptionSummary {
    * and it never becomes a value reference. It is counted, and it stays visual evidence.
    */
   readonly sourceBySelector: Readonly<Record<string, SanitizedElement["source"]>>;
+  /**
+   * EVALUATION ONLY, and absent from every ordinary pass.
+   *
+   * A detector evaluation needs the boxes themselves and the count at each stage; a run does not,
+   * and carrying a hundred boxes in every record would put geometry into the manifest that nothing
+   * downstream asked for. So it is an optional field a caller must ask for, and the run loop never
+   * does. Boxes and class labels only — the same value-free geometry the manifest already carries.
+   */
+  readonly detail?: {
+    /** Candidate anchors the head emitted, read off the output tensor. */
+    readonly anchors: number;
+    /**
+     * What survived the whole of the package's filtering: score floor, per-class NMS, the
+     * detection cap, and the drop of anything lying in the letterbox padding.
+     *
+     * ONE NUMBER, not four. `Detector.detect` returns only the end of that chain, and reporting
+     * the same value under several stage names would look like a measurement of each.
+     */
+    readonly afterFiltering: number;
+    readonly threshold: number;
+    readonly detections: readonly { readonly box: { x: number; y: number; w: number; h: number }; readonly label: string; readonly score: number }[];
+  };
   readonly ms: {
     /** Obtaining the frame: the stream handshake, or the worker's capture round trip. */
     readonly capture: number;
@@ -218,7 +241,7 @@ export interface PerceptionRealmDeps {
 
 export interface PerceptionRealm {
   /** Capture, detect and fuse against a DOM graph this realm already has. Never throws. */
-  perceive(graph: ElementGraph, measurement: ViewportMeasurement): Promise<PerceptionSummary>;
+  perceive(graph: ElementGraph, measurement: ViewportMeasurement, options?: { readonly collect?: boolean }): Promise<PerceptionSummary>;
   readonly modelId: string;
   readonly revision: string;
 }
@@ -238,6 +261,8 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
   let current: DecodedImage | null = null;
   /** Rasterise-and-normalise time, accumulated inside the pass so it is reported, not inferred. */
   let preprocessMs = 0;
+  /** The head's anchor count, read off the output tensor rather than assumed from the contract. */
+  let anchors = 0;
 
   const runtime: HeadRuntime | null =
     deps.session === null || deps.ort === null
@@ -262,6 +287,7 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
             const out = await session.run(feeds);
             const first = out[session.outputNames[0] as string];
             if (!first) throw new Error("the session produced no output tensor");
+            anchors = first.dims[2] ?? 0;
             return { data: first.data, dims: first.dims };
           },
         };
@@ -272,8 +298,13 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
     modelId: detector.modelId,
     revision: detector.revision,
 
-    async perceive(graph: ElementGraph, measurement: ViewportMeasurement): Promise<PerceptionSummary> {
+    async perceive(
+      graph: ElementGraph,
+      measurement: ViewportMeasurement,
+      options: { readonly collect?: boolean } = {}
+    ): Promise<PerceptionSummary> {
       const started = now();
+      anchors = 0;
       current = null;
       preprocessMs = 0;
       let decodeMs = 0;
@@ -427,6 +458,20 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
         },
         elements,
         sourceBySelector,
+        ...(options.collect
+          ? {
+              detail: {
+                anchors,
+                afterFiltering: visual.length,
+                threshold: PROVISIONAL_THRESHOLDS.score,
+                detections: visual.map((d) => ({
+                  box: { x: d.box.x, y: d.box.y, w: d.box.w, h: d.box.h },
+                  label: d.label,
+                  score: d.score,
+                })),
+              },
+            }
+          : {}),
         ms: { capture: captureMs, decode: decodeMs, encode: encodeMs, preprocess: preprocessMs, infer: inferMs, fuse: fuseMs, total: now() - started },
       };
     },

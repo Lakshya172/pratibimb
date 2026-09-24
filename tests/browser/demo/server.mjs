@@ -45,6 +45,14 @@ function locate(pathname) {
   if (pathname === "/" || pathname === "/index.html") return join(ROOT, "apps/demo/index.html");
   if (pathname === "/planning-view.css") return join(ROOT, "apps/demo/planning-view.css");
   if (pathname === "/fixture" || pathname === "/fixture/") return join(HERE, "fixture/application.html");
+  /**
+   * M3.1's perception fixture, which is NOT the demo's.
+   *
+   * `application.html` belongs to the frozen presentation branch and is left exactly as it is. The
+   * visual fixture lives beside the extension harness that uses it and is reachable only at its own
+   * path, so nothing the demo serves or renders changes.
+   */
+  if (pathname === "/visual" || pathname === "/visual/") return join(ROOT, "tests/browser/extension/fixture/visual.html");
 
   if (pathname.startsWith("/demo/")) {
     return join(ROOT, "apps/demo/dist/src", pathname.slice("/demo/".length));

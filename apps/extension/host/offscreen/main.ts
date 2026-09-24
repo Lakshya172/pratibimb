@@ -291,7 +291,8 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
     | { target: "offscreen"; kind: "GRANT_PEEK" }
     | { target: "offscreen"; kind: "GRANT_DECIDE"; granted: boolean }
     | { target: "offscreen"; kind: "REALM_PROBE" }
-    | { target: "offscreen"; kind: "STREAM_CONSUME"; streamId: string };
+    | { target: "offscreen"; kind: "STREAM_CONSUME"; streamId: string }
+    | { target: "offscreen"; kind: "PERCEIVE_ONCE"; tabId: number; frameId: number };
   if (msg?.target !== "offscreen") return false;
   if (!isFromThisExtension(sender)) {
     sendResponse({ refused: "SENDER_NOT_ACCEPTED" });
@@ -333,6 +334,54 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
         }
       }
       sendResponse({ realm: "offscreen", surface, capture, perceptionBoot });
+    })();
+    return true;
+  }
+  /**
+   * TEST AND EVALUATION ONLY: one perception pass, through the product realm.
+   *
+   * The same capture authority, the same session, the same head and the same fusion the run loop
+   * drives -- so what an evaluation measures is the shipped configuration rather than a bench rig
+   * that resembles it. `collect` asks for the boxes, which an ordinary pass never carries.
+   */
+  if (msg.kind === "PERCEIVE_ONCE") {
+    void (async () => {
+      captureTabId = msg.tabId;
+      try {
+        const binding = { tabId: msg.tabId, frameId: msg.frameId };
+        const observed = await observePage(chromeRelay, binding);
+        const realm = await ensurePerception();
+        const summary = await realm.perceive(
+          observed.graph,
+          {
+            dpr: observed.viewport.dpr,
+            zoom: 1,
+            viewportCssWidth: observed.viewport.w,
+            viewportCssHeight: observed.viewport.h,
+            scrollX: observed.viewport.scrollX,
+            scrollY: observed.viewport.scrollY,
+            origin: observed.binding.document.origin,
+          },
+          { collect: true }
+        );
+        sendResponse({
+          refused: summary.ran ? null : summary.refusal,
+          route: summary.route,
+          capture: summary.capture,
+          byClass: summary.detector.byClass,
+          fusion: summary.fusion,
+          ms: summary.ms,
+          viewport: { w: observed.viewport.w, h: observed.viewport.h },
+          anchors: summary.detail?.anchors ?? 0,
+          afterFiltering: summary.detail?.afterFiltering ?? 0,
+          threshold: summary.detail?.threshold ?? null,
+          detections: summary.detail?.detections ?? [],
+        });
+      } catch (e) {
+        sendResponse({ refused: { code: "PERCEIVE_ONCE_THREW", detail: e instanceof Error ? e.message : String(e) } });
+      } finally {
+        captureTabId = -1;
+      }
     })();
     return true;
   }

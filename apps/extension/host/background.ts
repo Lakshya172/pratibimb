@@ -143,6 +143,11 @@ export default defineBackground(() => {
      */
     pageAudit: (tabId: number, frameId: number) =>
       chrome.tabs.sendMessage(tabId, { kind: "DISPATCH_AUDIT" }, { frameId }),
+    /** TEST AND EVALUATION ONLY: one perception pass through the product realm. */
+    perceiveOnce: async (tabId: number, frameId: number) => {
+      await ensureOffscreen();
+      return chrome.runtime.sendMessage({ target: "offscreen", kind: "PERCEIVE_ONCE", tabId, frameId });
+    },
     /** TEST-ONLY: the grants a human produced, and whether the degraded path is compiled in. */
     captureState: () => ({ grants: capture.grants(), workerFrameEnabled: __M3_WORKER_FRAME__ }),
     /**

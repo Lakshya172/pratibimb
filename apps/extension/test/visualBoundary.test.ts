@@ -14,7 +14,7 @@ import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { UI_CLASSES } from "@pratibimb/perception";
+import { UI_CLASSES, UI_DETECTOR_ROLE, cssBox, docBox, frameId, fuse, nodeId } from "@pratibimb/perception";
 
 import { perceptionRefused, type PerceptionSummary } from "../host-lib/perception-realm";
 
@@ -140,5 +140,116 @@ describe("the visual tier cannot carry pixels out of its realm", () => {
     expect(config).toContain("M3_WORKER_FRAME");
     const defaultBranch = /: \["http:\/\/127\.0\.0\.1\/\*"\];/.test(config);
     expect(defaultBranch, "the default host_permissions branch is loopback only").toBe(true);
+  });
+});
+
+/**
+ * M3.1 — VISUAL EVIDENCE STAYS VISUAL EVIDENCE.
+ *
+ * The detector has high recall and roughly four percent precision — QG-05 measured 3947 predictions
+ * for 202 buttons on the model's own held-out set — so most of what it emits matches nothing. The
+ * question is not whether that noise exists but what the system is allowed to do with it.
+ *
+ * The rule these tests hold is one sentence: **a box only pixels assert may be counted, and may not
+ * become anything a plan can name or a vault can hold.** Provenance is a discriminated union rather
+ * than a confidence number for exactly this reason — after averaging, "the DOM says a field is
+ * here" and "a detector thinks something is here" are indistinguishable, and they must not be.
+ */
+describe("fusion semantics for visual-only evidence", () => {
+  const graph = {
+    frameId: frameId("f1"),
+    nodes: [
+      {
+        id: nodeId("n1"),
+        domRef: { selector: "#reference" },
+        role: "textbox",
+        name: "Document reference",
+        box: cssBox(140, 300, 400, 32),
+        // `fuse` matches against the EVIDENCE's viewport box, not against `node.box` — an element
+        // with no pixels in this frame has nothing a detection could be attributed to, which is
+        // the off-screen rule doing its job. So the evidence has to be real here.
+        evidence: {
+          kind: "OBSERVED" as const,
+          frameId: frameId("f1"),
+          viewportBox: cssBox(140, 300, 400, 32),
+          documentBox: docBox(140, 300, 400, 32),
+        },
+        enabled: true,
+      },
+    ],
+    byId: new Map(),
+  };
+  graph.byId.set(graph.nodes[0]!.id, graph.nodes[0]!);
+
+  const detection = (x: number, y: number, w: number, h: number, label = "textbox", score = 0.9) => ({
+    box: cssBox(x, y, w, h),
+    label,
+    score,
+    role: UI_DETECTOR_ROLE,
+    frameId: frameId("f1"),
+    modelId: "pratibimb-t1-ui-head",
+    revision: "ba6d9e93695b",
+  });
+
+  const geometry = {
+    dpr: 1,
+    zoom: 1,
+    viewportCss: { w: 1280, h: 720 },
+    captureSize: { w: 1280, h: 720 },
+    scroll: { x: 0, y: 0 },
+    origin: "http://127.0.0.1:8975",
+  };
+
+  it("marks an element dom+vision only when both actually contributed", () => {
+    const overlapping = fuse(graph, [detection(140, 300, 400, 32)], true, geometry);
+    expect(overlapping.matchedCount).toBe(1);
+    expect(overlapping.elements[0]?.provenance.source).toBe("dom+vision");
+
+    // The same DOM node, with the detector finding nothing near it, stays dom — and says WHY,
+    // because "vision missed it" and "it was off screen" are different facts.
+    const missed = fuse(graph, [detection(900, 20, 40, 40)], true, geometry);
+    const domOnly = missed.elements.find((e) => e.provenance.source === "dom");
+    expect(domOnly).toBeDefined();
+    expect(domOnly?.provenance.source === "dom" && domOnly.provenance.visualAbsence).toBe("NOT_DETECTED");
+  });
+
+  it("says NO_DETECTOR rather than NOT_DETECTED when the detector never ran", () => {
+    // A detector that could not run and a detector that looked and found nothing are not the same
+    // claim, and an element that conflated them would overstate what the client checked.
+    const noDetector = fuse(graph, [], false, geometry);
+    const element = noDetector.elements[0];
+    expect(element?.provenance.source === "dom" && element.provenance.visualAbsence).toBe("NO_DETECTOR");
+  });
+
+  it("keeps a vision-only box out of everything a plan could name", () => {
+    const result = fuse(graph, [detection(140, 300, 400, 32), detection(900, 20, 40, 40, "button")], true, geometry);
+    expect(result.visionOnlyCount).toBe(1);
+
+    const visionOnly = result.elements.find((e) => e.provenance.source === "vision");
+    expect(visionOnly).toBeDefined();
+    // It has a synthetic id and no DOM reference, so there is nothing for the manifest to key it
+    // to. That is the mechanism, not a convention: `sourceBySelector` is built by looking each
+    // fused element up in the graph, and this one is not in it.
+    expect(graph.byId.get(visionOnly!.id)).toBeUndefined();
+  });
+
+  it("never turns a detection into a vault entry, because a box is not a literal", () => {
+    // The vault is opened by `classifyObservation` in the page realm, over DOM field VALUES. The
+    // detector runs in a different realm, emits boxes and class labels, and has no path to it.
+    // This is the source rule for that: nothing in the perception adapter touches the vault.
+    const realm = withoutComments(readFileSync(join(APP, "host-lib", "perception-realm.ts"), "utf8"));
+    expect(realm).not.toContain("createVault");
+    expect(realm).not.toContain("Vault");
+    expect(realm).not.toContain("rehydrate");
+    expect(realm).not.toContain("piiClass");
+  });
+
+  it("carries a score alongside provenance rather than blended into it", () => {
+    const result = fuse(graph, [detection(140, 300, 400, 32, "textbox", 0.42)], true, geometry);
+    const element = result.elements[0];
+    expect(element?.provenance.source).toBe("dom+vision");
+    // A DOM-only element at 0.9 and a vision-only one at 0.9 warrant completely different
+    // treatment; after averaging they are the same number.
+    expect(element?.provenance.source === "dom+vision" && element.provenance.detection.score).toBe(0.42);
   });
 });
