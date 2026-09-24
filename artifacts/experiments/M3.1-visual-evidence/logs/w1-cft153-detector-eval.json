@@ -1,0 +1,186 @@
+{
+  "experiment": "M3.1-visual-evidence / detector evaluation",
+  "status": "CONDITIONAL / EXPERIMENTAL",
+  "claim": "what the shipped detector configuration produces on one synthetic page with ground truth the page itself declares — staged counts, a score distribution, overlap with known targets, and false positives in regions with nothing interactable in them",
+  "notAClaim": [
+    "not an accuracy measurement: one page, one layout, one browser cell, no corpus",
+    "nothing was tuned against this output; the thresholds are the shipped ones",
+    "QG-05 remains the standing evaluation, and its held-out numbers are not re-derived here",
+    "no claim that the detector can read anything: it emits boxes and class labels, never characters"
+  ],
+  "standingEvaluation": {
+    "source": "artifacts/gates/T1-detector-training/qg05-detector-evaluation.json",
+    "note": "held-out synthetic test split; the model's own evaluation, not this fixture",
+    "mAP50": 0.7955363455302848,
+    "elementRecall": 0.9228723404255319,
+    "groundingAccuracy": 0.05472322977448352,
+    "buttonClass": {
+      "groundTruth": 202,
+      "predictions": 3947,
+      "truePositives": 165,
+      "falsePositives": 3782
+    }
+  },
+  "recordedAt": "2026-09-24T06:10:09.009Z",
+  "provenance": {
+    "workstation": "W1",
+    "host": "LAPTOP-6E14K34L",
+    "workstationSource": "registry",
+    "os": "win32 10.0.26200",
+    "cpu": "Intel(R) Core(TM) 7 240H",
+    "node": "v24.19.0",
+    "playwright": "1.63.0",
+    "browserBinary": "C:/Users/RONIT/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe",
+    "headless": false,
+    "extensionPath": "D:\\PratiBimb\\apps\\extension\\.output\\chrome-mv3",
+    "fixture": "tests/browser/extension/fixture/visual.html"
+  },
+  "failure": null,
+  "result": {
+    "anchors": 6400,
+    "afterFiltering": 63,
+    "detections": 63,
+    "byClass": {
+      "link": 21,
+      "button": 28,
+      "textbox": 13,
+      "tab": 1
+    },
+    "scoreDistribution": {
+      "min": 0.251,
+      "p25": 0.34,
+      "median": 0.436,
+      "p75": 0.632,
+      "max": 0.934,
+      "threshold": 0.25
+    },
+    "boxArea": {
+      "medianPx": 4816.722258772817,
+      "overHalfTheViewport": 0
+    },
+    "targets": [
+      {
+        "id": "reference",
+        "box": {
+          "id": "reference",
+          "x": 39,
+          "y": 510,
+          "w": 400,
+          "h": 32
+        },
+        "matched": true,
+        "iou": 0.6206567691794097,
+        "label": "textbox",
+        "detectorScore": 0.3577224910259247
+      },
+      {
+        "id": "submit",
+        "box": {
+          "id": "submit",
+          "x": 443,
+          "y": 508,
+          "w": 180,
+          "h": 36
+        },
+        "matched": false,
+        "iou": 0.21562565422311425,
+        "label": "link",
+        "detectorScore": 0.2513316869735718
+      },
+      {
+        "id": "help-link",
+        "box": {
+          "id": "help-link",
+          "x": 24,
+          "y": 90,
+          "w": 29,
+          "h": 16
+        },
+        "matched": false,
+        "iou": 0.20846274086400268,
+        "label": "link",
+        "detectorScore": 0.6971758008003235
+      },
+      {
+        "id": "privacy-link",
+        "box": {
+          "id": "privacy-link",
+          "x": 73,
+          "y": 90,
+          "w": 87,
+          "h": 16
+        },
+        "matched": true,
+        "iou": 0.6463921938214873,
+        "label": "link",
+        "detectorScore": 0.9049592018127441
+      }
+    ],
+    "visualOnly": [
+      {
+        "id": "idcard",
+        "box": {
+          "id": "idcard",
+          "x": 39,
+          "y": 140,
+          "w": 422,
+          "h": 262
+        },
+        "detectionsInside": 20,
+        "bestIou": 0.066
+      }
+    ],
+    "empty": [
+      {
+        "id": "lede",
+        "box": {
+          "id": "lede",
+          "x": 24,
+          "y": 53,
+          "w": 976,
+          "h": 20
+        },
+        "falsePositives": 9
+      },
+      {
+        "id": "status",
+        "box": {
+          "id": "status",
+          "x": 24,
+          "y": 572,
+          "w": 600,
+          "h": 38
+        },
+        "falsePositives": 1
+      }
+    ],
+    "fusion": {
+      "matched": 2,
+      "visionOnly": 61,
+      "domOnly": 4,
+      "overlaySuspected": 3
+    },
+    "viewport": {
+      "w": 1280,
+      "h": 720
+    },
+    "capture": {
+      "w": 1600,
+      "h": 900,
+      "format": "png",
+      "bytes": 55147,
+      "dpr": 1.0000000149011612,
+      "scaleToCss": 0.8
+    },
+    "route": "WORKER_FRAME",
+    "ms": {
+      "capture": 84,
+      "decode": 25,
+      "encode": 0,
+      "preprocess": 52,
+      "infer": 81,
+      "fuse": 1,
+      "total": 245
+    }
+  }
+}

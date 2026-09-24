@@ -64,6 +64,9 @@
     "theDetectorProducedGeometryNotText": true,
     "fusionJoinedDomAndVision": true,
     "theCoordinateContractIsDerivedNotAssumed": true,
+    "everyPassRecordsItsRoute": true,
+    "everyPassSaysWhetherTheWorkerSawPixels": true,
+    "theDegradedRouteIsReportedHonestly": true,
     "theHandoffDeclaresTheVisualTier": true,
     "elementsCarryFusionProvenance": true,
     "noPixelsInTheHandoffThatWasSent": true,
@@ -98,82 +101,82 @@
               {
                 "from": "IDLE",
                 "to": "OBSERVE",
-                "at": 1790094524543,
+                "at": 1790230368369,
                 "elapsedMs": 0
               },
               {
                 "from": "OBSERVE",
                 "to": "SANITIZE",
-                "at": 1790094525373,
-                "elapsedMs": 830
+                "at": 1790230369156,
+                "elapsedMs": 787
               },
               {
                 "from": "SANITIZE",
                 "to": "VERIFY_PAYLOAD",
-                "at": 1790094525386,
-                "elapsedMs": 843
+                "at": 1790230369172,
+                "elapsedMs": 803
               },
               {
                 "from": "VERIFY_PAYLOAD",
                 "to": "SEND",
-                "at": 1790094525386,
-                "elapsedMs": 843
+                "at": 1790230369172,
+                "elapsedMs": 803
               },
               {
                 "from": "SEND",
                 "to": "VALIDATE_PLAN",
-                "at": 1790094527381,
-                "elapsedMs": 2838
+                "at": 1790230371151,
+                "elapsedMs": 2782
               },
               {
                 "from": "VALIDATE_PLAN",
                 "to": "AWAIT_GRANT",
-                "at": 1790094527382,
-                "elapsedMs": 2839
+                "at": 1790230371152,
+                "elapsedMs": 2783
               },
               {
                 "from": "AWAIT_GRANT",
                 "to": "REHYDRATE",
-                "at": 1790094527542,
-                "elapsedMs": 2999
+                "at": 1790230371362,
+                "elapsedMs": 2993
               },
               {
                 "from": "REHYDRATE",
                 "to": "ACT",
-                "at": 1790094527680,
+                "at": 1790230371506,
                 "elapsedMs": 3137
               },
               {
                 "from": "ACT",
                 "to": "VERIFY_RESULT",
-                "at": 1790094527680,
+                "at": 1790230371506,
                 "elapsedMs": 3137
               },
               {
                 "from": "VERIFY_RESULT",
                 "to": "DONE",
-                "at": 1790094527828,
-                "elapsedMs": 3285
+                "at": 1790230371655,
+                "elapsedMs": 3286
               }
             ],
             "timings": {
-              "observeMs": 830,
-              "sanitizeMs": 13,
+              "observeMs": 787,
+              "sanitizeMs": 16,
               "verifyPayloadMs": 0,
-              "sendMs": 1995,
-              "validatePlanMs": 1,
-              "grantMs": 160,
-              "rehydrateMs": 3,
-              "refreshMs": 135,
-              "verifyResultMs": 143,
-              "actMs": 148,
-              "totalMs": 3285
+              "sendMs": 1979,
+              "validatePlanMs": 0,
+              "grantMs": 210,
+              "rehydrateMs": 4,
+              "refreshMs": 140,
+              "verifyResultMs": 141,
+              "actMs": 149,
+              "totalMs": 3286
             },
             "refusal": null,
             "initialObservation": {
               "nodes": 14,
               "fields": 0,
-              "frameId": "transport-8853ce53-fa32-4701-bdad-ebd005c55156",
+              "frameId": "transport-237c934d-5e31-4aaf-8c92-0429d67cf886",
               "viewport": {
                 "w": 1280,
                 "h": 720,
@@ -182,7 +185,7 @@
                 "scrollX": 0,
                 "scrollY": 0
               },
-              "documentId": "6F8FFF5ABBE4FD5F838081842C42100C",
+              "documentId": "BFB5EACFFDA07D5400F0E7127523522A",
               "focusedSelector": null,
               "actionable": [
                 "label",
@@ -199,7 +202,7 @@
             "observation": {
               "nodes": 14,
               "fields": 0,
-              "frameId": "transport-f24f7bd9-63b8-49a0-aef1-0d509dbeae02",
+              "frameId": "transport-43974471-8fc0-49a6-927d-be98e85f17cb",
               "viewport": {
                 "w": 1280,
                 "h": 720,
@@ -208,7 +211,7 @@
                 "scrollX": 0,
                 "scrollY": 0
               },
-              "documentId": "6F8FFF5ABBE4FD5F838081842C42100C",
+              "documentId": "BFB5EACFFDA07D5400F0E7127523522A",
               "focusedSelector": null,
               "actionable": [
                 "label",
@@ -569,17 +572,17 @@
               "request": {
                 "requestId": "m2-success-request",
                 "sessionId": "m2-success-session",
-                "issuedAt": 1790094525373
+                "issuedAt": 1790230369156
               },
               "verified": true
             },
-            "handoffSerialized": "{\"manifestVersion\":\"1.1\",\"capture\":{\"w\":1280,\"h\":720,\"dpr\":1.0000000149011612,\"zoom\":1,\"scale_to_css\":0.8,\"scroll\":{\"x\":0,\"y\":0},\"origin\":\"http://127.0.0.1:8975\"},\"capability\":{\"backend\":\"wasm\",\"tiers_fired\":[\"T0\",\"T1\",\"T2\"]},\"elements\":[{\"id\":\"label\",\"role\":\"label\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,122.80000305175781,490.3999938964844,18.399999618530273]},{\"id\":\"#name\",\"role\":\"textbox\",\"name\":\"Full name\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,187.1999969482422,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile\",\"role\":\"textbox\",\"name\":\"Mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,251.60000610351562,490.3999938964844,18.399999618530273]},{\"id\":\"#aadhaar\",\"role\":\"textbox\",\"name\":\"Aadhaar number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,274,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,316,490.3999938964844,18.399999618530273]},{\"id\":\"#dob\",\"role\":\"textbox\",\"name\":\"Date of birth\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,382.3999938964844,490.3999938964844,18.399999618530273]},{\"id\":\"#otp\",\"role\":\"textbox\",\"name\":\"OTP\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,506,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile_confirm\",\"role\":\"textbox\",\"name\":\"Confirm mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,528.4000244140625,490.3999938964844,32]},{\"id\":\"#submit\",\"role\":\"button\",\"name\":\"Submit application\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,572.4000244140625,153.4250030517578,38]},{\"id\":\"#status\",\"role\":\"status\",\"name\":\"Not submitted\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[20,639.2000122070312,520,36.400001525878906]}],\"goal\":\"Submit my application with my registered mobile number.\",\"redactions\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"},\"targetId\":\"#name\"},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"},\"targetId\":\"#mobile\"},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"tier\":\"SENSITIVE\",\"bbox\":[34.79999923706055,274,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":14,\"kind\":\"numeric\"},\"targetId\":\"#aadhaar\"},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"},\"targetId\":\"#dob\"},{\"token\":\"\",\"class\":\"OTP\",\"tier\":\"CRITICAL\",\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32],\"method\":\"masked_no_token\",\"detectors\":[\"D1\"],\"hint\":{\"len\":6,\"kind\":\"numeric\",\"field_role\":\"one-time-code\"},\"targetId\":\"#otp\"}],\"request\":{\"requestId\":\"m2-success-request\",\"sessionId\":\"m2-success-session\",\"issuedAt\":1790094525373},\"verified\":true}",
+            "handoffSerialized": "{\"manifestVersion\":\"1.1\",\"capture\":{\"w\":1280,\"h\":720,\"dpr\":1.0000000149011612,\"zoom\":1,\"scale_to_css\":0.8,\"scroll\":{\"x\":0,\"y\":0},\"origin\":\"http://127.0.0.1:8975\"},\"capability\":{\"backend\":\"wasm\",\"tiers_fired\":[\"T0\",\"T1\",\"T2\"]},\"elements\":[{\"id\":\"label\",\"role\":\"label\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,122.80000305175781,490.3999938964844,18.399999618530273]},{\"id\":\"#name\",\"role\":\"textbox\",\"name\":\"Full name\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,187.1999969482422,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile\",\"role\":\"textbox\",\"name\":\"Mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,251.60000610351562,490.3999938964844,18.399999618530273]},{\"id\":\"#aadhaar\",\"role\":\"textbox\",\"name\":\"Aadhaar number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,274,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,316,490.3999938964844,18.399999618530273]},{\"id\":\"#dob\",\"role\":\"textbox\",\"name\":\"Date of birth\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,382.3999938964844,490.3999938964844,18.399999618530273]},{\"id\":\"#otp\",\"role\":\"textbox\",\"name\":\"OTP\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,506,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile_confirm\",\"role\":\"textbox\",\"name\":\"Confirm mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,528.4000244140625,490.3999938964844,32]},{\"id\":\"#submit\",\"role\":\"button\",\"name\":\"Submit application\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,572.4000244140625,153.4250030517578,38]},{\"id\":\"#status\",\"role\":\"status\",\"name\":\"Not submitted\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[20,639.2000122070312,520,36.400001525878906]}],\"goal\":\"Submit my application with my registered mobile number.\",\"redactions\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"},\"targetId\":\"#name\"},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"},\"targetId\":\"#mobile\"},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"tier\":\"SENSITIVE\",\"bbox\":[34.79999923706055,274,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":14,\"kind\":\"numeric\"},\"targetId\":\"#aadhaar\"},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"},\"targetId\":\"#dob\"},{\"token\":\"\",\"class\":\"OTP\",\"tier\":\"CRITICAL\",\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32],\"method\":\"masked_no_token\",\"detectors\":[\"D1\"],\"hint\":{\"len\":6,\"kind\":\"numeric\",\"field_role\":\"one-time-code\"},\"targetId\":\"#otp\"}],\"request\":{\"requestId\":\"m2-success-request\",\"sessionId\":\"m2-success-session\",\"issuedAt\":1790230369156},\"verified\":true}",
             "ledgerEntry": {
               "sessionId": "m2-success-session",
               "requestId": "m2-success-request",
-              "at": 1790094525373,
+              "at": 1790230369156,
               "destination": "(no egress client in this phase)",
-              "payloadSha256": "a631d83a63b5e07a2764afa95c23d2c5f5059318392e91092abf38c375bb4f66",
+              "payloadSha256": "b40452298356fffd495b390827e273fbd1e837932f68232b6362c657e90e102f",
               "payloadBytes": 4304,
               "verified": true,
               "leakCheck": "CLEAN",
@@ -613,7 +616,7 @@
               "received": true,
               "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
               "transport": "LOOPBACK_HTTP",
-              "elapsedMs": 1995,
+              "elapsedMs": 1979,
               "requestId": "m2-success-request"
             },
             "plan": {
@@ -675,8 +678,8 @@
                 "sessionId": "m2-success-session",
                 "purpose": "Use of PHONE for \"Confirm mobile number\"",
                 "actionContext": "insert into #mobile_confirm, then click #submit",
-                "grantedAt": 1790094527542,
-                "expiresAt": 1790094587542,
+                "grantedAt": 1790230371362,
+                "expiresAt": 1790230431362,
                 "used": true
               }
             },
@@ -695,12 +698,12 @@
                 "selector": "#submit",
                 "role": "button",
                 "name": "Submit application",
-                "frameId": "transport-538de88c-f53b-4ce2-a002-9deddf424ea2",
+                "frameId": "transport-99c2e846-c930-4cd2-9f83-d75d78cfea09",
                 "origin": "http://127.0.0.1:8975"
               },
               "purpose": "Click \"Submit application\" to submit this application",
-              "confirmedAt": 1790094527680,
-              "expiresAt": 1790094587680
+              "confirmedAt": 1790230371506,
+              "expiresAt": 1790230431506
             },
             "act": {
               "reached": "VERIFY_RESULT",
@@ -716,7 +719,7 @@
                   },
                   "evidence": {
                     "kind": "OBSERVED",
-                    "frameId": "transport-538de88c-f53b-4ce2-a002-9deddf424ea2",
+                    "frameId": "transport-99c2e846-c930-4cd2-9f83-d75d78cfea09",
                     "viewportBox": {
                       "x": 34.79999923706055,
                       "y": 572.4000244140625,
@@ -734,7 +737,7 @@
                   "parent": null,
                   "children": []
                 },
-                "frameId": "transport-538de88c-f53b-4ce2-a002-9deddf424ea2",
+                "frameId": "transport-99c2e846-c930-4cd2-9f83-d75d78cfea09",
                 "viewportBox": {
                   "x": 34.79999923706055,
                   "y": 572.4000244140625,
@@ -755,7 +758,7 @@
                   "y": 591
                 },
                 "observed": {
-                  "frameId": "transport-538de88c-f53b-4ce2-a002-9deddf424ea2",
+                  "frameId": "transport-99c2e846-c930-4cd2-9f83-d75d78cfea09",
                   "selector": "#submit",
                   "role": "button",
                   "name": "Submit application",
@@ -767,7 +770,7 @@
                   }
                 },
                 "boxIou": 1,
-                "elapsedMs": 2
+                "elapsedMs": 3
               },
               "result": {
                 "status": "EXECUTED",
@@ -798,35 +801,35 @@
           },
           "binding": {
             "origin": "http://127.0.0.1:8975",
-            "documentId": "6F8FFF5ABBE4FD5F838081842C42100C",
-            "tabId": 419001427,
+            "documentId": "BFB5EACFFDA07D5400F0E7127523522A",
+            "tabId": 191885543,
             "frameId": 0,
-            "swBootId": "9d2126f9-8535-4bca-8e67-66f4b6899699"
+            "swBootId": "7c0db83b-aae6-4b5b-94da-dbdff9e9e886"
           },
           "ports": {
             "observations": 3,
             "inserts": 0,
             "insertRefusals": [],
             "cycle": {
-              "cycleId": "37337b70-222e-44fb-a721-b807ffc660ce",
+              "cycleId": "7f8a6d7b-2abd-4e21-a738-9b591528a2c5",
               "hitTest": {
                 "point": {
                   "x": 112,
                   "y": 591
                 },
                 "topmost": "#submit",
-                "receivedAt": 1790094527682.7002,
-                "sampledAt": 1790094527682.7002
+                "receivedAt": 1790230371510,
+                "sampledAt": 1790230371510.2
               },
               "dispatch": {
-                "deliveryId": "6193c733-2588-4792-8e27-68e9111f5d2d",
+                "deliveryId": "cfeefa52-9600-4c32-88d0-b9f2c00476f6",
                 "point": {
                   "x": 112,
                   "y": 591
                 },
                 "dispatchedTo": "#submit",
-                "receivedAt": 1790094527684.7002,
-                "dispatchedAt": 1790094527685
+                "receivedAt": 1790230371512.4,
+                "dispatchedAt": 1790230371512.5999
               },
               "refusals": []
             },
@@ -834,6 +837,8 @@
               {
                 "ran": true,
                 "refusal": null,
+                "route": "WORKER_FRAME",
+                "workerSawPixels": true,
                 "capture": {
                   "w": 1600,
                   "h": 900,
@@ -2497,17 +2502,20 @@
                   "#status": "dom"
                 },
                 "ms": {
-                  "capture": 49,
-                  "decode": 17,
-                  "preprocess": 71,
-                  "infer": 86,
+                  "capture": 45,
+                  "decode": 15,
+                  "encode": 0,
+                  "preprocess": 52,
+                  "infer": 82,
                   "fuse": 1,
-                  "total": 225
+                  "total": 195
                 }
               },
               {
                 "ran": true,
                 "refusal": null,
+                "route": "WORKER_FRAME",
+                "workerSawPixels": true,
                 "capture": {
                   "w": 1600,
                   "h": 900,
@@ -4156,22 +4164,25 @@
                   "#status": "dom"
                 },
                 "ms": {
-                  "capture": 37,
-                  "decode": 11,
-                  "preprocess": 42,
-                  "infer": 42,
-                  "fuse": 1,
-                  "total": 133
+                  "capture": 42,
+                  "decode": 12,
+                  "encode": 0,
+                  "preprocess": 32,
+                  "infer": 52,
+                  "fuse": 0,
+                  "total": 138
                 }
               },
               {
                 "ran": true,
                 "refusal": null,
+                "route": "WORKER_FRAME",
+                "workerSawPixels": true,
                 "capture": {
                   "w": 1600,
                   "h": 900,
                   "format": "png",
-                  "bytes": 41770,
+                  "bytes": 42308,
                   "dpr": 1.0000000149011612,
                   "scaleToCss": 0.8
                 },
@@ -4180,21 +4191,21 @@
                   "revision": "ba6d9e93695b",
                   "backend": "wasm",
                   "ran": true,
-                  "detections": 99,
+                  "detections": 106,
                   "byClass": {
+                    "tab": 7,
                     "textbox": 47,
-                    "button": 30,
-                    "link": 12,
-                    "tab": 5,
+                    "button": 33,
+                    "link": 14,
                     "select": 5
                   },
                   "refusal": null
                 },
                 "fusion": {
-                  "matched": 6,
-                  "visionOnly": 93,
-                  "domOnly": 8,
-                  "overlaySuspected": 6
+                  "matched": 7,
+                  "visionOnly": 99,
+                  "domOnly": 7,
+                  "overlaySuspected": 7
                 },
                 "elements": [
                   {
@@ -4381,7 +4392,7 @@
                     "id": "e12",
                     "role": "button",
                     "name": "Submit application",
-                    "source": "dom",
+                    "source": "dom+vision",
                     "visible": true,
                     "offscreen": false,
                     "enabled": false,
@@ -4409,6 +4420,21 @@
                   },
                   {
                     "id": "v0",
+                    "role": "tab",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      94.24649810791016,
+                      575.9467258453369,
+                      88.82353210449219,
+                      37.94663619995117
+                    ]
+                  },
+                  {
+                    "id": "v1",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4423,7 +4449,7 @@
                     ]
                   },
                   {
-                    "id": "v2",
+                    "id": "v3",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4438,7 +4464,7 @@
                     ]
                   },
                   {
-                    "id": "v3",
+                    "id": "v4",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4453,7 +4479,22 @@
                     ]
                   },
                   {
-                    "id": "v4",
+                    "id": "v5",
+                    "role": "textbox",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      74.2366943359375,
+                      671.7416839599609,
+                      364.307373046875,
+                      44.321929931640625
+                    ]
+                  },
+                  {
+                    "id": "v6",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -4468,7 +4509,7 @@
                     ]
                   },
                   {
-                    "id": "v5",
+                    "id": "v7",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4483,7 +4524,7 @@
                     ]
                   },
                   {
-                    "id": "v6",
+                    "id": "v8",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4498,7 +4539,7 @@
                     ]
                   },
                   {
-                    "id": "v7",
+                    "id": "v9",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4513,22 +4554,37 @@
                     ]
                   },
                   {
-                    "id": "v8",
-                    "role": "button",
+                    "id": "v10",
+                    "role": "link",
                     "name": "",
                     "source": "vision",
                     "visible": true,
                     "offscreen": false,
                     "enabled": true,
                     "bbox": [
-                      43.359283447265625,
-                      533.9662561416626,
-                      198.95608520507812,
-                      30.556623458862305
+                      69.99898910522461,
+                      574.0061492919922,
+                      104.59937286376953,
+                      33.994171142578125
                     ]
                   },
                   {
-                    "id": "v9",
+                    "id": "v11",
+                    "role": "link",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      12.813743591308594,
+                      575.0464553833008,
+                      98.69883728027344,
+                      32.95396423339844
+                    ]
+                  },
+                  {
+                    "id": "v12",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4543,7 +4599,7 @@
                     ]
                   },
                   {
-                    "id": "v10",
+                    "id": "v13",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4558,7 +4614,7 @@
                     ]
                   },
                   {
-                    "id": "v11",
+                    "id": "v14",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4573,7 +4629,7 @@
                     ]
                   },
                   {
-                    "id": "v12",
+                    "id": "v15",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4588,7 +4644,7 @@
                     ]
                   },
                   {
-                    "id": "v13",
+                    "id": "v16",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4603,7 +4659,7 @@
                     ]
                   },
                   {
-                    "id": "v14",
+                    "id": "v17",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4618,7 +4674,7 @@
                     ]
                   },
                   {
-                    "id": "v15",
+                    "id": "v18",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -4633,22 +4689,52 @@
                     ]
                   },
                   {
-                    "id": "v16",
-                    "role": "textbox",
+                    "id": "v19",
+                    "role": "button",
                     "name": "",
                     "source": "vision",
                     "visible": true,
                     "offscreen": false,
                     "enabled": true,
                     "bbox": [
-                      93.81852722167969,
-                      604.2699890136719,
-                      207.99664306640625,
-                      33.23211669921875
+                      36.41654968261719,
+                      526.3512897491455,
+                      131.82342529296875,
+                      42.762630462646484
                     ]
                   },
                   {
-                    "id": "v17",
+                    "id": "v20",
+                    "role": "button",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      6.15411376953125,
+                      611.2381172180176,
+                      167.10076904296875,
+                      32.550132751464844
+                    ]
+                  },
+                  {
+                    "id": "v21",
+                    "role": "link",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      74.18254089355469,
+                      644.8304023742676,
+                      104.87469482421875,
+                      22.420127868652344
+                    ]
+                  },
+                  {
+                    "id": "v22",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4663,7 +4749,7 @@
                     ]
                   },
                   {
-                    "id": "v18",
+                    "id": "v23",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4678,7 +4764,7 @@
                     ]
                   },
                   {
-                    "id": "v19",
+                    "id": "v24",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4693,7 +4779,7 @@
                     ]
                   },
                   {
-                    "id": "v20",
+                    "id": "v26",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -4708,7 +4794,7 @@
                     ]
                   },
                   {
-                    "id": "v21",
+                    "id": "v27",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -4723,7 +4809,7 @@
                     ]
                   },
                   {
-                    "id": "v22",
+                    "id": "v28",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -4738,7 +4824,7 @@
                     ]
                   },
                   {
-                    "id": "v23",
+                    "id": "v29",
                     "role": "link",
                     "name": "",
                     "source": "vision",
@@ -4753,7 +4839,22 @@
                     ]
                   },
                   {
-                    "id": "v24",
+                    "id": "v30",
+                    "role": "tab",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      36.11112594604492,
+                      575.3493461608887,
+                      78.15180206298828,
+                      32.681190490722656
+                    ]
+                  },
+                  {
+                    "id": "v31",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -4768,7 +4869,7 @@
                     ]
                   },
                   {
-                    "id": "v25",
+                    "id": "v32",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4783,7 +4884,7 @@
                     ]
                   },
                   {
-                    "id": "v26",
+                    "id": "v33",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4798,7 +4899,7 @@
                     ]
                   },
                   {
-                    "id": "v27",
+                    "id": "v34",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4813,22 +4914,7 @@
                     ]
                   },
                   {
-                    "id": "v28",
-                    "role": "textbox",
-                    "name": "",
-                    "source": "vision",
-                    "visible": true,
-                    "offscreen": false,
-                    "enabled": true,
-                    "bbox": [
-                      3.66143798828125,
-                      672.361249923706,
-                      299.233642578125,
-                      43.16312026977539
-                    ]
-                  },
-                  {
-                    "id": "v29",
+                    "id": "v35",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -4843,7 +4929,7 @@
                     ]
                   },
                   {
-                    "id": "v31",
+                    "id": "v37",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4858,7 +4944,7 @@
                     ]
                   },
                   {
-                    "id": "v33",
+                    "id": "v39",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4873,7 +4959,7 @@
                     ]
                   },
                   {
-                    "id": "v35",
+                    "id": "v41",
                     "role": "tab",
                     "name": "",
                     "source": "vision",
@@ -4888,7 +4974,7 @@
                     ]
                   },
                   {
-                    "id": "v36",
+                    "id": "v42",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4903,22 +4989,7 @@
                     ]
                   },
                   {
-                    "id": "v37",
-                    "role": "select",
-                    "name": "",
-                    "source": "vision",
-                    "visible": true,
-                    "offscreen": false,
-                    "enabled": true,
-                    "bbox": [
-                      38.53643798828125,
-                      538.3421812057495,
-                      296.6305236816406,
-                      23.534143447875977
-                    ]
-                  },
-                  {
-                    "id": "v38",
+                    "id": "v43",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -4933,7 +5004,7 @@
                     ]
                   },
                   {
-                    "id": "v39",
+                    "id": "v44",
                     "role": "tab",
                     "name": "",
                     "source": "vision",
@@ -4948,7 +5019,7 @@
                     ]
                   },
                   {
-                    "id": "v40",
+                    "id": "v45",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -4963,7 +5034,22 @@
                     ]
                   },
                   {
-                    "id": "v41",
+                    "id": "v46",
+                    "role": "textbox",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      177.85488891601562,
+                      671.5955200195312,
+                      429.93841552734375,
+                      43.5069580078125
+                    ]
+                  },
+                  {
+                    "id": "v47",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4978,7 +5064,7 @@
                     ]
                   },
                   {
-                    "id": "v42",
+                    "id": "v48",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -4993,22 +5079,7 @@
                     ]
                   },
                   {
-                    "id": "v43",
-                    "role": "link",
-                    "name": "",
-                    "source": "vision",
-                    "visible": true,
-                    "offscreen": false,
-                    "enabled": true,
-                    "bbox": [
-                      18.716751098632812,
-                      643.3143730163574,
-                      95.50311279296875,
-                      27.250770568847656
-                    ]
-                  },
-                  {
-                    "id": "v44",
+                    "id": "v49",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -5023,7 +5094,7 @@
                     ]
                   },
                   {
-                    "id": "v46",
+                    "id": "v51",
                     "role": "link",
                     "name": "",
                     "source": "vision",
@@ -5038,7 +5109,7 @@
                     ]
                   },
                   {
-                    "id": "v47",
+                    "id": "v52",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5053,7 +5124,7 @@
                     ]
                   },
                   {
-                    "id": "v48",
+                    "id": "v53",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5068,7 +5139,7 @@
                     ]
                   },
                   {
-                    "id": "v49",
+                    "id": "v54",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5083,7 +5154,7 @@
                     ]
                   },
                   {
-                    "id": "v50",
+                    "id": "v55",
                     "role": "link",
                     "name": "",
                     "source": "vision",
@@ -5098,7 +5169,7 @@
                     ]
                   },
                   {
-                    "id": "v51",
+                    "id": "v56",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -5113,7 +5184,7 @@
                     ]
                   },
                   {
-                    "id": "v52",
+                    "id": "v57",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -5128,7 +5199,22 @@
                     ]
                   },
                   {
-                    "id": "v53",
+                    "id": "v58",
+                    "role": "button",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      75.81312561035156,
+                      611.7295112609863,
+                      200.5870361328125,
+                      32.319053649902344
+                    ]
+                  },
+                  {
+                    "id": "v59",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5143,22 +5229,7 @@
                     ]
                   },
                   {
-                    "id": "v54",
-                    "role": "select",
-                    "name": "",
-                    "source": "vision",
-                    "visible": true,
-                    "offscreen": false,
-                    "enabled": true,
-                    "bbox": [
-                      110.824951171875,
-                      534.9905920028687,
-                      482.49493408203125,
-                      27.264421463012695
-                    ]
-                  },
-                  {
-                    "id": "v55",
+                    "id": "v60",
                     "role": "tab",
                     "name": "",
                     "source": "vision",
@@ -5173,7 +5244,7 @@
                     ]
                   },
                   {
-                    "id": "v56",
+                    "id": "v61",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5188,7 +5259,22 @@
                     ]
                   },
                   {
-                    "id": "v57",
+                    "id": "v62",
+                    "role": "textbox",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      0,
+                      528.300085067749,
+                      207.87406158447266,
+                      33.32170486450195
+                    ]
+                  },
+                  {
+                    "id": "v63",
                     "role": "link",
                     "name": "",
                     "source": "vision",
@@ -5203,7 +5289,7 @@
                     ]
                   },
                   {
-                    "id": "v58",
+                    "id": "v64",
                     "role": "tab",
                     "name": "",
                     "source": "vision",
@@ -5218,7 +5304,7 @@
                     ]
                   },
                   {
-                    "id": "v59",
+                    "id": "v65",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5233,7 +5319,22 @@
                     ]
                   },
                   {
-                    "id": "v60",
+                    "id": "v66",
+                    "role": "button",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      29.130096435546875,
+                      607.6525983810425,
+                      182.4063262939453,
+                      26.25107765197754
+                    ]
+                  },
+                  {
+                    "id": "v67",
                     "role": "link",
                     "name": "",
                     "source": "vision",
@@ -5248,7 +5349,22 @@
                     ]
                   },
                   {
-                    "id": "v61",
+                    "id": "v68",
+                    "role": "link",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      35.26405334472656,
+                      644.4638299942017,
+                      111.4337158203125,
+                      24.61738395690918
+                    ]
+                  },
+                  {
+                    "id": "v69",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5263,7 +5379,7 @@
                     ]
                   },
                   {
-                    "id": "v62",
+                    "id": "v70",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -5278,7 +5394,7 @@
                     ]
                   },
                   {
-                    "id": "v64",
+                    "id": "v72",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5293,7 +5409,7 @@
                     ]
                   },
                   {
-                    "id": "v65",
+                    "id": "v73",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5308,7 +5424,52 @@
                     ]
                   },
                   {
-                    "id": "v66",
+                    "id": "v74",
+                    "role": "textbox",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      30.090789794921875,
+                      602.3703536987305,
+                      280.3028259277344,
+                      38.88111877441406
+                    ]
+                  },
+                  {
+                    "id": "v75",
+                    "role": "textbox",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      126.09077453613281,
+                      602.3703536987305,
+                      280.3028259277344,
+                      38.88111877441406
+                    ]
+                  },
+                  {
+                    "id": "v76",
+                    "role": "textbox",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      222.0907745361328,
+                      602.3703536987305,
+                      280.3028259277344,
+                      38.88111877441406
+                    ]
+                  },
+                  {
+                    "id": "v77",
                     "role": "link",
                     "name": "",
                     "source": "vision",
@@ -5323,7 +5484,7 @@
                     ]
                   },
                   {
-                    "id": "v67",
+                    "id": "v78",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5338,7 +5499,7 @@
                     ]
                   },
                   {
-                    "id": "v68",
+                    "id": "v79",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -5353,7 +5514,7 @@
                     ]
                   },
                   {
-                    "id": "v69",
+                    "id": "v80",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -5368,7 +5529,7 @@
                     ]
                   },
                   {
-                    "id": "v70",
+                    "id": "v81",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -5383,7 +5544,7 @@
                     ]
                   },
                   {
-                    "id": "v71",
+                    "id": "v82",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5398,22 +5559,7 @@
                     ]
                   },
                   {
-                    "id": "v72",
-                    "role": "link",
-                    "name": "",
-                    "source": "vision",
-                    "visible": true,
-                    "offscreen": false,
-                    "enabled": true,
-                    "bbox": [
-                      64.6462631225586,
-                      644.8121137619019,
-                      69.32356262207031,
-                      23.90983009338379
-                    ]
-                  },
-                  {
-                    "id": "v73",
+                    "id": "v83",
                     "role": "tab",
                     "name": "",
                     "source": "vision",
@@ -5428,7 +5574,7 @@
                     ]
                   },
                   {
-                    "id": "v74",
+                    "id": "v84",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5443,37 +5589,22 @@
                     ]
                   },
                   {
-                    "id": "v75",
-                    "role": "textbox",
+                    "id": "v85",
+                    "role": "select",
                     "name": "",
                     "source": "vision",
                     "visible": true,
                     "offscreen": false,
                     "enabled": true,
                     "bbox": [
-                      143.5174560546875,
-                      602.6621494293213,
-                      282.09771728515625,
-                      36.39457321166992
+                      46.12425231933594,
+                      527.1570281982422,
+                      162.38616943359375,
+                      38.442901611328125
                     ]
                   },
                   {
-                    "id": "v76",
-                    "role": "textbox",
-                    "name": "",
-                    "source": "vision",
-                    "visible": true,
-                    "offscreen": false,
-                    "enabled": true,
-                    "bbox": [
-                      239.5174560546875,
-                      602.6621494293213,
-                      282.09771728515625,
-                      36.39457321166992
-                    ]
-                  },
-                  {
-                    "id": "v77",
+                    "id": "v86",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -5488,7 +5619,7 @@
                     ]
                   },
                   {
-                    "id": "v78",
+                    "id": "v87",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -5503,7 +5634,7 @@
                     ]
                   },
                   {
-                    "id": "v79",
+                    "id": "v88",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5518,7 +5649,7 @@
                     ]
                   },
                   {
-                    "id": "v80",
+                    "id": "v89",
                     "role": "select",
                     "name": "",
                     "source": "vision",
@@ -5533,7 +5664,7 @@
                     ]
                   },
                   {
-                    "id": "v81",
+                    "id": "v90",
                     "role": "link",
                     "name": "",
                     "source": "vision",
@@ -5548,7 +5679,22 @@
                     ]
                   },
                   {
-                    "id": "v82",
+                    "id": "v91",
+                    "role": "textbox",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      54.5504150390625,
+                      659.9801902770996,
+                      207.27987670898438,
+                      29.05548858642578
+                    ]
+                  },
+                  {
+                    "id": "v92",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5563,7 +5709,7 @@
                     ]
                   },
                   {
-                    "id": "v83",
+                    "id": "v93",
                     "role": "select",
                     "name": "",
                     "source": "vision",
@@ -5578,22 +5724,22 @@
                     ]
                   },
                   {
-                    "id": "v84",
-                    "role": "button",
+                    "id": "v94",
+                    "role": "textbox",
                     "name": "",
                     "source": "vision",
                     "visible": true,
                     "offscreen": false,
                     "enabled": true,
                     "bbox": [
-                      16.294410705566406,
-                      544.575813293457,
-                      158.53028869628906,
-                      25.437850952148438
+                      292.26341247558594,
+                      611.0244007110596,
+                      287.8299865722656,
+                      34.19521713256836
                     ]
                   },
                   {
-                    "id": "v85",
+                    "id": "v95",
                     "role": "select",
                     "name": "",
                     "source": "vision",
@@ -5608,7 +5754,22 @@
                     ]
                   },
                   {
-                    "id": "v86",
+                    "id": "v96",
+                    "role": "button",
+                    "name": "",
+                    "source": "vision",
+                    "visible": true,
+                    "offscreen": false,
+                    "enabled": true,
+                    "bbox": [
+                      78.90623474121094,
+                      618.1181983947754,
+                      129.70648193359375,
+                      42.60540008544922
+                    ]
+                  },
+                  {
+                    "id": "v97",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5623,7 +5784,7 @@
                     ]
                   },
                   {
-                    "id": "v87",
+                    "id": "v98",
                     "role": "link",
                     "name": "",
                     "source": "vision",
@@ -5638,7 +5799,7 @@
                     ]
                   },
                   {
-                    "id": "v88",
+                    "id": "v99",
                     "role": "link",
                     "name": "",
                     "source": "vision",
@@ -5653,7 +5814,7 @@
                     ]
                   },
                   {
-                    "id": "v89",
+                    "id": "v100",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5668,7 +5829,7 @@
                     ]
                   },
                   {
-                    "id": "v90",
+                    "id": "v101",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5683,22 +5844,7 @@
                     ]
                   },
                   {
-                    "id": "v91",
-                    "role": "textbox",
-                    "name": "",
-                    "source": "vision",
-                    "visible": true,
-                    "offscreen": false,
-                    "enabled": true,
-                    "bbox": [
-                      92.94938659667969,
-                      615.1256380081177,
-                      240.19046020507812,
-                      31.20697593688965
-                    ]
-                  },
-                  {
-                    "id": "v92",
+                    "id": "v102",
                     "role": "link",
                     "name": "",
                     "source": "vision",
@@ -5713,22 +5859,7 @@
                     ]
                   },
                   {
-                    "id": "v93",
-                    "role": "button",
-                    "name": "",
-                    "source": "vision",
-                    "visible": true,
-                    "offscreen": false,
-                    "enabled": true,
-                    "bbox": [
-                      36.57820129394531,
-                      526.6395626068115,
-                      128.9279327392578,
-                      32.11479568481445
-                    ]
-                  },
-                  {
-                    "id": "v94",
+                    "id": "v103",
                     "role": "button",
                     "name": "",
                     "source": "vision",
@@ -5743,52 +5874,22 @@
                     ]
                   },
                   {
-                    "id": "v95",
-                    "role": "textbox",
+                    "id": "v104",
+                    "role": "select",
                     "name": "",
                     "source": "vision",
                     "visible": true,
                     "offscreen": false,
                     "enabled": true,
                     "bbox": [
-                      75.97608184814453,
-                      621.8017778396606,
-                      138.03587341308594,
-                      11.478719711303711
+                      28.72216796875,
+                      638.2417392730713,
+                      186.17453002929688,
+                      35.51530075073242
                     ]
                   },
                   {
-                    "id": "v96",
-                    "role": "textbox",
-                    "name": "",
-                    "source": "vision",
-                    "visible": true,
-                    "offscreen": false,
-                    "enabled": true,
-                    "bbox": [
-                      85.12887573242188,
-                      671.9480018615723,
-                      391.839599609375,
-                      43.61461639404297
-                    ]
-                  },
-                  {
-                    "id": "v97",
-                    "role": "textbox",
-                    "name": "",
-                    "source": "vision",
-                    "visible": true,
-                    "offscreen": false,
-                    "enabled": true,
-                    "bbox": [
-                      229.12887573242188,
-                      671.9480018615723,
-                      391.839599609375,
-                      43.61461639404297
-                    ]
-                  },
-                  {
-                    "id": "v98",
+                    "id": "v105",
                     "role": "textbox",
                     "name": "",
                     "source": "vision",
@@ -5811,16 +5912,17 @@
                   "#dob": "dom+vision",
                   "#otp": "dom+vision",
                   "#mobile_confirm": "dom+vision",
-                  "#submit": "dom",
+                  "#submit": "dom+vision",
                   "#status": "dom"
                 },
                 "ms": {
-                  "capture": 37,
-                  "decode": 10,
+                  "capture": 38,
+                  "decode": 11,
+                  "encode": 0,
                   "preprocess": 46,
-                  "infer": 47,
-                  "fuse": 1,
-                  "total": 141
+                  "infer": 45,
+                  "fuse": 0,
+                  "total": 140
                 }
               }
             ]
@@ -5828,12 +5930,12 @@
           "perceptionBoot": {
             "ok": true,
             "error": null,
-            "ms": 602,
+            "ms": 590,
             "pin": {
               "artifact": "ort-wasm-simd-threaded.jsep.wasm",
               "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
               "bytes": 27797172,
-              "installedAt": "2026-09-22T16:28:44.634Z"
+              "installedAt": "2026-09-24T06:12:48.450Z"
             }
           },
           "boundary": {
@@ -5853,7 +5955,7 @@
                 "requestId": "m2-success-request",
                 "sessionId": "m2-success-session",
                 "destination": "http://127.0.0.1:8995/v1/chat/completions",
-                "at": 1790094527381,
+                "at": 1790230371151,
                 "transport": "LOOPBACK_HTTP",
                 "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
                 "verified": true,
@@ -5867,13 +5969,13 @@
                   "<PII:DOB:1>"
                 ],
                 "responseStatus": 200,
-                "responseBytes": 834,
+                "responseBytes": 835,
                 "peerReceipt": {
                   "sha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
                   "bytes": 2679,
                   "agrees": true
                 },
-                "elapsedMs": 1994
+                "elapsedMs": 1978
               }
             }
           ],
@@ -5917,7 +6019,7 @@
             {
               "type": "pointerdown",
               "trusted": false,
-              "at": 1790094527684.9001,
+              "at": 1790230371512.5999,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -5925,7 +6027,7 @@
             {
               "type": "mousedown",
               "trusted": false,
-              "at": 1790094527684.9001,
+              "at": 1790230371512.5999,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -5933,7 +6035,7 @@
             {
               "type": "pointerup",
               "trusted": false,
-              "at": 1790094527684.9001,
+              "at": 1790230371512.5999,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -5941,7 +6043,7 @@
             {
               "type": "mouseup",
               "trusted": false,
-              "at": 1790094527684.9001,
+              "at": 1790230371512.5999,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -5949,7 +6051,7 @@
             {
               "type": "click",
               "trusted": false,
-              "at": 1790094527684.9001,
+              "at": 1790230371512.5999,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -5957,7 +6059,7 @@
           ],
           "objectSeenTwice": 0,
           "listenersOnSubmit": 6,
-          "timeOrigin": 1790094524478.6
+          "timeOrigin": 1790230368304.2
         }
       },
       "audit": {
@@ -5972,13 +6074,13 @@
           "refusals": [],
           "fires": [
             {
-              "cycleId": "37337b70-222e-44fb-a721-b807ffc660ce",
-              "deliveryId": "6193c733-2588-4792-8e27-68e9111f5d2d",
-              "requestId": "8bb4ee0b-1744-4ac0-b978-6eadcc038fab",
+              "cycleId": "7f8a6d7b-2abd-4e21-a738-9b591528a2c5",
+              "deliveryId": "cfeefa52-9600-4c32-88d0-b9f2c00476f6",
+              "requestId": "acfdcbdb-0463-4a48-a3a0-3444fb5fa13a",
               "to": "#submit",
-              "preparedAt": 1790094527684.8,
-              "at": 1790094527685,
-              "doneAt": 1790094527685.4001
+              "preparedAt": 1790230371512.4,
+              "at": 1790230371512.5999,
+              "doneAt": 1790230371513.0999
             }
           ]
         }
@@ -6001,47 +6103,47 @@
               {
                 "from": "IDLE",
                 "to": "OBSERVE",
-                "at": 1790094528260,
+                "at": 1790230372223,
                 "elapsedMs": 0
               },
               {
                 "from": "OBSERVE",
                 "to": "SANITIZE",
-                "at": 1790094528263,
-                "elapsedMs": 3
+                "at": 1790230372227,
+                "elapsedMs": 4
               },
               {
                 "from": "SANITIZE",
                 "to": "VERIFY_PAYLOAD",
-                "at": 1790094528270,
-                "elapsedMs": 10
+                "at": 1790230372241,
+                "elapsedMs": 18
               },
               {
                 "from": "VERIFY_PAYLOAD",
                 "to": "SEND",
-                "at": 1790094528270,
-                "elapsedMs": 10
+                "at": 1790230372241,
+                "elapsedMs": 18
               },
               {
                 "from": "SEND",
                 "to": "VALIDATE_PLAN",
-                "at": 1790094528277,
-                "elapsedMs": 17
+                "at": 1790230372251,
+                "elapsedMs": 28
               },
               {
                 "from": "VALIDATE_PLAN",
                 "to": "REFUSED",
-                "at": 1790094528280,
-                "elapsedMs": 20
+                "at": 1790230372256,
+                "elapsedMs": 33
               }
             ],
             "timings": {
-              "observeMs": 3,
-              "sanitizeMs": 7,
+              "observeMs": 4,
+              "sanitizeMs": 14,
               "verifyPayloadMs": 0,
-              "sendMs": 7,
+              "sendMs": 10,
               "validatePlanMs": 0,
-              "totalMs": 20
+              "totalMs": 33
             },
             "refusal": {
               "stage": "VALIDATE_PLAN",
@@ -6072,7 +6174,7 @@
             "initialObservation": {
               "nodes": 14,
               "fields": 0,
-              "frameId": "transport-8543cc60-d7b0-4621-b06b-4fe443cda764",
+              "frameId": "transport-74807096-b95e-4d0c-b160-526a5e6c8619",
               "viewport": {
                 "w": 1280,
                 "h": 720,
@@ -6081,7 +6183,7 @@
                 "scrollX": 0,
                 "scrollY": 0
               },
-              "documentId": "19EDC71CD5D24507956DB41715D4FEB9",
+              "documentId": "BE82D5871E707B106F93BB52D26D6FB3",
               "focusedSelector": null,
               "actionable": [
                 "label",
@@ -6098,7 +6200,7 @@
             "observation": {
               "nodes": 14,
               "fields": 0,
-              "frameId": "transport-8543cc60-d7b0-4621-b06b-4fe443cda764",
+              "frameId": "transport-74807096-b95e-4d0c-b160-526a5e6c8619",
               "viewport": {
                 "w": 1280,
                 "h": 720,
@@ -6107,7 +6209,7 @@
                 "scrollX": 0,
                 "scrollY": 0
               },
-              "documentId": "19EDC71CD5D24507956DB41715D4FEB9",
+              "documentId": "BE82D5871E707B106F93BB52D26D6FB3",
               "focusedSelector": null,
               "actionable": [
                 "label",
@@ -6468,17 +6570,17 @@
               "request": {
                 "requestId": "m2-refusal-request",
                 "sessionId": "m2-refusal-session",
-                "issuedAt": 1790094528263
+                "issuedAt": 1790230372227
               },
               "verified": true
             },
-            "handoffSerialized": "{\"manifestVersion\":\"1.1\",\"capture\":{\"w\":1280,\"h\":720,\"dpr\":1.0000000149011612,\"zoom\":1,\"scale_to_css\":1,\"scroll\":{\"x\":0,\"y\":0},\"origin\":\"http://127.0.0.1:8975\"},\"capability\":{\"backend\":\"none\",\"tiers_fired\":[\"T0\",\"T2\"]},\"elements\":[{\"id\":\"label\",\"role\":\"label\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,122.80000305175781,490.3999938964844,18.399999618530273]},{\"id\":\"#name\",\"role\":\"textbox\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,187.1999969482422,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile\",\"role\":\"textbox\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,251.60000610351562,490.3999938964844,18.399999618530273]},{\"id\":\"#aadhaar\",\"role\":\"textbox\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,274,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,316,490.3999938964844,18.399999618530273]},{\"id\":\"#dob\",\"role\":\"textbox\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,382.3999938964844,490.3999938964844,18.399999618530273]},{\"id\":\"#otp\",\"role\":\"textbox\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,506,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile_confirm\",\"role\":\"textbox\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,528.4000244140625,490.3999938964844,32]},{\"id\":\"#submit\",\"role\":\"button\",\"name\":\"Submit application\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,572.4000244140625,153.4250030517578,38]},{\"id\":\"#status\",\"role\":\"status\",\"name\":\"Not submitted\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[20,639.2000122070312,520,36.400001525878906]}],\"goal\":\"Submit my application with my registered mobile number.\",\"redactions\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"},\"targetId\":\"#name\"},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"},\"targetId\":\"#mobile\"},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"tier\":\"SENSITIVE\",\"bbox\":[34.79999923706055,274,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":14,\"kind\":\"numeric\"},\"targetId\":\"#aadhaar\"},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"},\"targetId\":\"#dob\"},{\"token\":\"\",\"class\":\"OTP\",\"tier\":\"CRITICAL\",\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32],\"method\":\"masked_no_token\",\"detectors\":[\"D1\"],\"hint\":{\"len\":6,\"kind\":\"numeric\",\"field_role\":\"one-time-code\"},\"targetId\":\"#otp\"}],\"request\":{\"requestId\":\"m2-refusal-request\",\"sessionId\":\"m2-refusal-session\",\"issuedAt\":1790094528263},\"verified\":true}",
+            "handoffSerialized": "{\"manifestVersion\":\"1.1\",\"capture\":{\"w\":1280,\"h\":720,\"dpr\":1.0000000149011612,\"zoom\":1,\"scale_to_css\":1,\"scroll\":{\"x\":0,\"y\":0},\"origin\":\"http://127.0.0.1:8975\"},\"capability\":{\"backend\":\"none\",\"tiers_fired\":[\"T0\",\"T2\"]},\"elements\":[{\"id\":\"label\",\"role\":\"label\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,122.80000305175781,490.3999938964844,18.399999618530273]},{\"id\":\"#name\",\"role\":\"textbox\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,187.1999969482422,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile\",\"role\":\"textbox\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,251.60000610351562,490.3999938964844,18.399999618530273]},{\"id\":\"#aadhaar\",\"role\":\"textbox\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,274,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,316,490.3999938964844,18.399999618530273]},{\"id\":\"#dob\",\"role\":\"textbox\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,382.3999938964844,490.3999938964844,18.399999618530273]},{\"id\":\"#otp\",\"role\":\"textbox\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,506,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile_confirm\",\"role\":\"textbox\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,528.4000244140625,490.3999938964844,32]},{\"id\":\"#submit\",\"role\":\"button\",\"name\":\"Submit application\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,572.4000244140625,153.4250030517578,38]},{\"id\":\"#status\",\"role\":\"status\",\"name\":\"Not submitted\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[20,639.2000122070312,520,36.400001525878906]}],\"goal\":\"Submit my application with my registered mobile number.\",\"redactions\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"},\"targetId\":\"#name\"},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"},\"targetId\":\"#mobile\"},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"tier\":\"SENSITIVE\",\"bbox\":[34.79999923706055,274,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":14,\"kind\":\"numeric\"},\"targetId\":\"#aadhaar\"},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"},\"targetId\":\"#dob\"},{\"token\":\"\",\"class\":\"OTP\",\"tier\":\"CRITICAL\",\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32],\"method\":\"masked_no_token\",\"detectors\":[\"D1\"],\"hint\":{\"len\":6,\"kind\":\"numeric\",\"field_role\":\"one-time-code\"},\"targetId\":\"#otp\"}],\"request\":{\"requestId\":\"m2-refusal-request\",\"sessionId\":\"m2-refusal-session\",\"issuedAt\":1790230372227},\"verified\":true}",
             "ledgerEntry": {
               "sessionId": "m2-refusal-session",
               "requestId": "m2-refusal-request",
-              "at": 1790094528263,
+              "at": 1790230372227,
               "destination": "(no egress client in this phase)",
-              "payloadSha256": "f049ffa59725d4c701b0477f5b4d215e680ce336a6e0d4cb3b403412b79fe889",
+              "payloadSha256": "63a5ae27df9645737c8a6d8a5e4fa34ce7e4161ef69460b9c5a46a035884f2d3",
               "payloadBytes": 4255,
               "verified": true,
               "leakCheck": "CLEAN",
@@ -6512,7 +6614,7 @@
               "received": true,
               "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
               "transport": "LOOPBACK_HTTP",
-              "elapsedMs": 7,
+              "elapsedMs": 10,
               "requestId": "m2-refusal-request"
             },
             "plan": {
@@ -6580,10 +6682,10 @@
           },
           "binding": {
             "origin": "http://127.0.0.1:8975",
-            "documentId": "19EDC71CD5D24507956DB41715D4FEB9",
-            "tabId": 419001427,
+            "documentId": "BE82D5871E707B106F93BB52D26D6FB3",
+            "tabId": 191885543,
             "frameId": 0,
-            "swBootId": "9d2126f9-8535-4bca-8e67-66f4b6899699"
+            "swBootId": "7c0db83b-aae6-4b5b-94da-dbdff9e9e886"
           },
           "ports": {
             "observations": 1,
@@ -6595,8 +6697,10 @@
                 "ran": false,
                 "refusal": {
                   "code": "CAPTURE_THROTTLED",
-                  "detail": "captureVisibleTab rejected: This request exceeds the MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND quota."
+                  "detail": "This request exceeds the MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND quota."
                 },
+                "route": null,
+                "workerSawPixels": false,
                 "capture": null,
                 "detector": {
                   "modelId": "none",
@@ -6613,6 +6717,7 @@
                 "ms": {
                   "capture": 0,
                   "decode": 0,
+                  "encode": 0,
                   "preprocess": 0,
                   "infer": 0,
                   "fuse": 0,
@@ -6624,12 +6729,12 @@
           "perceptionBoot": {
             "ok": true,
             "error": null,
-            "ms": 602,
+            "ms": 590,
             "pin": {
               "artifact": "ort-wasm-simd-threaded.jsep.wasm",
               "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
               "bytes": 27797172,
-              "installedAt": "2026-09-22T16:28:44.634Z"
+              "installedAt": "2026-09-24T06:12:48.450Z"
             }
           },
           "boundary": {
@@ -6649,7 +6754,7 @@
                 "requestId": "m2-refusal-request",
                 "sessionId": "m2-refusal-session",
                 "destination": "http://127.0.0.1:8995/v1/chat/completions",
-                "at": 1790094528277,
+                "at": 1790230372251,
                 "transport": "LOOPBACK_HTTP",
                 "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
                 "verified": true,
@@ -6669,7 +6774,7 @@
                   "bytes": 2679,
                   "agrees": true
                 },
-                "elapsedMs": 7
+                "elapsedMs": 10
               }
             }
           ],
@@ -6692,7 +6797,7 @@
           "events": [],
           "objectSeenTwice": 0,
           "listenersOnSubmit": 6,
-          "timeOrigin": 1790094528193.3
+          "timeOrigin": 1790230372082.8
         }
       },
       "audit": {
@@ -6725,83 +6830,83 @@
               {
                 "from": "IDLE",
                 "to": "OBSERVE",
-                "at": 1790094528625,
+                "at": 1790230372586,
                 "elapsedMs": 0
               },
               {
                 "from": "OBSERVE",
                 "to": "SANITIZE",
-                "at": 1790094528789,
-                "elapsedMs": 164
+                "at": 1790230372830,
+                "elapsedMs": 244
               },
               {
                 "from": "SANITIZE",
                 "to": "VERIFY_PAYLOAD",
-                "at": 1790094528798,
-                "elapsedMs": 173
+                "at": 1790230372845,
+                "elapsedMs": 259
               },
               {
                 "from": "VERIFY_PAYLOAD",
                 "to": "SEND",
-                "at": 1790094528798,
-                "elapsedMs": 173
+                "at": 1790230372845,
+                "elapsedMs": 259
               },
               {
                 "from": "SEND",
                 "to": "VALIDATE_PLAN",
-                "at": 1790094528804,
-                "elapsedMs": 179
+                "at": 1790230372852,
+                "elapsedMs": 266
               },
               {
                 "from": "VALIDATE_PLAN",
                 "to": "AWAIT_GRANT",
-                "at": 1790094528804,
-                "elapsedMs": 179
+                "at": 1790230372852,
+                "elapsedMs": 266
               },
               {
                 "from": "AWAIT_GRANT",
                 "to": "REHYDRATE",
-                "at": 1790094528893,
-                "elapsedMs": 268
+                "at": 1790230373113,
+                "elapsedMs": 527
               },
               {
                 "from": "REHYDRATE",
                 "to": "ACT",
-                "at": 1790094529046,
-                "elapsedMs": 421
+                "at": 1790230373371,
+                "elapsedMs": 785
               },
               {
                 "from": "ACT",
                 "to": "VERIFY_RESULT",
-                "at": 1790094529046,
-                "elapsedMs": 421
+                "at": 1790230373371,
+                "elapsedMs": 785
               },
               {
                 "from": "VERIFY_RESULT",
                 "to": "DONE",
-                "at": 1790094529053,
-                "elapsedMs": 428
+                "at": 1790230373382,
+                "elapsedMs": 796
               }
             ],
             "timings": {
-              "observeMs": 164,
-              "sanitizeMs": 9,
+              "observeMs": 244,
+              "sanitizeMs": 15,
               "verifyPayloadMs": 0,
               "sendMs": 6,
-              "fallbackMs": 0,
+              "fallbackMs": 1,
               "validatePlanMs": 0,
-              "grantMs": 89,
-              "rehydrateMs": 4,
-              "refreshMs": 149,
-              "verifyResultMs": 3,
-              "actMs": 7,
-              "totalMs": 428
+              "grantMs": 261,
+              "rehydrateMs": 6,
+              "refreshMs": 252,
+              "verifyResultMs": 6,
+              "actMs": 11,
+              "totalMs": 796
             },
             "refusal": null,
             "initialObservation": {
               "nodes": 14,
               "fields": 0,
-              "frameId": "transport-969e8bc2-dc26-4db3-bd8c-497dda41cac7",
+              "frameId": "transport-63d78e3d-b8f1-4fbb-a521-05f468a1792f",
               "viewport": {
                 "w": 1280,
                 "h": 720,
@@ -6810,7 +6915,7 @@
                 "scrollX": 0,
                 "scrollY": 0
               },
-              "documentId": "3EB5E5D0A096F5C5E8740F423260A922",
+              "documentId": "F43C08E01642C6238B4017E69C058005",
               "focusedSelector": null,
               "actionable": [
                 "label",
@@ -6827,7 +6932,7 @@
             "observation": {
               "nodes": 14,
               "fields": 0,
-              "frameId": "transport-d9970e9e-6fc8-46b1-910b-e58e5b3aa79c",
+              "frameId": "transport-01297d02-ca1d-4115-b018-7c145cda43e4",
               "viewport": {
                 "w": 1280,
                 "h": 720,
@@ -6836,7 +6941,7 @@
                 "scrollX": 0,
                 "scrollY": 0
               },
-              "documentId": "3EB5E5D0A096F5C5E8740F423260A922",
+              "documentId": "F43C08E01642C6238B4017E69C058005",
               "focusedSelector": null,
               "actionable": [
                 "label",
@@ -7197,17 +7302,17 @@
               "request": {
                 "requestId": "m2-outage-request",
                 "sessionId": "m2-outage-session",
-                "issuedAt": 1790094528789
+                "issuedAt": 1790230372830
               },
               "verified": true
             },
-            "handoffSerialized": "{\"manifestVersion\":\"1.1\",\"capture\":{\"w\":1280,\"h\":720,\"dpr\":1.0000000149011612,\"zoom\":1,\"scale_to_css\":0.8,\"scroll\":{\"x\":0,\"y\":0},\"origin\":\"http://127.0.0.1:8975\"},\"capability\":{\"backend\":\"wasm\",\"tiers_fired\":[\"T0\",\"T1\",\"T2\"]},\"elements\":[{\"id\":\"label\",\"role\":\"label\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,122.80000305175781,490.3999938964844,18.399999618530273]},{\"id\":\"#name\",\"role\":\"textbox\",\"name\":\"Full name\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,187.1999969482422,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile\",\"role\":\"textbox\",\"name\":\"Mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,251.60000610351562,490.3999938964844,18.399999618530273]},{\"id\":\"#aadhaar\",\"role\":\"textbox\",\"name\":\"Aadhaar number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,274,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,316,490.3999938964844,18.399999618530273]},{\"id\":\"#dob\",\"role\":\"textbox\",\"name\":\"Date of birth\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,382.3999938964844,490.3999938964844,18.399999618530273]},{\"id\":\"#otp\",\"role\":\"textbox\",\"name\":\"OTP\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,506,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile_confirm\",\"role\":\"textbox\",\"name\":\"Confirm mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,528.4000244140625,490.3999938964844,32]},{\"id\":\"#submit\",\"role\":\"button\",\"name\":\"Submit application\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,572.4000244140625,153.4250030517578,38]},{\"id\":\"#status\",\"role\":\"status\",\"name\":\"Not submitted\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[20,639.2000122070312,520,36.400001525878906]}],\"goal\":\"Submit my application with my registered mobile number.\",\"redactions\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"},\"targetId\":\"#name\"},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"},\"targetId\":\"#mobile\"},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"tier\":\"SENSITIVE\",\"bbox\":[34.79999923706055,274,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":14,\"kind\":\"numeric\"},\"targetId\":\"#aadhaar\"},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"},\"targetId\":\"#dob\"},{\"token\":\"\",\"class\":\"OTP\",\"tier\":\"CRITICAL\",\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32],\"method\":\"masked_no_token\",\"detectors\":[\"D1\"],\"hint\":{\"len\":6,\"kind\":\"numeric\",\"field_role\":\"one-time-code\"},\"targetId\":\"#otp\"}],\"request\":{\"requestId\":\"m2-outage-request\",\"sessionId\":\"m2-outage-session\",\"issuedAt\":1790094528789},\"verified\":true}",
+            "handoffSerialized": "{\"manifestVersion\":\"1.1\",\"capture\":{\"w\":1280,\"h\":720,\"dpr\":1.0000000149011612,\"zoom\":1,\"scale_to_css\":0.8,\"scroll\":{\"x\":0,\"y\":0},\"origin\":\"http://127.0.0.1:8975\"},\"capability\":{\"backend\":\"wasm\",\"tiers_fired\":[\"T0\",\"T1\",\"T2\"]},\"elements\":[{\"id\":\"label\",\"role\":\"label\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,122.80000305175781,490.3999938964844,18.399999618530273]},{\"id\":\"#name\",\"role\":\"textbox\",\"name\":\"Full name\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,187.1999969482422,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile\",\"role\":\"textbox\",\"name\":\"Mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,251.60000610351562,490.3999938964844,18.399999618530273]},{\"id\":\"#aadhaar\",\"role\":\"textbox\",\"name\":\"Aadhaar number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,274,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,316,490.3999938964844,18.399999618530273]},{\"id\":\"#dob\",\"role\":\"textbox\",\"name\":\"Date of birth\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,382.3999938964844,490.3999938964844,18.399999618530273]},{\"id\":\"#otp\",\"role\":\"textbox\",\"name\":\"OTP\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,506,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile_confirm\",\"role\":\"textbox\",\"name\":\"Confirm mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,528.4000244140625,490.3999938964844,32]},{\"id\":\"#submit\",\"role\":\"button\",\"name\":\"Submit application\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,572.4000244140625,153.4250030517578,38]},{\"id\":\"#status\",\"role\":\"status\",\"name\":\"Not submitted\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[20,639.2000122070312,520,36.400001525878906]}],\"goal\":\"Submit my application with my registered mobile number.\",\"redactions\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"},\"targetId\":\"#name\"},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"},\"targetId\":\"#mobile\"},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"tier\":\"SENSITIVE\",\"bbox\":[34.79999923706055,274,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":14,\"kind\":\"numeric\"},\"targetId\":\"#aadhaar\"},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"},\"targetId\":\"#dob\"},{\"token\":\"\",\"class\":\"OTP\",\"tier\":\"CRITICAL\",\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32],\"method\":\"masked_no_token\",\"detectors\":[\"D1\"],\"hint\":{\"len\":6,\"kind\":\"numeric\",\"field_role\":\"one-time-code\"},\"targetId\":\"#otp\"}],\"request\":{\"requestId\":\"m2-outage-request\",\"sessionId\":\"m2-outage-session\",\"issuedAt\":1790230372830},\"verified\":true}",
             "ledgerEntry": {
               "sessionId": "m2-outage-session",
               "requestId": "m2-outage-request",
-              "at": 1790094528789,
+              "at": 1790230372830,
               "destination": "(no egress client in this phase)",
-              "payloadSha256": "1635b88b55e972de6298342b77f37a5542b7ba61d4ddd4a75fde8ee3a1ea6baa",
+              "payloadSha256": "2dd1d21fc0791671a68ac7a7e47f14f63fffa86a98f5678841c72170ae3a6e6e",
               "payloadBytes": 4302,
               "verified": true,
               "leakCheck": "CLEAN",
@@ -7241,7 +7346,7 @@
               "received": true,
               "reasoner": "deterministic:reference",
               "transport": "IN_PROCESS",
-              "elapsedMs": 0,
+              "elapsedMs": 1,
               "requestId": "m2-outage-request"
             },
             "plan": {
@@ -7307,8 +7412,8 @@
                 "sessionId": "m2-outage-session",
                 "purpose": "Use of PHONE for \"Confirm mobile number\"",
                 "actionContext": "insert into #mobile_confirm, then click #submit",
-                "grantedAt": 1790094528893,
-                "expiresAt": 1790094588893,
+                "grantedAt": 1790230373113,
+                "expiresAt": 1790230433113,
                 "used": true
               }
             },
@@ -7327,12 +7432,12 @@
                 "selector": "#submit",
                 "role": "button",
                 "name": "Submit application",
-                "frameId": "transport-84f5e70e-99fb-4a09-b723-1ec176a6a434",
+                "frameId": "transport-65b50706-cba8-4864-ab0f-fa2486d397ca",
                 "origin": "http://127.0.0.1:8975"
               },
               "purpose": "Click \"Submit application\" to submit this application",
-              "confirmedAt": 1790094529046,
-              "expiresAt": 1790094589046
+              "confirmedAt": 1790230373371,
+              "expiresAt": 1790230433371
             },
             "act": {
               "reached": "VERIFY_RESULT",
@@ -7348,7 +7453,7 @@
                   },
                   "evidence": {
                     "kind": "OBSERVED",
-                    "frameId": "transport-84f5e70e-99fb-4a09-b723-1ec176a6a434",
+                    "frameId": "transport-65b50706-cba8-4864-ab0f-fa2486d397ca",
                     "viewportBox": {
                       "x": 34.79999923706055,
                       "y": 572.4000244140625,
@@ -7366,7 +7471,7 @@
                   "parent": null,
                   "children": []
                 },
-                "frameId": "transport-84f5e70e-99fb-4a09-b723-1ec176a6a434",
+                "frameId": "transport-65b50706-cba8-4864-ab0f-fa2486d397ca",
                 "viewportBox": {
                   "x": 34.79999923706055,
                   "y": 572.4000244140625,
@@ -7387,7 +7492,7 @@
                   "y": 591
                 },
                 "observed": {
-                  "frameId": "transport-84f5e70e-99fb-4a09-b723-1ec176a6a434",
+                  "frameId": "transport-65b50706-cba8-4864-ab0f-fa2486d397ca",
                   "selector": "#submit",
                   "role": "button",
                   "name": "Submit application",
@@ -7399,7 +7504,7 @@
                   }
                 },
                 "boxIou": 1,
-                "elapsedMs": 1
+                "elapsedMs": 2
               },
               "result": {
                 "status": "EXECUTED",
@@ -7430,35 +7535,35 @@
           },
           "binding": {
             "origin": "http://127.0.0.1:8975",
-            "documentId": "3EB5E5D0A096F5C5E8740F423260A922",
-            "tabId": 419001427,
+            "documentId": "F43C08E01642C6238B4017E69C058005",
+            "tabId": 191885543,
             "frameId": 0,
-            "swBootId": "9d2126f9-8535-4bca-8e67-66f4b6899699"
+            "swBootId": "7c0db83b-aae6-4b5b-94da-dbdff9e9e886"
           },
           "ports": {
             "observations": 3,
             "inserts": 0,
             "insertRefusals": [],
             "cycle": {
-              "cycleId": "5faf494d-9633-4079-8265-9c9987672ce4",
+              "cycleId": "105eb5a4-70a2-494f-8ca3-5ccb30eb3c10",
               "hitTest": {
                 "point": {
                   "x": 112,
                   "y": 591
                 },
                 "topmost": "#submit",
-                "receivedAt": 1790094529048,
-                "sampledAt": 1790094529048
+                "receivedAt": 1790230373372.7,
+                "sampledAt": 1790230373372.8
               },
               "dispatch": {
-                "deliveryId": "3d4064e0-58e9-44da-bbcd-bbac5c554de1",
+                "deliveryId": "266fcb64-de37-4153-b4bc-ed5cfbc0049d",
                 "point": {
                   "x": 112,
                   "y": 591
                 },
                 "dispatchedTo": "#submit",
-                "receivedAt": 1790094529049.5,
-                "dispatchedAt": 1790094529049.7
+                "receivedAt": 1790230373375.3,
+                "dispatchedAt": 1790230373375.5999
               },
               "refusals": []
             },
@@ -7466,6 +7571,8 @@
               {
                 "ran": true,
                 "refusal": null,
+                "route": "WORKER_FRAME",
+                "workerSawPixels": true,
                 "capture": {
                   "w": 1600,
                   "h": 900,
@@ -9129,17 +9236,20 @@
                   "#status": "dom"
                 },
                 "ms": {
-                  "capture": 38,
-                  "decode": 12,
-                  "preprocess": 65,
-                  "infer": 47,
-                  "fuse": 0,
-                  "total": 162
+                  "capture": 52,
+                  "decode": 21,
+                  "encode": 0,
+                  "preprocess": 70,
+                  "infer": 96,
+                  "fuse": 1,
+                  "total": 240
                 }
               },
               {
                 "ran": true,
                 "refusal": null,
+                "route": "WORKER_FRAME",
+                "workerSawPixels": true,
                 "capture": {
                   "w": 1600,
                   "h": 900,
@@ -10788,20 +10898,23 @@
                   "#status": "dom"
                 },
                 "ms": {
-                  "capture": 41,
-                  "decode": 11,
-                  "preprocess": 48,
-                  "infer": 45,
-                  "fuse": 0,
-                  "total": 145
+                  "capture": 51,
+                  "decode": 22,
+                  "encode": 0,
+                  "preprocess": 71,
+                  "infer": 103,
+                  "fuse": 1,
+                  "total": 248
                 }
               },
               {
                 "ran": false,
                 "refusal": {
                   "code": "CAPTURE_THROTTLED",
-                  "detail": "captureVisibleTab rejected: This request exceeds the MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND quota."
+                  "detail": "This request exceeds the MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND quota."
                 },
+                "route": null,
+                "workerSawPixels": false,
                 "capture": null,
                 "detector": {
                   "modelId": "none",
@@ -10818,6 +10931,7 @@
                 "ms": {
                   "capture": 0,
                   "decode": 0,
+                  "encode": 0,
                   "preprocess": 0,
                   "infer": 0,
                   "fuse": 0,
@@ -10829,12 +10943,12 @@
           "perceptionBoot": {
             "ok": true,
             "error": null,
-            "ms": 602,
+            "ms": 590,
             "pin": {
               "artifact": "ort-wasm-simd-threaded.jsep.wasm",
               "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
               "bytes": 27797172,
-              "installedAt": "2026-09-22T16:28:44.634Z"
+              "installedAt": "2026-09-24T06:12:48.450Z"
             }
           },
           "boundary": {
@@ -10854,7 +10968,7 @@
                 "requestId": "m2-outage-request",
                 "sessionId": "m2-outage-session",
                 "destination": "http://127.0.0.1:8995/v1/chat/completions",
-                "at": 1790094528804,
+                "at": 1790230372851,
                 "stage": "TRANSPORT",
                 "cause": "TRANSPORT_FAILED",
                 "severity": "REFUSED",
@@ -10902,7 +11016,7 @@
             {
               "type": "pointerdown",
               "trusted": false,
-              "at": 1790094529049.6,
+              "at": 1790230373375.5,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -10910,7 +11024,7 @@
             {
               "type": "mousedown",
               "trusted": false,
-              "at": 1790094529049.6,
+              "at": 1790230373375.5,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -10918,7 +11032,7 @@
             {
               "type": "pointerup",
               "trusted": false,
-              "at": 1790094529049.6,
+              "at": 1790230373375.5,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -10926,7 +11040,7 @@
             {
               "type": "mouseup",
               "trusted": false,
-              "at": 1790094529049.6,
+              "at": 1790230373375.5,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -10934,7 +11048,7 @@
             {
               "type": "click",
               "trusted": false,
-              "at": 1790094529049.6,
+              "at": 1790230373375.5999,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -10942,7 +11056,7 @@
           ],
           "objectSeenTwice": 0,
           "listenersOnSubmit": 6,
-          "timeOrigin": 1790094528552.3
+          "timeOrigin": 1790230372500.7
         }
       },
       "audit": {
@@ -10957,13 +11071,13 @@
           "refusals": [],
           "fires": [
             {
-              "cycleId": "5faf494d-9633-4079-8265-9c9987672ce4",
-              "deliveryId": "3d4064e0-58e9-44da-bbcd-bbac5c554de1",
-              "requestId": "bd4c05cc-0399-4f05-ab95-447c2e78b7fa",
+              "cycleId": "105eb5a4-70a2-494f-8ca3-5ccb30eb3c10",
+              "deliveryId": "266fcb64-de37-4153-b4bc-ed5cfbc0049d",
+              "requestId": "27dc3086-f654-4035-8c91-768f6b08f63c",
               "to": "#submit",
-              "preparedAt": 1790094529049.6,
-              "at": 1790094529049.7,
-              "doneAt": 1790094529050.2
+              "preparedAt": 1790230373375.4,
+              "at": 1790230373375.5999,
+              "doneAt": 1790230373376.0999
             }
           ]
         }
@@ -10977,6 +11091,8 @@
       {
         "ran": true,
         "refusal": null,
+        "route": "WORKER_FRAME",
+        "workerSawPixels": true,
         "capture": {
           "w": 1600,
           "h": 900,
@@ -12640,17 +12756,20 @@
           "#status": "dom"
         },
         "ms": {
-          "capture": 49,
-          "decode": 17,
-          "preprocess": 71,
-          "infer": 86,
+          "capture": 45,
+          "decode": 15,
+          "encode": 0,
+          "preprocess": 52,
+          "infer": 82,
           "fuse": 1,
-          "total": 225
+          "total": 195
         }
       },
       {
         "ran": true,
         "refusal": null,
+        "route": "WORKER_FRAME",
+        "workerSawPixels": true,
         "capture": {
           "w": 1600,
           "h": 900,
@@ -14299,22 +14418,25 @@
           "#status": "dom"
         },
         "ms": {
-          "capture": 37,
-          "decode": 11,
-          "preprocess": 42,
-          "infer": 42,
-          "fuse": 1,
-          "total": 133
+          "capture": 42,
+          "decode": 12,
+          "encode": 0,
+          "preprocess": 32,
+          "infer": 52,
+          "fuse": 0,
+          "total": 138
         }
       },
       {
         "ran": true,
         "refusal": null,
+        "route": "WORKER_FRAME",
+        "workerSawPixels": true,
         "capture": {
           "w": 1600,
           "h": 900,
           "format": "png",
-          "bytes": 41770,
+          "bytes": 42308,
           "dpr": 1.0000000149011612,
           "scaleToCss": 0.8
         },
@@ -14323,21 +14445,21 @@
           "revision": "ba6d9e93695b",
           "backend": "wasm",
           "ran": true,
-          "detections": 99,
+          "detections": 106,
           "byClass": {
+            "tab": 7,
             "textbox": 47,
-            "button": 30,
-            "link": 12,
-            "tab": 5,
+            "button": 33,
+            "link": 14,
             "select": 5
           },
           "refusal": null
         },
         "fusion": {
-          "matched": 6,
-          "visionOnly": 93,
-          "domOnly": 8,
-          "overlaySuspected": 6
+          "matched": 7,
+          "visionOnly": 99,
+          "domOnly": 7,
+          "overlaySuspected": 7
         },
         "elements": [
           {
@@ -14524,7 +14646,7 @@
             "id": "e12",
             "role": "button",
             "name": "Submit application",
-            "source": "dom",
+            "source": "dom+vision",
             "visible": true,
             "offscreen": false,
             "enabled": false,
@@ -14552,6 +14674,21 @@
           },
           {
             "id": "v0",
+            "role": "tab",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              94.24649810791016,
+              575.9467258453369,
+              88.82353210449219,
+              37.94663619995117
+            ]
+          },
+          {
+            "id": "v1",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14566,7 +14703,7 @@
             ]
           },
           {
-            "id": "v2",
+            "id": "v3",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14581,7 +14718,7 @@
             ]
           },
           {
-            "id": "v3",
+            "id": "v4",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14596,7 +14733,22 @@
             ]
           },
           {
-            "id": "v4",
+            "id": "v5",
+            "role": "textbox",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              74.2366943359375,
+              671.7416839599609,
+              364.307373046875,
+              44.321929931640625
+            ]
+          },
+          {
+            "id": "v6",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -14611,7 +14763,7 @@
             ]
           },
           {
-            "id": "v5",
+            "id": "v7",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14626,7 +14778,7 @@
             ]
           },
           {
-            "id": "v6",
+            "id": "v8",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14641,7 +14793,7 @@
             ]
           },
           {
-            "id": "v7",
+            "id": "v9",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14656,22 +14808,37 @@
             ]
           },
           {
-            "id": "v8",
-            "role": "button",
+            "id": "v10",
+            "role": "link",
             "name": "",
             "source": "vision",
             "visible": true,
             "offscreen": false,
             "enabled": true,
             "bbox": [
-              43.359283447265625,
-              533.9662561416626,
-              198.95608520507812,
-              30.556623458862305
+              69.99898910522461,
+              574.0061492919922,
+              104.59937286376953,
+              33.994171142578125
             ]
           },
           {
-            "id": "v9",
+            "id": "v11",
+            "role": "link",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              12.813743591308594,
+              575.0464553833008,
+              98.69883728027344,
+              32.95396423339844
+            ]
+          },
+          {
+            "id": "v12",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14686,7 +14853,7 @@
             ]
           },
           {
-            "id": "v10",
+            "id": "v13",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14701,7 +14868,7 @@
             ]
           },
           {
-            "id": "v11",
+            "id": "v14",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14716,7 +14883,7 @@
             ]
           },
           {
-            "id": "v12",
+            "id": "v15",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14731,7 +14898,7 @@
             ]
           },
           {
-            "id": "v13",
+            "id": "v16",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14746,7 +14913,7 @@
             ]
           },
           {
-            "id": "v14",
+            "id": "v17",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14761,7 +14928,7 @@
             ]
           },
           {
-            "id": "v15",
+            "id": "v18",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -14776,22 +14943,52 @@
             ]
           },
           {
-            "id": "v16",
-            "role": "textbox",
+            "id": "v19",
+            "role": "button",
             "name": "",
             "source": "vision",
             "visible": true,
             "offscreen": false,
             "enabled": true,
             "bbox": [
-              93.81852722167969,
-              604.2699890136719,
-              207.99664306640625,
-              33.23211669921875
+              36.41654968261719,
+              526.3512897491455,
+              131.82342529296875,
+              42.762630462646484
             ]
           },
           {
-            "id": "v17",
+            "id": "v20",
+            "role": "button",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              6.15411376953125,
+              611.2381172180176,
+              167.10076904296875,
+              32.550132751464844
+            ]
+          },
+          {
+            "id": "v21",
+            "role": "link",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              74.18254089355469,
+              644.8304023742676,
+              104.87469482421875,
+              22.420127868652344
+            ]
+          },
+          {
+            "id": "v22",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14806,7 +15003,7 @@
             ]
           },
           {
-            "id": "v18",
+            "id": "v23",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14821,7 +15018,7 @@
             ]
           },
           {
-            "id": "v19",
+            "id": "v24",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14836,7 +15033,7 @@
             ]
           },
           {
-            "id": "v20",
+            "id": "v26",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -14851,7 +15048,7 @@
             ]
           },
           {
-            "id": "v21",
+            "id": "v27",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -14866,7 +15063,7 @@
             ]
           },
           {
-            "id": "v22",
+            "id": "v28",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -14881,7 +15078,7 @@
             ]
           },
           {
-            "id": "v23",
+            "id": "v29",
             "role": "link",
             "name": "",
             "source": "vision",
@@ -14896,7 +15093,22 @@
             ]
           },
           {
-            "id": "v24",
+            "id": "v30",
+            "role": "tab",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              36.11112594604492,
+              575.3493461608887,
+              78.15180206298828,
+              32.681190490722656
+            ]
+          },
+          {
+            "id": "v31",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -14911,7 +15123,7 @@
             ]
           },
           {
-            "id": "v25",
+            "id": "v32",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14926,7 +15138,7 @@
             ]
           },
           {
-            "id": "v26",
+            "id": "v33",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14941,7 +15153,7 @@
             ]
           },
           {
-            "id": "v27",
+            "id": "v34",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -14956,22 +15168,7 @@
             ]
           },
           {
-            "id": "v28",
-            "role": "textbox",
-            "name": "",
-            "source": "vision",
-            "visible": true,
-            "offscreen": false,
-            "enabled": true,
-            "bbox": [
-              3.66143798828125,
-              672.361249923706,
-              299.233642578125,
-              43.16312026977539
-            ]
-          },
-          {
-            "id": "v29",
+            "id": "v35",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -14986,7 +15183,7 @@
             ]
           },
           {
-            "id": "v31",
+            "id": "v37",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -15001,7 +15198,7 @@
             ]
           },
           {
-            "id": "v33",
+            "id": "v39",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -15016,7 +15213,7 @@
             ]
           },
           {
-            "id": "v35",
+            "id": "v41",
             "role": "tab",
             "name": "",
             "source": "vision",
@@ -15031,7 +15228,7 @@
             ]
           },
           {
-            "id": "v36",
+            "id": "v42",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -15046,22 +15243,7 @@
             ]
           },
           {
-            "id": "v37",
-            "role": "select",
-            "name": "",
-            "source": "vision",
-            "visible": true,
-            "offscreen": false,
-            "enabled": true,
-            "bbox": [
-              38.53643798828125,
-              538.3421812057495,
-              296.6305236816406,
-              23.534143447875977
-            ]
-          },
-          {
-            "id": "v38",
+            "id": "v43",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15076,7 +15258,7 @@
             ]
           },
           {
-            "id": "v39",
+            "id": "v44",
             "role": "tab",
             "name": "",
             "source": "vision",
@@ -15091,7 +15273,7 @@
             ]
           },
           {
-            "id": "v40",
+            "id": "v45",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15106,7 +15288,22 @@
             ]
           },
           {
-            "id": "v41",
+            "id": "v46",
+            "role": "textbox",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              177.85488891601562,
+              671.5955200195312,
+              429.93841552734375,
+              43.5069580078125
+            ]
+          },
+          {
+            "id": "v47",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -15121,7 +15318,7 @@
             ]
           },
           {
-            "id": "v42",
+            "id": "v48",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -15136,22 +15333,7 @@
             ]
           },
           {
-            "id": "v43",
-            "role": "link",
-            "name": "",
-            "source": "vision",
-            "visible": true,
-            "offscreen": false,
-            "enabled": true,
-            "bbox": [
-              18.716751098632812,
-              643.3143730163574,
-              95.50311279296875,
-              27.250770568847656
-            ]
-          },
-          {
-            "id": "v44",
+            "id": "v49",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -15166,7 +15348,7 @@
             ]
           },
           {
-            "id": "v46",
+            "id": "v51",
             "role": "link",
             "name": "",
             "source": "vision",
@@ -15181,7 +15363,7 @@
             ]
           },
           {
-            "id": "v47",
+            "id": "v52",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15196,7 +15378,7 @@
             ]
           },
           {
-            "id": "v48",
+            "id": "v53",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15211,7 +15393,7 @@
             ]
           },
           {
-            "id": "v49",
+            "id": "v54",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15226,7 +15408,7 @@
             ]
           },
           {
-            "id": "v50",
+            "id": "v55",
             "role": "link",
             "name": "",
             "source": "vision",
@@ -15241,7 +15423,7 @@
             ]
           },
           {
-            "id": "v51",
+            "id": "v56",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -15256,7 +15438,7 @@
             ]
           },
           {
-            "id": "v52",
+            "id": "v57",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -15271,7 +15453,22 @@
             ]
           },
           {
-            "id": "v53",
+            "id": "v58",
+            "role": "button",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              75.81312561035156,
+              611.7295112609863,
+              200.5870361328125,
+              32.319053649902344
+            ]
+          },
+          {
+            "id": "v59",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15286,22 +15483,7 @@
             ]
           },
           {
-            "id": "v54",
-            "role": "select",
-            "name": "",
-            "source": "vision",
-            "visible": true,
-            "offscreen": false,
-            "enabled": true,
-            "bbox": [
-              110.824951171875,
-              534.9905920028687,
-              482.49493408203125,
-              27.264421463012695
-            ]
-          },
-          {
-            "id": "v55",
+            "id": "v60",
             "role": "tab",
             "name": "",
             "source": "vision",
@@ -15316,7 +15498,7 @@
             ]
           },
           {
-            "id": "v56",
+            "id": "v61",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15331,7 +15513,22 @@
             ]
           },
           {
-            "id": "v57",
+            "id": "v62",
+            "role": "textbox",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              0,
+              528.300085067749,
+              207.87406158447266,
+              33.32170486450195
+            ]
+          },
+          {
+            "id": "v63",
             "role": "link",
             "name": "",
             "source": "vision",
@@ -15346,7 +15543,7 @@
             ]
           },
           {
-            "id": "v58",
+            "id": "v64",
             "role": "tab",
             "name": "",
             "source": "vision",
@@ -15361,7 +15558,7 @@
             ]
           },
           {
-            "id": "v59",
+            "id": "v65",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15376,7 +15573,22 @@
             ]
           },
           {
-            "id": "v60",
+            "id": "v66",
+            "role": "button",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              29.130096435546875,
+              607.6525983810425,
+              182.4063262939453,
+              26.25107765197754
+            ]
+          },
+          {
+            "id": "v67",
             "role": "link",
             "name": "",
             "source": "vision",
@@ -15391,7 +15603,22 @@
             ]
           },
           {
-            "id": "v61",
+            "id": "v68",
+            "role": "link",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              35.26405334472656,
+              644.4638299942017,
+              111.4337158203125,
+              24.61738395690918
+            ]
+          },
+          {
+            "id": "v69",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15406,7 +15633,7 @@
             ]
           },
           {
-            "id": "v62",
+            "id": "v70",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -15421,7 +15648,7 @@
             ]
           },
           {
-            "id": "v64",
+            "id": "v72",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15436,7 +15663,7 @@
             ]
           },
           {
-            "id": "v65",
+            "id": "v73",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15451,7 +15678,52 @@
             ]
           },
           {
-            "id": "v66",
+            "id": "v74",
+            "role": "textbox",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              30.090789794921875,
+              602.3703536987305,
+              280.3028259277344,
+              38.88111877441406
+            ]
+          },
+          {
+            "id": "v75",
+            "role": "textbox",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              126.09077453613281,
+              602.3703536987305,
+              280.3028259277344,
+              38.88111877441406
+            ]
+          },
+          {
+            "id": "v76",
+            "role": "textbox",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              222.0907745361328,
+              602.3703536987305,
+              280.3028259277344,
+              38.88111877441406
+            ]
+          },
+          {
+            "id": "v77",
             "role": "link",
             "name": "",
             "source": "vision",
@@ -15466,7 +15738,7 @@
             ]
           },
           {
-            "id": "v67",
+            "id": "v78",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15481,7 +15753,7 @@
             ]
           },
           {
-            "id": "v68",
+            "id": "v79",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -15496,7 +15768,7 @@
             ]
           },
           {
-            "id": "v69",
+            "id": "v80",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -15511,7 +15783,7 @@
             ]
           },
           {
-            "id": "v70",
+            "id": "v81",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -15526,7 +15798,7 @@
             ]
           },
           {
-            "id": "v71",
+            "id": "v82",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15541,22 +15813,7 @@
             ]
           },
           {
-            "id": "v72",
-            "role": "link",
-            "name": "",
-            "source": "vision",
-            "visible": true,
-            "offscreen": false,
-            "enabled": true,
-            "bbox": [
-              64.6462631225586,
-              644.8121137619019,
-              69.32356262207031,
-              23.90983009338379
-            ]
-          },
-          {
-            "id": "v73",
+            "id": "v83",
             "role": "tab",
             "name": "",
             "source": "vision",
@@ -15571,7 +15828,7 @@
             ]
           },
           {
-            "id": "v74",
+            "id": "v84",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15586,37 +15843,22 @@
             ]
           },
           {
-            "id": "v75",
-            "role": "textbox",
+            "id": "v85",
+            "role": "select",
             "name": "",
             "source": "vision",
             "visible": true,
             "offscreen": false,
             "enabled": true,
             "bbox": [
-              143.5174560546875,
-              602.6621494293213,
-              282.09771728515625,
-              36.39457321166992
+              46.12425231933594,
+              527.1570281982422,
+              162.38616943359375,
+              38.442901611328125
             ]
           },
           {
-            "id": "v76",
-            "role": "textbox",
-            "name": "",
-            "source": "vision",
-            "visible": true,
-            "offscreen": false,
-            "enabled": true,
-            "bbox": [
-              239.5174560546875,
-              602.6621494293213,
-              282.09771728515625,
-              36.39457321166992
-            ]
-          },
-          {
-            "id": "v77",
+            "id": "v86",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -15631,7 +15873,7 @@
             ]
           },
           {
-            "id": "v78",
+            "id": "v87",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -15646,7 +15888,7 @@
             ]
           },
           {
-            "id": "v79",
+            "id": "v88",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15661,7 +15903,7 @@
             ]
           },
           {
-            "id": "v80",
+            "id": "v89",
             "role": "select",
             "name": "",
             "source": "vision",
@@ -15676,7 +15918,7 @@
             ]
           },
           {
-            "id": "v81",
+            "id": "v90",
             "role": "link",
             "name": "",
             "source": "vision",
@@ -15691,7 +15933,22 @@
             ]
           },
           {
-            "id": "v82",
+            "id": "v91",
+            "role": "textbox",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              54.5504150390625,
+              659.9801902770996,
+              207.27987670898438,
+              29.05548858642578
+            ]
+          },
+          {
+            "id": "v92",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15706,7 +15963,7 @@
             ]
           },
           {
-            "id": "v83",
+            "id": "v93",
             "role": "select",
             "name": "",
             "source": "vision",
@@ -15721,22 +15978,22 @@
             ]
           },
           {
-            "id": "v84",
-            "role": "button",
+            "id": "v94",
+            "role": "textbox",
             "name": "",
             "source": "vision",
             "visible": true,
             "offscreen": false,
             "enabled": true,
             "bbox": [
-              16.294410705566406,
-              544.575813293457,
-              158.53028869628906,
-              25.437850952148438
+              292.26341247558594,
+              611.0244007110596,
+              287.8299865722656,
+              34.19521713256836
             ]
           },
           {
-            "id": "v85",
+            "id": "v95",
             "role": "select",
             "name": "",
             "source": "vision",
@@ -15751,7 +16008,22 @@
             ]
           },
           {
-            "id": "v86",
+            "id": "v96",
+            "role": "button",
+            "name": "",
+            "source": "vision",
+            "visible": true,
+            "offscreen": false,
+            "enabled": true,
+            "bbox": [
+              78.90623474121094,
+              618.1181983947754,
+              129.70648193359375,
+              42.60540008544922
+            ]
+          },
+          {
+            "id": "v97",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15766,7 +16038,7 @@
             ]
           },
           {
-            "id": "v87",
+            "id": "v98",
             "role": "link",
             "name": "",
             "source": "vision",
@@ -15781,7 +16053,7 @@
             ]
           },
           {
-            "id": "v88",
+            "id": "v99",
             "role": "link",
             "name": "",
             "source": "vision",
@@ -15796,7 +16068,7 @@
             ]
           },
           {
-            "id": "v89",
+            "id": "v100",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15811,7 +16083,7 @@
             ]
           },
           {
-            "id": "v90",
+            "id": "v101",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15826,22 +16098,7 @@
             ]
           },
           {
-            "id": "v91",
-            "role": "textbox",
-            "name": "",
-            "source": "vision",
-            "visible": true,
-            "offscreen": false,
-            "enabled": true,
-            "bbox": [
-              92.94938659667969,
-              615.1256380081177,
-              240.19046020507812,
-              31.20697593688965
-            ]
-          },
-          {
-            "id": "v92",
+            "id": "v102",
             "role": "link",
             "name": "",
             "source": "vision",
@@ -15856,22 +16113,7 @@
             ]
           },
           {
-            "id": "v93",
-            "role": "button",
-            "name": "",
-            "source": "vision",
-            "visible": true,
-            "offscreen": false,
-            "enabled": true,
-            "bbox": [
-              36.57820129394531,
-              526.6395626068115,
-              128.9279327392578,
-              32.11479568481445
-            ]
-          },
-          {
-            "id": "v94",
+            "id": "v103",
             "role": "button",
             "name": "",
             "source": "vision",
@@ -15886,52 +16128,22 @@
             ]
           },
           {
-            "id": "v95",
-            "role": "textbox",
+            "id": "v104",
+            "role": "select",
             "name": "",
             "source": "vision",
             "visible": true,
             "offscreen": false,
             "enabled": true,
             "bbox": [
-              75.97608184814453,
-              621.8017778396606,
-              138.03587341308594,
-              11.478719711303711
+              28.72216796875,
+              638.2417392730713,
+              186.17453002929688,
+              35.51530075073242
             ]
           },
           {
-            "id": "v96",
-            "role": "textbox",
-            "name": "",
-            "source": "vision",
-            "visible": true,
-            "offscreen": false,
-            "enabled": true,
-            "bbox": [
-              85.12887573242188,
-              671.9480018615723,
-              391.839599609375,
-              43.61461639404297
-            ]
-          },
-          {
-            "id": "v97",
-            "role": "textbox",
-            "name": "",
-            "source": "vision",
-            "visible": true,
-            "offscreen": false,
-            "enabled": true,
-            "bbox": [
-              229.12887573242188,
-              671.9480018615723,
-              391.839599609375,
-              43.61461639404297
-            ]
-          },
-          {
-            "id": "v98",
+            "id": "v105",
             "role": "textbox",
             "name": "",
             "source": "vision",
@@ -15954,16 +16166,17 @@
           "#dob": "dom+vision",
           "#otp": "dom+vision",
           "#mobile_confirm": "dom+vision",
-          "#submit": "dom",
+          "#submit": "dom+vision",
           "#status": "dom"
         },
         "ms": {
-          "capture": 37,
-          "decode": 10,
+          "capture": 38,
+          "decode": 11,
+          "encode": 0,
           "preprocess": 46,
-          "infer": 47,
-          "fuse": 1,
-          "total": 141
+          "infer": 45,
+          "fuse": 0,
+          "total": 140
         }
       }
     ],
@@ -15972,8 +16185,10 @@
         "ran": false,
         "refusal": {
           "code": "CAPTURE_THROTTLED",
-          "detail": "captureVisibleTab rejected: This request exceeds the MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND quota."
+          "detail": "This request exceeds the MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND quota."
         },
+        "route": null,
+        "workerSawPixels": false,
         "capture": null,
         "detector": {
           "modelId": "none",
@@ -15990,6 +16205,7 @@
         "ms": {
           "capture": 0,
           "decode": 0,
+          "encode": 0,
           "preprocess": 0,
           "infer": 0,
           "fuse": 0,
@@ -16001,6 +16217,8 @@
       {
         "ran": true,
         "refusal": null,
+        "route": "WORKER_FRAME",
+        "workerSawPixels": true,
         "capture": {
           "w": 1600,
           "h": 900,
@@ -17664,17 +17882,20 @@
           "#status": "dom"
         },
         "ms": {
-          "capture": 38,
-          "decode": 12,
-          "preprocess": 65,
-          "infer": 47,
-          "fuse": 0,
-          "total": 162
+          "capture": 52,
+          "decode": 21,
+          "encode": 0,
+          "preprocess": 70,
+          "infer": 96,
+          "fuse": 1,
+          "total": 240
         }
       },
       {
         "ran": true,
         "refusal": null,
+        "route": "WORKER_FRAME",
+        "workerSawPixels": true,
         "capture": {
           "w": 1600,
           "h": 900,
@@ -19323,20 +19544,23 @@
           "#status": "dom"
         },
         "ms": {
-          "capture": 41,
-          "decode": 11,
-          "preprocess": 48,
-          "infer": 45,
-          "fuse": 0,
-          "total": 145
+          "capture": 51,
+          "decode": 22,
+          "encode": 0,
+          "preprocess": 71,
+          "infer": 103,
+          "fuse": 1,
+          "total": 248
         }
       },
       {
         "ran": false,
         "refusal": {
           "code": "CAPTURE_THROTTLED",
-          "detail": "captureVisibleTab rejected: This request exceeds the MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND quota."
+          "detail": "This request exceeds the MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND quota."
         },
+        "route": null,
+        "workerSawPixels": false,
         "capture": null,
         "detector": {
           "modelId": "none",
@@ -19353,6 +19577,7 @@
         "ms": {
           "capture": 0,
           "decode": 0,
+          "encode": 0,
           "preprocess": 0,
           "infer": 0,
           "fuse": 0,
@@ -19363,12 +19588,12 @@
     "boot": {
       "ok": true,
       "error": null,
-      "ms": 602,
+      "ms": 590,
       "pin": {
         "artifact": "ort-wasm-simd-threaded.jsep.wasm",
         "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
         "bytes": 27797172,
-        "installedAt": "2026-09-22T16:28:44.634Z"
+        "installedAt": "2026-09-24T06:12:48.450Z"
       }
     }
   },
@@ -19397,23 +19622,23 @@
         "offsets": [
           {
             "type": "pointerdown",
-            "ms": 0.1
+            "ms": 0.2
           },
           {
             "type": "mousedown",
-            "ms": 0.1
+            "ms": 0.2
           },
           {
             "type": "pointerup",
-            "ms": 0.1
+            "ms": 0.2
           },
           {
             "type": "mouseup",
-            "ms": 0.1
+            "ms": 0.2
           },
           {
             "type": "click",
-            "ms": 0.1
+            "ms": 0.2
           }
         ]
       }
@@ -19452,23 +19677,23 @@
         "offsets": [
           {
             "type": "pointerdown",
-            "ms": 0
+            "ms": 0.1
           },
           {
             "type": "mousedown",
-            "ms": 0
+            "ms": 0.1
           },
           {
             "type": "pointerup",
-            "ms": 0
+            "ms": 0.1
           },
           {
             "type": "mouseup",
-            "ms": 0
+            "ms": 0.1
           },
           {
             "type": "click",
-            "ms": 0
+            "ms": 0.2
           }
         ]
       }
@@ -19492,15 +19717,15 @@
       "refused": "TARGET_MISMATCH"
     },
     "wrongDocument": {
-      "armedFor": "722E38E6BBCCF54E0B8D3F8AFB215DEA",
-      "presentedBy": "DF913043797EC40E22F1E2B5451358E3",
+      "armedFor": "8CEB6B8C3A24AB0E586050CC18694229",
+      "presentedBy": "FE7BD770C97771D431EC2610C8ED06DB",
       "documentChanged": true,
       "ok": false,
       "refused": "SENDER_DOCUMENT_MISMATCH"
     },
     "wrongTab": {
-      "armedForTab": 419001428,
-      "presentedByTab": 419001427,
+      "armedForTab": 191885544,
+      "presentedByTab": 191885543,
       "differentTab": true,
       "ok": false,
       "refused": "SENDER_DOCUMENT_MISMATCH"
@@ -19511,15 +19736,15 @@
     "why": "NO_SEND_MESSAGE_IN_PAGE_WORLD"
   },
   "workerTraffic": {
-    "messages": 113,
-    "bytes": 83399,
+    "messages": 115,
+    "bytes": 84127,
     "kinds": {
       "port:ATTACHED": 7,
       "in:HELLO": 7,
       "in:RELAY": 14,
       "port:OBSERVE": 20,
       "in:CAPTURE_FRAME": 7,
-      "to-tab:CAPTURE_FRAME_REPLY": 5,
+      "to-tab:CAPTURE_TICKET": 7,
       "in:TO_PAGE_BOUNDARY": 15,
       "to-tab:CLASSIFY": 3,
       "to-tab:CAPABILITY": 9,
@@ -19535,7 +19760,7 @@
       "longestBase64Run": 0
     }
   },
-  "recordedAt": "2026-09-22T16:28:50.954Z",
+  "recordedAt": "2026-09-24T06:12:55.741Z",
   "provenance": {
     "workstation": "W1",
     "host": "LAPTOP-6E14K34L",

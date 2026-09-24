@@ -596,6 +596,31 @@ const checks = {
     typeof firstPassOf("SUCCESS")?.capture?.scaleToCss === "number" &&
     handoffOf("SUCCESS")?.capture?.scale_to_css === firstPassOf("SUCCESS")?.capture?.scaleToCss,
 
+  // ── M3.1: the capture route is recorded, never inferred ─────────────────────────────────────
+  //
+  // There are two ways a frame can arrive and they differ in the only thing that matters: whether
+  // the worker held it. A record that did not say which route it took would leave that to be
+  // guessed from a permission list.
+  everyPassRecordsItsRoute: ["SUCCESS", "REFUSAL", "OUTAGE"].every((act) =>
+    perceptionOf(act).every((p) => p.route === "GESTURE_STREAM" || p.route === "WORKER_FRAME" || p.ran === false)
+  ),
+  everyPassSaysWhetherTheWorkerSawPixels: ["SUCCESS", "REFUSAL", "OUTAGE"].every((act) =>
+    perceptionOf(act).every((p) => typeof p.workerSawPixels === "boolean")
+  ),
+  /**
+   * THIS RUN IS ON THE DEGRADED BUILD, AND SAYS SO.
+   *
+   * No automated harness can produce the invocation `activeTab` requires, so an evidence run cannot
+   * exercise the gesture route. What it can do is refuse to let that fact be quiet: the route is in
+   * the record, `workerSawPixels` is true, and this check asserts the two agree. A run that claimed
+   * the product route while using the other one would fail here.
+   */
+  theDegradedRouteIsReportedHonestly: ["SUCCESS", "OUTAGE"].every((act) =>
+    perceptionOf(act)
+      .filter((p) => p.ran)
+      .every((p) => (p.route === "WORKER_FRAME") === (p.workerSawPixels === true))
+  ),
+
   // ── M3: the visual tier's claim reaches the reasoner, and its pixels do not ──────────────────
   theHandoffDeclaresTheVisualTier:
     handoffOf("SUCCESS")?.capability?.backend === "wasm" &&
@@ -720,9 +745,9 @@ for (const act of ["SUCCESS", "REFUSAL", "OUTAGE"]) {
   const p = firstPassOf(act);
   if (!p) continue;
   console.log(
-    `  ${act} perception: ${p.capture?.w}x${p.capture?.h} ${p.capture?.bytes}B -> ${p.detector.detections} detections ` +
+    `  ${act} perception[${p.route}]: ${p.capture?.w}x${p.capture?.h} ${p.capture?.bytes}B -> ${p.detector.detections} detections ` +
       `(fused ${p.fusion?.matched} matched / ${p.fusion?.visionOnly} vision-only) in ${p.ms.total}ms ` +
-      `[capture ${p.ms.capture} decode ${p.ms.decode} pre ${p.ms.preprocess} infer ${p.ms.infer} fuse ${p.ms.fuse}]`
+      `[capture ${p.ms.capture} decode ${p.ms.decode} encode ${p.ms.encode} pre ${p.ms.preprocess} infer ${p.ms.infer} fuse ${p.ms.fuse}]`
   );
 }
 console.log(
