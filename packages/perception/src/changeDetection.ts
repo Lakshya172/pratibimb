@@ -1,10 +1,14 @@
 /**
  * T0 — the change gate.
  *
- * Frozen constitution §7: *"Change gate — structural signal plus bounded visual polling.
- * Sub-millisecond for the structural half. No model."* Roughly 100 evaluations to about 8
- * captures on a ten-step form task — so the gate's job is to be the thing that says NO
- * ninety-two times.
+ * Constitution §7, as amended by ADR-0010 (Option B, owner-approved 2026-09-24):
+ * *"Change gate — the structural signal alone in v1; bounded visual polling is DEFERRED and the
+ * full-frame safety net is WITHDRAWN FROM v1."* The gate's job is still to be the thing that says
+ * NO far more often than it says yes.
+ *
+ * NOTHING IN THIS FILE IS WIRED UP. It is future infrastructure: `ChangeGate` has no production
+ * caller, and no `MutationObserver` exists anywhere under `apps/` or any package's `src`. Approving a
+ * contract is not building one — ADR-0010 §2 and §7.
  *
  * ─────────────────────────────────────────────────────────────────────────────────────
  * MUTATIONOBSERVER IS A STRUCTURAL SIGNAL. IT IS NOT CHANGE DETECTION.
@@ -16,10 +20,15 @@
  * detection means the agent goes blind precisely on the material that justifies having a
  * vision tier at all.
  *
- * So it is one of two inputs. The other is a **low-rate** full-frame hash: the safety net
- * that catches what structure cannot see. Low-rate is not a performance compromise, it is
- * the design — a high-frequency full-frame hash would be a capture loop, and capture is
- * the expensive operation this tier exists to avoid.
+ * So it is one of two inputs IN THE DESIGN. The other is a **low-rate** full-frame hash: the
+ * safety net that catches what structure cannot see. Low-rate was never a performance compromise,
+ * it was the design — a high-frequency full-frame hash would be a capture loop.
+ *
+ * **That signal is WITHDRAWN FROM v1, and bounded visual polling is DEFERRED** (ADR-0010). Under
+ * gesture-authorised capture (ADR-0009) a frame is taken only when a person asks for one, and a
+ * safety net that runs only when a person asks is not a safety net. Both return only by a separate
+ * approved ADR that names and validates a capture mechanism. The members below that serve them are
+ * kept, unwired and labelled — deferred is not obsolete.
  *
  * *"T0 is a debounce, not an avoidance strategy."*
  */
@@ -155,7 +164,7 @@ export class ChangeGate {
   constructor(private readonly policy: ChangePolicy = DEFAULT_CHANGE_POLICY) {}
 
   /**
-   * Register a region for bounded polling.
+   * Register a region for bounded polling. **DEFERRED from v1** (ADR-0010) — nothing polls.
    *
    * Returns false when the ceiling is reached rather than growing the set. An unbounded
    * poll set becomes a high-frequency capture loop by accretion, one region at a time,
@@ -171,7 +180,7 @@ export class ChangeGate {
     return this.dynamicRegions.size;
   }
 
-  /** Should a full-frame hash be taken now? Rate-limited by policy. */
+  /** Should a full-frame hash be taken now? Rate-limited by policy. **WITHDRAWN FROM v1** (ADR-0010). */
   shouldHashFullFrame(now: number): boolean {
     return now - this.lastFullHashAt >= this.policy.fullFrameHashIntervalMs;
   }
@@ -228,6 +237,9 @@ export class ChangeGate {
  * critical depends on it. The payload hash pin that Invariant E rests on is a SHA-256 in
  * the egress module and is an entirely separate mechanism — this must never be mistaken
  * for it.
+ *
+ * **Partly obsolete under the live-stream architecture** (ADR-0010 §7). It hashes ENCODED bytes,
+ * and the only route that still produces them is `DEGRADED_TEST_ROUTE`. Zero production callers.
  */
 export function frameHash(frame: CaptureFrame): string {
   const bytes = frame.pixels;
