@@ -71,6 +71,7 @@ import {
 } from "@pratibimb/perception";
 
 import { type CaptureRoute, type CaptureTicket } from "./capture-authority";
+import { perceiveText, textPerceptionAbsent, type TextPerception, type TextPerceptionReport } from "./text-perception";
 
 /** The ORT surface this file needs, typed structurally so nothing here imports ORT's types. */
 interface OrtSession {
@@ -124,6 +125,14 @@ export interface PerceptionSummary {
     readonly domOnly: number;
     readonly overlaySuspected: number;
   } | null;
+  /**
+   * The local text tier, which is ABSENT and says so on every pass.
+   *
+   * Reported rather than omitted because "no text findings" and "no text tier" are different
+   * facts, and a client that conflated them would look like one that had read the page and found
+   * nothing sensitive. See `text-perception.ts` for why there is no model behind this.
+   */
+  readonly text: TextPerceptionReport;
   /** Geometry, role, structural name, provenance. The manifest's own element projection. */
   readonly elements: readonly SanitizedElement[];
   /**
@@ -185,6 +194,7 @@ export const perceptionRefused = (code: string, detail: string, route: CaptureRo
   capture: null,
   detector: { modelId: "none", revision: "none", backend: "wasm", ran: false, detections: 0, byClass: {}, refusal: null },
   fusion: null,
+  text: textPerceptionAbsent(),
   elements: [],
   sourceBySelector: {},
   ms: { capture: 0, decode: 0, encode: 0, preprocess: 0, infer: 0, fuse: 0, total: 0 },
@@ -236,6 +246,13 @@ export interface PerceptionRealmDeps {
    * correctly and deterministically, and its detections are not robust to browser preprocessing.
    */
   readonly acceptedBackends: readonly Backend[];
+  /**
+   * The local text tier, or `null`, which is the shipped configuration.
+   *
+   * Handed in rather than constructed here for the same reason the detector's runtime is: adopting
+   * a model is a registry decision with a gate attached, not something a realm does for itself.
+   */
+  readonly text?: TextPerception | null;
   readonly now?: () => number;
 }
 
@@ -434,6 +451,13 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
       const byClass: Record<string, number> = {};
       for (const d of visual) byClass[d.label] = (byClass[d.label] ?? 0) + 1;
 
+      /**
+       * The text tier runs on the SAME decoded pixels, in this realm, and returns findings that
+       * structurally cannot carry a string. Today it reports its own absence; the call is here so
+       * that absence is recorded on every pass rather than inferred from a missing field.
+       */
+      const text = await perceiveText(deps.text ?? null, image, now);
+
       const tFuse = now();
       const sourceBySelector: Record<string, SanitizedElement["source"]> = {};
       let fusion: FusionResult;
@@ -451,6 +475,7 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
         return {
           ...perceptionRefused("FUSION_FAILED", String((cause as Error)?.message ?? cause), route),
           capture: captureBlock,
+          text: textPerceptionAbsent(),
           workerSawPixels: route === "WORKER_FRAME",
           ms: { capture: captureMs, decode: decodeMs, encode: encodeMs, preprocess: preprocessMs, infer: inferMs, fuse: 0, total: now() - started },
         };
@@ -481,6 +506,7 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
           domOnly: fusion.domOnlyCount,
           overlaySuspected: fusion.overlaySuspectCount,
         },
+        text,
         elements,
         sourceBySelector,
         ...(options.collect

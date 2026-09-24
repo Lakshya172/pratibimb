@@ -66,6 +66,7 @@
     "theCoordinateContractIsDerivedNotAssumed": true,
     "everyPassRecordsItsRoute": true,
     "everyPassSaysWhetherTheWorkerSawPixels": true,
+    "theRouteCategoryIsRecorded": true,
     "theDegradedRouteIsReportedHonestly": true,
     "theHandoffDeclaresTheVisualTier": true,
     "elementsCarryFusionProvenance": true,
@@ -101,82 +102,82 @@
               {
                 "from": "IDLE",
                 "to": "OBSERVE",
-                "at": 1790230368369,
+                "at": 1790239124565,
                 "elapsedMs": 0
               },
               {
                 "from": "OBSERVE",
                 "to": "SANITIZE",
-                "at": 1790230369156,
-                "elapsedMs": 787
+                "at": 1790239125364,
+                "elapsedMs": 799
               },
               {
                 "from": "SANITIZE",
                 "to": "VERIFY_PAYLOAD",
-                "at": 1790230369172,
-                "elapsedMs": 803
+                "at": 1790239125376,
+                "elapsedMs": 811
               },
               {
                 "from": "VERIFY_PAYLOAD",
                 "to": "SEND",
-                "at": 1790230369172,
-                "elapsedMs": 803
+                "at": 1790239125377,
+                "elapsedMs": 812
               },
               {
                 "from": "SEND",
                 "to": "VALIDATE_PLAN",
-                "at": 1790230371151,
-                "elapsedMs": 2782
+                "at": 1790239126939,
+                "elapsedMs": 2374
               },
               {
                 "from": "VALIDATE_PLAN",
                 "to": "AWAIT_GRANT",
-                "at": 1790230371152,
-                "elapsedMs": 2783
+                "at": 1790239126939,
+                "elapsedMs": 2374
               },
               {
                 "from": "AWAIT_GRANT",
                 "to": "REHYDRATE",
-                "at": 1790230371362,
-                "elapsedMs": 2993
+                "at": 1790239127062,
+                "elapsedMs": 2497
               },
               {
                 "from": "REHYDRATE",
                 "to": "ACT",
-                "at": 1790230371506,
-                "elapsedMs": 3137
+                "at": 1790239127260,
+                "elapsedMs": 2695
               },
               {
                 "from": "ACT",
                 "to": "VERIFY_RESULT",
-                "at": 1790230371506,
-                "elapsedMs": 3137
+                "at": 1790239127260,
+                "elapsedMs": 2695
               },
               {
                 "from": "VERIFY_RESULT",
                 "to": "DONE",
-                "at": 1790230371655,
-                "elapsedMs": 3286
+                "at": 1790239127448,
+                "elapsedMs": 2883
               }
             ],
             "timings": {
-              "observeMs": 787,
-              "sanitizeMs": 16,
-              "verifyPayloadMs": 0,
-              "sendMs": 1979,
+              "observeMs": 799,
+              "sanitizeMs": 12,
+              "verifyPayloadMs": 1,
+              "sendMs": 1562,
               "validatePlanMs": 0,
-              "grantMs": 210,
+              "grantMs": 123,
               "rehydrateMs": 4,
-              "refreshMs": 140,
-              "verifyResultMs": 141,
-              "actMs": 149,
-              "totalMs": 3286
+              "refreshMs": 194,
+              "verifyResultMs": 179,
+              "actMs": 188,
+              "totalMs": 2883
             },
             "refusal": null,
             "initialObservation": {
               "nodes": 14,
               "fields": 0,
-              "frameId": "transport-237c934d-5e31-4aaf-8c92-0429d67cf886",
+              "frameId": "transport-322934bf-98f6-4bd7-a53c-1b398027b338",
               "viewport": {
                 "w": 1280,
                 "h": 720,
@@ -185,7 +186,7 @@
                 "scrollX": 0,
                 "scrollY": 0
               },
-              "documentId": "BFB5EACFFDA07D5400F0E7127523522A",
+              "documentId": "65F07716276AE871152EB06A8E9391EC",
               "focusedSelector": null,
               "actionable": [
                 "label",
@@ -202,7 +203,7 @@
             "observation": {
               "nodes": 14,
               "fields": 0,
-              "frameId": "transport-43974471-8fc0-49a6-927d-be98e85f17cb",
+              "frameId": "transport-d0c3c40d-72af-409e-963d-6e039178a4ef",
               "viewport": {
                 "w": 1280,
                 "h": 720,
@@ -211,7 +212,7 @@
                 "scrollX": 0,
                 "scrollY": 0
               },
-              "documentId": "BFB5EACFFDA07D5400F0E7127523522A",
+              "documentId": "65F07716276AE871152EB06A8E9391EC",
               "focusedSelector": null,
               "actionable": [
                 "label",
@@ -572,17 +573,17 @@
               "request": {
                 "requestId": "m2-success-request",
                 "sessionId": "m2-success-session",
-                "issuedAt": 1790230369156
+                "issuedAt": 1790239125364
               },
               "verified": true
             },
-            "handoffSerialized": "{\"manifestVersion\":\"1.1\",\"capture\":{\"w\":1280,\"h\":720,\"dpr\":1.0000000149011612,\"zoom\":1,\"scale_to_css\":0.8,\"scroll\":{\"x\":0,\"y\":0},\"origin\":\"http://127.0.0.1:8975\"},\"capability\":{\"backend\":\"wasm\",\"tiers_fired\":[\"T0\",\"T1\",\"T2\"]},\"elements\":[{\"id\":\"label\",\"role\":\"label\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,122.80000305175781,490.3999938964844,18.399999618530273]},{\"id\":\"#name\",\"role\":\"textbox\",\"name\":\"Full name\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,187.1999969482422,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile\",\"role\":\"textbox\",\"name\":\"Mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,251.60000610351562,490.3999938964844,18.399999618530273]},{\"id\":\"#aadhaar\",\"role\":\"textbox\",\"name\":\"Aadhaar number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,274,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,316,490.3999938964844,18.399999618530273]},{\"id\":\"#dob\",\"role\":\"textbox\",\"name\":\"Date of birth\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,382.3999938964844,490.3999938964844,18.399999618530273]},{\"id\":\"#otp\",\"role\":\"textbox\",\"name\":\"OTP\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,506,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile_confirm\",\"role\":\"textbox\",\"name\":\"Confirm mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,528.4000244140625,490.3999938964844,32]},{\"id\":\"#submit\",\"role\":\"button\",\"name\":\"Submit application\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,572.4000244140625,153.4250030517578,38]},{\"id\":\"#status\",\"role\":\"status\",\"name\":\"Not submitted\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[20,639.2000122070312,520,36.400001525878906]}],\"goal\":\"Submit my application with my registered mobile number.\",\"redactions\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"},\"targetId\":\"#name\"},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"},\"targetId\":\"#mobile\"},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"tier\":\"SENSITIVE\",\"bbox\":[34.79999923706055,274,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":14,\"kind\":\"numeric\"},\"targetId\":\"#aadhaar\"},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"},\"targetId\":\"#dob\"},{\"token\":\"\",\"class\":\"OTP\",\"tier\":\"CRITICAL\",\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32],\"method\":\"masked_no_token\",\"detectors\":[\"D1\"],\"hint\":{\"len\":6,\"kind\":\"numeric\",\"field_role\":\"one-time-code\"},\"targetId\":\"#otp\"}],\"request\":{\"requestId\":\"m2-success-request\",\"sessionId\":\"m2-success-session\",\"issuedAt\":1790230369156},\"verified\":true}",
+            "handoffSerialized": "{\"manifestVersion\":\"1.1\",\"capture\":{\"w\":1280,\"h\":720,\"dpr\":1.0000000149011612,\"zoom\":1,\"scale_to_css\":0.8,\"scroll\":{\"x\":0,\"y\":0},\"origin\":\"http://127.0.0.1:8975\"},\"capability\":{\"backend\":\"wasm\",\"tiers_fired\":[\"T0\",\"T1\",\"T2\"]},\"elements\":[{\"id\":\"label\",\"role\":\"label\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,122.80000305175781,490.3999938964844,18.399999618530273]},{\"id\":\"#name\",\"role\":\"textbox\",\"name\":\"Full name\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,187.1999969482422,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile\",\"role\":\"textbox\",\"name\":\"Mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,251.60000610351562,490.3999938964844,18.399999618530273]},{\"id\":\"#aadhaar\",\"role\":\"textbox\",\"name\":\"Aadhaar number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,274,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,316,490.3999938964844,18.399999618530273]},{\"id\":\"#dob\",\"role\":\"textbox\",\"name\":\"Date of birth\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,382.3999938964844,490.3999938964844,18.399999618530273]},{\"id\":\"#otp\",\"role\":\"textbox\",\"name\":\"OTP\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,506,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile_confirm\",\"role\":\"textbox\",\"name\":\"Confirm mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,528.4000244140625,490.3999938964844,32]},{\"id\":\"#submit\",\"role\":\"button\",\"name\":\"Submit application\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,572.4000244140625,153.4250030517578,38]},{\"id\":\"#status\",\"role\":\"status\",\"name\":\"Not submitted\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[20,639.2000122070312,520,36.400001525878906]}],\"goal\":\"Submit my application with my registered mobile number.\",\"redactions\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"},\"targetId\":\"#name\"},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"},\"targetId\":\"#mobile\"},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"tier\":\"SENSITIVE\",\"bbox\":[34.79999923706055,274,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":14,\"kind\":\"numeric\"},\"targetId\":\"#aadhaar\"},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"},\"targetId\":\"#dob\"},{\"token\":\"\",\"class\":\"OTP\",\"tier\":\"CRITICAL\",\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32],\"method\":\"masked_no_token\",\"detectors\":[\"D1\"],\"hint\":{\"len\":6,\"kind\":\"numeric\",\"field_role\":\"one-time-code\"},\"targetId\":\"#otp\"}],\"request\":{\"requestId\":\"m2-success-request\",\"sessionId\":\"m2-success-session\",\"issuedAt\":1790239125364},\"verified\":true}",
             "ledgerEntry": {
               "sessionId": "m2-success-session",
               "requestId": "m2-success-request",
-              "at": 1790230369156,
+              "at": 1790239125364,
               "destination": "(no egress client in this phase)",
-              "payloadSha256": "b40452298356fffd495b390827e273fbd1e837932f68232b6362c657e90e102f",
+              "payloadSha256": "5fa188446983808755cd2252a54c1433d0678cd75bf256147b31f3c75ef7aaf9",
               "payloadBytes": 4304,
               "verified": true,
               "leakCheck": "CLEAN",
@@ -616,7 +617,7 @@
               "received": true,
               "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
               "transport": "LOOPBACK_HTTP",
-              "elapsedMs": 1979,
+              "elapsedMs": 1561,
               "requestId": "m2-success-request"
             },
             "plan": {
@@ -678,8 +679,8 @@
                 "sessionId": "m2-success-session",
                 "purpose": "Use of PHONE for \"Confirm mobile number\"",
                 "actionContext": "insert into #mobile_confirm, then click #submit",
-                "grantedAt": 1790230371362,
-                "expiresAt": 1790230431362,
+                "grantedAt": 1790239127062,
+                "expiresAt": 1790239187062,
                 "used": true
               }
             },
@@ -698,12 +699,12 @@
                 "selector": "#submit",
                 "role": "button",
                 "name": "Submit application",
-                "frameId": "transport-99c2e846-c930-4cd2-9f83-d75d78cfea09",
+                "frameId": "transport-982829c2-e791-44e4-ab9e-5bbaabbd0dda",
                 "origin": "http://127.0.0.1:8975"
               },
               "purpose": "Click \"Submit application\" to submit this application",
-              "confirmedAt": 1790230371506,
-              "expiresAt": 1790230431506
+              "confirmedAt": 1790239127260,
+              "expiresAt": 1790239187260
             },
             "act": {
               "reached": "VERIFY_RESULT",
@@ -719,7 +720,7 @@
                   },
                   "evidence": {
                     "kind": "OBSERVED",
-                    "frameId": "transport-99c2e846-c930-4cd2-9f83-d75d78cfea09",
+                    "frameId": "transport-982829c2-e791-44e4-ab9e-5bbaabbd0dda",
                     "viewportBox": {
                       "x": 34.79999923706055,
                       "y": 572.4000244140625,
@@ -737,7 +738,7 @@
                   "parent": null,
                   "children": []
                 },
-                "frameId": "transport-99c2e846-c930-4cd2-9f83-d75d78cfea09",
+                "frameId": "transport-982829c2-e791-44e4-ab9e-5bbaabbd0dda",
                 "viewportBox": {
                   "x": 34.79999923706055,
                   "y": 572.4000244140625,
@@ -758,7 +759,7 @@
                   "y": 591
                 },
                 "observed": {
-                  "frameId": "transport-99c2e846-c930-4cd2-9f83-d75d78cfea09",
+                  "frameId": "transport-982829c2-e791-44e4-ab9e-5bbaabbd0dda",
                   "selector": "#submit",
                   "role": "button",
                   "name": "Submit application",
@@ -770,7 +771,7 @@
                   }
                 },
                 "boxIou": 1,
-                "elapsedMs": 3
+                "elapsedMs": 4
               },
               "result": {
                 "status": "EXECUTED",
@@ -790,7 +791,7 @@
                     "h": 38
                   }
                 },
-                "dispatchMs": 2
+                "dispatchMs": 4
               },
               "verification": {
                 "verification": "CONFIRMED",
@@ -801,35 +802,35 @@
           },
           "binding": {
             "origin": "http://127.0.0.1:8975",
-            "documentId": "BFB5EACFFDA07D5400F0E7127523522A",
-            "tabId": 191885543,
+            "documentId": "65F07716276AE871152EB06A8E9391EC",
+            "tabId": 1476894126,
             "frameId": 0,
-            "swBootId": "7c0db83b-aae6-4b5b-94da-dbdff9e9e886"
+            "swBootId": "2afb5a49-7eec-4dbd-8088-5be6d5daa969"
           },
           "ports": {
             "observations": 3,
             "inserts": 0,
             "insertRefusals": [],
             "cycle": {
-              "cycleId": "7f8a6d7b-2abd-4e21-a738-9b591528a2c5",
+              "cycleId": "fcd3b214-9685-4a3b-864d-4a03932d7f2f",
               "hitTest": {
                 "point": {
                   "x": 112,
                   "y": 591
                 },
                 "topmost": "#submit",
-                "receivedAt": 1790230371510,
-                "sampledAt": 1790230371510.2
+                "receivedAt": 1790239127264.2,
+                "sampledAt": 1790239127264.3
               },
               "dispatch": {
-                "deliveryId": "cfeefa52-9600-4c32-88d0-b9f2c00476f6",
+                "deliveryId": "ca65d474-1fb7-43e9-96b8-7be49069f152",
                 "point": {
                   "x": 112,
                   "y": 591
                 },
                 "dispatchedTo": "#submit",
-                "receivedAt": 1790230371512.4,
-                "dispatchedAt": 1790230371512.5999
+                "receivedAt": 1790239127266.7,
+                "dispatchedAt": 1790239127267.3
               },
               "refusals": []
             },
@@ -867,6 +868,15 @@
                   "visionOnly": 94,
                   "domOnly": 8,
                   "overlaySuspected": 6
+                },
+                "text": {
+                  "available": false,
+                  "refusal": {
+                    "code": "TEXT_PERCEPTION_UNAVAILABLE",
+                    "detail": "No local text model is adopted. PP-OCRv5_mobile_det fails the S-04a-1 correctness criterion on WASM (4.12e-02 against a 2e-02 bound), and model-adoption rule 2 is frozen: a model that fails the WASM columns is not shipped whatever it does on WebGPU. See artifacts/experiments/M4-gesture-text-perception/ocr-audit.md."
+                  },
+                  "findings": [],
+                  "ms": 0
                 },
                 "elements": [
                   {
@@ -2502,13 +2512,13 @@
                   "#status": "dom"
                 },
                 "ms": {
-                  "capture": 45,
-                  "decode": 15,
+                  "capture": 72,
+                  "decode": 13,
                   "encode": 0,
-                  "preprocess": 52,
-                  "infer": 82,
+                  "preprocess": 30,
+                  "infer": 50,
                   "fuse": 1,
-                  "total": 195
+                  "total": 166
                 }
               },
               {
@@ -2544,6 +2554,15 @@
                   "visionOnly": 93,
                   "domOnly": 8,
                   "overlaySuspected": 6
+                },
+                "text": {
+                  "available": false,
+                  "refusal": {
+                    "code": "TEXT_PERCEPTION_UNAVAILABLE",
+                    "detail": "No local text model is adopted. PP-OCRv5_mobile_det fails the S-04a-1 correctness criterion on WASM (4.12e-02 against a 2e-02 bound), and model-adoption rule 2 is frozen: a model that fails the WASM columns is not shipped whatever it does on WebGPU. See artifacts/experiments/M4-gesture-text-perception/ocr-audit.md."
+                  },
+                  "findings": [],
+                  "ms": 0
                 },
                 "elements": [
                   {
@@ -4164,13 +4183,13 @@
                   "#status": "dom"
                 },
                 "ms": {
-                  "capture": 42,
-                  "decode": 12,
+                  "capture": 85,
+                  "decode": 17,
                   "encode": 0,
-                  "preprocess": 32,
+                  "preprocess": 37,
                   "infer": 52,
                   "fuse": 0,
-                  "total": 138
+                  "total": 192
                 }
               },
               {
@@ -4206,6 +4225,15 @@
                   "visionOnly": 99,
                   "domOnly": 7,
                   "overlaySuspected": 7
+                },
+                "text": {
+                  "available": false,
+                  "refusal": {
+                    "code": "TEXT_PERCEPTION_UNAVAILABLE",
+                    "detail": "No local text model is adopted. PP-OCRv5_mobile_det fails the S-04a-1 correctness criterion on WASM (4.12e-02 against a 2e-02 bound), and model-adoption rule 2 is frozen: a model that fails the WASM columns is not shipped whatever it does on WebGPU. See artifacts/experiments/M4-gesture-text-perception/ocr-audit.md."
+                  },
+                  "findings": [],
+                  "ms": 0
                 },
                 "elements": [
                   {
@@ -5916,13 +5944,13 @@
                   "#status": "dom"
                 },
                 "ms": {
-                  "capture": 38,
+                  "capture": 98,
                   "decode": 11,
                   "encode": 0,
-                  "preprocess": 46,
-                  "infer": 45,
-                  "fuse": 0,
-                  "total": 140
+                  "preprocess": 33,
+                  "infer": 33,
+                  "fuse": 1,
+                  "total": 176
                 }
               }
             ]
@@ -5930,12 +5958,12 @@
           "perceptionBoot": {
             "ok": true,
             "error": null,
-            "ms": 590,
+            "ms": 631,
             "pin": {
               "artifact": "ort-wasm-simd-threaded.jsep.wasm",
               "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
               "bytes": 27797172,
-              "installedAt": "2026-09-24T06:12:48.450Z"
+              "installedAt": "2026-09-24T08:38:44.714Z"
             }
           },
           "boundary": {
@@ -5955,7 +5983,7 @@
                 "requestId": "m2-success-request",
                 "sessionId": "m2-success-session",
                 "destination": "http://127.0.0.1:8995/v1/chat/completions",
-                "at": 1790230371151,
+                "at": 1790239126938,
                 "transport": "LOOPBACK_HTTP",
                 "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
                 "verified": true,
@@ -5969,13 +5997,13 @@
                   "<PII:DOB:1>"
                 ],
                 "responseStatus": 200,
-                "responseBytes": 835,
+                "responseBytes": 836,
                 "peerReceipt": {
                   "sha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
                   "bytes": 2679,
                   "agrees": true
                 },
-                "elapsedMs": 1978
+                "elapsedMs": 1561
               }
             }
           ],
@@ -6019,7 +6047,7 @@
             {
               "type": "pointerdown",
               "trusted": false,
-              "at": 1790230371512.5999,
+              "at": 1790239127267.1,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -6027,7 +6055,7 @@
             {
               "type": "mousedown",
               "trusted": false,
-              "at": 1790230371512.5999,
+              "at": 1790239127267.1,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -6035,7 +6063,7 @@
             {
               "type": "pointerup",
               "trusted": false,
-              "at": 1790230371512.5999,
+              "at": 1790239127267.1,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -6043,7 +6071,7 @@
             {
               "type": "mouseup",
               "trusted": false,
-              "at": 1790230371512.5999,
+              "at": 1790239127267.1,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -6051,7 +6079,7 @@
             {
               "type": "click",
               "trusted": false,
-              "at": 1790230371512.5999,
+              "at": 1790239127267.1,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -6059,7 +6087,7 @@
           ],
           "objectSeenTwice": 0,
           "listenersOnSubmit": 6,
-          "timeOrigin": 1790230368304.2
+          "timeOrigin": 1790239124483.5
         }
       },
       "audit": {
@@ -6074,13 +6102,13 @@
           "refusals": [],
           "fires": [
             {
-              "cycleId": "7f8a6d7b-2abd-4e21-a738-9b591528a2c5",
-              "deliveryId": "cfeefa52-9600-4c32-88d0-b9f2c00476f6",
-              "requestId": "acfdcbdb-0463-4a48-a3a0-3444fb5fa13a",
+              "cycleId": "fcd3b214-9685-4a3b-864d-4a03932d7f2f",
+              "deliveryId": "ca65d474-1fb7-43e9-96b8-7be49069f152",
+              "requestId": "1682155a-d586-4a9c-92ff-b1f8875100ca",
               "to": "#submit",
-              "preparedAt": 1790230371512.4,
-              "at": 1790230371512.5999,
-              "doneAt": 1790230371513.0999
+              "preparedAt": 1790239127266.8,
+              "at": 1790239127267.3,
+              "doneAt": 1790239127268.3
             }
           ]
         }
@@ -6103,47 +6131,47 @@
               {
                 "from": "IDLE",
                 "to": "OBSERVE",
-                "at": 1790230372223,
+                "at": 1790239127790,
                 "elapsedMs": 0
               },
               {
                 "from": "OBSERVE",
                 "to": "SANITIZE",
-                "at": 1790230372227,
-                "elapsedMs": 4
+                "at": 1790239127792,
+                "elapsedMs": 2
               },
               {
                 "from": "SANITIZE",
                 "to": "VERIFY_PAYLOAD",
-                "at": 1790230372241,
-                "elapsedMs": 18
+                "at": 1790239127800,
+                "elapsedMs": 10
               },
               {
                 "from": "VERIFY_PAYLOAD",
                 "to": "SEND",
-                "at": 1790230372241,
-                "elapsedMs": 18
+                "at": 1790239127800,
+                "elapsedMs": 10
               },
               {
                 "from": "SEND",
                 "to": "VALIDATE_PLAN",
-                "at": 1790230372251,
-                "elapsedMs": 28
+                "at": 1790239127807,
+                "elapsedMs": 17
               },
               {
                 "from": "VALIDATE_PLAN",
                 "to": "REFUSED",
-                "at": 1790230372256,
-                "elapsedMs": 33
+                "at": 1790239127813,
+                "elapsedMs": 23
               }
             ],
             "timings": {
-              "observeMs": 4,
-              "sanitizeMs": 14,
+              "observeMs": 2,
+              "sanitizeMs": 8,
               "verifyPayloadMs": 0,
-              "sendMs": 10,
-              "validatePlanMs": 0,
-              "totalMs": 33
+              "sendMs": 7,
+              "validatePlanMs": 1,
+              "totalMs": 23
             },
             "refusal": {
               "stage": "VALIDATE_PLAN",
@@ -6174,7 +6202,7 @@
             "initialObservation": {
               "nodes": 14,
               "fields": 0,
-              "frameId": "transport-74807096-b95e-4d0c-b160-526a5e6c8619",
+              "frameId": "transport-0f2f73d5-208e-4f4a-8952-b080275ddf70",
               "viewport": {
                 "w": 1280,
                 "h": 720,
@@ -6183,7 +6211,7 @@
                 "scrollX": 0,
                 "scrollY": 0
               },
-              "documentId": "BE82D5871E707B106F93BB52D26D6FB3",
+              "documentId": "41396B5C66F860030050D30C9ABDA351",
               "focusedSelector": null,
               "actionable": [
                 "label",
@@ -6200,7 +6228,7 @@
             "observation": {
               "nodes": 14,
               "fields": 0,
-              "frameId": "transport-74807096-b95e-4d0c-b160-526a5e6c8619",
+              "frameId": "transport-0f2f73d5-208e-4f4a-8952-b080275ddf70",
               "viewport": {
                 "w": 1280,
                 "h": 720,
@@ -6209,7 +6237,7 @@
                 "scrollX": 0,
                 "scrollY": 0
               },
-              "documentId": "BE82D5871E707B106F93BB52D26D6FB3",
+              "documentId": "41396B5C66F860030050D30C9ABDA351",
               "focusedSelector": null,
               "actionable": [
                 "label",
@@ -6570,17 +6598,17 @@
               "request": {
                 "requestId": "m2-refusal-request",
                 "sessionId": "m2-refusal-session",
-                "issuedAt": 1790230372227
+                "issuedAt": 1790239127792
               },
               "verified": true
             },
-            "handoffSerialized": "{\"manifestVersion\":\"1.1\",\"capture\":{\"w\":1280,\"h\":720,\"dpr\":1.0000000149011612,\"zoom\":1,\"scale_to_css\":1,\"scroll\":{\"x\":0,\"y\":0},\"origin\":\"http://127.0.0.1:8975\"},\"capability\":{\"backend\":\"none\",\"tiers_fired\":[\"T0\",\"T2\"]},\"elements\":[{\"id\":\"label\",\"role\":\"label\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,122.80000305175781,490.3999938964844,18.399999618530273]},{\"id\":\"#name\",\"role\":\"textbox\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,187.1999969482422,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile\",\"role\":\"textbox\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,251.60000610351562,490.3999938964844,18.399999618530273]},{\"id\":\"#aadhaar\",\"role\":\"textbox\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,274,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,316,490.3999938964844,18.399999618530273]},{\"id\":\"#dob\",\"role\":\"textbox\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,382.3999938964844,490.3999938964844,18.399999618530273]},{\"id\":\"#otp\",\"role\":\"textbox\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,506,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile_confirm\",\"role\":\"textbox\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,528.4000244140625,490.3999938964844,32]},{\"id\":\"#submit\",\"role\":\"button\",\"name\":\"Submit application\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,572.4000244140625,153.4250030517578,38]},{\"id\":\"#status\",\"role\":\"status\",\"name\":\"Not submitted\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[20,639.2000122070312,520,36.400001525878906]}],\"goal\":\"Submit my application with my registered mobile number.\",\"redactions\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"},\"targetId\":\"#name\"},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"},\"targetId\":\"#mobile\"},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"tier\":\"SENSITIVE\",\"bbox\":[34.79999923706055,274,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":14,\"kind\":\"numeric\"},\"targetId\":\"#aadhaar\"},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"},\"targetId\":\"#dob\"},{\"token\":\"\",\"class\":\"OTP\",\"tier\":\"CRITICAL\",\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32],\"method\":\"masked_no_token\",\"detectors\":[\"D1\"],\"hint\":{\"len\":6,\"kind\":\"numeric\",\"field_role\":\"one-time-code\"},\"targetId\":\"#otp\"}],\"request\":{\"requestId\":\"m2-refusal-request\",\"sessionId\":\"m2-refusal-session\",\"issuedAt\":1790230372227},\"verified\":true}",
+            "handoffSerialized": "{\"manifestVersion\":\"1.1\",\"capture\":{\"w\":1280,\"h\":720,\"dpr\":1.0000000149011612,\"zoom\":1,\"scale_to_css\":1,\"scroll\":{\"x\":0,\"y\":0},\"origin\":\"http://127.0.0.1:8975\"},\"capability\":{\"backend\":\"none\",\"tiers_fired\":[\"T0\",\"T2\"]},\"elements\":[{\"id\":\"label\",\"role\":\"label\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,122.80000305175781,490.3999938964844,18.399999618530273]},{\"id\":\"#name\",\"role\":\"textbox\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,187.1999969482422,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile\",\"role\":\"textbox\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,251.60000610351562,490.3999938964844,18.399999618530273]},{\"id\":\"#aadhaar\",\"role\":\"textbox\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,274,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,316,490.3999938964844,18.399999618530273]},{\"id\":\"#dob\",\"role\":\"textbox\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,382.3999938964844,490.3999938964844,18.399999618530273]},{\"id\":\"#otp\",\"role\":\"textbox\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,506,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile_confirm\",\"role\":\"textbox\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,528.4000244140625,490.3999938964844,32]},{\"id\":\"#submit\",\"role\":\"button\",\"name\":\"Submit application\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,572.4000244140625,153.4250030517578,38]},{\"id\":\"#status\",\"role\":\"status\",\"name\":\"Not submitted\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[20,639.2000122070312,520,36.400001525878906]}],\"goal\":\"Submit my application with my registered mobile number.\",\"redactions\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"},\"targetId\":\"#name\"},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"},\"targetId\":\"#mobile\"},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"tier\":\"SENSITIVE\",\"bbox\":[34.79999923706055,274,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":14,\"kind\":\"numeric\"},\"targetId\":\"#aadhaar\"},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"},\"targetId\":\"#dob\"},{\"token\":\"\",\"class\":\"OTP\",\"tier\":\"CRITICAL\",\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32],\"method\":\"masked_no_token\",\"detectors\":[\"D1\"],\"hint\":{\"len\":6,\"kind\":\"numeric\",\"field_role\":\"one-time-code\"},\"targetId\":\"#otp\"}],\"request\":{\"requestId\":\"m2-refusal-request\",\"sessionId\":\"m2-refusal-session\",\"issuedAt\":1790239127792},\"verified\":true}",
             "ledgerEntry": {
               "sessionId": "m2-refusal-session",
               "requestId": "m2-refusal-request",
-              "at": 1790230372227,
+              "at": 1790239127792,
               "destination": "(no egress client in this phase)",
-              "payloadSha256": "63a5ae27df9645737c8a6d8a5e4fa34ce7e4161ef69460b9c5a46a035884f2d3",
+              "payloadSha256": "573deeaca559feec0477479b3f146f7588b6d430433afcaaddf20751e1427f1a",
               "payloadBytes": 4255,
               "verified": true,
               "leakCheck": "CLEAN",
@@ -6614,7 +6642,7 @@
               "received": true,
               "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
               "transport": "LOOPBACK_HTTP",
-              "elapsedMs": 10,
+              "elapsedMs": 7,
               "requestId": "m2-refusal-request"
             },
             "plan": {
@@ -6682,10 +6710,10 @@
           },
           "binding": {
             "origin": "http://127.0.0.1:8975",
-            "documentId": "BE82D5871E707B106F93BB52D26D6FB3",
-            "tabId": 191885543,
+            "documentId": "41396B5C66F860030050D30C9ABDA351",
+            "tabId": 1476894126,
             "frameId": 0,
-            "swBootId": "7c0db83b-aae6-4b5b-94da-dbdff9e9e886"
+            "swBootId": "2afb5a49-7eec-4dbd-8088-5be6d5daa969"
           },
           "ports": {
             "observations": 1,
@@ -6712,6 +6740,15 @@
                   "refusal": null
                 },
                 "fusion": null,
+                "text": {
+                  "available": false,
+                  "refusal": {
+                    "code": "TEXT_PERCEPTION_UNAVAILABLE",
+                    "detail": "No local text model is adopted. PP-OCRv5_mobile_det fails the S-04a-1 correctness criterion on WASM (4.12e-02 against a 2e-02 bound), and model-adoption rule 2 is frozen: a model that fails the WASM columns is not shipped whatever it does on WebGPU. See artifacts/experiments/M4-gesture-text-perception/ocr-audit.md."
+                  },
+                  "findings": [],
+                  "ms": 0
+                },
                 "elements": [],
                 "sourceBySelector": {},
                 "ms": {
@@ -6729,12 +6766,12 @@
           "perceptionBoot": {
             "ok": true,
             "error": null,
-            "ms": 590,
+            "ms": 631,
             "pin": {
               "artifact": "ort-wasm-simd-threaded.jsep.wasm",
               "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
               "bytes": 27797172,
-              "installedAt": "2026-09-24T06:12:48.450Z"
+              "installedAt": "2026-09-24T08:38:44.714Z"
             }
           },
           "boundary": {
@@ -6754,7 +6791,7 @@
                 "requestId": "m2-refusal-request",
                 "sessionId": "m2-refusal-session",
                 "destination": "http://127.0.0.1:8995/v1/chat/completions",
-                "at": 1790230372251,
+                "at": 1790239127807,
                 "transport": "LOOPBACK_HTTP",
                 "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
                 "verified": true,
@@ -6774,7 +6811,7 @@
                   "bytes": 2679,
                   "agrees": true
                 },
-                "elapsedMs": 10
+                "elapsedMs": 7
               }
             }
           ],
@@ -6797,7 +6834,7 @@
           "events": [],
           "objectSeenTwice": 0,
           "listenersOnSubmit": 6,
-          "timeOrigin": 1790230372082.8
+          "timeOrigin": 1790239127658.8
         }
       },
       "audit": {
@@ -6830,83 +6867,83 @@
               {
                 "from": "IDLE",
                 "to": "OBSERVE",
-                "at": 1790230372586,
+                "at": 1790239128143,
                 "elapsedMs": 0
               },
               {
                 "from": "OBSERVE",
                 "to": "SANITIZE",
-                "at": 1790230372830,
-                "elapsedMs": 244
+                "at": 1790239128288,
+                "elapsedMs": 145
               },
               {
                 "from": "SANITIZE",
                 "to": "VERIFY_PAYLOAD",
-                "at": 1790230372845,
-                "elapsedMs": 259
+                "at": 1790239128295,
+                "elapsedMs": 152
               },
               {
                 "from": "VERIFY_PAYLOAD",
                 "to": "SEND",
-                "at": 1790230372845,
-                "elapsedMs": 259
+                "at": 1790239128295,
+                "elapsedMs": 152
               },
               {
                 "from": "SEND",
                 "to": "VALIDATE_PLAN",
-                "at": 1790230372852,
-                "elapsedMs": 266
+                "at": 1790239128300,
+                "elapsedMs": 157
               },
               {
                 "from": "VALIDATE_PLAN",
                 "to": "AWAIT_GRANT",
-                "at": 1790230372852,
-                "elapsedMs": 266
+                "at": 1790239128300,
+                "elapsedMs": 157
               },
               {
                 "from": "AWAIT_GRANT",
                 "to": "REHYDRATE",
-                "at": 1790230373113,
-                "elapsedMs": 527
+                "at": 1790239128404,
+                "elapsedMs": 261
               },
               {
                 "from": "REHYDRATE",
                 "to": "ACT",
-                "at": 1790230373371,
-                "elapsedMs": 785
+                "at": 1790239128552,
+                "elapsedMs": 409
               },
               {
                 "from": "ACT",
                 "to": "VERIFY_RESULT",
-                "at": 1790230373371,
-                "elapsedMs": 785
+                "at": 1790239128552,
+                "elapsedMs": 409
               },
               {
                 "from": "VERIFY_RESULT",
                 "to": "DONE",
-                "at": 1790230373382,
-                "elapsedMs": 796
+                "at": 1790239128558,
+                "elapsedMs": 415
               }
             ],
             "timings": {
-              "observeMs": 244,
-              "sanitizeMs": 15,
+              "observeMs": 145,
+              "sanitizeMs": 7,
               "verifyPayloadMs": 0,
-              "sendMs": 6,
-              "fallbackMs": 1,
+              "sendMs": 5,
+              "fallbackMs": 0,
               "validatePlanMs": 0,
-              "grantMs": 261,
-              "rehydrateMs": 6,
-              "refreshMs": 252,
-              "verifyResultMs": 6,
-              "actMs": 11,
-              "totalMs": 796
+              "grantMs": 104,
+              "rehydrateMs": 5,
+              "refreshMs": 143,
+              "verifyResultMs": 3,
+              "actMs": 6,
+              "totalMs": 415
             },
             "refusal": null,
             "initialObservation": {
               "nodes": 14,
               "fields": 0,
-              "frameId": "transport-63d78e3d-b8f1-4fbb-a521-05f468a1792f",
+              "frameId": "transport-c724cfb7-95bb-4400-860f-8258280606fc",
               "viewport": {
                 "w": 1280,
                 "h": 720,
@@ -6915,7 +6952,7 @@
                 "scrollX": 0,
                 "scrollY": 0
               },
-              "documentId": "F43C08E01642C6238B4017E69C058005",
+              "documentId": "808353E8E52C98DF9D616F5A8928A658",
               "focusedSelector": null,
               "actionable": [
                 "label",
@@ -6932,7 +6969,7 @@
             "observation": {
               "nodes": 14,
               "fields": 0,
-              "frameId": "transport-01297d02-ca1d-4115-b018-7c145cda43e4",
+              "frameId": "transport-91975da3-db36-4c6c-8df9-77f79143183d",
               "viewport": {
                 "w": 1280,
                 "h": 720,
@@ -6941,7 +6978,7 @@
                 "scrollX": 0,
                 "scrollY": 0
               },
-              "documentId": "F43C08E01642C6238B4017E69C058005",
+              "documentId": "808353E8E52C98DF9D616F5A8928A658",
               "focusedSelector": null,
               "actionable": [
                 "label",
@@ -7302,17 +7339,17 @@
               "request": {
                 "requestId": "m2-outage-request",
                 "sessionId": "m2-outage-session",
-                "issuedAt": 1790230372830
+                "issuedAt": 1790239128288
               },
               "verified": true
             },
-            "handoffSerialized": "{\"manifestVersion\":\"1.1\",\"capture\":{\"w\":1280,\"h\":720,\"dpr\":1.0000000149011612,\"zoom\":1,\"scale_to_css\":0.8,\"scroll\":{\"x\":0,\"y\":0},\"origin\":\"http://127.0.0.1:8975\"},\"capability\":{\"backend\":\"wasm\",\"tiers_fired\":[\"T0\",\"T1\",\"T2\"]},\"elements\":[{\"id\":\"label\",\"role\":\"label\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,122.80000305175781,490.3999938964844,18.399999618530273]},{\"id\":\"#name\",\"role\":\"textbox\",\"name\":\"Full name\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,187.1999969482422,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile\",\"role\":\"textbox\",\"name\":\"Mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,251.60000610351562,490.3999938964844,18.399999618530273]},{\"id\":\"#aadhaar\",\"role\":\"textbox\",\"name\":\"Aadhaar number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,274,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,316,490.3999938964844,18.399999618530273]},{\"id\":\"#dob\",\"role\":\"textbox\",\"name\":\"Date of birth\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,382.3999938964844,490.3999938964844,18.399999618530273]},{\"id\":\"#otp\",\"role\":\"textbox\",\"name\":\"OTP\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,506,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile_confirm\",\"role\":\"textbox\",\"name\":\"Confirm mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,528.4000244140625,490.3999938964844,32]},{\"id\":\"#submit\",\"role\":\"button\",\"name\":\"Submit application\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,572.4000244140625,153.4250030517578,38]},{\"id\":\"#status\",\"role\":\"status\",\"name\":\"Not submitted\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[20,639.2000122070312,520,36.400001525878906]}],\"goal\":\"Submit my application with my registered mobile number.\",\"redactions\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"},\"targetId\":\"#name\"},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"},\"targetId\":\"#mobile\"},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"tier\":\"SENSITIVE\",\"bbox\":[34.79999923706055,274,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":14,\"kind\":\"numeric\"},\"targetId\":\"#aadhaar\"},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"},\"targetId\":\"#dob\"},{\"token\":\"\",\"class\":\"OTP\",\"tier\":\"CRITICAL\",\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32],\"method\":\"masked_no_token\",\"detectors\":[\"D1\"],\"hint\":{\"len\":6,\"kind\":\"numeric\",\"field_role\":\"one-time-code\"},\"targetId\":\"#otp\"}],\"request\":{\"requestId\":\"m2-outage-request\",\"sessionId\":\"m2-outage-session\",\"issuedAt\":1790230372830},\"verified\":true}",
+            "handoffSerialized": "{\"manifestVersion\":\"1.1\",\"capture\":{\"w\":1280,\"h\":720,\"dpr\":1.0000000149011612,\"zoom\":1,\"scale_to_css\":0.8,\"scroll\":{\"x\":0,\"y\":0},\"origin\":\"http://127.0.0.1:8975\"},\"capability\":{\"backend\":\"wasm\",\"tiers_fired\":[\"T0\",\"T1\",\"T2\"]},\"elements\":[{\"id\":\"label\",\"role\":\"label\",\"name\":\"Full name\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,122.80000305175781,490.3999938964844,18.399999618530273]},{\"id\":\"#name\",\"role\":\"textbox\",\"name\":\"Full name\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,187.1999969482422,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile\",\"role\":\"textbox\",\"name\":\"Mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Aadhaar number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,251.60000610351562,490.3999938964844,18.399999618530273]},{\"id\":\"#aadhaar\",\"role\":\"textbox\",\"name\":\"Aadhaar number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,274,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Date of birth\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,316,490.3999938964844,18.399999618530273]},{\"id\":\"#dob\",\"role\":\"textbox\",\"name\":\"Date of birth\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"OTP\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,382.3999938964844,490.3999938964844,18.399999618530273]},{\"id\":\"#otp\",\"role\":\"textbox\",\"name\":\"OTP\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32]},{\"id\":\"label\",\"role\":\"label\",\"name\":\"Confirm mobile number\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,506,490.3999938964844,18.399999618530273]},{\"id\":\"#mobile_confirm\",\"role\":\"textbox\",\"name\":\"Confirm mobile number\",\"source\":\"dom+vision\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,528.4000244140625,490.3999938964844,32]},{\"id\":\"#submit\",\"role\":\"button\",\"name\":\"Submit application\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[34.79999923706055,572.4000244140625,153.4250030517578,38]},{\"id\":\"#status\",\"role\":\"status\",\"name\":\"Not submitted\",\"source\":\"dom\",\"visible\":true,\"offscreen\":false,\"enabled\":true,\"bbox\":[20,639.2000122070312,520,36.400001525878906]}],\"goal\":\"Submit my application with my registered mobile number.\",\"redactions\":[{\"token\":\"<PII:NAME:1>\",\"class\":\"NAME\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,145.1999969482422,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":12,\"kind\":\"alpha\",\"field_role\":\"name\"},\"targetId\":\"#name\"},{\"token\":\"<PII:PHONE:1>\",\"class\":\"PHONE\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,209.60000610351562,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"numeric\",\"field_role\":\"tel\"},\"targetId\":\"#mobile\"},{\"token\":\"<PII:AADHAAR:1>\",\"class\":\"AADHAAR\",\"tier\":\"SENSITIVE\",\"bbox\":[34.79999923706055,274,490.3999938964844,32],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":14,\"kind\":\"numeric\"},\"targetId\":\"#aadhaar\"},{\"token\":\"<PII:DOB:1>\",\"class\":\"DOB\",\"tier\":\"PERSONAL\",\"bbox\":[34.79999923706055,338.3999938964844,490.3999938964844,34],\"method\":\"token_reference\",\"detectors\":[\"D1\",\"D2\"],\"hint\":{\"len\":10,\"kind\":\"date\",\"field_role\":\"date\"},\"targetId\":\"#dob\"},{\"token\":\"\",\"class\":\"OTP\",\"tier\":\"CRITICAL\",\"bbox\":[34.79999923706055,404.8000183105469,490.3999938964844,32],\"method\":\"masked_no_token\",\"detectors\":[\"D1\"],\"hint\":{\"len\":6,\"kind\":\"numeric\",\"field_role\":\"one-time-code\"},\"targetId\":\"#otp\"}],\"request\":{\"requestId\":\"m2-outage-request\",\"sessionId\":\"m2-outage-session\",\"issuedAt\":1790239128288},\"verified\":true}",
             "ledgerEntry": {
               "sessionId": "m2-outage-session",
               "requestId": "m2-outage-request",
-              "at": 1790230372830,
+              "at": 1790239128288,
               "destination": "(no egress client in this phase)",
-              "payloadSha256": "2dd1d21fc0791671a68ac7a7e47f14f63fffa86a98f5678841c72170ae3a6e6e",
+              "payloadSha256": "97792bd5ff669f3f169c79700b835bfb7f98312c0f4fc281c8f5e16634838f24",
               "payloadBytes": 4302,
               "verified": true,
               "leakCheck": "CLEAN",
@@ -7346,7 +7383,7 @@
               "received": true,
               "reasoner": "deterministic:reference",
               "transport": "IN_PROCESS",
-              "elapsedMs": 1,
+              "elapsedMs": 0,
               "requestId": "m2-outage-request"
             },
             "plan": {
@@ -7412,8 +7449,8 @@
                 "sessionId": "m2-outage-session",
                 "purpose": "Use of PHONE for \"Confirm mobile number\"",
                 "actionContext": "insert into #mobile_confirm, then click #submit",
-                "grantedAt": 1790230373113,
-                "expiresAt": 1790230433113,
+                "grantedAt": 1790239128404,
+                "expiresAt": 1790239188404,
                 "used": true
               }
             },
@@ -7432,12 +7469,12 @@
                 "selector": "#submit",
                 "role": "button",
                 "name": "Submit application",
-                "frameId": "transport-65b50706-cba8-4864-ab0f-fa2486d397ca",
+                "frameId": "transport-737fca0b-6581-4568-8b5d-97f676eda492",
                 "origin": "http://127.0.0.1:8975"
               },
               "purpose": "Click \"Submit application\" to submit this application",
-              "confirmedAt": 1790230373371,
-              "expiresAt": 1790230433371
+              "confirmedAt": 1790239128552,
+              "expiresAt": 1790239188552
             },
             "act": {
               "reached": "VERIFY_RESULT",
@@ -7453,7 +7490,7 @@
                   },
                   "evidence": {
                     "kind": "OBSERVED",
-                    "frameId": "transport-65b50706-cba8-4864-ab0f-fa2486d397ca",
+                    "frameId": "transport-737fca0b-6581-4568-8b5d-97f676eda492",
                     "viewportBox": {
                       "x": 34.79999923706055,
                       "y": 572.4000244140625,
@@ -7471,7 +7508,7 @@
                   "parent": null,
                   "children": []
                 },
-                "frameId": "transport-65b50706-cba8-4864-ab0f-fa2486d397ca",
+                "frameId": "transport-737fca0b-6581-4568-8b5d-97f676eda492",
                 "viewportBox": {
                   "x": 34.79999923706055,
                   "y": 572.4000244140625,
@@ -7492,7 +7529,7 @@
                   "y": 591
                 },
                 "observed": {
-                  "frameId": "transport-65b50706-cba8-4864-ab0f-fa2486d397ca",
+                  "frameId": "transport-737fca0b-6581-4568-8b5d-97f676eda492",
                   "selector": "#submit",
                   "role": "button",
                   "name": "Submit application",
@@ -7524,7 +7561,7 @@
                     "h": 38
                   }
                 },
-                "dispatchMs": 2
+                "dispatchMs": 1
               },
               "verification": {
                 "verification": "CONFIRMED",
@@ -7535,35 +7572,35 @@
           },
           "binding": {
             "origin": "http://127.0.0.1:8975",
-            "documentId": "F43C08E01642C6238B4017E69C058005",
-            "tabId": 191885543,
+            "documentId": "808353E8E52C98DF9D616F5A8928A658",
+            "tabId": 1476894126,
             "frameId": 0,
-            "swBootId": "7c0db83b-aae6-4b5b-94da-dbdff9e9e886"
+            "swBootId": "2afb5a49-7eec-4dbd-8088-5be6d5daa969"
           },
           "ports": {
             "observations": 3,
             "inserts": 0,
             "insertRefusals": [],
             "cycle": {
-              "cycleId": "105eb5a4-70a2-494f-8ca3-5ccb30eb3c10",
+              "cycleId": "70acfa0d-ff7a-458d-a5c0-10a089076a88",
               "hitTest": {
                 "point": {
                   "x": 112,
                   "y": 591
                 },
                 "topmost": "#submit",
-                "receivedAt": 1790230373372.7,
-                "sampledAt": 1790230373372.8
+                "receivedAt": 1790239128553.8,
+                "sampledAt": 1790239128553.9001
               },
               "dispatch": {
-                "deliveryId": "266fcb64-de37-4153-b4bc-ed5cfbc0049d",
+                "deliveryId": "a9eabae0-dba5-4d0f-8ba2-c3d4aff3f215",
                 "point": {
                   "x": 112,
                   "y": 591
                 },
                 "dispatchedTo": "#submit",
-                "receivedAt": 1790230373375.3,
-                "dispatchedAt": 1790230373375.5999
+                "receivedAt": 1790239128555,
+                "dispatchedAt": 1790239128555.2
               },
               "refusals": []
             },
@@ -7601,6 +7638,15 @@
                   "visionOnly": 94,
                   "domOnly": 8,
                   "overlaySuspected": 6
+                },
+                "text": {
+                  "available": false,
+                  "refusal": {
+                    "code": "TEXT_PERCEPTION_UNAVAILABLE",
+                    "detail": "No local text model is adopted. PP-OCRv5_mobile_det fails the S-04a-1 correctness criterion on WASM (4.12e-02 against a 2e-02 bound), and model-adoption rule 2 is frozen: a model that fails the WASM columns is not shipped whatever it does on WebGPU. See artifacts/experiments/M4-gesture-text-perception/ocr-audit.md."
+                  },
+                  "findings": [],
+                  "ms": 0
                 },
                 "elements": [
                   {
@@ -9236,13 +9282,13 @@
                   "#status": "dom"
                 },
                 "ms": {
-                  "capture": 52,
-                  "decode": 21,
+                  "capture": 61,
+                  "decode": 11,
                   "encode": 0,
-                  "preprocess": 70,
-                  "infer": 96,
-                  "fuse": 1,
-                  "total": 240
+                  "preprocess": 29,
+                  "infer": 41,
+                  "fuse": 0,
+                  "total": 144
                 }
               },
               {
@@ -9278,6 +9324,15 @@
                   "visionOnly": 93,
                   "domOnly": 8,
                   "overlaySuspected": 6
+                },
+                "text": {
+                  "available": false,
+                  "refusal": {
+                    "code": "TEXT_PERCEPTION_UNAVAILABLE",
+                    "detail": "No local text model is adopted. PP-OCRv5_mobile_det fails the S-04a-1 correctness criterion on WASM (4.12e-02 against a 2e-02 bound), and model-adoption rule 2 is frozen: a model that fails the WASM columns is not shipped whatever it does on WebGPU. See artifacts/experiments/M4-gesture-text-perception/ocr-audit.md."
+                  },
+                  "findings": [],
+                  "ms": 0
                 },
                 "elements": [
                   {
@@ -10898,13 +10953,13 @@
                   "#status": "dom"
                 },
                 "ms": {
-                  "capture": 51,
-                  "decode": 22,
+                  "capture": 66,
+                  "decode": 11,
                   "encode": 0,
-                  "preprocess": 71,
-                  "infer": 103,
+                  "preprocess": 25,
+                  "infer": 38,
                   "fuse": 1,
-                  "total": 248
+                  "total": 141
                 }
               },
               {
@@ -10926,6 +10981,15 @@
                   "refusal": null
                 },
                 "fusion": null,
+                "text": {
+                  "available": false,
+                  "refusal": {
+                    "code": "TEXT_PERCEPTION_UNAVAILABLE",
+                    "detail": "No local text model is adopted. PP-OCRv5_mobile_det fails the S-04a-1 correctness criterion on WASM (4.12e-02 against a 2e-02 bound), and model-adoption rule 2 is frozen: a model that fails the WASM columns is not shipped whatever it does on WebGPU. See artifacts/experiments/M4-gesture-text-perception/ocr-audit.md."
+                  },
+                  "findings": [],
+                  "ms": 0
+                },
                 "elements": [],
                 "sourceBySelector": {},
                 "ms": {
@@ -10943,12 +11007,12 @@
           "perceptionBoot": {
             "ok": true,
             "error": null,
-            "ms": 590,
+            "ms": 631,
             "pin": {
               "artifact": "ort-wasm-simd-threaded.jsep.wasm",
               "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
               "bytes": 27797172,
-              "installedAt": "2026-09-24T06:12:48.450Z"
+              "installedAt": "2026-09-24T08:38:44.714Z"
             }
           },
           "boundary": {
@@ -10968,7 +11032,7 @@
                 "requestId": "m2-outage-request",
                 "sessionId": "m2-outage-session",
                 "destination": "http://127.0.0.1:8995/v1/chat/completions",
-                "at": 1790230372851,
+                "at": 1790239128300,
                 "stage": "TRANSPORT",
                 "cause": "TRANSPORT_FAILED",
                 "severity": "REFUSED",
@@ -11016,7 +11080,7 @@
             {
               "type": "pointerdown",
               "trusted": false,
-              "at": 1790230373375.5,
+              "at": 1790239128555.1,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -11024,7 +11088,7 @@
             {
               "type": "mousedown",
               "trusted": false,
-              "at": 1790230373375.5,
+              "at": 1790239128555.1,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -11032,7 +11096,7 @@
             {
               "type": "pointerup",
               "trusted": false,
-              "at": 1790230373375.5,
+              "at": 1790239128555.1,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -11040,7 +11104,7 @@
             {
               "type": "mouseup",
               "trusted": false,
-              "at": 1790230373375.5,
+              "at": 1790239128555.2,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -11048,7 +11112,7 @@
             {
               "type": "click",
               "trusted": false,
-              "at": 1790230373375.5999,
+              "at": 1790239128555.2,
               "x": 112,
               "y": 591,
               "detail": 0
@@ -11056,7 +11120,7 @@
           ],
           "objectSeenTwice": 0,
           "listenersOnSubmit": 6,
-          "timeOrigin": 1790230372500.7
+          "timeOrigin": 1790239128077.8
         }
       },
       "audit": {
@@ -11071,13 +11135,13 @@
           "refusals": [],
           "fires": [
             {
-              "cycleId": "105eb5a4-70a2-494f-8ca3-5ccb30eb3c10",
-              "deliveryId": "266fcb64-de37-4153-b4bc-ed5cfbc0049d",
-              "requestId": "27dc3086-f654-4035-8c91-768f6b08f63c",
+              "cycleId": "70acfa0d-ff7a-458d-a5c0-10a089076a88",
+              "deliveryId": "a9eabae0-dba5-4d0f-8ba2-c3d4aff3f215",
+              "requestId": "6e2d647d-2ccb-4b15-b700-90bcce81a13a",
               "to": "#submit",
-              "preparedAt": 1790230373375.4,
-              "at": 1790230373375.5999,
-              "doneAt": 1790230373376.0999
+              "preparedAt": 1790239128555,
+              "at": 1790239128555.2,
+              "doneAt": 1790239128555.4001
             }
           ]
         }
@@ -11086,6 +11150,10 @@
       "leaked": []
     }
   },
+  "routeCategory": "DEGRADED_TEST_ROUTE",
+  "routesSeen": [
+    "WORKER_FRAME"
+  ],
   "perception": {
     "SUCCESS": [
       {
@@ -11121,6 +11189,15 @@
           "visionOnly": 94,
           "domOnly": 8,
           "overlaySuspected": 6
+        },
+        "text": {
+          "available": false,
+          "refusal": {
+            "code": "TEXT_PERCEPTION_UNAVAILABLE",
+            "detail": "No local text model is adopted. PP-OCRv5_mobile_det fails the S-04a-1 correctness criterion on WASM (4.12e-02 against a 2e-02 bound), and model-adoption rule 2 is frozen: a model that fails the WASM columns is not shipped whatever it does on WebGPU. See artifacts/experiments/M4-gesture-text-perception/ocr-audit.md."
+          },
+          "findings": [],
+          "ms": 0
         },
         "elements": [
           {
@@ -12756,13 +12833,13 @@
           "#status": "dom"
         },
         "ms": {
-          "capture": 45,
-          "decode": 15,
+          "capture": 72,
+          "decode": 13,
           "encode": 0,
-          "preprocess": 52,
-          "infer": 82,
+          "preprocess": 30,
+          "infer": 50,
           "fuse": 1,
-          "total": 195
+          "total": 166
         }
       },
       {
@@ -12798,6 +12875,15 @@
           "visionOnly": 93,
           "domOnly": 8,
           "overlaySuspected": 6
+        },
+        "text": {
+          "available": false,
+          "refusal": {
+            "code": "TEXT_PERCEPTION_UNAVAILABLE",
+            "detail": "No local text model is adopted. PP-OCRv5_mobile_det fails the S-04a-1 correctness criterion on WASM (4.12e-02 against a 2e-02 bound), and model-adoption rule 2 is frozen: a model that fails the WASM columns is not shipped whatever it does on WebGPU. See artifacts/experiments/M4-gesture-text-perception/ocr-audit.md."
+          },
+          "findings": [],
+          "ms": 0
         },
         "elements": [
           {
@@ -14418,13 +14504,13 @@
           "#status": "dom"
         },
         "ms": {
-          "capture": 42,
-          "decode": 12,
+          "capture": 85,
+          "decode": 17,
           "encode": 0,
-          "preprocess": 32,
+          "preprocess": 37,
           "infer": 52,
           "fuse": 0,
-          "total": 138
+          "total": 192
         }
       },
       {
@@ -14460,6 +14546,15 @@
           "visionOnly": 99,
           "domOnly": 7,
           "overlaySuspected": 7
+        },
+        "text": {
+          "available": false,
+          "refusal": {
+            "code": "TEXT_PERCEPTION_UNAVAILABLE",
+            "detail": "No local text model is adopted. PP-OCRv5_mobile_det fails the S-04a-1 correctness criterion on WASM (4.12e-02 against a 2e-02 bound), and model-adoption rule 2 is frozen: a model that fails the WASM columns is not shipped whatever it does on WebGPU. See artifacts/experiments/M4-gesture-text-perception/ocr-audit.md."
+          },
+          "findings": [],
+          "ms": 0
         },
         "elements": [
           {
@@ -16170,13 +16265,13 @@
           "#status": "dom"
         },
         "ms": {
-          "capture": 38,
+          "capture": 98,
           "decode": 11,
           "encode": 0,
-          "preprocess": 46,
-          "infer": 45,
-          "fuse": 0,
-          "total": 140
+          "preprocess": 33,
+          "infer": 33,
+          "fuse": 1,
+          "total": 176
         }
       }
     ],
@@ -16200,6 +16295,15 @@
           "refusal": null
         },
         "fusion": null,
+        "text": {
+          "available": false,
+          "refusal": {
+            "code": "TEXT_PERCEPTION_UNAVAILABLE",
+            "detail": "No local text model is adopted. PP-OCRv5_mobile_det fails the S-04a-1 correctness criterion on WASM (4.12e-02 against a 2e-02 bound), and model-adoption rule 2 is frozen: a model that fails the WASM columns is not shipped whatever it does on WebGPU. See artifacts/experiments/M4-gesture-text-perception/ocr-audit.md."
+          },
+          "findings": [],
+          "ms": 0
+        },
         "elements": [],
         "sourceBySelector": {},
         "ms": {
@@ -16247,6 +16351,15 @@
           "visionOnly": 94,
           "domOnly": 8,
           "overlaySuspected": 6
+        },
+        "text": {
+          "available": false,
+          "refusal": {
+            "code": "TEXT_PERCEPTION_UNAVAILABLE",
+            "detail": "No local text model is adopted. PP-OCRv5_mobile_det fails the S-04a-1 correctness criterion on WASM (4.12e-02 against a 2e-02 bound), and model-adoption rule 2 is frozen: a model that fails the WASM columns is not shipped whatever it does on WebGPU. See artifacts/experiments/M4-gesture-text-perception/ocr-audit.md."
+          },
+          "findings": [],
+          "ms": 0
         },
         "elements": [
           {
@@ -17882,13 +17995,13 @@
           "#status": "dom"
         },
         "ms": {
-          "capture": 52,
-          "decode": 21,
+          "capture": 61,
+          "decode": 11,
           "encode": 0,
-          "preprocess": 70,
-          "infer": 96,
-          "fuse": 1,
-          "total": 240
+          "preprocess": 29,
+          "infer": 41,
+          "fuse": 0,
+          "total": 144
         }
       },
       {
@@ -17924,6 +18037,15 @@
           "visionOnly": 93,
           "domOnly": 8,
           "overlaySuspected": 6
+        },
+        "text": {
+          "available": false,
+          "refusal": {
+            "code": "TEXT_PERCEPTION_UNAVAILABLE",
+            "detail": "No local text model is adopted. PP-OCRv5_mobile_det fails the S-04a-1 correctness criterion on WASM (4.12e-02 against a 2e-02 bound), and model-adoption rule 2 is frozen: a model that fails the WASM columns is not shipped whatever it does on WebGPU. See artifacts/experiments/M4-gesture-text-perception/ocr-audit.md."
+          },
+          "findings": [],
+          "ms": 0
         },
         "elements": [
           {
@@ -19544,13 +19666,13 @@
           "#status": "dom"
         },
         "ms": {
-          "capture": 51,
-          "decode": 22,
+          "capture": 66,
+          "decode": 11,
           "encode": 0,
-          "preprocess": 71,
-          "infer": 103,
+          "preprocess": 25,
+          "infer": 38,
           "fuse": 1,
-          "total": 248
+          "total": 141
         }
       },
       {
@@ -19572,6 +19694,15 @@
           "refusal": null
         },
         "fusion": null,
+        "text": {
+          "available": false,
+          "refusal": {
+            "code": "TEXT_PERCEPTION_UNAVAILABLE",
+            "detail": "No local text model is adopted. PP-OCRv5_mobile_det fails the S-04a-1 correctness criterion on WASM (4.12e-02 against a 2e-02 bound), and model-adoption rule 2 is frozen: a model that fails the WASM columns is not shipped whatever it does on WebGPU. See artifacts/experiments/M4-gesture-text-perception/ocr-audit.md."
+          },
+          "findings": [],
+          "ms": 0
+        },
         "elements": [],
         "sourceBySelector": {},
         "ms": {
@@ -19588,12 +19719,12 @@
     "boot": {
       "ok": true,
       "error": null,
-      "ms": 590,
+      "ms": 631,
       "pin": {
         "artifact": "ort-wasm-simd-threaded.jsep.wasm",
         "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
         "bytes": 27797172,
-        "installedAt": "2026-09-24T06:12:48.450Z"
+        "installedAt": "2026-09-24T08:38:44.714Z"
       }
     }
   },
@@ -19622,23 +19753,23 @@
         "offsets": [
           {
             "type": "pointerdown",
-            "ms": 0.2
+            "ms": 0.3
           },
           {
             "type": "mousedown",
-            "ms": 0.2
+            "ms": 0.3
           },
           {
             "type": "pointerup",
-            "ms": 0.2
+            "ms": 0.3
           },
           {
             "type": "mouseup",
-            "ms": 0.2
+            "ms": 0.3
           },
           {
             "type": "click",
-            "ms": 0.2
+            "ms": 0.3
           }
         ]
       }
@@ -19689,7 +19820,7 @@
           },
           {
             "type": "mouseup",
-            "ms": 0.1
+            "ms": 0.2
           },
           {
             "type": "click",
@@ -19717,15 +19848,15 @@
       "refused": "TARGET_MISMATCH"
     },
     "wrongDocument": {
-      "armedFor": "8CEB6B8C3A24AB0E586050CC18694229",
-      "presentedBy": "FE7BD770C97771D431EC2610C8ED06DB",
+      "armedFor": "28076C6F8865D8DC8E7B80537CE18551",
+      "presentedBy": "F018712EBB5403B8B38B0603903210BD",
       "documentChanged": true,
       "ok": false,
       "refused": "SENDER_DOCUMENT_MISMATCH"
     },
     "wrongTab": {
-      "armedForTab": 191885544,
-      "presentedByTab": 191885543,
+      "armedForTab": 1476894127,
+      "presentedByTab": 1476894126,
       "differentTab": true,
       "ok": false,
       "refused": "SENDER_DOCUMENT_MISMATCH"
@@ -19737,7 +19868,7 @@
   },
   "workerTraffic": {
     "messages": 115,
-    "bytes": 84127,
+    "bytes": 84160,
     "kinds": {
       "port:ATTACHED": 7,
       "in:HELLO": 7,
@@ -19760,7 +19891,7 @@
       "longestBase64Run": 0
     }
   },
-  "recordedAt": "2026-09-24T06:12:55.741Z",
+  "recordedAt": "2026-09-24T08:38:50.632Z",
   "provenance": {
     "workstation": "W1",
     "host": "LAPTOP-6E14K34L",

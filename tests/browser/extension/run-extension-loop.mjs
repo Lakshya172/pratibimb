@@ -449,6 +449,20 @@ const carriesPixels = (anything) => {
   return text.includes("iVBORw0KGgo") || text.includes("data:image") || /[A-Za-z0-9+/]{200,}/.test(text);
 };
 
+/**
+ * WHICH KIND OF EVIDENCE THIS RUN IS, stated once at the top of the record.
+ *
+ * `REAL_STREAM_ROUTE` is the product path: a person invoked the extension, the worker minted an
+ * opaque handle, and the perception realm turned it into pixels itself. `DEGRADED_TEST_ROUTE` is
+ * the worker-frame path, which exists because no automated harness can produce that invocation.
+ *
+ * They are not interchangeable and their evidence must not be read as one body. This runner is
+ * automated, so it is always the degraded one; the product route is verified by
+ * `run-gesture-capture.mjs`, which stops and waits for a human.
+ */
+const routesSeen = [...new Set(["SUCCESS", "REFUSAL", "OUTAGE"].flatMap((act) => perceptionOf(act).map((p) => p.route).filter(Boolean)))];
+const routeCategory = routesSeen.length === 0 ? "NO_CAPTURE" : routesSeen.every((r) => r === "GESTURE_STREAM") ? "REAL_STREAM_ROUTE" : "DEGRADED_TEST_ROUTE";
+
 const firesOf = (act) => acts[act]?.audit?.transport?.fires ?? [];
 const actionOf = (act) => ({
   contentInstances: acts[act]?.audit?.instances ?? null,
@@ -615,6 +629,8 @@ const checks = {
    * the record, `workerSawPixels` is true, and this check asserts the two agree. A run that claimed
    * the product route while using the other one would fail here.
    */
+  /** Whatever route this run took, the record names it once at the top rather than by inference. */
+  theRouteCategoryIsRecorded: routeCategory === "REAL_STREAM_ROUTE" || routeCategory === "DEGRADED_TEST_ROUTE",
   theDegradedRouteIsReportedHonestly: ["SUCCESS", "OUTAGE"].every((act) =>
     perceptionOf(act)
       .filter((p) => p.ran)
@@ -701,6 +717,9 @@ const record = {
   checks,
   failure,
   acts,
+  /** See `routeCategory` above: this runner is automated, so it is the degraded route by design. */
+  routeCategory,
+  routesSeen,
   perception: {
     SUCCESS: perceptionOf("SUCCESS"),
     REFUSAL: perceptionOf("REFUSAL"),
@@ -750,6 +769,7 @@ for (const act of ["SUCCESS", "REFUSAL", "OUTAGE"]) {
       `[capture ${p.ms.capture} decode ${p.ms.decode} encode ${p.ms.encode} pre ${p.ms.preprocess} infer ${p.ms.infer} fuse ${p.ms.fuse}]`
   );
 }
+console.log(`  route category: ${routeCategory} (${routesSeen.join(", ") || "none"})`);
 console.log(
   `  bundle: ${bundle.bytes} bytes, ${bundle.pointerEventSites + bundle.mouseEventSites} click-event sites, E6 surface: ${bundle.e6Surface.length === 0 ? "none" : bundle.e6Surface.join(",")}`
 );
