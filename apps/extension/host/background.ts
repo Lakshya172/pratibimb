@@ -60,9 +60,9 @@ export default defineBackground(() => {
    * `status === "loading"` needs no `tabs` permission; only `url` and `title` are gated.
    */
   chrome.tabs?.onUpdated.addListener((tabId, changeInfo) => {
-    if (changeInfo.status === "loading") capture.revoke(tabId);
+    if (changeInfo.status === "loading") capture.revoke(tabId, "NAVIGATION");
   });
-  chrome.tabs?.onRemoved.addListener((tabId) => capture.revoke(tabId));
+  chrome.tabs?.onRemoved.addListener((tabId) => capture.revoke(tabId, "TAB_CLOSED"));
 
   /**
    * TEST-ONLY: everything this worker actually saw.
@@ -165,8 +165,8 @@ export default defineBackground(() => {
      * what comes back is its LENGTH. A probe that returned the handle would be the one place in
      * this system where a capture credential left the extension.
      */
-    ticketProbe: async (tabId: number) => {
-      const ticket = await capture.ticketFor(tabId);
+    ticketProbe: async (tabId: number, documentId?: string) => {
+      const ticket = await capture.ticketFor(tabId, documentId ?? null);
       if (!ticket.ok) return { ok: false, refused: ticket.refused, detail: ticket.detail };
       return ticket.route === "GESTURE_STREAM"
         ? { ok: true, route: ticket.route, handleLength: ticket.handle.length }
@@ -202,6 +202,8 @@ export default defineBackground(() => {
     },
     /** TEST-ONLY: the grants a human produced, and whether the degraded path is compiled in. */
     captureState: () => ({ grants: capture.grants(), workerFrameEnabled: __M3_WORKER_FRAME__ }),
+    /** TEST-ONLY: the lifecycle this tab is in, and whether a person has to act. */
+    captureStatus: (tabId: number, documentId?: string) => capture.status(tabId, documentId ?? null),
     /**
      * TEST-ONLY: record a grant as an invocation would.
      *
@@ -342,8 +344,8 @@ export default defineBackground(() => {
         sendResponse({ ok: false, refused: "SENDER_NOT_ACCEPTED" });
         return false;
       }
-      const ask = raw as { tabId: number };
-      void capture.ticketFor(ask.tabId).then((ticket) => {
+      const ask = raw as { tabId: number; documentId?: string };
+      void capture.ticketFor(ask.tabId, ask.documentId ?? null).then((ticket) => {
         note("to-tab", {
           kind: "CAPTURE_TICKET",
           ok: ticket.ok,
@@ -373,7 +375,20 @@ export default defineBackground(() => {
     }
 
     if (msg?.kind === "HOST_STATUS" && isFromExtensionPage(sender)) {
-      void ensureOffscreen().then((n) => sendResponse({ bootId, bootedAt, offscreenContexts: n, hellos: hellos.length }));
+      /**
+       * The side panel is told whether a person needs to act.
+       *
+       * ADR-0009 accepts that a fresh invocation is required after navigation and says it is "not a
+       * defect to be hidden". The smallest way not to hide it is to report the lifecycle on the one
+       * control surface that already exists, so the panel can say so instead of a capture silently
+       * refusing somewhere a person cannot see.
+       */
+      void (async () => {
+        const n = await ensureOffscreen();
+        const [active] = await chrome.tabs.query({ active: true, currentWindow: true }).catch(() => []);
+        const captureStatus = typeof active?.id === "number" ? capture.status(active.id) : null;
+        sendResponse({ bootId, bootedAt, offscreenContexts: n, hellos: hellos.length, captureStatus });
+      })();
       return true;
     }
     if (!isFromContentScript(sender)) {

@@ -1,14 +1,14 @@
 ---
 id: ADR-0009
 title: "Gesture-authorised capture — replacing tabs.captureVisibleTab in the product path"
-version: 1.0
-status: PROPOSED — awaiting the human architect
+version: 1.1
+status: APPROVED — owner decision recorded in §0; constitution §5 amended
 owner: pratibimb-architect
 proposed_by: browser-engineer · privacy-security-engineer
-approved_by: none
-approved_on: none
+approved_by: ronitsaha11 (Ronit Saha)
+approved_on: 2026-09-24
 created: 2026-09-24
-modified: 2026-09-24
+modified: 2026-09-24  # rev 1.1: owner approval recorded, constitution §5 amended per the procedure
 supersedes: none
 amends: "docs/architecture/constitution.md §5 (FROZEN STACK — Capture); ADR-0002 scope note"
 related_gates: ["QG-03b-2c"]
@@ -17,14 +17,69 @@ related_invariants: none weakened
 
 # ADR-0009 — Gesture-authorised capture
 
-> **STATUS: PROPOSED. This ADR has not been approved and must not be read as approval.**
-> The amendment procedure is explicit: *"No agent approves its own ADR. The human architect
-> approves or rejects."* It is written because the deviation it describes **is already in the
-> tree** — shipped across M3.1, M4 and M5 — and an undocumented deviation from a frozen entry is
-> worse than a documented one awaiting a decision.
+> **STATUS: APPROVED 2026-09-24** by the repository owner and architecture decision-maker,
+> **Ronit Saha** (`ronitsaha11`), whose decision is recorded verbatim in §0.
 >
-> On approval, `docs/architecture/constitution.md` §5 and `docs/adr/README.md` are updated. Until
-> then the constitution stands as written and this file is the record of the discrepancy.
+> Approval covers **the architectural direction**: gesture-authorised tab capture replaces
+> `tabs.captureVisibleTab` as the product capture path, together with the `CaptureFrame`
+> consequence in §5. Per the amendment procedure step 6, `docs/architecture/constitution.md` §5 and
+> `docs/adr/README.md` have been updated; the constitution edit is the minimum one the procedure
+> requires and is itself covered by this approval.
+>
+> **Approval is not a readiness claim.** The owner stated this explicitly. Three things are
+> deliberately kept apart throughout this ADR and must stay apart wherever it is cited:
+>
+> | | |
+> |---|---|
+> | **ARCHITECTURALLY APPROVED** | the direction, by the owner, here |
+> | **EXPERIMENTALLY VERIFIED** | that it works on W1, by M4 (12/12) and M5 (29/29), **human-in-the-loop** |
+> | **NOT production readiness** | not claimed by this ADR, by M5, or by the owner |
+
+---
+
+## 0. The owner decision, as given
+
+> I, Ronit Saha, as the repository owner / architecture decision-maker, explicitly APPROVE ADR-0009.
+>
+> Approved architectural decision:
+>
+> REPLACE THE FORMER PRODUCT CAPTURE ASSUMPTION `tabs.captureVisibleTab` with:
+>
+> USER-INITIATED TOOLBAR GESTURE → activeTab authorization → tabCapture / getMediaStreamId →
+> opaque stream handle → OFFSCREEN PERCEPTION REALM → getUserMedia(handle) → ImageCapture / live
+> ImageBitmap → LOCAL PERCEPTION
+>
+> This approval covers the architectural choice demonstrated by M5.
+>
+> The product SHALL use the gesture-authorized stream architecture.
+>
+> The product SHALL NOT:
+> - use captureVisibleTab as the normal product capture path
+> - silently fall back to captureVisibleTab
+> - broaden to `<all_urls>` merely to avoid the gesture requirement
+> - simulate the required user gesture through CDP or test-only browser injection
+> - weaken activeTab/tabCapture security semantics
+>
+> The UX cost is explicitly accepted:
+> - a fresh user invocation may be required after navigation/reload because activeTab authorization
+>   is revoked
+> - this is a deliberate fail-closed behavior, not a defect to be hidden
+>
+> Do NOT claim that this approval means the architecture is production-ready. It means the
+> architectural direction itself is formally approved.
+
+### 0.1 What each prohibition maps to in the tree
+
+Recorded so the decision is enforceable by reading rather than by memory. Every row is checked by a
+test, a build-artifact scan, or both.
+
+| The owner's prohibition | Where it is enforced |
+|---|---|
+| no `captureVisibleTab` as the product path | `chrome.tabs.captureVisibleTab` is an **optional property** of the capture adapter, supplied only under `M3_WORKER_FRAME`; product bundle count is **0** |
+| no silent fallback | `CaptureAuthority.ticketFor` returns `NO_ACTIVE_TAB_GRANT` and never reaches for another route; the degraded branch is absent from the bundle, not merely unreached |
+| no `<all_urls>` to avoid the gesture | product `host_permissions` is `["http://127.0.0.1/*"]`; a test asserts the default build's manifest |
+| no simulated gesture | measured: `<all_urls>` does not grant `activeTab`, a real click inside an extension page does not, and a CDP `_execute_action` keypress never reaches Chrome's accelerator table. The evidence harnesses **stop and wait for a person** |
+| no weakened `activeTab`/`tabCapture` semantics | the authority mirrors Chrome's own lifetime — a grant is revoked on navigation and on tab close |
 
 ## 1. The frozen entry this deviates from
 
@@ -118,15 +173,50 @@ browser adapter and the reference is absent from a product bundle. Evidence take
 
 All **HUMAN-IN-THE-LOOP** on W1, Chrome for Testing 153.0.8010.12, and labelled as such.
 
-## 8. What approval would cover
+**What that evidence is and is not.** It is one operator, on one machine, in one browser cell, on
+one synthetic fixture, with one click per act. It establishes that the route works and that the
+worker sees no pixels while it does. It establishes nothing about reliability, about other
+viewport sizes or device pixel ratios, about other displays, or about any page that is not the
+fixture. `EXPERIMENTALLY VERIFIED` is the whole of the claim.
 
-Replacing the §5 capture mechanism for the **product** path with gesture-authorised tab capture, and
-the `CaptureFrame` consequence in §5 above. It would **not** adopt any detector, promote QG-03,
-change ADR-0002's format policy, or authorise removing the degraded test route.
+## 8. What this approval covers, and what it does not
 
-## 9. Rejection is a real option
+**Covers:** replacing the §5 capture mechanism for the **product** path with gesture-authorised tab
+capture, the `CaptureFrame` consequence in §5 above, and the minimum constitution amendment the
+procedure requires.
 
-If the gesture requirement is judged too costly for the demonstration — a presenter must click the
-toolbar before each act — the honest alternative is to revert to `captureVisibleTab` **and record
-that pixels transit the worker as an accepted limitation**, rather than to keep the stream route and
-describe it as free. The code supports both; only one of them can be the default.
+**Does not cover, and is not implied by, this approval:**
+
+- adopting any detector, or promoting QG-03 — the UI head remains `CONDITIONAL`;
+- changing ADR-0002's format policy, which is untouched and still in force wherever an encoded
+  frame arrives;
+- removing the degraded test route, which remains as `DEGRADED_TEST_ROUTE` regression
+  infrastructure and is never mixed into product evidence;
+- any text or OCR capability — none exists, and the one candidate is blocked by a separate frozen
+  rule;
+- **production readiness**, which the owner ruled out in the decision itself.
+
+## 9. The rejected alternative, recorded
+
+This ADR was written with a genuine rejection option: revert to `captureVisibleTab` and **record
+that pixels transit the worker as an accepted limitation**, rather than keep the stream route and
+describe it as free.
+
+**The owner rejected that alternative and accepted the UX cost explicitly**, in the words quoted in
+§0: *"a fresh user invocation may be required after navigation/reload because activeTab
+authorization is revoked — this is a deliberate fail-closed behavior, not a defect to be hidden."*
+
+It is recorded here rather than deleted because the cost is real and recurring: on a multi-step task
+across navigations, it is one invocation per document, not one per session. A future milestone that
+finds that cost intolerable should reopen **this** decision with evidence, not work around it.
+
+## 10. Consequences accepted
+
+1. **Re-authorisation after navigation is product behaviour**, not a bug. A harness that stops and
+   waits for a person is the correct shape for evidence about it, and is what M4 and M5 use.
+2. **No automated harness can exercise the product capture route.** Automated regression therefore
+   runs on `DEGRADED_TEST_ROUTE` and its numbers may not be used to claim product-route
+   verification.
+3. **The capture policy is explicit and fail-closed** — see
+   `docs/architecture/capture-policy.md`. No polling, no autonomous repeat capture, no retry after
+   a quota refusal, no silent substitution.

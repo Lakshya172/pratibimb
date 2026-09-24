@@ -83,6 +83,8 @@ let perceptionBoot: { ok: boolean; error: string | null; ms: number; pin: unknow
  * Set for the duration of a run. A capture asked for outside one has no tab to name and refuses.
  */
 let captureTabId = -1;
+/** The document the run is bound to, so a grant can be bound to a page rather than a tab number. */
+let captureDocumentId: string | null = null;
 
 async function ensurePerception(): Promise<PerceptionRealm> {
   if (perceptionRealm !== null) return perceptionRealm;
@@ -106,8 +108,13 @@ async function ensurePerception(): Promise<PerceptionRealm> {
   perceptionRealm = createPerceptionRealm({
     // The worker is the only realm that can capture; it hands the frame straight back and keeps
     // no reference. See its handler for the whole of why, and what that costs.
-    requestCapture: () =>
-      chrome.runtime.sendMessage({ kind: "CAPTURE_FRAME", tabId: captureTabId }) as Promise<CaptureTicket>,
+    requestCapture: (documentId) =>
+      chrome.runtime.sendMessage({
+        kind: "CAPTURE_FRAME",
+        tabId: captureTabId,
+        // The document the frame is wanted FOR. A grant is bound to a page, not to a tab number.
+        ...(documentId === null ? {} : { documentId }),
+      }) as Promise<CaptureTicket>,
     session: session as never,
     ort: ort as never,
     modelId: MODEL_ID,
@@ -255,12 +262,13 @@ async function sendToBoundary(binding: TransportBinding, body: BoundaryRequest):
 async function runTask(request: ExtensionRunRequest): Promise<ExtensionRunResult> {
   if (running !== null) throw new Error("A_RUN_IS_ALREADY_IN_PROGRESS");
   captureTabId = request.tabId;
+  captureDocumentId = null;
   const task = runExtensionTask(
     {
       relay: chromeRelay,
       capabilities,
       sendToBoundary,
-      perceive: async (graph, measurement) => (await ensurePerception()).perceive(graph, measurement),
+      perceive: async (graph, measurement, options) => (await ensurePerception()).perceive(graph, measurement, options),
       perceptionBoot: () => perceptionBoot,
       askHuman: (grantRequest) =>
         new Promise<GrantDecision>((resolve) => {
@@ -275,6 +283,7 @@ async function runTask(request: ExtensionRunRequest): Promise<ExtensionRunResult
   } finally {
     running = null;
     captureTabId = -1;
+    captureDocumentId = null;
     // An approval nobody answered does not outlive the run it belonged to.
     pendingGrant = null;
   }
@@ -362,7 +371,7 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
             scrollY: observed.viewport.scrollY,
             origin: observed.binding.document.origin,
           },
-          { collect: true }
+          { collect: true, documentId: observed.binding.document.documentId }
         );
         sendResponse({
           refused: summary.ran ? null : summary.refusal,

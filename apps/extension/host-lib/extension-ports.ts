@@ -64,7 +64,11 @@ export interface ExtensionPortsOptions {
    * the DOM substrate is the reliable one and vision is evidence ADDED to it, so a detector that
    * cannot run must not be able to stop the loop.
    */
-  perceive?(graph: ElementGraph, measurement: ViewportMeasurement): Promise<PerceptionSummary>;
+  perceive?(
+    graph: ElementGraph,
+    measurement: ViewportMeasurement,
+    options?: { readonly collect?: boolean; readonly documentId?: string | null }
+  ): Promise<PerceptionSummary>;
 }
 
 /** Counts of what the ports were actually asked to do. The refusal run's claim is `clicks === 0`. */
@@ -145,7 +149,9 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
      * client can SAY about the page, never what it can do safely.
      */
     if (options.perceive) {
-      const summary = await options.perceive(graph, {
+      const summary = await options.perceive(
+        graph,
+        {
         dpr: viewport.dpr,
         // A content script cannot read the browser's zoom factor, so it is recorded as 1 and
         // nothing is derived from it — the coordinate contract forbids using it as a multiplier.
@@ -154,8 +160,11 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
         viewportCssHeight: viewport.h,
         scrollX: viewport.scrollX,
         scrollY: viewport.scrollY,
-        origin: options.origin,
-      });
+          origin: options.origin,
+        },
+        // Bind the grant to the document this reading belongs to, as the browser attested it.
+        { documentId: options.binding.document.documentId }
+      );
       report.perception.push(summary);
     }
 

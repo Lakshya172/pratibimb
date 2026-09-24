@@ -224,7 +224,7 @@ export interface PerceptionRealmDeps {
    * On the product path what comes back is an opaque handle the worker could not read anything out
    * of. On the degraded path it is a data URL the worker held.
    */
-  readonly requestCapture: () => Promise<CaptureTicket>;
+  readonly requestCapture: (documentId: string | null) => Promise<CaptureTicket>;
   /** The pinned ORT session over the pinned artifact, created by this document at boot. */
   readonly session: OrtSession | null;
   readonly ort: OrtGlobal | null;
@@ -251,7 +251,11 @@ export interface PerceptionRealmDeps {
 
 export interface PerceptionRealm {
   /** Capture, detect and fuse against a DOM graph this realm already has. Never throws. */
-  perceive(graph: ElementGraph, measurement: ViewportMeasurement, options?: { readonly collect?: boolean }): Promise<PerceptionSummary>;
+  perceive(
+    graph: ElementGraph,
+    measurement: ViewportMeasurement,
+    options?: { readonly collect?: boolean; readonly documentId?: string | null }
+  ): Promise<PerceptionSummary>;
   readonly modelId: string;
   readonly revision: string;
 }
@@ -311,7 +315,7 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
     async perceive(
       graph: ElementGraph,
       measurement: ViewportMeasurement,
-      options: { readonly collect?: boolean } = {}
+      options: { readonly collect?: boolean; readonly documentId?: string | null } = {}
     ): Promise<PerceptionSummary> {
       const started = now();
       anchors = 0;
@@ -323,7 +327,8 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
       const tCapture = now();
       let ticket: CaptureTicket;
       try {
-        ticket = await deps.requestCapture();
+        // The document this frame is wanted FOR. A grant belongs to a page, not a tab number.
+        ticket = await deps.requestCapture(options.documentId ?? null);
       } catch (cause) {
         return perceptionRefused("CAPTURE_FAILED", String((cause as Error)?.message ?? cause));
       }

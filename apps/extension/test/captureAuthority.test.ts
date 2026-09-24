@@ -126,13 +126,15 @@ describe("the capture authority", () => {
     expect(calls.captured).toBe(0);
   });
 
-  it("records grants as tab ids and times, and nothing else", () => {
+  it("records grants as tab ids, times and a document binding, and nothing else", () => {
     const capture = authority(fakeBrowser().browser);
     capture.grant(7);
     capture.grant(9);
+    // `boundTo` is null until the grant is first used: a person authorises a tab by invoking on it,
+    // and which document that turns out to be is learned when a frame is actually asked for.
     expect(capture.grants()).toEqual([
-      { tabId: 7, at: 1_000 },
-      { tabId: 9, at: 1_000 },
+      { tabId: 7, at: 1_000, boundTo: null },
+      { tabId: 9, at: 1_000, boundTo: null },
     ]);
   });
 });
@@ -172,5 +174,101 @@ describe("grant revocation", () => {
 
   it("revoking a tab that was never granted is not an error", () => {
     expect(authority(fakeBrowser().browser).revoke(99)).toBe(0);
+  });
+});
+
+/**
+ * POST-M5 — THE LIFECYCLE, NAMED.
+ *
+ * ADR-0009 §0 accepts the cost these tests describe: *"a fresh user invocation may be required after
+ * navigation/reload because activeTab authorization is revoked — this is a deliberate fail-closed
+ * behavior, not a defect to be hidden."* So the states are asserted rather than inferred, and
+ * `requiresReauth` is a field a caller can show a person instead of a boolean it has to interpret.
+ */
+describe("the capture lifecycle", () => {
+  it("walks NO_GRANT → GRANTED → STREAM_AVAILABLE", async () => {
+    const capture = authority(fakeBrowser().browser);
+    expect(capture.status(7).lifecycle).toBe("NO_GRANT");
+    expect(capture.status(7).requiresReauth).toBe(true);
+
+    capture.grant(7);
+    expect(capture.status(7).lifecycle).toBe("GRANTED");
+    // Invoked but not yet used: nothing more is needed from the person.
+    expect(capture.status(7).requiresReauth).toBe(false);
+
+    await capture.ticketFor(7, "doc-a");
+    expect(capture.status(7, "doc-a").lifecycle).toBe("STREAM_AVAILABLE");
+    expect(capture.status(7, "doc-a").boundTo).toBe("doc-a");
+  });
+
+  it("binds on first use, and refuses a frame for a different document", async () => {
+    const { browser, calls } = fakeBrowser();
+    const capture = authority(browser);
+    capture.grant(7);
+    expect((await capture.ticketFor(7, "doc-a")).ok).toBe(true);
+
+    // The page changed under the grant. A person authorised the document they were looking at.
+    const after = await capture.ticketFor(7, "doc-b");
+    expect(after.ok === false && after.refused).toBe("DOCUMENT_CHANGED");
+    expect(capture.status(7, "doc-b").lifecycle).toBe("DOCUMENT_CHANGED");
+    expect(capture.status(7, "doc-b").requiresReauth).toBe(true);
+    // And it never asked the browser, so nothing was minted for the wrong page.
+    expect(calls.minted).toBe(1);
+  });
+
+  it("says why a grant went away, and needs a new one", () => {
+    const capture = authority(fakeBrowser().browser);
+    capture.grant(7);
+    capture.revoke(7, "NAVIGATION");
+
+    const status = capture.status(7);
+    expect(status.lifecycle).toBe("REVOKED");
+    expect(status.revokedBecause).toBe("NAVIGATION");
+    expect(status.requiresReauth).toBe(true);
+
+    // A fresh invocation clears it — which is exactly the accepted cost, working.
+    capture.grant(7);
+    expect(capture.status(7).lifecycle).toBe("GRANTED");
+    expect(capture.status(7).revokedBecause).toBeNull();
+  });
+
+  it("distinguishes a closed tab from a navigation", () => {
+    const capture = authority(fakeBrowser().browser);
+    capture.grant(7);
+    capture.revoke(7, "TAB_CLOSED");
+    expect(capture.status(7).revokedBecause).toBe("TAB_CLOSED");
+  });
+
+  it("treats repeated invocation as one authorisation, not two", async () => {
+    const capture = authority(fakeBrowser().browser);
+    capture.grant(7);
+    capture.grant(7);
+    capture.grant(7);
+    // Duplicate grants are safe: the most recent counts, and the tab is authorised once.
+    expect(capture.status(7).lifecycle).toBe("GRANTED");
+    expect((await capture.ticketFor(7, "doc-a")).ok).toBe(true);
+  });
+
+  it("refuses a handle the browser has already handed out", async () => {
+    // Chrome mints these and they should never repeat. If one did, it would be a capability that
+    // could be replayed, so noticing costs a Set and not noticing costs the boundary.
+    const { browser } = fakeBrowser();
+    const capture = authority(browser);
+    capture.grant(7);
+    capture.grant(8);
+    expect((await capture.ticketFor(7, "doc-a")).ok).toBe(true);
+
+    const repeat = await capture.ticketFor(8, "doc-b");
+    expect(repeat.ok === false && repeat.refused).toBe("HANDLE_ALREADY_ISSUED");
+  });
+
+  it("keeps one tab's authorisation out of another's", async () => {
+    const capture = authority(fakeBrowser().browser);
+    capture.grant(7);
+    await capture.ticketFor(7, "doc-a");
+
+    expect(capture.status(8).lifecycle).toBe("NO_GRANT");
+    const other = await capture.ticketFor(8, "doc-a");
+    expect(other.ok === false && other.refused).toBe("NO_ACTIVE_TAB_GRANT");
   });
 });

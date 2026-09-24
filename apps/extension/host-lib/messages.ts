@@ -35,7 +35,7 @@ export type ToSw =
    * this system where a page's pixels are in a worker — see the handler for why there is no other
    * door and what is done about it.
    */
-  | { readonly kind: "CAPTURE_FRAME"; readonly tabId: number }
+  | { readonly kind: "CAPTURE_FRAME"; readonly tabId: number; readonly documentId?: string }
   | {
       readonly kind: "TO_PAGE_BOUNDARY";
       readonly tabId: number;
