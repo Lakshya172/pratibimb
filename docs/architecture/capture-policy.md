@@ -3,6 +3,11 @@
 > **Status: in force.** Derived from [ADR-0009](../adr/ADR-0009-gesture-authorised-capture.md),
 > approved by the owner on 2026-09-24, and from `constitution.md` §5 as amended by it.
 >
+> **The change policy was narrowed to match this one**, rather than this one being widened to match
+> the change policy: [ADR-0010](../adr/ADR-0010-change-signal-under-explicit-capture.md), approved
+> the same day, puts §6's structural signal IN FORCE and its two capture-bearing signals DEFERRED
+> and WITHDRAWN FROM v1. **Nothing in §6 asks this policy for an autonomous capture loop.**
+>
 > **Approval of the architecture is not a readiness claim**, and nothing in this file should be read
 > as one. What is EXPERIMENTALLY VERIFIED is separately recorded in `artifacts/experiments/`.
 
@@ -17,7 +22,7 @@
 | A human invoking the extension on a tab (toolbar action) | **in force** |
 | An explicit human refresh after re-authorisation | **in force** — it is the same trigger |
 | A navigation that revoked the grant | **requires a new invocation**; it is not itself a trigger |
-| A change-driven refresh | **not implemented, and would need its own approval** |
+| A change-driven refresh | **not implemented.** §6's visual dHash polling is DEFERRED and its full-frame safety net is WITHDRAWN FROM v1 (ADR-0010), so nothing in the change policy asks for one. Building one needs a separate approved ADR naming and validating its capture mechanism |
 
 ## What is forbidden
 
@@ -69,6 +74,23 @@ inferred, and the side panel renders it in one sentence.
 **A grant is bound to a page, not to a tab number.** Chrome revokes `activeTab` on navigation and the
 authority mirrors that; binding on first use means a frame for a different document is refused by
 the authority's own bookkeeping even if the revocation listener never fired.
+
+## What the change policy asks of this one
+
+**Nothing.** `constitution.md` §6, as narrowed by ADR-0010, puts the **structural** signal
+(MutationObserver / ResizeObserver) IN FORCE for v1 precisely because it takes no capture, and
+puts the two signals that would have needed one out of the v1 contract:
+
+| §6 signal | v1 status | Capture it would need |
+|---|---|---|
+| Structural | **IN FORCE** | none |
+| Visual dHash over enumerated dynamic regions | **DEFERRED** | a timer, and possibly a capture — §6 never named the mechanism, and a future ADR must |
+| Low-rate full-frame dHash safety net | **WITHDRAWN FROM v1** | a capture with nobody behind it, which this policy forbids |
+
+So the two contracts now say the same thing from opposite sides: this policy says a frame is taken
+only when a person asks, and §6 no longer asks for one any other way. **The structural signal is a
+v1 contract item, not a built one** — no observer is wired in the tree, which ADR-0010 §2 records
+rather than papers over.
 
 ## The cost, stated
 
