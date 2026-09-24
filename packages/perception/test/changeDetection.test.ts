@@ -154,6 +154,7 @@ describe("frame hashing", () => {
   const frame = (bytes: number[]): CaptureFrame => ({
     id: frameId("f"),
     capturedAt: 0,
+    source: "encoded" as const,
     pixels: new Uint8Array(bytes),
     format: "png",
     geometry: {

@@ -24,6 +24,7 @@
  * *"T0 is a debounce, not an avoidance strategy."*
  */
 import type { CaptureFrame } from "./capture.js";
+import { PerceptionError } from "./failure.js";
 
 /** Why a refresh is being proposed. Never collapsed into a bare boolean. */
 export type ChangeSignal =
@@ -229,8 +230,18 @@ export class ChangeGate {
  * for it.
  */
 export function frameHash(frame: CaptureFrame): string {
-  let h = 0x811c9dc5;
   const bytes = frame.pixels;
+  if (bytes === undefined) {
+    // A live frame has no encoded bytes, so it has no byte identity to hash. Hashing an empty
+    // buffer would give every live frame the same hash and make the change gate answer
+    // "unchanged" forever — a silent failure in the one component whose job is noticing change.
+    throw new PerceptionError(
+      `Frame ${frame.id} came from a live stream and carries no encoded bytes, so it has no ` +
+        `byte-identity hash. Hash the decoded pixels, or use the structural change signal.`,
+      "CAPTURE_FAILED"
+    );
+  }
+  let h = 0x811c9dc5;
   for (let i = 0; i < bytes.length; i += 1) {
     h ^= bytes[i]!;
     h = Math.imul(h, 0x01000193) >>> 0;

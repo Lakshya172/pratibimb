@@ -136,3 +136,41 @@ describe("the capture authority", () => {
     ]);
   });
 });
+
+/**
+ * M5 — A GRANT BELONGS TO A DOCUMENT, NOT TO A TAB NUMBER.
+ *
+ * Chrome revokes `activeTab` when the tab navigates. An authority that did not model that would go
+ * on answering "granted" for a page nobody authorised, mint a handle, and be refused by the browser
+ * with an error about invocation — true, but three layers away from the actual reason.
+ */
+describe("grant revocation", () => {
+  it("drops a tab's grants and says how many", () => {
+    const capture = authority(fakeBrowser().browser);
+    capture.grant(7);
+    capture.grant(7);
+    capture.grant(9);
+
+    expect(capture.revoke(7)).toBe(2);
+    expect(capture.granted(7)).toBe(false);
+    // Another tab's authorisation is not collateral.
+    expect(capture.granted(9)).toBe(true);
+  });
+
+  it("refuses for the right reason after a navigation", async () => {
+    const { browser, calls } = fakeBrowser();
+    const capture = authority(browser);
+    capture.grant(7);
+    capture.revoke(7);
+
+    const ticket = await capture.ticketFor(7);
+    // NO_ACTIVE_TAB_GRANT, not MINT_FAILED: the authority knows it has no grant, so it never asks
+    // Chrome and never has to translate Chrome's answer back into the real reason.
+    expect(ticket.ok === false && ticket.refused).toBe("NO_ACTIVE_TAB_GRANT");
+    expect(calls.minted).toBe(0);
+  });
+
+  it("revoking a tab that was never granted is not an error", () => {
+    expect(authority(fakeBrowser().browser).revoke(99)).toBe(0);
+  });
+});

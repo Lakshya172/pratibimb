@@ -95,6 +95,15 @@ export interface CaptureAuthority {
   grant(tabId: number): void;
   /** Is there a live grant for this tab? */
   granted(tabId: number): boolean;
+  /**
+   * Drop every grant for a tab.
+   *
+   * **Chrome revokes `activeTab` when the tab navigates**, and an authority that did not model
+   * that would keep answering "granted" for a document nobody authorised — then mint, and be
+   * refused by the browser with a confusing error. Matching the browser's own lifetime means the
+   * refusal says `NO_ACTIVE_TAB_GRANT`, which is the true reason, instead of `MINT_FAILED`.
+   */
+  revoke(tabId: number): number;
   /** Obtain a ticket for one frame, or refuse. */
   ticketFor(tabId: number): Promise<CaptureTicket>;
   /** Grants recorded, for the evidence record. Tab ids and times; nothing else. */
@@ -120,6 +129,16 @@ export function createCaptureAuthority(options: CaptureAuthorityOptions): Captur
 
     grant(tabId: number): void {
       if (grants.length < 1_000) grants.push({ tabId, at: now() });
+    },
+
+    revoke(tabId: number): number {
+      let dropped = 0;
+      for (let i = grants.length - 1; i >= 0; i -= 1) {
+        if ((grants[i] as CaptureGrant).tabId !== tabId) continue;
+        grants.splice(i, 1);
+        dropped += 1;
+      }
+      return dropped;
     },
 
     async ticketFor(tabId: number): Promise<CaptureTicket> {

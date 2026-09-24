@@ -176,7 +176,10 @@ export interface PerceptionSummary {
     readonly capture: number;
     /** Turning it into RGBA. Zero on the gesture route, which never has an encoded image. */
     readonly decode: number;
-    /** Encoding a PNG so the frame record is truthful. Gesture route only. */
+    /**
+     * Encoding a frame. **Zero on every path now**, and kept as a field so a regression that
+     * reintroduces one is visible in the record rather than only in the total.
+     */
     readonly encode: number;
     readonly preprocess: number;
     readonly infer: number;
@@ -212,16 +215,6 @@ function rgbaFrom(bitmap: ImageBitmap): DecodedImage {
   } finally {
     bitmap.close();
   }
-}
-
-/** Encode RGBA back to PNG, so `CaptureFrame.pixels` is a truthful PNG rather than a claim. */
-async function encodePng(image: DecodedImage): Promise<Uint8Array> {
-  const canvas = new OffscreenCanvas(image.width, image.height);
-  const ctx = canvas.getContext("2d");
-  if (!ctx) throw new Error("no 2d context in this realm");
-  ctx.putImageData(new ImageData(new Uint8ClampedArray(image.rgba), image.width, image.height), 0, 0);
-  const blob = await canvas.convertToBlob({ type: "image/png" });
-  return new Uint8Array(await blob.arrayBuffer());
 }
 
 export interface PerceptionRealmDeps {
@@ -344,8 +337,8 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
 
       const route: CaptureRoute = ticket.route;
       let image: DecodedImage;
-      let encoded: Uint8Array;
-      let format: "png";
+      /** Present only when the frame arrived encoded. A live frame is never encoded to fill it. */
+      let encoded: Uint8Array | undefined;
       try {
         if (ticket.route === "GESTURE_STREAM") {
           /**
@@ -391,10 +384,19 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
             // One frame, then the tab stops being captured. A live track is an open camera.
             track.stop();
           }
-          const tEncode = now();
-          encoded = await encodePng(image);
-          encodeMs = now() - tEncode;
-          format = "png";
+          /**
+           * NOTHING IS ENCODED HERE, AND THAT IS THE POINT.
+           *
+           * M4 re-encoded this bitmap to PNG so `CaptureFrame.pixels` would be a truthful PNG
+           * rather than a claim. It cost **1040 ms of a 1252 ms pass** on W1 and produced bytes
+           * that no code read: the detector preprocesses the decoded RGBA this realm already
+           * holds, and the only other reader of `pixels` in the package — `frameHash` — is not
+           * called anywhere in the product.
+           *
+           * `CaptureFrame` now says where a frame came from, so a frame that was never compressed
+           * does not get compressed to satisfy a field.
+           */
+          encoded = undefined;
         } else {
           const tDecode = now();
           const decoded = decodeDataUrl(ticket.dataUrl);
@@ -402,7 +404,6 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
           image = rgbaFrom(await createImageBitmap(new Blob([decoded.bytes as unknown as BlobPart], { type: "image/png" })));
           decodeMs = now() - tDecode;
           encoded = decoded.bytes;
-          format = "png";
         }
       } catch (cause) {
         return perceptionRefused("CAPTURE_FAILED", String((cause as Error)?.message ?? cause), route);
@@ -426,15 +427,19 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
       const framed: CaptureFrame = {
         id: graph.frameId ?? toFrameId(`perception-${sequence}`),
         capturedAt: now(),
-        pixels: encoded,
-        format,
+        // A stream frame is `live` and carries no bytes; a worker frame arrived encoded and does.
+        ...(encoded === undefined
+          ? { source: "live" as const }
+          : { source: "encoded" as const, pixels: encoded, format: "png" as const }),
         geometry,
       };
       const captureBlock = {
         w: geometry.captureSize.w,
         h: geometry.captureSize.h,
-        format,
-        bytes: encoded.length,
+        /** What the frame actually is, rather than what a field once had to say it was. */
+        format: encoded === undefined ? "live-bitmap" : "png",
+        /** Encoded length, or the decoded RGBA's length when nothing was encoded. */
+        bytes: encoded === undefined ? image.rgba.length : encoded.length,
         dpr: geometry.dpr,
         scaleToCss: geometry.viewportCss.w / geometry.captureSize.w,
       };

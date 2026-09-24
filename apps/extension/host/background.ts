@@ -48,6 +48,21 @@ export default defineBackground(() => {
   chrome.action?.onClicked.addListener((tab) => {
     if (typeof tab.id === "number") capture.grant(tab.id);
   });
+  /**
+   * A GRANT BELONGS TO A DOCUMENT, NOT TO A TAB NUMBER.
+   *
+   * Chrome revokes `activeTab` the moment the tab navigates, so a person who authorised one page
+   * has not authorised the next one to load in the same tab. Mirroring that here keeps the
+   * authority's answer the same as the browser's: a refusal after a reload says
+   * NO_ACTIVE_TAB_GRANT, which is true, rather than minting and collecting a confusing
+   * MINT_FAILED from Chrome.
+   *
+   * `status === "loading"` needs no `tabs` permission; only `url` and `title` are gated.
+   */
+  chrome.tabs?.onUpdated.addListener((tabId, changeInfo) => {
+    if (changeInfo.status === "loading") capture.revoke(tabId);
+  });
+  chrome.tabs?.onRemoved.addListener((tabId) => capture.revoke(tabId));
 
   /**
    * TEST-ONLY: everything this worker actually saw.
