@@ -126,8 +126,16 @@ export interface StructuralReading {
   readonly attributes: number;
   /** Batches that carried a character-data change — §6's "text changes". */
   readonly text: number;
-  /** Batches that carried a change to the document's own geometry. */
+  /** Batches that carried a change to the document's own geometry or a tracked element's. */
   readonly resizes: number;
+  /**
+   * How many elements are under resize observation right now.
+   *
+   * Reported so the fan-out of §6's *"ResizeObserver on tracked elements"* is auditable rather than
+   * asserted: it is the size of the last observed element graph, not the size of the document. A
+   * surface that tracks nothing reports 0.
+   */
+  readonly tracked: number;
   /** The agent's own clock at the most recent increment; `null` if there has not been one. */
   readonly at: number | null;
 }
@@ -140,6 +148,7 @@ export const UNWATCHED_STRUCTURE: StructuralReading = {
   attributes: 0,
   text: 0,
   resizes: 0,
+  tracked: 0,
   at: null,
 };
 
@@ -388,11 +397,12 @@ function parseViewport(u: unknown): ViewportReading | null {
 const isSeq = (u: unknown): u is number => isFinite_(u) && Number.isInteger(u) && u >= 0;
 
 export function parseStructuralReading(u: unknown): StructuralReading | null {
-  if (!isRecord(u) || !keysExactly(u, ["watching", "seq", "nodes", "attributes", "text", "resizes", "at"])) {
+  if (!isRecord(u) || !keysExactly(u, ["watching", "seq", "nodes", "attributes", "text", "resizes", "tracked", "at"])) {
     return null;
   }
   if (typeof u.watching !== "boolean") return null;
   if (!isSeq(u.seq) || !isSeq(u.nodes) || !isSeq(u.attributes) || !isSeq(u.text) || !isSeq(u.resizes)) return null;
+  if (!isSeq(u.tracked)) return null;
   if (u.at !== null && !isFinite_(u.at)) return null;
   return {
     watching: u.watching,
@@ -401,6 +411,7 @@ export function parseStructuralReading(u: unknown): StructuralReading | null {
     attributes: u.attributes,
     text: u.text,
     resizes: u.resizes,
+    tracked: u.tracked,
     at: u.at as number | null,
   };
 }

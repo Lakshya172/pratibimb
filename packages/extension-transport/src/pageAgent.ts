@@ -96,6 +96,13 @@ export interface PageSurface<E> {
    * counters; it has no relay, no reply channel and no element. See `createPageAgent`.
    */
   watchStructure?(onChange: (event: StructuralEvent) => void): () => void;
+  /**
+   * How many elements are under resize observation right now — §6's *"tracked elements"*.
+   *
+   * OPTIONAL and reported rather than assumed, so the fan-out of the resize observer is a number a
+   * reader can check instead of a claim this file makes. A surface that tracks nothing answers 0.
+   */
+  structuralTracked?(): number;
 }
 
 /**
@@ -223,7 +230,9 @@ export function createPageAgent<E>(surface: PageSurface<E>, capacity: number = D
   }
 
   const structureNow = (): StructuralReading =>
-    watching ? { watching, seq, nodes, attributes, text, resizes, at: structuralAt } : UNWATCHED_STRUCTURE;
+    watching
+      ? { watching, seq, nodes, attributes, text, resizes, tracked: surface.structuralTracked?.() ?? 0, at: structuralAt }
+      : UNWATCHED_STRUCTURE;
 
   /**
    * Fail closed. Nothing watching is not the same as nothing changed, and a caller holding no

@@ -153,6 +153,10 @@ function measure(): { measurements: DomMeasurement[]; focus: FocusReading } {
     };
     return reference.nth === undefined ? base : { ...base, nth: reference.nth };
   });
+  // §6's tracked elements ARE this set. Re-targeting here rather than on a timer is what keeps
+  // the resize signal event-driven: the observer follows the graph, and the graph is only ever
+  // rebuilt when something explicitly asks for an observation.
+  retargetResizeObserver(elements);
   return { measurements, focus: focusReading() };
 }
 
@@ -225,6 +229,70 @@ const WATCHED_ATTRIBUTES = ["id", "role", "aria-label", "aria-disabled", "disabl
  * no node and no document geometry is therefore NOT observed, and §6's structural signal is
  * implemented CONDITIONALLY until that is measured and closed.
  */
+/**
+ * THE TRACKED SET, AND WHY A BASELINE IS NOT A CHANGE.
+ *
+ * §6 names *"ResizeObserver on tracked elements"*. The tracked elements are the ones `measure()`
+ * just put in the element graph — not every node in the document — so the fan-out is bounded by the
+ * graph the agent actually reasons about, and `structuralTracked()` reports it so that bound is a
+ * number rather than a claim.
+ *
+ * THE INITIALISATION TRAP. A `ResizeObserver` delivers a callback for every element the moment it
+ * is observed. Treating that delivery as a change would make every observation instantly stale
+ * against itself: `measure()` re-targets the observer, the observer immediately reports back, the
+ * sequence advances, and the reading that just happened is already out of date. Nothing would ever
+ * be current.
+ *
+ * THE FIX IS A BASELINE, NOT A TIMER. An element's FIRST delivery records its size and reports
+ * nothing; a later delivery is compared against that record and reports only a real difference.
+ * There is no window to wait out, no first-callback counter to get wrong, and no clock involved —
+ * the rule is "this size differs from the last size I was told about", which is the question a
+ * resize signal is actually asking.
+ *
+ * Sizes come from the observer's own `borderBoxSize`, never from `getBoundingClientRect`: the two
+ * measure different boxes, and comparing one against the other reports a change on every callback.
+ *
+ * NO CAPTURE, NO TIMER, NO POLL. A resize notification increments a counter. That is all it does.
+ */
+const trackedSizes = new Map<Element, { w: number; h: number }>();
+const observedForResize = new Set<Element>();
+let resizes: ResizeObserver | null = null;
+
+/** The observer's own measurement, with the pre-`borderBoxSize` fallback kept explicit. */
+function sizeOf(entry: ResizeObserverEntry): { w: number; h: number } {
+  const border = entry.borderBoxSize?.[0];
+  return border === undefined
+    ? { w: entry.contentRect.width, h: entry.contentRect.height }
+    : { w: border.inlineSize, h: border.blockSize };
+}
+
+/**
+ * Point the observer at the set `measure()` just produced.
+ *
+ * Removed elements stop being tracked, which is what "no longer an active tracked target" means:
+ * they are unobserved and their baseline is dropped, so an element that comes back re-baselines
+ * rather than being compared against a size from before it left. Added elements become eligible
+ * here — the observation refresh is what makes them tracked — and their INSERTION was already a
+ * `childList` record, so nothing about them goes unnoticed in the meantime.
+ */
+function retargetResizeObserver(elements: readonly Element[]): void {
+  const observer = resizes;
+  if (observer === null) return;
+  const next = new Set<Element>(elements);
+  for (const tracked of [...observedForResize]) {
+    // The document element is tracked permanently: it is the viewport, not a graph member.
+    if (tracked === document.documentElement || next.has(tracked)) continue;
+    observer.unobserve(tracked);
+    observedForResize.delete(tracked);
+    trackedSizes.delete(tracked);
+  }
+  for (const element of next) {
+    if (observedForResize.has(element)) continue;
+    observedForResize.add(element);
+    observer.observe(element);
+  }
+}
+
 function watchStructure(onChange: (event: StructuralEvent) => void): () => void {
   const mutations = new MutationObserver((records) => {
     let nodes = false;
@@ -247,14 +315,34 @@ function watchStructure(onChange: (event: StructuralEvent) => void): () => void 
     attributeFilter: WATCHED_ATTRIBUTES,
   });
 
-  const resizes = new ResizeObserver(() => {
-    onChange({ nodes: false, attributes: false, text: false, resized: true });
+  const observer = new ResizeObserver((entries) => {
+    let changed = false;
+    for (const entry of entries) {
+      const size = sizeOf(entry);
+      const baseline = trackedSizes.get(entry.target);
+      if (baseline === undefined) {
+        // The observer introducing itself. Recorded, and reported as nothing.
+        trackedSizes.set(entry.target, size);
+        continue;
+      }
+      if (baseline.w !== size.w || baseline.h !== size.h) {
+        trackedSizes.set(entry.target, size);
+        changed = true;
+      }
+    }
+    if (changed) onChange({ nodes: false, attributes: false, text: false, resized: true });
   });
-  resizes.observe(document.documentElement);
+  resizes = observer;
+  // The viewport first; the graph's own elements arrive with the first `measure()`.
+  observedForResize.add(document.documentElement);
+  observer.observe(document.documentElement);
 
   return () => {
     mutations.disconnect();
-    resizes.disconnect();
+    observer.disconnect();
+    resizes = null;
+    observedForResize.clear();
+    trackedSizes.clear();
   };
 }
 
@@ -266,4 +354,5 @@ export const domPageSurface: PageSurface<Element> = {
   measure,
   prepareClick,
   watchStructure,
+  structuralTracked: () => observedForResize.size,
 };

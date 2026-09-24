@@ -39,7 +39,7 @@ const measurement = {
 };
 
 /** A structural reading at rest: watching, nothing has moved. Constitution §6 (ADR-0010). */
-const STRUCTURE = { watching: true, seq: 0, nodes: 0, attributes: 0, text: 0, resizes: 0, at: null };
+const STRUCTURE = { watching: true, seq: 0, nodes: 0, attributes: 0, text: 0, resizes: 0, tracked: 0, at: null };
 
 describe("page requests", () => {
   it("accepts exactly the four operations", () => {

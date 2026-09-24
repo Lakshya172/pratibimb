@@ -240,7 +240,7 @@ describe("observation", () => {
       ],
       focus: over.focus ?? { state: "NONE" },
       viewport: { w: 1024, h: 768, dpr: 1, scrollX: 0, scrollY: 0 },
-      structure: { watching: true, seq: 3, nodes: 2, attributes: 1, text: 0, resizes: 0, at: 1_000 },
+      structure: { watching: true, seq: 3, nodes: 2, attributes: 1, text: 0, resizes: 0, tracked: 4, at: 1_000 },
     }) as PageReply;
 
   it("binds to the document that answered and mints a fresh frame", async () => {

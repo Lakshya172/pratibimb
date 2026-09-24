@@ -86,6 +86,12 @@ class WatchedPage implements PageSurface<FakeElement> {
       },
     };
   }
+  /** What `structuralTracked()` answers. A test sets it; the browser adapter counts observations. */
+  tracked = 3;
+
+  structuralTracked(): number {
+    return this.tracked;
+  }
   watchStructure(onChange: (event: StructuralEvent) => void): () => void {
     if (!this.watchable) throw new Error("this surface cannot watch");
     this.calls.push("watchStructure");
@@ -109,6 +115,17 @@ const unwatched = (page: WatchedPage): PageSurface<FakeElement> => ({
   describe: (element) => page.describe(element),
   measure: () => page.measure(),
   prepareClick: (element, point) => page.prepareClick(element, point),
+});
+
+/** A watching surface that cannot say how many elements it tracks: the method is simply absent. */
+const untracked = (page: WatchedPage): PageSurface<FakeElement> => ({
+  now: () => page.now(),
+  viewport: () => page.viewport(),
+  elementAt: (point) => page.elementAt(point),
+  describe: (element) => page.describe(element),
+  measure: () => page.measure(),
+  prepareClick: (element, point) => page.prepareClick(element, point),
+  watchStructure: (onChange) => page.watchStructure(onChange),
 });
 
 const NODES: StructuralEvent = { nodes: true, attributes: false, text: false, resized: false };
@@ -256,7 +273,7 @@ describe("what a structural event may contain", () => {
     if (reply.op !== "STRUCTURE") throw new Error("expected a structural reply");
 
     expect(Object.keys(reply.structure).sort()).toEqual(
-      ["at", "attributes", "nodes", "resizes", "seq", "text", "watching"].sort()
+      ["at", "attributes", "nodes", "resizes", "seq", "text", "tracked", "watching"].sort()
     );
     // Every field is a number, a boolean or null. A string cannot appear, so page text cannot.
     for (const [key, value] of Object.entries(reply.structure)) {
@@ -266,6 +283,22 @@ describe("what a structural event may contain", () => {
     const wire = JSON.stringify(reply);
     expect(wire).not.toMatch(/#save|Save|button/);
     expect(wire).not.toMatch(/data:image|iVBORw0KGgo|base64/);
+  });
+
+  it("the reading reports its own resize fan-out, from the surface rather than from a claim", () => {
+    const page = new WatchedPage();
+    const agent = createPageAgent(page);
+    // §6's "tracked elements". The agent does not count them — it asks the surface that observes
+    // them, so the number in the reading is the number of live observations and not an estimate.
+    page.tracked = 9;
+    const reading = structureOf(agent, null);
+    expect(reading.op === "STRUCTURE" && reading.structure.tracked).toBe(9);
+  });
+
+  it("a surface that cannot report its fan-out reports zero, not a guess", () => {
+    const agent = createPageAgent(untracked(new WatchedPage()));
+    const reading = structureOf(agent, null);
+    expect(reading.op === "STRUCTURE" && reading.structure.tracked).toBe(0);
   });
 
   it("the audit reports the same reading, and the batch count alongside it", () => {
