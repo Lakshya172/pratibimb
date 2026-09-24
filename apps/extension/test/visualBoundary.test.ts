@@ -107,23 +107,37 @@ describe("the visual tier cannot carry pixels out of its realm", () => {
     expect(realm?.text).not.toContain("console.");
   });
 
-  it("the worker records the shape of a capture and never its payload", () => {
+  it("the worker records the shape of a capture ticket and never a frame", () => {
     const worker = withoutComments(readFileSync(join(APP, "host", "background.ts"), "utf8"));
-    // The one hop where pixels are in a worker. It may note that it happened and how big it was.
-    expect(worker).toContain("CAPTURE_FRAME_REPLY");
+    // M3.1: what the worker carries on the product path is an opaque handle, which is recorded in
+    // full because it is an id. The degraded path's frame is recorded as a LENGTH, because a
+    // diagnostic that stored every frame would be the leak it exists to detect.
+    expect(worker).toContain("CAPTURE_TICKET");
     expect(worker).toContain("dataUrlLength");
-    // What it must never do is put the frame into the recording that proves nothing leaked.
     expect(worker).not.toMatch(/note\([^)]*dataUrl\s*\)/);
-    expect(worker).not.toMatch(/note\("to-tab",\s*\{[^}]*dataUrl[,}]/);
+    expect(worker).not.toMatch(/dataUrl:\s*ticket/);
+  });
+
+  it("the product build has no way to capture a frame into the worker", () => {
+    // The degraded path is a BUILD decision: `captureVisibleTab` is an optional property of the
+    // browser adapter and is supplied only behind M3_WORKER_FRAME, so a product bundle contains no
+    // reference to the API at all. The browser harness asserts the same thing over the artifact.
+    const worker = withoutComments(readFileSync(join(APP, "host", "background.ts"), "utf8"));
+    expect(worker).toContain("__M3_WORKER_FRAME__");
+    const calls = worker.match(/chrome\.tabs\.captureVisibleTab/g) ?? [];
+    expect(calls).toHaveLength(1);
+    // ...and that one call sits inside the flag's branch, never outside it.
+    const guarded = /__M3_WORKER_FRAME__[\s\S]{0,200}chrome\.tabs\.captureVisibleTab/.test(worker);
+    expect(guarded, "the only captureVisibleTab call is inside the M3_WORKER_FRAME branch").toBe(true);
   });
 
   it("the default build asks for activeTab and not for every origin", () => {
     // `<all_urls>` arriving quietly in a privacy milestone is exactly the thing to have a test for.
-    // The evidence harness sets M3_CAPTURE_WITHOUT_GESTURE to substitute it for a user gesture no
-    // harness can produce; this asserts what a build without that flag declares.
+    // The evidence harness sets M3_WORKER_FRAME because no harness can produce the invocation the
+    // gesture route needs; this asserts what a build without that flag declares.
     const config = readFileSync(join(APP, "wxt.config.ts"), "utf8");
     expect(config).toContain('"activeTab"');
-    expect(config).toContain("M3_CAPTURE_WITHOUT_GESTURE");
+    expect(config).toContain("M3_WORKER_FRAME");
     const defaultBranch = /: \["http:\/\/127\.0\.0\.1\/\*"\];/.test(config);
     expect(defaultBranch, "the default host_permissions branch is loopback only").toBe(true);
   });
