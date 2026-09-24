@@ -57,10 +57,22 @@ const E6_PROBE = process.env.E6_PROBE === "1";
  * every origin is exactly the kind of thing that arrives quietly in a privacy milestone, so it is a
  * flag with a name that says what it is.
  */
-const HOST_PERMISSIONS =
-  process.env.M3_CAPTURE_WITHOUT_GESTURE === "1"
-    ? ["http://127.0.0.1/*", "<all_urls>"]
-    : ["http://127.0.0.1/*"];
+/**
+ * THE DEGRADED CAPTURE PATH, off unless a build asks for it by name.
+ *
+ * The product path is `getMediaStreamId` under an `activeTab` grant a person produced: the worker
+ * mints an opaque handle and the offscreen document redeems it for pixels itself. No automated
+ * harness can produce that invocation -- measured on W1, `<all_urls>` does not substitute for it,
+ * a click inside an extension page does not, and a CDP keyboard command does not reach Chrome's
+ * accelerator table -- so an evidence run cannot exercise it.
+ *
+ * `M3_WORKER_FRAME=1` compiles in the path where `captureVisibleTab` runs in the worker and the
+ * worker therefore holds the frame. It brings `<all_urls>` with it because that is the permission
+ * it needs, and it is one flag rather than two so the two cannot drift apart. Both the flag and
+ * the route it enables are named in every record that mentions them.
+ */
+const WORKER_FRAME = process.env.M3_WORKER_FRAME === "1";
+const HOST_PERMISSIONS = WORKER_FRAME ? ["http://127.0.0.1/*", "<all_urls>"] : ["http://127.0.0.1/*"];
 
 const ORT_DIST = join(ROOT, "node_modules", "onnxruntime-web", "dist");
 const MODEL = join(ROOT, "artifacts", "models", "t1-ui-head", "t1-ui-head.onnx");
@@ -75,6 +87,9 @@ export default defineConfig({
    * those packages; this only decides what the bundler reads.
    */
   vite: () => ({
+    // Substituted at build time so the degraded path is absent from a product bundle rather than
+    // present behind a runtime check, the same rule `#e6-probe` follows.
+    define: { __M3_WORKER_FRAME__: JSON.stringify(WORKER_FRAME) },
     resolve: {
       alias: {
         "@pratibimb/agent": join(ROOT, "packages", "agent", "src", "index.ts"),
@@ -96,7 +111,11 @@ export default defineConfig({
     name: "PratiBimb minimal MV3 host (experiment — not the product)",
     version: "0.0.0",
     minimum_chrome_version: "116",
-    permissions: ["offscreen", "sidePanel", "activeTab"],
+    permissions: ["offscreen", "sidePanel", "activeTab", "tabCapture"],
+    action: { default_title: "PratiBimb: perceive this tab" },
+    commands: {
+      _execute_action: { suggested_key: { default: "Alt+Shift+P" }, description: "Perceive this tab" },
+    },
     host_permissions: HOST_PERMISSIONS,
     content_security_policy: { extension_pages: buildExtensionPagesCsp(HOST_COLLECTOR_ORIGIN) },
     side_panel: { default_path: "sidepanel.html" },

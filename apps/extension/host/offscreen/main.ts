@@ -14,6 +14,7 @@ import { runExtensionTask, type ExtensionRunRequest, type ExtensionRunResult } f
 import { identityOf, isFromThisExtension, type ToOffscreen } from "../../host-lib/messages";
 import { chromeRelay } from "../../host-lib/transport-chrome";
 import { installTransportControlPlane } from "../../host-lib/transport-control-plane";
+import { type CaptureTicket } from "../../host-lib/capture-authority";
 import { createPerceptionRealm, type PerceptionRealm } from "../../host-lib/perception-realm";
 import { createReleaseAuthority, type AttestedAsker } from "../../host-lib/value-release";
 
@@ -76,6 +77,13 @@ const MODEL_REVISION = "ba6d9e93695b";
 let perceptionRealm: PerceptionRealm | null = null;
 let perceptionBoot: { ok: boolean; error: string | null; ms: number; pin: unknown } | null = null;
 
+/**
+ * The tab the run is bound to, so the capture authority knows which tab's grant to check.
+ *
+ * Set for the duration of a run. A capture asked for outside one has no tab to name and refuses.
+ */
+let captureTabId = -1;
+
 async function ensurePerception(): Promise<PerceptionRealm> {
   if (perceptionRealm !== null) return perceptionRealm;
   const t0 = performance.now();
@@ -99,9 +107,7 @@ async function ensurePerception(): Promise<PerceptionRealm> {
     // The worker is the only realm that can capture; it hands the frame straight back and keeps
     // no reference. See its handler for the whole of why, and what that costs.
     requestCapture: () =>
-      chrome.runtime.sendMessage({ kind: "CAPTURE_FRAME" }) as Promise<
-        { ok: true; dataUrl: string } | { ok: false; refused: string }
-      >,
+      chrome.runtime.sendMessage({ kind: "CAPTURE_FRAME", tabId: captureTabId }) as Promise<CaptureTicket>,
     session: session as never,
     ort: ort as never,
     modelId: MODEL_ID,
@@ -248,6 +254,7 @@ async function sendToBoundary(binding: TransportBinding, body: BoundaryRequest):
 
 async function runTask(request: ExtensionRunRequest): Promise<ExtensionRunResult> {
   if (running !== null) throw new Error("A_RUN_IS_ALREADY_IN_PROGRESS");
+  captureTabId = request.tabId;
   const task = runExtensionTask(
     {
       relay: chromeRelay,
@@ -267,6 +274,7 @@ async function runTask(request: ExtensionRunRequest): Promise<ExtensionRunResult
     return await task;
   } finally {
     running = null;
+    captureTabId = -1;
     // An approval nobody answered does not outlive the run it belonged to.
     pendingGrant = null;
   }
@@ -282,7 +290,8 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
     | { target: "offscreen"; kind: "RUN_TASK"; request: ExtensionRunRequest }
     | { target: "offscreen"; kind: "GRANT_PEEK" }
     | { target: "offscreen"; kind: "GRANT_DECIDE"; granted: boolean }
-    | { target: "offscreen"; kind: "REALM_PROBE" };
+    | { target: "offscreen"; kind: "REALM_PROBE" }
+    | { target: "offscreen"; kind: "STREAM_CONSUME"; streamId: string };
   if (msg?.target !== "offscreen") return false;
   if (!isFromThisExtension(sender)) {
     sendResponse({ refused: "SENDER_NOT_ACCEPTED" });
@@ -304,6 +313,9 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
     void (async () => {
       const tabs = (chrome as unknown as { tabs?: { captureVisibleTab?: unknown } }).tabs;
       const surface = {
+        hasTabCapture: typeof (chrome as unknown as { tabCapture?: unknown }).tabCapture === "object",
+        hasGetUserMedia: typeof navigator.mediaDevices?.getUserMedia === "function",
+        hasImageCapture: typeof (globalThis as unknown as { ImageCapture?: unknown }).ImageCapture === "function",
         hasChromeTabs: typeof tabs === "object" && tabs !== null,
         hasCaptureVisibleTab: typeof tabs?.captureVisibleTab === "function",
         hasOffscreenCanvas: typeof OffscreenCanvas === "function",
@@ -321,6 +333,29 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
         }
       }
       sendResponse({ realm: "offscreen", surface, capture, perceptionBoot });
+    })();
+    return true;
+  }
+  if (msg.kind === "STREAM_CONSUME") {
+    void (async () => {
+      const t0 = performance.now();
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { mandatory: { chromeMediaSource: "tab", chromeMediaSourceId: msg.streamId } },
+        } as unknown as MediaStreamConstraints);
+        const tStream = performance.now() - t0;
+        const track = stream.getVideoTracks()[0]!;
+        const settings = track.getSettings();
+        const t1 = performance.now();
+        const bitmap = await new (globalThis as unknown as { ImageCapture: new (t: MediaStreamTrack) => { grabFrame(): Promise<ImageBitmap> } }).ImageCapture(track).grabFrame();
+        const tFrame = performance.now() - t1;
+        track.stop();
+        const out = { ok: true, w: bitmap.width, h: bitmap.height, settings: { w: settings.width, h: settings.height }, ms: { stream: Math.round(tStream), frame: Math.round(tFrame) } };
+        bitmap.close();
+        sendResponse(out);
+      } catch (e) {
+        sendResponse({ ok: false, error: e instanceof Error ? `${e.name}: ${e.message}` : String(e) });
+      }
     })();
     return true;
   }

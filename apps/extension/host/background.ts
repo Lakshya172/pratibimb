@@ -7,6 +7,7 @@
  */
 import { createServiceWorkerRouter, relayRefused, TRANSPORT_CHANNEL, TRANSPORT_PORT_NAME } from "@pratibimb/extension-transport";
 
+import { createCaptureAuthority } from "../host-lib/capture-authority";
 import { identityOf, isFromContentScript, isFromExtensionPage, type SenderIdentity, type ToSw } from "../host-lib/messages";
 import { adaptPort, isFromOffscreenDocument } from "../host-lib/transport-chrome";
 
@@ -21,6 +22,32 @@ export default defineBackground(() => {
   const transport = createServiceWorkerRouter({ bootId });
   const bootedAt = Date.now();
   const hellos: { at: number; identity: SenderIdentity }[] = [];
+  /**
+   * M3.1 — THE CAPTURE AUTHORITY.
+   *
+   * `activeTab` is granted by an invocation and by nothing else: a toolbar click, a context menu
+   * item, a keyboard command. It is the browser's way of saying a PERSON pointed at this tab, and
+   * it is the only grant that lets this extension mint a capture handle without asking for every
+   * origin. Measured on W1: `<all_urls>` does not substitute for it, a click inside an extension
+   * page does not, and a keyboard command dispatched over CDP does not reach Chrome at all.
+   *
+   * With a grant, `getMediaStreamId` returns an opaque handle and the offscreen document turns it
+   * into pixels itself. **This context never holds a frame on that path.** Without one it refuses,
+   * unless the build explicitly enabled the degraded worker path for an evidence run.
+   */
+  const capture = createCaptureAuthority({
+    browser: {
+      getMediaStreamId: (o) => chrome.tabCapture.getMediaStreamId(o),
+      // ABSENT in a product build. `__M3_WORKER_FRAME__` is substituted at build time, so the
+      // bundler drops this property and every reference to `captureVisibleTab` with it -- the
+      // degraded path is not in the artifact, rather than in it and refused.
+      ...(__M3_WORKER_FRAME__ ? { captureVisibleTab: (o: { format: "png" }) => chrome.tabs.captureVisibleTab(o) } : {}),
+    },
+    grantTtlMs: 5 * 60_000,
+  });
+  chrome.action?.onClicked.addListener((tab) => {
+    if (typeof tab.id === "number") capture.grant(tab.id);
+  });
 
   /**
    * TEST-ONLY: everything this worker actually saw.
@@ -116,6 +143,45 @@ export default defineBackground(() => {
      */
     pageAudit: (tabId: number, frameId: number) =>
       chrome.tabs.sendMessage(tabId, { kind: "DISPATCH_AUDIT" }, { frameId }),
+    /** TEST-ONLY: the grants a human produced, and whether the degraded path is compiled in. */
+    captureState: () => ({ grants: capture.grants(), workerFrameEnabled: __M3_WORKER_FRAME__ }),
+    /**
+     * TEST-ONLY: record a grant as an invocation would.
+     *
+     * This does NOT fabricate a browser permission -- `getMediaStreamId` still refuses unless
+     * Chrome itself saw an invocation, which is the point. It exists so a harness can show that the
+     * authority's own gate opens and the browser's does not, which is a different fact from the
+     * authority never having been asked.
+     */
+    noteGrant: (tabId: number) => {
+      capture.grant(tabId);
+      return capture.grants().length;
+    },
+    /**
+     * M3.1 ROUTE SURFACE — which realm has which capture API.
+     *
+     * Reports the SHAPE of the surface and calls nothing. The route table it produced is recorded
+     * in `host-lib/capture-authority.ts` and in the M3.1 evidence; the probe that ATTEMPTED each
+     * route was a one-off and is not carried in a product bundle, because a bundle that can call
+     * `captureVisibleTab` is a bundle that can capture.
+     */
+    routeSurface: () => ({
+      tabCapture: typeof chrome.tabCapture === "object",
+      getMediaStreamId: typeof chrome.tabCapture?.getMediaStreamId === "function",
+      actionOnClicked: typeof chrome.action?.onClicked === "object",
+      grants: capture.grants().length,
+    }),
+    /** TEST-ONLY: what an invocation recorded, if a human ever produced one. */
+    activeTabGrants: () => capture.grants(),
+    /** TEST-ONLY: mint a stream id for a tab the action was invoked on. */
+    mintStreamId: async (tabId: number) => {
+      try {
+        const streamId = await chrome.tabCapture.getMediaStreamId({ targetTabId: tabId });
+        return { ok: true, length: streamId.length };
+      } catch (e) {
+        return { ok: false, error: e instanceof Error ? e.message : String(e) };
+      }
+    },
     /** TEST-ONLY: present a capability to a tab exactly as the core realm would. */
     presentCapability: (tabId: number, frameId: number, nonce: string, target: string) =>
       chrome.tabs.sendMessage(tabId, { kind: "BOUNDARY", body: { kind: "CAPABILITY", nonce, target } }, { frameId }),
@@ -202,21 +268,36 @@ export default defineBackground(() => {
      *     diagnostic that stored every frame would be the leak it exists to detect;
      *   - only the offscreen document may ask, and it may only ask for the active tab.
      */
+    /**
+     * M3.1 — HAND THE PERCEPTION REALM ITS ACCESS, NOT ITS PIXELS.
+     *
+     * On the product path what leaves here is an opaque `getMediaStreamId` handle: a string this
+     * context cannot read an image out of, which the offscreen document redeems for pixels through
+     * `getUserMedia`. The media never passes through a message and never passes through here.
+     *
+     * On the degraded path -- off unless the build asked for it -- `captureVisibleTab` runs in this
+     * context and this context holds the frame. That path is named `WORKER_FRAME` in every record
+     * that mentions it, and the recorder below notes its SHAPE and never its payload, because a
+     * diagnostic that stored every frame would be the leak it exists to detect.
+     */
     if (msg?.kind === "CAPTURE_FRAME") {
       if (!isFromOffscreenDocument(sender)) {
         sendResponse({ ok: false, refused: "SENDER_NOT_ACCEPTED" });
         return false;
       }
-      chrome.tabs
-        .captureVisibleTab({ format: "png" })
-        .then((dataUrl) => {
-          // Shape only: the kind, and how many characters came back. Never the characters.
-          note("to-tab", { kind: "CAPTURE_FRAME_REPLY", dataUrlLength: dataUrl.length });
-          sendResponse({ ok: true, dataUrl });
-        })
-        .catch((error: unknown) =>
-          sendResponse({ ok: false, refused: error instanceof Error ? error.message : String(error) })
-        );
+      const ask = raw as { tabId: number };
+      void capture.ticketFor(ask.tabId).then((ticket) => {
+        note("to-tab", {
+          kind: "CAPTURE_TICKET",
+          ok: ticket.ok,
+          route: ticket.ok ? ticket.route : null,
+          refused: ticket.ok ? null : ticket.refused,
+          // A handle is an opaque id and is recorded in full; a frame is recorded as a length.
+          handle: ticket.ok && ticket.route === "GESTURE_STREAM" ? ticket.handle : null,
+          dataUrlLength: ticket.ok && ticket.route === "WORKER_FRAME" ? ticket.dataUrl.length : null,
+        });
+        sendResponse(ticket);
+      });
       return true;
     }
 
