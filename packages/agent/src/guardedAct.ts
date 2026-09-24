@@ -41,6 +41,7 @@ import {
   type FreshnessTolerance,
   type ProposedAction,
   validateActionFreshness,
+  type StructuralWitness,
 } from "./actionFreshness.js";
 import { act, type ActResult, type PageActionBridge } from "./act.js";
 import {
@@ -89,6 +90,16 @@ export interface GuardedActOptions {
    */
   readonly permitTtlMs: number;
   readonly tolerance?: FreshnessTolerance;
+  /**
+   * Constitution §6's structural signal, if the caller has one.
+   *
+   * Supplied: a graph the page has structurally moved past is refused at VALIDATE, before any
+   * authority is touched. Omitted: exactly today's behaviour, and the `ALLOW` says so by reporting
+   * `structurallyCurrent: null` rather than leaving the question looking answered.
+   *
+   * It carries two numbers and a flag. There is no capture in it, and obtaining it takes none.
+   */
+  readonly structure?: StructuralWitness;
   readonly hitTest?: HitTestOptions;
   /** Dispatch deadline. */
   readonly timeoutMs?: number;
@@ -145,7 +156,7 @@ export async function guardedAct(
   options: GuardedActOptions
 ): Promise<GuardedOutcome> {
   // ── VALIDATE ───────────────────────────────────────────────────────────────────────────────
-  const decision = validateActionFreshness(graph, action, options?.tolerance);
+  const decision = validateActionFreshness(graph, action, options?.tolerance, options?.structure);
   if (decision.decision !== "ALLOW") {
     return { reached: "VALIDATE", decision, hit: null, result: null, verification: null };
   }

@@ -27,6 +27,7 @@ import type {
   PagePoint,
   PageSurface,
   PreparedClick,
+  StructuralEvent,
   ViewportReading,
 } from "@pratibimb/extension-transport";
 
@@ -186,6 +187,77 @@ function prepareClick(element: Element, point: PagePoint): PreparedClick {
   };
 }
 
+/**
+ * THE ATTRIBUTES THE ELEMENT GRAPH ACTUALLY READS — the whole filter, and no more.
+ *
+ * Constitution §6 requires the structural signal to be narrow, and this is where "narrow" is
+ * decided. Every entry is here because `measure()` above derives something from it: `id` gives the
+ * selector, `role` and the tag give the role, `aria-label` and `for` give the accessible name,
+ * `disabled`/`aria-disabled` give enabled, and `class`/`style`/`hidden` are the only attributes
+ * that can flip computed visibility without touching anything else.
+ *
+ * An unfiltered `attributes: true` would report every `data-*` write a page makes to itself, which
+ * on a busy page is an event storm that says nothing about the graph. Adding an attribute here is
+ * a decision about what "structural" means, not a tuning knob.
+ */
+const WATCHED_ATTRIBUTES = ["id", "role", "aria-label", "aria-disabled", "disabled", "hidden", "class", "style", "for"];
+
+/**
+ * THE STRUCTURAL SIGNAL — constitution §6, IN FORCE for v1 (ADR-0010). The only observers in the
+ * product.
+ *
+ * EVENT-DRIVEN, LOCAL, NON-CAPTURING. `MutationObserver` and `ResizeObserver` both call back when
+ * the browser has something to report; nothing here wakes up, polls, hashes, captures or measures.
+ * The callback receives three booleans and a fourth — **never a node, an attribute name, a
+ * selector, a text value or a pixel** — so there is no path from a page's contents to the counters
+ * the agent keeps. Records are inspected here and dropped here.
+ *
+ * IT CANNOT CAPTURE. It has no capture authority, no relay, no port and no message channel: the
+ * only thing it is given is `onChange`. Under the capture policy approved in ADR-0009 a frame is
+ * taken only when a person asks for one, and a structural change says that the last observation may
+ * be stale — it does not go and take a new picture.
+ *
+ * WHAT IS NOT IMPLEMENTED, stated rather than implied. §6 names "ResizeObserver on tracked
+ * elements"; this installs one on `document.documentElement` only. Re-targeting it at the measured
+ * set would mean re-enumerating that set on every mutation — polling by another name — and a
+ * `ResizeObserver` delivers an initial callback for every newly observed element, which would make
+ * each observation instantly stale against itself. Element-level resize that changes no attribute,
+ * no node and no document geometry is therefore NOT observed, and §6's structural signal is
+ * implemented CONDITIONALLY until that is measured and closed.
+ */
+function watchStructure(onChange: (event: StructuralEvent) => void): () => void {
+  const mutations = new MutationObserver((records) => {
+    let nodes = false;
+    let attributes = false;
+    let text = false;
+    for (const record of records) {
+      if (record.type === "childList") nodes = true;
+      else if (record.type === "attributes") attributes = true;
+      else if (record.type === "characterData") text = true;
+    }
+    // One callback in, one event out. The coalescing rule in full: the browser decides what a batch
+    // is, and this reports the batch. No timer, no window, no queue.
+    if (nodes || attributes || text) onChange({ nodes, attributes, text, resized: false });
+  });
+  mutations.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    characterData: true,
+    attributes: true,
+    attributeFilter: WATCHED_ATTRIBUTES,
+  });
+
+  const resizes = new ResizeObserver(() => {
+    onChange({ nodes: false, attributes: false, text: false, resized: true });
+  });
+  resizes.observe(document.documentElement);
+
+  return () => {
+    mutations.disconnect();
+    resizes.disconnect();
+  };
+}
+
 export const domPageSurface: PageSurface<Element> = {
   now: () => performance.timeOrigin + performance.now(),
   viewport,
@@ -193,4 +265,5 @@ export const domPageSurface: PageSurface<Element> = {
   describe: describeElement,
   measure,
   prepareClick,
+  watchStructure,
 };

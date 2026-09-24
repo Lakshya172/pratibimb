@@ -39,7 +39,9 @@ import {
   type FocusReading,
   type PagePoint,
   type PageReply,
+  type StructuralReading,
   type ViewportReading,
+  UNWATCHED_STRUCTURE,
 } from "./contracts.js";
 
 /**
@@ -54,7 +56,25 @@ export interface PreparedClick {
   fire(): void;
 }
 
-/** Everything the page agent may do to a document. Six methods, one of which acts. */
+/**
+ * One delivered batch of structural records, reduced to three booleans.
+ *
+ * The adapter decides which DOM records belong to which category and then forgets them. Nothing
+ * about WHICH node, WHICH attribute or WHICH text crosses into the agent, so there is no path by
+ * which a page value could reach a counter.
+ */
+export interface StructuralEvent {
+  /** At least one node was inserted or removed. */
+  readonly nodes: boolean;
+  /** At least one attribute the element graph reads changed. */
+  readonly attributes: boolean;
+  /** Character data changed — §6's "text changes", which move an accessible name. */
+  readonly text: boolean;
+  /** The document's own geometry changed. */
+  readonly resized: boolean;
+}
+
+/** Everything the page agent may do to a document. Six methods, one of which acts — plus a watch. */
 export interface PageSurface<E> {
   /** `performance.timeOrigin + performance.now()` in the page's own realm. */
   now(): number;
@@ -65,6 +85,17 @@ export interface PageSurface<E> {
   describe(element: E): ElementDescription;
   measure(): { readonly measurements: readonly DomMeasurement[]; readonly focus: FocusReading };
   prepareClick(element: E, point: PagePoint): PreparedClick;
+  /**
+   * Install the structural observers — constitution §6's structural signal.
+   *
+   * OPTIONAL, and its absence is reported rather than assumed away: an agent over a surface that
+   * cannot watch answers `watching: false`, and this transport reads that as stale. A test surface
+   * therefore cannot accidentally claim freshness it never established.
+   *
+   * IT MUST NOT CAPTURE, MESSAGE, MEASURE OR ACT. The callback it is given only increments
+   * counters; it has no relay, no reply channel and no element. See `createPageAgent`.
+   */
+  watchStructure?(onChange: (event: StructuralEvent) => void): () => void;
 }
 
 /**
@@ -123,6 +154,10 @@ export interface PageAgentAudit {
   readonly firesCompleted: number;
   readonly refusals: readonly string[];
   readonly fires: readonly FireNote[];
+  /** The structural signal as this agent has accumulated it. Counters only. */
+  readonly structure: StructuralReading;
+  /** Structural batches this agent was handed, including any past the counter ceiling. */
+  readonly structuralBatches: number;
 }
 
 export interface PageAgent {
@@ -147,6 +182,55 @@ export function createPageAgent<E>(surface: PageSurface<E>, capacity: number = D
   const cycles = new Map<string, CycleState>();
   const deliveries = new Set<string>();
 
+  /**
+   * THE STRUCTURAL SIGNAL — constitution §6, IN FORCE for v1 (ADR-0010).
+   *
+   * Event-driven, local, non-capturing. Four numbers and a flag, updated by a callback that can do
+   * nothing else: it holds no relay, sends no message, takes no frame and starts no perception
+   * pass. Under the approved capture policy a frame is taken only when a person asks for one, so a
+   * structural change says that the last observation MAY BE STALE and stops there.
+   *
+   * COALESCING, STATED IN FULL: one `seq` increment per delivered batch. No timer, no debounce
+   * window, no queue. A batch carrying twenty insertions advances `seq` by one because the browser
+   * delivered it once. That rule is deterministic and needs no measurement to justify, which is why
+   * it was chosen over anything rate-based.
+   */
+  let watching = false;
+  let seq = 0;
+  let nodes = 0;
+  let attributes = 0;
+  let text = 0;
+  let resizes = 0;
+  let structuralAt: number | null = null;
+  let structuralBatches = 0;
+
+  const onStructuralChange = (event: StructuralEvent): void => {
+    structuralBatches += 1;
+    // Bounded like every other counter here. Past the ceiling the document stays stale forever,
+    // which is the safe direction: a saturated counter must never read as "nothing changed".
+    if (seq >= Number.MAX_SAFE_INTEGER - 1) return;
+    seq += 1;
+    if (event.nodes) nodes += 1;
+    if (event.attributes) attributes += 1;
+    if (event.text) text += 1;
+    if (event.resized) resizes += 1;
+    structuralAt = surface.now();
+  };
+
+  if (surface.watchStructure) {
+    surface.watchStructure(onStructuralChange);
+    watching = true;
+  }
+
+  const structureNow = (): StructuralReading =>
+    watching ? { watching, seq, nodes, attributes, text, resizes, at: structuralAt } : UNWATCHED_STRUCTURE;
+
+  /**
+   * Fail closed. Nothing watching is not the same as nothing changed, and a caller holding no
+   * sequence has nothing to be current against — both answer stale.
+   */
+  const staleSince = (sinceSeq: number | null): boolean => !watching || sinceSeq === null || sinceSeq !== seq;
+
   // The agent's own account of what it did. Bounded by the same capacity as everything else here.
   let hitTests = 0;
   let dispatchRequests = 0;
@@ -165,7 +249,16 @@ export function createPageAgent<E>(surface: PageSurface<E>, capacity: number = D
 
   return {
     cycleCount: () => cycles.size,
-    audit: () => ({ hitTests, dispatchRequests, firesStarted, firesCompleted, refusals: [...refusals], fires: [...fires] }),
+    audit: () => ({
+      hitTests,
+      dispatchRequests,
+      firesStarted,
+      firesCompleted,
+      refusals: [...refusals],
+      fires: [...fires],
+      structure: structureNow(),
+      structuralBatches,
+    }),
 
     handle(raw: unknown): PageReply | null {
       const request = parsePageRequest(raw);
@@ -180,14 +273,33 @@ export function createPageAgent<E>(surface: PageSurface<E>, capacity: number = D
 
         case "OBSERVE": {
           const { measurements, focus } = surface.measure();
+          // The reading is taken AFTER the measurement, so a batch delivered during the measurement
+          // leaves the graph belonging to a sequence the page has already moved past — stale, which
+          // is the honest direction. Taking it first would date the graph earlier than it is.
           return {
             op: "OBSERVE",
             requestId: request.requestId,
             measurements,
             focus,
             viewport: surface.viewport(),
+            structure: structureNow(),
           };
         }
+
+        /**
+         * THE CHEAP QUESTION: is the caller's observation still current?
+         *
+         * No measurement, no capture, no perception pass, no element touched — counters the
+         * observers already accumulated. This is the whole of what the structural signal buys: a
+         * caller can find out that its picture of the page is stale without taking a new one.
+         */
+        case "STRUCTURE":
+          return {
+            op: "STRUCTURE",
+            requestId: request.requestId,
+            structure: structureNow(),
+            stale: staleSince(request.sinceSeq),
+          };
 
         case "HIT_TEST": {
           const receivedAt = surface.now();

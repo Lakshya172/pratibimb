@@ -44,6 +44,7 @@ export {
   type ProposedAction,
   type ReObserve,
   type RejectionReason,
+  type StructuralWitness,
   type TargetClaim,
 } from "./actionFreshness.js";
 

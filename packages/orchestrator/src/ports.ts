@@ -32,8 +32,27 @@ import { type PrivacyBoundary } from "./privacyBoundary.js";
  * frame the action was dispatched against, because a graph that predates the click cannot show what
  * the click changed.
  */
+/**
+ * Constitution §6's structural signal, as this package consumes it.
+ *
+ * Two facts and nothing else: whether the document is being watched at all, and a monotonic
+ * sequence that advances once per batch of structural change. **No node, no selector, no text, no
+ * value, no pixel** — and obtaining it takes no capture, which is why it can be asked for freely
+ * under a capture policy that says a frame is taken only when a person asks for one.
+ */
+export interface StructuralStatus {
+  /** `false` when nothing is watching. Staleness is then UNESTABLISHED, which fails closed. */
+  readonly watching: boolean;
+  readonly seq: number;
+}
+
 export interface Observation {
   readonly graph: ElementGraph;
+  /**
+   * The structural sequence this reading belongs to. Absent when the port cannot report one, in
+   * which case no structural check is made and the decision says so rather than implying freshness.
+   */
+  readonly structure?: StructuralStatus;
   /** Values read locally. The only place a secret enters this package. */
   readonly fields: readonly ObservedField[];
   readonly viewport: {
@@ -80,6 +99,18 @@ export type GrantDecision =
 export interface ClientPorts {
   /** Read the page. Called for OBSERVE, for REFRESH before ACT, and for VERIFY RESULT. */
   observe(): Promise<Observation>;
+  /**
+   * Ask the page whether its structure has moved — constitution §6's signal, IN FORCE for v1.
+   *
+   * OPTIONAL. Present, the machine asks immediately before acting and refuses at VALIDATE if the
+   * reading it is about to act on is no longer current. Absent, nothing changes and the decision
+   * records `structurallyCurrent: null`, so an unasked question never reads as an answered one.
+   *
+   * **It must not observe, capture or act.** It answers from counters the document's own observers
+   * accumulated, and a structural change never triggers a frame: under ADR-0009 a frame is taken
+   * only when a person asks for one.
+   */
+  structure?(): Promise<StructuralStatus>;
   /** The untrusted reasoner asked first. A local model, or the deterministic planner. */
   readonly reasoner: ReasonerClient;
   /** What to call the primary reasoner in the record. Defaults to `LOCAL_MODEL`. */

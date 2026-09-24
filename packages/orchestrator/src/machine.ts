@@ -76,7 +76,7 @@ import {
   type ReasonerResponse,
 } from "@pratibimb/reasoner";
 
-import { type ClientPorts, type GrantDecision, type Observation } from "./ports.js";
+import { type ClientPorts, type GrantDecision, type Observation, type StructuralStatus } from "./ports.js";
 import { createLocalPrivacyBoundary } from "./privacyBoundary.js";
 
 /**
@@ -136,6 +136,8 @@ export interface Transition {
 /** Only the timings that mean something. No framework, no sampling, no telemetry. */
 export interface RunTimings {
   observeMs?: number;
+  /** Time spent asking the page whether its structure moved. No capture in it. */
+  structureMs?: number;
   sanitizeMs?: number;
   verifyPayloadMs?: number;
   sendMs?: number;
@@ -703,9 +705,34 @@ export async function runTask(ports: ClientPorts, options: RunOptions): Promise<
     point: { x: cssPx(Math.round(box.x + box.w / 2)), y: cssPx(Math.round(box.y + box.h / 2)) },
   };
 
+  /**
+   * CONSTITUTION §6, AT THE LAST MOMENT IT CAN MATTER.
+   *
+   * The page was re-read at REFRESH; between that reading and this dispatch the document may have
+   * moved again, and nothing else in this loop would notice — the hit test checks one point, not
+   * whether the graph the permit was built from still describes the page.
+   *
+   * Asking costs no capture. A port that throws is treated as nothing watching, which refuses: an
+   * unestablished staleness is not a fresh one. A port that is absent asks nothing, and the
+   * decision then reports `structurallyCurrent: null` rather than implying it checked.
+   */
+  let structure: StructuralStatus | null = null;
+  if (ports.structure && fresh.structure) {
+    try {
+      structure = await timed("structureMs", () => ports.structure!());
+    } catch {
+      structure = { watching: false, seq: fresh.structure.seq };
+    }
+  }
+  const structuralWitness =
+    structure === null || fresh.structure === undefined
+      ? undefined
+      : { watching: structure.watching, seq: structure.seq, observedAtSeq: fresh.structure.seq };
+
   go("VERIFY_RESULT");
   act = await timed("actMs", () =>
     guardedAct(fresh.graph, action, ports.bridges, {
+      ...(structuralWitness ? { structure: structuralWitness } : {}),
       verify: {
         // The postcondition is a real observable of this fixture: a submitted form disables its own
         // submit control. Nothing here hardcodes CONFIRMED — the verifier reads the page back.

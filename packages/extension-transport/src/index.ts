@@ -33,6 +33,8 @@ export {
   relayRefused,
   requestIdOf,
   sameAttestedDocument,
+  parseStructuralReading,
+  UNWATCHED_STRUCTURE,
   type AttachedNotice,
   type AttestedDocument,
   type CoreRefusalCode,
@@ -47,6 +49,7 @@ export {
   type RelayEnvelope,
   type RelayRefusalCode,
   type RelayRequest,
+  type StructuralReading,
   type TransportRefusalCode,
   type ViewportReading,
 } from "./contracts.js";
@@ -61,6 +64,7 @@ export {
   type PageAgentAudit,
   type PageSurface,
   type PreparedClick,
+  type StructuralEvent,
 } from "./pageAgent.js";
 
 export {
@@ -88,6 +92,7 @@ export {
   observeBoundDocument,
   observePage,
   observationDeps,
+  readStructure,
   toPostActionObservation,
   type ObservationDeps,
   type ObservationReport,

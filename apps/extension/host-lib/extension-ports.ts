@@ -28,6 +28,7 @@ import { type GuardedBridges } from "@pratibimb/agent";
 import {
   createTransportCycle,
   observeBoundDocument,
+  readStructure,
   type CycleReport,
   type TransportBinding,
   type TransportRelay,
@@ -38,6 +39,7 @@ import {
   type GrantDecision,
   type GrantRequest,
   type Observation,
+  type StructuralStatus,
   type PrivacyBoundary,
 } from "@pratibimb/orchestrator";
 import { type ReasonerClient, type ReasonerKind } from "@pratibimb/reasoner";
@@ -74,6 +76,14 @@ export interface ExtensionPortsOptions {
 /** Counts of what the ports were actually asked to do. The refusal run's claim is `clicks === 0`. */
 export interface ExtensionPortsReport {
   observations: number;
+  /**
+   * Structural readings taken — constitution §6's signal.
+   *
+   * Counted separately from observations on purpose: a structural read measures nothing, captures
+   * nothing and touches no element, so mixing it into the observation count would overstate how
+   * often this client looked at a page.
+   */
+  structureReads: number;
   /** Literal inserts the plan asked for. Every one of them is refused; see `insert` below. */
   inserts: number;
   readonly insertRefusals: string[];
@@ -91,6 +101,7 @@ export interface ExtensionPorts {
 export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionPorts {
   const report: ExtensionPortsReport = {
     observations: 0,
+    structureReads: 0,
     inserts: 0,
     insertRefusals: [],
     cycle: null,
@@ -132,7 +143,7 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
 
   const observe = async (): Promise<Observation> => {
     report.observations += 1;
-    const { graph, focus, viewport } = await observeBoundDocument(options.relay, options.binding);
+    const { graph, focus, viewport, structure } = await observeBoundDocument(options.relay, options.binding);
     latestFrame = graph.frameId;
 
     /**
@@ -203,10 +214,27 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
       },
       // The browser's word for which document answered, not a marker this code wrote.
       documentId: options.binding.document.documentId,
+      // CONSTITUTION §6: the structural sequence this reading belongs to. Two numbers and a flag;
+      // no node, no selector, no text, no value. Nothing was captured to produce it.
+      structure: { watching: structure.watching, seq: structure.seq },
       ...focused,
       actionable,
       statusText: status?.name ?? null,
     };
+  };
+
+  /**
+   * CONSTITUTION §6's STRUCTURAL SIGNAL — asked, never pushed, and never a capture.
+   *
+   * The page answers from counters its own `MutationObserver` and `ResizeObserver` already
+   * accumulated. This takes no frame, starts no perception pass and touches no element; under the
+   * capture policy approved in ADR-0009 a frame is taken only when a person invokes the extension,
+   * and a structural change does not qualify.
+   */
+  const structurePort = async (): Promise<StructuralStatus> => {
+    report.structureReads += 1;
+    const { structure } = await readStructure(options.relay, options.binding, null);
+    return { watching: structure.watching, seq: structure.seq };
   };
 
   /**
@@ -229,6 +257,7 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
     report,
     ports: {
       observe,
+      structure: structurePort,
       insert,
       bridges,
       privacy: options.privacy,

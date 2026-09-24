@@ -20,7 +20,13 @@ export {
   type Transition,
 } from "./machine.js";
 
-export { type ClientPorts, type GrantDecision, type GrantRequest, type Observation } from "./ports.js";
+export {
+  type ClientPorts,
+  type GrantDecision,
+  type GrantRequest,
+  type Observation,
+  type StructuralStatus,
+} from "./ports.js";
 
 export {
   createLocalPrivacyBoundary,

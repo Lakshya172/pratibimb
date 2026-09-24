@@ -133,7 +133,33 @@ export type RejectionReason =
   | "NOT_VISIBLE"
   | "MOVED_BEYOND_TOLERANCE"
   | "GEOMETRY_MISMATCH"
-  | "POINT_OUTSIDE_TARGET";
+  | "POINT_OUTSIDE_TARGET"
+  /** The graph this claim describes belongs to a structural sequence the page has moved past. */
+  | "OBSERVATION_STALE";
+
+/**
+ * Constitution §6's structural signal, as this validator consumes it.
+ *
+ * The page keeps a monotonic sequence that advances once per batch of structural change; a graph is
+ * current for exactly one value of it. This witness carries the sequence the graph was read at and
+ * the sequence the page reports now — **two numbers and a flag, never a node, a selector or a
+ * value**, which is the whole of what a structural event is allowed to be.
+ *
+ * `watching` is `false` when no observer is installed in that document. Staleness is then
+ * UNESTABLISHED, and an unestablished safety state is not a safe one: this validator refuses.
+ *
+ * SUPPLYING IT IS THE CALLER'S DECISION, AND AN UNASKED CHECK IS VISIBLE. A caller that passes no
+ * witness gets exactly today's behaviour — but the `ALLOW` it receives then reports
+ * `structurallyCurrent: null`, so "nobody asked" is a value a ledger can read rather than a silence
+ * indistinguishable from "asked and fresh".
+ */
+export interface StructuralWitness {
+  readonly watching: boolean;
+  /** The page's structural sequence now. */
+  readonly seq: number;
+  /** The sequence the graph under validation was read at. */
+  readonly observedAtSeq: number;
+}
 
 /**
  * Movement and similarity tolerances.
@@ -214,6 +240,13 @@ export interface AllowedAction {
   /** Measured IoU between the claimed and current boxes. */
   readonly boxIou?: number;
   /**
+   * Whether the observation was still structurally current — `null` when no witness was supplied.
+   *
+   * Three-valued on purpose. `true` is "asked, and the page had not moved"; `null` is "nobody
+   * asked", which is not the same fact and must never read as the same fact.
+   */
+  readonly structurallyCurrent: boolean | null;
+  /**
    * The caller's intended point, echoed back only because it passed check 12.
    *
    * Echoed so an executor need not re-accept a coordinate from the caller: the point that
@@ -277,7 +310,8 @@ function actableBox(e: VisualEvidence): CssBox | null {
 export function validateActionFreshness(
   graph: ElementGraph,
   action: ProposedAction,
-  tolerance: FreshnessTolerance = PROPOSED_FRESHNESS_TOLERANCE
+  tolerance: FreshnessTolerance = PROPOSED_FRESHNESS_TOLERANCE,
+  structure?: StructuralWitness
 ): FreshnessDecision {
   // 0 — the action must be in the frozen grammar.
   if (!isAllowed(action.kind)) {
@@ -293,7 +327,32 @@ export function validateActionFreshness(
     if (action.target) {
       return reObserve("MALFORMED_CLAIM", `"${kind}" takes no target, but one was supplied.`);
     }
-    return attest({ decision: "ALLOW" as const, kind });
+    // `wait` and `done` aim at nothing, so a moved page cannot have moved what they aim at. The
+    // structural check below is about a target's description going stale, and they have no target.
+    return attest({ decision: "ALLOW" as const, kind, structurallyCurrent: null });
+  }
+
+  // 1a — CONSTITUTION §6: the observation this claim describes must still be the current one.
+  //
+  // Before any per-node check, because this is not a fact about the node: it says the whole graph
+  // belongs to a page state that has since moved. Re-checking one element against a graph the page
+  // has left would be checking the wrong question carefully.
+  if (structure !== undefined) {
+    if (!structure.watching) {
+      return reObserve(
+        "OBSERVATION_STALE",
+        "no structural observer is installed in this document, so whether the observation is still " +
+          "current could not be established. An unestablished staleness is not a fresh one."
+      );
+    }
+    if (structure.seq !== structure.observedAtSeq) {
+      return reObserve(
+        "OBSERVATION_STALE",
+        `the observation was read at structural sequence ${structure.observedAtSeq} and the page is ` +
+          `now at ${structure.seq}; the page changed after it was read, so the claim describes a ` +
+          `state that is gone.`
+      );
+    }
   }
   const claim = action.target;
   if (!claim) return reObserve("MALFORMED_CLAIM", `"${kind}" requires a target claim, and none was supplied.`);
@@ -403,6 +462,7 @@ export function validateActionFreshness(
     viewportBox: actable,
     movedCssPx: moved,
     boxIou: overlap,
+    structurallyCurrent: structure === undefined ? null : true,
     ...(action.point ? { point: action.point } : {}),
   });
 }

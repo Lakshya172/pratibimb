@@ -56,6 +56,15 @@ export interface PagePoint {
 export type PageRequest =
   | { readonly op: "OBSERVE"; readonly requestId: string }
   | { readonly op: "CLOCK"; readonly requestId: string }
+  /**
+   * "Has this document's structure moved since sequence N?" — constitution §6's structural signal,
+   * asked rather than pushed.
+   *
+   * It measures nothing and captures nothing: the answer is counters the document's own observers
+   * have already accumulated. `sinceSeq` is `null` when the caller holds no observation to compare,
+   * which is answered `stale: true` — an unestablished staleness is not a fresh one.
+   */
+  | { readonly op: "STRUCTURE"; readonly requestId: string; readonly sinceSeq: number | null }
   | { readonly op: "HIT_TEST"; readonly requestId: string; readonly cycleId: string; readonly point: PagePoint }
   | {
       readonly op: "DISPATCH";
@@ -91,6 +100,49 @@ export type FocusReading =
   | { readonly state: "NONE" }
   | { readonly state: "UNESTABLISHED" };
 
+/**
+ * What a document says about its own structure — constitution §6's structural signal, IN FORCE for
+ * v1 under ADR-0010, where the visual signals are DEFERRED and WITHDRAWN.
+ *
+ * COUNTERS AND A SEQUENCE NUMBER, AND NOTHING ELSE. No selector, no attribute name, no node, no
+ * text, no value, no geometry, no pixel. A structural event says THAT the page moved and roughly in
+ * what category; what moved is answered by observing, which is a separate explicit request.
+ *
+ * `watching` is `false` when no observer is installed — a surface that cannot watch. Staleness is
+ * then UNESTABLISHED, and this transport treats that as stale rather than as fresh.
+ */
+export interface StructuralReading {
+  /** Whether observers are installed in this document at all. */
+  readonly watching: boolean;
+  /**
+   * Monotonic, per document. **One increment per delivered observer batch**, not per record — the
+   * coalescing rule in full, with no timer and no debounce window. A batch that reports twenty node
+   * insertions advances this by one, because the browser delivered it as one callback.
+   */
+  readonly seq: number;
+  /** Batches that carried at least one node insertion or removal. */
+  readonly nodes: number;
+  /** Batches that carried at least one change to an attribute the element graph reads. */
+  readonly attributes: number;
+  /** Batches that carried a character-data change — §6's "text changes". */
+  readonly text: number;
+  /** Batches that carried a change to the document's own geometry. */
+  readonly resizes: number;
+  /** The agent's own clock at the most recent increment; `null` if there has not been one. */
+  readonly at: number | null;
+}
+
+/** A reading with nothing watching it: every field at rest, `watching` false. */
+export const UNWATCHED_STRUCTURE: StructuralReading = {
+  watching: false,
+  seq: 0,
+  nodes: 0,
+  attributes: 0,
+  text: 0,
+  resizes: 0,
+  at: null,
+};
+
 /** What the page says about its own viewport. `zoom` is not here: a content script cannot read it. */
 export interface ViewportReading {
   readonly w: number;
@@ -122,8 +174,17 @@ export type PageReply =
       readonly measurements: readonly DomMeasurement[];
       readonly focus: FocusReading;
       readonly viewport: ViewportReading;
+      /** The structural sequence this reading belongs to. A graph is only ever current for one. */
+      readonly structure: StructuralReading;
     }
   | { readonly op: "CLOCK"; readonly requestId: string; readonly now: number }
+  | {
+      readonly op: "STRUCTURE";
+      readonly requestId: string;
+      readonly structure: StructuralReading;
+      /** `true` when nothing is watching, when the caller named no sequence, or when it moved. */
+      readonly stale: boolean;
+    }
   | {
       readonly op: "HIT_TEST";
       readonly requestId: string;
@@ -323,6 +384,27 @@ function parseViewport(u: unknown): ViewportReading | null {
   return { w: u.w, h: u.h, dpr: u.dpr, scrollX: u.scrollX, scrollY: u.scrollY };
 }
 
+/** A sequence number as it crosses a message: a non-negative integer, never a float. */
+const isSeq = (u: unknown): u is number => isFinite_(u) && Number.isInteger(u) && u >= 0;
+
+export function parseStructuralReading(u: unknown): StructuralReading | null {
+  if (!isRecord(u) || !keysExactly(u, ["watching", "seq", "nodes", "attributes", "text", "resizes", "at"])) {
+    return null;
+  }
+  if (typeof u.watching !== "boolean") return null;
+  if (!isSeq(u.seq) || !isSeq(u.nodes) || !isSeq(u.attributes) || !isSeq(u.text) || !isSeq(u.resizes)) return null;
+  if (u.at !== null && !isFinite_(u.at)) return null;
+  return {
+    watching: u.watching,
+    seq: u.seq,
+    nodes: u.nodes,
+    attributes: u.attributes,
+    text: u.text,
+    resizes: u.resizes,
+    at: u.at as number | null,
+  };
+}
+
 export function parsePageRequest(u: unknown): PageRequest | null {
   if (!isRecord(u) || !isId(u.requestId)) return null;
   const requestId = u.requestId;
@@ -330,6 +412,11 @@ export function parsePageRequest(u: unknown): PageRequest | null {
     case "OBSERVE":
     case "CLOCK":
       return keysExactly(u, ["op", "requestId"]) ? { op: u.op, requestId } : null;
+    case "STRUCTURE": {
+      if (!keysExactly(u, ["op", "requestId", "sinceSeq"])) return null;
+      if (u.sinceSeq !== null && !isSeq(u.sinceSeq)) return null;
+      return { op: "STRUCTURE", requestId, sinceSeq: u.sinceSeq as number | null };
+    }
     case "HIT_TEST": {
       if (!keysExactly(u, ["op", "requestId", "cycleId", "point"]) || !isId(u.cycleId)) return null;
       const point = parsePagePoint(u.point);
@@ -355,8 +442,14 @@ export function parsePageReply(u: unknown): PageReply | null {
   if (!isRecord(u) || !isId(u.requestId)) return null;
   const requestId = u.requestId;
   switch (u.op) {
+    case "STRUCTURE": {
+      if (!keysExactly(u, ["op", "requestId", "structure", "stale"])) return null;
+      if (typeof u.stale !== "boolean") return null;
+      const structure = parseStructuralReading(u.structure);
+      return structure ? { op: "STRUCTURE", requestId, structure, stale: u.stale } : null;
+    }
     case "OBSERVE": {
-      if (!keysExactly(u, ["op", "requestId", "measurements", "focus", "viewport"])) return null;
+      if (!keysExactly(u, ["op", "requestId", "measurements", "focus", "viewport", "structure"])) return null;
       if (!Array.isArray(u.measurements) || u.measurements.length > MAX_MEASUREMENTS) return null;
       const measurements: DomMeasurement[] = [];
       for (const raw of u.measurements) {
@@ -366,7 +459,10 @@ export function parsePageReply(u: unknown): PageReply | null {
       }
       const focus = parseFocusReading(u.focus);
       const viewport = parseViewport(u.viewport);
-      return focus && viewport ? { op: "OBSERVE", requestId, measurements, focus, viewport } : null;
+      const structure = parseStructuralReading(u.structure);
+      return focus && viewport && structure
+        ? { op: "OBSERVE", requestId, measurements, focus, viewport, structure }
+        : null;
     }
     case "CLOCK":
       return keysExactly(u, ["op", "requestId", "now"]) && isFinite_(u.now) ? { op: "CLOCK", requestId, now: u.now } : null;

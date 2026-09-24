@@ -32,7 +32,13 @@ import {
   type FrameId,
 } from "@pratibimb/perception";
 
-import { isLoopbackOrigin, type AttestedDocument, type FocusReading, type ViewportReading } from "./contracts.js";
+import {
+  isLoopbackOrigin,
+  type AttestedDocument,
+  type FocusReading,
+  type StructuralReading,
+  type ViewportReading,
+} from "./contracts.js";
 import { askPage, transportDeps, type TransportBinding, type TransportDeps, type TransportRelay } from "./coreTransport.js";
 import { TransportRefusal } from "./errors.js";
 
@@ -51,6 +57,13 @@ export interface PageObservation {
   readonly graph: ElementGraph;
   readonly focus: FocusReading;
   readonly viewport: ViewportReading;
+  /**
+   * The structural sequence this graph belongs to — constitution §6's signal, IN FORCE for v1.
+   *
+   * A graph is current for exactly one sequence. Asking the page later whether it has moved past
+   * this one is `readStructure`, which measures nothing and captures nothing.
+   */
+  readonly structure: StructuralReading;
 }
 
 /**
@@ -116,7 +129,41 @@ export async function observePage(
     graph,
     focus: reply.focus,
     viewport: reply.viewport,
+    structure: reply.structure,
   };
+}
+
+/**
+ * Ask a bound document whether its structure has moved past a sequence — **without observing it**.
+ *
+ * This is the whole of what constitution §6's structural signal buys under the approved capture
+ * policy. No measurement, no frame, no perception pass, no element touched: the page answers from
+ * counters its own observers already accumulated, so finding out that a picture is stale costs
+ * nothing and, in particular, **costs no capture**. Taking a new picture still requires a person.
+ *
+ * Fails closed in three ways, all decided in the page agent: nothing watching is stale, no sequence
+ * to compare against is stale, and a moved sequence is stale.
+ */
+export async function readStructure(
+  relay: TransportRelay,
+  binding: TransportBinding,
+  sinceSeq: number | null,
+  deps?: Partial<ObservationDeps>
+): Promise<{ readonly structure: StructuralReading; readonly stale: boolean }> {
+  const { newId } = observationDeps(deps);
+  const { reply } = await askPage(relay, {
+    target: {
+      tabId: binding.document.tabId,
+      frameId: binding.document.frameId,
+      documentId: binding.document.documentId,
+    },
+    expectDocument: binding.document,
+    expectSwBootId: null,
+    body: { op: "STRUCTURE", requestId: newId(), sinceSeq },
+    expectedOp: "STRUCTURE",
+  });
+  if (reply.op !== "STRUCTURE") throw new TransportRefusal("REPLY_MISMATCH");
+  return { structure: reply.structure, stale: reply.stale };
 }
 
 /**
@@ -129,7 +176,12 @@ export async function observeBoundDocument(
   relay: TransportRelay,
   binding: TransportBinding,
   deps?: Partial<ObservationDeps>
-): Promise<{ readonly graph: ElementGraph; readonly focus: FocusReading; readonly viewport: ViewportReading }> {
+): Promise<{
+  readonly graph: ElementGraph;
+  readonly focus: FocusReading;
+  readonly viewport: ViewportReading;
+  readonly structure: StructuralReading;
+}> {
   const { newId, newFrameId } = observationDeps(deps);
   const { reply, attested } = await askPage(relay, {
     target: {
@@ -147,6 +199,7 @@ export async function observeBoundDocument(
     graph: buildGraph(reply.measurements, reply.viewport, attested, newFrameId()),
     focus: reply.focus,
     viewport: reply.viewport,
+    structure: reply.structure,
   };
 }
 

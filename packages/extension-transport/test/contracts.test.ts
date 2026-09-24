@@ -38,6 +38,9 @@ const measurement = {
   parentIndex: -1,
 };
 
+/** A structural reading at rest: watching, nothing has moved. Constitution §6 (ADR-0010). */
+const STRUCTURE = { watching: true, seq: 0, nodes: 0, attributes: 0, text: 0, resizes: 0, at: null };
+
 describe("page requests", () => {
   it("accepts exactly the four operations", () => {
     expect(parsePageRequest({ op: "OBSERVE", requestId: "r1" })).toEqual({ op: "OBSERVE", requestId: "r1" });
@@ -108,6 +111,7 @@ describe("page replies", () => {
       measurements: [measurement],
       focus: { state: "NONE" },
       viewport: { w: 1024, h: 768, dpr: 1, scrollX: 0, scrollY: 0 },
+      structure: STRUCTURE,
     });
     expect(ok).not.toBeNull();
     for (const bad of [
@@ -123,6 +127,7 @@ describe("page replies", () => {
           measurements: [bad],
           focus: { state: "NONE" },
           viewport: { w: 1024, h: 768, dpr: 1, scrollX: 0, scrollY: 0 },
+          structure: STRUCTURE,
         })
       ).toBeNull();
     }
@@ -136,6 +141,7 @@ describe("page replies", () => {
         measurements: new Array(MAX_MEASUREMENTS + 1).fill(measurement),
         focus: { state: "NONE" },
         viewport: { w: 1024, h: 768, dpr: 1, scrollX: 0, scrollY: 0 },
+        structure: STRUCTURE,
       })
     ).toBeNull();
   });
