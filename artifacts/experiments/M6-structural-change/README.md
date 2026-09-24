@@ -1,5 +1,11 @@
 # M6 — the structural change signal
 
+> **FOLLOWED UP BY [`M6.1`](M6.1-closing-the-two-gaps.md), 2026-09-24.** This record describes M6
+> and is left as it was written, including the two limitations it names. Both are now closed by
+> measurement — tracked-element resize is observed, and the stale refusal fires in a real browser
+> on the product build — and §6's structural signal is **EXPERIMENTALLY VERIFIED** rather than
+> `CONDITIONAL`. Read M6.1 for the current status; read this for what M6 actually established.
+
 > **W1, 2026-09-24.** Constitution §6 says the structural change signal is **IN FORCE** for v1
 > (ADR-0010, Option B, owner-approved). Nothing implemented it. This milestone closes that gap and
 > does nothing else.

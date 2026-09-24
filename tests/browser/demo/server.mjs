@@ -54,6 +54,18 @@ function locate(pathname) {
    */
   if (pathname === "/visual" || pathname === "/visual/") return join(ROOT, "tests/browser/extension/fixture/visual.html");
 
+  /**
+   * M6.1's structural-signal fixture, which is neither of the other two.
+   *
+   * It exists to be mutated in three precisely different ways while the extension watches, one
+   * of which changes an element's size through the CSSOM and produces no DOM record at all.
+   * Same arrangement as `/visual`: its own path, beside the harness that drives it, and nothing
+   * the demo serves changes.
+   */
+  if (pathname === "/structural" || pathname === "/structural/") {
+    return join(ROOT, "tests/browser/extension/fixture/structural.html");
+  }
+
   if (pathname.startsWith("/demo/")) {
     return join(ROOT, "apps/demo/dist/src", pathname.slice("/demo/".length));
   }

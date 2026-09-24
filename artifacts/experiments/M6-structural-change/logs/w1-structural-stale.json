@@ -1,0 +1,243 @@
+{
+  "experiment": "M6.1-structural-stale",
+  "question": "Does a real browser's structural signal — including a tracked-element resize with no DOM record — make an observation stale, and does the unchanged freshness gate then refuse to act?",
+  "workstation": "W1",
+  "cell": {
+    "browser": "Chrome for Testing",
+    "executablePath": "C:\\Users\\RONIT\\AppData\\Local\\ms-playwright\\chromium-1243\\chrome-win64\\chrome.exe",
+    "headless": false
+  },
+  "at": "2026-09-24T13:31:46.610Z",
+  "route": "NO_CAPTURE — DOM only; the structural signal never takes a frame",
+  "acts": [
+    {
+      "act": "INSERTION",
+      "expectCategory": "nodes",
+      "before": {
+        "seq": 0,
+        "watching": true,
+        "tracked": 7,
+        "stale": false
+      },
+      "after": {
+        "seq": 2,
+        "stale": true,
+        "tracked": 7,
+        "delta": {
+          "nodes": 1,
+          "attributes": 0,
+          "text": 0,
+          "resizes": 1
+        }
+      },
+      "staleAttempt": {
+        "reached": "VALIDATE",
+        "decision": "RE_OBSERVE",
+        "reason": "OBSERVATION_STALE",
+        "dispatched": false,
+        "witness": {
+          "watching": true,
+          "seq": 2,
+          "observedAtSeq": 0
+        }
+      },
+      "reobserved": {
+        "ok": true,
+        "seq": 2,
+        "stale": false
+      },
+      "freshAttempt": {
+        "reached": "VERIFY_RESULT",
+        "decision": "ALLOW",
+        "reason": null,
+        "structurallyCurrent": true,
+        "dispatched": true,
+        "verification": "CONFIRMED"
+      },
+      "fires": {
+        "beforeAll": 0,
+        "afterStale": 0,
+        "afterFresh": 1
+      },
+      "page": {
+        "before": {
+          "updateDisabled": false,
+          "status": "ready",
+          "targetWidth": 140
+        },
+        "afterStale": {
+          "updateDisabled": false,
+          "status": "ready",
+          "targetWidth": 140
+        },
+        "afterFresh": {
+          "updateDisabled": true,
+          "status": "updated",
+          "targetWidth": 140
+        }
+      }
+    },
+    {
+      "act": "ATTRIBUTE",
+      "expectCategory": "attributes",
+      "before": {
+        "seq": 0,
+        "watching": true,
+        "tracked": 7,
+        "stale": false
+      },
+      "after": {
+        "seq": 1,
+        "stale": true,
+        "tracked": 7,
+        "delta": {
+          "nodes": 0,
+          "attributes": 1,
+          "text": 0,
+          "resizes": 0
+        }
+      },
+      "staleAttempt": {
+        "reached": "VALIDATE",
+        "decision": "RE_OBSERVE",
+        "reason": "OBSERVATION_STALE",
+        "dispatched": false,
+        "witness": {
+          "watching": true,
+          "seq": 1,
+          "observedAtSeq": 0
+        }
+      },
+      "reobserved": {
+        "ok": true,
+        "seq": 1,
+        "stale": false
+      },
+      "freshAttempt": {
+        "reached": "VERIFY_RESULT",
+        "decision": "ALLOW",
+        "reason": null,
+        "structurallyCurrent": true,
+        "dispatched": true,
+        "verification": "CONFIRMED"
+      },
+      "fires": {
+        "beforeAll": 0,
+        "afterStale": 0,
+        "afterFresh": 1
+      },
+      "page": {
+        "before": {
+          "updateDisabled": false,
+          "status": "ready",
+          "targetWidth": 140
+        },
+        "afterStale": {
+          "updateDisabled": false,
+          "status": "ready",
+          "targetWidth": 140
+        },
+        "afterFresh": {
+          "updateDisabled": true,
+          "status": "updated",
+          "targetWidth": 140
+        }
+      }
+    },
+    {
+      "act": "TRACKED_RESIZE",
+      "expectCategory": "resizes",
+      "before": {
+        "seq": 0,
+        "watching": true,
+        "tracked": 7,
+        "stale": false
+      },
+      "after": {
+        "seq": 1,
+        "stale": true,
+        "tracked": 7,
+        "delta": {
+          "nodes": 0,
+          "attributes": 0,
+          "text": 0,
+          "resizes": 1
+        }
+      },
+      "staleAttempt": {
+        "reached": "VALIDATE",
+        "decision": "RE_OBSERVE",
+        "reason": "OBSERVATION_STALE",
+        "dispatched": false,
+        "witness": {
+          "watching": true,
+          "seq": 1,
+          "observedAtSeq": 0
+        }
+      },
+      "reobserved": {
+        "ok": true,
+        "seq": 1,
+        "stale": false
+      },
+      "freshAttempt": {
+        "reached": "VERIFY_RESULT",
+        "decision": "ALLOW",
+        "reason": null,
+        "structurallyCurrent": true,
+        "dispatched": true,
+        "verification": "CONFIRMED"
+      },
+      "fires": {
+        "beforeAll": 0,
+        "afterStale": 0,
+        "afterFresh": 1
+      },
+      "page": {
+        "before": {
+          "updateDisabled": false,
+          "status": "ready",
+          "targetWidth": 140
+        },
+        "afterStale": {
+          "updateDisabled": false,
+          "status": "ready",
+          "targetWidth": 260
+        },
+        "afterFresh": {
+          "updateDisabled": true,
+          "status": "updated",
+          "targetWidth": 260
+        }
+      }
+    }
+  ],
+  "worker": {
+    "seen": 98,
+    "bytes": 33848
+  },
+  "checks": {
+    "theDocumentIsWatched": true,
+    "trackedElementsAreTheGraphsOwnSet": true,
+    "aFreshObservationIsCurrent": true,
+    "everyChangeMovedTheSequence": true,
+    "eachChangeMovedItsOwnCategory": true,
+    "trackedResizeIsSeenWithNoDomRecordAtAll": true,
+    "theTrackedElementActuallyResized": true,
+    "theStaleActionIsRefusedAtValidate": true,
+    "theRefusalReasonIsObservationStale": true,
+    "theRefusalSawAMovedSequence": true,
+    "theStaleActionDispatchedNothing": true,
+    "noEventsWerePutIntoThePageByTheRefusedAttempt": true,
+    "thePageDidNotChangeFromTheRefusedAttempt": true,
+    "reObservingMakesItCurrentAgain": true,
+    "theFreshActionProceeds": true,
+    "theFreshActionSaysItWasChecked": true,
+    "theFreshActionIsConfirmedByThePage": true,
+    "exactlyOneDispatchPerAct": true,
+    "noCaptureWasInvolved": true,
+    "theWorkerSawNoFixtureText": true
+  },
+  "failure": null,
+  "status": "EXPERIMENTALLY VERIFIED (three acts, one fixture, one browser cell)"
+}

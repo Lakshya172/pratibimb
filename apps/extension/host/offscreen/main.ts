@@ -5,7 +5,16 @@
  * never written to storage. It exists so later experiments can check that a value stays on this side.
  * There is no production vault, sanitizer, verifier or egress module in this host.
  */
-import { observePage, type TransportBinding } from "@pratibimb/extension-transport";
+import {
+  createTransportCycle,
+  observeBoundDocument,
+  observePage,
+  readStructure,
+  toPostActionObservation,
+  type TransportBinding,
+} from "@pratibimb/extension-transport";
+import { guardedAct, guardedActionDispatched, type ProposedAction } from "@pratibimb/agent";
+import { cssPx, type ElementGraph } from "@pratibimb/perception";
 import { type GrantDecision, type GrantRequest } from "@pratibimb/orchestrator";
 
 import { bootstrapOrtRealm, createPinnedInferenceSession, resolvePackagedAsset } from "../../entrypoints/ortRuntime";
@@ -152,11 +161,13 @@ const E4_COLLECTOR = "http://127.0.0.1:8995/";
 
 async function e4Emit(msg: { url: string; method: string; headers: Readonly<Record<string, string>>; bodyB64: string | null }) {
   if (typeof msg.url !== "string" || !msg.url.startsWith(E4_COLLECTOR)) return { refused: "NOT_THE_E4_COLLECTOR" };
-  const body = msg.bodyB64 === null ? undefined : Uint8Array.from(atob(msg.bodyB64), (c) => c.charCodeAt(0));
+  // Spread rather than `body: undefined`: under `exactOptionalPropertyTypes` an explicit
+  // `undefined` is not the same as an absent property, and `RequestInit.body` does not accept it.
+  const body = msg.bodyB64 === null ? {} : { body: Uint8Array.from(atob(msg.bodyB64), (c) => c.charCodeAt(0)) };
   const emitter = location.href;
   const t0 = performance.now();
   try {
-    const r = await fetch(msg.url, { method: msg.method, headers: msg.headers, body });
+    const r = await fetch(msg.url, { method: msg.method, headers: msg.headers, ...body });
     return { settled: "resolved", status: r.status, emitter, ms: performance.now() - t0 };
   } catch (e) {
     return { settled: "rejected", fetchError: e instanceof Error ? `${e.name}: ${e.message}` : String(e), emitter, ms: performance.now() - t0 };
@@ -259,6 +270,9 @@ async function sendToBoundary(binding: TransportBinding, body: BoundaryRequest):
   return reply ?? { ok: false, refused: "NO_RESPONSE" };
 }
 
+/** TEST AND EVALUATION ONLY: the reading the structural probe is holding, if any. */
+let structuralProbe: { binding: TransportBinding; graph: ElementGraph; seq: number } | null = null;
+
 async function runTask(request: ExtensionRunRequest): Promise<ExtensionRunResult> {
   if (running !== null) throw new Error("A_RUN_IS_ALREADY_IN_PROGRESS");
   captureTabId = request.tabId;
@@ -301,7 +315,15 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
     | { target: "offscreen"; kind: "GRANT_DECIDE"; granted: boolean }
     | { target: "offscreen"; kind: "REALM_PROBE" }
     | { target: "offscreen"; kind: "STREAM_CONSUME"; streamId: string; maxWidth?: number; maxHeight?: number }
-    | { target: "offscreen"; kind: "PERCEIVE_ONCE"; tabId: number; frameId: number };
+    | { target: "offscreen"; kind: "PERCEIVE_ONCE"; tabId: number; frameId: number }
+    | {
+        target: "offscreen";
+        kind: "STRUCTURAL_PROBE";
+        step: "OBSERVE" | "STRUCTURE" | "ACT";
+        tabId?: number;
+        frameId?: number;
+        selector?: string;
+      };
   if (msg?.target !== "offscreen") return false;
   if (!isFromThisExtension(sender)) {
     sendResponse({ refused: "SENDER_NOT_ACCEPTED" });
@@ -526,6 +548,93 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
    * accessible name, geometry, visibility — which `contracts.ts` already bounds (TR-10, INV-21).
    * There is no field for a form value here and none is read.
    */
+  /**
+   * TEST AND EVALUATION ONLY: constitution §6's stale-observation path, step by step.
+   *
+   * WHY THIS EXISTS. The refusal it demonstrates lives in a window a whole-run harness cannot open
+   * on purpose: between the reading a plan is validated against and the dispatch. A harness must be
+   * able to take a reading, change the page ITSELF, and only then ask the gates to act — which
+   * means the reading has to outlive one message, and a serialised graph is not a graph.
+   *
+   * IT ADDS NO AUTHORITY. `guardedAct` is the unchanged gate composition — VALIDATE, AUTHORISE,
+   * HIT-TEST, MINT, ACT, VERIFY RESULT — driven through the same transport cycle the product run
+   * uses. There is no second click path, no second validator, and no way to skip a gate: a refusal
+   * here is the product's refusal. What is bypassed is the planner and the privacy stages, exactly
+   * as the transport control plane already permits for evidence runs.
+   *
+   * NOT REACHABLE FROM A PAGE. Guarded like every other op here, and refused when the sender is a
+   * tab. It captures nothing and returns no page value: selectors, counts, codes and booleans.
+   */
+  if (msg.kind === "STRUCTURAL_PROBE") {
+    if (sender.tab) {
+      sendResponse({ refused: "PROBE_ONLY_FROM_SERVICE_WORKER" });
+      return false;
+    }
+    void (async () => {
+      if (msg.step === "OBSERVE") {
+        const observation = await observePage(chromeRelay, { tabId: msg.tabId ?? -1, frameId: msg.frameId ?? 0 });
+        structuralProbe = { binding: observation.binding, graph: observation.graph, seq: observation.structure.seq };
+        return {
+          ok: true,
+          structure: observation.structure,
+          nodes: observation.graph.nodes.length,
+          documentId: observation.binding.document.documentId,
+          selectors: observation.graph.nodes.map((node) => node.domRef.selector),
+        };
+      }
+      if (structuralProbe === null) return { ok: false, refused: "NO_PROBE_OBSERVATION" };
+      const held = structuralProbe;
+
+      if (msg.step === "STRUCTURE") {
+        // The question the signal exists to answer, asked against the reading actually held.
+        const { structure, stale } = await readStructure(chromeRelay, held.binding, held.seq);
+        return { ok: true, structure, stale, heldSeq: held.seq };
+      }
+
+      const node = held.graph.nodes.find((n) => n.domRef.selector === msg.selector);
+      if (!node || (node.evidence.kind !== "OBSERVED" && node.evidence.kind !== "CLIPPED")) {
+        return { ok: false, refused: "TARGET_NOT_IN_HELD_GRAPH" };
+      }
+      const { structure } = await readStructure(chromeRelay, held.binding, held.seq);
+      const box = node.evidence.viewportBox;
+      const action: ProposedAction = {
+        kind: "click",
+        target: { nodeId: node.id, role: node.role, name: node.name, frameId: held.graph.frameId, viewportBox: box },
+        // Integer, for the same reason the machine rounds: a browser truncates event coordinates.
+        point: { x: cssPx(Math.round(box.x + box.w / 2)), y: cssPx(Math.round(box.y + box.h / 2)) },
+      };
+      const cycle = createTransportCycle(chromeRelay, held.binding);
+      const outcome = await guardedAct(
+        held.graph,
+        action,
+        { hitTest: cycle.hitTest, action: cycle.action },
+        {
+          verify: {
+            expect: { kind: "TARGET_ENABLED", expected: false },
+            observe: async () => {
+              const after = await observeBoundDocument(chromeRelay, held.binding);
+              return toPostActionObservation(after.graph, after.focus);
+            },
+          },
+          permitTtlMs: 30_000,
+          structure: { watching: structure.watching, seq: structure.seq, observedAtSeq: held.seq },
+        }
+      );
+      return {
+        ok: true,
+        reached: outcome.reached,
+        decision: outcome.decision.decision,
+        reason: outcome.decision.decision === "RE_OBSERVE" ? outcome.decision.reason : null,
+        structurallyCurrent: outcome.decision.decision === "ALLOW" ? outcome.decision.structurallyCurrent : null,
+        dispatched: guardedActionDispatched(outcome),
+        verification: outcome.verification?.verification ?? null,
+        witness: { watching: structure.watching, seq: structure.seq, observedAtSeq: held.seq },
+      };
+    })()
+      .then(sendResponse)
+      .catch((error: unknown) => sendResponse({ ok: false, refused: error instanceof Error ? `${error.name}: ${error.message}` : String(error) }));
+    return true;
+  }
   if (msg.kind === "TRANSPORT_OBSERVE") {
     if (sender.tab) {
       sendResponse({ refused: "OBSERVE_ONLY_FROM_SERVICE_WORKER" });
