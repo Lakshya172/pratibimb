@@ -17,6 +17,7 @@ import { describe, expect, it } from "vitest";
 import { UI_CLASSES, UI_DETECTOR_ROLE, cssBox, docBox, frameId, fuse, nodeId } from "@pratibimb/perception";
 
 import { perceptionRefused, type PerceptionSummary } from "../host-lib/perception-realm";
+import { textPerceptionAbsent } from "../host-lib/text-perception";
 
 const APP = join(__dirname, "..");
 const withoutComments = (text: string): string =>
@@ -47,6 +48,11 @@ describe("the visual tier cannot carry pixels out of its realm", () => {
     const full: PerceptionSummary = {
       ran: true,
       refusal: null,
+      // The three fields M3.1 and M4 added. Absent here until `apps/extension` entered the
+      // TypeScript graph, which is precisely the class of drift that gap was hiding.
+      route: "WORKER_FRAME",
+      workerSawPixels: true,
+      text: textPerceptionAbsent(),
       capture: { w: 1600, h: 900, format: "png", bytes: 40703, dpr: 1, scaleToCss: 0.8 },
       detector: {
         modelId: "pratibimb-t1-ui-head",
@@ -60,7 +66,7 @@ describe("the visual tier cannot carry pixels out of its realm", () => {
       fusion: { matched: 6, visionOnly: 94, domOnly: 8, overlaySuspected: 6 },
       elements: [{ id: "#mobile", role: "textbox", name: "Mobile number", source: "dom+vision", visible: true, offscreen: false, enabled: true, bbox: [10, 20, 300, 24] }],
       sourceBySelector: { "#mobile": "dom+vision" },
-      ms: { capture: 50, decode: 17, preprocess: 70, infer: 85, fuse: 2, total: 224 },
+      ms: { capture: 50, decode: 17, encode: 0, preprocess: 70, infer: 85, fuse: 2, total: 224 },
     };
     expect(carriesPixels(full)).toBe(false);
     // The capture block reports a LENGTH. There is no field that could hold the bytes themselves.
@@ -175,6 +181,10 @@ describe("fusion semantics for visual-only evidence", () => {
           documentBox: docBox(140, 300, 400, 32),
         },
         enabled: true,
+        // An `ElementNode` states its place in the graph. A fixture that omitted these type-checked
+        // nowhere until `apps/extension` entered the TypeScript graph.
+        parent: null,
+        children: [],
       },
     ],
     byId: new Map(),

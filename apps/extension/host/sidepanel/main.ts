@@ -2,8 +2,10 @@
  * Minimal host — side panel shell. Displays host status only; every control is inert.
  * No settings, no history, no telemetry, no state management.
  */
-const status = document.getElementById("status");
-const capture = document.getElementById("capture");
+// NOT `status`: `window.status` is a DOM global of type `string`, so a module-scope `const status`
+// collides with it. The build never noticed because nothing type-checked this file.
+const statusEl = document.getElementById("status");
+const captureEl = document.getElementById("capture");
 
 /**
  * What a person has to do, in one line.
@@ -25,16 +27,16 @@ async function refresh() {
     const s = (await chrome.runtime.sendMessage({ kind: "HOST_STATUS" })) as {
       captureStatus?: { lifecycle: string; requiresReauth: boolean } | null;
     };
-    if (status) status.textContent = JSON.stringify(s, null, 2);
-    if (capture) {
+    if (statusEl) statusEl.textContent = JSON.stringify(s, null, 2);
+    if (captureEl) {
       const lifecycle = s?.captureStatus?.lifecycle ?? "NO_GRANT";
-      capture.textContent = CAPTURE_TEXT[lifecycle] ?? lifecycle;
-      capture.dataset.lifecycle = lifecycle;
-      capture.dataset.requiresReauth = String(s?.captureStatus?.requiresReauth ?? true);
+      captureEl.textContent = CAPTURE_TEXT[lifecycle] ?? lifecycle;
+      captureEl.dataset.lifecycle = lifecycle;
+      captureEl.dataset.requiresReauth = String(s?.captureStatus?.requiresReauth ?? true);
     }
     document.documentElement.dataset.hostStatus = "ok";
   } catch (e) {
-    if (status) status.textContent = `status unavailable: ${e instanceof Error ? e.message : String(e)}`;
+    if (statusEl) statusEl.textContent = `status unavailable: ${e instanceof Error ? e.message : String(e)}`;
     document.documentElement.dataset.hostStatus = "error";
   }
 }
