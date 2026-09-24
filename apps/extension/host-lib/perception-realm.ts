@@ -335,8 +335,33 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
            * THE PIXELS ARRIVE HERE AND NOWHERE ELSE. `getUserMedia` resolves in this document
            * against a handle the worker carried; the media never passes through a message.
            */
+          /**
+           * ASK FOR A FRAME SHAPED LIKE THE TAB, THEN MEASURE WHAT ARRIVED ANYWAY.
+           *
+           * MEASURED on W1, on the first real gesture run: an unconstrained tab stream came back
+           * **1920x1200** for a **1280x720** viewport — 16:10 against 16:9 — so the two axis scales
+           * were 0.667 and 0.600, ten percent apart, and `assertGeometryConsistent` refused the
+           * frame with CAPTURE_DIMENSION_MISMATCH. It was right to: a single `scale_to_css` cannot
+           * describe both axes, and every coordinate derived from that frame would have been wrong
+           * on one of them.
+           *
+           * `captureVisibleTab` never showed this because it returns the tab's own pixels. A media
+           * stream has its own frame size and fits the tab into it.
+           *
+           * So the constraint asks for the CSS viewport's exact dimensions. `max` rather than
+           * `min`+`max`, because an unsatisfiable constraint throws and a smaller frame is still a
+           * usable one — and because the size is then a REQUEST, not an assumption. What the
+           * geometry is built from is still the bitmap that actually arrived.
+           */
           const stream = await navigator.mediaDevices.getUserMedia({
-            video: { mandatory: { chromeMediaSource: "tab", chromeMediaSourceId: ticket.handle } },
+            video: {
+              mandatory: {
+                chromeMediaSource: "tab",
+                chromeMediaSourceId: ticket.handle,
+                maxWidth: Math.round(measurement.viewportCssWidth),
+                maxHeight: Math.round(measurement.viewportCssHeight),
+              },
+            },
           } as unknown as MediaStreamConstraints);
           const track = stream.getVideoTracks()[0];
           if (!track) throw new Error("the tab stream carried no video track");

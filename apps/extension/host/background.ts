@@ -143,6 +143,43 @@ export default defineBackground(() => {
      */
     pageAudit: (tabId: number, frameId: number) =>
       chrome.tabs.sendMessage(tabId, { kind: "DISPATCH_AUDIT" }, { frameId }),
+    /**
+     * TEST-ONLY: what the authority would answer for this tab, with the handle withheld.
+     *
+     * The handle is an opaque id and carries nothing, but a harness has no reason to hold one, so
+     * what comes back is its LENGTH. A probe that returned the handle would be the one place in
+     * this system where a capture credential left the extension.
+     */
+    ticketProbe: async (tabId: number) => {
+      const ticket = await capture.ticketFor(tabId);
+      if (!ticket.ok) return { ok: false, refused: ticket.refused, detail: ticket.detail };
+      return ticket.route === "GESTURE_STREAM"
+        ? { ok: true, route: ticket.route, handleLength: ticket.handle.length }
+        : { ok: true, route: ticket.route, dataUrlLength: ticket.dataUrl.length };
+    },
+    /**
+     * TEST-ONLY: drive the product route end to end for the most recent grant.
+     *
+     * Mints a handle here and hands the STRING to the offscreen document, which turns it into an
+     * `ImageBitmap` itself. This is the step M3.1 implemented and could not run, so it is exercised
+     * on its own before the full loop, in order that a failure names which half broke.
+     */
+    consumeProbe: async () => {
+      const latest = capture.grants().at(-1);
+      if (!latest) return { ok: false, error: "NO_GRANT" };
+      const ticket = await capture.ticketFor(latest.tabId);
+      if (!ticket.ok) return { ok: false, error: ticket.refused, detail: ticket.detail };
+      if (ticket.route !== "GESTURE_STREAM") return { ok: false, error: "NOT_THE_STREAM_ROUTE", route: ticket.route };
+      await ensureOffscreen();
+      // The tab's own CSS size, so the probe asks for the frame shape the product asks for.
+      const tab = await chrome.tabs.get(latest.tabId).catch(() => null);
+      return chrome.runtime.sendMessage({
+        target: "offscreen",
+        kind: "STREAM_CONSUME",
+        streamId: ticket.handle,
+        ...(tab?.width && tab?.height ? { maxWidth: tab.width, maxHeight: tab.height } : {}),
+      });
+    },
     /** TEST AND EVALUATION ONLY: one perception pass through the product realm. */
     perceiveOnce: async (tabId: number, frameId: number) => {
       await ensureOffscreen();

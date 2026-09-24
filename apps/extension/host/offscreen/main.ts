@@ -291,7 +291,7 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
     | { target: "offscreen"; kind: "GRANT_PEEK" }
     | { target: "offscreen"; kind: "GRANT_DECIDE"; granted: boolean }
     | { target: "offscreen"; kind: "REALM_PROBE" }
-    | { target: "offscreen"; kind: "STREAM_CONSUME"; streamId: string }
+    | { target: "offscreen"; kind: "STREAM_CONSUME"; streamId: string; maxWidth?: number; maxHeight?: number }
     | { target: "offscreen"; kind: "PERCEIVE_ONCE"; tabId: number; frameId: number };
   if (msg?.target !== "offscreen") return false;
   if (!isFromThisExtension(sender)) {
@@ -389,8 +389,20 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
     void (async () => {
       const t0 = performance.now();
       try {
+        /**
+         * The same constraint the product path uses, for the same measured reason: an
+         * unconstrained tab stream came back 1920x1200 for a 1280x720 viewport, and a frame whose
+         * two axis scales disagree by ten percent is one the coordinate guard refuses. A probe that
+         * asked for something different from the product would be measuring something different.
+         */
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: { mandatory: { chromeMediaSource: "tab", chromeMediaSourceId: msg.streamId } },
+          video: {
+            mandatory: {
+              chromeMediaSource: "tab",
+              chromeMediaSourceId: msg.streamId,
+              ...(msg.maxWidth ? { maxWidth: msg.maxWidth, maxHeight: msg.maxHeight } : {}),
+            },
+          },
         } as unknown as MediaStreamConstraints);
         const tStream = performance.now() - t0;
         const track = stream.getVideoTracks()[0]!;
