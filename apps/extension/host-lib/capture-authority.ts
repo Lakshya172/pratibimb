@@ -122,14 +122,20 @@ export type CaptureTicket =
 /**
  * The `chrome.*` surface this needs, typed structurally so the authority is testable in Node.
  *
- * `captureVisibleTab` is OPTIONAL, and that is the structural half of the boundary rather than a
- * convenience: a product build supplies no such function, so the built bundle contains no
+ * `degradedEncodedFrame` is OPTIONAL, and that is the structural half of the boundary rather than
+ * a convenience: a product build supplies no such function, so the built bundle contains no
  * reference to it and the degraded path is absent rather than unreachable. A test reads the built
  * artifact and asserts exactly that.
+ *
+ * IT IS DELIBERATELY NOT NAMED AFTER A CHROME API. The degraded supplier in `background.ts` is the
+ * only code that knows which API it calls, and that supplier is compiled out of a product build.
+ * Naming the property `captureVisibleTab` put that API's name into the product artifact, where a
+ * reader auditing the bundle had to be told it was a check rather than a capability. A neutral
+ * name means the artifact makes the point by itself.
  */
 export interface CaptureBrowser {
   getMediaStreamId(options: { targetTabId: number }): Promise<string>;
-  captureVisibleTab?: (options: { format: "png" }) => Promise<string>;
+  degradedEncodedFrame?: (options: { format: "png" }) => Promise<string>;
 }
 
 export interface CaptureAuthorityOptions {
@@ -269,7 +275,7 @@ export function createCaptureAuthority(options: CaptureAuthorityOptions): Captur
        * the moment it mattered. A run with no invocation behind it perceives structurally, which
        * is the tier the client then honestly declares.
        */
-      const degraded = options.browser.captureVisibleTab;
+      const degraded = options.browser.degradedEncodedFrame;
       if (degraded === undefined) {
         return {
           ok: false,

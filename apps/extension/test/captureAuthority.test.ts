@@ -28,7 +28,7 @@ function fakeBrowser(over: Partial<CaptureBrowser> = {}, degraded = false) {
     },
     ...(degraded
       ? {
-          captureVisibleTab: async () => {
+          degradedEncodedFrame: async () => {
             calls.captured += 1;
             return FRAME;
           },

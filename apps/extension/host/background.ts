@@ -40,8 +40,12 @@ export default defineBackground(() => {
       getMediaStreamId: (o) => chrome.tabCapture.getMediaStreamId(o),
       // ABSENT in a product build. `__M3_WORKER_FRAME__` is substituted at build time, so the
       // bundler drops this property and every reference to `captureVisibleTab` with it -- the
-      // degraded path is not in the artifact, rather than in it and refused.
-      ...(__M3_WORKER_FRAME__ ? { captureVisibleTab: (o: { format: "png" }) => chrome.tabs.captureVisibleTab(o) } : {}),
+      // degraded path is not in the artifact, rather than in it and refused. This is the ONLY
+      // place in the repository that names the API, which is why the authority's property is
+      // called `degradedEncodedFrame` and not after the call it happens to make here.
+      ...(__M3_WORKER_FRAME__
+        ? { degradedEncodedFrame: (o: { format: "png" }) => chrome.tabs.captureVisibleTab(o) }
+        : {}),
     },
     grantTtlMs: 5 * 60_000,
   });

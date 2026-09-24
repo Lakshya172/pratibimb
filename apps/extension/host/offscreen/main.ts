@@ -311,37 +311,32 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
    * WHICH REALM MAY HOLD RAW PAGE PIXELS — measured here rather than assumed.
    *
    * M3's capture architecture turns entirely on one question the documentation answers and the
-   * runtime settles: can an offscreen document call `chrome.tabs.captureVisibleTab`? If it can,
-   * pixels can reach the realm that already holds ORT without crossing the worker. If it cannot,
-   * the worker is the only context that can capture, and that is a boundary to state rather than
-   * to work around.
+   * runtime settled: an offscreen document has no `chrome.tabs` AT ALL, so it cannot reach the
+   * worker capture API, and the gesture-authorised stream is the route pixels take instead.
    *
-   * It reports the SHAPE of the API surface and, if a capture is attempted, the length and the
-   * first bytes' signature of what came back — never the image.
+   * THE PROBE NO LONGER ATTEMPTS A CAPTURE. M3.1 measured that question and ADR-0009 settled it;
+   * re-measuring it on every probe meant a product bundle carried a live worker-capture call site
+   * that was unreachable rather than absent, which is weaker than what ADR-0009 §0.1 claims. What
+   * remains answers the same architectural question from the surface alone: `hasChromeTabs` is
+   * false in this realm, and a realm with no `chrome.tabs` has no worker capture API to call.
+   *
+   * It reports the SHAPE of the API surface and nothing else — no capture, never an image.
    */
   if (msg.kind === "REALM_PROBE") {
     void (async () => {
-      const tabs = (chrome as unknown as { tabs?: { captureVisibleTab?: unknown } }).tabs;
+      const tabs = (chrome as unknown as { tabs?: unknown }).tabs;
       const surface = {
         hasTabCapture: typeof (chrome as unknown as { tabCapture?: unknown }).tabCapture === "object",
         hasGetUserMedia: typeof navigator.mediaDevices?.getUserMedia === "function",
         hasImageCapture: typeof (globalThis as unknown as { ImageCapture?: unknown }).ImageCapture === "function",
         hasChromeTabs: typeof tabs === "object" && tabs !== null,
-        hasCaptureVisibleTab: typeof tabs?.captureVisibleTab === "function",
         hasOffscreenCanvas: typeof OffscreenCanvas === "function",
         hasCreateImageBitmap: typeof createImageBitmap === "function",
         hasWebAssembly: typeof WebAssembly === "object",
         hasDocument: typeof document === "object",
       };
-      let capture: unknown = { attempted: false };
-      if (surface.hasCaptureVisibleTab) {
-        try {
-          const url = (await (tabs as { captureVisibleTab: (o: object) => Promise<string> }).captureVisibleTab({ format: "png" })) as string;
-          capture = { attempted: true, ok: true, length: url.length, prefix: url.slice(0, 22) };
-        } catch (e) {
-          capture = { attempted: true, ok: false, error: e instanceof Error ? `${e.name}: ${e.message}` : String(e) };
-        }
-      }
+      // Structurally not attempted: there is no capture call in this handler to attempt.
+      const capture = { attempted: false, why: "THE PROBE DOES NOT CAPTURE" } as const;
       sendResponse({ realm: "offscreen", surface, capture, perceptionBoot });
     })();
     return true;

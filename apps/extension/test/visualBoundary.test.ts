@@ -119,7 +119,7 @@ describe("the visual tier cannot carry pixels out of its realm", () => {
   });
 
   it("the product build has no way to capture a frame into the worker", () => {
-    // The degraded path is a BUILD decision: `captureVisibleTab` is an optional property of the
+    // The degraded path is a BUILD decision: `degradedEncodedFrame` is an optional property of the
     // browser adapter and is supplied only behind M3_WORKER_FRAME, so a product bundle contains no
     // reference to the API at all. The browser harness asserts the same thing over the artifact.
     const worker = withoutComments(readFileSync(join(APP, "host", "background.ts"), "utf8"));
