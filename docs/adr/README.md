@@ -23,6 +23,7 @@
 | [ADR-0007](ADR-0007-hit-test-agreement-and-verify-result.md) | HIT-TEST AGREEMENT and VERIFY RESULT | **PROPOSED — implemented; the IoU tolerance PENDING the owner. Depends on ADR-0006 / PR #60** | 2026-09-13 | — |
 | [ADR-0008](ADR-0008-execution-gate-dispatch-permit.md) | The execution gate: single-use dispatch permits (closes ADR-0007 §8) | **PROPOSED - implemented; permit lifetime UNRESOLVED (owner)** | 2026-09-13 | - |
 | [ADR-0009](ADR-0009-gesture-authorised-capture.md) | Gesture-authorised capture: replacing `tabs.captureVisibleTab` in the product path, so a page's pixels never reach the service worker | **APPROVED 2026-09-24 (ronitsaha11) - constitution §5 amended; experimentally verified human-in-the-loop by M4/M5; NOT a readiness claim** | 2026-09-24 | - |
+| [ADR-0010](ADR-0010-change-signal-under-explicit-capture.md) | The change policy under explicit capture — reconciling constitution §6 (bounded dHash polling, low-rate full-frame safety net) with the capture policy approved in ADR-0009 | **PROPOSED — NOT APPROVED. Owner decision required; three options presented, B recommended. Changes nothing until decided: §6 stays FROZEN and unamended** | 2026-09-24 | — |
 
 > **ADR-0001 covers issues #17 and #5 in one decision**, because S-02a-2a-4 measured that
 > the CSP directive and the `connect-src` egress pin live in the same manifest and constrain
