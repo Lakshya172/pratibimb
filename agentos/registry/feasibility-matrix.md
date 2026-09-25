@@ -28,6 +28,10 @@ artifact path under `artifacts/experiments/`.
 **One row of five has been run.** The UI element detector row below is measured; every other
 row is still `UNKNOWN` and nothing has been run for it.
 
+> **Added 2026-09-26 (M8.2):** two text-region candidate rows, measured on W1 — TR-01 and TR-02 below.
+> They are candidates, not the dossier's pinned `OCRProvider`; the `PP-OCRv5-mobile` row is unchanged
+> (that detector is `REJECTED FOR V1`).
+
 | Model | Chrome WebGPU | Chrome WASM | Firefox WebGPU | Firefox WASM (Linux) |
 |---|---|---|---|---|
 | **UI element detector** — `pratibimb-t1-ui-head` @ `ba6d9e93695b` | **`ACCEPT`** ¹ | **`ACCEPT`** ¹ | **`CONDITIONAL`** ² | **`UNKNOWN`** ³ |
@@ -35,6 +39,8 @@ row is still `UNKNOWN` and nothing has been run for it.
 | PP-OCRv5-mobile | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` |
 | GLiNER-PII | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` |
 | SmolVLM (offline path) | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` |
+| **Text-region candidate TR-01** — `PP-OCRv4_mobile_det` @ `3cc09f3a` | **`ACCEPT`** ⁴ | **`ACCEPT`** ⁴ | **`CONDITIONAL`** ⁴ ⁵ | **`ACCEPT`** ⁴ |
+| **Text-region candidate TR-02** — `PP-OCRv3_mobile_det` @ `58f4e5b1` | **`ACCEPT`** ⁴ | **`ACCEPT`** ⁴ | **`CONDITIONAL`** ⁴ ⁵ | **`CONDITIONAL`** ⁴ ⁶ |
 
 ¹ **Unbranded Chromium 151.0.7922.34 on WINDOWS**, not branded Chrome — Chrome 152 refuses
 `--load-extension`. WebGPU ran on the **Intel `gen-12lp` integrated adapter**; the RTX 5050
@@ -44,6 +50,17 @@ on the same machine is unmeasured (S-01a).
 release defaults, 3/3 reproducible. `dom.webgpu.enabled` was deliberately not touched, per
 S-02a's rule. **CI is headless, so this is the cell CI would hit.** Headful is also **8.6×
 slower than Chromium WebGPU** and slower than its own WASM backend.
+
+⁴ **M8.2, W1, 2026-09-25.** Chromium = Chrome for Testing 153.0.8010.12; Firefox WASM (Linux) = Firefox
+155.0.1 in a WSL2 Ubuntu 26.04.1 guest on W1; Firefox WebGPU = Firefox **156.0.1** on Windows (it updated itself
+from the frozen 155.0.1 mid-run — a disclosed deviation). Correctness = exact count and relative `sumAbs` ≤ 2e-2
+on the fixed realistic fixture (QG-03 Option A). Values per cell and mode: [`M8.2`](../../artifacts/experiments/M8.2-qg03-visual-text-feasibility/README.md).
+TR-01 QG-03 **PASS**; TR-02 QG-03 **FAIL**.
+
+⁵ Headful ACCEPT; headless `no 0/3` — no GPU adapter at release defaults, exactly as for the UI head.
+
+⁶ Headful 3/3; headless **2/3** — one launch started and never reported. A controlled diagnostic reproduces that
+symptom in both candidates via Firefox's MV3 event-page idle limit; the verdict stands as recorded.
 
 ³ **NOT MEASURED. This column is Firefox WASM on LINUX** and no Linux environment was used.
 Firefox WASM on **Windows** *was* measured and passes (33–36 ms p50, correct, deterministic,

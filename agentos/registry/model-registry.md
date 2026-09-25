@@ -229,3 +229,16 @@ is completed and the owner decides.
 | 2026-09-25 | Text-region detection (no recognition) | PP-OCRv3_mobile_det via `paddle2onnx 2.1.0` (opset 16) | `58f4e5b1` · ONNX sha256 `322c3e63…6f55`, 2 436 135 B, reproducible ×4 | **`ELIGIBLE FOR QG-03 / ADOPTION REVIEW`** | Realistic WASM relErr 6.87e-07; RE-1 G1–G6 pass (0 / 306); byte-identical across runs | [`M8.1`](../../artifacts/experiments/M8.1-visual-text-screening/TR-02.md) |
 
 The two rows are independent and in no order.
+
+## QG-03 feasibility record
+
+Full QG-03 feasibility (M8.2, W1). A PASS makes a candidate **eligible for adoption review**; it is **not**
+adoption, and the adoption log above stays empty.
+
+| Date | Role | Implementation | Revision | QG-03 | Cells (Chrome WebGPU · Chrome WASM · Firefox WebGPU · Firefox WASM Linux) | Artifact |
+|---|---|---|---|---|---|---|
+| 2026-09-26 | Text-region detection (no recognition) | PP-OCRv4_mobile_det (TR-01) | `3cc09f3a` · ONNX `18aaccf9…75e8` | **`PASS` → `ELIGIBLE FOR ADOPTION REVIEW`** | ACCEPT · ACCEPT · CONDITIONAL · ACCEPT; coexistence 5/5, teardown 4/4; benchmark `artifacts/benchmarks/M8.2-text-region-qg03.json` | [`M8.2`](../../artifacts/experiments/M8.2-qg03-visual-text-feasibility/TR-01.md) |
+| 2026-09-26 | Text-region detection (no recognition) | PP-OCRv3_mobile_det (TR-02) | `58f4e5b1` · ONNX `322c3e63…6f55` | **`FAIL`** | ACCEPT · ACCEPT · CONDITIONAL · **CONDITIONAL** (one Linux launch never reported; reproduced as a Firefox event-page limit affecting both candidates); coexistence 5/5, teardown 4/4 | [`M8.2`](../../artifacts/experiments/M8.2-qg03-visual-text-feasibility/TR-02.md) |
+
+Disclosed with both rows: Windows Firefox measured 156.0.1, not the frozen 155.0.1. Owner decisions pending: whether
+to amend the harness and re-run the Firefox WASM (Linux) cell for both candidates; TR-01 adoption review.
