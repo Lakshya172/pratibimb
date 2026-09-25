@@ -114,12 +114,13 @@ function launchPids(profile) {
   }
 }
 
-async function oneLaunch({ candidate, mode, backend, headless, config }) {
+async function oneLaunch({ candidate, mode, backend, headless, config, extraPrefs = [], deadlineMs = 900000 }) {
   const ext = join(EXP, "models", "ext", candidate, "firefox");
   writeFileSync(join(ext, "m82-config.js"), `globalThis.M82_CONFIG = ${JSON.stringify({ mode, backend, ...config })};\n`);
   const before = results.length;
   const profile = mkdtempSync(join(tmpdir(), "pratibimb-m82-ff-"));
   const args = [WEB_EXT, "run", "--source-dir", ext, "--firefox", FIREFOX, "--start-url", "about:blank", "--firefox-profile", profile, "--profile-create-if-missing", "--no-input", "--no-reload", "--pref", "extensions.originControls.grantByDefault=true"];
+  for (const p of extraPrefs) args.push("--pref", p);
   if (headless) args.push("--arg=--headless");
   const child = spawn(process.execPath, args, { cwd: HERE, stdio: ["ignore", "pipe", "pipe"] });
   let log = "";
@@ -127,7 +128,7 @@ async function oneLaunch({ candidate, mode, backend, headless, config }) {
   child.stderr.on("data", (d) => (log += d.toString()));
   const t0 = Date.now();
   const real = () => results.slice(before).filter((r) => r.context !== "__alive__");
-  const deadline = Date.now() + 900000;
+  const deadline = Date.now() + deadlineMs;
   while (Date.now() < deadline && real().length < 1) await new Promise((r) => setTimeout(r, 500));
   const wallMs = Date.now() - t0;
   child.kill();
@@ -159,6 +160,8 @@ async function oneLaunch({ candidate, mode, backend, headless, config }) {
     wallMs,
     result: real()[0] ?? null,
     firefoxProcessesReaped: spawned.length,
+    extraPrefs,
+    deadlineMs,
     webExtLogTail: log.split("\n").filter(Boolean).slice(-4),
   };
 }
@@ -170,9 +173,15 @@ const headless = arg("headless", "false") === "true";
 const launches = Number(arg("launches", "3"));
 const label = arg("label", `${candidate.toLowerCase()}-${mode}-firefox-${PLATFORM}-${backend}-${headless ? "headless" : "headful"}`);
 const config = mode === "teardown" ? { cycles: 5 } : mode === "coexist" ? { rounds: 5 } : mode === "bench" ? { warm: 20 } : { warm: 10 };
+// DIAGNOSTIC-ONLY overrides, added after the recorded run to investigate two launches that never
+// reported (README, "Diagnostic"). The recorded cells used none of them; diag-* files are never
+// read by aggregate.mjs.
+if (arg("warm")) config.warm = Number(arg("warm"));
+const extraPrefs = process.argv.flatMap((a, i) => (a === "--pref" ? [process.argv[i + 1]] : []));
+const deadlineMs = Number(arg("deadline-ms", "900000"));
 const out = { experiment: "M8.2-qg03-visual-text-feasibility", runner: "run-firefox.mjs", platform: PLATFORM, firefoxPath: FIREFOX, firefoxVersion, startedAt: new Date().toISOString(), launches: [] };
 for (let i = 1; i <= launches; i++) {
-  const rec = await oneLaunch({ candidate, mode, backend, headless, config });
+  const rec = await oneLaunch({ candidate, mode, backend, headless, config, extraPrefs, deadlineMs });
   rec.launch = i;
   out.launches.push(rec);
   process.stderr.write(`${label} launch ${i}: alive=${rec.livenessSeen} timedOut=${rec.timedOut} ${rec.result?.conclusion ?? ""}\n`);

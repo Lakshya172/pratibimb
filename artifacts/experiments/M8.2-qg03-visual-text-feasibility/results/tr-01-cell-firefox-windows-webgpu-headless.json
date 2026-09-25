@@ -1,0 +1,253 @@
+{
+ "experiment": "M8.2-qg03-visual-text-feasibility",
+ "runner": "run-firefox.mjs",
+ "platform": "windows",
+ "firefoxPath": "C:/Program Files/Mozilla Firefox/firefox.exe",
+ "firefoxVersion": "Mozilla Firefox 156.0.1",
+ "startedAt": "2026-09-25T18:52:03.608Z",
+ "launches": [
+  {
+   "candidate": "TR-01",
+   "mode": "cell",
+   "backend": "webgpu",
+   "headless": true,
+   "browser": "firefox",
+   "platform": "windows",
+   "browserVersion": "Mozilla Firefox 156.0.1",
+   "livenessSeen": true,
+   "timedOut": false,
+   "wallMs": 4071,
+   "result": {
+    "context": "firefox-mv3-event-page",
+    "mode": "cell",
+    "candidate": "TR-01",
+    "backend": "webgpu",
+    "startedAt": "2026-09-25T18:52:06.795Z",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0",
+    "ortVersion": "1.29.0",
+    "pin": {
+     "installed": true,
+     "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+     "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea"
+    },
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasm": {
+       "instances": 0,
+       "bytes": 0,
+       "mb": 0,
+       "pages": 0,
+       "growCount": 0
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 0,
+      "at": 861
+     }
+    ],
+    "errors": [
+     "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome."
+    ],
+    "timerResolutionMs": 1,
+    "conclusion": "failed: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+    "network": [
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://a50131cd-d511-40d9-8488-6177c05313e5",
+      "foreign": false,
+      "path": "/ort-wasm-simd-threaded.jsep.wasm"
+     },
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://a50131cd-d511-40d9-8488-6177c05313e5",
+      "foreign": false,
+      "path": "/models/candidate.onnx"
+     }
+    ],
+    "gpu": {
+     "submits": 0,
+     "computePipelines": 0,
+     "devices": 0,
+     "adapterInfo": null,
+     "requestedOptions": null,
+     "hookError": null
+    },
+    "selfOrigin": "moz-extension://a50131cd-d511-40d9-8488-6177c05313e5"
+   },
+   "firefoxProcessesReaped": 0,
+   "webExtLogTail": [
+    "}",
+    "Use --verbose or --devtools to see logging",
+    "Installed D:\\PratiBimb\\artifacts\\experiments\\M8.2-qg03-visual-text-feasibility\\models\\ext\\TR-01\\firefox as a temporary add-on",
+    "Automatic extension reloading has been disabled"
+   ],
+   "launch": 1
+  },
+  {
+   "candidate": "TR-01",
+   "mode": "cell",
+   "backend": "webgpu",
+   "headless": true,
+   "browser": "firefox",
+   "platform": "windows",
+   "browserVersion": "Mozilla Firefox 156.0.1",
+   "livenessSeen": true,
+   "timedOut": false,
+   "wallMs": 7622,
+   "result": {
+    "context": "firefox-mv3-event-page",
+    "mode": "cell",
+    "candidate": "TR-01",
+    "backend": "webgpu",
+    "startedAt": "2026-09-25T18:52:14.772Z",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0",
+    "ortVersion": "1.29.0",
+    "pin": {
+     "installed": true,
+     "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+     "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea"
+    },
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasm": {
+       "instances": 0,
+       "bytes": 0,
+       "mb": 0,
+       "pages": 0,
+       "growCount": 0
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 0,
+      "at": 819
+     }
+    ],
+    "errors": [
+     "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome."
+    ],
+    "timerResolutionMs": null,
+    "conclusion": "failed: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+    "network": [
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://525fa5c3-164b-4798-aeb9-a3ed8adf3fd9",
+      "foreign": false,
+      "path": "/ort-wasm-simd-threaded.jsep.wasm"
+     },
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://525fa5c3-164b-4798-aeb9-a3ed8adf3fd9",
+      "foreign": false,
+      "path": "/models/candidate.onnx"
+     }
+    ],
+    "gpu": {
+     "submits": 0,
+     "computePipelines": 0,
+     "devices": 0,
+     "adapterInfo": null,
+     "requestedOptions": null,
+     "hookError": null
+    },
+    "selfOrigin": "moz-extension://525fa5c3-164b-4798-aeb9-a3ed8adf3fd9"
+   },
+   "firefoxProcessesReaped": 0,
+   "webExtLogTail": [
+    "}",
+    "Use --verbose or --devtools to see logging",
+    "Installed D:\\PratiBimb\\artifacts\\experiments\\M8.2-qg03-visual-text-feasibility\\models\\ext\\TR-01\\firefox as a temporary add-on",
+    "Automatic extension reloading has been disabled"
+   ],
+   "launch": 2
+  },
+  {
+   "candidate": "TR-01",
+   "mode": "cell",
+   "backend": "webgpu",
+   "headless": true,
+   "browser": "firefox",
+   "platform": "windows",
+   "browserVersion": "Mozilla Firefox 156.0.1",
+   "livenessSeen": true,
+   "timedOut": false,
+   "wallMs": 3540,
+   "result": {
+    "context": "firefox-mv3-event-page",
+    "mode": "cell",
+    "candidate": "TR-01",
+    "backend": "webgpu",
+    "startedAt": "2026-09-25T18:52:25.505Z",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0",
+    "ortVersion": "1.29.0",
+    "pin": {
+     "installed": true,
+     "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+     "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea"
+    },
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasm": {
+       "instances": 0,
+       "bytes": 0,
+       "mb": 0,
+       "pages": 0,
+       "growCount": 0
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 0,
+      "at": 828
+     }
+    ],
+    "errors": [
+     "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome."
+    ],
+    "timerResolutionMs": 1,
+    "conclusion": "failed: no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+    "network": [
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://16399775-7d00-4123-8c02-5c47348dccb1",
+      "foreign": false,
+      "path": "/ort-wasm-simd-threaded.jsep.wasm"
+     },
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://16399775-7d00-4123-8c02-5c47348dccb1",
+      "foreign": false,
+      "path": "/models/candidate.onnx"
+     }
+    ],
+    "gpu": {
+     "submits": 0,
+     "computePipelines": 0,
+     "devices": 0,
+     "adapterInfo": null,
+     "requestedOptions": null,
+     "hookError": null
+    },
+    "selfOrigin": "moz-extension://16399775-7d00-4123-8c02-5c47348dccb1"
+   },
+   "firefoxProcessesReaped": 0,
+   "webExtLogTail": [
+    "}",
+    "Use --verbose or --devtools to see logging",
+    "Installed D:\\PratiBimb\\artifacts\\experiments\\M8.2-qg03-visual-text-feasibility\\models\\ext\\TR-01\\firefox as a temporary add-on",
+    "Automatic extension reloading has been disabled"
+   ],
+   "launch": 3
+  }
+ ]
+}

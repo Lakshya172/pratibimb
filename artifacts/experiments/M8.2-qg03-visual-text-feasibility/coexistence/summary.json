@@ -1,0 +1,942 @@
+{
+ "TR-01": {
+  "pass": true,
+  "runs": [
+   {
+    "env": "chromium/windows/wasm/headful",
+    "pass": true,
+    "reasons": [],
+    "soloMs": {
+     "candidate": 599,
+     "uiHead": 64.8,
+     "yunet": 63.3
+    },
+    "coexistMs": {
+     "uiHead": {
+      "n": 5,
+      "median": 52.8,
+      "p90": 66.7,
+      "min": 49.6,
+      "max": 66.7
+     },
+     "yunet": {
+      "n": 5,
+      "median": 52.4,
+      "p90": 67.4,
+      "min": 50.9,
+      "max": 67.4
+     },
+     "candidate": {
+      "n": 5,
+      "median": 511.5,
+      "p90": 587,
+      "min": 495.1,
+      "max": 587
+     },
+     "round": {
+      "n": 5,
+      "median": 624.2,
+      "p90": 726.3,
+      "min": 606.2,
+      "max": 726.3
+     }
+    },
+    "createMs": {
+     "uiHead": 9.8,
+     "yunet": 16.2,
+     "candidate": 178.7
+    },
+    "peakWasmMb": 131.1,
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasmMb": 0,
+      "grows": 0,
+      "jsMb": 2.6
+     },
+     {
+      "label": "after-solo",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": 56.3
+     },
+     {
+      "label": "after-coexist-create",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": 56.5
+     },
+     {
+      "label": "after-coexist-rounds",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": 74.3
+     },
+     {
+      "label": "after-release-all",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": 74.3
+     },
+     {
+      "label": "after-final-release",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": 77.9
+     }
+    ],
+    "uiHeadShippedDecode": {
+     "ok": true,
+     "detections": 23
+    },
+    "responsiveness": {
+     "frames": 419,
+     "maxGapMs": 123,
+     "p99GapMs": 18.699999999999818,
+     "medianGapMs": 17.800000000000182
+    },
+    "foreignRequests": 0
+   },
+   {
+    "env": "chromium/windows/wasm/headful",
+    "pass": true,
+    "reasons": [],
+    "soloMs": {
+     "candidate": 649.5,
+     "uiHead": 62.2,
+     "yunet": 63.7
+    },
+    "coexistMs": {
+     "uiHead": {
+      "n": 5,
+      "median": 55.8,
+      "p90": 59.2,
+      "min": 50.7,
+      "max": 59.2
+     },
+     "yunet": {
+      "n": 5,
+      "median": 54.2,
+      "p90": 68.2,
+      "min": 51.5,
+      "max": 68.2
+     },
+     "candidate": {
+      "n": 5,
+      "median": 494.3,
+      "p90": 556.8,
+      "min": 482.3,
+      "max": 556.8
+     },
+     "round": {
+      "n": 5,
+      "median": 618.1,
+      "p90": 688.9,
+      "min": 594.4,
+      "max": 688.9
+     }
+    },
+    "createMs": {
+     "uiHead": 9.3,
+     "yunet": 16,
+     "candidate": 166.2
+    },
+    "peakWasmMb": 131.1,
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasmMb": 0,
+      "grows": 0,
+      "jsMb": 2.6
+     },
+     {
+      "label": "after-solo",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": 56.3
+     },
+     {
+      "label": "after-coexist-create",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": 56.5
+     },
+     {
+      "label": "after-coexist-rounds",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": 74.3
+     },
+     {
+      "label": "after-release-all",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": 74.3
+     },
+     {
+      "label": "after-final-release",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": 77.8
+     }
+    ],
+    "uiHeadShippedDecode": {
+     "ok": true,
+     "detections": 23
+    },
+    "responsiveness": {
+     "frames": 366,
+     "maxGapMs": 142.59999999999997,
+     "p99GapMs": 18.600000000000364,
+     "medianGapMs": 17.800000000000182
+    },
+    "foreignRequests": 0
+   },
+   {
+    "env": "chromium/windows/wasm/headful",
+    "pass": true,
+    "reasons": [],
+    "soloMs": {
+     "candidate": 610.9,
+     "uiHead": 68.2,
+     "yunet": 61.8
+    },
+    "coexistMs": {
+     "uiHead": {
+      "n": 5,
+      "median": 51.9,
+      "p90": 57.5,
+      "min": 49.4,
+      "max": 57.5
+     },
+     "yunet": {
+      "n": 5,
+      "median": 52,
+      "p90": 54.4,
+      "min": 50.1,
+      "max": 54.4
+     },
+     "candidate": {
+      "n": 5,
+      "median": 478,
+      "p90": 502.8,
+      "min": 467.9,
+      "max": 502.8
+     },
+     "round": {
+      "n": 5,
+      "median": 583.5,
+      "p90": 617.3,
+      "min": 575.2,
+      "max": 617.3
+     }
+    },
+    "createMs": {
+     "uiHead": 12.6,
+     "yunet": 17.5,
+     "candidate": 175.1
+    },
+    "peakWasmMb": 131.1,
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasmMb": 0,
+      "grows": 0,
+      "jsMb": 2.6
+     },
+     {
+      "label": "after-solo",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": 56.3
+     },
+     {
+      "label": "after-coexist-create",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": 56.5
+     },
+     {
+      "label": "after-coexist-rounds",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": 74.3
+     },
+     {
+      "label": "after-release-all",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": 74.3
+     },
+     {
+      "label": "after-final-release",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": 77.9
+     }
+    ],
+    "uiHeadShippedDecode": {
+     "ok": true,
+     "detections": 23
+    },
+    "responsiveness": {
+     "frames": 344,
+     "maxGapMs": 107,
+     "p99GapMs": 18.599999999999454,
+     "medianGapMs": 17.899999999999636
+    },
+    "foreignRequests": 0
+   },
+   {
+    "env": "firefox/linux-wsl2/wasm/headless",
+    "pass": true,
+    "reasons": [],
+    "soloMs": {
+     "candidate": 734,
+     "uiHead": 55,
+     "yunet": 69
+    },
+    "coexistMs": {
+     "uiHead": {
+      "n": 5,
+      "median": 59,
+      "p90": 66,
+      "min": 55,
+      "max": 66
+     },
+     "yunet": {
+      "n": 5,
+      "median": 58,
+      "p90": 75,
+      "min": 58,
+      "max": 75
+     },
+     "candidate": {
+      "n": 5,
+      "median": 560,
+      "p90": 561,
+      "min": 542,
+      "max": 561
+     },
+     "round": {
+      "n": 5,
+      "median": 684,
+      "p90": 714,
+      "min": 668,
+      "max": 714
+     }
+    },
+    "createMs": {
+     "uiHead": 10,
+     "yunet": 19,
+     "candidate": 169
+    },
+    "peakWasmMb": 131.1,
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasmMb": 0,
+      "grows": 0,
+      "jsMb": null
+     },
+     {
+      "label": "after-solo",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": null
+     },
+     {
+      "label": "after-coexist-create",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": null
+     },
+     {
+      "label": "after-coexist-rounds",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": null
+     },
+     {
+      "label": "after-release-all",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": null
+     },
+     {
+      "label": "after-final-release",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": null
+     }
+    ],
+    "uiHeadShippedDecode": {
+     "ok": true,
+     "detections": 23
+    },
+    "responsiveness": "not measured (Firefox via web-ext)",
+    "foreignRequests": 0
+   },
+   {
+    "env": "firefox/windows/wasm/headful",
+    "pass": true,
+    "reasons": [],
+    "soloMs": {
+     "candidate": 619,
+     "uiHead": 64,
+     "yunet": 80
+    },
+    "coexistMs": {
+     "uiHead": {
+      "n": 5,
+      "median": 61,
+      "p90": 87,
+      "min": 56,
+      "max": 87
+     },
+     "yunet": {
+      "n": 5,
+      "median": 62,
+      "p90": 63,
+      "min": 58,
+      "max": 63
+     },
+     "candidate": {
+      "n": 5,
+      "median": 570,
+      "p90": 590,
+      "min": 551,
+      "max": 590
+     },
+     "round": {
+      "n": 5,
+      "median": 711,
+      "p90": 721,
+      "min": 682,
+      "max": 721
+     }
+    },
+    "createMs": {
+     "uiHead": 15,
+     "yunet": 25,
+     "candidate": 202
+    },
+    "peakWasmMb": 131.1,
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasmMb": 0,
+      "grows": 0,
+      "jsMb": null
+     },
+     {
+      "label": "after-solo",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": null
+     },
+     {
+      "label": "after-coexist-create",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": null
+     },
+     {
+      "label": "after-coexist-rounds",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": null
+     },
+     {
+      "label": "after-release-all",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": null
+     },
+     {
+      "label": "after-final-release",
+      "wasmMb": 131.1,
+      "grows": 11,
+      "jsMb": null
+     }
+    ],
+    "uiHeadShippedDecode": {
+     "ok": true,
+     "detections": 23
+    },
+    "responsiveness": "not measured (Firefox via web-ext)",
+    "foreignRequests": 0
+   }
+  ]
+ },
+ "TR-02": {
+  "pass": true,
+  "runs": [
+   {
+    "env": "chromium/windows/wasm/headful",
+    "pass": true,
+    "reasons": [],
+    "soloMs": {
+     "candidate": 726.2,
+     "uiHead": 63.8,
+     "yunet": 66.7
+    },
+    "coexistMs": {
+     "uiHead": {
+      "n": 5,
+      "median": 53.7,
+      "p90": 57.4,
+      "min": 49.1,
+      "max": 57.4
+     },
+     "yunet": {
+      "n": 5,
+      "median": 52.5,
+      "p90": 62.1,
+      "min": 50.7,
+      "max": 62.1
+     },
+     "candidate": {
+      "n": 5,
+      "median": 573,
+      "p90": 582,
+      "min": 552.5,
+      "max": 582
+     },
+     "round": {
+      "n": 5,
+      "median": 681.7,
+      "p90": 704,
+      "min": 668.1,
+      "max": 704
+     }
+    },
+    "createMs": {
+     "uiHead": 10.1,
+     "yunet": 23.4,
+     "candidate": 114.7
+    },
+    "peakWasmMb": 152.4,
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasmMb": 0,
+      "grows": 0,
+      "jsMb": 2.6
+     },
+     {
+      "label": "after-solo",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": 58.8
+     },
+     {
+      "label": "after-coexist-create",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": 58.9
+     },
+     {
+      "label": "after-coexist-rounds",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": 82.7
+     },
+     {
+      "label": "after-release-all",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": 82.7
+     },
+     {
+      "label": "after-final-release",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": 87.4
+     }
+    ],
+    "uiHeadShippedDecode": {
+     "ok": true,
+     "detections": 23
+    },
+    "responsiveness": {
+     "frames": 376,
+     "maxGapMs": 18.799999999999955,
+     "p99GapMs": 18.699999999999818,
+     "medianGapMs": 17.700000000000728
+    },
+    "foreignRequests": 0
+   },
+   {
+    "env": "chromium/windows/wasm/headful",
+    "pass": true,
+    "reasons": [],
+    "soloMs": {
+     "candidate": 732.6,
+     "uiHead": 56.6,
+     "yunet": 66.2
+    },
+    "coexistMs": {
+     "uiHead": {
+      "n": 5,
+      "median": 51.3,
+      "p90": 59.6,
+      "min": 48.8,
+      "max": 59.6
+     },
+     "yunet": {
+      "n": 5,
+      "median": 54.7,
+      "p90": 64.1,
+      "min": 50.5,
+      "max": 64.1
+     },
+     "candidate": {
+      "n": 5,
+      "median": 570.3,
+      "p90": 648.2,
+      "min": 541.4,
+      "max": 648.2
+     },
+     "round": {
+      "n": 5,
+      "median": 682.4,
+      "p90": 773.4,
+      "min": 654.1,
+      "max": 773.4
+     }
+    },
+    "createMs": {
+     "uiHead": 11.1,
+     "yunet": 25,
+     "candidate": 100.7
+    },
+    "peakWasmMb": 152.4,
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasmMb": 0,
+      "grows": 0,
+      "jsMb": 2.6
+     },
+     {
+      "label": "after-solo",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": 58.8
+     },
+     {
+      "label": "after-coexist-create",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": 58.9
+     },
+     {
+      "label": "after-coexist-rounds",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": 82.7
+     },
+     {
+      "label": "after-release-all",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": 82.7
+     },
+     {
+      "label": "after-final-release",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": 87.4
+     }
+    ],
+    "uiHeadShippedDecode": {
+     "ok": true,
+     "detections": 23
+    },
+    "responsiveness": {
+     "frames": 359,
+     "maxGapMs": 142.8,
+     "p99GapMs": 18.700000000000728,
+     "medianGapMs": 17.899999999999636
+    },
+    "foreignRequests": 0
+   },
+   {
+    "env": "chromium/windows/wasm/headful",
+    "pass": true,
+    "reasons": [],
+    "soloMs": {
+     "candidate": 713.1,
+     "uiHead": 54.6,
+     "yunet": 70
+    },
+    "coexistMs": {
+     "uiHead": {
+      "n": 5,
+      "median": 50.9,
+      "p90": 53.1,
+      "min": 48.6,
+      "max": 53.1
+     },
+     "yunet": {
+      "n": 5,
+      "median": 54.1,
+      "p90": 70.5,
+      "min": 49.3,
+      "max": 70.5
+     },
+     "candidate": {
+      "n": 5,
+      "median": 577.2,
+      "p90": 618.3,
+      "min": 554.5,
+      "max": 618.3
+     },
+     "round": {
+      "n": 5,
+      "median": 704.2,
+      "p90": 723.8,
+      "min": 664.7,
+      "max": 723.8
+     }
+    },
+    "createMs": {
+     "uiHead": 10.3,
+     "yunet": 23.4,
+     "candidate": 92.3
+    },
+    "peakWasmMb": 152.4,
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasmMb": 0,
+      "grows": 0,
+      "jsMb": 2.6
+     },
+     {
+      "label": "after-solo",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": 58.8
+     },
+     {
+      "label": "after-coexist-create",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": 58.9
+     },
+     {
+      "label": "after-coexist-rounds",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": 82.7
+     },
+     {
+      "label": "after-release-all",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": 82.7
+     },
+     {
+      "label": "after-final-release",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": 87.4
+     }
+    ],
+    "uiHeadShippedDecode": {
+     "ok": true,
+     "detections": 23
+    },
+    "responsiveness": {
+     "frames": 324,
+     "maxGapMs": 440.6999999999998,
+     "p99GapMs": 142.89999999999998,
+     "medianGapMs": 17.899999999999636
+    },
+    "foreignRequests": 0
+   },
+   {
+    "env": "firefox/linux-wsl2/wasm/headless",
+    "pass": true,
+    "reasons": [],
+    "soloMs": {
+     "candidate": 772,
+     "uiHead": 55,
+     "yunet": 64
+    },
+    "coexistMs": {
+     "uiHead": {
+      "n": 5,
+      "median": 63,
+      "p90": 82,
+      "min": 60,
+      "max": 82
+     },
+     "yunet": {
+      "n": 5,
+      "median": 62,
+      "p90": 63,
+      "min": 59,
+      "max": 63
+     },
+     "candidate": {
+      "n": 5,
+      "median": 681,
+      "p90": 705,
+      "min": 654,
+      "max": 705
+     },
+     "round": {
+      "n": 5,
+      "median": 815,
+      "p90": 862,
+      "min": 794,
+      "max": 862
+     }
+    },
+    "createMs": {
+     "uiHead": 13,
+     "yunet": 20,
+     "candidate": 96
+    },
+    "peakWasmMb": 152.4,
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasmMb": 0,
+      "grows": 0,
+      "jsMb": null
+     },
+     {
+      "label": "after-solo",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": null
+     },
+     {
+      "label": "after-coexist-create",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": null
+     },
+     {
+      "label": "after-coexist-rounds",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": null
+     },
+     {
+      "label": "after-release-all",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": null
+     },
+     {
+      "label": "after-final-release",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": null
+     }
+    ],
+    "uiHeadShippedDecode": {
+     "ok": true,
+     "detections": 23
+    },
+    "responsiveness": "not measured (Firefox via web-ext)",
+    "foreignRequests": 0
+   },
+   {
+    "env": "firefox/windows/wasm/headful",
+    "pass": true,
+    "reasons": [],
+    "soloMs": {
+     "candidate": 797,
+     "uiHead": 53,
+     "yunet": 61
+    },
+    "coexistMs": {
+     "uiHead": {
+      "n": 5,
+      "median": 61,
+      "p90": 64,
+      "min": 58,
+      "max": 64
+     },
+     "yunet": {
+      "n": 5,
+      "median": 61,
+      "p90": 70,
+      "min": 59,
+      "max": 70
+     },
+     "candidate": {
+      "n": 5,
+      "median": 686,
+      "p90": 736,
+      "min": 649,
+      "max": 736
+     },
+     "round": {
+      "n": 5,
+      "median": 825,
+      "p90": 863,
+      "min": 777,
+      "max": 863
+     }
+    },
+    "createMs": {
+     "uiHead": 12,
+     "yunet": 17,
+     "candidate": 88
+    },
+    "peakWasmMb": 152.4,
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasmMb": 0,
+      "grows": 0,
+      "jsMb": null
+     },
+     {
+      "label": "after-solo",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": null
+     },
+     {
+      "label": "after-coexist-create",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": null
+     },
+     {
+      "label": "after-coexist-rounds",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": null
+     },
+     {
+      "label": "after-release-all",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": null
+     },
+     {
+      "label": "after-final-release",
+      "wasmMb": 152.4,
+      "grows": 10,
+      "jsMb": null
+     }
+    ],
+    "uiHeadShippedDecode": {
+     "ok": true,
+     "detections": 23
+    },
+    "responsiveness": "not measured (Firefox via web-ext)",
+    "foreignRequests": 0
+   }
+  ]
+ }
+}

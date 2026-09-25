@@ -1,0 +1,1842 @@
+{
+ "TR-01": {
+  "Chrome WASM": {
+   "verdict": "ACCEPT",
+   "modes": {
+    "headful": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 482.2,
+     "warm": {
+      "n": 30,
+      "median": 482.2,
+      "p90": 507.4,
+      "min": 465,
+      "max": 514.8
+     },
+     "HEAP_WASM_MB": 131.1,
+     "jsHeapMb": 109.2,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      6.517290281877041e-7,
+      6.517290281877041e-7,
+      6.517290281877041e-7
+     ],
+     "worstRealisticRelErr": 0.000004078413748913777,
+     "syntheticRelErr": [
+      0.1039136302294197,
+      0.1039136302294197,
+      0.1039136302294197
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": true,
+     "boxesEqualM81": true,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 870.8,
+      "p90": 878.4,
+      "min": 864.8,
+      "max": 878.4
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 566.9,
+      "p90": 577.5,
+      "min": 561.8,
+      "max": 577.5
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 17.8,
+      "p90": 19.1,
+      "min": 13.3,
+      "max": 19.1
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.38,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.3,
+       "largest": 0.07,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": null,
+     "timerResolutionMs": 0.1,
+     "browserVersion": "153.0.8010.12",
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+     "errors": []
+    },
+    "headless": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 520.7,
+     "warm": {
+      "n": 30,
+      "median": 520.7,
+      "p90": 619.4,
+      "min": 467.1,
+      "max": 845.5
+     },
+     "HEAP_WASM_MB": 131.1,
+     "jsHeapMb": 119,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      6.517290281877041e-7,
+      6.517290281877041e-7,
+      6.517290281877041e-7
+     ],
+     "worstRealisticRelErr": 0.000004078413748913777,
+     "syntheticRelErr": [
+      0.1039136302294197,
+      0.1039136302294197,
+      0.1039136302294197
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": true,
+     "boxesEqualM81": true,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 868.7,
+      "p90": 935,
+      "min": 830.7,
+      "max": 935
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 564.4,
+      "p90": 623.8,
+      "min": 545.4,
+      "max": 623.8
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 12.7,
+      "p90": 24.2,
+      "min": 10.5,
+      "max": 24.2
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.38,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.3,
+       "largest": 0.07,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": null,
+     "timerResolutionMs": 0.1,
+     "browserVersion": "153.0.8010.12",
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+     "errors": []
+    }
+   }
+  },
+  "Chrome WebGPU": {
+   "verdict": "ACCEPT",
+   "modes": {
+    "headful": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 140.1,
+     "warm": {
+      "n": 30,
+      "median": 140.1,
+      "p90": 158,
+      "min": 134.4,
+      "max": 249.1
+     },
+     "HEAP_WASM_MB": 33.3,
+     "jsHeapMb": 99,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      6.316875945355526e-7,
+      6.316875945355526e-7,
+      6.316875945355526e-7
+     ],
+     "worstRealisticRelErr": 0.0000045119822175271945,
+     "syntheticRelErr": [
+      0.5003520991137979,
+      0.5003520991137979,
+      0.5003520991137979
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": false,
+     "boxesEqualM81": false,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 1074.1,
+      "p90": 1102.8,
+      "min": 1040.9,
+      "max": 1102.8
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 1577.8,
+      "p90": 3859.4,
+      "min": 1271.4,
+      "max": 3859.4
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 10.9,
+      "p90": 10.9,
+      "min": 9.9,
+      "max": 10.9
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.38,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.3,
+       "largest": 0.07,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": {
+      "vendor": "intel",
+      "architecture": "gen-12lp",
+      "device": "",
+      "description": "",
+      "isFallbackAdapter": null,
+      "identified": true
+     },
+     "timerResolutionMs": 0.1,
+     "browserVersion": "153.0.8010.12",
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+     "errors": []
+    },
+    "headless": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 137.5,
+     "warm": {
+      "n": 30,
+      "median": 137.5,
+      "p90": 142.4,
+      "min": 129.6,
+      "max": 149.9
+     },
+     "HEAP_WASM_MB": 33.3,
+     "jsHeapMb": 114.7,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      6.316875945355526e-7,
+      6.316875945355526e-7,
+      6.316875945355526e-7
+     ],
+     "worstRealisticRelErr": 0.0000045119822175271945,
+     "syntheticRelErr": [
+      0.5003520991137979,
+      0.5003520991137979,
+      0.5003520991137979
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": false,
+     "boxesEqualM81": false,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 967.5,
+      "p90": 1059.8,
+      "min": 945.2,
+      "max": 1059.8
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 1213.5,
+      "p90": 1226.8,
+      "min": 1208.1,
+      "max": 1226.8
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 11.3,
+      "p90": 13.4,
+      "min": 10.4,
+      "max": 13.4
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.38,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.3,
+       "largest": 0.07,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": {
+      "vendor": "intel",
+      "architecture": "gen-12lp",
+      "device": "",
+      "description": "",
+      "isFallbackAdapter": null,
+      "identified": true
+     },
+     "timerResolutionMs": 0.1,
+     "browserVersion": "153.0.8010.12",
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+     "errors": []
+    }
+   }
+  },
+  "Firefox WebGPU": {
+   "verdict": "CONDITIONAL",
+   "modes": {
+    "headful": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 201,
+     "warm": {
+      "n": 30,
+      "median": 201,
+      "p90": 203,
+      "min": 194,
+      "max": 288
+     },
+     "HEAP_WASM_MB": 33.3,
+     "jsHeapMb": null,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      6.019009169612715e-7,
+      6.019009169612715e-7,
+      6.019009169612715e-7
+     ],
+     "worstRealisticRelErr": 0.0000035505963536696322,
+     "syntheticRelErr": [
+      0.5003548727807736,
+      0.5003548727807736,
+      0.5003548727807736
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": false,
+     "boxesEqualM81": false,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 1084,
+      "p90": 1320,
+      "min": 1064,
+      "max": 1320
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 12323,
+      "p90": 12382,
+      "min": 12276,
+      "max": 12382
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 10,
+      "p90": 11,
+      "min": 7,
+      "max": 11
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.38,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.3,
+       "largest": 0.07,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": {
+      "vendor": "",
+      "architecture": "",
+      "device": "",
+      "description": "",
+      "isFallbackAdapter": null,
+      "identified": false
+     },
+     "timerResolutionMs": null,
+     "browserVersion": "",
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0",
+     "errors": []
+    },
+    "headless": {
+     "loaded": "0/3",
+     "correct": "0/3",
+     "verdict": "REJECT",
+     "LOAD": "0/3",
+     "P50": null,
+     "warm": {
+      "n": 0,
+      "median": null,
+      "p90": null,
+      "min": null,
+      "max": null
+     },
+     "HEAP_WASM_MB": 0,
+     "jsHeapMb": null,
+     "CORRECT": "0/3",
+     "devRelErr": [
+      null,
+      null,
+      null
+     ],
+     "worstRealisticRelErr": null,
+     "syntheticRelErr": [
+      null,
+      null,
+      null
+     ],
+     "allRealisticPass": false,
+     "deterministicWithinLaunch": false,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": false,
+     "boxesEqualM81": false,
+     "coldLoadMs": {
+      "n": 0,
+      "median": null,
+      "p90": null,
+      "min": null,
+      "max": null
+     },
+     "coldInferenceMs": {
+      "n": 0,
+      "median": null,
+      "p90": null,
+      "min": null,
+      "max": null
+     },
+     "postprocessMs": {
+      "n": 0,
+      "median": null,
+      "p90": null,
+      "min": null,
+      "max": null
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": null,
+     "gpuAdapter": null,
+     "timerResolutionMs": null,
+     "browserVersion": "Mozilla Firefox 156.0.1",
+     "userAgent": null,
+     "errors": [
+      "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+      "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+      "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome."
+     ]
+    }
+   }
+  },
+  "Firefox WASM (Linux)": {
+   "verdict": "ACCEPT",
+   "modes": {
+    "headful": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 554,
+     "warm": {
+      "n": 30,
+      "median": 554,
+      "p90": 567,
+      "min": 526,
+      "max": 628
+     },
+     "HEAP_WASM_MB": 131.1,
+     "jsHeapMb": null,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      6.517290281877041e-7,
+      6.517290281877041e-7,
+      6.517290281877041e-7
+     ],
+     "worstRealisticRelErr": 0.000004078413748913777,
+     "syntheticRelErr": [
+      0.1039136302294197,
+      0.1039136302294197,
+      0.1039136302294197
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": true,
+     "boxesEqualM81": true,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 685,
+      "p90": 712,
+      "min": 684,
+      "max": 712
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 612,
+      "p90": 647,
+      "min": 598,
+      "max": 647
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 9,
+      "p90": 12,
+      "min": 8,
+      "max": 12
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.38,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.3,
+       "largest": 0.07,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": null,
+     "timerResolutionMs": 1,
+     "browserVersion": "Mozilla Firefox 155.0.1",
+     "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+     "errors": []
+    },
+    "headless": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 540,
+     "warm": {
+      "n": 30,
+      "median": 540,
+      "p90": 571,
+      "min": 525,
+      "max": 691
+     },
+     "HEAP_WASM_MB": 131.1,
+     "jsHeapMb": null,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      6.517290281877041e-7,
+      6.517290281877041e-7,
+      6.517290281877041e-7
+     ],
+     "worstRealisticRelErr": 0.000004078413748913777,
+     "syntheticRelErr": [
+      0.1039136302294197,
+      0.1039136302294197,
+      0.1039136302294197
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": true,
+     "boxesEqualM81": true,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 691,
+      "p90": 693,
+      "min": 599,
+      "max": 693
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 639,
+      "p90": 645,
+      "min": 594,
+      "max": 645
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 12,
+      "p90": 13,
+      "min": 9,
+      "max": 13
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.38,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.3,
+       "largest": 0.07,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": null,
+     "timerResolutionMs": 1,
+     "browserVersion": "Mozilla Firefox 155.0.1",
+     "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+     "errors": []
+    }
+   }
+  },
+  "Firefox WASM (Windows) — supplementary": {
+   "verdict": "CONDITIONAL",
+   "modes": {
+    "headful": {
+     "loaded": "2/3",
+     "correct": "2/3",
+     "verdict": "REJECT",
+     "LOAD": "2/3",
+     "P50": 588,
+     "warm": {
+      "n": 20,
+      "median": 588,
+      "p90": 666,
+      "min": 546,
+      "max": 692
+     },
+     "HEAP_WASM_MB": 131.1,
+     "jsHeapMb": null,
+     "CORRECT": "2/3",
+     "devRelErr": [
+      6.517290281877041e-7,
+      6.517290281877041e-7,
+      null
+     ],
+     "worstRealisticRelErr": 0.000004078413748913777,
+     "syntheticRelErr": [
+      0.1039136302294197,
+      0.1039136302294197,
+      null
+     ],
+     "allRealisticPass": false,
+     "deterministicWithinLaunch": false,
+     "boxesIdenticalAcrossLaunches": false,
+     "outputsEqualM81": false,
+     "boxesEqualM81": false,
+     "coldLoadMs": {
+      "n": 2,
+      "median": 493,
+      "p90": 511,
+      "min": 493,
+      "max": 511
+     },
+     "coldInferenceMs": {
+      "n": 2,
+      "median": 657,
+      "p90": 765,
+      "min": 657,
+      "max": 765
+     },
+     "postprocessMs": {
+      "n": 2,
+      "median": 7,
+      "p90": 8,
+      "min": 7,
+      "max": 8
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": false,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": false,
+       "deterministic": false,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.38,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.3,
+       "largest": 0.07,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": null,
+     "timerResolutionMs": null,
+     "browserVersion": "Mozilla Firefox 156.0.1",
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0",
+     "errors": [
+      "no report (timed out)"
+     ]
+    },
+    "headless": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 577,
+     "warm": {
+      "n": 30,
+      "median": 577,
+      "p90": 625,
+      "min": 510,
+      "max": 652
+     },
+     "HEAP_WASM_MB": 131.1,
+     "jsHeapMb": null,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      6.517290281877041e-7,
+      6.517290281877041e-7,
+      6.517290281877041e-7
+     ],
+     "worstRealisticRelErr": 0.000004078413748913777,
+     "syntheticRelErr": [
+      0.1039136302294197,
+      0.1039136302294197,
+      0.1039136302294197
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": true,
+     "boxesEqualM81": true,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 489,
+      "p90": 529,
+      "min": 468,
+      "max": 529
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 691,
+      "p90": 746,
+      "min": 606,
+      "max": 746
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 11,
+      "p90": 12,
+      "min": 7,
+      "max": 12
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.38,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.3,
+       "largest": 0.07,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": null,
+     "timerResolutionMs": 1,
+     "browserVersion": "Mozilla Firefox 156.0.1",
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0",
+     "errors": []
+    }
+   }
+  }
+ },
+ "TR-02": {
+  "Chrome WASM": {
+   "verdict": "ACCEPT",
+   "modes": {
+    "headful": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 575.4,
+     "warm": {
+      "n": 30,
+      "median": 575.4,
+      "p90": 624.4,
+      "min": 549.8,
+      "max": 636.7
+     },
+     "HEAP_WASM_MB": 152.4,
+     "jsHeapMb": 143,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      6.868745308849452e-7,
+      6.868745308849452e-7,
+      6.868745308849452e-7
+     ],
+     "worstRealisticRelErr": 0.000010955869273842048,
+     "syntheticRelErr": [
+      0,
+      0,
+      0
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": true,
+     "boxesEqualM81": true,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 862.9,
+      "p90": 903.7,
+      "min": 861.7,
+      "max": 903.7
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 717.5,
+      "p90": 729.6,
+      "min": 696.8,
+      "max": 729.6
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 12,
+      "p90": 26.9,
+      "min": 11.8,
+      "max": 26.9
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.17,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.07,
+       "largest": 0.05,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": null,
+     "timerResolutionMs": 0.1,
+     "browserVersion": "153.0.8010.12",
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+     "errors": []
+    },
+    "headless": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 564.6,
+     "warm": {
+      "n": 30,
+      "median": 564.6,
+      "p90": 575.1,
+      "min": 547.3,
+      "max": 619.2
+     },
+     "HEAP_WASM_MB": 152.4,
+     "jsHeapMb": 140.6,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      6.868745308849452e-7,
+      6.868745308849452e-7,
+      6.868745308849452e-7
+     ],
+     "worstRealisticRelErr": 0.000010955869273842048,
+     "syntheticRelErr": [
+      0,
+      0,
+      0
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": true,
+     "boxesEqualM81": true,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 792.4,
+      "p90": 812.6,
+      "min": 767.8,
+      "max": 812.6
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 680.8,
+      "p90": 692.6,
+      "min": 662.1,
+      "max": 692.6
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 14.6,
+      "p90": 14.8,
+      "min": 14.2,
+      "max": 14.8
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.17,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.07,
+       "largest": 0.05,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": null,
+     "timerResolutionMs": 0.1,
+     "browserVersion": "153.0.8010.12",
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+     "errors": []
+    }
+   }
+  },
+  "Chrome WebGPU": {
+   "verdict": "ACCEPT",
+   "modes": {
+    "headful": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 176,
+     "warm": {
+      "n": 30,
+      "median": 176,
+      "p90": 191.7,
+      "min": 161.3,
+      "max": 193.2
+     },
+     "HEAP_WASM_MB": 33.8,
+     "jsHeapMb": 170.6,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      0.0000015403020667513049,
+      0.0000015403020667513049,
+      0.0000015403020667513049
+     ],
+     "worstRealisticRelErr": 0.0000031073371243599855,
+     "syntheticRelErr": [
+      1.2949668557432754e+24,
+      1.2949668557432754e+24,
+      1.2949668557432754e+24
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": false,
+     "boxesEqualM81": false,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 951.9,
+      "p90": 1005.1,
+      "min": 883.8,
+      "max": 1005.1
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 1493.4,
+      "p90": 1970.7,
+      "min": 1329.1,
+      "max": 1970.7
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 13.5,
+      "p90": 15,
+      "min": 12.1,
+      "max": 15
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.17,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.07,
+       "largest": 0.05,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": {
+      "vendor": "intel",
+      "architecture": "gen-12lp",
+      "device": "",
+      "description": "",
+      "isFallbackAdapter": null,
+      "identified": true
+     },
+     "timerResolutionMs": 0.1,
+     "browserVersion": "153.0.8010.12",
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+     "errors": []
+    },
+    "headless": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 164.1,
+     "warm": {
+      "n": 30,
+      "median": 164.1,
+      "p90": 179.3,
+      "min": 157.8,
+      "max": 184.5
+     },
+     "HEAP_WASM_MB": 33.8,
+     "jsHeapMb": 170.6,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      0.0000015403020667513049,
+      0.0000015403020667513049,
+      0.0000015403020667513049
+     ],
+     "worstRealisticRelErr": 0.0000031073371243599855,
+     "syntheticRelErr": [
+      1.2949668557432754e+24,
+      1.2949668557432754e+24,
+      1.2949668557432754e+24
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": false,
+     "boxesEqualM81": false,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 1171.5,
+      "p90": 1234.2,
+      "min": 1161.9,
+      "max": 1234.2
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 1959.5,
+      "p90": 1968.5,
+      "min": 1921.7,
+      "max": 1968.5
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 12.3,
+      "p90": 13.2,
+      "min": 11.9,
+      "max": 13.2
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.17,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.07,
+       "largest": 0.05,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": {
+      "vendor": "intel",
+      "architecture": "gen-12lp",
+      "device": "",
+      "description": "",
+      "isFallbackAdapter": null,
+      "identified": true
+     },
+     "timerResolutionMs": 0.1,
+     "browserVersion": "153.0.8010.12",
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+     "errors": []
+    }
+   }
+  },
+  "Firefox WebGPU": {
+   "verdict": "CONDITIONAL",
+   "modes": {
+    "headful": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 301,
+     "warm": {
+      "n": 30,
+      "median": 301,
+      "p90": 303,
+      "min": 287,
+      "max": 304
+     },
+     "HEAP_WASM_MB": 33.8,
+     "jsHeapMb": null,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      0.0000018208754895451143,
+      0.0000018208754895451143,
+      0.0000018208754895451143
+     ],
+     "worstRealisticRelErr": 0.0000027683942496690292,
+     "syntheticRelErr": [
+      1.294967133350439e+24,
+      1.294967133350439e+24,
+      1.294967133350439e+24
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": false,
+     "boxesEqualM81": false,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 1357,
+      "p90": 1910,
+      "min": 1083,
+      "max": 1910
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 14801,
+      "p90": 15690,
+      "min": 14737,
+      "max": 15690
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 11,
+      "p90": 13,
+      "min": 9,
+      "max": 13
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.17,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.07,
+       "largest": 0.05,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": {
+      "vendor": "",
+      "architecture": "",
+      "device": "",
+      "description": "",
+      "isFallbackAdapter": null,
+      "identified": false
+     },
+     "timerResolutionMs": null,
+     "browserVersion": "Mozilla Firefox 156.0.1",
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0",
+     "errors": []
+    },
+    "headless": {
+     "loaded": "0/3",
+     "correct": "0/3",
+     "verdict": "REJECT",
+     "LOAD": "0/3",
+     "P50": null,
+     "warm": {
+      "n": 0,
+      "median": null,
+      "p90": null,
+      "min": null,
+      "max": null
+     },
+     "HEAP_WASM_MB": 0,
+     "jsHeapMb": null,
+     "CORRECT": "0/3",
+     "devRelErr": [
+      null,
+      null,
+      null
+     ],
+     "worstRealisticRelErr": null,
+     "syntheticRelErr": [
+      null,
+      null,
+      null
+     ],
+     "allRealisticPass": false,
+     "deterministicWithinLaunch": false,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": false,
+     "boxesEqualM81": false,
+     "coldLoadMs": {
+      "n": 0,
+      "median": null,
+      "p90": null,
+      "min": null,
+      "max": null
+     },
+     "coldInferenceMs": {
+      "n": 0,
+      "median": null,
+      "p90": null,
+      "min": null,
+      "max": null
+     },
+     "postprocessMs": {
+      "n": 0,
+      "median": null,
+      "p90": null,
+      "min": null,
+      "max": null
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": null,
+     "gpuAdapter": null,
+     "timerResolutionMs": null,
+     "browserVersion": "Mozilla Firefox 156.0.1",
+     "userAgent": null,
+     "errors": [
+      "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+      "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome.",
+      "no available backend found. ERR: [webgpu] Error: Failed to get GPU adapter. You may need to enable flag \"--enable-unsafe-webgpu\" if you are using Chrome."
+     ]
+    }
+   }
+  },
+  "Firefox WASM (Linux)": {
+   "verdict": "CONDITIONAL",
+   "modes": {
+    "headful": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 644,
+     "warm": {
+      "n": 30,
+      "median": 644,
+      "p90": 669,
+      "min": 606,
+      "max": 692
+     },
+     "HEAP_WASM_MB": 152.4,
+     "jsHeapMb": null,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      6.868745308849452e-7,
+      6.868745308849452e-7,
+      6.868745308849452e-7
+     ],
+     "worstRealisticRelErr": 0.000010955869273842048,
+     "syntheticRelErr": [
+      0,
+      0,
+      0
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": true,
+     "boxesEqualM81": true,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 613,
+      "p90": 666,
+      "min": 606,
+      "max": 666
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 751,
+      "p90": 793,
+      "min": 713,
+      "max": 793
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 9,
+      "p90": 10,
+      "min": 9,
+      "max": 10
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.17,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.07,
+       "largest": 0.05,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": null,
+     "timerResolutionMs": 1,
+     "browserVersion": "Mozilla Firefox 155.0.1",
+     "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+     "errors": []
+    },
+    "headless": {
+     "loaded": "2/3",
+     "correct": "2/3",
+     "verdict": "REJECT",
+     "LOAD": "2/3",
+     "P50": 643,
+     "warm": {
+      "n": 20,
+      "median": 643,
+      "p90": 679,
+      "min": 614,
+      "max": 685
+     },
+     "HEAP_WASM_MB": 152.4,
+     "jsHeapMb": null,
+     "CORRECT": "2/3",
+     "devRelErr": [
+      null,
+      6.868745308849452e-7,
+      6.868745308849452e-7
+     ],
+     "worstRealisticRelErr": 0.000010955869273842048,
+     "syntheticRelErr": [
+      null,
+      0,
+      0
+     ],
+     "allRealisticPass": false,
+     "deterministicWithinLaunch": false,
+     "boxesIdenticalAcrossLaunches": false,
+     "outputsEqualM81": false,
+     "boxesEqualM81": false,
+     "coldLoadMs": {
+      "n": 2,
+      "median": 592,
+      "p90": 658,
+      "min": 592,
+      "max": 658
+     },
+     "coldInferenceMs": {
+      "n": 2,
+      "median": 749,
+      "p90": 815,
+      "min": 749,
+      "max": 815
+     },
+     "postprocessMs": {
+      "n": 2,
+      "median": 8,
+      "p90": 8,
+      "min": 8,
+      "max": 8
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": false,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": false,
+       "deterministic": false,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.17,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.07,
+       "largest": 0.05,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": null,
+     "timerResolutionMs": null,
+     "browserVersion": "Mozilla Firefox 155.0.1",
+     "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+     "errors": [
+      "no report (timed out)"
+     ]
+    }
+   }
+  },
+  "Firefox WASM (Windows) — supplementary": {
+   "verdict": "ACCEPT",
+   "modes": {
+    "headful": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 672,
+     "warm": {
+      "n": 30,
+      "median": 672,
+      "p90": 745,
+      "min": 643,
+      "max": 778
+     },
+     "HEAP_WASM_MB": 152.4,
+     "jsHeapMb": null,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      6.868745308849452e-7,
+      6.868745308849452e-7,
+      6.868745308849452e-7
+     ],
+     "worstRealisticRelErr": 0.000010955869273842048,
+     "syntheticRelErr": [
+      0,
+      0,
+      0
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": true,
+     "boxesEqualM81": true,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 429,
+      "p90": 474,
+      "min": 414,
+      "max": 474
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 766,
+      "p90": 820,
+      "min": 741,
+      "max": 820
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 9,
+      "p90": 14,
+      "min": 8,
+      "max": 14
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.17,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.07,
+       "largest": 0.05,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": null,
+     "timerResolutionMs": null,
+     "browserVersion": "Mozilla Firefox 156.0.1",
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0",
+     "errors": []
+    },
+    "headless": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "LOAD": "3/3",
+     "P50": 700,
+     "warm": {
+      "n": 30,
+      "median": 700,
+      "p90": 780,
+      "min": 631,
+      "max": 794
+     },
+     "HEAP_WASM_MB": 152.4,
+     "jsHeapMb": null,
+     "CORRECT": "3/3",
+     "devRelErr": [
+      6.868745308849452e-7,
+      6.868745308849452e-7,
+      6.868745308849452e-7
+     ],
+     "worstRealisticRelErr": 0.000010955869273842048,
+     "syntheticRelErr": [
+      0,
+      0,
+      0
+     ],
+     "allRealisticPass": true,
+     "deterministicWithinLaunch": true,
+     "boxesIdenticalAcrossLaunches": true,
+     "outputsEqualM81": true,
+     "boxesEqualM81": true,
+     "coldLoadMs": {
+      "n": 3,
+      "median": 373,
+      "p90": 432,
+      "min": 370,
+      "max": 432
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 835,
+      "p90": 835,
+      "min": 711,
+      "max": 835
+     },
+     "postprocessMs": {
+      "n": 3,
+      "median": 9,
+      "p90": 11,
+      "min": 8,
+      "max": 11
+     },
+     "foreignRequests": 0,
+     "g6": {
+      "pass": true,
+      "reasons": []
+     },
+     "re1": {
+      "heldOutSetPass": true,
+      "gates": {
+       "heldOutLargeEnough": true,
+       "noExposedSensitiveGlyph": true,
+       "overMaskWithinBudget": true,
+       "noBlanketBox": true,
+       "wasmValidOnEveryInput": true,
+       "deterministic": true,
+       "noPlaintextOutput": true
+      },
+      "exposed": 0,
+      "worstOverMask": 0.17,
+      "worstLargestBox": 0.05,
+      "devScreen": {
+       "exposed": 0,
+       "overMask": 0.07,
+       "largest": 0.05,
+       "gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+       }
+      }
+     },
+     "gpuAdapter": null,
+     "timerResolutionMs": null,
+     "browserVersion": "Mozilla Firefox 156.0.1",
+     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0",
+     "errors": []
+    }
+   }
+  }
+ }
+}

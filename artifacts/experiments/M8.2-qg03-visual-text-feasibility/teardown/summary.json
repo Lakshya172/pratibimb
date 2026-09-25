@@ -1,0 +1,548 @@
+{
+ "TR-01": {
+  "pass": true,
+  "runs": [
+   {
+    "env": "chromium/windows/wasm/headful",
+    "pass": true,
+    "reasons": [],
+    "cycles": [
+     {
+      "cycle": 1,
+      "ok": true,
+      "grows": 11,
+      "createMs": 894.6,
+      "inferenceMs": 577.9,
+      "afterCreateMb": 27.8,
+      "afterInferenceMb": 131.1,
+      "afterReleaseMb": 131.1,
+      "error": null
+     },
+     {
+      "cycle": 2,
+      "ok": true,
+      "grows": 0,
+      "createMs": 192.7,
+      "inferenceMs": 462.2,
+      "afterCreateMb": 131.1,
+      "afterInferenceMb": 131.1,
+      "afterReleaseMb": 131.1,
+      "error": null
+     },
+     {
+      "cycle": 3,
+      "ok": true,
+      "grows": 0,
+      "createMs": 155.5,
+      "inferenceMs": 514.1,
+      "afterCreateMb": 131.1,
+      "afterInferenceMb": 131.1,
+      "afterReleaseMb": 131.1,
+      "error": null
+     },
+     {
+      "cycle": 4,
+      "ok": true,
+      "grows": 0,
+      "createMs": 151.4,
+      "inferenceMs": 493.8,
+      "afterCreateMb": 131.1,
+      "afterInferenceMb": 131.1,
+      "afterReleaseMb": 131.1,
+      "error": null
+     },
+     {
+      "cycle": 5,
+      "ok": true,
+      "grows": 0,
+      "createMs": 158.7,
+      "inferenceMs": 468.1,
+      "afterCreateMb": 131.1,
+      "afterInferenceMb": 131.1,
+      "afterReleaseMb": 131.1,
+      "error": null
+     }
+    ],
+    "contextTeardown": {
+     "ok": true,
+     "freshHeap": true,
+     "outputSha256": "7dc60c8e42f1ad1ca242ff15b444cbb93686fbb20ed3104118e46a126db7bfa3",
+     "newContextBaselineMb": 0,
+     "newContextAfterInferenceMb": 131.1
+    },
+    "errors": []
+   },
+   {
+    "env": "chromium/windows/webgpu/headful",
+    "pass": true,
+    "reasons": [],
+    "cycles": [
+     {
+      "cycle": 1,
+      "ok": true,
+      "grows": 4,
+      "createMs": 1046.7,
+      "inferenceMs": 2321.7,
+      "afterCreateMb": 27.8,
+      "afterInferenceMb": 33.3,
+      "afterReleaseMb": 33.3,
+      "error": null
+     },
+     {
+      "cycle": 2,
+      "ok": true,
+      "grows": 0,
+      "createMs": 180,
+      "inferenceMs": 159.7,
+      "afterCreateMb": 33.3,
+      "afterInferenceMb": 33.3,
+      "afterReleaseMb": 33.3,
+      "error": null
+     },
+     {
+      "cycle": 3,
+      "ok": true,
+      "grows": 0,
+      "createMs": 145.6,
+      "inferenceMs": 137.3,
+      "afterCreateMb": 33.3,
+      "afterInferenceMb": 33.3,
+      "afterReleaseMb": 33.3,
+      "error": null
+     },
+     {
+      "cycle": 4,
+      "ok": true,
+      "grows": 0,
+      "createMs": 164.1,
+      "inferenceMs": 146.5,
+      "afterCreateMb": 33.3,
+      "afterInferenceMb": 33.3,
+      "afterReleaseMb": 33.3,
+      "error": null
+     },
+     {
+      "cycle": 5,
+      "ok": true,
+      "grows": 0,
+      "createMs": 143.6,
+      "inferenceMs": 140.8,
+      "afterCreateMb": 33.3,
+      "afterInferenceMb": 33.3,
+      "afterReleaseMb": 33.3,
+      "error": null
+     }
+    ],
+    "contextTeardown": {
+     "ok": true,
+     "freshHeap": true,
+     "outputSha256": "18ad49fda9f0bd2614cd2704a61cdb97dbcdcf5fb4f8cd568c47bd5be8dd0c98",
+     "newContextBaselineMb": 0,
+     "newContextAfterInferenceMb": 33.3
+    },
+    "errors": []
+   },
+   {
+    "env": "firefox/linux-wsl2/wasm/headless",
+    "pass": true,
+    "reasons": [],
+    "cycles": [
+     {
+      "cycle": 1,
+      "ok": true,
+      "grows": 11,
+      "createMs": 656,
+      "inferenceMs": 612,
+      "afterCreateMb": 27.8,
+      "afterInferenceMb": 131.1,
+      "afterReleaseMb": 131.1,
+      "error": null
+     },
+     {
+      "cycle": 2,
+      "ok": true,
+      "grows": 0,
+      "createMs": 188,
+      "inferenceMs": 569,
+      "afterCreateMb": 131.1,
+      "afterInferenceMb": 131.1,
+      "afterReleaseMb": 131.1,
+      "error": null
+     },
+     {
+      "cycle": 3,
+      "ok": true,
+      "grows": 0,
+      "createMs": 194,
+      "inferenceMs": 563,
+      "afterCreateMb": 131.1,
+      "afterInferenceMb": 131.1,
+      "afterReleaseMb": 131.1,
+      "error": null
+     },
+     {
+      "cycle": 4,
+      "ok": true,
+      "grows": 0,
+      "createMs": 166,
+      "inferenceMs": 578,
+      "afterCreateMb": 131.1,
+      "afterInferenceMb": 131.1,
+      "afterReleaseMb": 131.1,
+      "error": null
+     },
+     {
+      "cycle": 5,
+      "ok": true,
+      "grows": 0,
+      "createMs": 174,
+      "inferenceMs": 562,
+      "afterCreateMb": 131.1,
+      "afterInferenceMb": 131.1,
+      "afterReleaseMb": 131.1,
+      "error": null
+     }
+    ],
+    "contextTeardown": "not measured (Firefox event page is not torn down by the harness)",
+    "errors": []
+   },
+   {
+    "env": "firefox/windows/wasm/headful",
+    "pass": true,
+    "reasons": [],
+    "cycles": [
+     {
+      "cycle": 1,
+      "ok": true,
+      "grows": 11,
+      "createMs": 574,
+      "inferenceMs": 618,
+      "afterCreateMb": 27.8,
+      "afterInferenceMb": 131.1,
+      "afterReleaseMb": 131.1,
+      "error": null
+     },
+     {
+      "cycle": 2,
+      "ok": true,
+      "grows": 0,
+      "createMs": 204,
+      "inferenceMs": 578,
+      "afterCreateMb": 131.1,
+      "afterInferenceMb": 131.1,
+      "afterReleaseMb": 131.1,
+      "error": null
+     },
+     {
+      "cycle": 3,
+      "ok": true,
+      "grows": 0,
+      "createMs": 168,
+      "inferenceMs": 520,
+      "afterCreateMb": 131.1,
+      "afterInferenceMb": 131.1,
+      "afterReleaseMb": 131.1,
+      "error": null
+     },
+     {
+      "cycle": 4,
+      "ok": true,
+      "grows": 0,
+      "createMs": 155,
+      "inferenceMs": 546,
+      "afterCreateMb": 131.1,
+      "afterInferenceMb": 131.1,
+      "afterReleaseMb": 131.1,
+      "error": null
+     },
+     {
+      "cycle": 5,
+      "ok": true,
+      "grows": 0,
+      "createMs": 153,
+      "inferenceMs": 576,
+      "afterCreateMb": 131.1,
+      "afterInferenceMb": 131.1,
+      "afterReleaseMb": 131.1,
+      "error": null
+     }
+    ],
+    "contextTeardown": "not measured (Firefox event page is not torn down by the harness)",
+    "errors": []
+   }
+  ]
+ },
+ "TR-02": {
+  "pass": true,
+  "runs": [
+   {
+    "env": "chromium/windows/wasm/headful",
+    "pass": true,
+    "reasons": [],
+    "cycles": [
+     {
+      "cycle": 1,
+      "ok": true,
+      "grows": 10,
+      "createMs": 843.3,
+      "inferenceMs": 726.8,
+      "afterCreateMb": 19.3,
+      "afterInferenceMb": 152.4,
+      "afterReleaseMb": 152.4,
+      "error": null
+     },
+     {
+      "cycle": 2,
+      "ok": true,
+      "grows": 0,
+      "createMs": 124.5,
+      "inferenceMs": 616.4,
+      "afterCreateMb": 152.4,
+      "afterInferenceMb": 152.4,
+      "afterReleaseMb": 152.4,
+      "error": null
+     },
+     {
+      "cycle": 3,
+      "ok": true,
+      "grows": 0,
+      "createMs": 89.8,
+      "inferenceMs": 568.5,
+      "afterCreateMb": 152.4,
+      "afterInferenceMb": 152.4,
+      "afterReleaseMb": 152.4,
+      "error": null
+     },
+     {
+      "cycle": 4,
+      "ok": true,
+      "grows": 0,
+      "createMs": 90.3,
+      "inferenceMs": 573.6,
+      "afterCreateMb": 152.4,
+      "afterInferenceMb": 152.4,
+      "afterReleaseMb": 152.4,
+      "error": null
+     },
+     {
+      "cycle": 5,
+      "ok": true,
+      "grows": 0,
+      "createMs": 100.6,
+      "inferenceMs": 590.1,
+      "afterCreateMb": 152.4,
+      "afterInferenceMb": 152.4,
+      "afterReleaseMb": 152.4,
+      "error": null
+     }
+    ],
+    "contextTeardown": {
+     "ok": true,
+     "freshHeap": true,
+     "outputSha256": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8",
+     "newContextBaselineMb": 0,
+     "newContextAfterInferenceMb": 152.4
+    },
+    "errors": []
+   },
+   {
+    "env": "chromium/windows/webgpu/headful",
+    "pass": true,
+    "reasons": [],
+    "cycles": [
+     {
+      "cycle": 1,
+      "ok": true,
+      "grows": 3,
+      "createMs": 1042.8,
+      "inferenceMs": 3004.5,
+      "afterCreateMb": 19.3,
+      "afterInferenceMb": 33.8,
+      "afterReleaseMb": 33.8,
+      "error": null
+     },
+     {
+      "cycle": 2,
+      "ok": true,
+      "grows": 0,
+      "createMs": 124.4,
+      "inferenceMs": 182.9,
+      "afterCreateMb": 33.8,
+      "afterInferenceMb": 33.8,
+      "afterReleaseMb": 33.8,
+      "error": null
+     },
+     {
+      "cycle": 3,
+      "ok": true,
+      "grows": 0,
+      "createMs": 107.2,
+      "inferenceMs": 179.5,
+      "afterCreateMb": 33.8,
+      "afterInferenceMb": 33.8,
+      "afterReleaseMb": 33.8,
+      "error": null
+     },
+     {
+      "cycle": 4,
+      "ok": true,
+      "grows": 0,
+      "createMs": 89,
+      "inferenceMs": 169.8,
+      "afterCreateMb": 33.8,
+      "afterInferenceMb": 33.8,
+      "afterReleaseMb": 33.8,
+      "error": null
+     },
+     {
+      "cycle": 5,
+      "ok": true,
+      "grows": 0,
+      "createMs": 109.7,
+      "inferenceMs": 177.7,
+      "afterCreateMb": 33.8,
+      "afterInferenceMb": 33.8,
+      "afterReleaseMb": 33.8,
+      "error": null
+     }
+    ],
+    "contextTeardown": {
+     "ok": true,
+     "freshHeap": true,
+     "outputSha256": "85fd1e4ec98106e95ec1a518daac84207efd0fafb9b31d5aa6e36d5d054162f4",
+     "newContextBaselineMb": 0,
+     "newContextAfterInferenceMb": 33.8
+    },
+    "errors": []
+   },
+   {
+    "env": "firefox/linux-wsl2/wasm/headless",
+    "pass": true,
+    "reasons": [],
+    "cycles": [
+     {
+      "cycle": 1,
+      "ok": true,
+      "grows": 10,
+      "createMs": 856,
+      "inferenceMs": 778,
+      "afterCreateMb": 19.3,
+      "afterInferenceMb": 152.4,
+      "afterReleaseMb": 152.4,
+      "error": null
+     },
+     {
+      "cycle": 2,
+      "ok": true,
+      "grows": 0,
+      "createMs": 89,
+      "inferenceMs": 639,
+      "afterCreateMb": 152.4,
+      "afterInferenceMb": 152.4,
+      "afterReleaseMb": 152.4,
+      "error": null
+     },
+     {
+      "cycle": 3,
+      "ok": true,
+      "grows": 0,
+      "createMs": 88,
+      "inferenceMs": 664,
+      "afterCreateMb": 152.4,
+      "afterInferenceMb": 152.4,
+      "afterReleaseMb": 152.4,
+      "error": null
+     },
+     {
+      "cycle": 4,
+      "ok": true,
+      "grows": 0,
+      "createMs": 89,
+      "inferenceMs": 666,
+      "afterCreateMb": 152.4,
+      "afterInferenceMb": 152.4,
+      "afterReleaseMb": 152.4,
+      "error": null
+     },
+     {
+      "cycle": 5,
+      "ok": true,
+      "grows": 0,
+      "createMs": 84,
+      "inferenceMs": 625,
+      "afterCreateMb": 152.4,
+      "afterInferenceMb": 152.4,
+      "afterReleaseMb": 152.4,
+      "error": null
+     }
+    ],
+    "contextTeardown": "not measured (Firefox event page is not torn down by the harness)",
+    "errors": []
+   },
+   {
+    "env": "firefox/windows/wasm/headful",
+    "pass": true,
+    "reasons": [],
+    "cycles": [
+     {
+      "cycle": 1,
+      "ok": true,
+      "grows": 10,
+      "createMs": 500,
+      "inferenceMs": 821,
+      "afterCreateMb": 19.3,
+      "afterInferenceMb": 152.4,
+      "afterReleaseMb": 152.4,
+      "error": null
+     },
+     {
+      "cycle": 2,
+      "ok": true,
+      "grows": 0,
+      "createMs": 101,
+      "inferenceMs": 767,
+      "afterCreateMb": 152.4,
+      "afterInferenceMb": 152.4,
+      "afterReleaseMb": 152.4,
+      "error": null
+     },
+     {
+      "cycle": 3,
+      "ok": true,
+      "grows": 0,
+      "createMs": 115,
+      "inferenceMs": 659,
+      "afterCreateMb": 152.4,
+      "afterInferenceMb": 152.4,
+      "afterReleaseMb": 152.4,
+      "error": null
+     },
+     {
+      "cycle": 4,
+      "ok": true,
+      "grows": 0,
+      "createMs": 88,
+      "inferenceMs": 627,
+      "afterCreateMb": 152.4,
+      "afterInferenceMb": 152.4,
+      "afterReleaseMb": 152.4,
+      "error": null
+     },
+     {
+      "cycle": 5,
+      "ok": true,
+      "grows": 0,
+      "createMs": 82,
+      "inferenceMs": 655,
+      "afterCreateMb": 152.4,
+      "afterInferenceMb": 152.4,
+      "afterReleaseMb": 152.4,
+      "error": null
+     }
+    ],
+    "contextTeardown": "not measured (Firefox event page is not torn down by the harness)",
+    "errors": []
+   }
+  ]
+ }
+}

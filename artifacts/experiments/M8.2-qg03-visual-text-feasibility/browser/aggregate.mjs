@@ -9,7 +9,8 @@
  *   results/qg03-verdict.json        protocol §9, per candidate, independently
  *   artifacts/benchmarks/M8.2-text-region-qg03.json   QG-03 item 7
  *
- * Reads every results/*.json except smoke-* (harness debugging, discarded by protocol). Also
+ * Reads every results/*.json except smoke-* (harness debugging, discarded by protocol) and diag-*
+ * (post-hoc diagnostics, which decide nothing). Also
  * re-scores each cell's boxes with the committed RE-1 scorer (protocol §4.5).
  */
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
@@ -45,7 +46,7 @@ const sum2 = (v) => Object.fromEntries(Object.entries(summarise(v)).map(([k, x])
 const frozen = read(join(ROOT, "tests", "browser", "extension", "fixture", "heldout", "groundtruth.json"));
 const devTruth = read(join(EXP, "models", "fixtures", "dev-truth.json"));
 const launches = readdirSync(join(EXP, "results"))
-  .filter((f) => f.endsWith(".json") && !f.startsWith("smoke-") && !["cells.json", "qg03-verdict.json"].includes(f))
+  .filter((f) => f.endsWith(".json") && !f.startsWith("smoke-") && !f.startsWith("diag-") && !["cells.json", "qg03-verdict.json"].includes(f))
   .flatMap((f) => read(join(EXP, "results", f)).launches.map((l) => ({ ...l, file: f })));
 const CANDIDATES = ["TR-01", "TR-02"];
 const conv = Object.fromEntries(CANDIDATES.map((c) => [c, read(join(M81, "logs", `${c.toLowerCase()}-conversion.json`))]));
