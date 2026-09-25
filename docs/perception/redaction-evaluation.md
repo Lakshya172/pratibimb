@@ -216,7 +216,8 @@ identifier-like numbers are checksum-invalid (Verhoeff and Luhn checked), phone 
 strings. Fonts: Arial, Georgia, Verdana, Consolas, Courier New. Sizes 11–30 px. Viewport 1280×720 at
 DPR 1.
 
-**Frozen.** `groundtruth.json` records the SHA-256 of every page and of the renderer, and the complete
+**Frozen.** `groundtruth.json` records the SHA-256 of every page and of the renderer — computed over
+line-ending-normalised content, so a `core.autocrlf` checkout verifies the same — and the complete
 geometry — **no characters**. Its invariants are checked when it is written: every sensitive glyph
 inked and counted against the page spec, no two strings' ink overlapping, every ink box inside its
 line box plus 4 px (so a perfectly tight detector is never charged for over-masking), every glyph

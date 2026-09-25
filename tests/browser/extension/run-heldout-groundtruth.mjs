@@ -39,7 +39,14 @@ if (!executablePath || !existsSync(executablePath)) {
   process.exit(1);
 }
 
-const sha256 = (buf) => createHash("sha256").update(buf).digest("hex");
+/**
+ * Content hash with line endings normalised (CRLF -> LF) first.
+ *
+ * The repository runs with `core.autocrlf`, so the same committed file is LF in one checkout and CRLF
+ * in another. A raw-byte hash would make `--check` fail on every checkout but the one that wrote it,
+ * while the pages render identically. Line endings carry nothing that affects rendering or truth.
+ */
+const sha256 = (buf) => createHash("sha256").update(buf.toString("utf8").replace(/\r\n/g, "\n")).digest("hex");
 const pages = readdirSync(DIR).filter((f) => /^h\d+\.html$/.test(f)).sort();
 const files = Object.fromEntries(
   [...pages, "render.js"].map((f) => [f, sha256(readFileSync(join(DIR, f)))])
@@ -129,6 +136,7 @@ const record = {
   version: 1,
   criterion: REDACTION_CRITERIA.version,
   note: "Geometry only. No characters. Frozen before any candidate was scored. Any change is a new version.",
+  hashing: "SHA-256 of UTF-8 content with CRLF normalised to LF (core.autocrlf-safe)",
   measuredWith: { browser: `Chrome for Testing ${browserVersion}`, viewport: VIEWPORT, dpr: 1, workstation: "W1" },
   files,
   totals,
