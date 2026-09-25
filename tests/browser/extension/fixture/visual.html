@@ -156,9 +156,59 @@
           const r = document.getElementById(id).getBoundingClientRect();
           return { id, x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) };
         };
+        /**
+         * THE RENDERED TEXT INSIDE THE CANVAS, MEASURED BY THE THING THAT DREW IT.
+         *
+         * Added for the visual-text workstream. `visualOnly` above is the WHOLE canvas, which makes
+         * "did the model find the text?" collapse into "did it find the canvas?" — a question any
+         * box-flooding detector passes by accident. These are the individual strings.
+         *
+         * Measured, not estimated. `measureText` is asked for the same string at the same font the
+         * drawing used, and `actualBoundingBoxAscent/Descent` give the real ink extent rather than a
+         * guess at Arial's metrics. Canvas coordinates are converted to CSS-viewport coordinates
+         * through the canvas's own rect and its own attribute-to-CSS scale, so nothing assumes the
+         * canvas is unscaled.
+         *
+         * `sensitive` is a property of the FIXTURE, declared here before any model has run. It is
+         * ground truth for a privacy question, not a model output and not a policy decision made
+         * later to fit a result.
+         */
+        const textBox = (id, sensitive, text, x, baseline, font) => {
+          ctx.font = font;
+          const m = ctx.measureText(text);
+          const r = canvas.getBoundingClientRect();
+          const sx = r.width / canvas.width;
+          const sy = r.height / canvas.height;
+          const ascent = m.actualBoundingBoxAscent;
+          const descent = m.actualBoundingBoxDescent;
+          return {
+            id,
+            sensitive,
+            chars: text.length,
+            x: Math.round(r.x + x * sx),
+            y: Math.round(r.y + (baseline - ascent) * sy),
+            w: Math.round(m.width * sx),
+            h: Math.round((ascent + descent) * sy),
+          };
+        };
+
         window.__groundTruth = {
           // Interactable, and described by the DOM.
           targets: [rect("reference"), rect("submit"), rect("help-link"), rect("privacy-link")],
+          /**
+           * Visual-only text, in CSS-viewport pixels. Nothing in the DOM carries any of these
+           * strings — they exist only as pixels in the canvas above.
+           *
+           * Two are sensitive and two are not, deliberately: a detector that simply boxes the whole
+           * card would "find" the identifier and would also be indistinguishable from one that
+           * found nothing in particular. Non-sensitive text is what makes the difference visible.
+           */
+          textRegions: [
+            textBox("identifier", true, "7712 4408 9931", 140, 158, "bold 20px Arial"),
+            textBox("holder-name", true, "Ramesh Kumar", 140, 100, "bold 15px Arial"),
+            textBox("card-title", false, "STATE SERVICES — IDENTITY", 14, 28, "bold 16px Arial"),
+            textBox("field-label", false, "Document reference", 140, 132, "13px Arial"),
+          ],
           // Visible, sensitive-looking, and NOT described by the DOM beyond its own box.
           visualOnly: [rect("idcard")],
           // Nothing interactable lives here. A detection inside one is a false positive.
