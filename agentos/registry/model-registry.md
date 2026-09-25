@@ -72,7 +72,7 @@ status.** A model can be licence-verified and runtime-validated and still have n
 | Role | Model @ revision | Licence verified at revision? | Runtime validated? | Browser validated? | Performance validated? |
 |---|---|---|---|---|---|
 | Faces | YuNet @ `47534e27` | **YES — Apache-2.0** (2026-09-08) | **YES** — ORT Web 1.29.0, wasm + webgpu | **YES** — Chrome (Win + WSL2), Firefox Win | **NO** |
-| OCR detection | PP-OCRv5_mobile_det @ `0d63e78e` | **YES — Apache-2.0** (2026-09-09) | **PARTIAL** — runs; **fails the S-04a-1 correctness criterion on wasm** (4.12e-02 vs 2e-02) | **PARTIAL** — passes on webgpu, fails on wasm | **NO** |
+| OCR detection | PP-OCRv5_mobile_det @ `0d63e78e` | **YES — Apache-2.0** (2026-09-09; re-read at the revision 2026-09-25) | **wasm: PASS on realistic input** (S-04a-1a, 4.23e-06, M7.1) · **fails on the synthetic input** (4.12e-02, reproduced in M7.1; saturated output) | **PARTIAL** — Chrome wasm (M7.1) and webgpu (S-04a-1); Firefox not re-run | **NO** — **`REJECTED FOR V1`** on the pre-registered text-region criteria (M7.1): localisation IoU 0.427 / 0.365 < 0.5 |
 | OCR recognition | PP-OCRv5_mobile_rec @ `682f2053` | **YES — Apache-2.0** (2026-09-09) | **YES** — best agreement of the four (5.51e-06) | **YES** — Chrome, Firefox | **NO** |
 | Local VLM (vision tower only) | SmolVLM-256M-Instruct `vision_encoder_int8` @ `7e3e67ed` | **YES — Apache-2.0** (2026-09-09) | **wasm YES** (1.96e-02) · **WebGPU REJECT** — root-caused, see below | **PARTIAL** — wasm only | **NO** |
 
@@ -94,7 +94,7 @@ WebGPU while failing on WASM. Neither backend is globally good or globally broke
 | Model | CPU (native) | WASM | WebGPU |
 |---|---|---|---|
 | YuNet | ACCEPT | ACCEPT | ACCEPT |
-| PP-OCRv5_mobile_det | ACCEPT | **fails S-04a-1 criterion** (4.12e-02) | ACCEPT (4.96e-03) |
+| PP-OCRv5_mobile_det | ACCEPT | **synthetic: fails** (4.12e-02) · **realistic: ACCEPT** (4.23e-06, M7.1) | ACCEPT (4.96e-03) |
 | PP-OCRv5_mobile_rec | ACCEPT | ACCEPT (5.51e-06) | ACCEPT |
 | **SmolVLM-256M `vision_encoder_int8`** | ACCEPT | **ACCEPT** (1.96e-02) | **REJECT** |
 
@@ -207,3 +207,12 @@ Ultralytics YOLO.
 | Date | Role | Implementation | Revision | Decision | ADR | Benchmark artifact |
 |---|---|---|---|---|---|---|
 | — | — | — | — | — | — | — |
+
+## Rejection record
+
+Blocking rule 5: *"A rejected model is recorded as `REJECTED` with its artifact. It is not quietly
+swapped out."*
+
+| Date | Role | Implementation | Revision | Decision | Measured reason | Artifact |
+|---|---|---|---|---|---|---|
+| 2026-09-25 | OCR detection (text regions, no recognition) | PP-OCRv5_mobile_det via `paddle2onnx 2.1.0` | `0d63e78e` · ONNX sha256 `d9056b16…ac068`, 4 766 440 B | **`REJECTED FOR V1`** | Fails pre-registered localisation (`docs/perception/text-region-acceptance.md` criterion 2): best IoU **0.427** (identifier) and **0.365** (holder name) against 0.5 — 0.472 / 0.413 under PaddleOCR's own box convention. Coverage (1.000 / 1.000), flood (2.98× ≤ 3×), plaintext-free output and determinism all pass. WASM correctness on realistic input passes (4.23e-06). | [`M7.1`](../../artifacts/experiments/M7-visual-text/M7.1-ppocrv5-det-validation.md) |

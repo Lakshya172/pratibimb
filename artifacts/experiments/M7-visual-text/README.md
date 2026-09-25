@@ -1,5 +1,10 @@
 # M7 — visual text: the inventory, the criteria, and the floor
 
+> **FOLLOWED UP BY [`M7.1`](M7.1-ppocrv5-det-validation.md), 2026-09-25.** The owner approved option A;
+> the pinned detector was reconstructed and validated. **WASM correctness on realistic input: PASS
+> (4.23e-06).** **Text-region quality: FAIL** on pre-registered localisation (IoU 0.427 / 0.365).
+> **`PP-OCRv5_mobile_det` is `REJECTED FOR V1`.** This record describes M7 and is left as written.
+
 > **W1, 2026-09-25.** The evidence-first opening of the visual-text workstream.
 >
 > **Nothing was downloaded. No model was adopted. No threshold was moved.** The one candidate in the

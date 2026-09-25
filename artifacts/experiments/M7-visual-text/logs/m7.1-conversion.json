@@ -1,0 +1,61 @@
+{
+  "source_repo": "PaddlePaddle/PP-OCRv5_mobile_det",
+  "revision": "0d63e78e2b680928f6b1747d76a08db6e645efb7",
+  "source_sha256": {
+    "inference.pdiparams": "afa1820cb16c1fd0dad589d0f8b389139061c1ef6d68019685fd07be997dda5b",
+    "inference.json": "05feef1acb00aa4cd7362b15f7f501fc4f99d7b1fa73c1c871e0c7b1504b0f5c",
+    "inference.yml": "98069072e1b6b37d727fd9d9f11725faa46d6ea0de012f2ed26caea011c37699"
+  },
+  "toolchain": {
+    "python": "3.12.14",
+    "paddlepaddle": "3.1.0",
+    "paddle2onnx": "2.1.0",
+    "onnx": "1.17.0"
+  },
+  "call": "paddle2onnx.export(model_filename=inference.json, params_filename=inference.pdiparams, save_file=..., opset_version=16, enable_onnx_checker=True)",
+  "convert_ms": 1313.9,
+  "output": {
+    "bytes": 4766440,
+    "sha256": "d9056b16f446cd313875244fd37c935fc94f05c68946e3bc85a8a2c4db5ac068"
+  },
+  "s04a1_recorded": {
+    "bytes": 4819576,
+    "sha256": "5f353dec11fcfc7c6dc35e066eff2a047b584d9d1ed61b3deb8c0d31e164705b"
+  },
+  "byte_identical_to_s04a1": false,
+  "size_identical_to_s04a1": false,
+  "graph": {
+    "opset": [
+      {
+        "domain": "",
+        "version": 16
+      }
+    ],
+    "producer": " ",
+    "ir_version": 8,
+    "nodes": 925,
+    "initializers": 0,
+    "inputs": [
+      [
+        "x",
+        [
+          "DynamicDimension.0",
+          3,
+          "DynamicDimension.1",
+          "DynamicDimension.2"
+        ]
+      ]
+    ],
+    "outputs": [
+      [
+        "fetch_name_0",
+        [
+          "DynamicDimension.3",
+          1,
+          "DynamicDimension.4",
+          "DynamicDimension.5"
+        ]
+      ]
+    ]
+  }
+}

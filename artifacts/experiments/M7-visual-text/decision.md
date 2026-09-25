@@ -1,5 +1,10 @@
 # Decision — M7 visual text: inventory, criteria, floor
 
+> **DECIDED AND EXECUTED, 2026-09-25.** The owner approved **option A** below. M7.1 reconstructed the
+> pinned artifact in an isolated Python 3.12 venv and ran the frozen validation: see
+> [`M7.1-decision.md`](M7.1-decision.md). The candidate is **`REJECTED FOR V1`**. The options table
+> below is kept as the record of what was decided.
+
 | Field | Value |
 |---|---|
 | **Verdict** | **NO CANDIDATE ADOPTED.** Gate-0 screen **NOT PASSED** by the only detector present; the only text-region candidate remains **BLOCKED** |
