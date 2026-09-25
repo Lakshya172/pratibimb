@@ -1,5 +1,12 @@
 # Visual text — the redaction-oriented criterion (RE-1), pre-registered
 
+> **STATUS NOTE, appended 2026-09-25 (QG-03 decision) — no criterion, threshold or held-out file below
+> has changed.** §8 question 4 is answered: the owner approved **Option A** in
+> [`qg03-wasm-correctness-decision.md`](../testing/qg03-wasm-correctness-decision.md). For a
+> text-region model, QG-03's WASM correctness cell is decided on the fixed realistic text-bearing
+> fixture, relative `sumAbs` ≤ 2e-2, unchanged; the synthetic input is recorded as reference,
+> regression and diagnostic evidence. G5 below is untouched and still applies to every realistic input.
+
 > **STATUS NOTE, appended 2026-09-25 (M7.3) — no criterion, threshold or held-out file below has changed.**
 > The union §3 describes is now implemented once, in `packages/privacy/src/redactionGeometry.ts`, and the
 > scorer imports it instead of carrying its own copy. A golden record taken from the scorer **as

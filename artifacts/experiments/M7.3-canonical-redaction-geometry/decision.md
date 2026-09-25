@@ -1,5 +1,7 @@
 # Decision — M7.3 one redaction geometry
 
+> **Forward pointer (2026-09-25):** open item 1 below is decided — QG-03's WASM input for text-region models is **Option A**, approved by the owner in [`qg03-wasm-correctness-decision.md`](../../../docs/testing/qg03-wasm-correctness-decision.md). This record is otherwise unchanged.
+
 | Field | Value |
 |---|---|
 | **Verdict** | **PASS** — the canonical geometry reproduces the pre-registered RE-1 geometry exactly (90/90 masks and verdicts), and it is the only implementation |

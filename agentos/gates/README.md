@@ -57,6 +57,11 @@
 - [ ] A benchmark artifact exists under `artifacts/benchmarks/`.
 - [ ] An ADR exists if a pinned default or a fallback ranking changed.
 
+> **Text-region models only:** the WASM correctness input is decided in
+> [`qg03-wasm-correctness-decision.md`](../../docs/testing/qg03-wasm-correctness-decision.md) —
+> Option A, approved 2026-09-25: the fixed realistic text-bearing fixture, relative `sumAbs` ≤ 2e-2.
+> The checklist above is unchanged.
+
 ## QG-04 — Egress invariant
 
 **No code may make a network call until this gate passes.**
