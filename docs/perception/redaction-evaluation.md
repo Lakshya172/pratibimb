@@ -1,5 +1,14 @@
 # Visual text — the redaction-oriented criterion (RE-1), pre-registered
 
+> **STATUS NOTE, appended 2026-09-25 (M7.3) — no criterion, threshold or held-out file below has changed.**
+> The union §3 describes is now implemented once, in `packages/privacy/src/redactionGeometry.ts`, and the
+> scorer imports it instead of carrying its own copy. A golden record taken from the scorer **as
+> pre-registered here** (`aabf558`) is reproduced exactly — 90 cases, masks and verdicts — so RE-1
+> judges with the same code the product would redact with. §3's *"not yet implemented in product
+> code"* and §8 question 3 are resolved by that. The v1 policy is recorded in
+> [`visual-only-text-policy.md`](visual-only-text-policy.md); §8 question 4 is now a decision record,
+> [`qg03-wasm-correctness-decision.md`](../testing/qg03-wasm-correctness-decision.md), still open.
+
 > **Status: PRE-REGISTERED, 2026-09-25. NEXT-CANDIDATE CRITERION.** Written, and committed with its
 > executable scorer and a frozen held-out set, **before any candidate was scored under it**.
 >
