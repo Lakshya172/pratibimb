@@ -1,5 +1,11 @@
 # Visual text — the acceptance criteria, pre-registered
 
+> **STATUS NOTE, appended 2026-09-25 — nothing below this note has been changed.**
+> This document is the **criterion of record for `PP-OCRv5_mobile_det`**, which was evaluated under it
+> and is **`REJECTED FOR V1`** (M7.1). Candidates evaluated **after** 2026-09-25 are judged instead by the
+> **NEXT-CANDIDATE CRITERION**, RE-1: [`redaction-evaluation.md`](redaction-evaluation.md). RE-1 is not a
+> re-reading of this document and does not re-score PP-OCRv5.
+
 > **Status: PRE-REGISTERED, 2026-09-25. Frozen before any candidate was evaluated.**
 >
 > Written before the fixture's text geometry had been measured against any model output, and before
