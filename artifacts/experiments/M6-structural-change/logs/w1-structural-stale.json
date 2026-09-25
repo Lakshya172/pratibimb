@@ -2,12 +2,17 @@
   "experiment": "M6.1-structural-stale",
   "question": "Does a real browser's structural signal — including a tracked-element resize with no DOM record — make an observation stale, and does the unchanged freshness gate then refuse to act?",
   "workstation": "W1",
+  "build": {
+    "probeCompiledIn": true,
+    "contentScriptSha256": "5e2a10c33d734a82784632e01fddd6a1a7e4ed7bc6f50a8072dbbda3b60dcc87",
+    "contentScriptBytes": 26641
+  },
   "cell": {
     "browser": "Chrome for Testing",
     "executablePath": "C:\\Users\\RONIT\\AppData\\Local\\ms-playwright\\chromium-1243\\chrome-win64\\chrome.exe",
     "headless": false
   },
-  "at": "2026-09-24T13:31:46.610Z",
+  "at": "2026-09-25T08:37:58.283Z",
   "route": "NO_CAPTURE — DOM only; the structural signal never takes a frame",
   "acts": [
     {
@@ -214,7 +219,7 @@
   ],
   "worker": {
     "seen": 98,
-    "bytes": 33848
+    "bytes": 33832
   },
   "checks": {
     "theDocumentIsWatched": true,

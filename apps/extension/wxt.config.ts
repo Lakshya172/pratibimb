@@ -40,6 +40,21 @@ export const HOST_COLLECTOR_ORIGIN = "http://127.0.0.1:8995";
 const E6_PROBE = process.env.E6_PROBE === "1";
 
 /**
+ * THE STRUCTURAL PROBE FOLLOWS THE SAME RULE, AND FOR THE SAME REASON.
+ *
+ * `probe/structural.ts` drives constitution §6's stale-observation path a step at a time so an
+ * evidence run can change the page between a reading and an action. It adds no authority — it
+ * composes the unchanged gates — but it is a test-only control operation, and M6.1 shipped it in
+ * the product bundle. "Harmless" is an argument about consequences rather than about what belongs
+ * in a product, so the alias below resolves to a stub containing no driver unless
+ * `STRUCTURAL_PROBE=1` is set. The only caller that sets it is `run-structural-stale.mjs`.
+ *
+ * The signal it drives is product code and is unaffected: a build with this flag and a build
+ * without it produce a byte-identical `content.js`.
+ */
+const STRUCTURAL_PROBE = process.env.STRUCTURAL_PROBE === "1";
+
+/**
  * HOW M3's CAPTURE GETS ITS PERMISSION, AND WHY THERE ARE TWO ANSWERS.
  *
  * `chrome.tabs.captureVisibleTab` requires `activeTab` or `<all_urls>` — MEASURED on W1, not read
@@ -80,7 +95,10 @@ const MODEL = join(ROOT, "artifacts", "models", "t1-ui-head", "t1-ui-head.onnx")
 export default defineConfig({
   entrypointsDir: "host",
   /** Resolved for both the bundler and the generated tsconfig. See `E6_PROBE` above. */
-  alias: { "#e6-probe": E6_PROBE ? "e6/probe.ts" : "e6/absent.ts" },
+  alias: {
+    "#e6-probe": E6_PROBE ? "e6/probe.ts" : "e6/absent.ts",
+    "#structural-probe": STRUCTURAL_PROBE ? "probe/structural.ts" : "probe/structural-absent.ts",
+  },
   /**
    * Workspace packages are bundled from TypeScript source rather than from `dist/`, so a host build
    * cannot silently ship a stale compile of the agent core. `npm run typecheck` still type-checks

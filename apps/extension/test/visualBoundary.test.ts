@@ -137,6 +137,34 @@ describe("the visual tier cannot carry pixels out of its realm", () => {
     expect(guarded, "the only captureVisibleTab call is inside the M3_WORKER_FRAME branch").toBe(true);
   });
 
+  it("the production build contains no structural-probe driver", () => {
+    // M6.1 shipped a test-only STRUCTURAL_PROBE handler inside the offscreen document. It added no
+    // authority and was refused from a tab, but it was a test-only control operation in a product
+    // artifact, which is the same thing the E6 mechanisms were before M3 removed them. It now
+    // follows the same build-graph rule: `#structural-probe` resolves to a stub with no driver
+    // unless STRUCTURAL_PROBE=1, and only the evidence harness sets that.
+    const offscreen = withoutComments(readFileSync(join(APP, "host", "offscreen", "main.ts"), "utf8"));
+    const worker = withoutComments(readFileSync(join(APP, "host", "background.ts"), "utf8"));
+
+    // The entrypoints know the probe only through the alias. No handler, no held state, no steps.
+    expect(offscreen).toContain("#structural-probe");
+    expect(offscreen).not.toMatch(/kind === "STRUCTURAL_PROBE"/);
+    expect(offscreen).not.toMatch(/"OBSERVE" \| "STRUCTURE" \| "ACT"/);
+    expect(worker, "the worker keeps no dedicated hook for a test-only op").not.toContain("structuralProbe");
+
+    // The stub that a production build actually resolves to contains no driver at all: no gate, no
+    // transport cycle, no held reading. A disabled probe would still be a probe.
+    const absent = withoutComments(readFileSync(join(APP, "probe", "structural-absent.ts"), "utf8"));
+    for (const forbidden of ["guardedAct", "createTransportCycle", "observePage", "readStructure"]) {
+      expect(absent, `the absent stub must not reference ${forbidden}`).not.toContain(forbidden);
+    }
+    expect(absent).toMatch(/return false;/);
+
+    // And the build chooses between them rather than a runtime check choosing.
+    const config = withoutComments(readFileSync(join(APP, "wxt.config.ts"), "utf8"));
+    expect(config).toMatch(/STRUCTURAL_PROBE\s*\?\s*"probe\/structural\.ts"\s*:\s*"probe\/structural-absent\.ts"/);
+  });
+
   it("the default build asks for activeTab and not for every origin", () => {
     // `<all_urls>` arriving quietly in a privacy milestone is exactly the thing to have a test for.
     // The evidence harness sets M3_WORKER_FRAME because no harness can produce the invocation the

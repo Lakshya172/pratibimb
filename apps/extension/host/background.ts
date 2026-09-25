@@ -135,17 +135,6 @@ export default defineBackground(() => {
       await ensureOffscreen();
       return chrome.runtime.sendMessage({ target: "offscreen", kind: "RUN_TASK", request });
     },
-    /**
-     * TEST-ONLY: drive constitution §6's stale-observation path, one step at a time.
-     *
-     * The worker forwards and decides nothing, as it does for every other op here. The steps are
-     * separate messages because the harness has to change the page BETWEEN them — that is the whole
-     * experiment, and a single call could not express it.
-     */
-    structuralProbe: async (step: string, args: object = {}) => {
-      await ensureOffscreen();
-      return chrome.runtime.sendMessage({ target: "offscreen", kind: "STRUCTURAL_PROBE", step, ...args });
-    },
     grantPeek: async () => {
       await ensureOffscreen();
       return chrome.runtime.sendMessage({ target: "offscreen", kind: "GRANT_PEEK" });

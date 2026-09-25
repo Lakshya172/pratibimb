@@ -26,7 +26,8 @@
  * gates it feeds are DOM-only. The approved capture policy is untouched and unexercised.
  */
 import { chromium } from "playwright";
-import { mkdtempSync, mkdirSync, writeFileSync } from "node:fs";
+import { mkdtempSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -43,6 +44,29 @@ if (!executablePath) {
   process.exit(2);
 }
 
+/**
+ * THE BUILD THIS RUN NEEDS, AND THE ONE THING THAT DIFFERS FROM A PRODUCT BUILD.
+ *
+ * The probe driver is absent from a product bundle by build-graph alias, exactly as E6's mechanisms
+ * are, so this harness cannot run on one — and refuses rather than reporting a confusing failure.
+ *
+ * What the flag changes is the OFFSCREEN chunk. The structural signal under test — the observers,
+ * the page agent's counters, the STRUCTURE op — is product code in `content.js`, and its digest is
+ * recorded here so the evidence can state that the bytes exercised are the product's own rather
+ * than assert it.
+ */
+function buildFacts() {
+  const chunks = join(EXT, "chunks");
+  const offscreen = readdirSync(chunks).filter((f) => f.startsWith("offscreen-") && f.endsWith(".js"));
+  const offscreenText = offscreen.map((f) => readFileSync(join(chunks, f), "utf8")).join("");
+  const content = readFileSync(join(EXT, "content-scripts", "content.js"));
+  return {
+    probeCompiledIn: offscreenText.includes("NO_PROBE_OBSERVATION"),
+    contentScriptSha256: createHash("sha256").update(content).digest("hex"),
+    contentScriptBytes: content.length,
+  };
+}
+
 const acts = [];
 let failure = null;
 let context = null;
@@ -51,6 +75,15 @@ let bundle = null;
 
 /** Wait for the browser to actually deliver observer callbacks, without asserting a duration. */
 const settle = (page) => page.evaluate(() => new Promise((r) => requestAnimationFrame(() => setTimeout(r, 120))));
+
+const build = buildFacts();
+if (!build.probeCompiledIn) {
+  console.error(
+    "REFUSING: this build has no structural probe; it is absent from a product bundle by design. " +
+      "  Build the evidence configuration first:  STRUCTURAL_PROBE=1 npm run build -w @pratibimb/extension"
+  );
+  process.exit(2);
+}
 
 try {
   const { server, origin } = await startDemoServer(8977);
@@ -77,8 +110,13 @@ try {
   });
   if (!identity || typeof identity.tabId !== "number") throw new Error("no attested content-script identity");
 
+  // Through the worker's existing generic forwarder. There is no dedicated worker hook for this:
+  // the probe is a build-graph module, not a product control operation.
   const probe = (step, args = {}) =>
-    worker.evaluate(({ step: s, args: a }) => globalThis.__host.structuralProbe(s, a), { step, args });
+    worker.evaluate(
+      ({ step: s, args: a }) => globalThis.__host.toOffscreen({ kind: "STRUCTURAL_PROBE", step: s, ...a }),
+      { step, args }
+    );
 
   /** How many times the page agent put events into this document, read from the world that fired. */
   const firesIn = async () => {
@@ -295,6 +333,7 @@ const record = {
     "Does a real browser's structural signal — including a tracked-element resize with no DOM " +
     "record — make an observation stale, and does the unchanged freshness gate then refuse to act?",
   workstation: "W1",
+  build,
   cell: { browser: "Chrome for Testing", executablePath, headless: false },
   at: new Date().toISOString(),
   route: "NO_CAPTURE — DOM only; the structural signal never takes a frame",
