@@ -45,6 +45,16 @@ check; a behaviour change outside the new module.
 4. Held-out set identical to its frozen record.
 5. No product behaviour change outside the new, uncalled module.
 
+## Actual result — against each expectation
+
+| # | expected | actual | detail |
+|---|---|---|---|
+| 1 | canonical mask = pre-registered scorer's mask | **90 / 90 identical** | Part B/D |
+| 2 | refactored scorer's verdict = pre-registered verdict | **90 / 90 identical** | Part B/D |
+| 3 | one definition of dilation and merging | **one file**: `privacy/src/redactionGeometry.ts` | Part B/D |
+| 4 | held-out set identical to its frozen record | **files match · geometry matches** | Part E |
+| 5 | no product behaviour change outside the new module | **none** — `git diff 115e2a9 -- apps` empty; module not in the bundle | Parts I/J |
+
 ## Part A — the canonical geometry, as the frozen text defines it
 
 | step | rule | source |
