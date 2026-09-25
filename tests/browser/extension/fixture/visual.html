@@ -209,6 +209,67 @@
             textBox("card-title", false, "STATE SERVICES — IDENTITY", 14, 28, "bold 16px Arial"),
             textBox("field-label", false, "Document reference", 140, 132, "13px Arial"),
           ],
+          /**
+           * RE-1 DEVELOPMENT-SCREEN TRUTH (added 2026-09-25; every key above is unchanged).
+           *
+           * The redaction-oriented criterion scores a MASK against every drawn string, per glyph, so it
+           * needs what `textRegions` never had: all seven strings (an unlisted string would count as
+           * over-masking), a box per glyph, and the font line box. Measured exactly as
+           * `heldout/render.js` measures, from the same draw parameters as the drawing above.
+           *
+           * This page is the DEVELOPMENT screen. It has already been seen by the UI head (M7) and by
+           * PP-OCRv5 (M7.1), so it can reject a candidate cheaply but can never accept one: acceptance
+           * is on the held-out set only. PP-OCRv5 is not re-scored against this key — its verdict of
+           * record stands under the criterion it was evaluated by.
+           */
+          redactionTruth: (() => {
+            const r = canvas.getBoundingClientRect();
+            const sx = r.width / canvas.width;
+            const sy = r.height / canvas.height;
+            const css = (x, y, w, h) => ({ x: r.x + x * sx, y: r.y + y * sy, w: w * sx, h: h * sy });
+            const run = (id, sensitive, text, x, baseline, font) => {
+              ctx.font = font;
+              const glyphs = [];
+              for (let i = 0; i < text.length; i += 1) {
+                if (/\s/.test(text[i])) continue;
+                const advance = ctx.measureText(text.slice(0, i)).width;
+                const m = ctx.measureText(text[i]);
+                const left = x + advance - m.actualBoundingBoxLeft;
+                const right = x + advance + m.actualBoundingBoxRight;
+                const top = baseline - m.actualBoundingBoxAscent;
+                const bottom = baseline + m.actualBoundingBoxDescent;
+                if (right > left && bottom > top) glyphs.push(css(left, top, right - left, bottom - top));
+              }
+              const whole = ctx.measureText(text);
+              const x0 = Math.min(...glyphs.map((g) => g.x));
+              const y0 = Math.min(...glyphs.map((g) => g.y));
+              const x1 = Math.max(...glyphs.map((g) => g.x + g.w));
+              const y1 = Math.max(...glyphs.map((g) => g.y + g.h));
+              return {
+                id,
+                sensitive,
+                font,
+                glyphCount: glyphs.length,
+                glyphs,
+                ink: { x: x0, y: y0, w: x1 - x0, h: y1 - y0 },
+                line: css(x, baseline - whole.fontBoundingBoxAscent, whole.width, whole.fontBoundingBoxAscent + whole.fontBoundingBoxDescent),
+              };
+            };
+            return {
+              criterion: "RE-1",
+              role: "development screen — never an acceptance input",
+              region: css(0, 0, canvas.width, canvas.height),
+              strings: [
+                run("card-title", false, "STATE SERVICES — IDENTITY", 14, 28, "bold 16px Arial"),
+                run("name-label", false, "Name", 140, 80, "13px Arial"),
+                run("holder-name", true, "Ramesh Kumar", 140, 100, "bold 15px Arial"),
+                run("field-label", false, "Document reference", 140, 132, "13px Arial"),
+                run("identifier", true, "7712 4408 9931", 140, 158, "bold 20px Arial"),
+                run("issued-label", false, "Issued", 140, 188, "13px Arial"),
+                run("issued-date", false, "2021-06-04", 140, 208, "bold 15px Arial"),
+              ],
+            };
+          })(),
           // Visible, sensitive-looking, and NOT described by the DOM beyond its own box.
           visualOnly: [rect("idcard")],
           // Nothing interactable lives here. A detection inside one is a false positive.

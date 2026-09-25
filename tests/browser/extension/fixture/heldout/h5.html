@@ -1,0 +1,24 @@
+<!doctype html>
+<!--
+  HELD-OUT VISUAL-TEXT SET (RE-1) — image H5: corners and small type, a large centred heading.
+  Every value on this page is SYNTHETIC. Identifier-like numbers are checksum-invalid, phone numbers
+  start with 0 (not a valid Indian mobile), and addresses use the reserved `.example` domain.
+  Scored once per candidate under docs/perception/redaction-evaluation.md, never used for tuning.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Held-out H5</title>
+  <style>
+    body { margin: 0; font: 14px/1.4 system-ui, sans-serif; color: #222; background: #fff; }
+    header { position: absolute; left: 40px; top: 18px; }
+    #img { position: absolute; left: 40px; top: 60px; display: block; }
+  </style>
+</head>
+<body>
+  <header>Document viewer — synthetic evaluation image H5</header>
+  <canvas id="img" width="1100" height="440" aria-label="Synthetic document image"></canvas>
+  <script>window.__spec = {"id":"H5","case":"corners and small type, a large centred heading","background":"#f7f9fc","decorations":[],"lines":[{"x":16,"baseline":24,"font":"11px Arial","runs":[{"id":"h5-ref-l","text":"REF "},{"id":"h5-ref","text":"6619-2043","sensitive":true}]},{"x":980,"baseline":24,"font":"12px Arial","runs":[{"id":"h5-page","text":"Page 1 of 1"}],"color":"#555555"},{"x":400,"baseline":220,"font":"bold 30px Georgia","runs":[{"id":"h5-head","text":"Quarterly Summary"}]},{"x":760,"baseline":300,"font":"11px Verdana","runs":[{"id":"h5-acct-l","text":"Acct "},{"id":"h5-acct","text":"0093 1127 8840","sensitive":true}]},{"x":16,"baseline":426,"font":"12px Arial","runs":[{"id":"h5-gen","text":"Generated 2026-09-25"}],"color":"#555555"},{"x":890,"baseline":426,"font":"11px Arial","runs":[{"id":"h5-email","text":"meera.pillai@synthmail.example","sensitive":true}]}]};</script>
+  <script src="render.js"></script>
+</body>
+</html>

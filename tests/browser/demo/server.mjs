@@ -62,6 +62,16 @@ function locate(pathname) {
    * Same arrangement as `/visual`: its own path, beside the harness that drives it, and nothing
    * the demo serves changes.
    */
+  /**
+   * The held-out visual-text set (RE-1): six synthetic pages and the renderer they share.
+   *
+   * Scored once per candidate under docs/perception/redaction-evaluation.md and never used for
+   * tuning. Only file names made of letters, digits, dots and dashes are served from that one
+   * directory, so this route cannot be walked out of it.
+   */
+  const heldout = /^\/heldout\/([a-z0-9.-]+)$/.exec(pathname);
+  if (heldout) return join(ROOT, "tests/browser/extension/fixture/heldout", heldout[1]);
+
   if (pathname === "/structural" || pathname === "/structural/") {
     return join(ROOT, "tests/browser/extension/fixture/structural.html");
   }
