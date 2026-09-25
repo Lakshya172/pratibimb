@@ -148,3 +148,23 @@ export {
   type LiteralSeverity,
   type LiteralVerdict,
 } from "./literalCheck.js";
+
+/**
+ * The canonical visual redaction geometry — the frozen union (dilate 4 px, merge at IoU > 0.3), clipped
+ * to the visual-only region. The one implementation; the RE-1 scorer imports it rather than copying it.
+ */
+export {
+  REDACTION_UNION,
+  clipTo,
+  dilate,
+  failClosedMask,
+  maskCoverage,
+  mergeOverlapping,
+  overlapRatio,
+  rectArea,
+  redactionMask,
+  toAxisAligned,
+  type Quad,
+  type Rect,
+  type RedactionBox,
+} from "./redactionGeometry.js";
