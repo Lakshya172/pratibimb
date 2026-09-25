@@ -216,3 +216,16 @@ swapped out."*
 | Date | Role | Implementation | Revision | Decision | Measured reason | Artifact |
 |---|---|---|---|---|---|---|
 | 2026-09-25 | OCR detection (text regions, no recognition) | PP-OCRv5_mobile_det via `paddle2onnx 2.1.0` | `0d63e78e` · ONNX sha256 `d9056b16…ac068`, 4 766 440 B | **`REJECTED FOR V1`** | Fails pre-registered localisation (`docs/perception/text-region-acceptance.md` criterion 2): best IoU **0.427** (identifier) and **0.365** (holder name) against 0.5 — 0.472 / 0.413 under PaddleOCR's own box convention. Coverage (1.000 / 1.000), flood (2.98× ≤ 3×), plaintext-free output and determinism all pass. WASM correctness on realistic input passes (4.23e-06). | [`M7.1`](../../artifacts/experiments/M7-visual-text/M7.1-ppocrv5-det-validation.md) |
+
+## Screening record
+
+Candidates that passed a screening milestone and are **eligible for QG-03 / adoption review**. This is
+**not** adoption: nothing here enters the build, and the adoption log above stays empty until QG-03
+is completed and the owner decides.
+
+| Date | Role | Implementation | Revision | Status | Evidence summary | Artifact |
+|---|---|---|---|---|---|---|
+| 2026-09-25 | Text-region detection (no recognition) | PP-OCRv4_mobile_det via `paddle2onnx 2.1.0` (opset 16) | `3cc09f3a` · ONNX sha256 `18aaccf9…75e8`, 4 766 440 B, reproducible ×4 | **`ELIGIBLE FOR QG-03 / ADOPTION REVIEW`** | Realistic WASM relErr 6.52e-07 (QG-03 text-region cell, Option A); RE-1 G1–G6 pass on the frozen held-out set (0 / 306 sensitive glyphs exposed); byte-identical across runs. Same `inference.json` as PP-OCRv5_mobile_det, with different weights | [`M8.1`](../../artifacts/experiments/M8.1-visual-text-screening/TR-01.md) |
+| 2026-09-25 | Text-region detection (no recognition) | PP-OCRv3_mobile_det via `paddle2onnx 2.1.0` (opset 16) | `58f4e5b1` · ONNX sha256 `322c3e63…6f55`, 2 436 135 B, reproducible ×4 | **`ELIGIBLE FOR QG-03 / ADOPTION REVIEW`** | Realistic WASM relErr 6.87e-07; RE-1 G1–G6 pass (0 / 306); byte-identical across runs | [`M8.1`](../../artifacts/experiments/M8.1-visual-text-screening/TR-02.md) |
+
+The two rows are independent and in no order.

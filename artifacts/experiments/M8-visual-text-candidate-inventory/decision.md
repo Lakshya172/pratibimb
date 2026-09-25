@@ -1,5 +1,7 @@
 # Decision — M8 visual-text candidate inventory
 
+> **Forward pointer (2026-09-25):** TR-01 and TR-02 were screened in [M8.1](../M8.1-visual-text-screening/decision.md). Both are `ELIGIBLE FOR QG-03 / ADOPTION REVIEW`, independently. TR-08 remains deferred. This record is otherwise unchanged.
+
 | Field | Value |
 |---|---|
 | **Verdict** | **Inventory recorded.** 21 candidates plus one excluded class screened: **3 ELIGIBLE FOR SCREENING** (conditional), **7 DEFERRED**, **4 BLOCKED**, **6 REJECTED**, **1 HISTORICAL REJECTED CANDIDATE** |
