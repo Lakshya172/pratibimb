@@ -19,7 +19,7 @@
  * output is a float map; boxes are derived from it by geometry.
  *
  * Determinism (G4) needs two COMPLETE runs: run this twice (--run run1, --run run2), then
- * compare-runs.mjs.
+ * compare-runs.mjs. --run run3 is a timing repeat that decides nothing.
  *
  * Usage:
  *   CHROME_PATH=<chrome for testing> REF_PYTHON=<measurement venv python> \
@@ -69,7 +69,9 @@ const refuse = (m) => {
 const cid = arg("candidate");
 const run = arg("run");
 if (!STEMS[cid]) refuse("--candidate TR-01|TR-02");
-if (!/^run[12]$/.test(run ?? "")) refuse("--run run1|run2");
+// run1 and run2 decide G4 (compare-runs.mjs). run3 is a timing repeat only, added after run2 of
+// TR-01 measured ~4x slower than run1 with identical outputs; it decides nothing.
+if (!/^run[123]$/.test(run ?? "")) refuse("--run run1|run2|run3");
 const executablePath = process.env.CHROME_PATH;
 const refPython = process.env.REF_PYTHON;
 if (!executablePath || !existsSync(executablePath)) refuse("set CHROME_PATH to the Chrome for Testing binary");

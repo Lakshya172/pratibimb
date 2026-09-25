@@ -93,7 +93,8 @@ def git_blob_sha1(path):
 
 def scrub(text):
     """Replace this machine's paths with placeholders; keep everything else paddle2onnx said."""
-    for real, name in ((EXP, "<EXP>"), (os.path.expanduser("~"), "<HOME>"), (sys.prefix, "<VENV>")):
+    # Most specific first, so the venv (which lives under the home directory) keeps its own name.
+    for real, name in ((sys.prefix, "<VENV>"), (EXP, "<EXP>"), (os.path.expanduser("~"), "<HOME>")):
         text = text.replace(real, name).replace(real.replace("\\", "/"), name)
     return text
 

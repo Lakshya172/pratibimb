@@ -1,0 +1,250 @@
+{
+ "candidate": "TR-02",
+ "note": "post-hoc diagnostics; gate nothing",
+ "perInput": {
+  "dev": {
+   "boxes": {
+    "wasm": 17,
+    "native": 17,
+    "wasmUnmatchedInNative": 0,
+    "maxEdgeDeltaPx": 0
+   },
+   "devScreen": {
+    "detections": 17,
+    "exposed": 0,
+    "sensitiveInkMasked": [
+     {
+      "id": "holder-name",
+      "inkAreaMasked": 1,
+      "bestIouUndilated": 0.6631411520040589
+     },
+     {
+      "id": "identifier",
+      "inkAreaMasked": 1,
+      "bestIouUndilated": 0.7834318311577897
+     }
+    ],
+    "overMaskRatio": 0.06507743220979002,
+    "largestSingleBoxRegionShare": 0.05408112653991394,
+    "nonSensitiveGlyphsFullyMasked": 1,
+    "maskedRegionShare": 0.18337055216045658
+   }
+  },
+  "H1": {
+   "boxes": {
+    "wasm": 11,
+    "native": 11,
+    "wasmUnmatchedInNative": 0,
+    "maxEdgeDeltaPx": 0
+   },
+   "nativeRe1": {
+    "exposed": 0,
+    "overMaskRatio": 0.039838128333339363,
+    "largest": 0.019487524074773593,
+    "gates": {
+     "noExposedSensitiveGlyph": true,
+     "overMaskWithinBudget": true,
+     "noBlanketBox": true
+    }
+   },
+   "g1MarginWasm": {
+    "glyphs": 40,
+    "coveredByOneRect": 40,
+    "coveredOnlyByUnion": 0,
+    "minPx": 2.4652309289050294,
+    "p05Px": 3.8913043478260647,
+    "medianPx": 6.190743338008417,
+    "under1Px": 0,
+    "under2Px": 0
+   },
+   "diagnosticsFromScorer": {
+    "nonSensitiveGlyphsFullyMasked": 1,
+    "maskedRegionShare": 0.09234806141314902,
+    "minBestIouSensitive": 0.681421533674852
+   }
+  },
+  "H2": {
+   "boxes": {
+    "wasm": 15,
+    "native": 15,
+    "wasmUnmatchedInNative": 0,
+    "maxEdgeDeltaPx": 0
+   },
+   "nativeRe1": {
+    "exposed": 0,
+    "overMaskRatio": 0.15619210190851254,
+    "largest": 0.01864249603385065,
+    "gates": {
+     "noExposedSensitiveGlyph": true,
+     "overMaskWithinBudget": true,
+     "noBlanketBox": true
+    }
+   },
+   "g1MarginWasm": {
+    "glyphs": 64,
+    "coveredByOneRect": 64,
+    "coveredOnlyByUnion": 0,
+    "minPx": 3.724738675958122,
+    "p05Px": 5.028629954268354,
+    "medianPx": 5.809288537549378,
+    "under1Px": 0,
+    "under2Px": 0
+   },
+   "diagnosticsFromScorer": {
+    "nonSensitiveGlyphsFullyMasked": 1,
+    "maskedRegionShare": 0.10471431785304426,
+    "minBestIouSensitive": 0.284210639566908
+   }
+  },
+  "H3": {
+   "boxes": {
+    "wasm": 7,
+    "native": 7,
+    "wasmUnmatchedInNative": 0,
+    "maxEdgeDeltaPx": 0
+   },
+   "nativeRe1": {
+    "exposed": 0,
+    "overMaskRatio": 0.04359272482606842,
+    "largest": 0.04540487085093153,
+    "gates": {
+     "noExposedSensitiveGlyph": true,
+     "overMaskWithinBudget": true,
+     "noBlanketBox": true
+    }
+   },
+   "g1MarginWasm": {
+    "glyphs": 47,
+    "coveredByOneRect": 47,
+    "coveredOnlyByUnion": 0,
+    "minPx": 5.807001795332127,
+    "p05Px": 5.807001795332127,
+    "medianPx": 9.054753743460225,
+    "under1Px": 0,
+    "under2Px": 0
+   },
+   "diagnosticsFromScorer": {
+    "nonSensitiveGlyphsFullyMasked": 1,
+    "maskedRegionShare": 0.17054988484397454,
+    "minBestIouSensitive": 0.13042686803892753
+   }
+  },
+  "H4": {
+   "boxes": {
+    "wasm": 8,
+    "native": 8,
+    "wasmUnmatchedInNative": 0,
+    "maxEdgeDeltaPx": 0
+   },
+   "nativeRe1": {
+    "exposed": 0,
+    "overMaskRatio": 0.0699216291099245,
+    "largest": 0.01535769386185312,
+    "gates": {
+     "noExposedSensitiveGlyph": true,
+     "overMaskWithinBudget": true,
+     "noBlanketBox": true
+    }
+   },
+   "g1MarginWasm": {
+    "glyphs": 45,
+    "coveredByOneRect": 45,
+    "coveredOnlyByUnion": 0,
+    "minPx": 3.1353469899665356,
+    "p05Px": 3.1353469899665356,
+    "medianPx": 5.215364775239493,
+    "under1Px": 0,
+    "under2Px": 0
+   },
+   "diagnosticsFromScorer": {
+    "nonSensitiveGlyphsFullyMasked": 1,
+    "maskedRegionShare": 0.08044321890260517,
+    "minBestIouSensitive": 0.4245342794299995
+   }
+  },
+  "H5": {
+   "boxes": {
+    "wasm": 7,
+    "native": 7,
+    "wasmUnmatchedInNative": 0,
+    "maxEdgeDeltaPx": 0
+   },
+   "nativeRe1": {
+    "exposed": 0,
+    "overMaskRatio": 0.1306586710712446,
+    "largest": 0.02537668724310449,
+    "gates": {
+     "noExposedSensitiveGlyph": true,
+     "overMaskWithinBudget": true,
+     "noBlanketBox": true
+    }
+   },
+   "g1MarginWasm": {
+    "glyphs": 51,
+    "coveredByOneRect": 51,
+    "coveredOnlyByUnion": 0,
+    "minPx": 4.251600426780442,
+    "p05Px": 4.251600426780442,
+    "medianPx": 6.053449514911961,
+    "under1Px": 0,
+    "under2Px": 0
+   },
+   "diagnosticsFromScorer": {
+    "nonSensitiveGlyphsFullyMasked": 1,
+    "maskedRegionShare": 0.05291759726475693,
+    "minBestIouSensitive": 0.37791614604616725
+   }
+  },
+  "H6": {
+   "boxes": {
+    "wasm": 17,
+    "native": 17,
+    "wasmUnmatchedInNative": 0,
+    "maxEdgeDeltaPx": 0
+   },
+   "nativeRe1": {
+    "exposed": 0,
+    "overMaskRatio": 0.17489676702825074,
+    "largest": 0.01284877058522406,
+    "gates": {
+     "noExposedSensitiveGlyph": true,
+     "overMaskWithinBudget": true,
+     "noBlanketBox": true
+    }
+   },
+   "g1MarginWasm": {
+    "glyphs": 59,
+    "coveredByOneRect": 59,
+    "coveredOnlyByUnion": 0,
+    "minPx": 4.5440900562851425,
+    "p05Px": 5.164634146341484,
+    "medianPx": 5.645712848881033,
+    "under1Px": 0,
+    "under2Px": 0
+   },
+   "diagnosticsFromScorer": {
+    "nonSensitiveGlyphsFullyMasked": 1,
+    "maskedRegionShare": 0.07887143177139606,
+    "minBestIouSensitive": 0.24422885951945492
+   }
+  }
+ },
+ "summary": {
+  "nativeBoxesPassEveryHeldOutGate": true,
+  "nativeExposedTotal": 0,
+  "g1MinMarginPx": 2.4652309289050294,
+  "g1GlyphsUnder1Px": 0,
+  "g1GlyphsUnder2Px": 0,
+  "g1GlyphsCoveredOnlyByUnion": 0,
+  "maxWasmNativeEdgeDeltaPx": 0,
+  "boxCountDifferences": {
+   "dev": 0,
+   "H1": 0,
+   "H2": 0,
+   "H3": 0,
+   "H4": 0,
+   "H5": 0,
+   "H6": 0
+  }
+ }
+}
