@@ -117,4 +117,4 @@ scripts/                       repository tooling
 5. **All coordinates are CSS viewport pixels.**
 6. **No model is accepted because its documentation says it should work.**
 
-Full list: `docs/security/security-invariants.md`.
+Full list: `docs/security/security-invariants.md`..
