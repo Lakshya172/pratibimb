@@ -15,7 +15,8 @@
  */
 import { createServer } from "node:http";
 import { execFileSync, spawn } from "node:child_process";
-import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -36,13 +37,14 @@ for (const [w, p] of [["FIREFOX_PATH", FIREFOX], ["WEB_EXT", WEB_EXT]]) {
     process.exit(1);
   }
 }
-const firefoxVersion = (() => {
+const readFirefoxVersion = () => {
   try {
     return execFileSync(FIREFOX, ["--version"], { encoding: "utf8", timeout: 60000 }).trim();
   } catch (e) {
     return `unavailable: ${String(e).slice(0, 80)}`;
   }
-})();
+};
+const firefoxVersion = readFirefoxVersion();
 
 const results = [];
 const chunks = new Map();
@@ -142,6 +144,15 @@ async function oneLaunch({ candidate, mode, backend, headless, config, extraPref
     }
   }
   await new Promise((r) => setTimeout(r, 1000));
+  // RECORDING ONLY (added for M8.2a): the prefs web-ext wrote into this launch's temporary profile,
+  // so a run can prove which prefs differed from another. The profile is still deleted below.
+  let profilePrefs = null;
+  try {
+    const lines = readFileSync(join(profile, "user.js"), "utf8").split(/\r?\n/).filter((l) => l.startsWith("user_pref(")).sort();
+    profilePrefs = { count: lines.length, sha256: createHash("sha256").update(lines.join("\n")).digest("hex"), lines };
+  } catch {
+    profilePrefs = { unavailable: true };
+  }
   try {
     rmSync(profile, { recursive: true, force: true });
   } catch {
@@ -162,6 +173,8 @@ async function oneLaunch({ candidate, mode, backend, headless, config, extraPref
     firefoxProcessesReaped: spawned.length,
     extraPrefs,
     deadlineMs,
+    webExtArgs: args.slice(1).map((a) => (a === ext ? "<ext>" : a === FIREFOX ? "<firefox>" : a === profile ? "<profile>" : a)),
+    profilePrefs,
     webExtLogTail: log.split("\n").filter(Boolean).slice(-4),
   };
 }
@@ -175,11 +188,14 @@ const label = arg("label", `${candidate.toLowerCase()}-${mode}-firefox-${PLATFOR
 const config = mode === "teardown" ? { cycles: 5 } : mode === "coexist" ? { rounds: 5 } : mode === "bench" ? { warm: 20 } : { warm: 10 };
 // DIAGNOSTIC-ONLY overrides, added after the recorded run to investigate two launches that never
 // reported (README, "Diagnostic"). The recorded cells used none of them; diag-* files are never
-// read by aggregate.mjs.
+// read by aggregate.mjs. M8.2a uses exactly one of them, --pref, as its pre-registered harness
+// amendment (artifacts/experiments/M8.2a-firefox-wasm-rerun/protocol.md), with --out-dir so its
+// records never enter M8.2's results.
 if (arg("warm")) config.warm = Number(arg("warm"));
 const extraPrefs = process.argv.flatMap((a, i) => (a === "--pref" ? [process.argv[i + 1]] : []));
 const deadlineMs = Number(arg("deadline-ms", "900000"));
-const out = { experiment: "M8.2-qg03-visual-text-feasibility", runner: "run-firefox.mjs", platform: PLATFORM, firefoxPath: FIREFOX, firefoxVersion, startedAt: new Date().toISOString(), launches: [] };
+const outDir = arg("out-dir", join(EXP, "results"));
+const out = { experiment: arg("experiment", "M8.2-qg03-visual-text-feasibility"), runner: "run-firefox.mjs", platform: PLATFORM, firefoxPath: FIREFOX, firefoxVersion, startedAt: new Date().toISOString(), launches: [] };
 for (let i = 1; i <= launches; i++) {
   const rec = await oneLaunch({ candidate, mode, backend, headless, config, extraPrefs, deadlineMs });
   rec.launch = i;
@@ -187,8 +203,9 @@ for (let i = 1; i <= launches; i++) {
   process.stderr.write(`${label} launch ${i}: alive=${rec.livenessSeen} timedOut=${rec.timedOut} ${rec.result?.conclusion ?? ""}\n`);
 }
 server.close();
-mkdirSync(join(EXP, "results"), { recursive: true });
-const file = join(EXP, "results", `${label}.json`);
+out.firefoxVersionAfter = readFirefoxVersion();
+mkdirSync(outDir, { recursive: true });
+const file = join(outDir, `${label}.json`);
 writeFileSync(file, JSON.stringify(out, null, 1));
 console.log(`written: ${file}`);
 process.exit(0);
