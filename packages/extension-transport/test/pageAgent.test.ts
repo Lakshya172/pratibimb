@@ -57,6 +57,9 @@ class FakePage implements PageSurface<FakeElement> {
       focus: { state: "NONE" } as const,
     };
   }
+  visualRegions() {
+    return [];
+  }
   /** The browser's event objects are modelled as integer-only, so exactness has something to fail on. */
   prepareClick(element: FakeElement, point: PagePoint) {
     const exact = Number.isInteger(point.x) && Number.isInteger(point.y);

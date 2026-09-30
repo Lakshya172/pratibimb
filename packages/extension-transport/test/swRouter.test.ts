@@ -64,6 +64,7 @@ const wellBehavedAnswer = (request: PageRequest): unknown => {
         focus: { state: "NONE" },
         viewport: { w: 1024, h: 768, dpr: 1, scrollX: 0, scrollY: 0 },
         structure: { watching: true, seq: 0, nodes: 0, attributes: 0, text: 0, resizes: 0, tracked: 0, at: null },
+        visualRegions: [],
       };
     case "HIT_TEST":
       return {

@@ -25,6 +25,7 @@ import {
   type PageAgent,
   type PagePoint,
   type PageSurface,
+  type VisualRegionReading,
   type PortLike,
   type RelayEnvelope,
   type ServiceWorkerRouter,
@@ -178,6 +179,11 @@ export class SimulatedDocument implements PageSurface<FixtureElement> {
       // Synthetic events never move focus, so nothing here ever holds it.
       focus: { state: "NONE" },
     };
+  }
+
+  /** The simulated fixture paints no canvas and no image. */
+  visualRegions(): VisualRegionReading[] {
+    return [];
   }
 
   private measurementOf(element: FixtureElement) {

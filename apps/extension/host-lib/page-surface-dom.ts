@@ -21,14 +21,19 @@
  * No value, no `href`, no inner text of arbitrary nodes (INV-21, TR-10).
  */
 import type { DomMeasurement } from "@pratibimb/perception";
-import type {
-  ElementDescription,
-  FocusReading,
-  PagePoint,
-  PageSurface,
-  PreparedClick,
-  StructuralEvent,
-  ViewportReading,
+import {
+  VISUAL_REGION_SELECTOR,
+  visualRegionsFrom,
+  type ElementDescription,
+  type FocusReading,
+  type PagePoint,
+  type PageSurface,
+  type PreparedClick,
+  type StructuralEvent,
+  type ViewportReading,
+  type VisualRegionKind,
+  type VisualRegionReading,
+  type VisualRegionSample,
 } from "@pratibimb/extension-transport";
 
 /** The same element set the host's own MEASURE handler uses. */
@@ -158,6 +163,36 @@ function measure(): { measurements: DomMeasurement[]; focus: FocusReading } {
   // rebuilt when something explicitly asks for an observation.
   retargetResizeObserver(elements);
   return { measurements, focus: focusReading() };
+}
+
+/**
+ * M10 — every `<canvas>` and `<img>`, as geometry. The inclusion rule is `visualRegionsFrom`'s, in the
+ * transport package; this only reads.
+ *
+ * READS: the tag, the element's index among its tag, `getBoundingClientRect`, computed `display` and
+ * `visibility`. NEVER: `src`, `currentSrc`, `alt`, a canvas context, `toDataURL`, `getImageData` or
+ * any pixel. Role is ignored on purpose: a canvas with or without one still paints pixels. The
+ * element graph (`MEASURED_SELECTOR`) is untouched by this.
+ */
+function visualRegions(): VisualRegionReading[] {
+  const ordinals: Record<VisualRegionKind, number> = { canvas: 0, img: 0 };
+  const samples: VisualRegionSample[] = [];
+  for (const element of Array.from(document.querySelectorAll(VISUAL_REGION_SELECTOR))) {
+    const tag = element.tagName.toLowerCase();
+    if (tag !== "canvas" && tag !== "img") continue;
+    const ordinal = ordinals[tag];
+    ordinals[tag] = ordinal + 1;
+    const rect = element.getBoundingClientRect();
+    const style = getComputedStyle(element);
+    samples.push({
+      kind: tag,
+      ordinal,
+      rect: { x: rect.x, y: rect.y, w: rect.width, h: rect.height },
+      display: style.display,
+      visibility: style.visibility,
+    });
+  }
+  return visualRegionsFrom(samples);
 }
 
 function viewport(): ViewportReading {
@@ -352,6 +387,7 @@ export const domPageSurface: PageSurface<Element> = {
   elementAt: (point) => document.elementFromPoint(point.x, point.y),
   describe: describeElement,
   measure,
+  visualRegions,
   prepareClick,
   watchStructure,
   structuralTracked: () => observedForResize.size,

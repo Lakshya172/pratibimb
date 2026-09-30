@@ -76,6 +76,11 @@ function locate(pathname) {
     return join(ROOT, "tests/browser/extension/fixture/structural.html");
   }
 
+  /** M10's visual-only region fixture: canvases and images, some deliberately not enumerable. */
+  if (pathname === "/regions" || pathname === "/regions/") {
+    return join(ROOT, "tests/browser/extension/fixture/visual-regions.html");
+  }
+
   if (pathname.startsWith("/demo/")) {
     return join(ROOT, "apps/demo/dist/src", pathname.slice("/demo/".length));
   }

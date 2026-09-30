@@ -112,6 +112,7 @@ describe("page replies", () => {
       focus: { state: "NONE" },
       viewport: { w: 1024, h: 768, dpr: 1, scrollX: 0, scrollY: 0 },
       structure: STRUCTURE,
+      visualRegions: [],
     });
     expect(ok).not.toBeNull();
     for (const bad of [
@@ -128,6 +129,7 @@ describe("page replies", () => {
           focus: { state: "NONE" },
           viewport: { w: 1024, h: 768, dpr: 1, scrollX: 0, scrollY: 0 },
           structure: STRUCTURE,
+          visualRegions: [],
         })
       ).toBeNull();
     }
@@ -142,6 +144,7 @@ describe("page replies", () => {
         focus: { state: "NONE" },
         viewport: { w: 1024, h: 768, dpr: 1, scrollX: 0, scrollY: 0 },
         structure: STRUCTURE,
+        visualRegions: [],
       })
     ).toBeNull();
   });

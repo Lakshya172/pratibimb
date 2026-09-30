@@ -38,6 +38,7 @@ import {
   type FocusReading,
   type StructuralReading,
   type ViewportReading,
+  type VisualRegionReading,
 } from "./contracts.js";
 import { askPage, transportDeps, type TransportBinding, type TransportDeps, type TransportRelay } from "./coreTransport.js";
 import { TransportRefusal } from "./errors.js";
@@ -64,6 +65,11 @@ export interface PageObservation {
    * this one is `readStructure`, which measures nothing and captures nothing.
    */
   readonly structure: StructuralReading;
+  /**
+   * The document's visual-only regions, in the same CSS space as the graph, attributable to
+   * `binding.document` — the browser-attested document that answered — and to nothing else.
+   */
+  readonly visualRegions: readonly VisualRegionReading[];
 }
 
 /**
@@ -130,6 +136,7 @@ export async function observePage(
     focus: reply.focus,
     viewport: reply.viewport,
     structure: reply.structure,
+    visualRegions: reply.visualRegions,
   };
 }
 
@@ -181,6 +188,7 @@ export async function observeBoundDocument(
   readonly focus: FocusReading;
   readonly viewport: ViewportReading;
   readonly structure: StructuralReading;
+  readonly visualRegions: readonly VisualRegionReading[];
 }> {
   const { newId, newFrameId } = observationDeps(deps);
   const { reply, attested } = await askPage(relay, {
@@ -200,6 +208,7 @@ export async function observeBoundDocument(
     focus: reply.focus,
     viewport: reply.viewport,
     structure: reply.structure,
+    visualRegions: reply.visualRegions,
   };
 }
 

@@ -41,6 +41,7 @@ import {
   type PageReply,
   type StructuralReading,
   type ViewportReading,
+  type VisualRegionReading,
   UNWATCHED_STRUCTURE,
 } from "./contracts.js";
 
@@ -84,6 +85,11 @@ export interface PageSurface<E> {
   /** The SAME description function the observation uses, or MATCH would compare two vocabularies. */
   describe(element: E): ElementDescription;
   measure(): { readonly measurements: readonly DomMeasurement[]; readonly focus: FocusReading };
+  /**
+   * Every rendered `<canvas>` and `<img>`, geometry only (`visualRegionsFrom`). REQUIRED: a surface
+   * that cannot enumerate them must not be able to answer as if the page had none.
+   */
+  visualRegions(): readonly VisualRegionReading[];
   prepareClick(element: E, point: PagePoint): PreparedClick;
   /**
    * Install the structural observers — constitution §6's structural signal.
@@ -282,6 +288,7 @@ export function createPageAgent<E>(surface: PageSurface<E>, capacity: number = D
 
         case "OBSERVE": {
           const { measurements, focus } = surface.measure();
+          const visualRegions = surface.visualRegions();
           // The reading is taken AFTER the measurement, so a batch delivered during the measurement
           // leaves the graph belonging to a sequence the page has already moved past — stale, which
           // is the honest direction. Taking it first would date the graph earlier than it is.
@@ -292,6 +299,7 @@ export function createPageAgent<E>(surface: PageSurface<E>, capacity: number = D
             focus,
             viewport: surface.viewport(),
             structure: structureNow(),
+            visualRegions,
           };
         }
 

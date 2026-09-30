@@ -76,6 +76,9 @@ class WatchedPage implements PageSurface<FakeElement> {
       focus: { state: "NONE" } as const,
     };
   }
+  visualRegions() {
+    return [];
+  }
   prepareClick(_element: FakeElement, point: PagePoint) {
     this.calls.push("prepareClick");
     return {
@@ -114,6 +117,7 @@ const unwatched = (page: WatchedPage): PageSurface<FakeElement> => ({
   elementAt: (point) => page.elementAt(point),
   describe: (element) => page.describe(element),
   measure: () => page.measure(),
+  visualRegions: () => page.visualRegions(),
   prepareClick: (element, point) => page.prepareClick(element, point),
 });
 
@@ -124,6 +128,7 @@ const untracked = (page: WatchedPage): PageSurface<FakeElement> => ({
   elementAt: (point) => page.elementAt(point),
   describe: (element) => page.describe(element),
   measure: () => page.measure(),
+  visualRegions: () => page.visualRegions(),
   prepareClick: (element, point) => page.prepareClick(element, point),
   watchStructure: (onChange) => page.watchStructure(onChange),
 });
