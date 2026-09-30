@@ -242,3 +242,13 @@ adoption, and the adoption log above stays empty.
 
 Disclosed with both rows: Windows Firefox measured 156.0.1, not the frozen 155.0.1. Owner decisions pending: whether
 to amend the harness and re-run the Firefox WASM (Linux) cell for both candidates; TR-01 adoption review.
+
+**M8.2a (2026-09-30) — Firefox WASM (Linux) re-run for both candidates, amended harness** (one pref removes the
+MV3 event-page idle confound). This is additive; the rows above are M8.2's record and are unchanged.
+
+| Date | Candidate | Firefox WASM (Linux) | QG-03, only that cell replaced | Status for adoption review | Artifact |
+|---|---|---|---|---|---|
+| 2026-09-30 | PP-OCRv4_mobile_det (TR-01) @ `3cc09f3a` | ACCEPT (6/6) — was ACCEPT | **`PASS`** (unchanged) | **`ELIGIBLE FOR ADOPTION REVIEW`** | [`M8.2a`](../../artifacts/experiments/M8.2a-firefox-wasm-rerun/TR-01.md) |
+| 2026-09-30 | PP-OCRv3_mobile_det (TR-02) @ `58f4e5b1` | ACCEPT (6/6) — was CONDITIONAL (confounded) | **`PASS`** (was FAIL) | **`ELIGIBLE FOR ADOPTION REVIEW`** | [`M8.2a`](../../artifacts/experiments/M8.2a-firefox-wasm-rerun/TR-02.md) |
+
+Neither candidate is adopted; the adoption log above stays empty.

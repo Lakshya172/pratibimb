@@ -39,8 +39,8 @@ row is still `UNKNOWN` and nothing has been run for it.
 | PP-OCRv5-mobile | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` |
 | GLiNER-PII | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` |
 | SmolVLM (offline path) | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` | `UNKNOWN` |
-| **Text-region candidate TR-01** — `PP-OCRv4_mobile_det` @ `3cc09f3a` | **`ACCEPT`** ⁴ | **`ACCEPT`** ⁴ | **`CONDITIONAL`** ⁴ ⁵ | **`ACCEPT`** ⁴ |
-| **Text-region candidate TR-02** — `PP-OCRv3_mobile_det` @ `58f4e5b1` | **`ACCEPT`** ⁴ | **`ACCEPT`** ⁴ | **`CONDITIONAL`** ⁴ ⁵ | **`CONDITIONAL`** ⁴ ⁶ |
+| **Text-region candidate TR-01** — `PP-OCRv4_mobile_det` @ `3cc09f3a` | **`ACCEPT`** ⁴ | **`ACCEPT`** ⁴ | **`CONDITIONAL`** ⁴ ⁵ | **`ACCEPT`** ⁴ → M8.2a **`ACCEPT`** ⁷ |
+| **Text-region candidate TR-02** — `PP-OCRv3_mobile_det` @ `58f4e5b1` | **`ACCEPT`** ⁴ | **`ACCEPT`** ⁴ | **`CONDITIONAL`** ⁴ ⁵ | **`CONDITIONAL`** ⁴ ⁶ → M8.2a **`ACCEPT`** ⁷ |
 
 ¹ **Unbranded Chromium 151.0.7922.34 on WINDOWS**, not branded Chrome — Chrome 152 refuses
 `--load-extension`. WebGPU ran on the **Intel `gen-12lp` integrated adapter**; the RTX 5050
@@ -61,6 +61,13 @@ TR-01 QG-03 **PASS**; TR-02 QG-03 **FAIL**.
 
 ⁶ Headful 3/3; headless **2/3** — one launch started and never reported. A controlled diagnostic reproduces that
 symptom in both candidates via Firefox's MV3 event-page idle limit; the verdict stands as recorded.
+
+⁷ **M8.2a, W1, 2026-09-30 — the Firefox WASM (Linux) cell re-run for BOTH candidates** under a harness
+amended by one pref (`extensions.background.idle.timeout=900000`, per launch, temporary profile), which
+removes the MV3 event-page idle confound M8.2 identified. Firefox 155.0.1. TR-01 6/6 and TR-02 6/6, outputs
+and boxes byte-identical to M8.1 and M8.2. QG-03 with only this cell replaced: TR-01 PASS, TR-02 PASS. M8.2's
+values above are kept as history; for adoption review the M8.2a cell supersedes them:
+[`M8.2a`](../../artifacts/experiments/M8.2a-firefox-wasm-rerun/README.md).
 
 ³ **NOT MEASURED. This column is Firefox WASM on LINUX** and no Linux environment was used.
 Firefox WASM on **Windows** *was* measured and passes (33–36 ms p50, correct, deterministic,
