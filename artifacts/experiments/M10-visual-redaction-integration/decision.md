@@ -26,3 +26,19 @@ loopback sink.
 | id | `<kind>:<n>`, the index among all elements of that tag (hidden ones included), in document order. Positional only: never the page's `id` attribute, a URL or content. The parser refuses any other form |
 | document / frame | a region belongs to the browser-attested document of the observation that carried it; the page cannot claim one |
 | malformed list | the whole observation is refused (`parsePageReply` → `null`), as for a malformed measurement |
+
+## M10.4 decisions (TR-01 detector worker)
+
+| question | decision |
+|---|---|
+| realm | a dedicated classic worker (`/tr01-worker.js`), created only by the offscreen document. One per document, created lazily |
+| model | `artifacts/models/tr01-ppocrv4-mobile-det/tr01-ppocrv4-mobile-det.onnx`, git-ignored like the UI head. The build refuses a SHA-256 or length mismatch, and the worker re-verifies at runtime (`loadVerifiedModel`) before any session exists |
+| runtime | the existing pinned ORT 1.29.0 (`ort.all.min.js` + the `db816fad…` WASM via `bootstrapOrtRealm`), resolved relative to the worker inside the package. No new runtime, CDN or dependency |
+| deadline | 2,000 ms per run (D3), timed by the offscreen document from the moment the DETECT is posted, which excludes initialisation. Enforced by `worker.terminate()`. A caller may tighten it for one run, never loosen it |
+| init failure | UNAVAILABLE for the document's life. No retry, no alternate model, no OCR. A hung init is ended by a 30 s engineering safeguard, not an owner gate |
+| run failure | timeout, crash or malformed reply: terminate, and the next run recreates the worker. Refusal codes are never `[]` |
+| stale replies | per-worker generation plus per-run id. A terminated worker's handlers are detached, and anything else is counted and dropped |
+| concurrency | at most one run in flight. A second request is refused (`DETECTOR_BUSY`), not queued. The worker enforces the same rule |
+| region identity | never sent to the worker. The offscreen document keeps the crop → region mapping (`tr01-findings.ts`) |
+| UI head ordering | the two realms are separate threads. The M9 sequential rule becomes the perception pass's job: it will await the UI head, then TR-01. That pass is wired in a later unit, and the host itself allows one TR-01 run at a time |
+| measurement code | the probe and the memory/network instrument are build-graph aliases (`#tr01-probe`, `#tr01-instrument`), present only with `TR01_PROBE=1` |

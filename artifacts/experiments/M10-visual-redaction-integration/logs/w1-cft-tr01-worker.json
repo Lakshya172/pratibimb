@@ -1,0 +1,373 @@
+{
+  "experiment": "M10.4 — TR-01 detector worker in the real MV3 extension",
+  "verdict": "PASS",
+  "notAClaim": [
+    "no tab was captured; frames are M8.2's fixed screenshots handed to the offscreen document",
+    "no mask, encode or egress exists yet; TR-01 is not called by any product path",
+    "one workstation (W1), one browser cell; timings are this machine's"
+  ],
+  "gates": {
+    "deadlineMs": 2000,
+    "wasmBudgetBytes": 209715200
+  },
+  "fixed": {
+    "frames": [
+      "dev",
+      "H1",
+      "H2",
+      "H3",
+      "H4",
+      "H5",
+      "H6"
+    ],
+    "warmDevRuns": 20,
+    "warmHeldOutRunsEach": 3,
+    "uiHeadRuns": 10,
+    "coldCycles": 10,
+    "timeoutTestDeadlineMs": 50
+  },
+  "units": "ms are performance.now() milliseconds; memory MB in the summary are MiB (bytes / 1,048,576); raw bytes are kept per stage",
+  "stages": {
+    "prepare": {
+      "ready": true,
+      "ms": 365.10000002384186,
+      "status": {
+        "state": "ready",
+        "generation": 1,
+        "workersCreated": 1,
+        "terminations": 0,
+        "staleDropped": 0,
+        "lastInit": {
+          "ok": true,
+          "model": {
+            "sha256": "18aaccf9c9cd27656becda13bc0ef31eaa0ea3aef4d45166839f2093561575e8",
+            "bytes": 4766440
+          },
+          "ms": {
+            "runtime": 70.80000007152557,
+            "model": 13.799999952316284,
+            "session": 247.10000002384186
+          }
+        }
+      }
+    },
+    "concurrent": {
+      "a": "ok",
+      "b": "DETECTOR_BUSY"
+    },
+    "recreate": {
+      "ready": true,
+      "status": {
+        "state": "ready",
+        "generation": 1,
+        "workersCreated": 1,
+        "terminations": 0,
+        "staleDropped": 0,
+        "lastInit": {
+          "ok": true,
+          "model": {
+            "sha256": "18aaccf9c9cd27656becda13bc0ef31eaa0ea3aef4d45166839f2093561575e8",
+            "bytes": 4766440
+          },
+          "ms": {
+            "runtime": 65.09999990463257,
+            "model": 12.700000047683716,
+            "session": 173.20000004768372
+          }
+        }
+      },
+      "sameOutput": true
+    },
+    "timeout": {
+      "outcome": {
+        "ok": false,
+        "runId": 2,
+        "code": "DETECTOR_TIMEOUT",
+        "detail": "TR-01 exceeded the 50 ms deadline; the worker was terminated"
+      },
+      "wallMs": 53.60000002384186,
+      "statusAfterTimeout": {
+        "state": "idle",
+        "generation": 1,
+        "workersCreated": 1,
+        "terminations": 1,
+        "staleDropped": 0,
+        "lastInit": {
+          "ok": true,
+          "model": {
+            "sha256": "18aaccf9c9cd27656becda13bc0ef31eaa0ea3aef4d45166839f2093561575e8",
+            "bytes": 4766440
+          },
+          "ms": {
+            "runtime": 77.70000004768372,
+            "model": 13.600000023841858,
+            "session": 157.69999992847443
+          }
+        }
+      },
+      "recovery": {
+        "ok": true,
+        "runId": 3,
+        "status": {
+          "state": "ready",
+          "generation": 2,
+          "workersCreated": 2,
+          "terminations": 1,
+          "staleDropped": 0,
+          "lastInit": {
+            "ok": true,
+            "model": {
+              "sha256": "18aaccf9c9cd27656becda13bc0ef31eaa0ea3aef4d45166839f2093561575e8",
+              "bytes": 4766440
+            },
+            "ms": {
+              "runtime": 79.5,
+              "model": 15.799999952316284,
+              "session": 149.60000002384186
+            }
+          }
+        },
+        "sameOutput": true
+      }
+    }
+  },
+  "runs": {
+    "uiHeadWarmMs": {
+      "n": 10,
+      "min": 29.200000047683716,
+      "median": 30.599999964237213,
+      "p90": 31.700000047683716,
+      "max": 33.89999997615814
+    },
+    "firstInference": {
+      "dev": {
+        "preprocess": 23.5,
+        "infer": 422.60000002384186,
+        "postprocess": 8.699999928474426,
+        "total": 457.6999999284744
+      },
+      "devWallMs": 459.5
+    },
+    "warm": {
+      "preprocess": {
+        "n": 38,
+        "min": 12.200000047683716,
+        "median": 12.850000023841858,
+        "p90": 15.700000047683716,
+        "max": 18
+      },
+      "infer": {
+        "n": 38,
+        "min": 286.10000002384186,
+        "median": 293.9500000476837,
+        "p90": 310.39999997615814,
+        "max": 322.7000000476837
+      },
+      "postprocess": {
+        "n": 38,
+        "min": 1.5999999046325684,
+        "median": 1.7000000476837158,
+        "p90": 4.100000023841858,
+        "max": 6.300000071525574
+      },
+      "total": {
+        "n": 38,
+        "min": 301.10000002384186,
+        "median": 309.8499999642372,
+        "p90": 328.1999999284744,
+        "max": 345.7999999523163
+      },
+      "wall": {
+        "n": 38,
+        "min": 301.7000000476837,
+        "median": 310.44999998807907,
+        "p90": 330.2000000476837,
+        "max": 347.2999999523163
+      }
+    },
+    "cold": {
+      "runtime": {
+        "n": 10,
+        "min": 67.60000002384186,
+        "median": 73.55000001192093,
+        "p90": 86.39999997615814,
+        "max": 157.70000004768372
+      },
+      "model": {
+        "n": 10,
+        "min": 13.600000023841858,
+        "median": 15.049999952316284,
+        "p90": 17.300000071525574,
+        "max": 17.800000071525574
+      },
+      "session": {
+        "n": 10,
+        "min": 148.09999990463257,
+        "median": 161.45000004768372,
+        "p90": 189.70000004768372,
+        "max": 205.29999995231628
+      },
+      "prepareWall": {
+        "n": 10,
+        "min": 270.2999999523163,
+        "median": 286.99999994039536,
+        "p90": 346,
+        "max": 405.3000000715256
+      },
+      "firstInferTotal": {
+        "n": 10,
+        "min": 360.60000002384186,
+        "median": 380.5999999642372,
+        "p90": 411.1999999284744,
+        "max": 442.7999999523163
+      },
+      "firstInferInfer": {
+        "n": 10,
+        "min": 331.7000000476837,
+        "median": 349.80000001192093,
+        "p90": 380.90000009536743,
+        "max": 406.2000000476837
+      }
+    }
+  },
+  "checks": {
+    "modelHashVerifiedAtRuntime": true,
+    "goldenAllSevenFramesEqualM81": true,
+    "deterministicWarmOutput": true,
+    "geometryOnlyOutput": true,
+    "concurrentSecondRefusedBusy": true,
+    "terminateThenRecreateSameOutput": true,
+    "timeoutIsDetectorTimeout": true,
+    "timeoutTerminatedTheWorker": true,
+    "timeoutThenRecoveredWithSameOutput": true,
+    "noStaleAccepted": true,
+    "deadlineGateEveryRunUnder2000ms": true,
+    "memoryMeasured": true,
+    "memoryGateCombinedUnder200MB": true,
+    "noForeignNetworkArrivals": true
+  },
+  "memory": {
+    "0-offscreen-before-any-model": {
+      "workerWasmBytes": null,
+      "offscreenWasmBytes": null,
+      "workerArrivals": null
+    },
+    "1-offscreen-after-ui-head-warm": {
+      "workerWasmBytes": null,
+      "offscreenWasmBytes": 27656192,
+      "workerArrivals": null
+    },
+    "2-worker-not-yet-created": {
+      "workerWasmBytes": null,
+      "offscreenWasmBytes": 27656192,
+      "workerArrivals": null
+    },
+    "3-worker-after-model-load": {
+      "workerWasmBytes": 29097984,
+      "offscreenWasmBytes": 27656192,
+      "workerArrivals": {
+        "total": 3,
+        "foreign": 0,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde"
+        ]
+      }
+    },
+    "4-worker-after-first-inference": {
+      "workerWasmBytes": 137494528,
+      "offscreenWasmBytes": 27656192,
+      "workerArrivals": {
+        "total": 3,
+        "foreign": 0,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde"
+        ]
+      }
+    },
+    "5-worker-after-warm-runs-peak": {
+      "workerWasmBytes": 137494528,
+      "offscreenWasmBytes": 27656192,
+      "workerArrivals": {
+        "total": 3,
+        "foreign": 0,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde"
+        ]
+      }
+    },
+    "6-after-worker-termination": {
+      "workerWasmBytes": null,
+      "offscreenWasmBytes": 27656192,
+      "workerArrivals": null
+    },
+    "7-recreated-worker-after-model-load": {
+      "workerWasmBytes": 29097984,
+      "offscreenWasmBytes": 27656192,
+      "workerArrivals": {
+        "total": 3,
+        "foreign": 0,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde"
+        ]
+      }
+    },
+    "8-recreated-worker-after-second-inference": {
+      "workerWasmBytes": 137494528,
+      "offscreenWasmBytes": 27656192,
+      "workerArrivals": {
+        "total": 3,
+        "foreign": 0,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde"
+        ]
+      }
+    },
+    "9-after-timeout-recovery": {
+      "workerWasmBytes": 137494528,
+      "offscreenWasmBytes": 27656192,
+      "workerArrivals": {
+        "total": 3,
+        "foreign": 0,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde"
+        ]
+      }
+    },
+    "summary": {
+      "method": "WebAssembly.Memory constructor wrapped before ORT created memory; linear memory read from buffer.byteLength (never shrinks, so current = peak). Not RSS, not the JS heap.",
+      "workerPeakMB": 131.1,
+      "offscreenUiHeadPeakMB": 26.4,
+      "combinedPeakMB": 157.5,
+      "budgetMB": 200
+    }
+  },
+  "failure": null,
+  "golden": {
+    "dev": true,
+    "H1": true,
+    "H2": true,
+    "H3": true,
+    "H4": true,
+    "H5": true,
+    "H6": true
+  },
+  "recordedAt": "2026-09-30T17:28:02.230Z",
+  "provenance": {
+    "workstation": "W1",
+    "host": "LAPTOP-6E14K34L",
+    "workstationSource": "registry",
+    "os": "win32 10.0.26200",
+    "cpu": "Intel(R) Core(TM) 7 240H",
+    "node": "v24.19.0",
+    "playwright": "1.63.0",
+    "browserBinary": "C:/Users/RONIT/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe",
+    "headless": false,
+    "build": "TR01_PROBE=1 (evidence build)",
+    "manifestPermissions": [
+      "offscreen",
+      "sidePanel",
+      "activeTab",
+      "tabCapture"
+    ]
+  }
+}

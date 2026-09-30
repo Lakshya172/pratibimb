@@ -13,8 +13,12 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "wxt";
 
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+
 import { buildExtensionPagesCsp } from "../../packages/security/src/csp";
 import { ORT_PIN } from "../../packages/security/src/generated/ortPin";
+import { TR01_PACKAGE } from "./host-lib/tr01-pin";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(HERE, "..", "..");
@@ -87,10 +91,21 @@ const STRUCTURAL_PROBE = process.env.STRUCTURAL_PROBE === "1";
  * the route it enables are named in every record that mentions them.
  */
 const WORKER_FRAME = process.env.M3_WORKER_FRAME === "1";
+
+/**
+ * M10.4 — THE TR-01 PROBE AND ITS INSTRUMENT FOLLOW THE SAME RULE.
+ *
+ * `probe/tr01.ts` drives the detector worker from the offscreen document step by step, and
+ * `probe/tr01-instrument.ts` reads the worker's WASM linear memory and network arrivals. Both are
+ * measurement and test control, so both resolve to empty stubs unless `TR01_PROBE=1` is set. The
+ * only caller that sets it is `tests/browser/extension/run-tr01-worker.mjs`.
+ */
+const TR01_PROBE = process.env.TR01_PROBE === "1";
 const HOST_PERMISSIONS = WORKER_FRAME ? ["http://127.0.0.1/*", "<all_urls>"] : ["http://127.0.0.1/*"];
 
 const ORT_DIST = join(ROOT, "node_modules", "onnxruntime-web", "dist");
 const MODEL = join(ROOT, "artifacts", "models", "t1-ui-head", "t1-ui-head.onnx");
+const TR01_MODEL = join(ROOT, TR01_PACKAGE.modelPath);
 
 export default defineConfig({
   entrypointsDir: "host",
@@ -98,6 +113,8 @@ export default defineConfig({
   alias: {
     "#e6-probe": E6_PROBE ? "e6/probe.ts" : "e6/absent.ts",
     "#structural-probe": STRUCTURAL_PROBE ? "probe/structural.ts" : "probe/structural-absent.ts",
+    "#tr01-probe": TR01_PROBE ? "probe/tr01.ts" : "probe/tr01-absent.ts",
+    "#tr01-instrument": TR01_PROBE ? "probe/tr01-instrument.ts" : "probe/tr01-instrument-absent.ts",
   },
   /**
    * Workspace packages are bundled from TypeScript source rather than from `dist/`, so a host build
@@ -149,6 +166,20 @@ export default defineConfig({
       }
       if (!existsSync(MODEL)) throw new Error(`missing ${MODEL}`);
       assets.push({ absoluteSrc: MODEL, relativeDest: "t1-ui-head.onnx" });
+      // M10.4: TR-01, git-ignored like the UI head, and REFUSED at build time unless its bytes are
+      // exactly the pinned artifact. The worker hashes it again at runtime before any session.
+      if (!existsSync(TR01_MODEL)) {
+        throw new Error(`missing ${TR01_MODEL} (provision it from M8.1's converted artifact; see ${TR01_PACKAGE.evidence})`);
+      }
+      const tr01 = readFileSync(TR01_MODEL);
+      const tr01Sha = createHash("sha256").update(tr01).digest("hex");
+      if (tr01Sha !== TR01_PACKAGE.onnx.sha256 || tr01.length !== TR01_PACKAGE.onnx.bytes) {
+        throw new Error(
+          `TR-01 model mismatch at ${TR01_MODEL}: expected ${TR01_PACKAGE.onnx.sha256} (${TR01_PACKAGE.onnx.bytes} B), ` +
+            `got ${tr01Sha} (${tr01.length} B). Refusing to package it.`
+        );
+      }
+      assets.push({ absoluteSrc: TR01_MODEL, relativeDest: TR01_PACKAGE.onnx.name });
     },
   },
 });

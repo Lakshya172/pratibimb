@@ -45,4 +45,6 @@ declare global {
   /** WXT's entrypoint wrappers, from their published module paths rather than from `.wxt/`. */
   const defineBackground: typeof import("wxt/utils/define-background").defineBackground;
   const defineContentScript: typeof import("wxt/utils/define-content-script").defineContentScript;
+  /** M10.4: the TR-01 detector worker is an unlisted script (`host/tr01-worker.ts`). */
+  const defineUnlistedScript: typeof import("wxt/utils/define-unlisted-script").defineUnlistedScript;
 }

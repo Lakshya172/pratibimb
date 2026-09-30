@@ -48,6 +48,11 @@ const EXERCISED_BY_TESTS = [
   "host-lib/perception-realm.ts",
   "host-lib/remote-privacy-boundary.ts",
   "host-lib/text-perception.ts",
+  "host-lib/tr01-findings.ts",
+  "host-lib/tr01-host.ts",
+  "host-lib/tr01-pin.ts",
+  "host-lib/tr01-protocol.ts",
+  "host-lib/tr01-worker-core.ts",
   "host-lib/value-release.ts",
 ];
 
@@ -71,6 +76,9 @@ const EXERCISED_ONLY_IN_A_BROWSER = [
   "host/content.ts",
   "host/offscreen/main.ts",
   "host/sidepanel/main.ts",
+  // M10.4: the TR-01 worker entry — ORT, the packaged model and a real worker scope. Its logic is
+  // `tr01-worker-core.ts` (tested); this glue runs in `run-tr01-worker.mjs`.
+  "host/tr01-worker.ts",
 ];
 
 function sourceFiles(relative: string): string[] {

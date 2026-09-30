@@ -7,6 +7,7 @@
  */
 import { observePage, type TransportBinding } from "@pratibimb/extension-transport";
 import { serveStructuralProbe } from "#structural-probe";
+import { serveTr01Probe } from "#tr01-probe";
 import { type GrantDecision, type GrantRequest } from "@pratibimb/orchestrator";
 
 import { bootstrapOrtRealm, createPinnedInferenceSession, resolvePackagedAsset } from "../../entrypoints/ortRuntime";
@@ -334,6 +335,11 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
    * this document actually owns. Same build-graph rule as `#e6-probe`; see `probe/structural-absent.ts`.
    */
   if (serveStructuralProbe(chromeRelay, msg, sender, sendResponse)) return true;
+  /**
+   * M10.4: `#tr01-probe` resolves to `probe/tr01-absent.ts` unless `TR01_PROBE=1` is set, so a
+   * product build answers a `TR01_PROBE` exactly as it answers a kind that was never defined.
+   */
+  if (serveTr01Probe(msg, sender, sendResponse)) return true;
 
   if (msg.kind === "REALM_PROBE") {
     void (async () => {
