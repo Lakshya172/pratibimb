@@ -1,0 +1,524 @@
+{
+ "experiment": "M8.2a-firefox-wasm-rerun",
+ "runner": "run-firefox.mjs",
+ "platform": "linux-wsl2",
+ "firefoxPath": "/opt/pratibimb-tooling/firefox/firefox",
+ "firefoxVersion": "Mozilla Firefox 155.0.1",
+ "startedAt": "2026-09-30T09:46:58.161Z",
+ "launches": [
+  {
+   "candidate": "TR-01",
+   "mode": "teardown",
+   "backend": "wasm",
+   "headless": true,
+   "browser": "firefox",
+   "platform": "linux-wsl2",
+   "browserVersion": "Mozilla Firefox 155.0.1",
+   "livenessSeen": true,
+   "timedOut": false,
+   "wallMs": 9513,
+   "result": {
+    "context": "firefox-mv3-event-page",
+    "mode": "teardown",
+    "candidate": "TR-01",
+    "backend": "wasm",
+    "startedAt": "2026-09-30T09:47:00.492Z",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0",
+    "ortVersion": "1.29.0",
+    "pin": {
+     "installed": true,
+     "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+     "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea"
+    },
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasm": {
+       "instances": 0,
+       "bytes": 0,
+       "mb": 0,
+       "pages": 0,
+       "growCount": 0
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 0,
+      "at": 533
+     },
+     {
+      "label": "cycle1-after-create",
+      "wasm": {
+       "instances": 2,
+       "bytes": 29097984,
+       "mb": 27.8,
+       "pages": 444,
+       "growCount": 3
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 4634
+     },
+     {
+      "label": "cycle1-after-inference",
+      "wasm": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 5144
+     },
+     {
+      "label": "cycle1-after-release",
+      "wasm": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 5148
+     },
+     {
+      "label": "cycle2-after-create",
+      "wasm": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 5298
+     },
+     {
+      "label": "cycle2-after-inference",
+      "wasm": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 5774
+     },
+     {
+      "label": "cycle2-after-release",
+      "wasm": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 5776
+     },
+     {
+      "label": "cycle3-after-create",
+      "wasm": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 5911
+     },
+     {
+      "label": "cycle3-after-inference",
+      "wasm": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 6372
+     },
+     {
+      "label": "cycle3-after-release",
+      "wasm": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 6375
+     },
+     {
+      "label": "cycle4-after-create",
+      "wasm": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 6511
+     },
+     {
+      "label": "cycle4-after-inference",
+      "wasm": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 6982
+     },
+     {
+      "label": "cycle4-after-release",
+      "wasm": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 6985
+     },
+     {
+      "label": "cycle5-after-create",
+      "wasm": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 7116
+     },
+     {
+      "label": "cycle5-after-inference",
+      "wasm": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 7570
+     },
+     {
+      "label": "cycle5-after-release",
+      "wasm": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 7572
+     }
+    ],
+    "errors": [],
+    "timerResolutionMs": null,
+    "conclusion": "completed",
+    "cycles": [
+     {
+      "cycle": 1,
+      "ok": true,
+      "createMs": 644,
+      "afterCreate": {
+       "instances": 2,
+       "bytes": 29097984,
+       "mb": 27.8,
+       "pages": 444,
+       "growCount": 3
+      },
+      "inferenceMs": 505,
+      "outputSha256": "7dc60c8e42f1ad1ca242ff15b444cbb93686fbb20ed3104118e46a126db7bfa3",
+      "afterInference": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "afterRelease": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "grows": 11
+     },
+     {
+      "cycle": 2,
+      "ok": true,
+      "createMs": 150,
+      "afterCreate": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "inferenceMs": 469,
+      "outputSha256": "7dc60c8e42f1ad1ca242ff15b444cbb93686fbb20ed3104118e46a126db7bfa3",
+      "afterInference": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "afterRelease": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "grows": 0
+     },
+     {
+      "cycle": 3,
+      "ok": true,
+      "createMs": 135,
+      "afterCreate": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "inferenceMs": 455,
+      "outputSha256": "7dc60c8e42f1ad1ca242ff15b444cbb93686fbb20ed3104118e46a126db7bfa3",
+      "afterInference": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "afterRelease": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "grows": 0
+     },
+     {
+      "cycle": 4,
+      "ok": true,
+      "createMs": 136,
+      "afterCreate": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "inferenceMs": 466,
+      "outputSha256": "7dc60c8e42f1ad1ca242ff15b444cbb93686fbb20ed3104118e46a126db7bfa3",
+      "afterInference": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "afterRelease": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "grows": 0
+     },
+     {
+      "cycle": 5,
+      "ok": true,
+      "createMs": 131,
+      "afterCreate": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "inferenceMs": 448,
+      "outputSha256": "7dc60c8e42f1ad1ca242ff15b444cbb93686fbb20ed3104118e46a126db7bfa3",
+      "afterInference": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "afterRelease": {
+       "instances": 2,
+       "bytes": 137494528,
+       "mb": 131.1,
+       "pages": 2098,
+       "growCount": 11
+      },
+      "grows": 0
+     }
+    ],
+    "network": [
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://d095fe76-48a2-4f52-ac8e-be3ea8c4d495",
+      "foreign": false,
+      "path": "/ort-wasm-simd-threaded.jsep.wasm"
+     },
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://d095fe76-48a2-4f52-ac8e-be3ea8c4d495",
+      "foreign": false,
+      "path": "/models/candidate.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://d095fe76-48a2-4f52-ac8e-be3ea8c4d495",
+      "foreign": false,
+      "path": "/fixtures/input-dev.f32"
+     }
+    ],
+    "gpu": {
+     "submits": 0,
+     "computePipelines": 0,
+     "devices": 0,
+     "adapterInfo": null,
+     "requestedOptions": null,
+     "hookError": "GPUQueue is not a constructor in this context"
+    },
+    "selfOrigin": "moz-extension://d095fe76-48a2-4f52-ac8e-be3ea8c4d495"
+   },
+   "firefoxProcessesReaped": 0,
+   "extraPrefs": [
+    "extensions.background.idle.timeout=900000"
+   ],
+   "deadlineMs": 900000,
+   "webExtArgs": [
+    "run",
+    "--source-dir",
+    "<ext>",
+    "--firefox",
+    "<firefox>",
+    "--start-url",
+    "about:blank",
+    "--firefox-profile",
+    "<profile>",
+    "--profile-create-if-missing",
+    "--no-input",
+    "--no-reload",
+    "--pref",
+    "extensions.originControls.grantByDefault=true",
+    "--pref",
+    "extensions.background.idle.timeout=900000",
+    "--arg=--headless"
+   ],
+   "profilePrefs": {
+    "unavailable": true
+   },
+   "webExtLogTail": [
+    "}",
+    "Use --verbose or --devtools to see logging",
+    "Installed /mnt/d/PratiBimb/artifacts/experiments/M8.2-qg03-visual-text-feasibility/models/ext/TR-01/firefox as a temporary add-on",
+    "Automatic extension reloading has been disabled"
+   ],
+   "launch": 1
+  }
+ ],
+ "firefoxVersionAfter": "Mozilla Firefox 155.0.1"
+}

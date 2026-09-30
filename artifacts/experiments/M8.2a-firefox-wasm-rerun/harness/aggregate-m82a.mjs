@@ -18,7 +18,7 @@ import { fileURLToPath } from "node:url";
 import { scoreImage, scoreSet } from "../../../../tests/browser/support/redaction-metrics.mjs";
 import { dbPostprocess, plaintextCheck } from "../../../../tests/browser/support/text-detector-screening.mjs";
 import { cellVerdict, coexistencePass, modeVerdict, qg03Verdict, summarise, teardownPass } from "../../../../tests/browser/support/qg03-feasibility.mjs";
-import { AMENDMENT, onlyTheAmendmentDiffers } from "./amendment.mjs";
+import { AMENDMENT, onlyTheAmendmentDiffers, prefDiff } from "./amendment.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const EXP = dirname(HERE);
@@ -68,14 +68,28 @@ if (existsSync(V)) {
     const ok = !!l && !l.timedOut && loaded(l) && lastAt(l.result) > 30000 && correct(l);
     return { candidate: cid, reported: !!l && !l.timedOut, probeRuntimeMs: lastAt(l?.result), warm: l?.result?.warmMs?.length ?? null, correct: !!l && correct(l), pass: ok };
   });
-  const d = launchesOf(fileOf(V, "v2-tr-01-default"))[0];
-  const a = launchesOf(fileOf(V, "v2-tr-01-amended"))[0];
+  // V2 attempt 1 (v2-*) could not read the profile prefs: web-ext copies the profile, so the
+  // runner's own directory had no user.js. Attempt 2 (v2b-*) reads the running Firefox's -profile.
+  // Attempt 1 is kept and reported; the criterion is judged on attempt 2.
+  const d1 = launchesOf(fileOf(V, "v2-tr-01-default"))[0];
+  const a1 = launchesOf(fileOf(V, "v2-tr-01-amended"))[0];
+  validation.v2attempt1 = {
+    reported: !!d1 && !!a1 && loaded(d1) && loaded(a1),
+    prefsReadable: !!d1?.profilePrefs?.lines && !!a1?.profilePrefs?.lines,
+    outputsIdentical: !!d1 && !!a1 && loaded(d1) && loaded(a1) && same(outHashes(d1), outHashes(a1)) && same(boxHashes(d1), boxHashes(a1)),
+    argsDifferByExactlyTheAmendment: !!d1 && !!a1 && same(a1.webExtArgs.filter((x, i, all) => !(x === "--pref" && all[i + 1] === AMENDMENT.arg) && x !== AMENDMENT.arg), d1.webExtArgs),
+    status: "NOT EVALUABLE — recording defect (profile prefs unavailable)",
+  };
+  const d = launchesOf(fileOf(V, "v2b-tr-01-default"))[0];
+  const a = launchesOf(fileOf(V, "v2b-tr-01-amended"))[0];
   const bothLoaded = !!d && !!a && loaded(d) && loaded(a);
   validation.v2 = {
     defaultReported: !!d && loaded(d),
     amendedReported: !!a && loaded(a),
-    prefsCount: { default: d?.profilePrefs?.count ?? null, amended: a?.profilePrefs?.count ?? null },
-    onlyTheAmendmentDiffers: bothLoaded && Array.isArray(d.profilePrefs?.lines) && onlyTheAmendmentDiffers(d.profilePrefs.lines, a.profilePrefs.lines),
+    prefsSource: a?.runningProfilePrefs?.source ?? a?.runningProfilePrefs?.unavailable ?? null,
+    prefsCount: { default: d?.runningProfilePrefs?.count ?? null, amended: a?.runningProfilePrefs?.count ?? null },
+    prefDiff: bothLoaded && Array.isArray(d.runningProfilePrefs?.lines) && Array.isArray(a.runningProfilePrefs?.lines) ? prefDiff(d.runningProfilePrefs.lines, a.runningProfilePrefs.lines) : null,
+    onlyTheAmendmentDiffers: bothLoaded && Array.isArray(d.runningProfilePrefs?.lines) && Array.isArray(a.runningProfilePrefs?.lines) && onlyTheAmendmentDiffers(d.runningProfilePrefs.lines, a.runningProfilePrefs.lines),
     webExtArgsDiffer: bothLoaded ? { default: d.webExtArgs, amended: a.webExtArgs } : null,
     outputsIdentical: bothLoaded && same(outHashes(d), outHashes(a)) && same(boxHashes(d), boxHashes(a)),
     syntheticIdentical: bothLoaded && d.result.inputs.synthetic.outputSha256 === a.result.inputs.synthetic.outputSha256,

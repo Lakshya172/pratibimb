@@ -16,7 +16,7 @@
 import { createServer } from "node:http";
 import { execFileSync, spawn } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -116,6 +116,52 @@ function launchPids(profile) {
   }
 }
 
+/**
+ * RECORDING ONLY (added for M8.2a): web-ext COPIES the --firefox-profile directory into its own
+ * temporary profile and starts Firefox with `-profile <copy>`, so the prefs it wrote are in the
+ * copy, not in the directory this runner created. On Linux, find the running Firefox among the
+ * web-ext child's descendants (/proc) and read that profile's user.js while Firefox still runs.
+ * Windows: not implemented (M8.2a runs on Linux only) — recorded as unavailable.
+ */
+function captureRunningProfilePrefs(rootPid) {
+  if (process.platform !== "linux") return { unavailable: "not implemented on this platform" };
+  try {
+    const parent = new Map();
+    for (const d of readdirSync("/proc").filter((n) => /^\d+$/.test(n))) {
+      try {
+        const stat = readFileSync(`/proc/${d}/stat`, "utf8");
+        parent.set(Number(d), Number(stat.slice(stat.lastIndexOf(")") + 2).split(" ")[1]));
+      } catch {
+        /* process vanished */
+      }
+    }
+    const descendants = [];
+    const queue = [rootPid];
+    while (queue.length) {
+      const p = queue.shift();
+      for (const [child, pp] of parent) if (pp === p) {
+        descendants.push(child);
+        queue.push(child);
+      }
+    }
+    for (const pid of descendants) {
+      let argv;
+      try {
+        argv = readFileSync(`/proc/${pid}/cmdline`, "utf8").split("\0");
+      } catch {
+        continue;
+      }
+      const i = argv.indexOf("-profile");
+      if (i < 0 || !argv[i + 1]) continue;
+      const lines = readFileSync(join(argv[i + 1], "user.js"), "utf8").split(/\r?\n/).filter((l) => l.startsWith("user_pref(")).sort();
+      return { source: "running Firefox -profile (web-ext copy)", count: lines.length, sha256: createHash("sha256").update(lines.join("\n")).digest("hex"), lines };
+    }
+    return { unavailable: "no descendant Firefox with -profile found" };
+  } catch (e) {
+    return { unavailable: String(e).slice(0, 120) };
+  }
+}
+
 async function oneLaunch({ candidate, mode, backend, headless, config, extraPrefs = [], deadlineMs = 900000 }) {
   const ext = join(EXP, "models", "ext", candidate, "firefox");
   writeFileSync(join(ext, "m82-config.js"), `globalThis.M82_CONFIG = ${JSON.stringify({ mode, backend, ...config })};\n`);
@@ -131,7 +177,11 @@ async function oneLaunch({ candidate, mode, backend, headless, config, extraPref
   const t0 = Date.now();
   const real = () => results.slice(before).filter((r) => r.context !== "__alive__");
   const deadline = Date.now() + deadlineMs;
-  while (Date.now() < deadline && real().length < 1) await new Promise((r) => setTimeout(r, 500));
+  let runningProfilePrefs = null;
+  while (Date.now() < deadline && real().length < 1) {
+    if (runningProfilePrefs === null || runningProfilePrefs.unavailable) runningProfilePrefs = captureRunningProfilePrefs(child.pid);
+    await new Promise((r) => setTimeout(r, 500));
+  }
   const wallMs = Date.now() - t0;
   child.kill();
   await new Promise((r) => setTimeout(r, 1500));
@@ -175,6 +225,7 @@ async function oneLaunch({ candidate, mode, backend, headless, config, extraPref
     deadlineMs,
     webExtArgs: args.slice(1).map((a) => (a === ext ? "<ext>" : a === FIREFOX ? "<firefox>" : a === profile ? "<profile>" : a)),
     profilePrefs,
+    runningProfilePrefs,
     webExtLogTail: log.split("\n").filter(Boolean).slice(-4),
   };
 }
