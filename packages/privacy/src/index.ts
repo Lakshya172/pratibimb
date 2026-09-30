@@ -168,3 +168,30 @@ export {
   type Rect,
   type RedactionBox,
 } from "./redactionGeometry.js";
+
+/**
+ * The fail-closed text finding (ADR-0011 §3) and the visual redaction plan it drives. A detector can
+ * only produce UNREAD_REGION, which has no class to declare safe and is always redacted; any tier
+ * failure or malformed report masks every visual-only region whole (INV-23).
+ */
+export {
+  READ_TEXT_KEYS,
+  REDACT_UNREAD,
+  TEXT_FINDING_KIND,
+  UNREAD_REGION_KEYS,
+  findingRequiresRedaction,
+  mustRedact,
+  parseTextFinding,
+  planVisualRedaction,
+  unreadRegion,
+  type ReadText,
+  type RegionMask,
+  type TextFinding,
+  type TextFindingParse,
+  type TextRegionFailureStatus,
+  type TextRegionReport,
+  type UnreadRegion,
+  type UnreadRegionInput,
+  type VisualRedactionPlan,
+  type VisualRegion,
+} from "./textFinding.js";
