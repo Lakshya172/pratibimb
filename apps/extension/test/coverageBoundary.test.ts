@@ -48,12 +48,12 @@ const EXERCISED_BY_TESTS = [
   "host-lib/perception-realm.ts",
   "host-lib/remote-privacy-boundary.ts",
   "host-lib/text-perception.ts",
-  "host-lib/tr01-findings.ts",
   "host-lib/tr01-host.ts",
   "host-lib/tr01-pin.ts",
   "host-lib/tr01-protocol.ts",
   "host-lib/tr01-worker-core.ts",
   "host-lib/value-release.ts",
+  "host-lib/visual-redaction.ts",
 ];
 
 /**

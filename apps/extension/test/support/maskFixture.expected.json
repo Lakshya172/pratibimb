@@ -1,0 +1,55 @@
+{
+  "note": "M10.5 frozen synthetic mask fixture. Synthetic geometry and pixels only. Expected masks are hand-computed: each detection dilated 4 px; D6's dilation lies inside D3's (IoU 1496/2652 = 0.564 > 0.3) so they merge into D3's dilated box; no other pair overlaps; each region clips. At DPR 1 capture pixels equal CSS pixels, so the pixel rects equal the CSS masks except where the frame clips canvas:1.",
+  "frame": { "width": 400, "height": 240, "dpr": 1 },
+  "originalSha256": "c432f40823f6cc3a8746a5b14cf6a247fac315c9057ac3e8795bef16528763af",
+  "regions": [
+    { "id": "canvas:0", "kind": "canvas", "rect": { "x": 20, "y": 20, "w": 160, "h": 100 } },
+    { "id": "img:0", "kind": "img", "rect": { "x": 220, "y": 30, "w": 150, "h": 80 } },
+    { "id": "canvas:1", "kind": "canvas", "rect": { "x": -30, "y": 150, "w": 140, "h": 70 } }
+  ],
+  "sensitiveInk": [
+    { "regionId": "canvas:0", "rect": { "x": 40, "y": 40, "w": 80, "h": 12 } },
+    { "regionId": "canvas:0", "rect": { "x": 40, "y": 70, "w": 100, "h": 12 } },
+    { "regionId": "img:0", "rect": { "x": 240, "y": 50, "w": 90, "h": 14 } },
+    { "regionId": "canvas:1", "rect": { "x": 10, "y": 170, "w": 60, "h": 12 } }
+  ],
+  "controlInk": [{ "rect": { "x": 230, "y": 170, "w": 120, "h": 12 } }],
+  "detections": [
+    { "id": "D1", "x": 38, "y": 38, "w": 84, "h": 16, "score": 0.91 },
+    { "id": "D2", "x": 38, "y": 68, "w": 104, "h": 16, "score": 0.88 },
+    { "id": "D3", "x": 238, "y": 48, "w": 94, "h": 18, "score": 0.93 },
+    { "id": "D4", "x": 8, "y": 168, "w": 64, "h": 16, "score": 0.02 },
+    { "id": "D5", "x": 228, "y": 168, "w": 124, "h": 16, "score": 0.85 },
+    { "id": "D6", "x": 250, "y": 52, "w": 60, "h": 14, "score": 0.7 }
+  ],
+  "expected": {
+    "detectorOk": {
+      "cssMask": {
+        "canvas:0": [{ "x": 34, "y": 34, "w": 92, "h": 24 }, { "x": 34, "y": 64, "w": 112, "h": 24 }],
+        "img:0": [{ "x": 234, "y": 44, "w": 102, "h": 26 }],
+        "canvas:1": [{ "x": 4, "y": 164, "w": 72, "h": 24 }]
+      },
+      "pixelRects": {
+        "canvas:0": [{ "x": 34, "y": 34, "w": 92, "h": 24 }, { "x": 34, "y": 64, "w": 112, "h": 24 }],
+        "img:0": [{ "x": 234, "y": 44, "w": 102, "h": 26 }],
+        "canvas:1": [{ "x": 4, "y": 164, "w": 72, "h": 24 }]
+      },
+      "changedPixels": 9276,
+      "changedPixelsByRegion": { "canvas:0": 4896, "img:0": 2652, "canvas:1": 1728 }
+    },
+    "failClosed": {
+      "cssMask": {
+        "canvas:0": [{ "x": 20, "y": 20, "w": 160, "h": 100 }],
+        "img:0": [{ "x": 220, "y": 30, "w": 150, "h": 80 }],
+        "canvas:1": [{ "x": -30, "y": 150, "w": 140, "h": 70 }]
+      },
+      "pixelRects": {
+        "canvas:0": [{ "x": 20, "y": 20, "w": 160, "h": 100 }],
+        "img:0": [{ "x": 220, "y": 30, "w": 150, "h": 80 }],
+        "canvas:1": [{ "x": 0, "y": 150, "w": 110, "h": 70 }]
+      },
+      "changedPixels": 35700,
+      "changedPixelsByRegion": { "canvas:0": 16000, "img:0": 12000, "canvas:1": 7700 }
+    }
+  }
+}

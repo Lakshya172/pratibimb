@@ -42,3 +42,21 @@ loopback sink.
 | region identity | never sent to the worker. The offscreen document keeps the crop → region mapping (`tr01-findings.ts`) |
 | UI head ordering | the two realms are separate threads. The M9 sequential rule becomes the perception pass's job: it will await the UI head, then TR-01. That pass is wired in a later unit, and the host itself allows one TR-01 run at a time |
 | measurement code | the probe and the memory/network instrument are build-graph aliases (`#tr01-probe`, `#tr01-instrument`), present only with `TR01_PROBE=1` |
+
+## M10.5 decisions (pixel masking)
+
+> **Forward pointer.** The M10.4 "region identity" row above names a crop → region mapping in
+> `tr01-findings.ts`. That module was removed in M10.5 under the owner's architectural correction
+> (no crop before TR-01). It is superseded by the full-frame association below, in
+> `host-lib/visual-redaction.ts`. Region identity still never reaches the worker.
+
+| question | decision |
+|---|---|
+| detector input | the FULL captured frame, never a region crop. M8.1/M8.2/M8.2a/RE-1 evidence is for full frames through TR-01's declared resize; cropping would change input scale and distribution |
+| association | RE-1's own. Every full-frame detection is offered, as an `UNREAD_REGION`, to every visual region, and the canonical dilate → merge → clip decides. There is no pre-filter, because one would change which boxes merge |
+| common space | CSS viewport pixels (INV-24): boxes via `captureToCss`, planning and canonical geometry in CSS, then `cssToCapturePixelRect`, which rounds OUTWARD and clips to the frame, for the fill |
+| fill | constant-colour opaque black `(0, 0, 0, 255)`, never blur, pixelation or partial alpha. No semantic label yet (the frozen verifier sequence composites one after the fill; not in this unit) |
+| semantics | IN PLACE: the frozen rule "the un-redacted bitmap is closed immediately after masking" means no raw copy remains for a later step |
+| REFUSED | invalid region, frame or geometry. The whole buffer is overwritten, and no frame is returned |
+| fail-closed | any detector failure or malformed report masks every region's visible area whole; the sanitized frame may continue |
+| wiring | not wired into the product perception pass in this unit: the evidence probe drives the real pieces. Wiring it to the gesture route is the next unit |

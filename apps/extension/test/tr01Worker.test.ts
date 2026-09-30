@@ -12,10 +12,8 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 import { TR01 } from "@pratibimb/perception";
-import { planVisualRedaction, failClosedMask } from "@pratibimb/privacy";
 import { loadVerifiedModel, ModelPinError, ORT_PIN } from "@pratibimb/security";
 
-import { textRegionReportFrom } from "../host-lib/tr01-findings";
 import { createTr01Host, type Tr01Outcome, type WorkerLike } from "../host-lib/tr01-host";
 import { TR01_DEADLINE_MS, TR01_PACKAGE } from "../host-lib/tr01-pin";
 import { parseTr01Reply, parseTr01Request, TR01_PROTOCOL, type Tr01Reply } from "../host-lib/tr01-protocol";
@@ -559,48 +557,6 @@ describe("the host: one run at a time, explicitly", () => {
   });
 });
 
-// ───────────────────────────── the privacy planner ─────────────────────────────
-
-describe("worker outcomes → UNREAD_REGION → planner, and failure is fail-closed", () => {
-  const region = { id: "canvas:0", rect: { x: 100, y: 100, w: 400, h: 200 } };
-  const run = (outcome: Tr01Outcome) => ({ regionId: "canvas:0", outcome, originCss: { x: 100, y: 100 }, scaleToCss: 0.5 });
-
-  it("a successful run becomes UNREAD_REGION findings in CSS space, and a normal plan", () => {
-    const report = textRegionReportFrom([run({ ok: true, runId: 1, detections: [{ x: 40, y: 20, w: 100, h: 30, score: 0.8 }], ms: { preprocess: 0, infer: 0, postprocess: 0, total: 0 } })]);
-    expect(report).toEqual({
-      status: "OK",
-      findings: [{ kind: "UNREAD_REGION", box: { x: 120, y: 110, w: 50, h: 15 }, score: 0.8, regionId: "canvas:0", treatment: "REDACT_UNREAD" }],
-    });
-    const plan = planVisualRedaction([region], report);
-    expect(plan.outcome === "PLANNED" && plan.failClosed).toBe(false);
-  });
-
-  it.each([
-    ["DETECTOR_TIMEOUT", "TIMEOUT"],
-    ["DETECTOR_UNAVAILABLE", "UNAVAILABLE"],
-    ["DETECTOR_DISPOSED", "UNAVAILABLE"],
-    ["MODEL_OUTPUT_MALFORMED", "MALFORMED"],
-    ["DETECTOR_ERROR", "ERROR"],
-    ["DETECTOR_BUSY", "ERROR"],
-  ] as const)("%s → %s → every region masked whole", (code, status) => {
-    const report = textRegionReportFrom([run({ ok: false, runId: 1, code, detail: "x" })]);
-    expect(report).toEqual({ status });
-    const plan = planVisualRedaction([region], report);
-    expect(plan.outcome === "PLANNED" && plan.failClosed).toBe(true);
-    expect(plan.outcome === "PLANNED" && plan.regions[0]!.mask).toEqual(failClosedMask(region.rect));
-  });
-
-  it("one failed region spoils the report, even beside a successful one", () => {
-    const ok = run({ ok: true, runId: 1, detections: [], ms: { preprocess: 0, infer: 0, postprocess: 0, total: 0 } });
-    expect(textRegionReportFrom([ok, run({ ok: false, runId: 2, code: "DETECTOR_TIMEOUT", detail: "" })])).toEqual({ status: "TIMEOUT" });
-  });
-
-  it("an invalid CSS mapping is MALFORMED, not an empty report", () => {
-    const r = { ...run({ ok: true, runId: 1, detections: [{ x: 1, y: 1, w: 1, h: 1, score: 1 }], ms: { preprocess: 0, infer: 0, postprocess: 0, total: 0 } }), scaleToCss: NaN };
-    expect(textRegionReportFrom([r])).toEqual({ status: "MALFORMED" });
-  });
-});
-
 // ───────────────────────────── the boundary, structurally ─────────────────────────────
 
 describe("the worker and its host: no network, no text, no OCR, no egress, no actions", () => {
@@ -609,7 +565,7 @@ describe("the worker and its host: no network, no text, no OCR, no egress, no ac
     core: strip(read("apps/extension/host-lib/tr01-worker-core.ts")),
     host: strip(read("apps/extension/host-lib/tr01-host.ts")),
     protocol: strip(read("apps/extension/host-lib/tr01-protocol.ts")),
-    findings: strip(read("apps/extension/host-lib/tr01-findings.ts")),
+    redaction: strip(read("apps/extension/host-lib/visual-redaction.ts")),
   };
 
   it.each(Object.entries(files))("%s: no network API other than the pinned package fetches", (_n, src) => {

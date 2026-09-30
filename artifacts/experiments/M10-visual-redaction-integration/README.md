@@ -2,14 +2,16 @@
 
 > **Status: IN PROGRESS.** M10 is being delivered as separately committed units. Product visual-only
 > PII protection remains **NOT VERIFIED**: no frame is captured, masked, encoded or sent by anything
-> recorded here, and no product path calls TR-01.
+> recorded here, and no product path calls TR-01 or the mask yet. M10.5 sanitizes real frames, but only
+> in the evidence build, in memory, and nothing is encoded or sent.
 
 | unit | commit | what it established |
 |---|---|---|
 | M10.1 | `9af71b7` | TR-01 detector contract (`packages/perception/src/textRegion.ts`), golden-equal to M8.1 |
 | M10.2 | `6386abd` | fail-closed `TextFinding` and `planVisualRedaction` (`packages/privacy/src/textFinding.ts`) |
 | M10.3 | `6121081` | visual-only region enumeration in OBSERVE (`visualRegions`) |
-| M10.4 | this unit | TR-01 in a dedicated worker owned by the offscreen document; external 2,000 ms deadline |
+| M10.4 | `67e0509` | TR-01 in a dedicated worker owned by the offscreen document; external 2,000 ms deadline |
+| M10.5 | this unit | full-frame TR-01 → fail-closed plan → canonical geometry → opaque pixel mask, in place |
 
 ## Hypothesis
 
@@ -25,6 +27,16 @@ planner unchanged. The ordinary element graph is unaffected, and no pixel, URL o
 - recovery by recreating the worker;
 - combined WASM linear memory within the 200 MB engineering gate.
 
+**M10.5.** A real captured frame can be sanitized in memory, with:
+
+- TR-01 run on the FULL frame, never a crop;
+- detector boxes mapped to CSS and offered to every visual region, as RE-1's scorer does;
+- the canonical geometry planned fail-closed;
+- the mask rounded outward into capture pixels and filled opaquely in place.
+
+It should cover every fixture ink pixel and change no pixel outside the mask. Detector failure should
+mask every region whole, and REFUSED should leave no frame.
+
 ## Environment
 
 W1 (`LAPTOP-6E14K34L`), Windows 11, Chrome for Testing (Playwright `chromium-1243`), headed, built
@@ -35,6 +47,12 @@ MV3 host from this commit's tree. Full provenance is in each log.
 - **M10.4:** the evidence build `TR01_PROBE=1`, which carries the step-by-step probe and the
   memory/network instrument. The product build carries neither. Frames are M8.2's seven fixed
   screenshots (dev, H1–H6, 1280×720), which are git-ignored.
+- **M10.5:** the evidence build `M3_WORKER_FRAME=1 TR01_PROBE=1`, with one real frame per step
+  through the existing no-gesture route (`captureVisibleTab` in the worker). Each cell launches
+  Chrome with `--force-device-scale-factor` 1, 1.25, 1.5 and 2 on the loopback fixture
+  `tests/browser/extension/fixture/visual-mask.html` at 1280×720 CSS px. Node tests use the frozen
+  synthetic RGBA fixture (`apps/extension/test/support/maskFixture*`) and the 90 canonical golden
+  vectors.
 
 ## Expected result
 
@@ -60,6 +78,19 @@ MV3 host from this commit's tree. Full provenance is in each log.
 - Combined WASM linear memory (TR-01 worker plus the UI head in the offscreen realm) is at most
   200 MB.
 - There are no foreign network arrivals in the worker.
+
+**M10.5:**
+
+- The observation carries exactly `canvas:0`, `canvas:1` and `img:0`.
+- Every pixel wholly inside a fixture ink rectangle is the fill.
+- Both controls (DOM text, a colour swatch) are byte-identical.
+- Every mask pixel is the fill, and nothing outside the mask changed; at DPR 1 this is re-checked in
+  the harness from the raw and sanitized buffers.
+- A 50 ms deadline gives `DETECTOR_TIMEOUT`, and every region's visible area is filled.
+- A region corrupted inside the realm (NaN width, duplicate id) gives REFUSED: no frame, and the
+  buffer is wiped.
+- In Node, the 90 golden vectors reproduce the pre-registered masks and exactly the pixels they
+  cover.
 
 ## Actual result
 
@@ -119,6 +150,47 @@ bundle via `importScripts`, the WASM artifact, and the model. There were no fore
 glue `.mjs` is loaded by dynamic `import()`, which the instrument does not wrap; packaging and
 `script-src 'self'` are its control (ADR-0001 C-3).
 
+**M10.5: PASS** in all four cells, `logs/w1-cft-visual-mask.json`. TR-01 found 6 text lines on the
+full frame: the fixture's 5 synthetic lines and the DOM control line. The control line was offered to
+every region and clipped away by the canonical geometry.
+
+| DPR (forced) | capture | mask pixels, all fill | changed outside mask | ink uncovered | controls changed | fail-closed pixels (= whole visible regions) |
+|---|---|---|---|---|---|---|
+| 1 | 1280×720 | 56,401 | 0 | 0 of 30,065 | 0 | 231,800 |
+| 1.25 | 1600×900 | 86,087 | 0 | 0 of 46,143 | 0 | 362,400 |
+| 1.5 | 1920×1080 | 121,644 | 0 | 0 of 67,094 | 0 | 521,550 |
+| 2 | 2560×1440 | 217,520 | 0 | 0 of 120,334 | 0 | 927,200 |
+
+The first recorded run had two harness defects. No product code changed between runs.
+
+- Emulated `deviceScaleFactor` does not change what `captureVisibleTab` returns: every cell captured
+  at this display's physical 1.25. The product built its geometry from the frame's measured size and
+  masked correctly. The harness now forces the browser's scale.
+- Capturing four frames in quick succession hit the browser's capture rate limit, so the REFUSED
+  steps never ran and the harness did not surface the error. Captures are now paced and probe errors
+  fail the run.
+
+Mask-only latency, in `performance.now()` ms (n = 50 per series, detector excluded). This realm's
+timer is coarsened to 0.1 ms, so the individual stages read 0–0.3.
+
+| DPR | detected: total median / p90 / min / max | worst case (fail-closed) fill median / p90 / min / max | pixels written |
+|---|---|---|---|
+| 1 | 0.3 / 0.5 / 0.1 / 0.5 | 0.4 / 0.5 / 0.3 / 0.7 | 231,800 |
+| 1.25 | 0.4 / 0.5 / 0.1 / 3.3 | 0.7 / 1.0 / 0.5 / 1.4 | 362,400 |
+| 1.5 | 0.4 / 0.7 / 0.2 / 3.5 | 1.0 / 1.1 / 0.8 / 2.3 | 521,550 |
+| 2 | 0.6 / 1.0 / 0.4 / 3.8 | 1.7 / 2.0 / 1.6 / 3.7 | 927,200 |
+
+Memory:
+
+- **WASM linear memory, the gate metric:** unchanged by masking. TR-01 worker 137,494,528 B plus UI
+  head 27,656,192 B = 165,150,720 B (157.5 MiB).
+- **Masking allocates no second frame:** the fill is in place, and the mask is a list of 5 pixel
+  rectangles.
+- **JS buffers that exist anyway:** the captured frame (3,686,400 B at DPR 1, 14,745,600 B at DPR 2),
+  and M10.4's copy transferred to the worker (the same size).
+- **Even counting those buffers against the WASM gate,** the total is 172,523,520 B (164.5 MiB) at
+  DPR 1 and 194,641,920 B (185.6 MiB, 194.6 MB) at DPR 2, both under 200 MB.
+
 ## Conclusion
 
 Region enumeration works through the real extension on this fixture. That supplies the regions the
@@ -126,7 +198,13 @@ privacy planner needs. It says nothing yet about capture, masking or egress, whi
 units.
 
 M10.4: the TR-01 worker works as specified on W1, and meets both engineering gates on this fixture
-set. Nothing in the product calls it yet. Capture, crop, masking, encode and egress are later units.
+set. Nothing in the product calls it yet.
+
+M10.5: on a real frame, the chain from full-frame TR-01 to an opaque in-place mask works as specified
+at four capture scales, and fails closed as specified. It is exercised through the evidence build; the
+product perception pass does not call it yet. Detector recall at capture scales other than the screened
+1280×720 is not screened: these cells show TR-01 found every fixture line, and nothing more. Encoding,
+verification of encoded bytes and egress are later units.
 
 ## Reproducibility
 
@@ -151,3 +229,14 @@ npm run build -w @pratibimb/extension
 The last command restores the product build. Both the build and the worker refuse a model whose
 SHA-256 or length differs from the pin. Unit tests: `apps/extension/test/tr01Worker.test.ts` and
 `tests/browser/support/m10-worker-golden.test.mjs`.
+
+M10.5:
+
+```
+M3_WORKER_FRAME=1 TR01_PROBE=1 npm run build -w @pratibimb/extension
+CHROME_PATH="<chrome for testing>" node tests/browser/extension/run-visual-mask.mjs
+npm run build -w @pratibimb/extension
+```
+
+Unit tests: `apps/extension/test/visualRedaction.test.ts` and
+`tests/browser/support/m10-mask-golden.test.mjs`.

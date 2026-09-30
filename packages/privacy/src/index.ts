@@ -195,3 +195,17 @@ export {
   type VisualRedactionPlan,
   type VisualRegion,
 } from "./textFinding.js";
+
+/**
+ * The pixel mask: a constant-colour opaque fill over integer capture-pixel rectangles, in place.
+ * Never blur, never pixelation, never partial alpha.
+ */
+export {
+  MASK_FILL,
+  PixelMaskError,
+  assertRgbaFrame,
+  fillOpaque,
+  wipeFrame,
+  type PixelRect,
+  type RgbaFrame,
+} from "./pixelRedaction.js";

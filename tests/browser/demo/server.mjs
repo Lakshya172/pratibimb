@@ -76,6 +76,11 @@ function locate(pathname) {
     return join(ROOT, "tests/browser/extension/fixture/structural.html");
   }
 
+  /** M10.5's pixel-mask fixture: canvas and image text, a partly off-screen canvas, DOM controls. */
+  if (pathname === "/mask" || pathname === "/mask/") {
+    return join(ROOT, "tests/browser/extension/fixture/visual-mask.html");
+  }
+
   /** M10's visual-only region fixture: canvases and images, some deliberately not enumerable. */
   if (pathname === "/regions" || pathname === "/regions/") {
     return join(ROOT, "tests/browser/extension/fixture/visual-regions.html");
