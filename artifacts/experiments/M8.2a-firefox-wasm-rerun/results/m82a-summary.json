@@ -1,0 +1,483 @@
+{
+ "validationPass": true,
+ "postprocessing": {
+  "dbPostprocessSha256Now": "20086902419586ce26c2314e7b86f3d1da5cee90034d38803707e71ee330933d",
+  "equalsM82Build": true,
+  "injectedVerbatim": {
+   "TR-01": true,
+   "TR-02": true
+  }
+ },
+ "candidates": {
+  "TR-01": {
+   "m82Cell": "ACCEPT",
+   "m82aCell": "ACCEPT",
+   "modes": {
+    "headful": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "timedOut": 0,
+     "amendmentApplied": true,
+     "firefox": [
+      "Mozilla Firefox 155.0.1"
+     ],
+     "userAgentRv": [
+      "rv:155.0"
+     ],
+     "warm": {
+      "n": 30,
+      "median": 462,
+      "p90": 528,
+      "min": 439,
+      "max": 554
+     },
+     "coldLoadMs": {
+      "n": 3,
+      "median": 614,
+      "p90": 769,
+      "min": 583,
+      "max": 769
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 563,
+      "p90": 594,
+      "min": 520,
+      "max": 594
+     },
+     "probeRuntimeMs": {
+      "n": 3,
+      "median": 28207,
+      "p90": 29534,
+      "min": 28171,
+      "max": 29534
+     },
+     "wallMs": {
+      "n": 3,
+      "median": 30564,
+      "p90": 33060,
+      "min": 30057,
+      "max": 33060
+     },
+     "heapWasmMb": 131.1
+    },
+    "headless": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "timedOut": 0,
+     "amendmentApplied": true,
+     "firefox": [
+      "Mozilla Firefox 155.0.1"
+     ],
+     "userAgentRv": [
+      "rv:155.0"
+     ],
+     "warm": {
+      "n": 30,
+      "median": 523,
+      "p90": 564,
+      "min": 420,
+      "max": 623
+     },
+     "coldLoadMs": {
+      "n": 3,
+      "median": 591,
+      "p90": 670,
+      "min": 588,
+      "max": 670
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 578,
+      "p90": 657,
+      "min": 482,
+      "max": 657
+     },
+     "probeRuntimeMs": {
+      "n": 3,
+      "median": 24400,
+      "p90": 28529,
+      "min": 16828,
+      "max": 28529
+     },
+     "wallMs": {
+      "n": 3,
+      "median": 26555,
+      "p90": 31066,
+      "min": 18534,
+      "max": 31066
+     },
+     "heapWasmMb": 131.1
+    }
+   },
+   "comparisons": {
+    "launchesCompared": 6,
+    "outputShapes": [
+     "1x1x640x1024"
+    ],
+    "outputCountEqual": true,
+    "exactElementCount": true,
+    "relErrSumAbsVsNative": {
+     "dev": [
+      6.517290281877041e-7
+     ],
+     "H1": [
+      0.0000026427645217762933
+     ],
+     "H2": [
+      2.8898533296532047e-7
+     ],
+     "H3": [
+      0.000004078413748913777
+     ],
+     "H4": [
+      0.000002751408240014816
+     ],
+     "H5": [
+      0.0000023338760187423916
+     ],
+     "H6": [
+      0.0000028780461933277005
+     ],
+     "synthetic": [
+      0.1039136302294197
+     ]
+    },
+    "worstRealisticRelErr": 0.000004078413748913777,
+    "everyRealisticWithinBound": true,
+    "outputsEqualM81Wasm": true,
+    "boxesEqualM81": true,
+    "outputsEqualM82Linux": true,
+    "boxesEqualM82Linux": true,
+    "m82LinuxReferenceLaunches": 6,
+    "maxAbsVsNative": "equal, by byte identity with M8.1's WASM outputs, to M8.1's recorded maxAbsDiffWasmVsNative per input",
+    "maxAbsVsNativePerInput": {
+     "dev": 0.0001793205738067627,
+     "H1": 0.00028198957443237305,
+     "H2": 0.0004429817199707031,
+     "H3": 0.0005779266357421875,
+     "H4": 0.0006737112998962402,
+     "H5": 0.0007208585739135742,
+     "H6": 0.00041157007217407227
+    }
+   },
+   "deterministic": true,
+   "re1": {
+    "G1_exposedSensitiveGlyphs": 0,
+    "G2_worstOverMask": 0.3755335538791056,
+    "G3_largestSingleBoxShare": 0.04569404976801505,
+    "G4_deterministic": true,
+    "G5_wasmValidEveryRealisticInput": true,
+    "G6_noPlaintext": true,
+    "setFloor": true,
+    "gates": {
+     "heldOutLargeEnough": true,
+     "noExposedSensitiveGlyph": true,
+     "overMaskWithinBudget": true,
+     "noBlanketBox": true,
+     "wasmValidOnEveryInput": true,
+     "deterministic": true,
+     "noPlaintextOutput": true
+    },
+    "pass": true,
+    "perImage": [
+     {
+      "image": "H1",
+      "exposed": 0,
+      "overMask": 0.17923840459655604,
+      "largest": 0.026138807965138497
+     },
+     {
+      "image": "H2",
+      "exposed": 0,
+      "overMask": 0.35420928048650663,
+      "largest": 0.02229225213577402
+     },
+     {
+      "image": "H3",
+      "exposed": 0,
+      "overMask": 0.15153082762544895,
+      "largest": 0.04569404976801505
+     },
+     {
+      "image": "H4",
+      "exposed": 0,
+      "overMask": 0.13164714366559607,
+      "largest": 0.019646046205422738
+     },
+     {
+      "image": "H5",
+      "exposed": 0,
+      "overMask": 0.28057306864753817,
+      "largest": 0.030572391528925595
+     },
+     {
+      "image": "H6",
+      "exposed": 0,
+      "overMask": 0.3755335538791056,
+      "largest": 0.015651396048897464
+     }
+    ],
+    "devScreen": {
+     "exposed": 0,
+     "overMask": 0.2984385026878664,
+     "largest": 0.06607664719496412,
+     "gates": {
+      "noExposedSensitiveGlyph": true,
+      "overMaskWithinBudget": true,
+      "noBlanketBox": true
+     }
+    }
+   },
+   "qg03": {
+    "m82": "PASS",
+    "m82aInterpreted": "PASS",
+    "cellsUsed": {
+     "Chrome WebGPU": "ACCEPT",
+     "Chrome WASM": "ACCEPT",
+     "Firefox WebGPU": "CONDITIONAL",
+     "Firefox WASM (Linux)": "ACCEPT"
+    },
+    "failures": [],
+    "note": "only the Firefox WASM (Linux) cell is replaced; every other input is M8.2's recorded value"
+   }
+  },
+  "TR-02": {
+   "m82Cell": "CONDITIONAL",
+   "m82aCell": "ACCEPT",
+   "modes": {
+    "headful": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "timedOut": 0,
+     "amendmentApplied": true,
+     "firefox": [
+      "Mozilla Firefox 155.0.1"
+     ],
+     "userAgentRv": [
+      "rv:155.0"
+     ],
+     "warm": {
+      "n": 30,
+      "median": 616,
+      "p90": 715,
+      "min": 541,
+      "max": 752
+     },
+     "coldLoadMs": {
+      "n": 3,
+      "median": 608,
+      "p90": 684,
+      "min": 440,
+      "max": 684
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 746,
+      "p90": 815,
+      "min": 651,
+      "max": 815
+     },
+     "probeRuntimeMs": {
+      "n": 3,
+      "median": 28302,
+      "p90": 36273,
+      "min": 26307,
+      "max": 36273
+     },
+     "wallMs": {
+      "n": 3,
+      "median": 30557,
+      "p90": 38572,
+      "min": 29557,
+      "max": 38572
+     },
+     "heapWasmMb": 152.4
+    },
+    "headless": {
+     "loaded": "3/3",
+     "correct": "3/3",
+     "verdict": "ACCEPT",
+     "timedOut": 0,
+     "amendmentApplied": true,
+     "firefox": [
+      "Mozilla Firefox 155.0.1"
+     ],
+     "userAgentRv": [
+      "rv:155.0"
+     ],
+     "warm": {
+      "n": 30,
+      "median": 613,
+      "p90": 645,
+      "min": 552,
+      "max": 703
+     },
+     "coldLoadMs": {
+      "n": 3,
+      "median": 591,
+      "p90": 607,
+      "min": 543,
+      "max": 607
+     },
+     "coldInferenceMs": {
+      "n": 3,
+      "median": 727,
+      "p90": 740,
+      "min": 722,
+      "max": 740
+     },
+     "probeRuntimeMs": {
+      "n": 3,
+      "median": 28690,
+      "p90": 30147,
+      "min": 21086,
+      "max": 30147
+     },
+     "wallMs": {
+      "n": 3,
+      "median": 31058,
+      "p90": 32569,
+      "min": 23042,
+      "max": 32569
+     },
+     "heapWasmMb": 152.4
+    }
+   },
+   "comparisons": {
+    "launchesCompared": 6,
+    "outputShapes": [
+     "1x1x736x1312"
+    ],
+    "outputCountEqual": true,
+    "exactElementCount": true,
+    "relErrSumAbsVsNative": {
+     "dev": [
+      6.868745308849452e-7
+     ],
+     "H1": [
+      0.000004317283944518333
+     ],
+     "H2": [
+      0.000010955869273842048
+     ],
+     "H3": [
+      9.02278417265166e-7
+     ],
+     "H4": [
+      0.000009117880204960336
+     ],
+     "H5": [
+      0.000002854254093338727
+     ],
+     "H6": [
+      0.0000053960601031039704
+     ],
+     "synthetic": [
+      0
+     ]
+    },
+    "worstRealisticRelErr": 0.000010955869273842048,
+    "everyRealisticWithinBound": true,
+    "outputsEqualM81Wasm": true,
+    "boxesEqualM81": true,
+    "outputsEqualM82Linux": true,
+    "boxesEqualM82Linux": true,
+    "m82LinuxReferenceLaunches": 5,
+    "maxAbsVsNative": "equal, by byte identity with M8.1's WASM outputs, to M8.1's recorded maxAbsDiffWasmVsNative per input",
+    "maxAbsVsNativePerInput": {
+     "dev": 0.0002676248550415039,
+     "H1": 0.0005714297294616699,
+     "H2": 0.0010837018489837646,
+     "H3": 0.0008762776851654053,
+     "H4": 0.001808255910873413,
+     "H5": 0.0009456872940063477,
+     "H6": 0.004025757312774658
+    }
+   },
+   "deterministic": true,
+   "re1": {
+    "G1_exposedSensitiveGlyphs": 0,
+    "G2_worstOverMask": 0.17489676702825074,
+    "G3_largestSingleBoxShare": 0.04540487085093153,
+    "G4_deterministic": true,
+    "G5_wasmValidEveryRealisticInput": true,
+    "G6_noPlaintext": true,
+    "setFloor": true,
+    "gates": {
+     "heldOutLargeEnough": true,
+     "noExposedSensitiveGlyph": true,
+     "overMaskWithinBudget": true,
+     "noBlanketBox": true,
+     "wasmValidOnEveryInput": true,
+     "deterministic": true,
+     "noPlaintextOutput": true
+    },
+    "pass": true,
+    "perImage": [
+     {
+      "image": "H1",
+      "exposed": 0,
+      "overMask": 0.039838128333339363,
+      "largest": 0.019487524074773593
+     },
+     {
+      "image": "H2",
+      "exposed": 0,
+      "overMask": 0.15619210190851254,
+      "largest": 0.01864249603385065
+     },
+     {
+      "image": "H3",
+      "exposed": 0,
+      "overMask": 0.04359272482606842,
+      "largest": 0.04540487085093153
+     },
+     {
+      "image": "H4",
+      "exposed": 0,
+      "overMask": 0.0699216291099245,
+      "largest": 0.01535769386185312
+     },
+     {
+      "image": "H5",
+      "exposed": 0,
+      "overMask": 0.1306586710712446,
+      "largest": 0.02537668724310449
+     },
+     {
+      "image": "H6",
+      "exposed": 0,
+      "overMask": 0.17489676702825074,
+      "largest": 0.01284877058522406
+     }
+    ],
+    "devScreen": {
+     "exposed": 0,
+     "overMask": 0.06507743220979002,
+     "largest": 0.05408112653991394,
+     "gates": {
+      "noExposedSensitiveGlyph": true,
+      "overMaskWithinBudget": true,
+      "noBlanketBox": true
+     }
+    }
+   },
+   "qg03": {
+    "m82": "FAIL",
+    "m82aInterpreted": "PASS",
+    "cellsUsed": {
+     "Chrome WebGPU": "ACCEPT",
+     "Chrome WASM": "ACCEPT",
+     "Firefox WebGPU": "CONDITIONAL",
+     "Firefox WASM (Linux)": "ACCEPT"
+    },
+    "failures": [],
+    "note": "only the Firefox WASM (Linux) cell is replaced; every other input is M8.2's recorded value"
+   }
+  }
+ }
+}
