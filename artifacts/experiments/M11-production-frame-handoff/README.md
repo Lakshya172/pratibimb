@@ -147,7 +147,33 @@ user goal (side panel) ─► RUN_TASK (service worker carries the request) ─�
 
 ### 5. Regression of the M10 loopback mechanism (Part T)
 
-Recorded in `decision.md` once run; the historical M10 logs are not rewritten.
+Re-run on this tree, with no product code changed since `aaf9e88`. The M10 logs these runs rewrite
+were restored from git afterwards, unchanged:
+
+- **M8:** M8.1 TR-01/TR-02 ELIGIBLE; M8.2 aggregate runs; M8.2a ACCEPT; the held-out set matches its
+  frozen files and geometry.
+- **M10.3, M10.4, M10.5 and RE-1 through the product path:** PASS.
+- **Dry runs** of M10.6, M10.7 and M10.8 (degraded route, no click, not gesture evidence): PASS.
+  - **M10.7:** the hash chain is equal. All 9 refused-egress attempts were refused before the wire
+    (7 × `FRAME_NOT_MASK_VERIFIED`, `PAYLOAD_HASH_MISMATCH`, `DESTINATION_NOT_LOOPBACK`). REFUSED gave
+    `NO_SANITIZED_FRAME` with 0 sink arrivals, and the timeout frame was sent.
+  - **M10.8:** the normal artifact PASSES 3 times, the timeout artifact PASSES, and the mutated and
+    stale artifacts are BLOCKED (`IDENTITY_MISMATCH`). The unmasked negative control is BLOCKED
+    (`SURVIVORS_CLEARED_ONLY_BY_12PX_REDILATION`).
+
+### 6. Contract tests (ADR-0012)
+
+`packages/egress/src/handoffContract.ts` is pure, has no network I/O and no product caller, and its
+switch has the single value `DISABLED`. `packages/egress/test/handoffContract.test.ts` has 28 tests:
+the 20 negative cases of the M11 brief, plus a size mismatch, non-admissible states, the body round
+trip, determinism, canonical serialization, the server-side parser's refusals and source boundaries.
+
+- Every frame failure gives **STRUCTURE_ONLY**: the manifest alone, `capture.format: "none"`, and no
+  image part or image byte, checked by parsing the body back.
+- Destination, configuration, manifest and duplicate failures give **STOP**.
+- **No input yields a frame.** A perfect attested artifact with a `VERIFIED`-looking verdict is
+  refused as `VERDICT_NOT_ADMITTED`, because nothing can admit one (B2). Setting the switch to
+  `ENABLED` does not type-check.
 
 ## Conclusion
 

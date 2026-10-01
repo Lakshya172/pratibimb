@@ -36,3 +36,32 @@ export {
   type FrameEgressRequest,
 } from "./frame.js";
 export { inspectWebp, type WebpInspection } from "./webpContainer.js";
+
+/**
+ * M11 — the production frame-handoff CONTRACT (ADR-0012, PROPOSED): the QG-04 body builder and its
+ * server-side parser, the v1.2 manifest check, and the fail-closed decision. Pure; no network; no
+ * product caller. Frame egress is DISABLED and cannot be admitted today.
+ */
+export {
+  ADMISSIBLE_FRAME_STATE,
+  HANDOFF_CONTRACT,
+  bodyMatchesPin,
+  buildHandoffBody,
+  canonicalJson,
+  checkManifest,
+  createSentRegistry,
+  decideHandoff,
+  isAdmittedFrameVerdict,
+  parseHandoffBody,
+  type FrameEgressSwitch,
+  type FrameRefusal,
+  type HandoffBody,
+  type HandoffConfig,
+  type HandoffDecision,
+  type HandoffInput,
+  type ManifestCheck,
+  type ManifestRefusal,
+  type SentRegistry,
+  type StopCause,
+  type VerificationState,
+} from "./handoffContract.js";
