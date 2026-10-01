@@ -207,3 +207,68 @@ export async function validateQg04Request(request: { readonly contentType: strin
   if (parsed.frame && parsed.frame.length > m.capture.w * m.capture.h * 4) return { ok: false, reason: "the frame is larger than the pixels it encodes" };
   return parsed;
 }
+
+// ── the structure-only fallback (ADR-0012 §8) ──────────────────────────────────────────────
+
+export type FrameWithheldReason =
+  | "REFUSED"
+  | "NO_SANITIZED_ARTIFACT"
+  | "FRAME_NOT_MASK_VERIFIED"
+  | "FRAME_HASH_MISMATCH"
+  | "FRAME_SIZE_MISMATCH"
+  | "NO_VERDICT"
+  | "VERIFIER_BLOCK"
+  | "STATE_NOT_ADMISSIBLE"
+  | "STALE_VERDICT"
+  | "WRONG_RUN_IDENTITY"
+  | "VERDICT_NOT_ADMITTED";
+
+export type HandoffPlan =
+  | {
+      readonly mode: "STRUCTURE_ONLY";
+      /** Why the image was withheld — shown to the user, recorded in the ledger. */
+      readonly notice: { readonly kind: "IMAGE_WITHHELD"; readonly reason: FrameWithheldReason };
+      readonly attestation: HandoffAttestation;
+    }
+  | { readonly mode: "STOP"; readonly cause: "HANDOFF_NOT_VERIFIED" | AttestRefusal; readonly detail: string };
+
+/** Verdicts a production frame verifier admitted. Nothing adds to it: none exists (ADR-0012 B2). */
+const ADMITTED_VERDICTS = new WeakSet<object>();
+
+async function whyWithheld(input: { readonly handoff: VerifiedHandoff; readonly frame: unknown; readonly verdict: unknown; readonly refused: boolean }): Promise<FrameWithheldReason> {
+  if (input.refused) return "REFUSED";
+  const f = input.frame;
+  if (f === null || f === undefined) return "NO_SANITIZED_ARTIFACT";
+  if (!isMaskVerifiedFrame(f)) return "FRAME_NOT_MASK_VERIFIED";
+  if ((await sha256HexOfBytes(f.bytes.slice())) !== f.sha256) return "FRAME_HASH_MISMATCH";
+  if (f.width !== input.handoff.capture.w || f.height !== input.handoff.capture.h) return "FRAME_SIZE_MISMATCH";
+  const v = input.verdict as { verdict?: unknown; state?: unknown; frameSha256?: unknown; requestId?: unknown } | null | undefined;
+  if (typeof v !== "object" || v === null) return "NO_VERDICT";
+  if (v.verdict === "BLOCK") return "VERIFIER_BLOCK";
+  if (v.state !== FRAME_EGRESS_STATE) return "STATE_NOT_ADMISSIBLE";
+  if (v.frameSha256 !== f.sha256) return "STALE_VERDICT";
+  if (v.requestId !== input.handoff.request.requestId) return "WRONG_RUN_IDENTITY";
+  if (!ADMITTED_VERDICTS.has(v)) return "VERDICT_NOT_ADMITTED";
+  // Unreachable today: nothing admits a verdict. Even then, this function builds no frame body.
+  return "VERDICT_NOT_ADMITTED";
+}
+
+/**
+ * Decide what the handoff is when a frame cannot go. TODAY THAT IS ALWAYS: a frame cannot go.
+ *
+ * - A verified handoff with any frame problem → STRUCTURE_ONLY: an attested body with
+ *   `capture.format: "none"`, NO frame part and NO image byte, plus an `IMAGE_WITHHELD` notice
+ *   naming the reason. When the candidate is a genuine MASK_VERIFIED frame, its masks are described
+ *   in `visual_masks[]` (ids and CSS boxes only), so the reasoner knows what it is not seeing.
+ * - A handoff the privacy verifier did not produce → STOP: nothing at all.
+ * - REFUSED (an invalid visual region): no frame ever existed; structure-only, nothing about the frame.
+ * Never a raw frame, never an unverified WebP.
+ */
+export async function planHandoff(input: { readonly handoff: VerifiedHandoff; readonly frame: unknown; readonly verdict: unknown; readonly refused?: boolean; readonly runtime: RuntimeIdentity }): Promise<HandoffPlan> {
+  if (!isVerifiedHandoff(input.handoff)) return { mode: "STOP", cause: "HANDOFF_NOT_VERIFIED", detail: "the handoff was not produced by the privacy verifier" };
+  const reason = await whyWithheld({ handoff: input.handoff, frame: input.frame, verdict: input.verdict, refused: input.refused === true });
+  const masksFrom = !input.refused && isMaskVerifiedFrame(input.frame) && reason !== "FRAME_HASH_MISMATCH" ? input.frame : null;
+  const attested = await attestHandoffBody({ handoff: input.handoff, frame: null, masksFrom, runtime: input.runtime });
+  if (!attested.ok) return { mode: "STOP", cause: attested.code, detail: attested.detail };
+  return { mode: "STRUCTURE_ONLY", notice: { kind: "IMAGE_WITHHELD", reason }, attestation: attested.attestation };
+}
