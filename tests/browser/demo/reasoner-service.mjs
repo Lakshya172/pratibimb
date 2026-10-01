@@ -104,7 +104,11 @@ const hostilePlan = (literal) =>
 
 export async function startReasonerService(options = {}) {
   const mode = options.mode ?? "forward";
-  const port = options.port ?? (mode === "hostile" ? HOSTILE_PORT : FRONT_PORT);
+  // Every mode defaults to FRONT_PORT, as it did before the SIH demo existed. A caller that wants a
+  // second front says so: the SIH runner passes `port: HOSTILE_PORT` explicitly. Defaulting hostile
+  // mode to HOSTILE_PORT silently moved the LOOP-2 runner's refusal run onto a dead address, where it
+  // was read as a model outage, fell back and "succeeded" — the one confusion this file must not cause.
+  const port = options.port ?? FRONT_PORT;
   const captures = [];
   let model = null;
 

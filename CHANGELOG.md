@@ -74,6 +74,15 @@ no unexpected failures ([DEMO-1](artifacts/experiments/DEMO-1-sih-rehearsal/READ
   and say "NOT PROVEN" where that is the honest answer.
 
 ### Fixed in the demo surface
+- **The LOOP-1 runner had been failing since the DEMO-1 view change**, on two copy assertions ("no egress
+  client", "REFUSED") that the view had rightly stopped printing. They now assert the current, truthful
+  wording; every security assertion in that runner is unchanged.
+- **The LOOP-2 runner's refusal run had silently become an outage.** The reasoner service started defaulting
+  hostile mode to a second port, so LOOP-2 — which addresses the first — hit a dead address, fell back and
+  "succeeded". Every mode defaults to the original port again; the SIH runner passes its second port
+  explicitly.
+- **Entrance animations started from opacity 0**, so a browser that paused them — an occluded window, some
+  screen-capture paths — left the boundary rows and the outcome invisible. They now move but never fade.
 - **The `local model` checkbox was dead UI** — nothing read it, so ticking it silently ran the
   deterministic planner. A control that implied a path which was not exercised.
 - **The footer and pane 5 still claimed "no model, no network client" and "no egress client exists in
@@ -81,6 +90,18 @@ no unexpected failures ([DEMO-1](artifacts/experiments/DEMO-1-sih-rehearsal/READ
 - **`sweep` threw on a cyclic object**, which mid-demo would have taken out the evidence pane — and a
   caller catching that throw would have been one line from reporting a leak check as clean because it
   could not run. It now prunes cycles and reports that it did.
+
+**The demo, redesigned for the room** — the same three acts and the same pipeline, presented as a story a
+judge can follow from across a room.
+
+- The Planning View now leads with the privacy boundary — *On your device* (trusted, the real values) against
+  *What the reasoner sees* (untrusted, references only) — then *Model proposes → Client decides → Human
+  approval → Restore & act* and one outcome banner. The detailed panes remain underneath as technical evidence.
+- Every status on screen comes from `apps/demo/src/story.ts`: pure functions over the run record, tested
+  against real runs, including that nothing but the device side ever carries a value.
+- Read-only taps let the screen fill in *during* the run; the approval moment used to show empty panes. They
+  pass every call through unchanged and catch their own errors, because a throw inside `propose` would be
+  read as `REASONER_THREW` and trigger a fallback.
 
 ### Notes on the model
 - **`MODEL_PATH = EXPERIMENTAL`, `FALLBACK_PATH = VERIFIED`.** A 0.5B model given the bare schema
