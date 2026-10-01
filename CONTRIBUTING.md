@@ -46,9 +46,19 @@ Branch names communicate intent. `feature/stuff` is not a branch name.
 ```
 
 **Types:** `feat` `fix` `security` `test` `perf` `refactor` `docs` `build` `ci` `chore` `spike`
+`revert` `audit`
 
 **Scopes** (use where useful): `capture` `dom` `perception` `egress` `verifier` `vault`
 `manifest` `action` `coordinate` `server` `agentos` `repo` `webgpu` `ort`
+
+A change that genuinely spans packages may name several scopes, comma-separated, lowercase, with
+no spaces and no empty entry: `feat(reasoner,egress): …`. The subject line is at most 90
+characters after the `: `.
+
+**Merge commits.** A real merge commit (two or more parents) may keep Git's `Merge …` subject or
+use `merge: …`, and is not held to the type list. A single-parent commit is never exempted by a
+merge-looking subject. CI enforces all of this (`.github/workflows/ci.yml`, *Commit and branch
+hygiene*).
 
 ```
 feat(capture): establish visible-tab capture abstraction
