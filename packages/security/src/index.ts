@@ -15,6 +15,10 @@ export {
   buildExtensionPagesCsp,
   assertApprovedCsp,
   CspConfigurationError,
+  CSP_POLICY_VERSION,
+  buildExtensionPagesCspV2,
+  styleHashSource,
+  type ExtensionPagesCspV2,
 } from "./csp.js";
 
 export {

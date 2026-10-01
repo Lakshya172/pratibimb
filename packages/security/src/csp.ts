@@ -77,3 +77,64 @@ export function assertApprovedCsp(policy: string, serverOrigin: string): void {
     );
   }
 }
+
+/**
+ * ADR-0013 — THE AMENDED POLICY (version 2). ADR-0001's v1 above is kept unchanged, as the record of
+ * what was approved then; the extension builds this one.
+ *
+ * M12 measured (F-M12-1) that v1 pins `connect-src` but leaves every other fetch directive open: code
+ * injected into the offscreen document reached a foreign origin with an `<img>` and an `<iframe>`.
+ * v2 starts from `default-src 'none'`, so EVERY fetch directive that is not named is closed — img,
+ * media, font, frame/child, manifest, object — and names only what the extension's own pages load:
+ *
+ *   script-src 'self' 'wasm-unsafe-eval'   unchanged from v1 (the packaged chunks, ORT, the TR-01 worker's
+ *                                          importScripts; WASM compile)
+ *   worker-src 'self'                      the packaged TR-01 worker
+ *   connect-src 'self' <sources>           packaged model/ORT reads, plus the build's network sources —
+ *                                          each an origin or an EXACT path, never a wildcard
+ *   style-src <hashes> | 'none'            the side panel's one inline <style>, by its SHA-256
+ *   object-src 'none'                      stricter than v1's 'self'
+ *   base-uri 'none'; form-action 'none'    not fetch directives, so `default-src` does not cover them
+ *
+ * There is no permissive mode and no way to add a directive by argument.
+ */
+export const CSP_POLICY_VERSION = 2 as const;
+
+/** An origin, or an origin and an exact path. No wildcard, query, fragment or trailing slash. */
+const CONNECT_SOURCE = /^https?:\/\/[^/\s*?#]+(\/[^\s*?#]*[^/\s*?#])?$/;
+const STYLE_HASH = /^'sha256-[A-Za-z0-9+/]{43}='$/;
+
+export interface ExtensionPagesCspV2 {
+  /** Network sources beyond 'self'. A product build passes the reasoner endpoint; an evidence build may add its test sink. */
+  readonly connect: readonly string[];
+  /** `'sha256-…'` of each inline <style> an extension page carries. */
+  readonly styleHashes: readonly string[];
+}
+
+export function buildExtensionPagesCspV2(input: ExtensionPagesCspV2): string {
+  for (const source of input.connect) {
+    if (typeof source !== "string" || source.includes("*")) throw new CspConfigurationError(`wildcard or non-string connect source rejected: ${String(source)}`);
+    if (!CONNECT_SOURCE.test(source)) throw new CspConfigurationError(`not an origin or an exact path: ${source}`);
+  }
+  for (const hash of input.styleHashes) {
+    if (!STYLE_HASH.test(hash)) throw new CspConfigurationError(`not a 'sha256-…' style hash: ${hash}`);
+  }
+  return [
+    "default-src 'none'",
+    "script-src 'self' 'wasm-unsafe-eval'",
+    "worker-src 'self'",
+    ["connect-src 'self'", ...input.connect].join(" "),
+    input.styleHashes.length > 0 ? ["style-src", ...input.styleHashes].join(" ") : "style-src 'none'",
+    "object-src 'none'",
+    "base-uri 'none'",
+    "form-action 'none'",
+  ].join("; ");
+}
+
+/** The CSP hash source of an inline <style> element's exact text content. */
+export async function styleHashSource(text: string): Promise<string> {
+  const digest = await globalThis.crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  let bin = "";
+  for (const b of new Uint8Array(digest)) bin += String.fromCharCode(b);
+  return `'sha256-${btoa(bin)}'`;
+}

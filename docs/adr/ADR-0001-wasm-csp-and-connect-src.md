@@ -18,6 +18,11 @@ related_gates: ["QG-04"]
 
 # ADR-0001 — the WebAssembly CSP directive and the `connect-src` provenance pin
 
+> **Forward pointer (2026-10-01):** the extension_pages policy approved in §7 (v1) is **amended** by
+> [ADR-0013](ADR-0013-extension-pages-csp-v2.md) (policy v2: `default-src 'none'`, the product pinned
+> to the reasoner endpoint). Nothing below is changed; v1's builder remains in `csp.ts` as this
+> record.
+
 > **STATUS: APPROVED and IMPLEMENTED.**
 > Approved at the architectural decision level by the human architect on 2026-09-10, subject
 > to gates G1–G7 and all standing invariants (§12). Implemented on

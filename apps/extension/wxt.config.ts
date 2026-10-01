@@ -16,7 +16,7 @@ import { defineConfig } from "wxt";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 
-import { buildExtensionPagesCsp } from "../../packages/security/src/csp";
+import { extensionPagesCsp } from "./host-lib/extension-csp";
 import { ORT_PIN } from "../../packages/security/src/generated/ortPin";
 import { TR01_PACKAGE } from "./host-lib/tr01-pin";
 
@@ -28,6 +28,8 @@ const ROOT = resolve(HERE, "..", "..");
  * Loopback only; there is no server client in this host.
  */
 export const HOST_COLLECTOR_ORIGIN = "http://127.0.0.1:8995";
+/** The one network address a PRODUCT build may reach (ADR-0013): the loopback reasoner's endpoint, exactly. */
+export const HOST_REASONER_PATH = "/v1/chat/completions";
 
 /**
  * WHETHER THIS BUILD CARRIES E6's MECHANISMS. It does not, unless something asks for them.
@@ -111,6 +113,21 @@ const TR01_PROBE = process.env.TR01_PROBE === "1";
  * unless `EGRESS_EVIDENCE_PROBE=1` is set. Only those two experiments' harnesses need it.
  */
 const EGRESS_EVIDENCE_PROBE = process.env.EGRESS_EVIDENCE_PROBE === "1";
+/**
+ * ADR-0013 — WHICH NETWORK SOURCES THIS BUILD'S CSP NAMES. A product build reaches exactly the
+ * reasoner endpoint. A build with any evidence flag also reaches the rest of the collector origin
+ * (the test frame sink, the E4 and G-mv3-host evidence POSTs). The two policies differ in that one
+ * `connect-src` source and nothing else, which the M13 harness asserts on the built manifests.
+ */
+const EVIDENCE_BUILD = E6_PROBE || STRUCTURAL_PROBE || TR01_PROBE || EGRESS_EVIDENCE_PROBE || WORKER_FRAME;
+/**
+ * The side panel's one inline <style>, admitted by its SHA-256 rather than by 'unsafe-inline'. Line
+ * endings are normalised because the bundler emits LF whatever the checkout has; the M13 harness
+ * re-hashes the BUILT page's <style> and fails if it is not this hash.
+ */
+const SIDEPANEL_STYLE = /<style>([\s\S]*?)<\/style>/.exec(readFileSync(join(HERE, "host", "sidepanel", "index.html"), "utf8").replace(/\r\n/g, "\n"))?.[1];
+if (SIDEPANEL_STYLE === undefined) throw new Error("host/sidepanel/index.html: no <style> to hash");
+const STYLE_HASHES = [`'sha256-${createHash("sha256").update(SIDEPANEL_STYLE, "utf8").digest("base64")}'`];
 const HOST_PERMISSIONS = WORKER_FRAME ? ["http://127.0.0.1/*", "<all_urls>"] : ["http://127.0.0.1/*"];
 
 const ORT_DIST = join(ROOT, "node_modules", "onnxruntime-web", "dist");
@@ -163,7 +180,9 @@ export default defineConfig({
       _execute_action: { suggested_key: { default: "Alt+Shift+P" }, description: "Perceive this tab" },
     },
     host_permissions: HOST_PERMISSIONS,
-    content_security_policy: { extension_pages: buildExtensionPagesCsp(HOST_COLLECTOR_ORIGIN) },
+    content_security_policy: {
+      extension_pages: extensionPagesCsp({ build: EVIDENCE_BUILD ? "evidence" : "product", collectorOrigin: HOST_COLLECTOR_ORIGIN, reasonerPath: HOST_REASONER_PATH, styleHashes: STYLE_HASHES }),
+    },
     side_panel: { default_path: "sidepanel.html" },
   },
   hooks: {

@@ -35,6 +35,7 @@ import { startFrameSink } from "../support/frame-sink.mjs";
 import { readWebpRiff } from "../support/webp-riff.mjs";
 import { NOT_RUN, mayHandOff, verifyArtifact } from "../support/artifact-verifier.mjs";
 import { VERIFIER_CONFIG, startVerifierRuntime } from "../support/verifier-runtime.mjs";
+import { connectSrcOf, manifestRouteSha } from "../support/build-route.mjs";
 import { assertOwnEvidencePath, evidenceFileName, provenanceOf, resolveWorkstation } from "../support/workstation.mjs";
 
 const WS = resolveWorkstation();
@@ -94,7 +95,7 @@ const machineState = (() => {
 // ── builds ──────────────────────────────────────────────────────────────────────────────────────
 const shaFile = (f) => createHash("sha256").update(readFileSync(f)).digest("hex");
 const sha = (b) => createHash("sha256").update(b).digest("hex");
-const routeFiles = () => ({ background: shaFile(join(EXT, "background.js")), content: shaFile(join(EXT, "content-scripts", "content.js")), manifest: shaFile(join(EXT, "manifest.json")) });
+const routeFiles = () => ({ background: shaFile(join(EXT, "background.js")), content: shaFile(join(EXT, "content-scripts", "content.js")), manifest: manifestRouteSha(EXT), connectSrc: connectSrcOf(EXT) });
 const bundleText = () => [join(EXT, "background.js"), join(EXT, "content-scripts", "content.js"), ...readdirSync(join(EXT, "chunks")).map((f) => join(EXT, "chunks", f))].map((f) => readFileSync(f, "utf8")).join("\n");
 const build = (env) => execSync("npm run build", { cwd: APP, env: { ...process.env, TR01_PROBE: "", M3_WORKER_FRAME: "", STRUCTURAL_PROBE: "", E6_PROBE: "", ...env }, stdio: "pipe" });
 console.log("building the PRODUCT extension…");
@@ -109,7 +110,9 @@ const evidenceBundle = bundleText();
 const buildFacts = {
   productRoute,
   evidenceRoute,
-  routeIdenticalToProduct: JSON.stringify(productRoute) === JSON.stringify(evidenceRoute),
+  routeIdenticalToProduct: JSON.stringify({ ...productRoute, connectSrc: null }) === JSON.stringify({ ...evidenceRoute, connectSrc: null }),
+  // ADR-0013: the one permitted difference — the evidence build widens the reasoner endpoint to the collector origin.
+  connectSrcDiffersOnlyByCollector: productRoute.connectSrc === "'self' http://127.0.0.1:8995/v1/chat/completions" && evidenceRoute.connectSrc === "'self' http://127.0.0.1:8995",
   permissions: productManifest.permissions ?? [],
   hostPermissions: productManifest.host_permissions ?? [],
   csp: productManifest.content_security_policy ?? null,
@@ -118,6 +121,7 @@ const buildFacts = {
   evidenceBundleCarriesFrameEgress: evidenceBundle.includes("FRAME_NOT_MASK_VERIFIED"),
   noCaptureVisibleTab: !readFileSync(join(EXT, "background.js"), "utf8").includes("captureVisibleTab"),
 };
+if (!DRY && !buildFacts.connectSrcDiffersOnlyByCollector) refuse(`the evidence build's connect-src is not the product's widened to the collector origin: ${JSON.stringify(buildFacts)}`);
 if (!DRY && !buildFacts.routeIdenticalToProduct) refuse(`the evidence build's capture route differs from the product's: ${JSON.stringify(buildFacts)}`);
 if (!DRY && !buildFacts.noCaptureVisibleTab) refuse("this is not the product capture route");
 if (buildFacts.productBundleCarriesFrameEgress || buildFacts.productBundleCarriesSinkPath) refuse("the PRODUCT bundle carries frame egress");

@@ -44,6 +44,7 @@ const EXERCISED_BY_TESTS = [
   "e6/absent.ts",
   "host-lib/boundary-protocol.ts",
   "host-lib/capture-authority.ts",
+  "host-lib/extension-csp.ts",
   "host-lib/page-privacy-boundary.ts",
   "host-lib/perception-realm.ts",
   "host-lib/remote-privacy-boundary.ts",

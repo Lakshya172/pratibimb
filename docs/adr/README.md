@@ -10,7 +10,7 @@
 
 ## Recorded ADRs
 
-**Count: 4 approved (ADR-0001, 0002, 0009, 0010), 1 partially approved (ADR-0012), 7 proposed (ADR-0003–0008, 0011).**
+**Count: 5 approved/accepted (ADR-0001, 0002, 0009, 0010, 0013), 1 partially approved (ADR-0012), 7 proposed (ADR-0003–0008, 0011).**
 
 | ID | Title | Status | Date | Supersedes |
 |---|---|---|---|---|
@@ -26,6 +26,7 @@
 | [ADR-0010](ADR-0010-change-signal-under-explicit-capture.md) | The change policy under explicit capture: narrowing constitution §6 to the structural signal, under the capture architecture approved in ADR-0009 | **APPROVED 2026-09-24 (ronitsaha11) — Option B, narrow. Structural signal IN FORCE; visual dHash polling DEFERRED; full-frame safety net WITHDRAWN FROM v1. Constitution §5, §6 and §7 amended. Does not reopen ADR-0009. Not approval for autonomous capture** | 2026-09-24 | — |
 | [ADR-0011](ADR-0011-text-region-detector-contract.md) | A detector-only text-region contract: `TextRegionDetector`, fail-closed `TextFinding`, and the adoption boundary for TR-01 / TR-02 (M9) | **PROPOSED — OWNER DECISION REQUIRED. Not implemented; constitution §3/§8 amendment drafted, not applied; product visual-only PII protection NOT VERIFIED** | 2026-09-30 | — |
 | [ADR-0012](ADR-0012-production-frame-handoff.md) | Production frame handoff: the QG-04 artifact, its admissible verification state, the single egress authority and the structure-only fallback (M11) | **PARTIALLY APPROVED (M12, §16): taxonomy, VERIFIED-only, manifest v1.2, multipart approved; origin and authentication deliberately unconfigured. Enforcement implemented (M12). B2 and B5 undecided. Production frame egress BLOCKED; no frame leaves the client** | 2026-10-01 | — |
+| [ADR-0013](ADR-0013-extension-pages-csp-v2.md) | Extension-pages CSP v2: every fetch directive closed by default; the product pinned to the reasoner endpoint (M13) | **ACCEPTED 2026-10-01 (owner-directed, M13 brief) — implemented; amends ADR-0001 §7 (v1 → v2). F-M13-1 (top-level navigation, outside CSP) OPEN** | 2026-10-01 | ADR-0001 §7 (amends) |
 
 > **ADR-0001 covers issues #17 and #5 in one decision**, because S-02a-2a-4 measured that
 > the CSP directive and the `connect-src` egress pin live in the same manifest and constrain
