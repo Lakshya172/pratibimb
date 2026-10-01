@@ -2,7 +2,7 @@
 
 > **Status: REVIEW. Nothing here enables frame egress.** M11 decides and documents the production
 > frame-handoff contract before any real remote frame egress exists. The proposed decision is
-> ADR-0012 (`docs/adr/ADR-0012-production-frame-handoff.md`, PROPOSED, the next commit). The QG-04 status
+> [ADR-0012](../../../docs/adr/ADR-0012-production-frame-handoff.md) (PROPOSED). The QG-04 status
 > is in [`qg04-matrix.md`](qg04-matrix.md). **Production frame egress is BLOCKED** (findings F1–F11
 > below).
 

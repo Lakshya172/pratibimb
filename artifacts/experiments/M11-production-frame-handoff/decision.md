@@ -2,7 +2,7 @@
 
 **No M11 verdict yet.**
 
-- **Proposed decision:** ADR-0012 (`docs/adr/ADR-0012-production-frame-handoff.md`, the next commit).
+- **Proposed decision:** [ADR-0012](../../../docs/adr/ADR-0012-production-frame-handoff.md).
 - **Production frame egress:** BLOCKED (README findings F1–F11; `qg04-matrix.md`).
 
 ## Owner decisions in force (from M10)
