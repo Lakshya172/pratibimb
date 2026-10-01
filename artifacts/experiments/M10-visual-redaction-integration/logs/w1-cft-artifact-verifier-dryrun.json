@@ -1,0 +1,1739 @@
+{
+  "experiment": "M10.8 — DRY RUN of the artifact-verifier harness on the DEGRADED route (not gesture evidence)",
+  "verdict": "PASS",
+  "status": "MECHANICS VERIFIED ON THE DEGRADED ROUTE — NOT GESTURE EVIDENCE",
+  "dryRun": true,
+  "humanInTheLoop": false,
+  "invocationMethod": "no gesture: the degraded M3_WORKER_FRAME route, paced; not gesture evidence",
+  "realGesturePerWindow": [
+    {
+      "dpr": 1,
+      "realGesture": "NOT APPLICABLE (dry run)"
+    }
+  ],
+  "notAClaim": [
+    "MASK-VERIFIED is steps 1–2 of the frozen verifier (mask, then WebP q62 decoded back). OCR re-read, D2/D3 re-detection, the vault value check and the 12 px re-dilation loop did not run",
+    "the sink is a test-only loopback collector; nothing was sent off this machine and no production egress exists",
+    "one synthetic fixture, one workstation, one operator; the M10.6 stream-vs-screenshot detector finding is unchanged by this unit"
+  ],
+  "sinkTolerance": 8,
+  "verifier": {
+    "config": {
+      "name": "verifier-differential",
+      "resizeLong": 1920,
+      "stride": 128,
+      "db": {
+        "thresh": 0.3,
+        "boxThresh": 0.3,
+        "maxCandidates": 1000,
+        "unclipRatio": 1.5,
+        "minSize": 3
+      }
+    },
+    "notRun": {
+      "ocrReRead": "no admissible OCRProvider (ADR-0011): step 3 is a text-REGION re-read, not a reading",
+      "d2d3OverRecoveredText": "no recovered text exists to run D2/D3 over",
+      "vaultValueCheck": "no recovered text exists to compare with vault values"
+    },
+    "runsPerNormalArtifact": 3
+  },
+  "build": {
+    "productRoute": {
+      "background": "2d22c9d6a505b7e73693f3c8470558c52ceee0d78a2c26d229be8b7963f13043",
+      "content": "19a1d7bb361ac2def8cbfcc5882e48aa13f60f93a9f970d2437b41efd866fae7",
+      "manifest": "7d6f8fd65109e851c40f980a7ac9ee97256281b4821497c015660db919bbfa5a"
+    },
+    "evidenceRoute": {
+      "background": "90fe8be6f1fa07e3c1dd5c9b8b266515aacddc3edb4b094992cfff713b633198",
+      "content": "19a1d7bb361ac2def8cbfcc5882e48aa13f60f93a9f970d2437b41efd866fae7",
+      "manifest": "657dccab1903d10b89ca8b8967c0df13ded203b23750b85d0d7fbfffdaf91141"
+    },
+    "routeIdenticalToProduct": false,
+    "permissions": [
+      "offscreen",
+      "sidePanel",
+      "activeTab",
+      "tabCapture"
+    ],
+    "hostPermissions": [
+      "http://127.0.0.1/*"
+    ],
+    "csp": {
+      "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8995"
+    },
+    "productBundleCarriesFrameEgress": false,
+    "productBundleCarriesSinkPath": false,
+    "evidenceBundleCarriesFrameEgress": true,
+    "noCaptureVisibleTab": false
+  },
+  "gates": {
+    "deadlineMs": 2000,
+    "wasmBudgetBytes": 209715200
+  },
+  "machine": {
+    "at": "2026-10-01T12:13:00.304Z",
+    "acPower": "True",
+    "powerScheme": "Power Scheme GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (Balanced)",
+    "cpuLoadPercent": "12"
+  },
+  "cells": [
+    {
+      "dpr": 1,
+      "window": "1 of 1",
+      "realGesture": "NOT APPLICABLE (dry run)",
+      "failure": null,
+      "steps": {
+        "gesture": {
+          "dryRun": true,
+          "tabId": null
+        }
+      },
+      "preflight": {
+        "freshProfile": true,
+        "noOffscreenBeforeThisRun": true,
+        "fixturePageServed": true,
+        "contentScriptAttested": true,
+        "fixtureTabIsActive": true,
+        "actionPresent": true,
+        "noGrantYet": true,
+        "captureRefusedBeforeGesture": "n/a (dry run: degraded route)",
+        "browserRefusesStreamIdBeforeGesture": true,
+        "instrumentationReady": true,
+        "productTr01HostNotYetCreated": true,
+        "noSanitizedFrameHeld": true,
+        "sinkListeningAndIdle": true,
+        "pageDevicePixelRatio": 1
+      },
+      "verifier": {
+        "config": {
+          "name": "verifier-differential",
+          "resizeLong": 1920,
+          "stride": 128,
+          "db": {
+            "thresh": 0.3,
+            "boxThresh": 0.3,
+            "maxCandidates": 1000,
+            "unclipRatio": 1.5,
+            "minSize": 3
+          }
+        },
+        "model": {
+          "sha256": "18aaccf9c9cd27656becda13bc0ef31eaa0ea3aef4d45166839f2093561575e8",
+          "bytes": 4766440,
+          "pinned": "18aaccf9c9cd27656becda13bc0ef31eaa0ea3aef4d45166839f2093561575e8",
+          "ortWasmSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+          "ortVersion": "1.29.0",
+          "sessionMs": 812.1999999284744
+        },
+        "notRun": {
+          "ocrReRead": "no admissible OCRProvider (ADR-0011): step 3 is a text-REGION re-read, not a reading",
+          "d2d3OverRecoveredText": "no recovered text exists to run D2/D3 over",
+          "vaultValueCheck": "no recovered text exists to compare with vault values"
+        },
+        "normal": [
+          {
+            "verdict": "PASS",
+            "status": "DETECTOR_VERIFIED",
+            "reason": null,
+            "clearedAtRound": null,
+            "identity": {
+              "receivedSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+              "attestedSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+              "decodedSha256": "ae2c294fdae40b09526cebfe33d7b42519d8c0d838708511bf05ea82316a81a7"
+            },
+            "rounds": [
+              {
+                "round": 0,
+                "detections": 1,
+                "outsideRegions": 1,
+                "survivors": [],
+                "runtimeWasmBytes": 379584512
+              }
+            ],
+            "ms": {
+              "identity": 0.056000000000494765,
+              "decode": 125.85819999999876,
+              "reRead": [
+                1720.0687999999973
+              ],
+              "survivors": 0.22780000000057044,
+              "redilation": 0,
+              "total": 1848.3867000000027
+            }
+          },
+          {
+            "verdict": "PASS",
+            "status": "DETECTOR_VERIFIED",
+            "reason": null,
+            "clearedAtRound": null,
+            "identity": {
+              "receivedSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+              "attestedSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+              "decodedSha256": "ae2c294fdae40b09526cebfe33d7b42519d8c0d838708511bf05ea82316a81a7"
+            },
+            "rounds": [
+              {
+                "round": 0,
+                "detections": 1,
+                "outsideRegions": 1,
+                "survivors": [],
+                "runtimeWasmBytes": 379584512
+              }
+            ],
+            "ms": {
+              "identity": 0.0654999999969732,
+              "decode": 138.77899999999863,
+              "reRead": [
+                1770.2100999999966
+              ],
+              "survivors": 0.009299999997892883,
+              "redilation": 0,
+              "total": 1911.4956999999995
+            }
+          },
+          {
+            "verdict": "PASS",
+            "status": "DETECTOR_VERIFIED",
+            "reason": null,
+            "clearedAtRound": null,
+            "identity": {
+              "receivedSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+              "attestedSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+              "decodedSha256": "ae2c294fdae40b09526cebfe33d7b42519d8c0d838708511bf05ea82316a81a7"
+            },
+            "rounds": [
+              {
+                "round": 0,
+                "detections": 1,
+                "outsideRegions": 1,
+                "survivors": [],
+                "runtimeWasmBytes": 379584512
+              }
+            ],
+            "ms": {
+              "identity": 0.06210000000282889,
+              "decode": 133.25700000000143,
+              "reRead": [
+                1619.9359999999979
+              ],
+              "survivors": 0.025799999999435386,
+              "redilation": 0,
+              "total": 1755.1575000000012
+            }
+          }
+        ],
+        "timeout": {
+          "verdict": "PASS",
+          "status": "DETECTOR_VERIFIED",
+          "reason": null,
+          "clearedAtRound": null,
+          "identity": {
+            "receivedSha256": "15a465fdf69c6b1f0fb808442d710cc2fb28a20ea8b55e7443117c2a8b574459",
+            "attestedSha256": "15a465fdf69c6b1f0fb808442d710cc2fb28a20ea8b55e7443117c2a8b574459",
+            "decodedSha256": "f32f7f5ef479d8d6e2c7581eea0a2e3b21c389b93b14b7dac10c89d3e5447c88"
+          },
+          "rounds": [
+            {
+              "round": 0,
+              "detections": 1,
+              "outsideRegions": 1,
+              "survivors": [],
+              "runtimeWasmBytes": 379584512
+            }
+          ],
+          "ms": {
+            "identity": 0.16569999999774154,
+            "decode": 123.61290000000008,
+            "reRead": [
+              1598.5550999999978
+            ],
+            "survivors": 0.01569999999992433,
+            "redilation": 0,
+            "total": 1724.1481000000022
+          }
+        },
+        "mutated": {
+          "verdict": "BLOCK",
+          "status": "BLOCKED",
+          "reason": "IDENTITY_MISMATCH",
+          "clearedAtRound": null,
+          "identity": {
+            "receivedSha256": "d769d204021b5a222f9e522ed8c1d81742b2ce82e6666bcaa2810559164e44e4",
+            "attestedSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6"
+          },
+          "ms": {
+            "identity": 0.07789999999658903,
+            "decode": 0,
+            "reRead": [],
+            "survivors": 0,
+            "redilation": 0,
+            "total": 0.09159999999974389
+          }
+        },
+        "stale": {
+          "verdict": "BLOCK",
+          "status": "BLOCKED",
+          "reason": "IDENTITY_MISMATCH",
+          "clearedAtRound": null,
+          "identity": {
+            "receivedSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+            "attestedSha256": "15a465fdf69c6b1f0fb808442d710cc2fb28a20ea8b55e7443117c2a8b574459"
+          },
+          "ms": {
+            "identity": 0.014300000002549496,
+            "decode": 0,
+            "reRead": [],
+            "survivors": 0,
+            "redilation": 0,
+            "total": 0.02110000000175205
+          }
+        },
+        "negativeControl": {
+          "verdict": "BLOCK",
+          "status": "BLOCKED",
+          "reason": "SURVIVORS_CLEARED_ONLY_BY_12PX_REDILATION",
+          "clearedAtRound": 1,
+          "identity": {
+            "receivedSha256": "77f5d09bb493b9cd2da6082c6b01b68594b2ebc305a94c3b3cbd542632bd893c",
+            "attestedSha256": "77f5d09bb493b9cd2da6082c6b01b68594b2ebc305a94c3b3cbd542632bd893c",
+            "decodedSha256": "d2d678250fc00f479e7a62ba0965c4a8540475f338cbb4948a5869b221e36120"
+          },
+          "rounds": [
+            {
+              "round": 0,
+              "detections": 6,
+              "outsideRegions": 1,
+              "survivors": [
+                {
+                  "box": {
+                    "x": 659.5521367521368,
+                    "y": 98.3301282051282,
+                    "w": 394.89572649572654,
+                    "h": 24.58974358974359
+                  },
+                  "score": 0.8639018976920152,
+                  "regions": [
+                    "img:0"
+                  ]
+                },
+                {
+                  "box": {
+                    "x": 63.76908752327747,
+                    "y": 106.65851955307262,
+                    "w": 363.1284916201118,
+                    "h": 26.05796089385474
+                  },
+                  "score": 0.8680623606723897,
+                  "regions": [
+                    "canvas:0"
+                  ]
+                },
+                {
+                  "box": {
+                    "x": 659.9933333333333,
+                    "y": 161.24375,
+                    "w": 204.01333333333332,
+                    "h": 21.26249999999999
+                  },
+                  "score": 0.8978150220035197,
+                  "regions": [
+                    "img:0"
+                  ]
+                },
+                {
+                  "box": {
+                    "x": 64.09618380062305,
+                    "y": 179.4651723130841,
+                    "w": 289.80763239875387,
+                    "h": 22.94465537383175
+                  },
+                  "score": 0.9360096761832033,
+                  "regions": [
+                    "canvas:0"
+                  ]
+                },
+                {
+                  "box": {
+                    "x": 30.10639158576052,
+                    "y": 394.47474211165047,
+                    "w": 279.1205501618123,
+                    "h": 22.925515776699
+                  },
+                  "score": 0.8123444697518593,
+                  "regions": [
+                    "canvas:1"
+                  ]
+                }
+              ],
+              "runtimeWasmBytes": 379584512,
+              "redilatedFills": [
+                {
+                  "x": 647,
+                  "y": 86,
+                  "w": 420,
+                  "h": 49
+                },
+                {
+                  "x": 51,
+                  "y": 94,
+                  "w": 388,
+                  "h": 51
+                },
+                {
+                  "x": 647,
+                  "y": 149,
+                  "w": 230,
+                  "h": 46
+                },
+                {
+                  "x": 52,
+                  "y": 167,
+                  "w": 314,
+                  "h": 48
+                },
+                {
+                  "x": 18,
+                  "y": 382,
+                  "w": 304,
+                  "h": 48
+                }
+              ]
+            },
+            {
+              "round": 1,
+              "detections": 1,
+              "outsideRegions": 1,
+              "survivors": [],
+              "runtimeWasmBytes": 379584512
+            }
+          ],
+          "ms": {
+            "identity": 0.014400000000023283,
+            "decode": 102.54769999999917,
+            "reRead": [
+              1510.8358999999982,
+              1541.9946999999993
+            ],
+            "survivors": 0.2379000000000815,
+            "redilation": 384.0195999999996,
+            "total": 3541.882999999998
+          }
+        },
+        "inputs": 6,
+        "inputsFromRefused": 0,
+        "identity": {
+          "rawRgbaSha256": "19efb37559e38fbf871083e785c56be99be0f508a8dbc58d3af413da96e5dc33",
+          "sanitizedRgbaSha256": "1be402e172f0d343699e04e597a3c76fd017b906c35b1367c90531822dc916e9",
+          "attestedWebpSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+          "sentWebpSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+          "receivedWebpSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+          "producerDecodedRgbaSha256": "ae2c294fdae40b09526cebfe33d7b42519d8c0d838708511bf05ea82316a81a7",
+          "verifierDecodedRgbaSha256": "ae2c294fdae40b09526cebfe33d7b42519d8c0d838708511bf05ea82316a81a7"
+        }
+      },
+      "stream": {
+        "capture": {
+          "w": 1280,
+          "h": 720,
+          "format": "png",
+          "bytes": 30959,
+          "dpr": 1,
+          "scaleToCss": 1
+        },
+        "route": "WORKER_FRAME",
+        "viewport": {
+          "w": 1280,
+          "h": 720,
+          "dpr": 1,
+          "scrollX": 0,
+          "scrollY": 0
+        },
+        "requestedDeviceScale": 1,
+        "pageDevicePixelRatio": 1
+      },
+      "geometry": {
+        "visualRegions": [
+          {
+            "id": "canvas:0",
+            "kind": "canvas",
+            "rect": {
+              "x": 40,
+              "y": 60,
+              "w": 520,
+              "h": 200
+            }
+          },
+          {
+            "id": "img:0",
+            "kind": "img",
+            "rect": {
+              "x": 640,
+              "y": 60,
+              "w": 480,
+              "h": 160
+            }
+          },
+          {
+            "id": "canvas:1",
+            "kind": "canvas",
+            "rect": {
+              "x": -80,
+              "y": 330,
+              "w": 420,
+              "h": 150
+            }
+          }
+        ],
+        "detections": [
+          {
+            "x": 658.4216772151899,
+            "y": 97.57950949367088,
+            "w": 400.6566455696202,
+            "h": 27.590981012658247,
+            "score": 0.8603691097665457
+          },
+          {
+            "x": 63.45052083333333,
+            "y": 105.48046875000001,
+            "w": 365.5989583333333,
+            "h": 27.539062499999986,
+            "score": 0.8951682524393788
+          },
+          {
+            "x": 658.2755335365853,
+            "y": 160.44798018292684,
+            "w": 209.69893292682934,
+            "h": 24.479039634146346,
+            "score": 0.8884873461552418
+          },
+          {
+            "x": 63.14123376623376,
+            "y": 179.45211038961043,
+            "w": 293.7175324675324,
+            "h": 24.72077922077918,
+            "score": 0.9062824303114617
+          },
+          {
+            "x": 636.3639567669172,
+            "y": 360.10256109022555,
+            "w": 338.52208646616543,
+            "h": 30.169877819548958,
+            "score": 0.7521255823911405
+          },
+          {
+            "x": 29.40456081081081,
+            "y": 394.33910472972974,
+            "w": 282.44087837837833,
+            "h": 24.696790540540576,
+            "score": 0.9635912546373994
+          }
+        ],
+        "masks": [
+          {
+            "regionId": "canvas:0",
+            "cssMask": [
+              {
+                "x": 59.45052083333333,
+                "y": 101.48046875000001,
+                "w": 373.5989583333333,
+                "h": 35.539062499999986
+              },
+              {
+                "x": 59.14123376623376,
+                "y": 175.45211038961043,
+                "w": 301.7175324675324,
+                "h": 32.72077922077918
+              }
+            ],
+            "pixelRects": [
+              {
+                "x": 59,
+                "y": 101,
+                "w": 375,
+                "h": 37
+              },
+              {
+                "x": 59,
+                "y": 175,
+                "w": 302,
+                "h": 34
+              }
+            ]
+          },
+          {
+            "regionId": "img:0",
+            "cssMask": [
+              {
+                "x": 654.4216772151899,
+                "y": 93.57950949367088,
+                "w": 408.6566455696202,
+                "h": 35.59098101265826
+              },
+              {
+                "x": 654.2755335365853,
+                "y": 156.44798018292684,
+                "w": 217.69893292682934,
+                "h": 32.479039634146346
+              }
+            ],
+            "pixelRects": [
+              {
+                "x": 654,
+                "y": 93,
+                "w": 410,
+                "h": 37
+              },
+              {
+                "x": 654,
+                "y": 156,
+                "w": 218,
+                "h": 33
+              }
+            ]
+          },
+          {
+            "regionId": "canvas:1",
+            "cssMask": [
+              {
+                "x": 25.40456081081081,
+                "y": 390.33910472972974,
+                "w": 290.44087837837833,
+                "h": 32.696790540540576
+              }
+            ],
+            "pixelRects": [
+              {
+                "x": 25,
+                "y": 390,
+                "w": 291,
+                "h": 34
+              }
+            ]
+          }
+        ]
+      },
+      "normal": {
+        "redaction": {
+          "outcome": "SANITIZED",
+          "failClosed": false,
+          "reason": null,
+          "refusal": null,
+          "detector": {
+            "modelId": "PP-OCRv4_mobile_det",
+            "ran": true,
+            "code": null,
+            "detections": 6
+          },
+          "regions": 3,
+          "maskRects": 5,
+          "pixelWrites": 56401,
+          "rawBitmapClosed": true,
+          "frameKept": true,
+          "ms": {
+            "detector": 878,
+            "mapping": 0,
+            "plan": 1,
+            "pixelMapping": 0,
+            "fill": 1
+          },
+          "detail": {
+            "visualRegions": [
+              {
+                "id": "canvas:0",
+                "rect": {
+                  "x": 40,
+                  "y": 60,
+                  "w": 520,
+                  "h": 200
+                }
+              },
+              {
+                "id": "img:0",
+                "rect": {
+                  "x": 640,
+                  "y": 60,
+                  "w": 480,
+                  "h": 160
+                }
+              },
+              {
+                "id": "canvas:1",
+                "rect": {
+                  "x": -80,
+                  "y": 330,
+                  "w": 420,
+                  "h": 150
+                }
+              }
+            ],
+            "detections": [
+              {
+                "x": 658.4216772151899,
+                "y": 97.57950949367088,
+                "w": 400.6566455696202,
+                "h": 27.590981012658247,
+                "score": 0.8603691097665457
+              },
+              {
+                "x": 63.45052083333333,
+                "y": 105.48046875000001,
+                "w": 365.5989583333333,
+                "h": 27.539062499999986,
+                "score": 0.8951682524393788
+              },
+              {
+                "x": 658.2755335365853,
+                "y": 160.44798018292684,
+                "w": 209.69893292682934,
+                "h": 24.479039634146346,
+                "score": 0.8884873461552418
+              },
+              {
+                "x": 63.14123376623376,
+                "y": 179.45211038961043,
+                "w": 293.7175324675324,
+                "h": 24.72077922077918,
+                "score": 0.9062824303114617
+              },
+              {
+                "x": 636.3639567669172,
+                "y": 360.10256109022555,
+                "w": 338.52208646616543,
+                "h": 30.169877819548958,
+                "score": 0.7521255823911405
+              },
+              {
+                "x": 29.40456081081081,
+                "y": 394.33910472972974,
+                "w": 282.44087837837833,
+                "h": 24.696790540540576,
+                "score": 0.9635912546373994
+              }
+            ],
+            "masks": [
+              {
+                "regionId": "canvas:0",
+                "cssMask": [
+                  {
+                    "x": 59.45052083333333,
+                    "y": 101.48046875000001,
+                    "w": 373.5989583333333,
+                    "h": 35.539062499999986
+                  },
+                  {
+                    "x": 59.14123376623376,
+                    "y": 175.45211038961043,
+                    "w": 301.7175324675324,
+                    "h": 32.72077922077918
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 59,
+                    "y": 101,
+                    "w": 375,
+                    "h": 37
+                  },
+                  {
+                    "x": 59,
+                    "y": 175,
+                    "w": 302,
+                    "h": 34
+                  }
+                ]
+              },
+              {
+                "regionId": "img:0",
+                "cssMask": [
+                  {
+                    "x": 654.4216772151899,
+                    "y": 93.57950949367088,
+                    "w": 408.6566455696202,
+                    "h": 35.59098101265826
+                  },
+                  {
+                    "x": 654.2755335365853,
+                    "y": 156.44798018292684,
+                    "w": 217.69893292682934,
+                    "h": 32.479039634146346
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 654,
+                    "y": 93,
+                    "w": 410,
+                    "h": 37
+                  },
+                  {
+                    "x": 654,
+                    "y": 156,
+                    "w": 218,
+                    "h": 33
+                  }
+                ]
+              },
+              {
+                "regionId": "canvas:1",
+                "cssMask": [
+                  {
+                    "x": 25.40456081081081,
+                    "y": 390.33910472972974,
+                    "w": 290.44087837837833,
+                    "h": 32.696790540540576
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 25,
+                    "y": 390,
+                    "w": 291,
+                    "h": 34
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "verification": {
+          "maskPixels": 56401,
+          "maskPixelsNotFill": 0,
+          "outsideMaskUnchanged": true,
+          "ink": [
+            {
+              "pixels": 7942,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5510,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5282,
+              "uncovered": 0
+            },
+            {
+              "pixels": 7880,
+              "uncovered": 0
+            },
+            {
+              "pixels": 3451,
+              "uncovered": 0
+            }
+          ],
+          "controlsUnchanged": true,
+          "controlPixelsInsideMask": 0,
+          "rawCopyKeptByProbe": false
+        },
+        "rawRgbaSha256": "19efb37559e38fbf871083e785c56be99be0f508a8dbc58d3af413da96e5dc33"
+      },
+      "artifacts": {
+        "normal": {
+          "encode": {
+            "ok": true,
+            "sha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+            "bytes": 4626,
+            "width": 1280,
+            "height": 720,
+            "manifest": {
+              "kind": "PRATIBIMB_MASKED_FRAME",
+              "version": 1,
+              "status": "MASK_VERIFIED",
+              "notRun": [
+                "full-frame OCR re-read (step 3)",
+                "D2/D3 re-detection (step 4)",
+                "vault value check (step 5)",
+                "12 px re-dilation loop (step 6)"
+              ],
+              "frameId": "transport-be681b9d-363c-4094-88f9-6eb0d4c81710",
+              "width": 1280,
+              "height": 720,
+              "contentType": "image/webp",
+              "quality": 0.62,
+              "scaleToCss": 1,
+              "failClosed": false,
+              "reason": null,
+              "regions": [
+                {
+                  "regionId": "canvas:0",
+                  "pixelRects": [
+                    {
+                      "x": 59,
+                      "y": 101,
+                      "w": 375,
+                      "h": 37
+                    },
+                    {
+                      "x": 59,
+                      "y": 175,
+                      "w": 302,
+                      "h": 34
+                    }
+                  ]
+                },
+                {
+                  "regionId": "img:0",
+                  "pixelRects": [
+                    {
+                      "x": 654,
+                      "y": 93,
+                      "w": 410,
+                      "h": 37
+                    },
+                    {
+                      "x": 654,
+                      "y": 156,
+                      "w": 218,
+                      "h": 33
+                    }
+                  ]
+                },
+                {
+                  "regionId": "canvas:1",
+                  "pixelRects": [
+                    {
+                      "x": 25,
+                      "y": 390,
+                      "w": 291,
+                      "h": 34
+                    }
+                  ]
+                }
+              ],
+              "counts": {
+                "regions": 3,
+                "maskRects": 5,
+                "maskRectAreaPx": 56401
+              },
+              "sanitizedRgbaSha256": "1be402e172f0d343699e04e597a3c76fd017b906c35b1367c90531822dc916e9",
+              "decodedRgbaSha256": "ae2c294fdae40b09526cebfe33d7b42519d8c0d838708511bf05ea82316a81a7",
+              "webpSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+              "webpBytes": 4626,
+              "check": {
+                "tolerance": 8,
+                "insetPx": 4,
+                "worstInterior": 1,
+                "worstEdge": 21,
+                "outside": {
+                  "pixels": 865199,
+                  "maxAbs": 99,
+                  "meanAbs": 0.45370448494122934,
+                  "psnrDb": 42.458666248394366
+                }
+              }
+            },
+            "ms": {
+              "encode": 50.39999997615814,
+              "decode": 15.899999976158142,
+              "check": 16.399999976158142
+            },
+            "memory": {
+              "webpBytes": 4626,
+              "decodedRgbaBytes": 3686400,
+              "attestedCopyBytes": 4626
+            }
+          },
+          "send": {
+            "attempted": true,
+            "sent": true,
+            "record": {
+              "requestId": "w1-normal",
+              "sessionId": "m10.7-evidence",
+              "destination": "http://127.0.0.1:8995/m10/frame",
+              "at": 1790856792576,
+              "transport": "LOOPBACK_HTTP",
+              "contentType": "image/webp",
+              "status": "MASK_VERIFIED",
+              "payloadSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+              "payloadBytes": 4626,
+              "width": 1280,
+              "height": 720,
+              "chunks": [
+                "VP8X",
+                "VP8 "
+              ],
+              "responseStatus": 200,
+              "peerReceipt": {
+                "sha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+                "bytes": 4626,
+                "agrees": true
+              },
+              "elapsedMs": 4
+            }
+          },
+          "fetchesDuringSend": 1,
+          "sinkArrivalsDuringSend": 1
+        },
+        "timeout": {
+          "pass": {
+            "code": "DETECTOR_TIMEOUT",
+            "failClosed": true,
+            "verification": {
+              "maskPixels": 231800,
+              "maskPixelsNotFill": 0,
+              "outsideMaskUnchanged": true,
+              "ink": [
+                {
+                  "pixels": 7942,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 5510,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 5282,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 7880,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 3451,
+                  "uncovered": 0
+                }
+              ],
+              "controlsUnchanged": true,
+              "controlPixelsInsideMask": 0,
+              "rawCopyKeptByProbe": false
+            }
+          },
+          "encode": {
+            "ok": true,
+            "sha256": "15a465fdf69c6b1f0fb808442d710cc2fb28a20ea8b55e7443117c2a8b574459",
+            "bytes": 4402,
+            "width": 1280,
+            "height": 720,
+            "manifest": {
+              "kind": "PRATIBIMB_MASKED_FRAME",
+              "version": 1,
+              "status": "MASK_VERIFIED",
+              "notRun": [
+                "full-frame OCR re-read (step 3)",
+                "D2/D3 re-detection (step 4)",
+                "vault value check (step 5)",
+                "12 px re-dilation loop (step 6)"
+              ],
+              "frameId": "transport-b3812e19-e19d-4902-91f1-8eb1b9e1bf89",
+              "width": 1280,
+              "height": 720,
+              "contentType": "image/webp",
+              "quality": 0.62,
+              "scaleToCss": 1,
+              "failClosed": true,
+              "reason": "TIMEOUT",
+              "regions": [
+                {
+                  "regionId": "canvas:0",
+                  "pixelRects": [
+                    {
+                      "x": 40,
+                      "y": 60,
+                      "w": 520,
+                      "h": 200
+                    }
+                  ]
+                },
+                {
+                  "regionId": "img:0",
+                  "pixelRects": [
+                    {
+                      "x": 640,
+                      "y": 60,
+                      "w": 480,
+                      "h": 160
+                    }
+                  ]
+                },
+                {
+                  "regionId": "canvas:1",
+                  "pixelRects": [
+                    {
+                      "x": 0,
+                      "y": 330,
+                      "w": 340,
+                      "h": 150
+                    }
+                  ]
+                }
+              ],
+              "counts": {
+                "regions": 3,
+                "maskRects": 3,
+                "maskRectAreaPx": 231800
+              },
+              "sanitizedRgbaSha256": "c47b783d8ed155d8727e41b327acba1568fdadd8221c3b7407f954b749a1c158",
+              "decodedRgbaSha256": "f32f7f5ef479d8d6e2c7581eea0a2e3b21c389b93b14b7dac10c89d3e5447c88",
+              "webpSha256": "15a465fdf69c6b1f0fb808442d710cc2fb28a20ea8b55e7443117c2a8b574459",
+              "webpBytes": 4402,
+              "check": {
+                "tolerance": 8,
+                "insetPx": 4,
+                "worstInterior": 3,
+                "worstEdge": 3,
+                "outside": {
+                  "pixels": 689800,
+                  "maxAbs": 100,
+                  "meanAbs": 0.5003440610805064,
+                  "psnrDb": 41.682066505898945
+                }
+              }
+            },
+            "ms": {
+              "encode": 35.300000071525574,
+              "decode": 10.299999952316284,
+              "check": 12.299999952316284
+            },
+            "memory": {
+              "webpBytes": 4402,
+              "decodedRgbaBytes": 3686400,
+              "attestedCopyBytes": 4402
+            }
+          },
+          "send": {
+            "attempted": true,
+            "sent": true,
+            "record": {
+              "requestId": "w1-timeout",
+              "sessionId": "m10.7-evidence",
+              "destination": "http://127.0.0.1:8995/m10/frame",
+              "at": 1790856794350,
+              "transport": "LOOPBACK_HTTP",
+              "contentType": "image/webp",
+              "status": "MASK_VERIFIED",
+              "payloadSha256": "15a465fdf69c6b1f0fb808442d710cc2fb28a20ea8b55e7443117c2a8b574459",
+              "payloadBytes": 4402,
+              "width": 1280,
+              "height": 720,
+              "chunks": [
+                "VP8X",
+                "VP8 "
+              ],
+              "responseStatus": 200,
+              "peerReceipt": {
+                "sha256": "15a465fdf69c6b1f0fb808442d710cc2fb28a20ea8b55e7443117c2a8b574459",
+                "bytes": 4402,
+                "agrees": true
+              },
+              "elapsedMs": 3
+            }
+          },
+          "fetchesDuringSend": 1
+        },
+        "refused": {
+          "pass": {
+            "outcome": "REFUSED",
+            "code": "REGION_INVALID",
+            "frameHeld": false
+          },
+          "encode": {
+            "ok": false,
+            "code": "NO_SANITIZED_FRAME",
+            "detail": "no sanitized frame is held: no pass yet, or the last one was REFUSED or failed"
+          },
+          "send": {
+            "attempted": false,
+            "reason": "no artifact: NO_SANITIZED_FRAME"
+          },
+          "fetchesDuringSend": 0,
+          "sinkArrivalsDuringSend": 0
+        }
+      },
+      "attempts": {
+        "results": [
+          {
+            "name": "raw RGBA buffer, shaped like an artifact",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "the kept sanitized frame object itself",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "an ImageBitmap",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "arbitrary bytes",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "an UNATTESTED WebP of the sanitized frame",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "empty bytes",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "malformed WebP-like bytes",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "an attested frame mutated after attestation",
+            "sent": false,
+            "stage": "HASH",
+            "cause": "PAYLOAD_HASH_MISMATCH"
+          },
+          {
+            "name": "an attested frame to a non-loopback destination",
+            "sent": false,
+            "stage": "DESTINATION",
+            "cause": "DESTINATION_NOT_LOOPBACK"
+          }
+        ],
+        "fetchesDuringAttempts": 0,
+        "sinkArrivalsDuringAttempts": 0
+      },
+      "independent": {
+        "normal": {
+          "kind": "normal",
+          "sinkArrivalId": 0,
+          "bytes": 4626,
+          "receivedSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+          "sentSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+          "attestedSha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+          "hashChainEqual": true,
+          "peerReceiptAgrees": true,
+          "container": {
+            "chunks": [
+              "VP8X",
+              "VP8 "
+            ],
+            "width": 1280,
+            "height": 720
+          },
+          "decoded": {
+            "width": 1280,
+            "height": 720,
+            "sha256": "ae2c294fdae40b09526cebfe33d7b42519d8c0d838708511bf05ea82316a81a7"
+          },
+          "dimensionsEqualCapture": true,
+          "notRawFrame": true,
+          "noFixtureText": true,
+          "inkMaxChannel": [
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "everyInkPixelDark": true,
+          "controlsThroughWebp": {
+            "flat": [
+              {
+                "name": "swatch",
+                "px": {
+                  "x": 644,
+                  "y": 464,
+                  "w": 292,
+                  "h": 72
+                },
+                "encoded": {
+                  "min": [
+                    58,
+                    123,
+                    213
+                  ],
+                  "max": [
+                    58,
+                    123,
+                    213
+                  ],
+                  "mean": [
+                    58,
+                    123,
+                    213
+                  ]
+                },
+                "decodedMean": [
+                  57.98411339421613,
+                  123.03115487062405,
+                  212.96946347031962
+                ],
+                "meanDelta": 0.03115487062405009,
+                "worstPixelOutsideEncodedRange": 2,
+                "worstPixelAt": {
+                  "x": 644,
+                  "y": 464,
+                  "channel": 1,
+                  "fromRegionEdgePx": 0
+                }
+              },
+              {
+                "name": "blank",
+                "px": {
+                  "x": 984,
+                  "y": 584,
+                  "w": 272,
+                  "h": 112
+                },
+                "encoded": {
+                  "min": [
+                    244,
+                    241,
+                    234
+                  ],
+                  "max": [
+                    244,
+                    241,
+                    234
+                  ],
+                  "mean": [
+                    244,
+                    241,
+                    234
+                  ]
+                },
+                "decodedMean": [
+                  244,
+                  241,
+                  233
+                ],
+                "meanDelta": 1,
+                "worstPixelOutsideEncodedRange": 1,
+                "worstPixelAt": {
+                  "x": 984,
+                  "y": 584,
+                  "channel": 2,
+                  "fromRegionEdgePx": 0
+                }
+              }
+            ],
+            "text": [
+              {
+                "name": "control",
+                "px": {
+                  "x": 640,
+                  "y": 360,
+                  "w": 329,
+                  "h": 26
+                },
+                "encoded": {
+                  "min": [
+                    34,
+                    34,
+                    34
+                  ],
+                  "max": [
+                    244,
+                    241,
+                    234
+                  ],
+                  "mean": [
+                    207.10065466448444,
+                    204.70002338087446,
+                    198.8494271685761
+                  ]
+                },
+                "decodedMean": [
+                  207.00070142623335,
+                  204.71978021978023,
+                  197.70680383446341
+                ],
+                "meanDelta": 1.1426233341126988,
+                "worstPixelOutsideEncodedRange": 34,
+                "worstPixelAt": {
+                  "x": 669,
+                  "y": 368,
+                  "channel": 2,
+                  "fromRegionEdgePx": 8
+                }
+              }
+            ]
+          },
+          "swatchMaxDistanceFromCss": 2,
+          "blankMaxDistanceFromCss": 1,
+          "encodedSwatchMeanVsCss": [
+            0,
+            0,
+            0
+          ],
+          "encodedBlankMeanVsCss": [
+            0,
+            0,
+            0
+          ],
+          "controlTextBrightest": 255,
+          "producerMaskInteriorsMax": 1,
+          "regionsWholeMax": null
+        },
+        "timeout": {
+          "kind": "timeout",
+          "sinkArrivalId": 1,
+          "bytes": 4402,
+          "receivedSha256": "15a465fdf69c6b1f0fb808442d710cc2fb28a20ea8b55e7443117c2a8b574459",
+          "sentSha256": "15a465fdf69c6b1f0fb808442d710cc2fb28a20ea8b55e7443117c2a8b574459",
+          "attestedSha256": "15a465fdf69c6b1f0fb808442d710cc2fb28a20ea8b55e7443117c2a8b574459",
+          "hashChainEqual": true,
+          "peerReceiptAgrees": true,
+          "container": {
+            "chunks": [
+              "VP8X",
+              "VP8 "
+            ],
+            "width": 1280,
+            "height": 720
+          },
+          "decoded": {
+            "width": 1280,
+            "height": 720,
+            "sha256": "f32f7f5ef479d8d6e2c7581eea0a2e3b21c389b93b14b7dac10c89d3e5447c88"
+          },
+          "dimensionsEqualCapture": true,
+          "notRawFrame": true,
+          "noFixtureText": true,
+          "inkMaxChannel": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "everyInkPixelDark": true,
+          "controlsThroughWebp": {
+            "flat": [
+              {
+                "name": "swatch",
+                "px": {
+                  "x": 644,
+                  "y": 464,
+                  "w": 292,
+                  "h": 72
+                },
+                "encoded": {
+                  "min": [
+                    58,
+                    123,
+                    213
+                  ],
+                  "max": [
+                    58,
+                    123,
+                    213
+                  ],
+                  "mean": [
+                    58,
+                    123,
+                    213
+                  ]
+                },
+                "decodedMean": [
+                  57.98411339421613,
+                  123.03115487062405,
+                  212.96946347031962
+                ],
+                "meanDelta": 0.03115487062405009,
+                "worstPixelOutsideEncodedRange": 2,
+                "worstPixelAt": {
+                  "x": 644,
+                  "y": 464,
+                  "channel": 1,
+                  "fromRegionEdgePx": 0
+                }
+              },
+              {
+                "name": "blank",
+                "px": {
+                  "x": 984,
+                  "y": 584,
+                  "w": 272,
+                  "h": 112
+                },
+                "encoded": {
+                  "min": [
+                    244,
+                    241,
+                    234
+                  ],
+                  "max": [
+                    244,
+                    241,
+                    234
+                  ],
+                  "mean": [
+                    244,
+                    241,
+                    234
+                  ]
+                },
+                "decodedMean": [
+                  244,
+                  241,
+                  233
+                ],
+                "meanDelta": 1,
+                "worstPixelOutsideEncodedRange": 1,
+                "worstPixelAt": {
+                  "x": 984,
+                  "y": 584,
+                  "channel": 2,
+                  "fromRegionEdgePx": 0
+                }
+              }
+            ],
+            "text": [
+              {
+                "name": "control",
+                "px": {
+                  "x": 640,
+                  "y": 360,
+                  "w": 329,
+                  "h": 26
+                },
+                "encoded": {
+                  "min": [
+                    34,
+                    34,
+                    34
+                  ],
+                  "max": [
+                    244,
+                    241,
+                    234
+                  ],
+                  "mean": [
+                    207.10065466448444,
+                    204.70002338087446,
+                    198.8494271685761
+                  ]
+                },
+                "decodedMean": [
+                  206.9856207622165,
+                  204.7117138180968,
+                  197.67255085340193
+                ],
+                "meanDelta": 1.1768763151741837,
+                "worstPixelOutsideEncodedRange": 34,
+                "worstPixelAt": {
+                  "x": 669,
+                  "y": 368,
+                  "channel": 2,
+                  "fromRegionEdgePx": 8
+                }
+              }
+            ]
+          },
+          "swatchMaxDistanceFromCss": 2,
+          "blankMaxDistanceFromCss": 1,
+          "encodedSwatchMeanVsCss": [
+            0,
+            0,
+            0
+          ],
+          "encodedBlankMeanVsCss": [
+            0,
+            0,
+            0
+          ],
+          "controlTextBrightest": 255,
+          "producerMaskInteriorsMax": 3,
+          "regionsWholeMax": [
+            2,
+            3,
+            2
+          ]
+        },
+        "tolerance": 8
+      },
+      "vsM106": {
+        "note": "informational: the producer's mask rectangles for this window against M10.6's recorded cold-pass masks at the same scale",
+        "pixelRectsEqual": true
+      },
+      "bench": {
+        "n": 10,
+        "encodeMs": {
+          "n": 10,
+          "min": 35.799999952316284,
+          "median": 39.75,
+          "p90": 41.10000002384186,
+          "max": 44.800000071525574
+        },
+        "decodeMs": {
+          "n": 10,
+          "min": 10.300000071525574,
+          "median": 11.699999988079071,
+          "p90": 12.799999952316284,
+          "max": 14.299999952316284
+        },
+        "checkMs": {
+          "n": 10,
+          "min": 10.299999952316284,
+          "median": 13.549999952316284,
+          "p90": 15.399999976158142,
+          "max": 16.399999976158142
+        },
+        "wallMs": {
+          "n": 10,
+          "min": 57.09999990463257,
+          "median": 63.60000002384186,
+          "p90": 67.69999992847443,
+          "max": 74.5
+        },
+        "payloadBytes": {
+          "n": 10,
+          "min": 4626,
+          "median": 4626,
+          "p90": 4626,
+          "max": 4626
+        },
+        "bytesIdenticalAcrossRuns": true,
+        "decodedIdenticalAcrossRuns": true,
+        "memory": {
+          "webpBytes": 4626,
+          "decodedRgbaBytes": 3686400,
+          "attestedCopyBytes": 4626
+        },
+        "canvasBackingStoresNote": "two opaque canvases of capture size (encode, decode) are allocated by the browser per run and are not observable from JS; at 4 bytes per pixel that is 2 × w × h × 4 bytes, inferred, not measured"
+      },
+      "sink": {
+        "arrivals": [
+          {
+            "id": 0,
+            "at": "2026-10-01T12:13:12.575Z",
+            "method": "POST",
+            "path": "/m10/frame",
+            "origin": "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+            "contentType": "image/webp",
+            "bytes": 4626,
+            "sha256": "180cdb2aff51c023415415a0755b242683eb6f4c29143d6c2e6e2aed5595c8f6",
+            "accepted": true,
+            "reason": null
+          },
+          {
+            "id": 1,
+            "at": "2026-10-01T12:13:14.348Z",
+            "method": "POST",
+            "path": "/m10/frame",
+            "origin": "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+            "contentType": "image/webp",
+            "bytes": 4402,
+            "sha256": "15a465fdf69c6b1f0fb808442d710cc2fb28a20ea8b55e7443117c2a8b574459",
+            "accepted": true,
+            "reason": null
+          }
+        ]
+      },
+      "memory": {
+        "workerWasmBytes": 137494528,
+        "offscreenWasmBytes": 27656192
+      },
+      "workerAudit": {
+        "received": 3,
+        "shapes": [
+          {
+            "type": "TR01_INIT",
+            "shape": {
+              "protocol": "number",
+              "type": "string"
+            }
+          },
+          {
+            "type": "TR01_DETECT",
+            "shape": {
+              "height": "number",
+              "protocol": "number",
+              "rgba": "Uint8ClampedArray(3686400)",
+              "runId": "number",
+              "type": "string",
+              "width": "number"
+            }
+          }
+        ],
+        "foreignArrivals": 0,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde"
+        ]
+      },
+      "offscreenNetwork": {
+        "arrivals": 4,
+        "foreign": 2,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+          "http://127.0.0.1:8995"
+        ],
+        "byOrigin": {
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde": 2,
+          "http://127.0.0.1:8995": 2
+        }
+      },
+      "pageRequestOrigins": [
+        "http://127.0.0.1:8983",
+        "http://127.0.0.1:58442"
+      ],
+      "serviceWorkerAudit": {
+        "messages": 22,
+        "bytes": 5068,
+        "png": false,
+        "webpMagic": false,
+        "dataUrl": false,
+        "longestBase64": 0
+      },
+      "plainPerceiveOnce": {
+        "route": "WORKER_FRAME",
+        "carriesPixels": false
+      },
+      "checks": {
+        "dryRunProceededWithoutGesture": true,
+        "degradedWorkerFrameRoute": true,
+        "m106MaskVerifiedOnRealFrame": true,
+        "artifactAttestedFromSanitizedFrame": true,
+        "webpDimensionsEqualCapture": true,
+        "maskRectsCarriedToArtifact": true,
+        "sentThroughEgressAndAcceptedOnce": true,
+        "hashSentEqualsReceivedEqualsAttested": true,
+        "receivedIsNotTheRawFrame": true,
+        "receivedDimensionsEqualCapture": true,
+        "receivedCarriesNoFixtureText": true,
+        "independentlyEveryInkPixelMasked": true,
+        "independentlyProducerMaskHeld": true,
+        "independentlyControlsPreservedThroughWebp": true,
+        "timeoutMaskedWholeAndSent": true,
+        "refusedNoWebpNoRequest": true,
+        "everyUnverifiedAttemptRefusedBeforeTheWire": true,
+        "sinkAcceptedOnlyTheTwoArtifacts": true,
+        "networkOnlyToTheSink": true,
+        "serviceWorkerSawNoPixels": true,
+        "workerReceivedOnlyPixelsDimensionsAndRunIds": true,
+        "wasmUnder200MB": true,
+        "detectorUnder2000ms": true,
+        "verifierRuntimePinned": true,
+        "verifierPassesTheRealArtifact": true,
+        "verifierDeterministic": true,
+        "verifierPassesTheTimeoutArtifact": true,
+        "mutatedArtifactBlocked": true,
+        "staleAttestationBlocked": true,
+        "refusedGaveTheVerifierNothing": true,
+        "artifactIdentityChain": true,
+        "negativeControlBlocked": true
+      }
+    }
+  ],
+  "recordedAt": "2026-10-01T12:13:32.479Z",
+  "provenance": {
+    "workstation": "W1",
+    "host": "LAPTOP-6E14K34L",
+    "workstationSource": "registry",
+    "os": "win32 10.0.26200",
+    "cpu": "Intel(R) Core(TM) 7 240H",
+    "node": "v24.19.0",
+    "playwright": "1.63.0",
+    "browserBinary": "C:/Users/RONIT/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe",
+    "headless": false
+  }
+}

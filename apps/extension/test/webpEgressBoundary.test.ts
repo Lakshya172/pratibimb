@@ -105,6 +105,17 @@ describe("M10.7: the codec and frame egress stay where the architecture puts the
     expect(extensionSources.filter((f) => /frame-sink|webp-riff/.test(read(f)))).toEqual([]);
   });
 
+  it("M10.8: the artifact verifier and its TR-01 runtime are test-only — nothing in apps/ or packages/ reaches them", () => {
+    const sources = [...extensionSources, ...walk("packages")];
+    expect(sources.filter((f) => /artifact-verifier|verifier-runtime/.test(read(f)))).toEqual([]);
+    for (const f of ["tests/browser/support/artifact-verifier.mjs", "tests/browser/support/verifier-runtime.mjs"]) {
+      const src = code(f);
+      for (const forbidden of ["document.", "chrome.", "dispatch", "host_permissions", "tesseract"]) expect(src.includes(forbidden), `${f}: ${forbidden}`).toBe(false);
+    }
+    // The verifier's runtime binds loopback only, and so does the sink it reads from.
+    expect(read("tests/browser/support/verifier-runtime.mjs")).toContain('server.listen(0, "127.0.0.1"');
+  });
+
   it("the extension's pinned connect-src is unchanged: one loopback origin", () => {
     expect(read("apps/extension/wxt.config.ts")).toContain('export const HOST_COLLECTOR_ORIGIN = "http://127.0.0.1:8995";');
   });

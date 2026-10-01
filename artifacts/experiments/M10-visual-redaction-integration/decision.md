@@ -1,8 +1,9 @@
-# M10 — decision record (in progress)
+# M10 — decision record (closed)
 
-**No M10 verdict is recorded yet.** M10 closes only when the full chain has been demonstrated end to
-end: raw capture frame → TR-01 → fail-closed policy → canonical geometry → pixel mask → WebP → test
-loopback sink.
+**M10 verdict: CLOSED, with the limitations stated in the closeout at the end of this record.** The
+chain this section once named as the condition for closing — raw capture frame → TR-01 → fail-closed
+policy → canonical geometry → pixel mask → WebP → test loopback sink — was demonstrated end to end on
+the real gesture route (M10.6, M10.7). M10.8 added the verifier.
 
 ## Owner decisions in force
 
@@ -98,3 +99,87 @@ loopback sink.
 | independent verification | the harness decodes what the sink accepted, in a page that is not the extension, with its own container reader. It checks digests, size, absence of the raw frame and of fixture text, every fixture ink pixel within 8 levels of black, and the controls |
 | controls, after lossy WebP | **owner decision after formal runs 1–2:** a control region passes when its decoded MEAN is within 8 levels of the encoded region's mean. The worst single pixel is recorded with its position, not gated. Runs 1 and 2, which failed earlier per-pixel versions of this check, are kept |
 | stream finding | unchanged and still open: no detector input, threshold, post-processing, geometry or RE-1 data was touched |
+
+## M10.8 decisions (the final sanitized-artifact verifier)
+
+| question | decision |
+|---|---|
+| step 3, re-read | **owner decision:** no admissible `OCRProvider` exists (ADR-0011), so the re-read is a TEXT-REGION re-read. TR-01 runs full-frame over the DECODED artifact, in a test-only verifier that shares no code with the masking path (`tests/browser/support/artifact-verifier.mjs`, `verifier-runtime.mjs`). No recognition model is added anywhere |
+| re-read configuration | **owner decision:** the frozen verifier's "LOW threshold, HIGHER resolution" governs, verifier-only — long side 1920 (2 × 960) and box threshold 0.3 (the existing DB pixel threshold). The product's TR-01 configuration is unchanged. (Correction during M10.8: the first proposal, a 2× upscale before TR-01's resize to 960, would have raised nothing; the resize target is what changes) |
+| step 4 | "D2/D3 over recovered text" has no input without OCR. It is replaced by SURVIVORS: any re-detected text region that intersects a visual-only region. The visual-only text policy masks every text region there, so after masking none should remain. No ground truth is used |
+| step 5 | the vault value check is **NOT RUN** (no recovered text), and every verdict carries that reason |
+| step 6 | survivors → 12 px re-dilation on a verifier COPY, re-encoded at q62 and re-read, at most 3 rounds. The ORIGINAL artifact is BLOCKED whether or not 12 px clears it: the product has no path to adopt verifier geometry, and must not. The 4 px production dilation, the IoU > 0.3 merge and the canonical geometry are untouched |
+| identity | the verifier checks the received bytes against the attestation before anything else: a mutated artifact, or one paired with another artifact's attestation, is BLOCKED (`IDENTITY_MISMATCH`) |
+| verdicts | **PASS** (status `DETECTOR_VERIFIED`, never "verified") or **BLOCK** with a reason. A verifier that cannot run BLOCKS. `mayHandOff` is true for PASS only; there is no warning state |
+| product code | **none changed** in M10.8. The verifier is test-only; a boundary test keeps `apps/` and `packages/` from reaching it |
+
+## Production frame egress — recommendation (M10.8, Part O)
+
+**Recommendation: NOT READY to become a production handoff primitive. Do not enable it.** The test-only
+mechanism is sound on its evidence, but it is not a production primitive. Each item below is a
+decision or a piece of work, not a defect found.
+
+**What the evidence supports:**
+
+- the attestation is a module-private registry, not a flag;
+- the hash pin catches a byte changed after attestation;
+- the choke point admits loopback only and an attested still WebP only;
+- REFUSED yields nothing to send;
+- an independent verifier agrees on what arrived, at four scales, on the real gesture route.
+
+**What stands in the way:**
+
+1. **The verifier is not the frozen verifier.** Without an admissible `OCRProvider`, steps 4–5 cannot
+   run, so the strongest status is `DETECTOR_VERIFIED`. Whether that is enough for a remote handoff is
+   an owner/ADR decision, as is any OCR adoption.
+2. **The verifier does not fit the product budget as configured.** It needs 362 MiB of WASM at 1920,
+   against the 200 MB engineering gate. The product realm already uses 157.5 MiB. It also takes about
+   1.7 s per frame. Running it in the handoff path needs a budget decision or a different verifier
+   configuration, measured anew.
+3. **BLOCK is not wired to anything in the product**, and the frozen fallback is not built: "Blocked
+   requests fall back to structure-only mode — manifest without image".
+4. **QG-04 is not complete for frames.**
+   - The payload is the WebP alone, not the single immutable multipart artifact (frame + manifest +
+     goal) the gate describes.
+   - The destination is loopback, not a configured server origin.
+   - The fail-closed matrix's zero-outbound assertion has not been run for every row against frame
+     egress.
+5. **M9 J7 is open:** stream-versus-screenshot detector geometry (M10.6 finding).
+6. **Scope:** one synthetic fixture, one workstation (W1), Chrome for Testing only.
+
+## M10 closeout
+
+**VERIFIED** (W1, Chrome for Testing, synthetic fixtures, owner-performed toolbar clicks):
+
+| claim | evidence |
+|---|---|
+| real user gesture → tab stream → local perception, at DPR 1, 1.25, 1.5, 2 | M10.6 `w1-cft-gesture-redaction.json`; M10.7 `-run3`; M10.8 |
+| local text-region detection: TR-01 in a dedicated worker, full frame, pinned, 2,000 ms deadline, combined WASM ≤ 200 MB | M10.4, M10.6 |
+| fail-closed decisions: detector failure masks regions whole; invalid region → REFUSED, no frame | M10.2, M10.5, M10.6, M10.7, M10.8 |
+| local pixel masking with the canonical geometry, in place | M10.5, M10.6 |
+| sanitized WebP q62, mask checked on the decoded bytes (MASK_VERIFIED) | M10.7 |
+| artifact identity: raw ≠ sanitized ≠ WebP; attested = sent = received | M10.7, M10.8 |
+| test-only egress through the single choke point, loopback only, refusing unverified, raw, tampered and non-loopback payloads | M10.7 |
+| an independent verifier (detector re-read, survivors, 12 px loop, PASS/BLOCK) that passes the real artifacts and blocks unmasked, mutated and stale ones (DETECTOR_VERIFIED) | M10.8 |
+| RE-1 through the product path on frozen frames equals M8.1 | M10.6 `w1-cft-re1-product.json` |
+
+**NOT VERIFIED, and not claimed:**
+
+- visual-only PII recall on arbitrary sites: RE-1 bounds exposure on six synthetic frames only;
+- production remote egress of frames, and any remote service;
+- real-world PII distributions: every fixture is synthetic;
+- the frozen verifier's OCR re-read, D2/D3 re-detection and vault value check (no admissible
+  `OCRProvider`);
+- coverage of `video`, inline `svg`, CSS background images, `object`/`embed`, cross-origin iframes and
+  shadow DOM (M10.3 gaps);
+- stream-versus-screenshot pixel/geometry equivalence (M9 J7; M10.6 finding, open);
+- other workstations, Firefox, other browsers.
+
+**Next milestone (proposed, not started):** an owner/ADR decision on production frame handoff, which
+needs to settle:
+
+- whether DETECTOR_VERIFIED suffices, or an `OCRProvider` must be adopted for the verifier;
+- the verifier's memory and latency budget;
+- BLOCK → structure-only fallback;
+- the QG-04 multipart payload and server origin;
+- J7.

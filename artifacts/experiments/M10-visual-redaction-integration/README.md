@@ -1,12 +1,12 @@
-# M10 — visual redaction integration (in progress)
+# M10 — visual redaction integration (closed)
 
-> **Status: IN PROGRESS.** M10 is being delivered as separately committed units. Product visual-only
-> PII protection remains **NOT VERIFIED**. From M10.6 the product perception pass on the gesture route
-> captures, runs TR-01 and masks in place. From M10.7 the realm can encode that sanitized frame as
-> WebP q62, check the mask on the decoded bytes (steps 1–2 of the frozen verifier) and, in the
-> evidence build only, send it through the egress choke point to a TEST-ONLY loopback sink. The
-> product build sends no frame; steps 3–6 of the verifier (OCR re-read, re-detection, value check,
-> re-dilation) are not implemented.
+> **Status: CLOSED (M10.1–M10.8).** See `decision.md` for the closeout and its NOT VERIFIED list.
+> The product perception pass, on the real gesture route, detects text regions, masks them and keeps
+> a sanitized frame. In the evidence build only, the realm encodes it as WebP q62, attests the mask on
+> the decoded bytes, and sends it through the egress choke point to a TEST-ONLY loopback sink. There,
+> an independent verifier re-reads it (DETECTOR_VERIFIED). **Product visual-only PII protection beyond
+> these fixtures, the frozen verifier's OCR steps, and production frame egress are NOT VERIFIED.** The
+> product build sends no frame.
 
 | unit | commit | what it established |
 |---|---|---|
@@ -16,7 +16,8 @@
 | M10.4 | `67e0509` | TR-01 in a dedicated worker owned by the offscreen document; external 2,000 ms deadline |
 | M10.5 | `4e8fbfb` | full-frame TR-01 → fail-closed plan → canonical geometry → opaque pixel mask, in place |
 | M10.6 | `f48c8f6` | that chain wired into the product perception pass, on the real toolbar-gesture stream |
-| M10.7 | this unit | sanitized frame → WebP q62 → decoded-mask attestation → egress choke point → test-only loopback sink |
+| M10.7 | `b47f94b` | sanitized frame → WebP q62 → decoded-mask attestation → egress choke point → test-only loopback sink |
+| M10.8 | this unit | the frozen verifier's steps 3–6, as set for M10.8, on what the sink received: identity → differential TR-01 re-read → survivors → 12 px loop → PASS / BLOCK |
 
 ## Hypothesis
 
@@ -59,6 +60,11 @@ exactly the bytes that were checked. Everything that is not such an attested fra
 the wire: raw RGBA, an unchecked WebP, a mutated one, a non-loopback destination. REFUSED leaves
 nothing to encode. A verifier that shares no code with the producer agrees when it decodes what
 arrived.
+
+**M10.8.** A verifier independent of the masking code finds no residual text inside any visual-only
+region of the artifact the sink received. It works full-frame, with a differential TR-01 pass at
+higher resolution and a lower box threshold. It BLOCKS anything whose identity is not the attested
+one. And it BLOCKS genuinely unmasked content, so its PASS means something.
 
 ## Environment
 
@@ -172,6 +178,16 @@ MV3 host from this commit's tree. Full provenance is in each log.
     artifacts.
   - The service worker records no pixels and no WebP bytes.
   - The worker's message shapes are unchanged from M10.6.
+
+**M10.8**, in each window:
+
+- the normal artifact verifies PASS three times, identically;
+- the timeout artifact verifies PASS;
+- a mutated copy and a stale pairing (one artifact's bytes, another's attestation) BLOCK on identity;
+- REFUSED gives the verifier no input;
+- at DPR 1, an UNMASKED screenshot of the fixture BLOCKS on survivors.
+
+The runtime's model and ORT WASM are the pinned ones.
 
 ## Actual result
 
@@ -522,6 +538,105 @@ post-processing or geometry. The producer's mask rectangles in each window equal
 masks at the same scale. Nothing here measures stream-versus-screenshot pixel equivalence, and
 nothing here claims it.
 
+**M10.8: PASS on the real gesture route in all four windows, first formal run**,
+`logs/w1-cft-artifact-verifier.json` (verdict `EXPERIMENTALLY VERIFIED (HUMAN-IN-THE-LOOP)`; 31 checks
+per window, 32 at DPR 1). Every M10.7 check ran again inside each window and passed, so this is also
+M10.7's and M10.6's regression. Machine at launch: on AC power, Balanced, CPU load 5%.
+
+**What the verifier is.** `tests/browser/support/artifact-verifier.mjs`, test-only, sharing no code
+with the masking path. It works on what the SINK received:
+
+- **Identity:** received SHA-256 = attested SHA-256, and a still WebP of the attested size, or BLOCK
+  before decoding.
+- **Decode:** the verifier's own decode, in a plain page.
+- **Step 3, re-read:** NOT OCR. No `OCRProvider` is admissible (ADR-0011).
+  - TR-01 runs full-frame on the decoded artifact, through `verifier-runtime.mjs`: M8.1's screened
+    chain, the pinned ORT 1.29.0 WASM `db816fad…` and model `18aaccf9…`, in its own page and its own
+    loopback server.
+  - It uses the owner-set DIFFERENTIAL configuration: long side 1920 (2 × the product's 960), box
+    threshold 0.3 (the product's 0.6 lowered to the existing pixel threshold).
+- **Survivors:** any re-detected text box intersecting a visual-only region. This needs no ground
+  truth: after masking, those regions should hold no text.
+- **Steps 4–5 as frozen** (D2/D3 over recovered text, the vault value check): **NOT RUN.** Without
+  recognition nothing is recovered, and the record carries that reason.
+- **Step 6:**
+  - no survivor → **PASS**, status `DETECTOR_VERIFIED` (never "verified");
+  - survivors → each is dilated 12 px, clipped to its region, filled on a verifier COPY, re-encoded at
+    q62 and re-read, for at most 3 rounds;
+  - the ORIGINAL artifact is BLOCKED either way, with the reason
+    `SURVIVORS_CLEARED_ONLY_BY_12PX_REDILATION` or `SURVIVORS_PERSIST_AFTER_3_ROUNDS` (the frozen BLOCK).
+- **A verifier that cannot run BLOCKS.** `mayHandOff` is true for PASS only.
+
+The runtime was checked before the run: with the PRODUCT configuration on held-out H1, it reproduced
+M8.1's recorded boxes exactly.
+
+**Why the differential configuration matters, measured on a WebP-decoded copy of the masked fixture**
+(scratch measurement before the formal run):
+
+- at the product's own settings (960, box threshold 0.6), TR-01 returned a spurious 224×221 box across
+  the mask bars;
+- at the verifier's, its only detection was the DOM control line, outside every region;
+- on the unmasked fixture, both settings found all six lines.
+
+**Results:**
+
+| | DPR 1 | DPR 1.25 | DPR 1.5 | DPR 2 |
+|---|---|---|---|---|
+| real click recorded | yes | yes | yes | yes |
+| normal artifact, 3 verifications | PASS ×3, identical | PASS ×3, identical | PASS ×3, identical | PASS ×3, identical |
+| re-read detections / inside a visual-only region | 1 / 0 | 1 / 0 | 1 / 0 | 1 / 0 |
+| timeout artifact | PASS (1 / 0) | PASS (1 / 0) | PASS (1 / 0) | PASS (1 / 0) |
+| mutated copy | BLOCK, `IDENTITY_MISMATCH` | BLOCK, same | BLOCK, same | BLOCK, same |
+| stale pairing (normal bytes, timeout attestation) | BLOCK, `IDENTITY_MISMATCH` | BLOCK, same | BLOCK, same | BLOCK, same |
+| REFUSED: artifacts given to the verifier | 0 | 0 | 0 | 0 |
+| negative control (unmasked screenshot) | BLOCK, `SURVIVORS_CLEARED_ONLY_BY_12PX_REDILATION`: round 0, 6 detections, 5 survivors; round 1, 1 detection, 0 survivors | — | — | — |
+
+The one detection on every real artifact is the DOM control line ("Public heading…"). It lies outside
+every visual region, as the product's masks intend: it is not visual-only text. The verifier's result
+is therefore consistent with the real-stream masks — every text region the product masked is gone,
+and nothing else inside a region was found. The M10.6 stream-versus-screenshot geometry finding is
+untouched and still open.
+
+**Artifact identity**, every window. The raw RGBA, the sanitized RGBA and the WebP hash all differ;
+attested = sent = received; and the verifier's own decode hashes equal to the producer's:
+
+| | DPR 1 | DPR 1.25 | DPR 1.5 | DPR 2 |
+|---|---|---|---|---|
+| raw RGBA (pre-fill, test seam) | `a6b402f2…` | `8e530fe5…` | `c936f6b5…` | `ce2e8b86…` |
+| sanitized RGBA | `2f30706c…` | `0a80f09c…` | `396d8c24…` | `9952fa7c…` |
+| WebP attested = sent = received | `f4509cbf…` | `3ea8794f…` | `60b673bb…` | `63a8bf28…` |
+| decoded RGBA, producer = verifier | `eed8d547…` | `e37ec91e…` | `b8ef89ec…` | `4dedef1d…` |
+
+The WebP digests are byte-identical to M10.7 run 3's for the same scales. That is FACT: the same
+static fixture through the same real stream produced the same sanitized frame and the same artifact
+in separate runs.
+
+**Verifier cost**, `performance.now()` ms. n = 16: 4 windows × (3 normal + 1 timeout). These are
+verifier-only figures; no capture, detection or masking is included.
+
+| stage | median | p90 | min | max |
+|---|---|---|---|---|
+| identity (hash + container) | 0.1 | 0.1 | 0 | 0.2 |
+| decode | 125.4 | 149.3 | 102.3 | 165.5 |
+| re-read (preprocess + TR-01 at 1920 + post-process) | 1,532.7 | 1,645.9 | 1,409.4 | 1,676.9 |
+| survivors | 0 | 0 | 0 | 0.2 |
+| value check | not run | — | — | — |
+| **whole verifier, PASS path** | **1,676.7** | **1,791.4** | **1,516.9** | **1,829.5** |
+
+- **The re-dilation path,** measured once (n = 1, the negative control): one round of fill +
+  re-encode + decode took 358.3 ms, and the whole BLOCK verdict took 3,364.4 ms.
+- **Session creation:** 688–807 ms per window.
+
+**Memory.** The verifier's TR-01 runtime holds **379,584,512 B (362.0 MiB)** of WASM linear memory at
+1920, constant across rounds. This was measured in the dry run, after the formal run: the only change
+to the verifier between the two was the line that RECORDS this number. That is above the 200 MB
+budget the product perception realm runs under, which is unchanged at 157.5 MiB. The verifier runs in
+its own test page, so it is outside that budget — and it would not fit inside it.
+
+**Attempt history:** one dry run before the formal run, and one after (memory). The dry run first hung
+at shutdown: the runtime's loopback server waited on the browser's idle keep-alive sockets. Its close
+now drops them. No formal run failed.
+
 ## Conclusion
 
 Region enumeration works through the real extension on this fixture. That supplies the regions the
@@ -565,6 +680,13 @@ the digests equal and no raw frame. Everything else sent at it was refused befor
   not verified.**
 - **Production frame egress is still a separate decision.** The product build contains no frame
   egress.
+
+M10.8: the artifact the sink received passes an independent, differential, full-frame text-region
+re-read, at four capture scales, on the real gesture route. The same verifier blocks unmasked
+content, a mutated artifact and a stale attestation, and receives nothing from a REFUSED pass. This
+is **DETECTOR_VERIFIED**, not the frozen verifier's "verified": steps 4–5 need recovered text, and no
+admissible OCR exists to recover it. The verifier is test-only, and at 362 MiB and about 1.7 s per
+frame it does not fit the product's budget as configured.
 
 ## Reproducibility
 
@@ -628,6 +750,11 @@ CHROME_PATH="<chrome for testing>" M107_RUN=3 node tests/browser/extension/run-w
 ```
 
 - **The second command needs a person:** one toolbar click per window.
+- **M10.8:**
+  - `CHROME_PATH="<chrome for testing>" [M108_DRY_RUN=1 M108_DPRS=1] node tests/browser/extension/run-artifact-verifier.mjs`
+    (one click per window unless dry);
+  - unit tests: `tests/browser/support/artifact-verifier.test.mjs`;
+  - the boundary test `apps/extension/test/webpEgressBoundary.test.ts` (test-only verifier).
 - **Unit tests:**
   - `packages/privacy/test/maskedArtifact.test.ts`;
   - `packages/egress/test/frame.test.ts`;
