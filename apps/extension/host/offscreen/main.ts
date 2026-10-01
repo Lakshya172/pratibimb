@@ -8,6 +8,7 @@
 import { observePage, type TransportBinding, type VisualRegionReading } from "@pratibimb/extension-transport";
 import { serveStructuralProbe } from "#structural-probe";
 import { serveTr01Probe, tr01Seam } from "#tr01-probe";
+import { serveEgressEvidence } from "#egress-evidence-probe";
 import { type GrantDecision, type GrantRequest } from "@pratibimb/orchestrator";
 
 import { bootstrapOrtRealm, createPinnedInferenceSession, resolvePackagedAsset } from "../../entrypoints/ortRuntime";
@@ -188,45 +189,6 @@ async function perceiveTab(
   }
 }
 
-async function cspProbe(allowed: string, foreign: string) {
-  const attempt = async (url: string) => {
-    try {
-      const r = await fetch(url, { method: "POST", body: "host-csp-probe" });
-      return { reached: true, status: r.status };
-    } catch (e) {
-      return { reached: false, error: e instanceof Error ? e.name : String(e) };
-    }
-  };
-  return { allowed: await attempt(allowed), foreign: await attempt(foreign) };
-}
-
-/**
- * EXPERIMENT E4-offscreen — emit ONE request, built elsewhere, from this document.
- *
- * The harness builds every byte (URL, method, headers, body) with E4's own code; this document only
- * performs the fetch, so the bytes leave from the cell the product would send from. It chooses
- * nothing, builds nothing, and reaches only the E4 loopback collector, which is also the manifest's
- * one pinned connect-src origin. The payloads are synthetic canaries, never vault values.
- *
- * A rejected fetch is reported, not hidden: whether bytes reached the wire is the collector's call.
- */
-const E4_COLLECTOR = "http://127.0.0.1:8995/";
-
-async function e4Emit(msg: { url: string; method: string; headers: Readonly<Record<string, string>>; bodyB64: string | null }) {
-  if (typeof msg.url !== "string" || !msg.url.startsWith(E4_COLLECTOR)) return { refused: "NOT_THE_E4_COLLECTOR" };
-  // Spread rather than `body: undefined`: under `exactOptionalPropertyTypes` an explicit
-  // `undefined` is not the same as an absent property, and `RequestInit.body` does not accept it.
-  const body = msg.bodyB64 === null ? {} : { body: Uint8Array.from(atob(msg.bodyB64), (c) => c.charCodeAt(0)) };
-  const emitter = location.href;
-  const t0 = performance.now();
-  try {
-    const r = await fetch(msg.url, { method: msg.method, headers: msg.headers, ...body });
-    return { settled: "resolved", status: r.status, emitter, ms: performance.now() - t0 };
-  } catch (e) {
-    return { settled: "rejected", fetchError: e instanceof Error ? `${e.name}: ${e.message}` : String(e), emitter, ms: performance.now() - t0 };
-  }
-}
-
 /**
  * EXPERIMENT E6 — value release bound to a browser-attested document.
  *
@@ -399,6 +361,13 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
    * M10.4: `#tr01-probe` resolves to `probe/tr01-absent.ts` unless `TR01_PROBE=1` is set, so a
    * product build answers a `TR01_PROBE` exactly as it answers a kind that was never defined.
    */
+  /**
+   * M12: `CSP_PROBE` and `E4_EMIT` performed a `fetch` outside `@pratibimb/egress` (QG-04 item 1).
+   * `#egress-evidence-probe` resolves to `probe/egress-evidence-absent.ts` unless
+   * `EGRESS_EVIDENCE_PROBE=1` is set, so a product build has neither path and answers both kinds
+   * as `UNKNOWN_KIND`.
+   */
+  if (serveEgressEvidence(msg as ToOffscreen, sender, sendResponse)) return true;
   if (
     serveTr01Probe(msg, sender, sendResponse, {
       perceiveTab,
@@ -620,18 +589,6 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
   }
   if (msg.kind === "ORT_SMOKE") {
     void ortSmoke().then(sendResponse);
-    return true;
-  }
-  if (msg.kind === "CSP_PROBE") {
-    void cspProbe(msg.allowed, msg.foreign).then(sendResponse);
-    return true;
-  }
-  if (msg.kind === "E4_EMIT") {
-    if (sender.tab) {
-      sendResponse({ refused: "EMIT_ONLY_FROM_SERVICE_WORKER" });
-      return false;
-    }
-    void e4Emit(msg).then(sendResponse);
     return true;
   }
   sendResponse({ refused: "UNKNOWN_KIND" });

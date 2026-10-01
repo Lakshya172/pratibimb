@@ -88,6 +88,13 @@ service-worker restart.
 
 ## Reproducibility
 
+> **Forward pointer (M12, 2026-10-01).** The request path this experiment drove (`CSP_PROBE`) no longer
+> exists in a product build: QG-04 item 1 forbids a `fetch` outside `@pratibimb/egress`, so it moved to
+> `apps/extension/probe/egress-evidence.ts`, behind the `#egress-evidence-probe` alias. To reproduce,
+> build with `EGRESS_EVIDENCE_PROBE=1` (for example
+> `EGRESS_EVIDENCE_PROBE=1 npm run build -w @pratibimb/extension`). A product build answers
+> `CSP_PROBE` with `UNKNOWN_KIND`. The results recorded above are unchanged.
+
 ```bash
 npm ci
 npm run build -w @pratibimb/extension

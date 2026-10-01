@@ -232,6 +232,13 @@ The pre-registered statements below stand unchanged.
 
 ## Reproducibility
 
+> **Forward pointer (M12, 2026-10-01).** The request path this experiment drove (`E4_EMIT`) no longer
+> exists in a product build: QG-04 item 1 forbids a `fetch` outside `@pratibimb/egress`, so it moved to
+> `apps/extension/probe/egress-evidence.ts`, behind the `#egress-evidence-probe` alias. To reproduce,
+> build with `EGRESS_EVIDENCE_PROBE=1` (for example
+> `EGRESS_EVIDENCE_PROBE=1 npm run build -w @pratibimb/extension`). A product build answers
+> `E4_EMIT` with `UNKNOWN_KIND`. The results recorded above are unchanged.
+
 The command above. The harness refuses to run unless:
 - the scanner, collector and `b027fc5` runner blob match the hashes in this file;
 - a built host exists at `apps/extension/.output/chrome-mv3`;

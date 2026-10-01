@@ -101,6 +101,16 @@ const WORKER_FRAME = process.env.M3_WORKER_FRAME === "1";
  * only caller that sets it is `tests/browser/extension/run-tr01-worker.mjs`.
  */
 const TR01_PROBE = process.env.TR01_PROBE === "1";
+
+/**
+ * M12 — THE HOST'S EGRESS EVIDENCE PATHS FOLLOW THE SAME RULE.
+ *
+ * `probe/egress-evidence.ts` holds `CSP_PROBE` (ADR-0001's G-mv3-host gates) and `E4_EMIT`
+ * (E4-offscreen): the only code in the extension that ever performed a `fetch` outside
+ * `@pratibimb/egress`. QG-04 item 1 forbids that in a product, so the alias resolves to an empty stub
+ * unless `EGRESS_EVIDENCE_PROBE=1` is set. Only those two experiments' harnesses need it.
+ */
+const EGRESS_EVIDENCE_PROBE = process.env.EGRESS_EVIDENCE_PROBE === "1";
 const HOST_PERMISSIONS = WORKER_FRAME ? ["http://127.0.0.1/*", "<all_urls>"] : ["http://127.0.0.1/*"];
 
 const ORT_DIST = join(ROOT, "node_modules", "onnxruntime-web", "dist");
@@ -115,6 +125,7 @@ export default defineConfig({
     "#structural-probe": STRUCTURAL_PROBE ? "probe/structural.ts" : "probe/structural-absent.ts",
     "#tr01-probe": TR01_PROBE ? "probe/tr01.ts" : "probe/tr01-absent.ts",
     "#tr01-instrument": TR01_PROBE ? "probe/tr01-instrument.ts" : "probe/tr01-instrument-absent.ts",
+    "#egress-evidence-probe": EGRESS_EVIDENCE_PROBE ? "probe/egress-evidence.ts" : "probe/egress-evidence-absent.ts",
   },
   /**
    * Workspace packages are bundled from TypeScript source rather than from `dist/`, so a host build
