@@ -1,0 +1,159 @@
+{
+ "status": "POST-HOC DIAGNOSTIC — decides nothing; diag-* files are excluded from aggregate.mjs",
+ "question": "Why did two recorded Firefox launches (TR-02 Firefox WASM (Linux) headless #1; TR-01 Firefox WASM (Windows) headful #3) show liveness and then never report within 900 s?",
+ "observation": {
+  "recordedFirefoxLaunchesCompleted": 42,
+  "maxProbeRuntimeMsAmongCompleted": 28006,
+  "note": "no completed Firefox probe ran longer than this inside the event page"
+ },
+ "hypothesis": "Firefox MV3 event pages are terminated after the background idle timeout (pref extensions.background.idle.timeout, read by ExtensionCommon / ext-backgroundPage.js at mozilla-firefox/firefox@18d9efd5) when a long computation issues no extension events, so a probe running past it never reports.",
+ "design": "A/B on one pref only. Same probe, cell mode, warm=40 so the probe exceeds 30 s; Firefox 155.0.1 Linux (WSL2), headless; 2 launches per arm per candidate, arms alternated; deadline 150 s.",
+ "arms": {
+  "default": "release defaults",
+  "idle900k": "extensions.background.idle.timeout=900000"
+ },
+ "launches": [
+  {
+   "file": "diag-tr-01-default-1.json",
+   "candidate": "TR-01",
+   "platform": "linux-wsl2",
+   "firefox": "Mozilla Firefox 155.0.1",
+   "headless": true,
+   "warm": 40,
+   "prefs": [],
+   "deadlineMs": 150000,
+   "reported": false,
+   "livenessSeen": true,
+   "wallMs": 150292,
+   "probeRuntimeMs": null,
+   "devRelErr": null,
+   "devPass": null
+  },
+  {
+   "file": "diag-tr-01-default-2.json",
+   "candidate": "TR-01",
+   "platform": "linux-wsl2",
+   "firefox": "Mozilla Firefox 155.0.1",
+   "headless": true,
+   "warm": 40,
+   "prefs": [],
+   "deadlineMs": 150000,
+   "reported": false,
+   "livenessSeen": true,
+   "wallMs": 150290,
+   "probeRuntimeMs": null,
+   "devRelErr": null,
+   "devPass": null
+  },
+  {
+   "file": "diag-tr-01-idle900k-1.json",
+   "candidate": "TR-01",
+   "platform": "linux-wsl2",
+   "firefox": "Mozilla Firefox 155.0.1",
+   "headless": true,
+   "warm": 40,
+   "prefs": [
+    "extensions.background.idle.timeout=900000"
+   ],
+   "deadlineMs": 150000,
+   "reported": true,
+   "livenessSeen": true,
+   "wallMs": 43572,
+   "probeRuntimeMs": 40846,
+   "devRelErr": 6.517290281877041e-7,
+   "devPass": true
+  },
+  {
+   "file": "diag-tr-01-idle900k-2.json",
+   "candidate": "TR-01",
+   "platform": "linux-wsl2",
+   "firefox": "Mozilla Firefox 155.0.1",
+   "headless": true,
+   "warm": 40,
+   "prefs": [
+    "extensions.background.idle.timeout=900000"
+   ],
+   "deadlineMs": 150000,
+   "reported": true,
+   "livenessSeen": true,
+   "wallMs": 43573,
+   "probeRuntimeMs": 41297,
+   "devRelErr": 6.517290281877041e-7,
+   "devPass": true
+  },
+  {
+   "file": "diag-tr-02-default-1.json",
+   "candidate": "TR-02",
+   "platform": "linux-wsl2",
+   "firefox": "Mozilla Firefox 155.0.1",
+   "headless": true,
+   "warm": 40,
+   "prefs": [],
+   "deadlineMs": 150000,
+   "reported": false,
+   "livenessSeen": true,
+   "wallMs": 150284,
+   "probeRuntimeMs": null,
+   "devRelErr": null,
+   "devPass": null
+  },
+  {
+   "file": "diag-tr-02-default-2.json",
+   "candidate": "TR-02",
+   "platform": "linux-wsl2",
+   "firefox": "Mozilla Firefox 155.0.1",
+   "headless": true,
+   "warm": 40,
+   "prefs": [],
+   "deadlineMs": 150000,
+   "reported": false,
+   "livenessSeen": true,
+   "wallMs": 150293,
+   "probeRuntimeMs": null,
+   "devRelErr": null,
+   "devPass": null
+  },
+  {
+   "file": "diag-tr-02-idle900k-1.json",
+   "candidate": "TR-02",
+   "platform": "linux-wsl2",
+   "firefox": "Mozilla Firefox 155.0.1",
+   "headless": true,
+   "warm": 40,
+   "prefs": [
+    "extensions.background.idle.timeout=900000"
+   ],
+   "deadlineMs": 150000,
+   "reported": true,
+   "livenessSeen": true,
+   "wallMs": 49591,
+   "probeRuntimeMs": 47515,
+   "devRelErr": 6.868745308849452e-7,
+   "devPass": true
+  },
+  {
+   "file": "diag-tr-02-idle900k-2.json",
+   "candidate": "TR-02",
+   "platform": "linux-wsl2",
+   "firefox": "Mozilla Firefox 155.0.1",
+   "headless": true,
+   "warm": 40,
+   "prefs": [
+    "extensions.background.idle.timeout=900000"
+   ],
+   "deadlineMs": 150000,
+   "reported": true,
+   "livenessSeen": true,
+   "wallMs": 50581,
+   "probeRuntimeMs": 48456,
+   "devRelErr": 6.868745308849452e-7,
+   "devPass": true
+  }
+ ],
+ "result": {
+  "default": "4/4 no report",
+  "idle900k": "4/4 reported, probes ran 40846-48456 ms, correct"
+ },
+ "conclusion": "EXPERIMENTALLY ESTABLISHED on W1 / Firefox 155.0.1 Linux: at release defaults a probe running past the idle timeout in the MV3 event page never reports, for both candidates; raising only the idle timeout makes the same probe report correctly. The two recorded failures show the identical symptom; their own cause was not directly observed.",
+ "verdictEffect": "none — the frozen protocol counts a launch with no report as a failed launch; the recorded verdicts stand as computed"
+}

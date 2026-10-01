@@ -1,0 +1,79 @@
+<!doctype html>
+<!--
+  THE STRUCTURAL-SIGNAL FIXTURE — constitution §6, M6.1.
+
+  Separate from the demo fixture, which is FROZEN and must not be touched, and separate from the
+  M3.1 visual fixture, which is about pixels. This page exists to be changed in three precisely
+  different ways while an extension watches it:
+
+    1. a node inserted into a container              → a childList record
+    2. a watched attribute changed on a tracked node → an attributes record
+    3. A TRACKED ELEMENT RESIZED WITH NO DOM RECORD AT ALL
+
+  The third is the one worth building a fixture for. `sheet.insertRule` changes the CSSOM, not the
+  DOM: no node is added, no attribute is written, no text changes, and a `MutationObserver` sees
+  nothing whatsoever. The element still resizes. That is exactly the blind spot §6 describes —
+  *"a page can change on screen with no mutation record at all"* — and it is the case that decides
+  whether the resize half of the structural signal is real or decorative.
+
+  NO TIMERS, NO ANIMATION, NO SCRIPT-DRIVEN CHANGE. Every change is made by the harness, when the
+  harness decides, so a sequence number that moves has exactly one possible cause. The only script
+  here disables a button when it is clicked, which is the postcondition VERIFY RESULT reads back.
+
+  NO REAL VALUES. There is nothing to redact on this page; the privacy path is not what it tests.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>PratiBimb — structural signal fixture</title>
+  <!--
+    The stylesheet the harness writes a rule into. It must exist and be same-origin for
+    `sheet.insertRule` to be reachable, which is why the rules live here rather than in an
+    attribute: a style attribute would make the resize a mutation record and defeat the point.
+  -->
+  <style id="sizes">
+    body { font: 14px/1.5 system-ui, sans-serif; margin: 16px; color: #111; }
+    h1 { font-size: 16px; margin: 0 0 12px; }
+    fieldset { border: 1px solid #ccd; margin: 10px 0; padding: 10px; }
+    #target { width: 140px; height: 32px; }
+    #update { width: 160px; height: 32px; }
+  </style>
+</head>
+<body>
+  <h1>Structural signal fixture</h1>
+
+  <fieldset>
+    <legend>Tracked controls</legend>
+    <label for="field">Reference</label>
+    <input id="field" type="text" autocomplete="off">
+    <!-- Resized by a CSSOM rule, never by an attribute. -->
+    <button id="target" type="button">Target</button>
+    <!--
+      The action target. Named so it is ROUTINE rather than CONFIRM_REQUIRED: the confirmation tier
+      is a separate mechanism with its own tests, and mixing it in here would mean a refusal could
+      have two explanations.
+    -->
+    <button id="update" type="button">Update details</button>
+  </fieldset>
+
+  <fieldset>
+    <legend>Insertion point</legend>
+    <div id="container" role="group" aria-label="Container"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Status</legend>
+    <div id="status" role="status">ready</div>
+  </fieldset>
+
+  <script>
+    // The ONE observable postcondition: the control disables itself. VERIFY RESULT reads this back
+    // from the page rather than believing the dispatch. Nothing else on this page reacts to
+    // anything, and nothing here runs on a timer.
+    document.getElementById("update").addEventListener("click", function () {
+      this.disabled = true;
+      document.getElementById("status").textContent = "updated";
+    });
+  </script>
+</body>
+</html>

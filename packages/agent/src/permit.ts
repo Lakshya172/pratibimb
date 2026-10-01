@@ -62,6 +62,7 @@ import {
   type FreshnessDecision,
 } from "./actionFreshness.js";
 import { bearsHitAgreement, dispatchPointOf, hitAgreementIsFor, type HitTestResult } from "./hitTest.js";
+import { confirmationCovers, spendConfirmation, type HumanConfirmation } from "./humanConfirmation.js";
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────
 // What the gate will authorise at all
@@ -196,13 +197,28 @@ const inside = (p: CssPoint, b: CssBox): boolean =>
   p.x >= b.x && p.x <= b.x + b.w && p.y >= b.y && p.y <= b.y + b.h;
 
 /**
+ * Evidence that does not come from the decision.
+ *
+ * Optional in its entirety, and omitting it leaves every pre-existing behaviour exactly as it was:
+ * a confirmation-tier control is refused, as it has always been. Supplying a confirmation does not
+ * relax any other check — see `humanConfirmation.ts` for what it can and cannot establish.
+ */
+export interface AuthorisationEvidence {
+  /** A human's consent for this exact control, from `recordHumanConfirmation`. */
+  readonly confirmation?: HumanConfirmation;
+  /** The page origin the confirmation is checked against. Required whenever one is supplied. */
+  readonly origin?: string;
+  readonly now?: MonotonicClock;
+}
+
+/**
  * The static half of authorisation: everything that can be decided from the decision alone.
  *
  * A composition calls this BEFORE the hit test so an unsupported or confirmation-tier action never
  * even queries the page, and `mintDispatchPermit` calls it again because the gate must not trust
  * that any composition did. Returns `null` only when every static condition holds.
  */
-export function authorisationPreflight(decision: FreshnessDecision): GateRefusal | null {
+export function authorisationPreflight(decision: FreshnessDecision, evidence?: AuthorisationEvidence): GateRefusal | null {
   if (decision.decision !== "ALLOW" || !bearsFreshnessAttestation(decision)) {
     return rejected(
       "NOT_VALIDATED",
@@ -227,12 +243,24 @@ export function authorisationPreflight(decision: FreshnessDecision): GateRefusal
     return rejected("TARGET_MISSING_IN_DECISION", "the ALLOW carries no node, box or frame, so there is nothing to authorise. The gate does not look for one.", kind);
   }
   if (confirmationTierOf(node) === "CONFIRM_REQUIRED") {
-    return rejected(
-      "HUMAN_CONFIRMATION_REQUIRED",
-      `node ${node.id} (role ${node.role}, name "${node.name}") is in the action schema's human-confirmation ` +
-        "tier. No confirmation channel exists, so no permit can be issued on a human's behalf.",
-      kind
+    // The tier is not relaxed: it is satisfied, or it refuses. A confirmation must have been
+    // recorded by this process for THIS node, in THIS frame, on THIS origin, and be unspent.
+    const cover = confirmationCovers(
+      evidence?.confirmation,
+      { nodeId: node.id, selector: node.domRef.selector, role: node.role, name: node.name, frameId: decision.frameId },
+      evidence?.origin,
+      evidence?.now ?? monotonicNow
     );
+    if (!cover.covers) {
+      return rejected(
+        "HUMAN_CONFIRMATION_REQUIRED",
+        `node ${node.id} (role ${node.role}, name "${node.name}") is in the action schema's human-confirmation ` +
+          (evidence?.confirmation === undefined
+            ? "tier, and no confirmation was supplied. No permit can be issued on a human's behalf."
+            : `tier, and the confirmation supplied does not authorise it (${cover.cause}).`),
+        kind
+      );
+    }
   }
   return null;
 }
@@ -285,6 +313,13 @@ export interface MintOptions {
    */
   readonly ttlMs: number;
   readonly now?: MonotonicClock;
+  /**
+   * A human's consent, for a control in the confirmation tier. Omitted, such a control is refused
+   * exactly as before. Spent here, as the permit is issued: one "yes", one permit.
+   */
+  readonly confirmation?: HumanConfirmation;
+  /** The page origin the confirmation is bound to. Required whenever a confirmation is supplied. */
+  readonly origin?: string;
 }
 
 export type MintResult =
@@ -299,7 +334,11 @@ const refuse = (refusal: GateRefusal): MintResult => ({ minted: false, refusal }
  * Fail-closed in every branch, and there is exactly one statement that issues a permit.
  */
 export function mintDispatchPermit(decision: FreshnessDecision, hit: HitTestResult, options: MintOptions): MintResult {
-  const pre = authorisationPreflight(decision);
+  const pre = authorisationPreflight(decision, {
+    ...(options?.confirmation === undefined ? {} : { confirmation: options.confirmation }),
+    ...(options?.origin === undefined ? {} : { origin: options.origin }),
+    ...(options?.now === undefined ? {} : { now: options.now }),
+  });
   if (pre) return refuse(pre);
   // authorisationPreflight established all of these; narrowed again for the compiler.
   if (decision.decision !== "ALLOW" || !decision.node || !decision.viewportBox || decision.frameId === undefined) {
@@ -366,6 +405,17 @@ export function mintDispatchPermit(decision: FreshnessDecision, hit: HitTestResu
     name: node.name,
     box,
   });
+  // A confirmation is spent as the permit is issued, so one human "yes" can mint exactly one permit.
+  // Spending last means a refusal above leaves the consent intact and re-usable for a retry the
+  // human has already agreed to; spending before the permit exists means no permit can outlive it.
+  if (confirmationTierOf(node) === "CONFIRM_REQUIRED" && options.confirmation !== undefined) {
+    if (!spendConfirmation(options.confirmation)) {
+      return refuse(
+        rejected("HUMAN_CONFIRMATION_REQUIRED", "the confirmation was spent between the check and the mint.", kind)
+      );
+    }
+  }
+
   const permit: DispatchPermit = { kind, frameId, point, target, mintedAt, expiresAt: mintedAt + ttl };
   Object.freeze(permit);
   issued.add(permit);

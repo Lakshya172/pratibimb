@@ -1,0 +1,54 @@
+{
+ "TR-01": {
+  "verdict": "PASS",
+  "checklist": {
+   "1 revision pinned in the registry": true,
+   "2 licence read at the pinned revision": true,
+   "3 all four cells filled": true,
+   "4 each cell records all four values": true,
+   "5 the WASM columns pass": true,
+   "6a coexistence verified": true,
+   "6b teardown reclaims memory": true,
+   "7 benchmark artifact under artifacts/benchmarks/": true
+  },
+  "blockedCells": [],
+  "failures": [],
+  "cells": {
+   "Chrome WebGPU": "ACCEPT",
+   "Chrome WASM": "ACCEPT",
+   "Firefox WebGPU": "CONDITIONAL",
+   "Firefox WASM (Linux)": "ACCEPT"
+  },
+  "supplementary": {
+   "Firefox WASM (Windows)": "CONDITIONAL"
+  },
+  "item8": "ADR — not triggered by feasibility; required at adoption (OCRProvider's pinned default)"
+ },
+ "TR-02": {
+  "verdict": "FAIL",
+  "checklist": {
+   "1 revision pinned in the registry": true,
+   "2 licence read at the pinned revision": true,
+   "3 all four cells filled": true,
+   "4 each cell records all four values": true,
+   "5 the WASM columns pass": false,
+   "6a coexistence verified": true,
+   "6b teardown reclaims memory": true,
+   "7 benchmark artifact under artifacts/benchmarks/": true
+  },
+  "blockedCells": [],
+  "failures": [
+   "Firefox WASM (Linux) is CONDITIONAL"
+  ],
+  "cells": {
+   "Chrome WebGPU": "ACCEPT",
+   "Chrome WASM": "ACCEPT",
+   "Firefox WebGPU": "CONDITIONAL",
+   "Firefox WASM (Linux)": "CONDITIONAL"
+  },
+  "supplementary": {
+   "Firefox WASM (Windows)": "ACCEPT"
+  },
+  "item8": "ADR — not triggered by feasibility; required at adoption (OCRProvider's pinned default)"
+ }
+}

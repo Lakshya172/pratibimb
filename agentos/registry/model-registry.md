@@ -40,6 +40,29 @@ pinned, licence-verified, or run.**
 | Local VLM | `LocalVLM` | SmolVLM-256M-Instruct | Apache-2.0 | **NO — UNKNOWN** | *not pinned* | Transformers.js | ONNX | — | `PINNED-UNVERIFIED` |
 | Server VLM | `ServerPlanner` | Qwen3-VL-4B-Instruct | Apache-2.0 | **NO — UNKNOWN** | *not pinned* | vLLM | HF weights | — | `PINNED-UNVERIFIED` |
 | Server VLM (upgrade) | `ServerPlanner` | Qwen3-VL-8B-Instruct | Apache-2.0 | **NO — UNKNOWN** | *not pinned* | vLLM | HF weights | — | `PINNED-UNVERIFIED` |
+| **Text reasoner** | `ReasonerClient` | **`Qwen/Qwen2.5-0.5B-Instruct-GGUF`** | Apache-2.0 | **YES — verified at revision (2026-09-14)** | **`9217f5db79a29953eb74d5343926648285ec7e67`** | llama.cpp `b10956` (CPU x64, MIT) | GGUF | **Q4_K_M** | `PINNED` |
+
+### LOOP-2 evidence — recorded 2026-09-14 (W2)
+
+**The first row in this registry to reach `PINNED`, and the first model the product actually calls.**
+It is a **text** model, not a VLM: it reads the sanitized manifest and emits plan steps. It never
+sees a screenshot, a pixel or a value.
+
+| | |
+|---|---|
+| Role | `ReasonerClient` — the untrusted reasoner boundary. **Replaceable; not a security authority.** |
+| Download approval | **EXPLICIT**, owner, 2026-09-14. E9 stopped at this boundary for want of one; this did not proceed without it. |
+| Licence verification | `LICENSE` fetched **at revision `9217f5db…`** and read (11 343 B, Apache-2.0). The card tag was not trusted on its own — SECURITY.md §7. |
+| Weights | `qwen2.5-0.5b-instruct-q4_k_m.gguf`, 491 358 496 B, sha256 `74a4da8c9fdbcd15…` · **not committed** |
+| Runtime validated | **YES** — llama.cpp `b10956` CPU x64 on W2; service healthy in 2 124 ms including model load |
+| Browser validated | **YES (indirectly)** — driven from Chrome for Testing 153.0.8010.12 over loopback HTTP; the model itself runs out-of-browser |
+| Performance validated | **NO** — six warm runs (p50 609 ms end-to-end) is a sample, not a benchmark |
+| Correctness | **PROVISIONAL** — 5/5 and 7/7 on one goal, and only with enum-constrained decoding plus a worked example. Bare-schema prompting produced schema-valid nonsense. |
+| Status | **`PINNED`**, not `ADOPTED`. Adoption needs QG-03 and a benchmark artifact; neither exists. |
+
+Evidence: [`LOOP-2`](../../artifacts/experiments/LOOP-2-local-reasoner-egress/README.md).
+**`MODEL_PATH = EXPERIMENTAL`, `FALLBACK_PATH = VERIFIED`** — the deterministic planner remains the
+known-good path, and the security pipeline was not weakened to accommodate the model.
 
 ### S-04a-1 evidence — recorded 2026-09-09
 
@@ -49,7 +72,7 @@ status.** A model can be licence-verified and runtime-validated and still have n
 | Role | Model @ revision | Licence verified at revision? | Runtime validated? | Browser validated? | Performance validated? |
 |---|---|---|---|---|---|
 | Faces | YuNet @ `47534e27` | **YES — Apache-2.0** (2026-09-08) | **YES** — ORT Web 1.29.0, wasm + webgpu | **YES** — Chrome (Win + WSL2), Firefox Win | **NO** |
-| OCR detection | PP-OCRv5_mobile_det @ `0d63e78e` | **YES — Apache-2.0** (2026-09-09) | **PARTIAL** — runs; **fails the S-04a-1 correctness criterion on wasm** (4.12e-02 vs 2e-02) | **PARTIAL** — passes on webgpu, fails on wasm | **NO** |
+| OCR detection | PP-OCRv5_mobile_det @ `0d63e78e` | **YES — Apache-2.0** (2026-09-09; re-read at the revision 2026-09-25) | **wasm: PASS on realistic input** (S-04a-1a, 4.23e-06, M7.1) · **fails on the synthetic input** (4.12e-02, reproduced in M7.1; saturated output) | **PARTIAL** — Chrome wasm (M7.1) and webgpu (S-04a-1); Firefox not re-run | **NO** — **`REJECTED FOR V1`** on the pre-registered text-region criteria (M7.1): localisation IoU 0.427 / 0.365 < 0.5 |
 | OCR recognition | PP-OCRv5_mobile_rec @ `682f2053` | **YES — Apache-2.0** (2026-09-09) | **YES** — best agreement of the four (5.51e-06) | **YES** — Chrome, Firefox | **NO** |
 | Local VLM (vision tower only) | SmolVLM-256M-Instruct `vision_encoder_int8` @ `7e3e67ed` | **YES — Apache-2.0** (2026-09-09) | **wasm YES** (1.96e-02) · **WebGPU REJECT** — root-caused, see below | **PARTIAL** — wasm only | **NO** |
 
@@ -71,7 +94,7 @@ WebGPU while failing on WASM. Neither backend is globally good or globally broke
 | Model | CPU (native) | WASM | WebGPU |
 |---|---|---|---|
 | YuNet | ACCEPT | ACCEPT | ACCEPT |
-| PP-OCRv5_mobile_det | ACCEPT | **fails S-04a-1 criterion** (4.12e-02) | ACCEPT (4.96e-03) |
+| PP-OCRv5_mobile_det | ACCEPT | **synthetic: fails** (4.12e-02) · **realistic: ACCEPT** (4.23e-06, M7.1) | ACCEPT (4.96e-03) |
 | PP-OCRv5_mobile_rec | ACCEPT | ACCEPT (5.51e-06) | ACCEPT |
 | **SmolVLM-256M `vision_encoder_int8`** | ACCEPT | **ACCEPT** (1.96e-02) | **REJECT** |
 
@@ -184,3 +207,48 @@ Ultralytics YOLO.
 | Date | Role | Implementation | Revision | Decision | ADR | Benchmark artifact |
 |---|---|---|---|---|---|---|
 | — | — | — | — | — | — | — |
+
+## Rejection record
+
+Blocking rule 5: *"A rejected model is recorded as `REJECTED` with its artifact. It is not quietly
+swapped out."*
+
+| Date | Role | Implementation | Revision | Decision | Measured reason | Artifact |
+|---|---|---|---|---|---|---|
+| 2026-09-25 | OCR detection (text regions, no recognition) | PP-OCRv5_mobile_det via `paddle2onnx 2.1.0` | `0d63e78e` · ONNX sha256 `d9056b16…ac068`, 4 766 440 B | **`REJECTED FOR V1`** | Fails pre-registered localisation (`docs/perception/text-region-acceptance.md` criterion 2): best IoU **0.427** (identifier) and **0.365** (holder name) against 0.5 — 0.472 / 0.413 under PaddleOCR's own box convention. Coverage (1.000 / 1.000), flood (2.98× ≤ 3×), plaintext-free output and determinism all pass. WASM correctness on realistic input passes (4.23e-06). | [`M7.1`](../../artifacts/experiments/M7-visual-text/M7.1-ppocrv5-det-validation.md) |
+
+## Screening record
+
+Candidates that passed a screening milestone and are **eligible for QG-03 / adoption review**. This is
+**not** adoption: nothing here enters the build, and the adoption log above stays empty until QG-03
+is completed and the owner decides.
+
+| Date | Role | Implementation | Revision | Status | Evidence summary | Artifact |
+|---|---|---|---|---|---|---|
+| 2026-09-25 | Text-region detection (no recognition) | PP-OCRv4_mobile_det via `paddle2onnx 2.1.0` (opset 16) | `3cc09f3a` · ONNX sha256 `18aaccf9…75e8`, 4 766 440 B, reproducible ×4 | **`ELIGIBLE FOR QG-03 / ADOPTION REVIEW`** | Realistic WASM relErr 6.52e-07 (QG-03 text-region cell, Option A); RE-1 G1–G6 pass on the frozen held-out set (0 / 306 sensitive glyphs exposed); byte-identical across runs. Same `inference.json` as PP-OCRv5_mobile_det, with different weights | [`M8.1`](../../artifacts/experiments/M8.1-visual-text-screening/TR-01.md) |
+| 2026-09-25 | Text-region detection (no recognition) | PP-OCRv3_mobile_det via `paddle2onnx 2.1.0` (opset 16) | `58f4e5b1` · ONNX sha256 `322c3e63…6f55`, 2 436 135 B, reproducible ×4 | **`ELIGIBLE FOR QG-03 / ADOPTION REVIEW`** | Realistic WASM relErr 6.87e-07; RE-1 G1–G6 pass (0 / 306); byte-identical across runs | [`M8.1`](../../artifacts/experiments/M8.1-visual-text-screening/TR-02.md) |
+
+The two rows are independent and in no order.
+
+## QG-03 feasibility record
+
+Full QG-03 feasibility (M8.2, W1). A PASS makes a candidate **eligible for adoption review**; it is **not**
+adoption, and the adoption log above stays empty.
+
+| Date | Role | Implementation | Revision | QG-03 | Cells (Chrome WebGPU · Chrome WASM · Firefox WebGPU · Firefox WASM Linux) | Artifact |
+|---|---|---|---|---|---|---|
+| 2026-09-26 | Text-region detection (no recognition) | PP-OCRv4_mobile_det (TR-01) | `3cc09f3a` · ONNX `18aaccf9…75e8` | **`PASS` → `ELIGIBLE FOR ADOPTION REVIEW`** | ACCEPT · ACCEPT · CONDITIONAL · ACCEPT; coexistence 5/5, teardown 4/4; benchmark `artifacts/benchmarks/M8.2-text-region-qg03.json` | [`M8.2`](../../artifacts/experiments/M8.2-qg03-visual-text-feasibility/TR-01.md) |
+| 2026-09-26 | Text-region detection (no recognition) | PP-OCRv3_mobile_det (TR-02) | `58f4e5b1` · ONNX `322c3e63…6f55` | **`FAIL`** | ACCEPT · ACCEPT · CONDITIONAL · **CONDITIONAL** (one Linux launch never reported; reproduced as a Firefox event-page limit affecting both candidates); coexistence 5/5, teardown 4/4 | [`M8.2`](../../artifacts/experiments/M8.2-qg03-visual-text-feasibility/TR-02.md) |
+
+Disclosed with both rows: Windows Firefox measured 156.0.1, not the frozen 155.0.1. Owner decisions pending: whether
+to amend the harness and re-run the Firefox WASM (Linux) cell for both candidates; TR-01 adoption review.
+
+**M8.2a (2026-09-30) — Firefox WASM (Linux) re-run for both candidates, amended harness** (one pref removes the
+MV3 event-page idle confound). This is additive; the rows above are M8.2's record and are unchanged.
+
+| Date | Candidate | Firefox WASM (Linux) | QG-03, only that cell replaced | Status for adoption review | Artifact |
+|---|---|---|---|---|---|
+| 2026-09-30 | PP-OCRv4_mobile_det (TR-01) @ `3cc09f3a` | ACCEPT (6/6) — was ACCEPT | **`PASS`** (unchanged) | **`ELIGIBLE FOR ADOPTION REVIEW`** | [`M8.2a`](../../artifacts/experiments/M8.2a-firefox-wasm-rerun/TR-01.md) |
+| 2026-09-30 | PP-OCRv3_mobile_det (TR-02) @ `58f4e5b1` | ACCEPT (6/6) — was CONDITIONAL (confounded) | **`PASS`** (was FAIL) | **`ELIGIBLE FOR ADOPTION REVIEW`** | [`M8.2a`](../../artifacts/experiments/M8.2a-firefox-wasm-rerun/TR-02.md) |
+
+Neither candidate is adopted; the adoption log above stays empty.

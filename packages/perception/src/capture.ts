@@ -44,15 +44,36 @@ export interface CaptureFrame {
   readonly id: FrameId;
   /** `Date.now()` at the moment the frame was produced. */
   readonly capturedAt: number;
-  /** Encoded PNG bytes. The adapter has checked the PNG signature before building the frame. */
-  readonly pixels: Uint8Array;
   /**
-   * Always PNG — ADR-0002. Narrowed from `"png" | "jpeg" | "webp"`: a JPEG T1 frame is lossy
-   * input the detector has no production robustness evidence for, and WebP is a format
-   * `captureVisibleTab` cannot produce at all (Chromium rejects it at schema validation).
-   * The type makes both unrepresentable rather than merely unlikely.
+   * WHERE THE FRAME CAME FROM, and therefore whether it has encoded bytes at all.
+   *
+   * `encoded` — `captureVisibleTab` returned a compressed image. ADR-0002's PNG policy applies:
+   * PNG was requested explicitly and anything else is refused, because the browser's default is
+   * JPEG and a lossy T1 frame is input the detector has no robustness evidence for.
+   *
+   * `live` — the frame came off a `MediaStreamTrack` as an `ImageBitmap`. **It was never encoded**,
+   * so there is nothing for a format policy to be about: no compression happened, no lossy default
+   * was available to fall into, and no bytes exist to carry. Encoding one *in order to populate a
+   * field* costs about a second on W1 and produces bytes nothing reads.
    */
-  readonly format: T1CaptureFormat;
+  readonly source: "encoded" | "live";
+  /**
+   * Encoded bytes, when there are any. **Absent on a `live` frame, and must stay absent** — the
+   * whole point of the discriminator is that a frame which was never compressed does not get
+   * compressed to satisfy a type.
+   *
+   * On an `encoded` frame the adapter has checked the signature before building the frame.
+   */
+  readonly pixels?: Uint8Array;
+  /**
+   * Always PNG on an encoded frame — ADR-0002. Narrowed from `"png" | "jpeg" | "webp"`: a JPEG T1
+   * frame is lossy input the detector has no production robustness evidence for, and WebP is a
+   * format `captureVisibleTab` cannot produce at all (Chromium rejects it at schema validation).
+   * The type makes both unrepresentable rather than merely unlikely.
+   *
+   * Absent on a `live` frame, which has no encoding to declare.
+   */
+  readonly format?: T1CaptureFormat;
   /** The complete coordinate contract for THIS frame. */
   readonly geometry: CaptureGeometry;
 }
@@ -293,6 +314,7 @@ export function createTabCaptureAdapter(
       return ok({
         id: frameId(`frame-${sequence}-${now()}`),
         capturedAt: now(),
+        source: "encoded",
         pixels: bytes,
         format: T1_CAPTURE_FORMAT,
         geometry,

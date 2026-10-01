@@ -1,0 +1,24 @@
+<!doctype html>
+<!--
+  HELD-OUT VISUAL-TEXT SET (RE-1) — image H4: padded chips and highlight rows, 1.0 leading, same-line label/value.
+  Every value on this page is SYNTHETIC. Identifier-like numbers are checksum-invalid, phone numbers
+  start with 0 (not a valid Indian mobile), and addresses use the reserved `.example` domain.
+  Scored once per candidate under docs/perception/redaction-evaluation.md, never used for tuning.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Held-out H4</title>
+  <style>
+    body { margin: 0; font: 14px/1.4 system-ui, sans-serif; color: #222; background: #fff; }
+    header { position: absolute; left: 40px; top: 18px; }
+    #img { position: absolute; left: 40px; top: 60px; display: block; }
+  </style>
+</head>
+<body>
+  <header>Document viewer — synthetic evaluation image H4</header>
+  <canvas id="img" width="900" height="360" aria-label="Synthetic document image"></canvas>
+  <script>window.__spec = {"id":"H4","case":"padded chips and highlight rows, 1.0 leading, same-line label/value","background":"#ffffff","decorations":[{"x":40,"y":40,"w":220,"h":64,"fill":"#1f3b73"},{"x":480,"y":140,"w":380,"h":44,"fill":"#fff1c2"}],"lines":[{"x":62,"baseline":84,"font":"bold 28px Arial","runs":[{"id":"h4-otp-l","text":"OTP "},{"id":"h4-otp","text":"804219","sensitive":true}],"color":"#ffffff"},{"x":40,"baseline":160,"font":"16px Arial","runs":[{"id":"h4-pol-l","text":"Policy "},{"id":"h4-policy","text":"7730-2291-4468","sensitive":true}]},{"x":40,"baseline":176,"font":"16px Arial","runs":[{"id":"h4-renew","text":"Renewal due in March"}]},{"x":40,"baseline":230,"font":"15px Arial","runs":[{"id":"h4-nom-l","text":"Nominee:"},{"id":"h4-nominee","text":" Farhan Qureshi","sensitive":true}]},{"x":40,"baseline":280,"font":"bold 14px Arial","runs":[{"id":"h4-status","text":"Status: active"}]},{"x":40,"baseline":294,"font":"14px Arial","runs":[{"id":"h4-plan","text":"Plan: family floater"}]},{"x":496,"baseline":168,"font":"bold 18px Arial","runs":[{"id":"h4-claim-l","text":"Claim "},{"id":"h4-claim","text":"CLM-00931-77","sensitive":true}]}]};</script>
+  <script src="render.js"></script>
+</body>
+</html>

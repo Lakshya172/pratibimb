@@ -1,0 +1,1695 @@
+{
+  "experiment": "M10.5 — local pixel redaction on a real captured frame",
+  "verdict": "PASS",
+  "gatingCell": "DPR 1 (the resolution TR-01 was screened at); other DPR cells are recorded, not gating",
+  "captureScale": "each cell launches Chrome with --force-device-scale-factor=<dpr>, so the captured frame is viewport x dpr",
+  "notAClaim": [
+    "the frame came through the degraded evidence route (M3_WORKER_FRAME: captureVisibleTab in the worker), not the gesture stream",
+    "nothing was encoded or sent; the output is an in-memory RGBA buffer",
+    "one synthetic fixture on one workstation; detector recall at DPR != 1 is not screened"
+  ],
+  "cells": [
+    {
+      "dpr": 1,
+      "failure": null,
+      "truthCounts": {
+        "inkRects": 5,
+        "controls": 2
+      },
+      "capture": {
+        "width": 1280,
+        "height": 720,
+        "rgbaBytes": 3686400
+      },
+      "geometry": {
+        "dpr": 1,
+        "zoom": 1,
+        "viewportCss": {
+          "w": 1280,
+          "h": 720
+        },
+        "captureSize": {
+          "w": 1280,
+          "h": 720
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "origin": "http://127.0.0.1:8981"
+      },
+      "regions": [
+        {
+          "id": "canvas:0",
+          "kind": "canvas",
+          "rect": {
+            "x": 40,
+            "y": 60,
+            "w": 520,
+            "h": 200
+          }
+        },
+        {
+          "id": "img:0",
+          "kind": "img",
+          "rect": {
+            "x": 640,
+            "y": 60,
+            "w": 480,
+            "h": 160
+          }
+        },
+        {
+          "id": "canvas:1",
+          "kind": "canvas",
+          "rect": {
+            "x": -80,
+            "y": 330,
+            "w": 420,
+            "h": 150
+          }
+        }
+      ],
+      "detections": 6,
+      "detectorMs": {
+        "preprocess": 21,
+        "infer": 388.2000000476837,
+        "postprocess": 11.800000071525574,
+        "total": 424.89999997615814
+      },
+      "report": {
+        "status": "OK",
+        "findings": 18
+      },
+      "normal": {
+        "result": {
+          "outcome": "SANITIZED",
+          "failClosed": false,
+          "reason": null,
+          "regions": [
+            {
+              "regionId": "canvas:0",
+              "cssMask": [
+                {
+                  "x": 59.45052083333333,
+                  "y": 101.48046875000001,
+                  "w": 373.5989583333333,
+                  "h": 35.539062499999986
+                },
+                {
+                  "x": 59.14123376623376,
+                  "y": 175.45211038961043,
+                  "w": 301.7175324675324,
+                  "h": 32.72077922077918
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 59,
+                  "y": 101,
+                  "w": 375,
+                  "h": 37
+                },
+                {
+                  "x": 59,
+                  "y": 175,
+                  "w": 302,
+                  "h": 34
+                }
+              ]
+            },
+            {
+              "regionId": "img:0",
+              "cssMask": [
+                {
+                  "x": 654.4216772151899,
+                  "y": 93.57950949367088,
+                  "w": 408.6566455696202,
+                  "h": 35.59098101265826
+                },
+                {
+                  "x": 654.2755335365853,
+                  "y": 156.44798018292684,
+                  "w": 217.69893292682934,
+                  "h": 32.479039634146346
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 654,
+                  "y": 93,
+                  "w": 410,
+                  "h": 37
+                },
+                {
+                  "x": 654,
+                  "y": 156,
+                  "w": 218,
+                  "h": 33
+                }
+              ]
+            },
+            {
+              "regionId": "canvas:1",
+              "cssMask": [
+                {
+                  "x": 25.40456081081081,
+                  "y": 390.33910472972974,
+                  "w": 290.44087837837833,
+                  "h": 32.696790540540576
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 25,
+                  "y": 390,
+                  "w": 291,
+                  "h": 34
+                }
+              ]
+            }
+          ],
+          "pixelWrites": 56401,
+          "ms": {
+            "mapping": 0.5,
+            "plan": 0.5,
+            "pixelMapping": 0.10000002384185791,
+            "fill": 0.7000000476837158
+          }
+        },
+        "verification": {
+          "maskedPixels": 56401,
+          "covered": 56401,
+          "notCovered": 0,
+          "accidental": 0,
+          "changed": 56401,
+          "unchanged": 865199
+        },
+        "truthCheck": {
+          "ink": [
+            {
+              "pixels": 7942,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5510,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5282,
+              "uncovered": 0
+            },
+            {
+              "pixels": 7880,
+              "uncovered": 0
+            },
+            {
+              "pixels": 3451,
+              "uncovered": 0
+            }
+          ],
+          "control": [
+            {
+              "pixels": 8554,
+              "changed": 0
+            },
+            {
+              "pixels": 24000,
+              "changed": 0
+            }
+          ]
+        },
+        "independent": {
+          "maskedPixels": 56401,
+          "notCovered": 0,
+          "accidental": 0,
+          "changed": 56401
+        }
+      },
+      "timeout": {
+        "outcome": {
+          "ok": false,
+          "runId": 2,
+          "code": "DETECTOR_TIMEOUT",
+          "detail": "TR-01 exceeded the 50 ms deadline; the worker was terminated"
+        },
+        "report": {
+          "status": "TIMEOUT",
+          "findings": null
+        },
+        "result": "SANITIZED",
+        "failClosed": true,
+        "reason": "TIMEOUT",
+        "verification": {
+          "maskedPixels": 231800,
+          "covered": 231800,
+          "notCovered": 0,
+          "accidental": 0,
+          "changed": 231800,
+          "unchanged": 689800
+        },
+        "maskedArea": 231800,
+        "truthCheck": {
+          "ink": [
+            {
+              "pixels": 7942,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5510,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5282,
+              "uncovered": 0
+            },
+            {
+              "pixels": 7880,
+              "uncovered": 0
+            },
+            {
+              "pixels": 3451,
+              "uncovered": 0
+            }
+          ],
+          "control": [
+            {
+              "pixels": 8554,
+              "changed": 0
+            },
+            {
+              "pixels": 24000,
+              "changed": 0
+            }
+          ]
+        }
+      },
+      "refused": {
+        "nanRect": {
+          "outcome": "REFUSED",
+          "code": "REGION_INVALID",
+          "detail": "region \"canvas:0\" has no finite, positive rectangle",
+          "frameWiped": true,
+          "bufferIsAllFill": true
+        },
+        "duplicateId": {
+          "outcome": "REFUSED",
+          "code": "REGION_INVALID",
+          "detail": "region id \"canvas:0\" is duplicated",
+          "frameWiped": true,
+          "bufferIsAllFill": true
+        }
+      },
+      "bench": {
+        "mapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0.09999990463256836,
+          "p90": 0.10000002384185791,
+          "max": 0.20000004768371582
+        },
+        "plan": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0.10000002384185791,
+          "max": 0.20000004768371582
+        },
+        "geometry": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.5
+        },
+        "pixelMapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0.10000002384185791,
+          "max": 0.10000002384185791
+        },
+        "fill": {
+          "n": 50,
+          "min": 0,
+          "median": 0.10000002384185791,
+          "p90": 0.20000004768371582,
+          "max": 0.2999999523162842
+        },
+        "total": {
+          "n": 50,
+          "min": 0.09999990463256836,
+          "median": 0.2999999523162842,
+          "p90": 0.5,
+          "max": 0.5
+        },
+        "pixelWrites": {
+          "n": 50,
+          "min": 56401,
+          "median": 56401,
+          "p90": 56401,
+          "max": 56401
+        }
+      },
+      "benchFailClosed": {
+        "mapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0
+        },
+        "plan": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.20000004768371582
+        },
+        "geometry": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.10000002384185791
+        },
+        "pixelMapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.10000002384185791
+        },
+        "fill": {
+          "n": 50,
+          "min": 0.2999999523162842,
+          "median": 0.3999999761581421,
+          "p90": 0.5,
+          "max": 0.6999999284744263
+        },
+        "total": {
+          "n": 50,
+          "min": 0.2999999523162842,
+          "median": 0.3999999761581421,
+          "p90": 0.5,
+          "max": 0.6999999284744263
+        },
+        "pixelWrites": {
+          "n": 50,
+          "min": 231800,
+          "median": 231800,
+          "p90": 231800,
+          "max": 231800
+        }
+      },
+      "timerNote": "performance.now() in the offscreen document is coarsened to 0.1 ms; stages below that read as 0 or 0.1",
+      "memory": {
+        "method": "WASM linear memory: WebAssembly.Memory wrapped before ORT created memory; read from buffer.byteLength. Frame buffers: exact byteLength of each allocation.",
+        "workerWasmBytes": 137494528,
+        "offscreenWasmBytes": 27656192,
+        "workerForeignArrivals": 0,
+        "frameBytes": 3686400,
+        "workerCopyBytes": 3686400,
+        "sanitizedExtraBytes": 0,
+        "maskRects": 5,
+        "maskRectListJsonBytes": 771
+      },
+      "checks": {
+        "regionsAreTheThreeVisualRegions": true,
+        "captureIsViewportTimesDpr": true,
+        "fullFrameDetectorRan": true,
+        "sanitized": true,
+        "everyFixtureInkPixelCovered": true,
+        "controlsUnchanged": true,
+        "everyMaskPixelIsFill": true,
+        "nothingOutsideTheMaskChanged": true,
+        "independentRecheck": true,
+        "timeoutMasksEveryRegionWhole": true,
+        "refusedIsTerminal": true,
+        "wasmUnder200MB": true,
+        "noForeignNetwork": true
+      }
+    },
+    {
+      "dpr": 1.25,
+      "failure": null,
+      "truthCounts": {
+        "inkRects": 5,
+        "controls": 2
+      },
+      "capture": {
+        "width": 1600,
+        "height": 900,
+        "rgbaBytes": 5760000
+      },
+      "geometry": {
+        "dpr": 1.25,
+        "zoom": 1,
+        "viewportCss": {
+          "w": 1280,
+          "h": 720
+        },
+        "captureSize": {
+          "w": 1600,
+          "h": 900
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "origin": "http://127.0.0.1:8981"
+      },
+      "regions": [
+        {
+          "id": "canvas:0",
+          "kind": "canvas",
+          "rect": {
+            "x": 40,
+            "y": 60,
+            "w": 520,
+            "h": 200
+          }
+        },
+        {
+          "id": "img:0",
+          "kind": "img",
+          "rect": {
+            "x": 640,
+            "y": 60,
+            "w": 480,
+            "h": 160
+          }
+        },
+        {
+          "id": "canvas:1",
+          "kind": "canvas",
+          "rect": {
+            "x": -80,
+            "y": 330,
+            "w": 420,
+            "h": 150
+          }
+        }
+      ],
+      "detections": 6,
+      "detectorMs": {
+        "preprocess": 22.300000071525574,
+        "infer": 381.09999990463257,
+        "postprocess": 9,
+        "total": 416.5
+      },
+      "report": {
+        "status": "OK",
+        "findings": 18
+      },
+      "normal": {
+        "result": {
+          "outcome": "SANITIZED",
+          "failClosed": false,
+          "reason": null,
+          "regions": [
+            {
+              "regionId": "canvas:0",
+              "cssMask": [
+                {
+                  "x": 59.45052083333333,
+                  "y": 101.48046875,
+                  "w": 373.5989583333333,
+                  "h": 35.5390625
+                },
+                {
+                  "x": 59.14123376623377,
+                  "y": 175.45211038961043,
+                  "w": 301.7175324675324,
+                  "h": 32.72077922077921
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 74,
+                  "y": 126,
+                  "w": 468,
+                  "h": 46
+                },
+                {
+                  "x": 73,
+                  "y": 219,
+                  "w": 379,
+                  "h": 42
+                }
+              ]
+            },
+            {
+              "regionId": "img:0",
+              "cssMask": [
+                {
+                  "x": 655.3035714285716,
+                  "y": 94.3732142857143,
+                  "w": 406.8928571428569,
+                  "h": 32.87857142857142
+                },
+                {
+                  "x": 654.2755335365854,
+                  "y": 156.44798018292684,
+                  "w": 217.69893292682934,
+                  "h": 32.479039634146346
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 819,
+                  "y": 117,
+                  "w": 509,
+                  "h": 43
+                },
+                {
+                  "x": 817,
+                  "y": 195,
+                  "w": 273,
+                  "h": 42
+                }
+              ]
+            },
+            {
+              "regionId": "canvas:1",
+              "cssMask": [
+                {
+                  "x": 25.404560810810814,
+                  "y": 390.33910472972974,
+                  "w": 290.44087837837833,
+                  "h": 32.696790540540576
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 31,
+                  "y": 487,
+                  "w": 364,
+                  "h": 42
+                }
+              ]
+            }
+          ],
+          "pixelWrites": 86087,
+          "ms": {
+            "mapping": 0.5,
+            "plan": 0.3999999761581421,
+            "pixelMapping": 0,
+            "fill": 1.2000000476837158
+          }
+        },
+        "verification": {
+          "maskedPixels": 86087,
+          "covered": 86087,
+          "notCovered": 0,
+          "accidental": 0,
+          "changed": 86087,
+          "unchanged": 1353913
+        },
+        "truthCheck": {
+          "ink": [
+            {
+              "pixels": 12177,
+              "uncovered": 0
+            },
+            {
+              "pixels": 8326,
+              "uncovered": 0
+            },
+            {
+              "pixels": 7981,
+              "uncovered": 0
+            },
+            {
+              "pixels": 12325,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5334,
+              "uncovered": 0
+            }
+          ],
+          "control": [
+            {
+              "pixels": 13152,
+              "changed": 0
+            },
+            {
+              "pixels": 37500,
+              "changed": 0
+            }
+          ]
+        },
+        "independent": null
+      },
+      "timeout": {
+        "outcome": {
+          "ok": false,
+          "runId": 2,
+          "code": "DETECTOR_TIMEOUT",
+          "detail": "TR-01 exceeded the 50 ms deadline; the worker was terminated"
+        },
+        "report": {
+          "status": "TIMEOUT",
+          "findings": null
+        },
+        "result": "SANITIZED",
+        "failClosed": true,
+        "reason": "TIMEOUT",
+        "verification": {
+          "maskedPixels": 362400,
+          "covered": 362400,
+          "notCovered": 0,
+          "accidental": 0,
+          "changed": 362400,
+          "unchanged": 1077600
+        },
+        "maskedArea": 362400,
+        "truthCheck": {
+          "ink": [
+            {
+              "pixels": 12177,
+              "uncovered": 0
+            },
+            {
+              "pixels": 8326,
+              "uncovered": 0
+            },
+            {
+              "pixels": 7981,
+              "uncovered": 0
+            },
+            {
+              "pixels": 12325,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5334,
+              "uncovered": 0
+            }
+          ],
+          "control": [
+            {
+              "pixels": 13152,
+              "changed": 0
+            },
+            {
+              "pixels": 37500,
+              "changed": 0
+            }
+          ]
+        }
+      },
+      "refused": {
+        "nanRect": {
+          "outcome": "REFUSED",
+          "code": "REGION_INVALID",
+          "detail": "region \"canvas:0\" has no finite, positive rectangle",
+          "frameWiped": true,
+          "bufferIsAllFill": true
+        },
+        "duplicateId": {
+          "outcome": "REFUSED",
+          "code": "REGION_INVALID",
+          "detail": "region id \"canvas:0\" is duplicated",
+          "frameWiped": true,
+          "bufferIsAllFill": true
+        }
+      },
+      "bench": {
+        "mapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0.10000002384185791,
+          "p90": 0.19999992847442627,
+          "max": 2
+        },
+        "plan": {
+          "n": 50,
+          "min": 0,
+          "median": 0.09999990463256836,
+          "p90": 0.19999992847442627,
+          "max": 2.600000023841858
+        },
+        "geometry": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.10000002384185791
+        },
+        "pixelMapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0.10000002384185791,
+          "max": 0.10000002384185791
+        },
+        "fill": {
+          "n": 50,
+          "min": 0.09999990463256836,
+          "median": 0.19999992847442627,
+          "p90": 0.2999999523162842,
+          "max": 0.40000009536743164
+        },
+        "total": {
+          "n": 50,
+          "min": 0.10000002384185791,
+          "median": 0.3999999761581421,
+          "p90": 0.5,
+          "max": 3.299999952316284
+        },
+        "pixelWrites": {
+          "n": 50,
+          "min": 86087,
+          "median": 86087,
+          "p90": 86087,
+          "max": 86087
+        }
+      },
+      "benchFailClosed": {
+        "mapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0
+        },
+        "plan": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0.10000002384185791,
+          "max": 0.10000002384185791
+        },
+        "geometry": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.10000002384185791
+        },
+        "pixelMapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0.10000002384185791,
+          "max": 0.10000002384185791
+        },
+        "fill": {
+          "n": 50,
+          "min": 0.5,
+          "median": 0.6999999284744263,
+          "p90": 1,
+          "max": 1.399999976158142
+        },
+        "total": {
+          "n": 50,
+          "min": 0.5999999046325684,
+          "median": 0.7000000476837158,
+          "p90": 1,
+          "max": 2.799999952316284
+        },
+        "pixelWrites": {
+          "n": 50,
+          "min": 362400,
+          "median": 362400,
+          "p90": 362400,
+          "max": 362400
+        }
+      },
+      "timerNote": "performance.now() in the offscreen document is coarsened to 0.1 ms; stages below that read as 0 or 0.1",
+      "memory": {
+        "method": "WASM linear memory: WebAssembly.Memory wrapped before ORT created memory; read from buffer.byteLength. Frame buffers: exact byteLength of each allocation.",
+        "workerWasmBytes": 137494528,
+        "offscreenWasmBytes": 27656192,
+        "workerForeignArrivals": 0,
+        "frameBytes": 5760000,
+        "workerCopyBytes": 5760000,
+        "sanitizedExtraBytes": 0,
+        "maskRects": 5,
+        "maskRectListJsonBytes": 758
+      },
+      "checks": {
+        "regionsAreTheThreeVisualRegions": true,
+        "captureIsViewportTimesDpr": true,
+        "fullFrameDetectorRan": true,
+        "sanitized": true,
+        "everyFixtureInkPixelCovered": true,
+        "controlsUnchanged": true,
+        "everyMaskPixelIsFill": true,
+        "nothingOutsideTheMaskChanged": true,
+        "independentRecheck": true,
+        "timeoutMasksEveryRegionWhole": true,
+        "refusedIsTerminal": true,
+        "wasmUnder200MB": true,
+        "noForeignNetwork": true
+      }
+    },
+    {
+      "dpr": 1.5,
+      "failure": null,
+      "truthCounts": {
+        "inkRects": 5,
+        "controls": 2
+      },
+      "capture": {
+        "width": 1920,
+        "height": 1080,
+        "rgbaBytes": 8294400
+      },
+      "geometry": {
+        "dpr": 1.5,
+        "zoom": 1,
+        "viewportCss": {
+          "w": 1280,
+          "h": 720
+        },
+        "captureSize": {
+          "w": 1920,
+          "h": 1080
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "origin": "http://127.0.0.1:8981"
+      },
+      "regions": [
+        {
+          "id": "canvas:0",
+          "kind": "canvas",
+          "rect": {
+            "x": 40,
+            "y": 60,
+            "w": 520,
+            "h": 200
+          }
+        },
+        {
+          "id": "img:0",
+          "kind": "img",
+          "rect": {
+            "x": 640,
+            "y": 60,
+            "w": 480,
+            "h": 160
+          }
+        },
+        {
+          "id": "canvas:1",
+          "kind": "canvas",
+          "rect": {
+            "x": -80,
+            "y": 330,
+            "w": 420,
+            "h": 150
+          }
+        }
+      ],
+      "detections": 6,
+      "detectorMs": {
+        "preprocess": 20.800000071525574,
+        "infer": 385.10000002384186,
+        "postprocess": 6.600000023841858,
+        "total": 415.7000000476837
+      },
+      "report": {
+        "status": "OK",
+        "findings": 18
+      },
+      "normal": {
+        "result": {
+          "outcome": "SANITIZED",
+          "failClosed": false,
+          "reason": null,
+          "regions": [
+            {
+              "regionId": "canvas:0",
+              "cssMask": [
+                {
+                  "x": 59.45052083333333,
+                  "y": 101.48046875000001,
+                  "w": 373.5989583333333,
+                  "h": 35.539062499999986
+                },
+                {
+                  "x": 59.14123376623377,
+                  "y": 175.45211038961043,
+                  "w": 301.7175324675324,
+                  "h": 32.72077922077918
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 89,
+                  "y": 152,
+                  "w": 561,
+                  "h": 54
+                },
+                {
+                  "x": 88,
+                  "y": 263,
+                  "w": 454,
+                  "h": 50
+                }
+              ]
+            },
+            {
+              "regionId": "img:0",
+              "cssMask": [
+                {
+                  "x": 655.3043391719744,
+                  "y": 94.37390525477709,
+                  "w": 405.641321656051,
+                  "h": 32.87718949044584
+                },
+                {
+                  "x": 654.2755335365853,
+                  "y": 156.44798018292684,
+                  "w": 217.69893292682934,
+                  "h": 32.479039634146346
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 982,
+                  "y": 141,
+                  "w": 610,
+                  "h": 50
+                },
+                {
+                  "x": 981,
+                  "y": 234,
+                  "w": 327,
+                  "h": 50
+                }
+              ]
+            },
+            {
+              "regionId": "canvas:1",
+              "cssMask": [
+                {
+                  "x": 25.40456081081081,
+                  "y": 390.3391047297297,
+                  "w": 290.4408783783784,
+                  "h": 32.696790540540576
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 38,
+                  "y": 585,
+                  "w": 436,
+                  "h": 50
+                }
+              ]
+            }
+          ],
+          "pixelWrites": 121644,
+          "ms": {
+            "mapping": 0.5,
+            "plan": 0.5999999046325684,
+            "pixelMapping": 0.20000004768371582,
+            "fill": 1.2000000476837158
+          }
+        },
+        "verification": {
+          "maskedPixels": 121644,
+          "covered": 121644,
+          "notCovered": 0,
+          "accidental": 0,
+          "changed": 121644,
+          "unchanged": 1951956
+        },
+        "truthCheck": {
+          "ink": [
+            {
+              "pixels": 17853,
+              "uncovered": 0
+            },
+            {
+              "pixels": 12180,
+              "uncovered": 0
+            },
+            {
+              "pixels": 11676,
+              "uncovered": 0
+            },
+            {
+              "pixels": 17760,
+              "uncovered": 0
+            },
+            {
+              "pixels": 7625,
+              "uncovered": 0
+            }
+          ],
+          "control": [
+            {
+              "pixels": 18734,
+              "changed": 0
+            },
+            {
+              "pixels": 54000,
+              "changed": 0
+            }
+          ]
+        },
+        "independent": null
+      },
+      "timeout": {
+        "outcome": {
+          "ok": false,
+          "runId": 2,
+          "code": "DETECTOR_TIMEOUT",
+          "detail": "TR-01 exceeded the 50 ms deadline; the worker was terminated"
+        },
+        "report": {
+          "status": "TIMEOUT",
+          "findings": null
+        },
+        "result": "SANITIZED",
+        "failClosed": true,
+        "reason": "TIMEOUT",
+        "verification": {
+          "maskedPixels": 521550,
+          "covered": 521550,
+          "notCovered": 0,
+          "accidental": 0,
+          "changed": 521550,
+          "unchanged": 1552050
+        },
+        "maskedArea": 521550,
+        "truthCheck": {
+          "ink": [
+            {
+              "pixels": 17853,
+              "uncovered": 0
+            },
+            {
+              "pixels": 12180,
+              "uncovered": 0
+            },
+            {
+              "pixels": 11676,
+              "uncovered": 0
+            },
+            {
+              "pixels": 17760,
+              "uncovered": 0
+            },
+            {
+              "pixels": 7625,
+              "uncovered": 0
+            }
+          ],
+          "control": [
+            {
+              "pixels": 18734,
+              "changed": 0
+            },
+            {
+              "pixels": 54000,
+              "changed": 0
+            }
+          ]
+        }
+      },
+      "refused": {
+        "nanRect": {
+          "outcome": "REFUSED",
+          "code": "REGION_INVALID",
+          "detail": "region \"canvas:0\" has no finite, positive rectangle",
+          "frameWiped": true,
+          "bufferIsAllFill": true
+        },
+        "duplicateId": {
+          "outcome": "REFUSED",
+          "code": "REGION_INVALID",
+          "detail": "region id \"canvas:0\" is duplicated",
+          "frameWiped": true,
+          "bufferIsAllFill": true
+        }
+      },
+      "bench": {
+        "mapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0.10000002384185791,
+          "p90": 0.10000002384185791,
+          "max": 0.20000004768371582
+        },
+        "plan": {
+          "n": 50,
+          "min": 0,
+          "median": 0.09999996423721313,
+          "p90": 0.2999999523162842,
+          "max": 2.700000047683716
+        },
+        "geometry": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0.10000002384185791,
+          "max": 3
+        },
+        "pixelMapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0.10000002384185791,
+          "max": 0.10000002384185791
+        },
+        "fill": {
+          "n": 50,
+          "min": 0.10000002384185791,
+          "median": 0.2999999523162842,
+          "p90": 0.30000007152557373,
+          "max": 0.3999999761581421
+        },
+        "total": {
+          "n": 50,
+          "min": 0.19999992847442627,
+          "median": 0.3999999761581421,
+          "p90": 0.7000000476837158,
+          "max": 3.5
+        },
+        "pixelWrites": {
+          "n": 50,
+          "min": 121644,
+          "median": 121644,
+          "p90": 121644,
+          "max": 121644
+        }
+      },
+      "benchFailClosed": {
+        "mapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.10000002384185791
+        },
+        "plan": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0.10000002384185791,
+          "max": 0.10000002384185791
+        },
+        "geometry": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.10000002384185791
+        },
+        "pixelMapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0.10000002384185791,
+          "max": 1.7999999523162842
+        },
+        "fill": {
+          "n": 50,
+          "min": 0.7999999523162842,
+          "median": 1,
+          "p90": 1.100000023841858,
+          "max": 2.3000000715255737
+        },
+        "total": {
+          "n": 50,
+          "min": 0.8999999761581421,
+          "median": 1,
+          "p90": 1.399999976158142,
+          "max": 3
+        },
+        "pixelWrites": {
+          "n": 50,
+          "min": 521550,
+          "median": 521550,
+          "p90": 521550,
+          "max": 521550
+        }
+      },
+      "timerNote": "performance.now() in the offscreen document is coarsened to 0.1 ms; stages below that read as 0 or 0.1",
+      "memory": {
+        "method": "WASM linear memory: WebAssembly.Memory wrapped before ORT created memory; read from buffer.byteLength. Frame buffers: exact byteLength of each allocation.",
+        "workerWasmBytes": 137494528,
+        "offscreenWasmBytes": 27656192,
+        "workerForeignArrivals": 0,
+        "frameBytes": 8294400,
+        "workerCopyBytes": 8294400,
+        "sanitizedExtraBytes": 0,
+        "maskRects": 5,
+        "maskRectListJsonBytes": 769
+      },
+      "checks": {
+        "regionsAreTheThreeVisualRegions": true,
+        "captureIsViewportTimesDpr": true,
+        "fullFrameDetectorRan": true,
+        "sanitized": true,
+        "everyFixtureInkPixelCovered": true,
+        "controlsUnchanged": true,
+        "everyMaskPixelIsFill": true,
+        "nothingOutsideTheMaskChanged": true,
+        "independentRecheck": true,
+        "timeoutMasksEveryRegionWhole": true,
+        "refusedIsTerminal": true,
+        "wasmUnder200MB": true,
+        "noForeignNetwork": true
+      }
+    },
+    {
+      "dpr": 2,
+      "failure": null,
+      "truthCounts": {
+        "inkRects": 5,
+        "controls": 2
+      },
+      "capture": {
+        "width": 2560,
+        "height": 1440,
+        "rgbaBytes": 14745600
+      },
+      "geometry": {
+        "dpr": 2,
+        "zoom": 1,
+        "viewportCss": {
+          "w": 1280,
+          "h": 720
+        },
+        "captureSize": {
+          "w": 2560,
+          "h": 1440
+        },
+        "scroll": {
+          "x": 0,
+          "y": 0
+        },
+        "origin": "http://127.0.0.1:8981"
+      },
+      "regions": [
+        {
+          "id": "canvas:0",
+          "kind": "canvas",
+          "rect": {
+            "x": 40,
+            "y": 60,
+            "w": 520,
+            "h": 200
+          }
+        },
+        {
+          "id": "img:0",
+          "kind": "img",
+          "rect": {
+            "x": 640,
+            "y": 60,
+            "w": 480,
+            "h": 160
+          }
+        },
+        {
+          "id": "canvas:1",
+          "kind": "canvas",
+          "rect": {
+            "x": -80,
+            "y": 330,
+            "w": 420,
+            "h": 150
+          }
+        }
+      ],
+      "detections": 6,
+      "detectorMs": {
+        "preprocess": 20.199999928474426,
+        "infer": 386.5,
+        "postprocess": 13,
+        "total": 422.7000000476837
+      },
+      "report": {
+        "status": "OK",
+        "findings": 18
+      },
+      "normal": {
+        "result": {
+          "outcome": "SANITIZED",
+          "failClosed": false,
+          "reason": null,
+          "regions": [
+            {
+              "regionId": "canvas:0",
+              "cssMask": [
+                {
+                  "x": 59.45052083333333,
+                  "y": 101.48046875000001,
+                  "w": 373.5989583333333,
+                  "h": 35.539062499999986
+                },
+                {
+                  "x": 59.14123376623376,
+                  "y": 175.45211038961043,
+                  "w": 301.7175324675324,
+                  "h": 32.72077922077918
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 118,
+                  "y": 202,
+                  "w": 749,
+                  "h": 73
+                },
+                {
+                  "x": 118,
+                  "y": 350,
+                  "w": 604,
+                  "h": 67
+                }
+              ]
+            },
+            {
+              "regionId": "img:0",
+              "cssMask": [
+                {
+                  "x": 655.3035714285714,
+                  "y": 94.3732142857143,
+                  "w": 406.892857142857,
+                  "h": 32.87857142857142
+                },
+                {
+                  "x": 654.2755335365853,
+                  "y": 156.44798018292684,
+                  "w": 217.69893292682934,
+                  "h": 32.479039634146346
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 1310,
+                  "y": 188,
+                  "w": 815,
+                  "h": 67
+                },
+                {
+                  "x": 1308,
+                  "y": 312,
+                  "w": 436,
+                  "h": 66
+                }
+              ]
+            },
+            {
+              "regionId": "canvas:1",
+              "cssMask": [
+                {
+                  "x": 25.40456081081081,
+                  "y": 390.33910472972974,
+                  "w": 290.44087837837833,
+                  "h": 32.696790540540576
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 50,
+                  "y": 780,
+                  "w": 582,
+                  "h": 67
+                }
+              ]
+            }
+          ],
+          "pixelWrites": 217520,
+          "ms": {
+            "mapping": 0.5,
+            "plan": 0.30000007152557373,
+            "pixelMapping": 0.10000002384185791,
+            "fill": 1.5999999046325684
+          }
+        },
+        "verification": {
+          "maskedPixels": 217520,
+          "covered": 217520,
+          "notCovered": 0,
+          "accidental": 0,
+          "changed": 217520,
+          "unchanged": 3468880
+        },
+        "truthCheck": {
+          "ink": [
+            {
+              "pixels": 31768,
+              "uncovered": 0
+            },
+            {
+              "pixels": 22040,
+              "uncovered": 0
+            },
+            {
+              "pixels": 21128,
+              "uncovered": 0
+            },
+            {
+              "pixels": 31560,
+              "uncovered": 0
+            },
+            {
+              "pixels": 13838,
+              "uncovered": 0
+            }
+          ],
+          "control": [
+            {
+              "pixels": 32900,
+              "changed": 0
+            },
+            {
+              "pixels": 96000,
+              "changed": 0
+            }
+          ]
+        },
+        "independent": null
+      },
+      "timeout": {
+        "outcome": {
+          "ok": false,
+          "runId": 2,
+          "code": "DETECTOR_TIMEOUT",
+          "detail": "TR-01 exceeded the 50 ms deadline; the worker was terminated"
+        },
+        "report": {
+          "status": "TIMEOUT",
+          "findings": null
+        },
+        "result": "SANITIZED",
+        "failClosed": true,
+        "reason": "TIMEOUT",
+        "verification": {
+          "maskedPixels": 927200,
+          "covered": 927200,
+          "notCovered": 0,
+          "accidental": 0,
+          "changed": 927200,
+          "unchanged": 2759200
+        },
+        "maskedArea": 927200,
+        "truthCheck": {
+          "ink": [
+            {
+              "pixels": 31768,
+              "uncovered": 0
+            },
+            {
+              "pixels": 22040,
+              "uncovered": 0
+            },
+            {
+              "pixels": 21128,
+              "uncovered": 0
+            },
+            {
+              "pixels": 31560,
+              "uncovered": 0
+            },
+            {
+              "pixels": 13838,
+              "uncovered": 0
+            }
+          ],
+          "control": [
+            {
+              "pixels": 32900,
+              "changed": 0
+            },
+            {
+              "pixels": 96000,
+              "changed": 0
+            }
+          ]
+        }
+      },
+      "refused": {
+        "nanRect": {
+          "outcome": "REFUSED",
+          "code": "REGION_INVALID",
+          "detail": "region \"canvas:0\" has no finite, positive rectangle",
+          "frameWiped": true,
+          "bufferIsAllFill": true
+        },
+        "duplicateId": {
+          "outcome": "REFUSED",
+          "code": "REGION_INVALID",
+          "detail": "region id \"canvas:0\" is duplicated",
+          "frameWiped": true,
+          "bufferIsAllFill": true
+        }
+      },
+      "bench": {
+        "mapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0.10000002384185791,
+          "p90": 0.20000004768371582,
+          "max": 2.3000000715255737
+        },
+        "plan": {
+          "n": 50,
+          "min": 0,
+          "median": 0.10000002384185791,
+          "p90": 0.19999992847442627,
+          "max": 3
+        },
+        "geometry": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0.10000002384185791,
+          "max": 0.2999999523162842
+        },
+        "pixelMapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0.10000002384185791,
+          "max": 0.10000002384185791
+        },
+        "fill": {
+          "n": 50,
+          "min": 0.2999999523162842,
+          "median": 0.3999999761581421,
+          "p90": 0.5,
+          "max": 0.9000000953674316
+        },
+        "total": {
+          "n": 50,
+          "min": 0.3999999761581421,
+          "median": 0.6000000238418579,
+          "p90": 1,
+          "max": 3.799999952316284
+        },
+        "pixelWrites": {
+          "n": 50,
+          "min": 217520,
+          "median": 217520,
+          "p90": 217520,
+          "max": 217520
+        }
+      },
+      "benchFailClosed": {
+        "mapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.10000002384185791
+        },
+        "plan": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0.10000002384185791,
+          "max": 2.399999976158142
+        },
+        "geometry": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.10000002384185791
+        },
+        "pixelMapping": {
+          "n": 50,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.10000002384185791
+        },
+        "fill": {
+          "n": 50,
+          "min": 1.5999999046325684,
+          "median": 1.7000000476837158,
+          "p90": 2,
+          "max": 3.700000047683716
+        },
+        "total": {
+          "n": 50,
+          "min": 1.600000023841858,
+          "median": 1.7999999523162842,
+          "p90": 2.200000047683716,
+          "max": 5.299999952316284
+        },
+        "pixelWrites": {
+          "n": 50,
+          "min": 927200,
+          "median": 927200,
+          "p90": 927200,
+          "max": 927200
+        }
+      },
+      "timerNote": "performance.now() in the offscreen document is coarsened to 0.1 ms; stages below that read as 0 or 0.1",
+      "memory": {
+        "method": "WASM linear memory: WebAssembly.Memory wrapped before ORT created memory; read from buffer.byteLength. Frame buffers: exact byteLength of each allocation.",
+        "workerWasmBytes": 137494528,
+        "offscreenWasmBytes": 27656192,
+        "workerForeignArrivals": 0,
+        "frameBytes": 14745600,
+        "workerCopyBytes": 14745600,
+        "sanitizedExtraBytes": 0,
+        "maskRects": 5,
+        "maskRectListJsonBytes": 774
+      },
+      "checks": {
+        "regionsAreTheThreeVisualRegions": true,
+        "captureIsViewportTimesDpr": true,
+        "fullFrameDetectorRan": true,
+        "sanitized": true,
+        "everyFixtureInkPixelCovered": true,
+        "controlsUnchanged": true,
+        "everyMaskPixelIsFill": true,
+        "nothingOutsideTheMaskChanged": true,
+        "independentRecheck": true,
+        "timeoutMasksEveryRegionWhole": true,
+        "refusedIsTerminal": true,
+        "wasmUnder200MB": true,
+        "noForeignNetwork": true
+      }
+    }
+  ],
+  "recordedAt": "2026-09-30T18:00:48.691Z",
+  "provenance": {
+    "workstation": "W1",
+    "host": "LAPTOP-6E14K34L",
+    "workstationSource": "registry",
+    "os": "win32 10.0.26200",
+    "cpu": "Intel(R) Core(TM) 7 240H",
+    "node": "v24.19.0",
+    "playwright": "1.63.0",
+    "browserBinary": "C:/Users/RONIT/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe",
+    "headless": false,
+    "build": "M3_WORKER_FRAME=1 TR01_PROBE=1 (evidence build)"
+  }
+}

@@ -1,0 +1,424 @@
+{
+  "experiment": "LOOP-2 — local model, real loopback network, egress choke point, deterministic fallback",
+  "verdict": "PASS",
+  "recordedAt": "2026-09-14T15:30:08.233Z",
+  "provenance": {
+    "workstation": "W2",
+    "host": "LAPTOP-SRCINK2B",
+    "os": "win32 10.0.26200",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M              ",
+    "cores": 16,
+    "totalMemMb": 24718,
+    "gpu": "NOT USED — the llama.cpp CPU x64 build was chosen deliberately; no CUDA runtime was downloaded",
+    "node": "v26.4.0",
+    "playwright": "1.63.0",
+    "browser": "Chromium 153.0.8010.12",
+    "browserBinary": "C:\\Users\\OMEN\\cft\\chrome.exe",
+    "launch": "playwright chromium.launch({ headless: true, executablePath }); no extension loaded",
+    "demoOrigin": "http://127.0.0.1:8975",
+    "reasonerEndpoint": "http://127.0.0.1:8978/v1/chat/completions"
+  },
+  "model": {
+    "repo": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+    "revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+    "file": "qwen2.5-0.5b-instruct-q4_k_m.gguf",
+    "quantisation": "Q4_K_M",
+    "licence": {
+      "verifiedAtRevision": true,
+      "spdx": "Apache-2.0",
+      "file": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/9217f5db79a29953eb74d5343926648285ec7e67/LICENSE",
+      "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+      "bytes": 11343,
+      "readOn": "2026-09-14",
+      "method": "LICENSE file fetched at the pinned revision and its text checked, not the card tag"
+    },
+    "weightsBytes": 491400032,
+    "weightsSha256": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db",
+    "downloadMs": 0,
+    "runtime": "llama.cpp b10956 llama-b10956-bin-win-cpu-x64.zip (MIT)",
+    "committed": false
+  },
+  "payloadProof": {
+    "capturedFrom": "the actual HTTP request body received by the loopback service",
+    "bytes": 2679,
+    "clientSha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+    "serverSha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+    "digestsAgree": true,
+    "tokensPresent": [
+      "<PII:AADHAAR:1>",
+      "<PII:DOB:1>",
+      "<PII:NAME:1>",
+      "<PII:PHONE:1>"
+    ],
+    "secretsPresent": 0,
+    "secretsChecked": 5
+  },
+  "checks": {
+    "modelWentOverTheNetwork": true,
+    "modelPlanValidated": true,
+    "modelReachedConfirmed": true,
+    "modelRestoredTheValue": true,
+    "payloadCarriedTokens": true,
+    "payloadCarriedNoSecret": true,
+    "clientAndServerDigestsAgree": true,
+    "ledgerRecordedTheSend": true,
+    "refusalStoppedAtValidatePlan": true,
+    "refusalWasALeakageEvent": true,
+    "refusalDidNotFallBack": true,
+    "refusalExecutedNothing": true,
+    "refusalQuotedNothing": true,
+    "fallbackAnswered": true,
+    "fallbackWentThroughValidation": true,
+    "fallbackReachedConfirmed": true,
+    "noConsoleErrors": true
+  },
+  "runs": {
+    "model": {
+      "wallMs": 2262,
+      "state": "DONE",
+      "path": [
+        "OBSERVE",
+        "SANITIZE",
+        "VERIFY_PAYLOAD",
+        "SEND",
+        "VALIDATE_PLAN",
+        "AWAIT_GRANT",
+        "REHYDRATE",
+        "ACT",
+        "VERIFY_RESULT",
+        "DONE"
+      ],
+      "reasonerKind": "LOCAL_MODEL",
+      "reasonerName": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
+      "transport": "LOOPBACK_HTTP",
+      "fallback": null,
+      "refusal": null,
+      "timings": {
+        "observeMs": 3,
+        "sanitizeMs": 8,
+        "verifyPayloadMs": 0,
+        "sendMs": 2238,
+        "validatePlanMs": 1,
+        "grantMs": 0,
+        "rehydrateMs": 1,
+        "refreshMs": 0,
+        "verifyResultMs": 1,
+        "actMs": 4,
+        "totalMs": 2256
+      },
+      "planSteps": [
+        {
+          "op": "insert",
+          "target": "#mobile_confirm",
+          "ref": "<PII:PHONE:1>"
+        },
+        {
+          "op": "click",
+          "target": "#submit"
+        }
+      ],
+      "rehydrated": [
+        {
+          "ref": "<PII:PHONE:1>",
+          "target": "#mobile_confirm",
+          "piiClass": "PHONE",
+          "inserted": true
+        }
+      ],
+      "verification": {
+        "verification": "CONFIRMED",
+        "postcondition": "TARGET_ENABLED",
+        "evidence": "#submit is disabled, as expected."
+      },
+      "dispatch": "EXECUTED",
+      "egress": [
+        {
+          "record": {
+            "requestId": "demo-request-1",
+            "sessionId": "demo-session-1",
+            "destination": "http://127.0.0.1:8978/v1/chat/completions",
+            "at": 1789399802440,
+            "transport": "LOOPBACK_HTTP",
+            "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
+            "verified": true,
+            "payloadSha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+            "payloadBytes": 2679,
+            "leakCheck": "CLEAN",
+            "references": [
+              "<PII:NAME:1>",
+              "<PII:PHONE:1>",
+              "<PII:AADHAAR:1>",
+              "<PII:DOB:1>"
+            ],
+            "responseStatus": 200,
+            "responseBytes": 914,
+            "elapsedMs": 2236
+          }
+        }
+      ],
+      "pageState": {
+        "confirmMatches": true,
+        "status": "Application submitted",
+        "submitDisabled": true,
+        "events": 5
+      }
+    },
+    "refusal": {
+      "wallMs": 13,
+      "state": "REFUSED",
+      "path": [
+        "OBSERVE",
+        "SANITIZE",
+        "VERIFY_PAYLOAD",
+        "SEND",
+        "VALIDATE_PLAN",
+        "REFUSED"
+      ],
+      "reasonerKind": "LOCAL_MODEL",
+      "reasonerName": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
+      "transport": "LOOPBACK_HTTP",
+      "fallback": {
+        "outcome": "HOSTILE",
+        "fellBack": false,
+        "reason": "the model returned a plan the client refused; falling back would hide a caught event behind a success."
+      },
+      "refusal": {
+        "stage": "VALIDATE_PLAN",
+        "cause": "LITERAL_REFUSED",
+        "detail": "the plan returned a value this client holds locally and never sent. Refused before rehydration and before any action; the value is not quoted.",
+        "planRefusal": {
+          "cause": "LITERAL_REFUSED",
+          "at": 0,
+          "target": "#mobile_confirm",
+          "literalCause": "VAULT_LITERAL_ECHO",
+          "literalSeverity": "LEAKAGE_EVENT",
+          "literalFindings": [
+            {
+              "cause": "VAULT_LITERAL_ECHO",
+              "severity": "LEAKAGE_EVENT",
+              "piiClass": "PHONE"
+            },
+            {
+              "cause": "PII_SHAPED_LITERAL",
+              "severity": "PLAN_DEFECT",
+              "piiClass": "PHONE"
+            }
+          ],
+          "piiClass": "PHONE",
+          "detail": "the plan returned a value this client holds locally and never sent. Refused before rehydration and before any action; the value is not quoted."
+        }
+      },
+      "timings": {
+        "observeMs": 0,
+        "sanitizeMs": 2,
+        "verifyPayloadMs": 0,
+        "sendMs": 7,
+        "validatePlanMs": 0,
+        "totalMs": 10
+      },
+      "planSteps": [
+        {
+          "op": "insert",
+          "target": "#mobile_confirm",
+          "literalMarker": "⟨literal:PHONE⟩",
+          "literalClass": "PHONE"
+        },
+        {
+          "op": "click",
+          "target": "#submit"
+        }
+      ],
+      "rehydrated": [],
+      "verification": null,
+      "dispatch": null,
+      "egress": [
+        {
+          "record": {
+            "requestId": "demo-request-8",
+            "sessionId": "demo-session-8",
+            "destination": "http://127.0.0.1:8978/v1/chat/completions",
+            "at": 1789399808051,
+            "transport": "LOOPBACK_HTTP",
+            "reasoner": "local-model:qwen2.5-0.5b-instruct-q4_k_m",
+            "verified": true,
+            "payloadSha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+            "payloadBytes": 2679,
+            "leakCheck": "CLEAN",
+            "references": [
+              "<PII:NAME:1>",
+              "<PII:PHONE:1>",
+              "<PII:AADHAAR:1>",
+              "<PII:DOB:1>"
+            ],
+            "responseStatus": 200,
+            "responseBytes": 173,
+            "elapsedMs": 7
+          }
+        }
+      ],
+      "pageState": {
+        "confirmMatches": false,
+        "status": "Not submitted",
+        "submitDisabled": false,
+        "events": 0
+      }
+    },
+    "fallback": {
+      "wallMs": 7,
+      "state": "DONE",
+      "path": [
+        "OBSERVE",
+        "SANITIZE",
+        "VERIFY_PAYLOAD",
+        "SEND",
+        "VALIDATE_PLAN",
+        "AWAIT_GRANT",
+        "REHYDRATE",
+        "ACT",
+        "VERIFY_RESULT",
+        "DONE"
+      ],
+      "reasonerKind": "DETERMINISTIC_FALLBACK",
+      "reasonerName": "deterministic:reference",
+      "transport": "IN_PROCESS",
+      "fallback": {
+        "outcome": "UNAVAILABLE",
+        "fellBack": true,
+        "reason": "the model produced no usable plan (UNAVAILABLE), so the deterministic planner answers instead."
+      },
+      "refusal": null,
+      "timings": {
+        "observeMs": 0,
+        "sanitizeMs": 2,
+        "verifyPayloadMs": 0,
+        "sendMs": 0,
+        "fallbackMs": 0,
+        "validatePlanMs": 0,
+        "grantMs": 0,
+        "rehydrateMs": 0,
+        "refreshMs": 1,
+        "verifyResultMs": 1,
+        "actMs": 1,
+        "totalMs": 4
+      },
+      "planSteps": [
+        {
+          "op": "insert",
+          "target": "#mobile_confirm",
+          "ref": "<PII:PHONE:1>"
+        },
+        {
+          "op": "click",
+          "target": "#submit"
+        }
+      ],
+      "rehydrated": [
+        {
+          "ref": "<PII:PHONE:1>",
+          "target": "#mobile_confirm",
+          "piiClass": "PHONE",
+          "inserted": true
+        }
+      ],
+      "verification": {
+        "verification": "CONFIRMED",
+        "postcondition": "TARGET_ENABLED",
+        "evidence": "#submit is disabled, as expected."
+      },
+      "dispatch": "EXECUTED",
+      "egress": [],
+      "pageState": {
+        "confirmMatches": true,
+        "status": "Application submitted",
+        "submitDisabled": true,
+        "events": 5
+      }
+    }
+  },
+  "captures": {
+    "model": [
+      {
+        "receivedBytes": 2679,
+        "receivedSha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+        "tripwire": []
+      },
+      {
+        "receivedBytes": 2679,
+        "receivedSha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+        "tripwire": []
+      },
+      {
+        "receivedBytes": 2679,
+        "receivedSha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+        "tripwire": []
+      },
+      {
+        "receivedBytes": 2679,
+        "receivedSha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+        "tripwire": []
+      },
+      {
+        "receivedBytes": 2679,
+        "receivedSha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+        "tripwire": []
+      },
+      {
+        "receivedBytes": 2679,
+        "receivedSha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+        "tripwire": []
+      },
+      {
+        "receivedBytes": 2679,
+        "receivedSha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+        "tripwire": []
+      }
+    ],
+    "refusal": [
+      {
+        "receivedSha256": "26d7c09f78e318ebfac8ab245a6343d951ff405db51578f27de82f85b426a4a4",
+        "tripwire": []
+      }
+    ]
+  },
+  "latency": {
+    "note": "SMALL SAMPLE — 6 warm repetitions on one machine. Not a benchmark and not a generalisable distribution.",
+    "serviceStartupMsIncludingModelLoad": 2129,
+    "coldRunWallMs": 2262,
+    "warmRunsWallMs": [
+      662,
+      665,
+      692,
+      709,
+      886,
+      980
+    ],
+    "p50": 709,
+    "p95": 980,
+    "max": 980,
+    "perStageCold": {
+      "observeMs": 3,
+      "sanitizeMs": 8,
+      "verifyPayloadMs": 0,
+      "sendMs": 2238,
+      "validatePlanMs": 1,
+      "grantMs": 0,
+      "rehydrateMs": 1,
+      "refreshMs": 0,
+      "verifyResultMs": 1,
+      "actMs": 4,
+      "totalMs": 2256
+    }
+  },
+  "resource": {
+    "note": "peak RSS via tasklist, sampled once after the first model run. Indicative, not profiled.",
+    "llamaServerMb": 557,
+    "nodeMb": 130,
+    "gpuMemoryMb": "not used by this run"
+  },
+  "consoleErrors": [],
+  "limits": [
+    "the loop did NOT run through the browser extension: apps/demo drives a same-origin frame directly",
+    "one machine, one fixture, one goal, one quantisation, CPU only",
+    "the hostile server is handed the value by the harness because nothing in the request contains one"
+  ]
+}

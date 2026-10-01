@@ -1,0 +1,218 @@
+{
+  "experiment": "M7-visual-text-screen",
+  "question": "Can the detector in this build localise text the DOM cannot describe?",
+  "criteriaSource": "docs/perception/text-region-acceptance.md (pre-registered 2026-09-25)",
+  "criteria": {
+    "localisationIou": 0.5,
+    "secretContainment": 0.95,
+    "floodAreaRatio": 3,
+    "wholeCanvasShare": 0.9
+  },
+  "workstation": "W1",
+  "cell": {
+    "browser": "Chrome for Testing",
+    "executablePath": "C:\\Users\\RONIT\\AppData\\Local\\ms-playwright\\chromium-1243\\chrome-win64\\chrome.exe",
+    "headless": false
+  },
+  "at": "2026-09-25T09:44:50.134Z",
+  "model": {
+    "modelId": "pratibimb-t1-ui-head",
+    "revision": "ba6d9e93695b",
+    "weightsSha256": "ba6d9e93695b22d17d9dc2b8193966132af85a6a031b08eb453d1d20a05179d0",
+    "weightsBytes": 302960,
+    "classesSeen": {
+      "link": 21,
+      "button": 28,
+      "textbox": 13,
+      "tab": 1
+    }
+  },
+  "route": "WORKER_FRAME",
+  "capture": {
+    "w": 1600,
+    "h": 900,
+    "format": "png",
+    "bytes": 55147,
+    "dpr": 1.0000000149011612,
+    "scaleToCss": 0.8
+  },
+  "detections": 63,
+  "labelsPresent": [
+    "button",
+    "link",
+    "tab",
+    "textbox"
+  ],
+  "textClassesLookedFor": [
+    "text",
+    "text_region",
+    "word",
+    "line",
+    "paragraph"
+  ],
+  "modelHasATextClass": false,
+  "groundTruth": {
+    "canvas": {
+      "id": "idcard",
+      "x": 39,
+      "y": 140,
+      "w": 422,
+      "h": 262
+    },
+    "textRegions": [
+      {
+        "id": "identifier",
+        "sensitive": true,
+        "chars": 14,
+        "x": 179,
+        "y": 284,
+        "w": 145,
+        "h": 15
+      },
+      {
+        "id": "holder-name",
+        "sensitive": true,
+        "chars": 12,
+        "x": 179,
+        "y": 230,
+        "w": 110,
+        "h": 11
+      },
+      {
+        "id": "card-title",
+        "sensitive": false,
+        "chars": 25,
+        "x": 53,
+        "y": 156,
+        "w": 234,
+        "h": 12
+      },
+      {
+        "id": "field-label",
+        "sensitive": false,
+        "chars": 18,
+        "x": 179,
+        "y": 263,
+        "w": 118,
+        "h": 10
+      }
+    ]
+  },
+  "readings": [
+    {
+      "reading": "TEXT_CLASS_ONLY",
+      "boxes": 0,
+      "perRegion": [
+        {
+          "id": "identifier",
+          "chars": 14,
+          "box": {
+            "id": "identifier",
+            "sensitive": true,
+            "chars": 14,
+            "x": 179,
+            "y": 284,
+            "w": 145,
+            "h": 15
+          },
+          "bestIou": 0,
+          "containment": 0,
+          "localised": false,
+          "covered": false
+        },
+        {
+          "id": "holder-name",
+          "chars": 12,
+          "box": {
+            "id": "holder-name",
+            "sensitive": true,
+            "chars": 12,
+            "x": 179,
+            "y": 230,
+            "w": 110,
+            "h": 11
+          },
+          "bestIou": 0,
+          "containment": 0,
+          "localised": false,
+          "covered": false
+        }
+      ],
+      "flood": {
+        "predictionsInsideCanvas": 0,
+        "predictedAreaPx": 0,
+        "trueTextAreaPx": 7373,
+        "ratio": 0,
+        "widestShareOfCanvas": 0
+      },
+      "criteria": {
+        "localisation": false,
+        "secretCoverage": false,
+        "noFlood": true
+      }
+    },
+    {
+      "reading": "EVERY_DETECTION_AS_TEXT",
+      "boxes": 63,
+      "perRegion": [
+        {
+          "id": "identifier",
+          "chars": 14,
+          "box": {
+            "id": "identifier",
+            "sensitive": true,
+            "chars": 14,
+            "x": 179,
+            "y": 284,
+            "w": 145,
+            "h": 15
+          },
+          "bestIou": 0.423,
+          "containment": 1,
+          "localised": false,
+          "covered": true
+        },
+        {
+          "id": "holder-name",
+          "chars": 12,
+          "box": {
+            "id": "holder-name",
+            "sensitive": true,
+            "chars": 12,
+            "x": 179,
+            "y": 230,
+            "w": 110,
+            "h": 11
+          },
+          "bestIou": 0.142,
+          "containment": 0.707,
+          "localised": false,
+          "covered": false
+        }
+      ],
+      "flood": {
+        "predictionsInsideCanvas": 24,
+        "predictedAreaPx": 86611,
+        "trueTextAreaPx": 7373,
+        "ratio": 11.75,
+        "widestShareOfCanvas": 0.066
+      },
+      "criteria": {
+        "localisation": false,
+        "secretCoverage": false,
+        "noFlood": false
+      }
+    }
+  ],
+  "ms": {
+    "capture": 58,
+    "decode": 26,
+    "encode": 0,
+    "preprocess": 57,
+    "infer": 104,
+    "fuse": 2,
+    "total": 247
+  },
+  "failure": null,
+  "verdict": "SCREEN NOT PASSED"
+}

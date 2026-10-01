@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "."
+  },
+  "include": ["src/**/*.ts", "test/**/*.ts"],
+  "references": [
+    { "path": "../perception" },
+    { "path": "../privacy" },
+    { "path": "../agent" },
+    { "path": "../plan" },
+    { "path": "../reasoner" }
+  ]
+}

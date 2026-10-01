@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PratiBimb — Privacy-Preserving Browser Agent</title>
+    <!-- An empty icon, so the browser makes no request the server would have to answer with a 404.
+         The demo run asserts a clean console, and a tolerated error is a place a real one can hide. -->
+    <link rel="icon" href="data:," />
+    <!-- System fonts only. A web-font request from a privacy demo would be a network call to a third
+         party, which is exactly what this page exists to prevent. -->
+    <link rel="stylesheet" href="./planning-view.css" />
+    <!--
+      Bare specifiers resolve to the BUILT packages, served by tests/browser/demo/server.mjs. The
+      page runs the same dist/ the rest of the repository builds; there is no bundler step and no
+      re-implementation for the browser.
+    -->
+    <script type="importmap">
+      {
+        "imports": {
+          "@pratibimb/perception": "/pkg/perception/index.js",
+          "@pratibimb/privacy": "/pkg/privacy/index.js",
+          "@pratibimb/egress": "/pkg/egress/index.js",
+          "@pratibimb/agent": "/pkg/agent/index.js",
+          "@pratibimb/plan": "/pkg/plan/index.js",
+          "@pratibimb/reasoner": "/pkg/reasoner/index.js",
+          "@pratibimb/orchestrator": "/pkg/orchestrator/index.js"
+        }
+      }
+    </script>
+  </head>
+  <body data-phase="idle">
+    <header class="topbar">
+      <div class="brand">
+        <!-- A shield and its reflection: the structure survives, the identity does not. -->
+        <svg class="mark" viewBox="0 0 40 40" aria-hidden="true">
+          <rect width="40" height="40" rx="11" fill="#0B1220" />
+          <path d="M20 7.5l10 4v7.3H10v-7.3z" fill="#FFFFFF" />
+          <path d="M10 21.2h20v.9c0 4.8-4.2 8.5-10 10.4-5.8-1.9-10-5.6-10-10.4z" fill="#FFFFFF" opacity=".34" />
+        </svg>
+        <div class="brand-text">
+          <span class="brand-name">PratiBimb</span>
+          <span class="brand-sub">Privacy-Preserving Browser Agent</span>
+        </div>
+      </div>
+
+      <p class="motto">The model proposes. <strong>The client decides.</strong></p>
+
+      <span class="protected" title="Every outbound request passes the verified-payload egress guard, to loopback only.">
+        <svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3l7.5 3v5.4c0 4.6-3.2 8.4-7.5 9.9-4.3-1.5-7.5-5.3-7.5-9.9V6z" /><path d="M8.7 12.2l2.3 2.3 4.4-4.6" />
+        </svg>
+        PROTECTED
+      </span>
+
+      <nav class="actions" aria-label="Demo acts">
+        <button id="run-happy" type="button" class="btn btn-primary"><span class="num">1</span>Run the task</button>
+        <button id="run-refusal" type="button" class="btn btn-danger"><span class="num">2</span>Compromised reasoner</button>
+        <button id="run-outage" type="button" class="btn btn-outline"><span class="num">3</span>Model outage</button>
+        <button id="reset-demo" type="button" class="btn btn-ghost">Reset</button>
+      </nav>
+    </header>
+
+    <div class="shell">
+      <main class="story">
+        <section class="card task" aria-label="Task">
+          <div id="task"></div>
+          <div id="wall" class="pipeline" aria-label="Progress"></div>
+        </section>
+
+        <section id="boundary" class="boundary" aria-label="Privacy boundary"></section>
+
+        <div class="decisions">
+          <section id="d-model" class="card dcard" aria-label="Model proposes"></section>
+          <section id="d-client" class="card dcard" aria-label="Client decides"></section>
+          <section id="d-human" class="card dcard" aria-label="Human approval"></section>
+          <section id="d-act" class="card dcard" aria-label="Restore and act"></section>
+        </div>
+
+        <section id="wall-verdict" class="outcome k-none" aria-live="polite"></section>
+
+        <div class="duo">
+          <section id="leaving" class="card panel" aria-label="Data leaving device"></section>
+          <section id="trust" class="card panel" aria-label="Who is trusted with what"></section>
+        </div>
+      </main>
+
+      <aside class="rail" aria-label="The page the agent operates">
+        <div class="rail-head">
+          <span class="eyebrow">The page · on your device</span>
+          <span class="rail-sub">Synthetic State Services form</span>
+        </div>
+        <div class="browser">
+          <div class="browser-bar" aria-hidden="true">
+            <i></i><i></i><i></i>
+            <span class="url">127.0.0.1 · State Services — application</span>
+          </div>
+          <!--
+            740px is not cosmetic. The whole form, including the submit button, must be inside the
+            frame's own viewport: perception marks an element below the fold OFFSCREEN, and the gate
+            refuses to dispatch at a point it cannot attest is on screen — correctly. A shorter frame
+            makes the demo fail at ACT with TARGET_ABSENT_AFTER_REFRESH, which is the system working.
+          -->
+          <iframe id="page" src="/fixture/" title="State Services application"></iframe>
+        </div>
+      </aside>
+    </div>
+
+    <section class="evidence" aria-label="Technical evidence">
+      <div class="evidence-head">
+        <h2>Technical evidence</h2>
+        <p>The proof behind every line above, read from the same run record.</p>
+      </div>
+      <div class="evidence-grid">
+        <article class="ev"><h3>Run</h3><div id="pane-goal"></div></article>
+        <article class="ev"><h3>Privacy ledger &amp; egress</h3><div id="pane-egress"></div></article>
+        <article class="ev wide"><h3>Page observation <span class="side-tag">local only</span></h3><div id="pane-page"></div></article>
+        <article class="ev"><h3>Sanitized representation</h3><div id="pane-server"></div></article>
+        <article class="ev"><h3>Plan, gates &amp; approval</h3><div id="pane-plan"></div></article>
+      </div>
+    </section>
+
+    <footer class="foot">
+      Prototype on synthetic data. The local model path is experimental; the deterministic planner is the
+      verified path. This demo runs the agent in this page — not yet inside the browser extension. Not
+      production-ready, and not a general privacy guarantee.
+    </footer>
+
+    <script type="module" src="/demo/main.js"></script>
+  </body>
+</html>

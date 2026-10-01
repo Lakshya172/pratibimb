@@ -63,6 +63,8 @@ const wellBehavedAnswer = (request: PageRequest): unknown => {
         measurements: [],
         focus: { state: "NONE" },
         viewport: { w: 1024, h: 768, dpr: 1, scrollX: 0, scrollY: 0 },
+        structure: { watching: true, seq: 0, nodes: 0, attributes: 0, text: 0, resizes: 0, tracked: 0, at: null },
+        visualRegions: [],
       };
     case "HIT_TEST":
       return {
@@ -116,6 +118,33 @@ describe("accepting ports", () => {
     expect(router.acceptPort(port)).toBe(true);
     expect(port.received).toEqual([{ op: "ATTACHED", swBootId: "boot-1" }]);
     expect(router.acceptPort(new FakePort(DOC_A))).toBe(false);
+  });
+
+  /**
+   * M2-EXEC. A content script injected twice into one document would hold two page agents, each with
+   * its own cycles and delivery ids, and neither would see the other's dispatch — so both would fire
+   * and both would be right to. Nothing inside an agent can prevent that, because neither agent
+   * knows the other exists.
+   *
+   * This is where it is prevented instead: a second port for a document already connected is never
+   * accepted, so a second agent in that document is addressable by nobody. The assertion that
+   * matters is the last one — the request reached the FIRST port and only the first port.
+   */
+  it("never delivers to a second agent in a document that already has one (M2-EXEC)", async () => {
+    const router = createServiceWorkerRouter({ bootId: "boot-1" });
+    const first = new FakePort(DOC_A);
+    first.answer = wellBehavedAnswer;
+    const second = new FakePort(DOC_A);
+    second.answer = wellBehavedAnswer;
+
+    expect(router.acceptPort(first)).toBe(true);
+    expect(router.acceptPort(second)).toBe(false);
+    expect(router.connectionCount()).toBe(1);
+
+    const envelope = await router.relay(relayRequest(hitTest));
+    expect(envelope.kind).toBe("RELAYED");
+    expect(first.received).toHaveLength(2); // ATTACHED, then the hit test
+    expect(second.received).toHaveLength(0); // never attached, never addressed
   });
 });
 

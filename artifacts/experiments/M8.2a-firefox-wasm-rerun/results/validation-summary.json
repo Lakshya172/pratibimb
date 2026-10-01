@@ -1,0 +1,129 @@
+{
+ "v1": [
+  {
+   "candidate": "TR-01",
+   "reported": true,
+   "probeRuntimeMs": 56071,
+   "warm": 40,
+   "correct": true,
+   "pass": true
+  },
+  {
+   "candidate": "TR-02",
+   "reported": true,
+   "probeRuntimeMs": 44635,
+   "warm": 40,
+   "correct": true,
+   "pass": true
+  }
+ ],
+ "v2attempt1": {
+  "reported": true,
+  "prefsReadable": false,
+  "outputsIdentical": true,
+  "argsDifferByExactlyTheAmendment": true,
+  "status": "NOT EVALUABLE — recording defect (profile prefs unavailable)"
+ },
+ "v2": {
+  "defaultReported": true,
+  "amendedReported": true,
+  "prefsSource": "running Firefox -profile (web-ext copy)",
+  "prefsCount": {
+   "default": 71,
+   "amended": 72
+  },
+  "prefDiff": {
+   "added": [
+    "user_pref(\"extensions.background.idle.timeout\", 900000);"
+   ],
+   "removed": []
+  },
+  "onlyTheAmendmentDiffers": true,
+  "webExtArgsDiffer": {
+   "default": [
+    "run",
+    "--source-dir",
+    "<ext>",
+    "--firefox",
+    "<firefox>",
+    "--start-url",
+    "about:blank",
+    "--firefox-profile",
+    "<profile>",
+    "--profile-create-if-missing",
+    "--no-input",
+    "--no-reload",
+    "--pref",
+    "extensions.originControls.grantByDefault=true",
+    "--arg=--headless"
+   ],
+   "amended": [
+    "run",
+    "--source-dir",
+    "<ext>",
+    "--firefox",
+    "<firefox>",
+    "--start-url",
+    "about:blank",
+    "--firefox-profile",
+    "<profile>",
+    "--profile-create-if-missing",
+    "--no-input",
+    "--no-reload",
+    "--pref",
+    "extensions.originControls.grantByDefault=true",
+    "--pref",
+    "extensions.background.idle.timeout=900000",
+    "--arg=--headless"
+   ]
+  },
+  "outputsIdentical": true,
+  "syntheticIdentical": true,
+  "pass": true
+ },
+ "v3": [
+  {
+   "candidate": "TR-01",
+   "teardown": {
+    "pass": true,
+    "reasons": [],
+    "sameOutputAsM82": true,
+    "grows": [
+     11,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "coexistence": {
+    "pass": true,
+    "reasons": [],
+    "soloSameAsM82": true
+   },
+   "pass": true
+  },
+  {
+   "candidate": "TR-02",
+   "teardown": {
+    "pass": true,
+    "reasons": [],
+    "sameOutputAsM82": true,
+    "grows": [
+     10,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "coexistence": {
+    "pass": true,
+    "reasons": [],
+    "soloSameAsM82": true
+   },
+   "pass": true
+  }
+ ],
+ "pass": true
+}

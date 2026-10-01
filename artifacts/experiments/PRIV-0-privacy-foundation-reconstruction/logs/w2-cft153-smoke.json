@@ -1,0 +1,120 @@
+{
+  "experiment": "PRIV-0 privacy foundation reconstruction — fixture smoke",
+  "verdict": "PASS",
+  "recordedAt": "2026-09-14T10:45:16.115Z",
+  "provenance": {
+    "workstation": "W2",
+    "host": "LAPTOP-SRCINK2B",
+    "os": "win32 10.0.26200",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M              ",
+    "gpu": "not used by this run, so not recorded",
+    "node": "v26.4.0",
+    "playwright": "1.63.0",
+    "browser": "Chromium 153.0.8010.12",
+    "browserBinary": "C:\\Users\\OMEN\\cft\\chrome.exe",
+    "launch": "playwright chromium.launch({ headless: true, executablePath }), no extension loaded"
+  },
+  "fixture": {
+    "url": "http://127.0.0.1:8971/",
+    "elements": 7,
+    "statusBefore": "Not submitted"
+  },
+  "checks": {
+    "fixtureLoads": true,
+    "requiredElementsPresent": true,
+    "aadhaarOnPageIsChecksumValid": true,
+    "checksumInvalidVectorAbsentFromFixture": true,
+    "sanitizeProducedVerifiedHandoff": true,
+    "tokenisedClasses": [
+      "AADHAAR",
+      "DOB",
+      "NAME",
+      "PHONE"
+    ],
+    "otpMaskedWithoutReference": true,
+    "vaultHoldsLocally": true,
+    "noSecretInHandoffOrLedger": true
+  },
+  "handoff": {
+    "payloadSha256": "e45bc9c5836368c5db3e4066b35352664dc8c13a98c7ae6239baf4a1aa884ea2",
+    "payloadBytes": 2446,
+    "references": [
+      {
+        "token": "<PII:NAME:1>",
+        "class": "NAME",
+        "tier": "PERSONAL"
+      },
+      {
+        "token": "<PII:PHONE:1>",
+        "class": "PHONE",
+        "tier": "PERSONAL"
+      },
+      {
+        "token": "<PII:AADHAAR:1>",
+        "class": "AADHAAR",
+        "tier": "SENSITIVE"
+      },
+      {
+        "token": "<PII:DOB:1>",
+        "class": "DOB",
+        "tier": "PERSONAL"
+      }
+    ],
+    "maskedWithoutReference": 1,
+    "elements": 7,
+    "redactionHints": [
+      {
+        "class": "NAME",
+        "tier": "PERSONAL",
+        "hint": {
+          "len": 12,
+          "kind": "alpha",
+          "field_role": "name"
+        }
+      },
+      {
+        "class": "PHONE",
+        "tier": "PERSONAL",
+        "hint": {
+          "len": 10,
+          "kind": "numeric",
+          "field_role": "tel"
+        }
+      },
+      {
+        "class": "AADHAAR",
+        "tier": "SENSITIVE",
+        "hint": {
+          "len": 14,
+          "kind": "numeric"
+        }
+      },
+      {
+        "class": "DOB",
+        "tier": "PERSONAL",
+        "hint": {
+          "len": 10,
+          "kind": "date",
+          "field_role": "date"
+        }
+      },
+      {
+        "class": "OTP",
+        "tier": "CRITICAL",
+        "hint": {
+          "len": 6,
+          "kind": "numeric",
+          "field_role": "one-time-code"
+        }
+      }
+    ]
+  },
+  "timings": {
+    "sanitizeMs": 10
+  },
+  "limits": [
+    "no extension, no plan, no click, no rehydration and no network client take part in this run",
+    "the ledger entry is a privacy-layer record, not evidence of a network send",
+    "one browser, one page, one machine: W2 only"
+  ]
+}

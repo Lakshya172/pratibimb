@@ -41,6 +41,7 @@ import {
   type FreshnessTolerance,
   type ProposedAction,
   validateActionFreshness,
+  type StructuralWitness,
 } from "./actionFreshness.js";
 import { act, type ActResult, type PageActionBridge } from "./act.js";
 import {
@@ -50,6 +51,7 @@ import {
   type HitTestOptions,
   type HitTestResult,
 } from "./hitTest.js";
+import { type HumanConfirmation } from "./humanConfirmation.js";
 import { authorisationPreflight, mintDispatchPermit, monotonicNow, type MonotonicClock } from "./permit.js";
 import {
   type ExpectedPostcondition,
@@ -88,11 +90,28 @@ export interface GuardedActOptions {
    */
   readonly permitTtlMs: number;
   readonly tolerance?: FreshnessTolerance;
+  /**
+   * Constitution §6's structural signal, if the caller has one.
+   *
+   * Supplied: a graph the page has structurally moved past is refused at VALIDATE, before any
+   * authority is touched. Omitted: exactly today's behaviour, and the `ALLOW` says so by reporting
+   * `structurallyCurrent: null` rather than leaving the question looking answered.
+   *
+   * It carries two numbers and a flag. There is no capture in it, and obtaining it takes none.
+   */
+  readonly structure?: StructuralWitness;
   readonly hitTest?: HitTestOptions;
   /** Dispatch deadline. */
   readonly timeoutMs?: number;
   /** One clock for mint and redemption. */
   readonly now?: MonotonicClock;
+  /**
+   * A human's consent, required only for a target in the action schema's confirmation tier.
+   * Omitted, such a target is refused at AUTHORISE exactly as it always was.
+   */
+  readonly confirmation?: HumanConfirmation;
+  /** The page origin a confirmation is bound to. Required whenever `confirmation` is supplied. */
+  readonly origin?: string;
 }
 
 /** The furthest stage the action reached. Nothing after it ran. */
@@ -137,7 +156,7 @@ export async function guardedAct(
   options: GuardedActOptions
 ): Promise<GuardedOutcome> {
   // ── VALIDATE ───────────────────────────────────────────────────────────────────────────────
-  const decision = validateActionFreshness(graph, action, options?.tolerance);
+  const decision = validateActionFreshness(graph, action, options?.tolerance, options?.structure);
   if (decision.decision !== "ALLOW") {
     return { reached: "VALIDATE", decision, hit: null, result: null, verification: null };
   }
@@ -157,7 +176,12 @@ export async function guardedAct(
       verification: null,
     };
   }
-  const pre = authorisationPreflight(decision);
+  const evidence = {
+    ...(options.confirmation === undefined ? {} : { confirmation: options.confirmation }),
+    ...(options.origin === undefined ? {} : { origin: options.origin }),
+    ...(options.now === undefined ? {} : { now: options.now }),
+  };
+  const pre = authorisationPreflight(decision, evidence);
   if (pre) return { reached: "AUTHORISE", decision, hit: null, result: pre, verification: null };
 
   // ── HIT-TEST AGREEMENT ─────────────────────────────────────────────────────────────────────
@@ -168,7 +192,12 @@ export async function guardedAct(
 
   // ── MINT ── synchronous: nothing is awaited between the agreement and the dispatch ───────────
   const clock = options.now ?? monotonicNow;
-  const minted = mintDispatchPermit(decision, hit, { ttlMs: options.permitTtlMs, now: clock });
+  const minted = mintDispatchPermit(decision, hit, {
+    ttlMs: options.permitTtlMs,
+    now: clock,
+    ...(options.confirmation === undefined ? {} : { confirmation: options.confirmation }),
+    ...(options.origin === undefined ? {} : { origin: options.origin }),
+  });
   if (!minted.minted) {
     return { reached: "PERMIT", decision, hit, result: minted.refusal, verification: null };
   }

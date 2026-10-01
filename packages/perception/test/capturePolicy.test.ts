@@ -199,7 +199,8 @@ describe("the frame's metadata is internally consistent", () => {
     if (!r.ok) return;
     const frame = r.value;
     expect(frame.format).toBe(T1_CAPTURE_FORMAT);
-    expect([...frame.pixels.slice(0, 8)]).toEqual(PNG_SIGNATURE);
+    expect(frame.source).toBe("encoded");
+    expect([...(frame.pixels ?? []).slice(0, 8)]).toEqual(PNG_SIGNATURE);
     // The size probe was asked about exactly these bytes, as PNG.
     expect(seen).toHaveLength(1);
     expect(seen[0]!.format).toBe("png");
@@ -212,13 +213,13 @@ describe("the frame's metadata is internally consistent", () => {
 describe("the contract admits only PNG — at compile time", () => {
   it("a JPEG or WebP T1 frame does not typecheck", () => {
     const geometry = geometryFrom(measurement, 2048, 1280);
-    const png: CaptureFrame = { id: frameId("p"), capturedAt: 0, pixels: new Uint8Array(0), format: "png", geometry };
+    const png: CaptureFrame = { id: frameId("p"), capturedAt: 0, source: "encoded", pixels: new Uint8Array(0), format: "png", geometry };
     // If CaptureFrame.format is ever widened again, these directives become unused and
     // `npm run typecheck` fails — which is the point.
     // @ts-expect-error ADR-0002: a T1 CaptureFrame cannot be JPEG
-    const jpeg: CaptureFrame = { id: frameId("j"), capturedAt: 0, pixels: new Uint8Array(0), format: "jpeg", geometry };
+    const jpeg: CaptureFrame = { id: frameId("j"), capturedAt: 0, source: "encoded", pixels: new Uint8Array(0), format: "jpeg", geometry };
     // @ts-expect-error ADR-0002: a T1 CaptureFrame cannot be WebP (captureVisibleTab cannot produce it)
-    const webp: CaptureFrame = { id: frameId("w"), capturedAt: 0, pixels: new Uint8Array(0), format: "webp", geometry };
+    const webp: CaptureFrame = { id: frameId("w"), capturedAt: 0, source: "encoded", pixels: new Uint8Array(0), format: "webp", geometry };
     expect(png.format).toBe("png");
     expect([jpeg, webp]).toHaveLength(2);
   });

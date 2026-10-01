@@ -19,6 +19,7 @@ import {
 const frame: CaptureFrame = {
   id: frameId("f1"),
   capturedAt: 1000,
+  source: "encoded" as const,
   pixels: new Uint8Array([1, 2, 3]),
   format: "png",
   geometry: {

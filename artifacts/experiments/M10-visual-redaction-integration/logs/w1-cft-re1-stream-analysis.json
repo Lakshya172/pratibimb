@@ -1,0 +1,125 @@
+{
+  "analysis": "M10.6 — RE-1 on gesture-stream frames compared with M8.1 (deep equality; measured differences)",
+  "source": "artifacts/experiments/M10-visual-redaction-integration/logs/w1-cft-gesture-redaction.json",
+  "sourceRecordedAt": "2026-10-01T10:19:00.896Z",
+  "images": [
+    {
+      "image": "H1",
+      "detections": 11,
+      "m81Detections": 11,
+      "boxesExactlyEqualM81": false,
+      "maxCoordinateDifferencePx": 0,
+      "maxScoreDifference": 0.008938598741845438,
+      "re1ScoreEqualsM81": true,
+      "re1FieldsDiffering": [],
+      "re1Gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+      },
+      "exposedSensitiveGlyphs": 0,
+      "sensitiveGlyphs": 40
+    },
+    {
+      "image": "H2",
+      "detections": 11,
+      "m81Detections": 11,
+      "boxesExactlyEqualM81": false,
+      "maxCoordinateDifferencePx": 2.713747529644273,
+      "maxScoreDifference": 0.10595413137976706,
+      "re1ScoreEqualsM81": true,
+      "re1FieldsDiffering": [],
+      "re1Gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+      },
+      "exposedSensitiveGlyphs": 0,
+      "sensitiveGlyphs": 64
+    },
+    {
+      "image": "H3",
+      "detections": 7,
+      "m81Detections": 7,
+      "boxesExactlyEqualM81": false,
+      "maxCoordinateDifferencePx": 2.6995570866141705,
+      "maxScoreDifference": 0.09109243050274907,
+      "re1ScoreEqualsM81": true,
+      "re1FieldsDiffering": [],
+      "re1Gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+      },
+      "exposedSensitiveGlyphs": 0,
+      "sensitiveGlyphs": 47
+    },
+    {
+      "image": "H4",
+      "detections": 8,
+      "m81Detections": 8,
+      "boxesExactlyEqualM81": false,
+      "maxCoordinateDifferencePx": 2.6461210029069946,
+      "maxScoreDifference": 0.14028566065451586,
+      "re1ScoreEqualsM81": false,
+      "re1FieldsDiffering": [
+        "strings",
+        "overMaskAreaPx",
+        "overMaskRatio",
+        "maskedRegionShare"
+      ],
+      "re1Gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+      },
+      "exposedSensitiveGlyphs": 0,
+      "sensitiveGlyphs": 45
+    },
+    {
+      "image": "H5",
+      "detections": 7,
+      "m81Detections": 7,
+      "boxesExactlyEqualM81": false,
+      "maxCoordinateDifferencePx": 2.7145119268179734,
+      "maxScoreDifference": 0.0990572038557469,
+      "re1ScoreEqualsM81": true,
+      "re1FieldsDiffering": [],
+      "re1Gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+      },
+      "exposedSensitiveGlyphs": 0,
+      "sensitiveGlyphs": 51
+    },
+    {
+      "image": "H6",
+      "detections": 13,
+      "m81Detections": 13,
+      "boxesExactlyEqualM81": false,
+      "maxCoordinateDifferencePx": 2.7141312128474055,
+      "maxScoreDifference": 0.10100221485721594,
+      "re1ScoreEqualsM81": true,
+      "re1FieldsDiffering": [],
+      "re1Gates": {
+        "noExposedSensitiveGlyph": true,
+        "overMaskWithinBudget": true,
+        "noBlanketBox": true
+      },
+      "exposedSensitiveGlyphs": 0,
+      "sensitiveGlyphs": 59
+    }
+  ],
+  "totals": {
+    "images": 6,
+    "sameDetectionCountAsM81": 6,
+    "boxesExactlyEqualM81": 0,
+    "maxCoordinateDifferencePx": 2.7145119268179734,
+    "maxScoreDifference": 0.14028566065451586,
+    "re1ScoreEqualsM81": 5,
+    "everyRe1GatePasses": true,
+    "exposedSensitiveGlyphs": 0,
+    "sensitiveGlyphs": 306
+  }
+}

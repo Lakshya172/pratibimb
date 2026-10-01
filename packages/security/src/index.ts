@@ -37,3 +37,11 @@ export {
 } from "./wasmCapability.js";
 
 export { ORT_PIN, ORT_PIN_EVIDENCE, type OrtArtifactPin, type OrtPin } from "./generated/ortPin.js";
+
+export {
+  loadVerifiedModel,
+  ModelPinError,
+  type LoadModelOptions,
+  type ModelPin,
+  type VerifiedModel,
+} from "./modelPin.js";

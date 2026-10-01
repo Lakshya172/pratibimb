@@ -44,6 +44,7 @@ export {
   type ProposedAction,
   type ReObserve,
   type RejectionReason,
+  type StructuralWitness,
   type TargetClaim,
 } from "./actionFreshness.js";
 
@@ -56,6 +57,7 @@ export {
   mintDispatchPermit,
   monotonicNow,
   permitState,
+  type AuthorisationEvidence,
   type ConfirmationTier,
   type DispatchPermit,
   type ExecutableAction,
@@ -68,6 +70,21 @@ export {
   type RejectionCause,
   type UnsupportedCause,
 } from "./permit.js";
+
+export {
+  confirmationCovers,
+  confirmationState,
+  isHumanConfirmation,
+  recordHumanConfirmation,
+  type ConfirmationCheck,
+  type ConfirmationMismatch,
+  type ConfirmationOptions,
+  type ConfirmationRefusalCause,
+  type ConfirmationResult,
+  type ConfirmationState,
+  type ConfirmationSubject,
+  type HumanConfirmation,
+} from "./humanConfirmation.js";
 
 export {
   DEFAULT_DISPATCH_TIMEOUT_MS,

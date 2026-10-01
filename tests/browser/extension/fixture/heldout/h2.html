@@ -1,0 +1,24 @@
+<!doctype html>
+<!--
+  HELD-OUT VISUAL-TEXT SET (RE-1) — image H2: statement: long strings, small monospace type, shaded rows.
+  Every value on this page is SYNTHETIC. Identifier-like numbers are checksum-invalid, phone numbers
+  start with 0 (not a valid Indian mobile), and addresses use the reserved `.example` domain.
+  Scored once per candidate under docs/perception/redaction-evaluation.md, never used for tuning.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Held-out H2</title>
+  <style>
+    body { margin: 0; font: 14px/1.4 system-ui, sans-serif; color: #222; background: #fff; }
+    header { position: absolute; left: 40px; top: 18px; }
+    #img { position: absolute; left: 40px; top: 60px; display: block; }
+  </style>
+</head>
+<body>
+  <header>Document viewer — synthetic evaluation image H2</header>
+  <canvas id="img" width="1000" height="420" aria-label="Synthetic document image"></canvas>
+  <script>window.__spec = {"id":"H2","case":"statement: long strings, small monospace type, shaded rows","background":"#ffffff","decorations":[{"x":30,"y":64,"w":940,"h":2,"fill":"#1e5a8a"},{"x":30,"y":84,"w":940,"h":34,"fill":"#eef3f8"},{"x":30,"y":186,"w":940,"h":34,"fill":"#eef3f8"}],"lines":[{"x":30,"baseline":46,"font":"bold 18px Verdana","runs":[{"id":"h2-title","text":"Statement of account"}]},{"x":40,"baseline":106,"font":"12px Verdana","runs":[{"id":"h2-l-holder","text":"Account holder"}],"color":"#444444"},{"x":300,"baseline":106,"font":"13px Verdana","runs":[{"id":"h2-holder","text":"Rohit Mahadevan Iyer","sensitive":true}]},{"x":40,"baseline":156,"font":"12px Verdana","runs":[{"id":"h2-l-iban","text":"Account number"}],"color":"#444444"},{"x":300,"baseline":156,"font":"13px Consolas","runs":[{"id":"h2-iban","text":"IN47 SYNT 0000 4417 2210 0932 5581 07","sensitive":true}]},{"x":40,"baseline":208,"font":"12px Verdana","runs":[{"id":"h2-l-card","text":"Card on file"}],"color":"#444444"},{"x":300,"baseline":208,"font":"13px Consolas","runs":[{"id":"h2-card","text":"4929 1180 7342 6615","sensitive":true}]},{"x":40,"baseline":258,"font":"12px Verdana","runs":[{"id":"h2-l-branch","text":"Branch"}],"color":"#444444"},{"x":300,"baseline":258,"font":"13px Verdana","runs":[{"id":"h2-branch","text":"Synthetic Branch, Sector 21, Nowhere 000000"}]},{"x":30,"baseline":390,"font":"11px Verdana","runs":[{"id":"h2-foot","text":"This is a synthetic statement generated for evaluation only."}],"color":"#777777"}]};</script>
+  <script src="render.js"></script>
+</body>
+</html>

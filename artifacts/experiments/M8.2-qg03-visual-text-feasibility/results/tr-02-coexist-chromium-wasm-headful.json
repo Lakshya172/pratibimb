@@ -1,0 +1,894 @@
+{
+ "experiment": "M8.2-qg03-visual-text-feasibility",
+ "runner": "run-chromium.mjs",
+ "chromePath": "C:/Users/RONIT/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe",
+ "startedAt": "2026-09-25T19:40:37.862Z",
+ "machineStateStart": {
+  "at": "2026-09-25T19:40:37.863Z",
+  "powerScheme": "Power Scheme GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (Balanced)",
+  "battery": "BatteryStatus=2 Charge=100"
+ },
+ "launches": [
+  {
+   "candidate": "TR-02",
+   "mode": "coexist",
+   "backend": "wasm",
+   "headless": false,
+   "browser": "chromium",
+   "platform": "windows",
+   "extensionLoaded": true,
+   "startedAt": "2026-09-25T19:40:39.403Z",
+   "browserVersion": "153.0.8010.12",
+   "result": {
+    "context": "chrome-offscreen-document",
+    "mode": "coexist",
+    "candidate": "TR-02",
+    "backend": "wasm",
+    "startedAt": "2026-09-25T19:40:41.324Z",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "ortVersion": "1.29.0",
+    "pin": {
+     "installed": true,
+     "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+     "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea"
+    },
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasm": {
+       "instances": 0,
+       "bytes": 0,
+       "mb": 0,
+       "pages": 0,
+       "growCount": 0
+      },
+      "js": {
+       "usedMB": 2.6,
+       "totalMB": 3.6
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 0,
+      "at": 83
+     },
+     {
+      "label": "after-solo",
+      "wasm": {
+       "instances": 1,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": {
+       "usedMB": 58.8,
+       "totalMB": 61.5
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 2072
+     },
+     {
+      "label": "after-coexist-create",
+      "wasm": {
+       "instances": 1,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": {
+       "usedMB": 58.9,
+       "totalMB": 61.5
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 2220
+     },
+     {
+      "label": "after-coexist-rounds",
+      "wasm": {
+       "instances": 1,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": {
+       "usedMB": 82.7,
+       "totalMB": 84.6
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 5668
+     },
+     {
+      "label": "after-release-all",
+      "wasm": {
+       "instances": 1,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": {
+       "usedMB": 82.7,
+       "totalMB": 84.6
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 5670
+     },
+     {
+      "label": "after-final-release",
+      "wasm": {
+       "instances": 1,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": {
+       "usedMB": 87.4,
+       "totalMB": 89.3
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 6461
+     }
+    ],
+    "errors": [],
+    "timerResolutionMs": 0.1,
+    "conclusion": "completed",
+    "solo": {
+     "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8",
+     "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+     "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed"
+    },
+    "soloMs": {
+     "candidate": 726.2000000178814,
+     "uiHead": 63.79999998211861,
+     "yunet": 66.69999998807907
+    },
+    "created": {
+     "uiHead": true,
+     "yunet": true,
+     "candidate": true
+    },
+    "createMs": {
+     "uiHead": 10.099999994039536,
+     "yunet": 23.400000005960464,
+     "candidate": 114.69999998807907
+    },
+    "rounds": [
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     }
+    ],
+    "roundMs": [
+     {
+      "uiHead": 55.599999994039536,
+      "yunet": 52.5,
+      "candidate": 570.7999999821186,
+      "round": 688.2999999821186
+     },
+     {
+      "uiHead": 49.30000001192093,
+      "yunet": 52.599999994039536,
+      "candidate": 573,
+      "round": 681.7000000178814
+     },
+     {
+      "uiHead": 53.69999998807907,
+      "yunet": 62.10000002384186,
+      "candidate": 582,
+      "round": 704
+     },
+     {
+      "uiHead": 49.099999994039536,
+      "yunet": 50.69999998807907,
+      "candidate": 574.4000000059605,
+      "round": 680.0999999940395
+     },
+     {
+      "uiHead": 57.400000005960464,
+      "yunet": 52.400000005960464,
+      "candidate": 552.5,
+      "round": 668.0999999940395
+     }
+    ],
+    "uiHeadShippedDecode": {
+     "ok": true,
+     "detections": 23
+    },
+    "recreated": {
+     "uiHead": true,
+     "yunet": true,
+     "candidate": true
+    },
+    "network": [
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/ort-wasm-simd-threaded.jsep.wasm"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/models/t1-ui-head.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/models/yunet.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/models/candidate.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/fixtures/input-dev.f32"
+     }
+    ],
+    "gpu": {
+     "submits": 0,
+     "computePipelines": 0,
+     "devices": 0,
+     "adapterInfo": null,
+     "requestedOptions": null,
+     "hookError": null
+    },
+    "selfOrigin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom"
+   },
+   "wallMs": 6834,
+   "responsiveness": {
+    "frames": 376,
+    "maxGapMs": 18.799999999999955,
+    "p99GapMs": 18.699999999999818,
+    "medianGapMs": 17.700000000000728
+   },
+   "launch": 1
+  },
+  {
+   "candidate": "TR-02",
+   "mode": "coexist",
+   "backend": "wasm",
+   "headless": false,
+   "browser": "chromium",
+   "platform": "windows",
+   "extensionLoaded": true,
+   "startedAt": "2026-09-25T19:40:48.576Z",
+   "browserVersion": "153.0.8010.12",
+   "result": {
+    "context": "chrome-offscreen-document",
+    "mode": "coexist",
+    "candidate": "TR-02",
+    "backend": "wasm",
+    "startedAt": "2026-09-25T19:40:49.992Z",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "ortVersion": "1.29.0",
+    "pin": {
+     "installed": true,
+     "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+     "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea"
+    },
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasm": {
+       "instances": 0,
+       "bytes": 0,
+       "mb": 0,
+       "pages": 0,
+       "growCount": 0
+      },
+      "js": {
+       "usedMB": 2.6,
+       "totalMB": 5.1
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 0,
+      "at": 92
+     },
+     {
+      "label": "after-solo",
+      "wasm": {
+       "instances": 1,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": {
+       "usedMB": 58.8,
+       "totalMB": 61.8
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 1988
+     },
+     {
+      "label": "after-coexist-create",
+      "wasm": {
+       "instances": 1,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": {
+       "usedMB": 58.9,
+       "totalMB": 61.8
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 2125
+     },
+     {
+      "label": "after-coexist-rounds",
+      "wasm": {
+       "instances": 1,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": {
+       "usedMB": 82.7,
+       "totalMB": 84.8
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 5624
+     },
+     {
+      "label": "after-release-all",
+      "wasm": {
+       "instances": 1,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": {
+       "usedMB": 82.7,
+       "totalMB": 84.8
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 5627
+     },
+     {
+      "label": "after-final-release",
+      "wasm": {
+       "instances": 1,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": {
+       "usedMB": 87.4,
+       "totalMB": 89.6
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 6425
+     }
+    ],
+    "errors": [],
+    "timerResolutionMs": 0.1,
+    "conclusion": "completed",
+    "solo": {
+     "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8",
+     "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+     "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed"
+    },
+    "soloMs": {
+     "candidate": 732.5999999940395,
+     "uiHead": 56.60000002384186,
+     "yunet": 66.2000000178814
+    },
+    "created": {
+     "uiHead": true,
+     "yunet": true,
+     "candidate": true
+    },
+    "createMs": {
+     "uiHead": 11.100000023841858,
+     "yunet": 25,
+     "candidate": 100.69999998807907
+    },
+    "rounds": [
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     }
+    ],
+    "roundMs": [
+     {
+      "uiHead": 49.79999998211861,
+      "yunet": 51.900000005960464,
+      "candidate": 562,
+      "round": 672.7999999821186
+     },
+     {
+      "uiHead": 48.80000001192093,
+      "yunet": 50.5,
+      "candidate": 576.5999999940395,
+      "round": 682.4000000059605
+     },
+     {
+      "uiHead": 53.20000001788139,
+      "yunet": 64.10000002384186,
+      "candidate": 648.2000000178814,
+      "round": 773.4000000059605
+     },
+     {
+      "uiHead": 59.599999994039536,
+      "yunet": 54.69999998807907,
+      "candidate": 570.3000000119209,
+      "round": 690.4000000059605
+     },
+     {
+      "uiHead": 51.29999998211861,
+      "yunet": 55.5,
+      "candidate": 541.3999999761581,
+      "round": 654.0999999940395
+     }
+    ],
+    "uiHeadShippedDecode": {
+     "ok": true,
+     "detections": 23
+    },
+    "recreated": {
+     "uiHead": true,
+     "yunet": true,
+     "candidate": true
+    },
+    "network": [
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/ort-wasm-simd-threaded.jsep.wasm"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/models/t1-ui-head.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/models/yunet.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/models/candidate.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/fixtures/input-dev.f32"
+     }
+    ],
+    "gpu": {
+     "submits": 0,
+     "computePipelines": 0,
+     "devices": 0,
+     "adapterInfo": null,
+     "requestedOptions": null,
+     "hookError": null
+    },
+    "selfOrigin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom"
+   },
+   "wallMs": 6529,
+   "responsiveness": {
+    "frames": 359,
+    "maxGapMs": 142.8,
+    "p99GapMs": 18.700000000000728,
+    "medianGapMs": 17.899999999999636
+   },
+   "launch": 2
+  },
+  {
+   "candidate": "TR-02",
+   "mode": "coexist",
+   "backend": "wasm",
+   "headless": false,
+   "browser": "chromium",
+   "platform": "windows",
+   "extensionLoaded": true,
+   "startedAt": "2026-09-25T19:40:57.048Z",
+   "browserVersion": "153.0.8010.12",
+   "result": {
+    "context": "chrome-offscreen-document",
+    "mode": "coexist",
+    "candidate": "TR-02",
+    "backend": "wasm",
+    "startedAt": "2026-09-25T19:40:58.634Z",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "ortVersion": "1.29.0",
+    "pin": {
+     "installed": true,
+     "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+     "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea"
+    },
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasm": {
+       "instances": 0,
+       "bytes": 0,
+       "mb": 0,
+       "pages": 0,
+       "growCount": 0
+      },
+      "js": {
+       "usedMB": 2.6,
+       "totalMB": 3.8
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 0,
+      "at": 98
+     },
+     {
+      "label": "after-solo",
+      "wasm": {
+       "instances": 1,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": {
+       "usedMB": 58.8,
+       "totalMB": 61.8
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 1986
+     },
+     {
+      "label": "after-coexist-create",
+      "wasm": {
+       "instances": 1,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": {
+       "usedMB": 58.9,
+       "totalMB": 61.8
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 2112
+     },
+     {
+      "label": "after-coexist-rounds",
+      "wasm": {
+       "instances": 1,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": {
+       "usedMB": 82.7,
+       "totalMB": 84.8
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 5643
+     },
+     {
+      "label": "after-release-all",
+      "wasm": {
+       "instances": 1,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": {
+       "usedMB": 82.7,
+       "totalMB": 84.8
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 5646
+     },
+     {
+      "label": "after-final-release",
+      "wasm": {
+       "instances": 1,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": {
+       "usedMB": 87.4,
+       "totalMB": 89.6
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 6511
+     }
+    ],
+    "errors": [],
+    "timerResolutionMs": 0.1,
+    "conclusion": "completed",
+    "solo": {
+     "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8",
+     "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+     "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed"
+    },
+    "soloMs": {
+     "candidate": 713.0999999940395,
+     "uiHead": 54.60000002384186,
+     "yunet": 70
+    },
+    "created": {
+     "uiHead": true,
+     "yunet": true,
+     "candidate": true
+    },
+    "createMs": {
+     "uiHead": 10.300000011920929,
+     "yunet": 23.400000005960464,
+     "candidate": 92.2999999821186
+    },
+    "rounds": [
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     }
+    ],
+    "roundMs": [
+     {
+      "uiHead": 50.60000002384186,
+      "yunet": 51.29999998211861,
+      "candidate": 554.5,
+      "round": 664.7000000178814
+     },
+     {
+      "uiHead": 53.099999994039536,
+      "yunet": 54.099999994039536,
+      "candidate": 577.2000000178814,
+      "round": 690.4000000059605
+     },
+     {
+      "uiHead": 50.89999997615814,
+      "yunet": 69,
+      "candidate": 576.7999999821186,
+      "round": 704.1999999880791
+     },
+     {
+      "uiHead": 52.5,
+      "yunet": 70.5,
+      "candidate": 594.5,
+      "round": 723.8000000119209
+     },
+     {
+      "uiHead": 48.599999994039536,
+      "yunet": 49.30000001192093,
+      "candidate": 618.3000000119209,
+      "round": 721.7999999821186
+     }
+    ],
+    "uiHeadShippedDecode": {
+     "ok": true,
+     "detections": 23
+    },
+    "recreated": {
+     "uiHead": true,
+     "yunet": true,
+     "candidate": true
+    },
+    "network": [
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/ort-wasm-simd-threaded.jsep.wasm"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/models/t1-ui-head.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/models/yunet.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/models/candidate.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/fixtures/input-dev.f32"
+     }
+    ],
+    "gpu": {
+     "submits": 0,
+     "computePipelines": 0,
+     "devices": 0,
+     "adapterInfo": null,
+     "requestedOptions": null,
+     "hookError": null
+    },
+    "selfOrigin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom"
+   },
+   "wallMs": 6681,
+   "responsiveness": {
+    "frames": 324,
+    "maxGapMs": 440.6999999999998,
+    "p99GapMs": 142.89999999999998,
+    "medianGapMs": 17.899999999999636
+   },
+   "launch": 3
+  }
+ ],
+ "machineStateEnd": {
+  "at": "2026-09-25T19:41:06.411Z",
+  "powerScheme": "Power Scheme GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (Balanced)",
+  "battery": "BatteryStatus=2 Charge=100"
+ }
+}

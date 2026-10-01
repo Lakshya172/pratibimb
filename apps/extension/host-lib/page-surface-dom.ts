@@ -21,13 +21,19 @@
  * No value, no `href`, no inner text of arbitrary nodes (INV-21, TR-10).
  */
 import type { DomMeasurement } from "@pratibimb/perception";
-import type {
-  ElementDescription,
-  FocusReading,
-  PagePoint,
-  PageSurface,
-  PreparedClick,
-  ViewportReading,
+import {
+  VISUAL_REGION_SELECTOR,
+  visualRegionsFrom,
+  type ElementDescription,
+  type FocusReading,
+  type PagePoint,
+  type PageSurface,
+  type PreparedClick,
+  type StructuralEvent,
+  type ViewportReading,
+  type VisualRegionKind,
+  type VisualRegionReading,
+  type VisualRegionSample,
 } from "@pratibimb/extension-transport";
 
 /** The same element set the host's own MEASURE handler uses. */
@@ -50,9 +56,24 @@ export function roleOf(element: Element): string {
   return "generic";
 }
 
-/** MVP-2's name template, unchanged: structural UI text only, bounded. */
+/**
+ * The accessible name: a control's label, bounded. Structural UI text only.
+ *
+ * A `<label for=…>` FIRST, because that is what a person reads beside the field and what an
+ * accessible name is. An input has no text of its own, so a rule that starts at `textContent` names
+ * every form control the empty string — and an unnamed field is one the planner cannot find, the
+ * binder cannot classify, and a human cannot be meaningfully asked about. This is the same template
+ * `apps/demo/src/pageAdapter.ts` uses, deliberately: the two sides must read one page the same way.
+ *
+ * Never a value, never an `href`, never the inner text of an arbitrary node.
+ */
 export function nameOf(element: Element): string {
-  return (element.getAttribute("aria-label") || element.textContent || "").trim().slice(0, 60);
+  const labelled = (element as HTMLInputElement).labels?.[0];
+  if (labelled?.textContent) return labelled.textContent.trim().slice(0, 60);
+  const aria = element.getAttribute("aria-label");
+  if (aria) return aria.trim().slice(0, 60);
+  if (element.tagName === "INPUT") return "";
+  return (element.textContent ?? "").trim().slice(0, 60);
 }
 
 /**
@@ -137,7 +158,41 @@ function measure(): { measurements: DomMeasurement[]; focus: FocusReading } {
     };
     return reference.nth === undefined ? base : { ...base, nth: reference.nth };
   });
+  // §6's tracked elements ARE this set. Re-targeting here rather than on a timer is what keeps
+  // the resize signal event-driven: the observer follows the graph, and the graph is only ever
+  // rebuilt when something explicitly asks for an observation.
+  retargetResizeObserver(elements);
   return { measurements, focus: focusReading() };
+}
+
+/**
+ * M10 — every `<canvas>` and `<img>`, as geometry. The inclusion rule is `visualRegionsFrom`'s, in the
+ * transport package; this only reads.
+ *
+ * READS: the tag, the element's index among its tag, `getBoundingClientRect`, computed `display` and
+ * `visibility`. NEVER: `src`, `currentSrc`, `alt`, a canvas context, `toDataURL`, `getImageData` or
+ * any pixel. Role is ignored on purpose: a canvas with or without one still paints pixels. The
+ * element graph (`MEASURED_SELECTOR`) is untouched by this.
+ */
+function visualRegions(): VisualRegionReading[] {
+  const ordinals: Record<VisualRegionKind, number> = { canvas: 0, img: 0 };
+  const samples: VisualRegionSample[] = [];
+  for (const element of Array.from(document.querySelectorAll(VISUAL_REGION_SELECTOR))) {
+    const tag = element.tagName.toLowerCase();
+    if (tag !== "canvas" && tag !== "img") continue;
+    const ordinal = ordinals[tag];
+    ordinals[tag] = ordinal + 1;
+    const rect = element.getBoundingClientRect();
+    const style = getComputedStyle(element);
+    samples.push({
+      kind: tag,
+      ordinal,
+      rect: { x: rect.x, y: rect.y, w: rect.width, h: rect.height },
+      display: style.display,
+      visibility: style.visibility,
+    });
+  }
+  return visualRegionsFrom(samples);
 }
 
 function viewport(): ViewportReading {
@@ -171,11 +226,169 @@ function prepareClick(element: Element, point: PagePoint): PreparedClick {
   };
 }
 
+/**
+ * THE ATTRIBUTES THE ELEMENT GRAPH ACTUALLY READS — the whole filter, and no more.
+ *
+ * Constitution §6 requires the structural signal to be narrow, and this is where "narrow" is
+ * decided. Every entry is here because `measure()` above derives something from it: `id` gives the
+ * selector, `role` and the tag give the role, `aria-label` and `for` give the accessible name,
+ * `disabled`/`aria-disabled` give enabled, and `class`/`style`/`hidden` are the only attributes
+ * that can flip computed visibility without touching anything else.
+ *
+ * An unfiltered `attributes: true` would report every `data-*` write a page makes to itself, which
+ * on a busy page is an event storm that says nothing about the graph. Adding an attribute here is
+ * a decision about what "structural" means, not a tuning knob.
+ */
+const WATCHED_ATTRIBUTES = ["id", "role", "aria-label", "aria-disabled", "disabled", "hidden", "class", "style", "for"];
+
+/**
+ * THE STRUCTURAL SIGNAL — constitution §6, IN FORCE for v1 (ADR-0010). The only observers in the
+ * product.
+ *
+ * EVENT-DRIVEN, LOCAL, NON-CAPTURING. `MutationObserver` and `ResizeObserver` both call back when
+ * the browser has something to report; nothing here wakes up, polls, hashes, captures or measures.
+ * The callback receives three booleans and a fourth — **never a node, an attribute name, a
+ * selector, a text value or a pixel** — so there is no path from a page's contents to the counters
+ * the agent keeps. Records are inspected here and dropped here.
+ *
+ * IT CANNOT CAPTURE. It has no capture authority, no relay, no port and no message channel: the
+ * only thing it is given is `onChange`. Under the capture policy approved in ADR-0009 a frame is
+ * taken only when a person asks for one, and a structural change says that the last observation may
+ * be stale — it does not go and take a new picture.
+ *
+ * WHAT IS NOT IMPLEMENTED, stated rather than implied. §6 names "ResizeObserver on tracked
+ * elements"; this installs one on `document.documentElement` only. Re-targeting it at the measured
+ * set would mean re-enumerating that set on every mutation — polling by another name — and a
+ * `ResizeObserver` delivers an initial callback for every newly observed element, which would make
+ * each observation instantly stale against itself. Element-level resize that changes no attribute,
+ * no node and no document geometry is therefore NOT observed, and §6's structural signal is
+ * implemented CONDITIONALLY until that is measured and closed.
+ */
+/**
+ * THE TRACKED SET, AND WHY A BASELINE IS NOT A CHANGE.
+ *
+ * §6 names *"ResizeObserver on tracked elements"*. The tracked elements are the ones `measure()`
+ * just put in the element graph — not every node in the document — so the fan-out is bounded by the
+ * graph the agent actually reasons about, and `structuralTracked()` reports it so that bound is a
+ * number rather than a claim.
+ *
+ * THE INITIALISATION TRAP. A `ResizeObserver` delivers a callback for every element the moment it
+ * is observed. Treating that delivery as a change would make every observation instantly stale
+ * against itself: `measure()` re-targets the observer, the observer immediately reports back, the
+ * sequence advances, and the reading that just happened is already out of date. Nothing would ever
+ * be current.
+ *
+ * THE FIX IS A BASELINE, NOT A TIMER. An element's FIRST delivery records its size and reports
+ * nothing; a later delivery is compared against that record and reports only a real difference.
+ * There is no window to wait out, no first-callback counter to get wrong, and no clock involved —
+ * the rule is "this size differs from the last size I was told about", which is the question a
+ * resize signal is actually asking.
+ *
+ * Sizes come from the observer's own `borderBoxSize`, never from `getBoundingClientRect`: the two
+ * measure different boxes, and comparing one against the other reports a change on every callback.
+ *
+ * NO CAPTURE, NO TIMER, NO POLL. A resize notification increments a counter. That is all it does.
+ */
+const trackedSizes = new Map<Element, { w: number; h: number }>();
+const observedForResize = new Set<Element>();
+let resizes: ResizeObserver | null = null;
+
+/** The observer's own measurement, with the pre-`borderBoxSize` fallback kept explicit. */
+function sizeOf(entry: ResizeObserverEntry): { w: number; h: number } {
+  const border = entry.borderBoxSize?.[0];
+  return border === undefined
+    ? { w: entry.contentRect.width, h: entry.contentRect.height }
+    : { w: border.inlineSize, h: border.blockSize };
+}
+
+/**
+ * Point the observer at the set `measure()` just produced.
+ *
+ * Removed elements stop being tracked, which is what "no longer an active tracked target" means:
+ * they are unobserved and their baseline is dropped, so an element that comes back re-baselines
+ * rather than being compared against a size from before it left. Added elements become eligible
+ * here — the observation refresh is what makes them tracked — and their INSERTION was already a
+ * `childList` record, so nothing about them goes unnoticed in the meantime.
+ */
+function retargetResizeObserver(elements: readonly Element[]): void {
+  const observer = resizes;
+  if (observer === null) return;
+  const next = new Set<Element>(elements);
+  for (const tracked of [...observedForResize]) {
+    // The document element is tracked permanently: it is the viewport, not a graph member.
+    if (tracked === document.documentElement || next.has(tracked)) continue;
+    observer.unobserve(tracked);
+    observedForResize.delete(tracked);
+    trackedSizes.delete(tracked);
+  }
+  for (const element of next) {
+    if (observedForResize.has(element)) continue;
+    observedForResize.add(element);
+    observer.observe(element);
+  }
+}
+
+function watchStructure(onChange: (event: StructuralEvent) => void): () => void {
+  const mutations = new MutationObserver((records) => {
+    let nodes = false;
+    let attributes = false;
+    let text = false;
+    for (const record of records) {
+      if (record.type === "childList") nodes = true;
+      else if (record.type === "attributes") attributes = true;
+      else if (record.type === "characterData") text = true;
+    }
+    // One callback in, one event out. The coalescing rule in full: the browser decides what a batch
+    // is, and this reports the batch. No timer, no window, no queue.
+    if (nodes || attributes || text) onChange({ nodes, attributes, text, resized: false });
+  });
+  mutations.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    characterData: true,
+    attributes: true,
+    attributeFilter: WATCHED_ATTRIBUTES,
+  });
+
+  const observer = new ResizeObserver((entries) => {
+    let changed = false;
+    for (const entry of entries) {
+      const size = sizeOf(entry);
+      const baseline = trackedSizes.get(entry.target);
+      if (baseline === undefined) {
+        // The observer introducing itself. Recorded, and reported as nothing.
+        trackedSizes.set(entry.target, size);
+        continue;
+      }
+      if (baseline.w !== size.w || baseline.h !== size.h) {
+        trackedSizes.set(entry.target, size);
+        changed = true;
+      }
+    }
+    if (changed) onChange({ nodes: false, attributes: false, text: false, resized: true });
+  });
+  resizes = observer;
+  // The viewport first; the graph's own elements arrive with the first `measure()`.
+  observedForResize.add(document.documentElement);
+  observer.observe(document.documentElement);
+
+  return () => {
+    mutations.disconnect();
+    observer.disconnect();
+    resizes = null;
+    observedForResize.clear();
+    trackedSizes.clear();
+  };
+}
+
 export const domPageSurface: PageSurface<Element> = {
   now: () => performance.timeOrigin + performance.now(),
   viewport,
   elementAt: (point) => document.elementFromPoint(point.x, point.y),
   describe: describeElement,
   measure,
+  visualRegions,
   prepareClick,
+  watchStructure,
+  structuralTracked: () => observedForResize.size,
 };

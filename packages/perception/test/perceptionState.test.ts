@@ -125,6 +125,7 @@ describe("projectElements over a whole state", () => {
       frame: {
         id: FRAME,
         capturedAt: 0,
+        source: "encoded" as const,
         pixels: new Uint8Array([1]),
         format: "png",
         geometry,

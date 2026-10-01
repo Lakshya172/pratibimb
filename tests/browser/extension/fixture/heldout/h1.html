@@ -1,0 +1,24 @@
+<!doctype html>
+<!--
+  HELD-OUT VISUAL-TEXT SET (RE-1) — image H1: identity card, large type, a non-text photo block.
+  Every value on this page is SYNTHETIC. Identifier-like numbers are checksum-invalid, phone numbers
+  start with 0 (not a valid Indian mobile), and addresses use the reserved `.example` domain.
+  Scored once per candidate under docs/perception/redaction-evaluation.md, never used for tuning.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Held-out H1</title>
+  <style>
+    body { margin: 0; font: 14px/1.4 system-ui, sans-serif; color: #222; background: #fff; }
+    header { position: absolute; left: 40px; top: 18px; }
+    #img { position: absolute; left: 40px; top: 60px; display: block; }
+  </style>
+</head>
+<body>
+  <header>Document viewer — synthetic evaluation image H1</header>
+  <canvas id="img" width="900" height="480" aria-label="Synthetic document image"></canvas>
+  <script>window.__spec = {"id":"H1","case":"identity card, large type, a non-text photo block","background":"#f4efe3","decorations":[{"x":0,"y":0,"w":900,"h":56,"fill":"#2b4a6f"},{"x":700,"y":90,"w":150,"h":180,"fill":"#c9c2b2"}],"lines":[{"x":24,"baseline":38,"font":"bold 22px Georgia","runs":[{"id":"h1-title","text":"UNION IDENTITY SERVICES"}],"color":"#ffffff"},{"x":40,"baseline":110,"font":"14px Arial","runs":[{"id":"h1-l-name","text":"Name"}],"color":"#555555"},{"x":40,"baseline":140,"font":"bold 20px Arial","runs":[{"id":"h1-name","text":"Ananya Venkataraman","sensitive":true}]},{"x":40,"baseline":190,"font":"14px Arial","runs":[{"id":"h1-l-id","text":"Identity number"}],"color":"#555555"},{"x":40,"baseline":226,"font":"bold 26px Arial","runs":[{"id":"h1-idnum","text":"5821 9043 7716","sensitive":true}]},{"x":40,"baseline":276,"font":"14px Arial","runs":[{"id":"h1-l-dob","text":"Date of birth"}],"color":"#555555"},{"x":40,"baseline":302,"font":"bold 18px Arial","runs":[{"id":"h1-dob","text":"14-03-1987","sensitive":true}]},{"x":420,"baseline":276,"font":"14px Arial","runs":[{"id":"h1-l-valid","text":"Valid until"}],"color":"#555555"},{"x":420,"baseline":302,"font":"bold 18px Arial","runs":[{"id":"h1-valid","text":"2031-11-30"}]},{"x":40,"baseline":440,"font":"12px Arial","runs":[{"id":"h1-foot","text":"Synthetic document for evaluation. Not a real identity."}],"color":"#666666"}]};</script>
+  <script src="render.js"></script>
+</body>
+</html>

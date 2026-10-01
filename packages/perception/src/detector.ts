@@ -39,8 +39,14 @@ import { type Perceived, refuse, ok } from "./failure.js";
 /** Execution backends, as measured per-cell in the feasibility matrix. */
 export type Backend = "wasm" | "webgpu";
 
-/** Roles from the frozen constitution §8. */
-export type DetectorRole = "UIElementDetector" | "FaceDetector" | "OCRProvider" | "PIIDetector";
+/**
+ * Roles from the frozen constitution §8.
+ *
+ * `TextRegionDetector` is added by ADR-0011 (approved M10): image region in → text-region boxes and
+ * scores out, and NO TEXT, ever. `OCRProvider` stays a role with no admissible implementation, so a
+ * reading producer cannot enter through the detector's slot.
+ */
+export type DetectorRole = "UIElementDetector" | "FaceDetector" | "OCRProvider" | "PIIDetector" | "TextRegionDetector";
 
 /** One raw detection, in the frame's own pixel space. */
 export interface Detection {

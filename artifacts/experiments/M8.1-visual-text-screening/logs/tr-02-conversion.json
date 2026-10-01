@@ -1,0 +1,178 @@
+{
+  "experiment": "M8.1-visual-text-screening",
+  "candidate": "TR-02",
+  "source": {
+    "repo": "PaddlePaddle/PP-OCRv3_mobile_det",
+    "revision": "58f4e5b132e34e516486fb0d0266c662feb48ca1",
+    "files": {
+      "README.md": {
+        "bytes": 12268,
+        "blob": "a512aa5795d7935c0161d704320f53ee68941814",
+        "sha256": "b56d9e9d1a85aa59a69db6f5e546e69897a8c9e85d0b2076953402a7607eacc1",
+        "verifiedAgainst": "git blob sha1"
+      },
+      "config.json": {
+        "bytes": 2817,
+        "blob": "a0551981b9f859eefe85e312390c77e1582ca0cf",
+        "sha256": "c9d07ea65624c3df541a634a302fe76d53baecf98b5ee9678910b955638d7d80",
+        "verifiedAgainst": "git blob sha1"
+      },
+      "inference.json": {
+        "bytes": 221079,
+        "blob": "bd735fe01d250f9d22fc7d2e6cc614c66875a56d",
+        "sha256": "26c59bd5c5bea8b63efecb9115c35b7eea300081bd8703dc464da4aa19825b98",
+        "verifiedAgainst": "git blob sha1"
+      },
+      "inference.yml": {
+        "bytes": 885,
+        "blob": "8592eccf27798d9fab75c8b740caf1010ee993c9",
+        "sha256": "ccfc8b069bb0d5505ecefa6defc54140c10bf0194fde5395aba0a1a99e5ea90f",
+        "verifiedAgainst": "git blob sha1"
+      },
+      "inference.pdiparams": {
+        "bytes": 2377917,
+        "blob": "b33c3b0c9f487b47cba7da87cb3ed233990a2b33",
+        "sha256": "7e9518c6ab706fe87842a8de1c098f990e67f9212b67c9ef8bc4bca6dc17b91a",
+        "verifiedAgainst": "lfs sha256"
+      }
+    }
+  },
+  "identity": {
+    "licenceAtRevision": "apache-2.0",
+    "licenceEvidence": "README.md front-matter at the pinned revision (no LICENSE file in the repository)",
+    "inferenceYmlModelName": "PP-OCRv3_mobile_det",
+    "matchesRepo": true
+  },
+  "toolchain": {
+    "python": "3.12.14",
+    "paddlepaddle": "3.1.0",
+    "paddle2onnx": "2.1.0",
+    "onnx": "1.17.0",
+    "onnxruntime": "1.29.0"
+  },
+  "call": "paddle2onnx.export(model_filename=inference.json, params_filename=inference.pdiparams, save_file=..., opset_version=16, enable_onnx_checker=True)",
+  "conversions": [
+    {
+      "exit": 0,
+      "ms": 3797.2,
+      "produced": true,
+      "sha256": "322c3e636b936e5bc695ed29ccf2e1588a827989b23e6f395ad7e7edbc236f55",
+      "bytes": 2436135,
+      "warnings": [
+        "<VENV>\\Lib\\site-packages\\paddle\\utils\\cpp_extension\\extension_utils.py:715: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md",
+        "  warnings.warn(warning_message)"
+      ],
+      "console": [
+        "[Paddle2ONNX] Start parsing the Paddle model file...",
+        "[Paddle2ONNX] Use opset_version = 16 for ONNX export.",
+        "[Paddle2ONNX] PaddlePaddle model is exported as ONNX format now.",
+        "2026-09-25 22:45:05 [INFO]\tTry to perform constant folding on the ONNX model with Polygraphy.",
+        "[W] 'colored' module is not installed, will not use colors when logging. To enable colors, please install the 'colored' module: python3 -m pip install colored",
+        "[I] Folding Constants | Pass 1",
+        "[I] Module: 'onnx_graphsurgeon' is required, but not installed. Attempting to install now.",
+        "[I] Running installation command: <VENV>\\Scripts\\python.exe -m pip install onnx_graphsurgeon>=0.3.27 --extra-index-url=https://pypi.ngc.nvidia.com",
+        "[E] Error during installation:",
+        "        <VENV>\\Scripts\\python.exe: No module named pip",
+        "[W] Constant folding pass failed. Skipping subsequent passes.",
+        "    Note: Error was:",
+        "    Could not automatically install required module: onnx_graphsurgeon>=0.3.27. Please install it manually.",
+        "2026-09-25 22:45:06 [INFO]\tONNX model saved in <EXP>\\models\\tr02_ppocrv3_mobile_det.run1.onnx.",
+        "INFO: Could not find files for the given pattern(s).",
+        "<VENV>\\Lib\\site-packages\\paddle\\utils\\cpp_extension\\extension_utils.py:715: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md",
+        "  warnings.warn(warning_message)",
+        "[!] Could not automatically install required module: onnx_graphsurgeon>=0.3.27. Please install it manually."
+      ]
+    },
+    {
+      "exit": 0,
+      "ms": 3757.3,
+      "produced": true,
+      "sha256": "322c3e636b936e5bc695ed29ccf2e1588a827989b23e6f395ad7e7edbc236f55",
+      "bytes": 2436135,
+      "warnings": [
+        "<VENV>\\Lib\\site-packages\\paddle\\utils\\cpp_extension\\extension_utils.py:715: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md",
+        "  warnings.warn(warning_message)"
+      ],
+      "console": [
+        "[Paddle2ONNX] Start parsing the Paddle model file...",
+        "[Paddle2ONNX] Use opset_version = 16 for ONNX export.",
+        "[Paddle2ONNX] PaddlePaddle model is exported as ONNX format now.",
+        "2026-09-25 22:45:09 [INFO]\tTry to perform constant folding on the ONNX model with Polygraphy.",
+        "[W] 'colored' module is not installed, will not use colors when logging. To enable colors, please install the 'colored' module: python3 -m pip install colored",
+        "[I] Folding Constants | Pass 1",
+        "[I] Module: 'onnx_graphsurgeon' is required, but not installed. Attempting to install now.",
+        "[I] Running installation command: <VENV>\\Scripts\\python.exe -m pip install onnx_graphsurgeon>=0.3.27 --extra-index-url=https://pypi.ngc.nvidia.com",
+        "[E] Error during installation:",
+        "        <VENV>\\Scripts\\python.exe: No module named pip",
+        "[W] Constant folding pass failed. Skipping subsequent passes.",
+        "    Note: Error was:",
+        "    Could not automatically install required module: onnx_graphsurgeon>=0.3.27. Please install it manually.",
+        "2026-09-25 22:45:10 [INFO]\tONNX model saved in <EXP>\\models\\tr02_ppocrv3_mobile_det.run2.onnx.",
+        "INFO: Could not find files for the given pattern(s).",
+        "<VENV>\\Lib\\site-packages\\paddle\\utils\\cpp_extension\\extension_utils.py:715: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md",
+        "  warnings.warn(warning_message)",
+        "[!] Could not automatically install required module: onnx_graphsurgeon>=0.3.27. Please install it manually."
+      ]
+    }
+  ],
+  "converted": true,
+  "reproducible": true,
+  "output": {
+    "sha256": "322c3e636b936e5bc695ed29ccf2e1588a827989b23e6f395ad7e7edbc236f55",
+    "bytes": 2436135
+  },
+  "graph": {
+    "opset": [
+      {
+        "domain": "",
+        "version": 16
+      }
+    ],
+    "producer": " ",
+    "ir_version": 8,
+    "nodes": 663,
+    "initializers": 0,
+    "opTypes": {
+      "Add": 39,
+      "BatchNormalization": 49,
+      "Concat": 1,
+      "Constant": 329,
+      "Conv": 72,
+      "ConvTranspose": 2,
+      "GlobalAveragePool": 8,
+      "HardSigmoid": 8,
+      "HardSwish": 20,
+      "Identity": 80,
+      "Mul": 8,
+      "Relu": 22,
+      "Reshape": 18,
+      "Resize": 6,
+      "Sigmoid": 1
+    },
+    "inputs": [
+      {
+        "name": "x",
+        "elemType": 1,
+        "dims": [
+          "DynamicDimension.0",
+          3,
+          "DynamicDimension.1",
+          "DynamicDimension.2"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "fetch_name_0",
+        "elemType": 1,
+        "dims": [
+          "DynamicDimension.3",
+          1,
+          "DynamicDimension.4",
+          "DynamicDimension.5"
+        ]
+      }
+    ]
+  },
+  "status": "CONVERTED, REPRODUCIBLE"
+}
