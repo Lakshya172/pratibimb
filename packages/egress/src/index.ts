@@ -65,3 +65,26 @@ export {
   type StopCause,
   type VerificationState,
 } from "./handoffContract.js";
+
+/**
+ * M12 — QG-04 enforcement: whole-body attestation, the production sender's gates (no transport), the
+ * production configuration (no origin, no authentication) and the server's request check.
+ */
+export {
+  FRAME_EGRESS_STATE,
+  PRODUCTION_HANDOFF_CONFIG,
+  QG04_PROTOCOL,
+  attestHandoffBody,
+  attestedBody,
+  isHandoffAttestation,
+  sendProductionHandoff,
+  validateQg04Request,
+  type AttestRefusal,
+  type AttestedState,
+  type HandoffAttestation,
+  type HandoffAuthentication,
+  type ProductionHandoffConfig,
+  type ProductionSendOutcome,
+  type ProductionSendRefusal,
+  type RuntimeIdentity,
+} from "./qg04.js";

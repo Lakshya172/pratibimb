@@ -1,6 +1,7 @@
-# Redaction Manifest Contract — v1.1
+# Redaction Manifest Contract — v1.1, amended to v1.2
 
-> **FROZEN.** Source: dossier v4.0 section 9.
+> **FROZEN.** Source: dossier v4.0 section 9. **Amended to v1.2 by the owner's M12 decision on
+> ADR-0012 §6** (see "Schema v1.2" below). The v1.1 text is kept as the base it amends.
 > The brief requires the server to be aware of the redaction scheme, so the scheme is a
 > **versioned contract**, not an implementation detail.
 
@@ -46,6 +47,33 @@
   "goal": "Complete the application form"
 }
 ```
+
+---
+
+## Schema v1.2 — the amendment (approved M12, ADR-0012 §6)
+
+v1.2 is v1.1 plus exactly three additions, so visual-only masks and the run identity can travel in
+the QG-04 body:
+
+| field | v1.2 |
+|---|---|
+| `manifest_version` | `"1.2"` |
+| `capture.format` | `"webp"` with `"q": 62` when the body carries a frame part; `"none"` (and no `q`) when it does not |
+| `visual_masks[]` | `{ "region_id": "canvas:N" \| "img:N", "kind": "canvas" \| "img", "bbox": [x, y, w, h] (CSS px), "method": "opaque_fill", "reason": "DETECTED" \| "FAIL_CLOSED:UNAVAILABLE" \| "FAIL_CLOSED:ERROR" \| "FAIL_CLOSED:TIMEOUT" \| "FAIL_CLOSED:MALFORMED" }`. No class, no token, no length, no text |
+| `request` | `{ "id": <request id>, "session": <session id> }` |
+| `verified` | the structure verifier's verdict. With a frame, `true` only if the frame is `VERIFIED` (ADR-0012 §3), which nothing can produce today, so a frame manifest carries `false` |
+
+- **The parser is strict.** An unknown field at any depth, a wrong type, a non-finite number, a value
+  outside its set, an encoded payload or a field named for content (`text`, `value`, `ocr`, `html`,
+  `selector`, `url`, `pixels`, …) is refused with its path.
+- **The serialization is canonical:** keys sorted at every depth, no insignificant whitespace.
+- **`capability.backend`** is `wasm`, `webgpu` or `none` (no local model ran).
+- **The implementation:**
+  - `packages/privacy/src/manifestV12.ts` (`parseManifestV12`, `canonicalManifestJson`,
+    `buildManifestV12`);
+  - the body layout is ADR-0012 §4, in `packages/egress/src/handoffContract.ts`.
+- **Rule 2 above still describes the target.** No server exists yet (ADR-0012 B4), so until it does the
+  client's parser is the reference implementation.
 
 ---
 

@@ -18,7 +18,7 @@
  * the socket. Enabling frame egress needs the blockers in ADR-0012 §13 resolved, and a change here
  * that a test watches.
  */
-import { isMaskVerifiedFrame, scanForVaultValuesAsync, sha256HexOfBytes, type AsyncLiteralOracle } from "@pratibimb/privacy";
+import { canonicalManifestJson, isMaskVerifiedFrame, parseManifestV12, scanForVaultValuesAsync, sha256HexOfBytes, type AsyncLiteralOracle } from "@pratibimb/privacy";
 
 import { inspectWebp } from "./webpContainer.js";
 
@@ -45,64 +45,18 @@ export const isAdmittedFrameVerdict = (candidate: unknown): boolean => typeof ca
 
 // ── the manifest (v1.2, PROPOSED) ─────────────────────────────────────────────────────────────
 
-const TOP_LEVEL = new Set(["manifest_version", "capture", "capability", "redactions", "elements", "visual_masks", "verified", "goal", "request"]);
-const VISUAL_MASK_KEYS = new Set(["region_id", "kind", "bbox", "method", "reason"]);
-/** Keys that would let a manifest carry what it exists to withhold. Refused at any depth. */
-const FORBIDDEN_KEYS = new Set(["text", "value", "values", "ocr", "html", "dom", "selector", "selectors", "url", "href", "src", "pixels", "rgba", "image", "bytes", "b64", "base64", "plaintext", "secret", "literal"]);
-const LONG_BASE64 = /[A-Za-z0-9+/]{200,}/;
-
 export type ManifestRefusal = "MISSING_GOAL" | "MALFORMED_MANIFEST" | "PLAINTEXT_IN_MANIFEST";
 export type ManifestCheck = { readonly ok: true } | { readonly ok: false; readonly code: ManifestRefusal; readonly detail: string };
 
 const isObj = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null && !Array.isArray(v);
-const finite = (...vs: unknown[]) => vs.every((v) => typeof v === "number" && Number.isFinite(v));
 
-function forbiddenAnywhere(v: unknown, path = "$"): string | null {
-  if (typeof v === "string") return LONG_BASE64.test(v) || v.startsWith("data:") ? `${path}: an encoded payload` : null;
-  if (Array.isArray(v)) {
-    for (let i = 0; i < v.length; i++) {
-      const hit = forbiddenAnywhere(v[i], `${path}[${i}]`);
-      if (hit) return hit;
-    }
-    return null;
-  }
-  if (isObj(v)) {
-    for (const [k, x] of Object.entries(v)) {
-      if (FORBIDDEN_KEYS.has(k.toLowerCase())) return `${path}.${k}: a field the manifest may not carry`;
-      const hit = forbiddenAnywhere(x, `${path}.${k}`);
-      if (hit) return hit;
-    }
-  }
-  return null;
-}
-
-/** Structure, allow-list and content checks of the proposed v1.2 manifest. Pure, synchronous. */
+/**
+ * The v1.2 manifest check. M12: this is `@pratibimb/privacy`'s strict parser (owner-approved v1.2),
+ * no longer M11's allow-list, so the payload, the decision and the server parser share one definition.
+ */
 export function checkManifest(manifest: unknown): ManifestCheck {
-  const no = (code: ManifestRefusal, detail: string): ManifestCheck => ({ ok: false, code, detail });
-  if (!isObj(manifest)) return no("MALFORMED_MANIFEST", "not an object");
-  if (typeof manifest["goal"] !== "string" || manifest["goal"].trim() === "") return no("MISSING_GOAL", "the user's goal is missing");
-  if (manifest["manifest_version"] !== "1.2") return no("MALFORMED_MANIFEST", "manifest_version is not 1.2");
-  const extra = Object.keys(manifest).filter((k) => !TOP_LEVEL.has(k));
-  if (extra.length) return no("MALFORMED_MANIFEST", `unexpected top-level field(s): ${extra.length}`);
-  const c = manifest["capture"];
-  if (!isObj(c) || !finite(c["w"], c["h"], c["dpr"], c["zoom"], c["scale_to_css"]) || !isObj(c["scroll"]) || !finite((c["scroll"] as Record<string, unknown>)["x"], (c["scroll"] as Record<string, unknown>)["y"]) || typeof c["origin"] !== "string") {
-    return no("MALFORMED_MANIFEST", "the capture block is incomplete");
-  }
-  if (c["format"] !== "webp" && c["format"] !== "none") return no("MALFORMED_MANIFEST", "capture.format is neither webp nor none");
-  if (c["format"] === "webp" && c["q"] !== 62) return no("MALFORMED_MANIFEST", "a webp capture must declare q 62");
-  const r = manifest["request"];
-  if (!isObj(r) || typeof r["id"] !== "string" || r["id"] === "" || typeof r["session"] !== "string" || r["session"] === "") return no("MALFORMED_MANIFEST", "the request identity is missing");
-  for (const k of ["redactions", "elements", "visual_masks"]) if (!Array.isArray(manifest[k])) return no("MALFORMED_MANIFEST", `${k} is not a list`);
-  if (typeof manifest["verified"] !== "boolean") return no("MALFORMED_MANIFEST", "verified is not a boolean");
-  for (const m of manifest["visual_masks"] as unknown[]) {
-    if (!isObj(m) || Object.keys(m).some((k) => !VISUAL_MASK_KEYS.has(k))) return no("MALFORMED_MANIFEST", "a visual mask carries a field outside the allow-list");
-    if (typeof m["region_id"] !== "string" || !/^(canvas|img):\d+$/.test(m["region_id"])) return no("MALFORMED_MANIFEST", "a visual mask's region id is not positional");
-    const b = m["bbox"];
-    if (!Array.isArray(b) || b.length !== 4 || !finite(...b)) return no("MALFORMED_MANIFEST", "a visual mask's bbox is not four numbers");
-  }
-  const hit = forbiddenAnywhere(manifest);
-  if (hit) return no("PLAINTEXT_IN_MANIFEST", hit);
-  return { ok: true };
+  const parsed = parseManifestV12(manifest);
+  return parsed.ok ? { ok: true } : { ok: false, code: parsed.code, detail: `${parsed.path}: ${parsed.detail}` };
 }
 
 /** Canonical JSON: object keys sorted at every depth, no insignificant whitespace. */
@@ -140,13 +94,11 @@ const concat = (chunks: readonly Uint8Array[]): Uint8Array => {
 };
 
 /** Build the exact body. Deterministic: the same manifest and frame give the same bytes. */
-export async function buildHandoffBody(manifest: unknown, frame: Uint8Array | null): Promise<{ readonly ok: true; readonly handoff: HandoffBody } | { readonly ok: false; readonly code: "BOUNDARY_COLLISION" | "NOT_SERIALIZABLE" }> {
-  let json: string;
-  try {
-    json = canonicalJson(manifest);
-  } catch {
-    return { ok: false, code: "NOT_SERIALIZABLE" };
-  }
+export async function buildHandoffBody(manifest: unknown, frame: Uint8Array | null): Promise<{ readonly ok: true; readonly handoff: HandoffBody } | { readonly ok: false; readonly code: "BOUNDARY_COLLISION" | "NOT_SERIALIZABLE" | ManifestRefusal }> {
+  // Only a manifest that parses as v1.2 is ever serialized, and always canonically.
+  const parsed = parseManifestV12(manifest);
+  if (!parsed.ok) return { ok: false, code: parsed.code };
+  const json = canonicalManifestJson(parsed.manifest);
   const manifestBytes = enc.encode(json);
   const manifestSha256 = await sha256HexOfBytes(manifestBytes);
   const boundary = `pratibimb-${manifestSha256.slice(0, 32)}`;

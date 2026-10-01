@@ -231,3 +231,24 @@ export {
   type MaskedFrameManifest,
   type MaskVerifiedFrame,
 } from "./maskedArtifact.js";
+
+/**
+ * M12 — the redaction manifest v1.2 (owner-approved): strict parser, canonical serializer, and the
+ * builder from a verified handoff (+ an attested frame). Pure.
+ */
+export {
+  MANIFEST_VERSION_V12,
+  VISUAL_MASK_REASONS,
+  buildManifestV12,
+  canonicalManifestJson,
+  parseManifestV12,
+  type BuildManifestOutcome,
+  type CaptureV12,
+  type ElementV12,
+  type ManifestParse,
+  type ManifestRefusalCode,
+  type ManifestV12,
+  type RedactionV12,
+  type VisualMaskReason,
+  type VisualMaskV12,
+} from "./manifestV12.js";
