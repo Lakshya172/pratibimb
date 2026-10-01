@@ -1,5 +1,9 @@
 # QG-04 implementation matrix — frame handoff (M11)
 
+> **Forward pointer (M12):** the status after M12's enforcement work is in
+> [`../M12-qg04-enforcement/qg04-matrix.md`](../M12-qg04-enforcement/qg04-matrix.md). This matrix is
+> the unchanged M11 record.
+
 Requirements are QG-04's eleven checklist items (`agentos/gates/README.md`), in its own order, plus
 the structure-only rule from the frozen verifier (`security-invariants.md`). Invariant E's four
 enforcement mechanisms (dossier p.7) are QG-04 items 1, 2, 4 and 6. Nothing here is a requirement the

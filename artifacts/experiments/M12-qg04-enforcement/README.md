@@ -6,6 +6,8 @@
 > origin (B1), no verifier can return VERIFIED (B2), there is no server (B4) and no authentication (B6).
 > **J7 / B5 is OPEN** (stream RE-1 G4 failed in two of four windows). **B7 remains OPEN** (the CSP
 > leaves non-`connect-src` channels unrestricted; finding F-M12-1).
+>
+> Verdict: [`decision.md`](decision.md). QG-04 status: [`qg04-matrix.md`](qg04-matrix.md).
 
 ## Hypothesis
 

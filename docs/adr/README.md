@@ -10,7 +10,7 @@
 
 ## Recorded ADRs
 
-**Count: 4 approved (ADR-0001, 0002, 0009, 0010), 8 proposed (ADR-0003–0008, 0011, 0012).**
+**Count: 4 approved (ADR-0001, 0002, 0009, 0010), 1 partially approved (ADR-0012), 7 proposed (ADR-0003–0008, 0011).**
 
 | ID | Title | Status | Date | Supersedes |
 |---|---|---|---|---|
@@ -25,7 +25,7 @@
 | [ADR-0009](ADR-0009-gesture-authorised-capture.md) | Gesture-authorised capture: replacing `tabs.captureVisibleTab` in the product path, so a page's pixels never reach the service worker | **APPROVED 2026-09-24 (ronitsaha11) - constitution §5 amended; experimentally verified human-in-the-loop by M4/M5; NOT a readiness claim** | 2026-09-24 | - |
 | [ADR-0010](ADR-0010-change-signal-under-explicit-capture.md) | The change policy under explicit capture: narrowing constitution §6 to the structural signal, under the capture architecture approved in ADR-0009 | **APPROVED 2026-09-24 (ronitsaha11) — Option B, narrow. Structural signal IN FORCE; visual dHash polling DEFERRED; full-frame safety net WITHDRAWN FROM v1. Constitution §5, §6 and §7 amended. Does not reopen ADR-0009. Not approval for autonomous capture** | 2026-09-24 | — |
 | [ADR-0011](ADR-0011-text-region-detector-contract.md) | A detector-only text-region contract: `TextRegionDetector`, fail-closed `TextFinding`, and the adoption boundary for TR-01 / TR-02 (M9) | **PROPOSED — OWNER DECISION REQUIRED. Not implemented; constitution §3/§8 amendment drafted, not applied; product visual-only PII protection NOT VERIFIED** | 2026-09-30 | — |
-| [ADR-0012](ADR-0012-production-frame-handoff.md) | Production frame handoff: the QG-04 artifact, its admissible verification state, the single egress authority and the structure-only fallback (M11) | **PROPOSED — OWNER DECISIONS REQUIRED (§14). Production frame egress BLOCKED (§13: B1–B7). Not implemented; no frame leaves the client** | 2026-10-01 | — |
+| [ADR-0012](ADR-0012-production-frame-handoff.md) | Production frame handoff: the QG-04 artifact, its admissible verification state, the single egress authority and the structure-only fallback (M11) | **PARTIALLY APPROVED (M12, §16): taxonomy, VERIFIED-only, manifest v1.2, multipart approved; origin and authentication deliberately unconfigured. Enforcement implemented (M12). B2 and B5 undecided. Production frame egress BLOCKED; no frame leaves the client** | 2026-10-01 | — |
 
 > **ADR-0001 covers issues #17 and #5 in one decision**, because S-02a-2a-4 measured that
 > the CSP directive and the `connect-src` egress pin live in the same manifest and constrain

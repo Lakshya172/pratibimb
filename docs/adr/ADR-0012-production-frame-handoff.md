@@ -2,16 +2,16 @@
 id: ADR-0012
 title: "Production frame handoff: the QG-04 artifact, its admissible verification state, the single egress authority and the structure-only fallback"
 version: 1.0
-status: PROPOSED — OWNER DECISIONS REQUIRED (§14); production frame egress BLOCKED (§13)
+status: PARTIALLY APPROVED (M12, §16) — §14 items 1, 3, 4/B6 (unconfigured) and 5 decided by the owner; items 2 (B2) and 6 (B5) open; production frame egress BLOCKED (§13)
 owner: pratibimb-architect
 proposed_by: pratibimb-architect
 created: 2026-10-01
-modified: 2026-10-01
+modified: 2026-10-01 (M12 §16)
 supersedes: none
-amends_on_approval: "docs/architecture/manifest-schema.md (v1.1 → v1.2, §6) — drafted, NOT applied"
+amends_on_approval: "docs/architecture/manifest-schema.md (v1.1 → v1.2, §6) — APPLIED in M12"
 related_gates: QG-04 (UNSIGNED), QG-03 (any verifier model)
 related_invariants: INV-01, INV-02, INV-03, INV-11, INV-21, INV-22, INV-23, INV-24 — none weakened
-evidence: artifacts/experiments/M11-production-frame-handoff/ (review, QG-04 matrix); M10 (artifacts/experiments/M10-visual-redaction-integration/)
+evidence: artifacts/experiments/M11-production-frame-handoff/ (review, QG-04 matrix); artifacts/experiments/M12-qg04-enforcement/ (enforcement, interception, stream RE-1); M10 (artifacts/experiments/M10-visual-redaction-integration/)
 ---
 
 # ADR-0012 — Production frame handoff
@@ -288,3 +288,39 @@ backstop.
 - It does not connect a reasoner or server.
 - It does not put the M10 verifier in the product.
 - It does not change capture, detection, masking, actions or the demo.
+
+## 16. M12 — owner decisions and implementation record (2026-10-01)
+
+The owner decided, in the M12 brief:
+
+- §14.1 — the taxonomy is approved, and only `VERIFIED` may authorize frame egress. DETECTOR_VERIFIED
+  is not promoted, and Invariant E is unchanged.
+- §14.3 — manifest v1.2 is approved (applied to `docs/architecture/manifest-schema.md`).
+- §14.5 — the §4 multipart layout is approved.
+- §14.4 / B1 / B6 — the production origin stays **unconfigured** and authentication stays
+  **undefined**. Neither is invented.
+- The M10/M11 loopback stays test-only.
+
+§14.2 (B2) and §14.6 (B5) are **not** decided.
+
+M12 implemented the enforcement layer this ADR specifies, without enabling frame egress. The record is
+[`artifacts/experiments/M12-qg04-enforcement/`](../../artifacts/experiments/M12-qg04-enforcement/README.md);
+the QG-04 status is in its
+[`qg04-matrix.md`](../../artifacts/experiments/M12-qg04-enforcement/qg04-matrix.md).
+
+| § | blocker | after M12 |
+|---|---|---|
+| 13 | B1 | OPEN (owner: unconfigured) |
+| 13 | B2 | OPEN |
+| 13 | B3 | **RESOLVED** (v1.2 applied) |
+| 13 | B4 | OPEN (an isolated request parser exists; no server) |
+| 13 | B5 | OPEN. Stream RE-1 at four device scales: G1–G3 pass with 0 / 1224 exposed, but **G4 failed** at 1.25 and 1.5 (F-M12-2). |
+| 13 | B6 | OPEN (owner: undefined) |
+| 13 | B7 | PARTIAL. The repository network gate and the interception suite are MET. **F-M12-1:** the ADR-0001 CSP leaves `img-src` and `frame-src` open, which injected code used; closing it needs an ADR on the CSP. |
+
+Production frame egress is impossible by three independent locks:
+
+1. Nothing can attest VERIFIED.
+2. The production configuration has no origin and no authentication.
+3. The production sender contains no transport.
+
