@@ -21,3 +21,18 @@ export {
   type EgressTransport,
   type PeerReceipt,
 } from "./guard.js";
+
+/**
+ * M10.7 — one MASK-VERIFIED WebP frame, through the same choke point: attested → loopback → hash pin →
+ * still-WebP container → send. Not a general egress primitive; no product caller.
+ */
+export {
+  FRAME_SHA_HEADER,
+  sendMaskVerifiedFrame,
+  type FrameEgressOutcome,
+  type FrameEgressRecord,
+  type FrameEgressRefusal,
+  type FrameEgressRefusalCause,
+  type FrameEgressRequest,
+} from "./frame.js";
+export { inspectWebp, type WebpInspection } from "./webpContainer.js";

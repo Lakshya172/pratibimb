@@ -209,3 +209,25 @@ export {
   type PixelRect,
   type RgbaFrame,
 } from "./pixelRedaction.js";
+
+/**
+ * M10.7 — the masked-frame artifact: the decoded-mask check (steps 1–2 of the frozen verifier) and
+ * the MASK-VERIFIED attestation egress asks for. Pixels, geometry and digests; no browser codec.
+ */
+export {
+  MASK_INTERIOR_INSET_PX,
+  WEBP_MASK_TOLERANCE,
+  WEBP_QUALITY,
+  attestMaskedFrame,
+  checkDecodedMask,
+  hasWebpSignature,
+  isMaskVerifiedFrame,
+  sha256HexOfBytes,
+  type AttestInput,
+  type AttestOutcome,
+  type AttestRefusalCode,
+  type DecodedMaskCheck,
+  type DecodedMaskRect,
+  type MaskedFrameManifest,
+  type MaskVerifiedFrame,
+} from "./maskedArtifact.js";

@@ -1,9 +1,12 @@
 # M10 — visual redaction integration (in progress)
 
 > **Status: IN PROGRESS.** M10 is being delivered as separately committed units. Product visual-only
-> PII protection remains **NOT VERIFIED**: nothing recorded here encodes or sends a frame. From M10.6
-> the product perception pass on the gesture route captures, runs TR-01 and masks in place, and keeps
-> the sanitized RGBA frame in the offscreen document; encoding and the test loopback are the next unit.
+> PII protection remains **NOT VERIFIED**. From M10.6 the product perception pass on the gesture route
+> captures, runs TR-01 and masks in place. From M10.7 the realm can encode that sanitized frame as
+> WebP q62, check the mask on the decoded bytes (steps 1–2 of the frozen verifier) and, in the
+> evidence build only, send it through the egress choke point to a TEST-ONLY loopback sink. The
+> product build sends no frame; steps 3–6 of the verifier (OCR re-read, re-detection, value check,
+> re-dilation) are not implemented.
 
 | unit | commit | what it established |
 |---|---|---|
@@ -12,7 +15,8 @@
 | M10.3 | `6121081` | visual-only region enumeration in OBSERVE (`visualRegions`) |
 | M10.4 | `67e0509` | TR-01 in a dedicated worker owned by the offscreen document; external 2,000 ms deadline |
 | M10.5 | `4e8fbfb` | full-frame TR-01 → fail-closed plan → canonical geometry → opaque pixel mask, in place |
-| M10.6 | this unit | that chain wired into the product perception pass, on the real toolbar-gesture stream |
+| M10.6 | `f48c8f6` | that chain wired into the product perception pass, on the real toolbar-gesture stream |
+| M10.7 | this unit | sanitized frame → WebP q62 → decoded-mask attestation → egress choke point → test-only loopback sink |
 
 ## Hypothesis
 
@@ -49,6 +53,13 @@ mask every region whole, and REFUSED should leave no frame.
 The worker and the service worker should receive nothing beyond what M10.4 and M3.1 allow, and the
 detector's output on frozen frames should be unchanged from M8.1.
 
+**M10.7.** The kept sanitized frame — and only it — can be encoded as WebP q62. The bytes decode back
+with every mask still a mask, and they reach a loopback sink through the single egress module as
+exactly the bytes that were checked. Everything that is not such an attested frame is refused before
+the wire: raw RGBA, an unchecked WebP, a mutated one, a non-loopback destination. REFUSED leaves
+nothing to encode. A verifier that shares no code with the producer agrees when it decodes what
+arrived.
+
 ## Environment
 
 W1 (`LAPTOP-6E14K34L`), Windows 11, Chrome for Testing (Playwright `chromium-1243`), headed, built
@@ -72,6 +83,15 @@ MV3 host from this commit's tree. Full provenance is in each log.
   M10.5 fixture `/mask/` at 1280×720 CSS px, and waits for **one real toolbar click by the owner**.
   Nothing in the harness produces, simulates or substitutes for the click. Machine state at launch
   (read, not changed): on AC power, Windows power plan Balanced, CPU load 23%.
+- **M10.7:** the same builds and fixture as M10.6, four windows (forced scale 1, 1.25, 1.5, 2), one
+  owner click each. In each window:
+  - **the sink:** a test-only Node HTTP server, `tests/browser/support/frame-sink.mjs`, bound to
+    127.0.0.1:8995 — the extension's one pinned `connect-src` origin, so no permission or CSP
+    changed;
+  - **the independent decode:** a separate page of the same browser, `about:blank`, not the extension;
+  - **the WebP-only bench:** n = 10 encode → decode → attest cycles of the kept frame, with no detector.
+
+  Machine state at launch of the recorded run: on AC power, Balanced, CPU load 21%.
 
 ## Expected result
 
@@ -127,6 +147,31 @@ MV3 host from this commit's tree. Full provenance is in each log.
   - there are no foreign-origin arrivals;
   - warm TR-01 stays under 2,000 ms, and combined WASM memory is at most 200 MB.
 - **RE-1:** on the frozen frames, the product path's boxes, masks and RE-1 scores equal M8.1's.
+
+**M10.7**, in each window:
+
+- **The artifact:**
+  - The kept sanitized frame encodes to a still WebP of the capture size, carrying only `VP8X` and
+    `VP8 ` chunks.
+  - Every mask interior, inset by the frozen 4 px dilation, decodes to within `WEBP_MASK_TOLERANCE`
+    (8 levels) of the fill.
+  - `sendMaskVerifiedFrame` sends it once, as `image/webp`, and the sink accepts it.
+- **Integrity and independence:**
+  - The digests agree three ways: attested = sent = received.
+  - The received bytes are not the raw frame, by hash and by size.
+  - They carry none of the fixture's strings.
+  - Decoded by the sink's side, every fixture ink pixel is within 8 levels of black.
+  - The control regions' decoded means are within 8 levels of what was encoded (gate as decided after
+    run 2, below).
+- **Failure rows:**
+  - The timeout frame is sent with every region masked whole.
+  - REFUSED leaves no frame: no WebP, no request.
+  - The nine refused-egress attempts are each refused before the wire, and the sink sees nothing.
+- **Network and boundaries:**
+  - Offscreen fetches go only to the extension's own origin and to the sink: 2 to the sink, the two
+    artifacts.
+  - The service worker records no pixels and no WebP bytes.
+  - The worker's message shapes are unchanged from M10.6.
 
 ## Actual result
 
@@ -380,6 +425,103 @@ M10.3, M10.4 and M10.5 were re-run on this tree: rectangles, checks, golden outp
 identical to their committed records, timing aside. Their committed logs were then restored
 unchanged.
 
+**M10.7: PASS on the real gesture route in all four windows, on the third formal run**,
+`logs/w1-cft-webp-loopback-run3.json` (verdict `EXPERIMENTALLY VERIFIED (HUMAN-IN-THE-LOOP)`, 23
+checks true in every window). Runs 1 and 2 failed one harness check and are kept and disclosed below.
+
+| | DPR 1 | DPR 1.25 | DPR 1.5 | DPR 2 |
+|---|---|---|---|---|
+| page `devicePixelRatio` | 1 | 1.25 | 1.5 | 2 |
+| stream frame = WebP size | 1280×720 | 1280×720 | 1280×720 | 1280×720 |
+| WebP payload (normal / timeout frame) | 4,306 / 4,136 B | 4,198 / 3,972 B | 4,182 / 4,000 B | 4,236 / 4,112 B |
+| chunks | VP8X, VP8 | VP8X, VP8 | VP8X, VP8 | VP8X, VP8 |
+| mask rectangles (area) | 5 (56,401 px) | 5 (55,103 px) | 5 (55,103 px) | 5 (55,103 px) |
+| producer: worst interior / worst edge, levels from fill | 2 / 23 | 2 / 23 | 2 / 23 | 2 / 16 |
+| producer: outside the mask, decoded vs encoded (max / mean abs, PSNR) | 49 / 0.68, 45.7 dB | 49 / 0.67, 46.0 dB | 51 / 0.67, 45.9 dB | 35 / 0.65, 47.2 dB |
+| sink: fixture ink, brightest channel per line | 0, 0, 1, 2, 0 | 0, 0, 1, 2, 1 | 0, 0, 1, 2, 1 | 0, 0, 0, 2, 0 |
+| sink: timeout frame, each region's interior, brightest | 2, 3, 4 | 2, 3, 4 | 2, 3, 4 | 3, 4, 4 |
+| sink: swatch / blank / text mean, decoded vs encoded | 0.57 / 1 / 0.59 | 0.57 / 1 / 0.60 | 0.56 / 1 / 0.53 | 1.02 / 1 / 0.54 |
+| sink: worst single swatch pixel outside the encoded value | 21, at the region's edge | 21, at the edge | 21, at the edge | 5, 20 px inside |
+| attested = sent = received, peer receipt agrees | yes | yes | yes | yes |
+| producer masks = M10.6's recorded masks at this scale | yes | yes | yes | yes |
+
+**Lifetime.** `encodeSanitized` takes no argument. It encodes the realm's kept sanitized frame —
+masked in place, so the raw pixels under the mask no longer exist — and the raw bitmap was closed at
+read (M10.6). Every artifact's `sanitizedRgbaSha256` differs from the raw frame's SHA-256, which the
+test seam took before the fill. After a REFUSED or failed pass there is no kept frame, and
+`encodeSanitized` refuses (`NO_SANITIZED_FRAME`). Node tests cover the same for detector error, timeout,
+malformed output, unavailability, an empty successful detection, a later failed pass, and a codec that
+returns PNG, nothing, other dimensions or an unmasked decode.
+
+**Egress refusals, every window:** all fired before any fetch and with no sink arrival.
+
+| attempt | refused at | cause |
+|---|---|---|
+| raw RGBA shaped as an artifact | VERIFY | `FRAME_NOT_MASK_VERIFIED` |
+| the kept sanitized frame object | VERIFY | `FRAME_NOT_MASK_VERIFIED` |
+| an ImageBitmap | VERIFY | `FRAME_NOT_MASK_VERIFIED` |
+| arbitrary bytes | VERIFY | `FRAME_NOT_MASK_VERIFIED` |
+| an unattested WebP of the sanitized frame | VERIFY | `FRAME_NOT_MASK_VERIFIED` |
+| empty bytes | VERIFY | `FRAME_NOT_MASK_VERIFIED` |
+| malformed WebP-like bytes | VERIFY | `FRAME_NOT_MASK_VERIFIED` |
+| an attested frame mutated after attestation | HASH | `PAYLOAD_HASH_MISMATCH` |
+| an attested frame to a non-loopback destination | DESTINATION | `DESTINATION_NOT_LOOPBACK` |
+
+The sink's own unit tests reject raw RGBA, PNG, plaintext, empty bodies, other origins, other paths,
+metadata chunks, wrong sizes and digest mismatches, and it refuses to bind anything but 127.0.0.1.
+
+**Cost of the WebP step alone** (n = 10 per window, kept frame, no detector, `performance.now()` ms):
+
+| median / p90 / min / max | DPR 1 | DPR 1.25 | DPR 1.5 | DPR 2 |
+|---|---|---|---|---|
+| encode (canvas → WebP q62, profile removed) | 35.1 / 36.7 / 33.9 / 44.4 | 35.35 / 37.0 / 34.0 / 39.8 | 34.7 / 35.5 / 33.6 / 39.7 | 36.0 / 42.1 / 33.9 / 44.9 |
+| decode back | 9.4 / 9.8 / 8.9 / 10.7 | 9.45 / 11.1 / 8.7 / 11.5 | 9.1 / 10.1 / 8.6 / 10.4 | 9.7 / 10.9 / 9.1 / 11.7 |
+| mask check + attestation (hashing included) | 11.35 / 14.1 / 9.9 / 17.9 | 10.05 / 13.7 / 9.6 / 17.4 | 11.4 / 14.4 / 9.8 / 17.7 | 10.45 / 13.2 / 9.9 / 18.3 |
+| whole step, wall | 57.9 / 63.3 / 53.3 / 65.0 | 56.65 / 61.9 / 52.7 / 63.8 | 55.5 / 62.3 / 52.6 / 64.2 | 57.6 / 65.3 / 53.0 / 66.5 |
+
+- **Determinism:** the WebP bytes were identical across all 10 runs in every window, and so were the
+  decoded pixels.
+- **Temporary memory, as exact JS byteLengths:**
+  - the WebP itself (4–5 KB);
+  - its attested copy (the same size);
+  - the decoded RGBA, 3,686,400 B.
+
+  The two opaque canvases (encode, decode) are allocated by the browser and are not observable from
+  JS; at 4 bytes per pixel they are 2 × 3,686,400 B, inferred, not measured.
+- **WASM linear memory:** unchanged at 165,150,720 B (157.5 MiB).
+
+**Chrome's colour profile is removed before the check.** Chrome's WebP encoder embeds a 456-byte
+sRGB ICC profile ("Google Inc. 2016") flagged in `VP8X`. The first dry run's egress refused it, since
+the container rule admits no metadata. The realm's encoder now drops the `ICCP` chunk and clears the
+flag before the decode-back. The attestation, the hash and the send therefore all concern the
+profile-free bytes. Egress and the sink independently refuse any metadata chunk.
+
+**Formal-run history, disclosed.** Every run had all four real clicks recorded.
+
+- **Run 1,** `logs/w1-cft-webp-loopback.json`: FAIL on one check, `independentlyControlsPreserved`.
+  - That check compared the decoded swatch with the fixture's CSS colour, per pixel, within 8 levels.
+    It measured 22 at DPR 1–1.5 and 6 at DPR 2.
+  - I attributed this, wrongly, to the tab stream shifting colours. **Run 2 refuted that:** the
+    ENCODED swatch equals its CSS colour to within 1 level at every scale.
+- **Run 2,** `logs/w1-cft-webp-loopback-run2.json`: FAIL on one check,
+  `independentlyControlsPreservedThroughWebp`.
+  - That check compared each decoded pixel with the encoded region's own range, plus 8 levels. Single
+    swatch pixels strayed up to 21 levels (13 beyond the band) at DPR 1–1.5, while the region means
+    held within 1.02.
+  - **The owner decided the gate** after seeing these numbers: control regions are judged by their
+    decoded MEAN against the encoded mean (≤ 8 levels), and the worst single pixel is recorded, not
+    gated, because q62 is lossy.
+- **Run 3:** recorded with that gate, plus the position of the worst pixel. At DPR 1–1.5 it lies on
+  the inset boundary, 4 px from the swatch's high-contrast edge, which is consistent with codec
+  ringing at an edge (INFERENCE from its position; the encoder's internals were not inspected).
+
+In every run, every privacy and egress check passed in every window.
+
+**The M10.6 stream-geometry finding is unchanged.** M10.7 changes no detector input, threshold,
+post-processing or geometry. The producer's mask rectangles in each window equal M10.6's recorded
+masks at the same scale. Nothing here measures stream-versus-screenshot pixel equivalence, and
+nothing here claims it.
+
 ## Conclusion
 
 Region enumeration works through the real extension on this fixture. That supplies the regions the
@@ -411,6 +553,18 @@ the sanitized RGBA frame held.
   is a measurement for a later unit.
 - **Not yet verified:** visual-only PII protection in the product, until the sanitized frame is
   encoded, verified and sent through the test-only loopback sink.
+
+M10.7: the sanitized frame, and only it, becomes a WebP q62 artifact whose mask is checked on its
+own decoded bytes. It can leave only through the egress choke point, as exactly the attested bytes,
+and only to loopback. On W1, in four real-click windows, it reached a test-only sink. There, code
+that shares nothing with the producer found every synthetic ink pixel black, the controls intact,
+the digests equal and no raw frame. Everything else sent at it was refused before the wire.
+
+- **What remains unverified** is the rest of the frozen verifier: OCR re-read, re-detection, the
+  vault value check and the 12 px re-dilation loop. **Without these, the artifact is MASK-VERIFIED,
+  not verified.**
+- **Production frame egress is still a separate decision.** The product build contains no frame
+  egress.
 
 ## Reproducibility
 
@@ -464,3 +618,19 @@ node tests/browser/extension/analyse-re1-stream.mjs
 - **The first three commands need no click.** The dry run is the degraded-route rehearsal and is
   never gesture evidence.
 - **Unit tests:** `apps/extension/test/perceptionPass.test.ts`.
+
+M10.7 (the harness builds both variants, starts the sink on 127.0.0.1:8995, and restores the product
+build; a formal run never overwrites an earlier one, so later runs set `M107_RUN`):
+
+```
+CHROME_PATH="<chrome for testing>" M107_DRY_RUN=1 M107_DPRS=1 node tests/browser/extension/run-webp-loopback.mjs
+CHROME_PATH="<chrome for testing>" M107_RUN=3 node tests/browser/extension/run-webp-loopback.mjs
+```
+
+- **The second command needs a person:** one toolbar click per window.
+- **Unit tests:**
+  - `packages/privacy/test/maskedArtifact.test.ts`;
+  - `packages/egress/test/frame.test.ts`;
+  - `tests/browser/support/frame-sink.test.mjs`;
+  - `apps/extension/test/perceptionPass.test.ts` (M10.7 sections);
+  - `apps/extension/test/webpEgressBoundary.test.ts`.

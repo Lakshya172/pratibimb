@@ -79,3 +79,22 @@ loopback sink.
 | verification seams | test builds only (`#tr01-probe`): an instrumented spawn, the pre-fill digest hook (`onMaskPlanned`) and a stage-name hook (`onStage`). The product build resolves them to `null`, and a seam that throws cannot change a pass |
 | RE-1 on stream frames | measured, not tuned: TR-01's boxes on gesture-stream frames are not byte-equal to M8.1's (largest coordinate difference 2.71 px, same counts, every RE-1 gate passing, 0 / 306 exposed). The **owner directed** that this be recorded as a finding and that M10.6 proceed. M9 J7 (stream-route re-screening) is **not closed** by six images at one scale |
 | output | the sanitized RGBA frame, in the offscreen document. Nothing is encoded or sent; WebP and the test-only loopback sink are the next unit |
+
+## M10.7 decisions (sanitized WebP, verified egress, test-only loopback)
+
+> **Forward pointer.** The M10.6 "output" row above ("Nothing is encoded or sent") is superseded for
+> the evidence build by this section. The product build still encodes and sends nothing.
+
+| question | decision |
+|---|---|
+| encoder location | the perception realm (`perception-realm.ts`, `browserWebpCodec`), handed in by the offscreen document as `deps.codec`. Not the service worker, not `@pratibimb/privacy`, not the transport, not the TR-01 worker. Kept in the realm's own file, because only that file may turn bytes into pixels (`visualBoundary.test.ts`) |
+| input | `encodeSanitized()` takes no frame. It encodes the realm's kept SANITIZED frame or refuses (`NO_SANITIZED_FRAME`). REFUSED and failed passes keep none, so they produce no WebP and no request |
+| encoding | WebP at quality 0.62 (dossier q62), from an opaque canvas. A blob the browser labels as anything but `image/webp` is refused |
+| colour profile | Chrome embeds a 456-byte sRGB ICC profile. The realm's encoder drops `ICCP` and clears its `VP8X` flag before the decode-back, so the payload is pixels only and everything after concerns those bytes |
+| what is checked | steps 1–2 of the frozen verifier: the bytes are decoded back, and every mask interior, inset by the frozen 4 px dilation, must be within `WEBP_MASK_TOLERANCE` = 8 levels of the fill. **Engineering parameter, set by measurement** (q62 interiors ≤ 2 on W1; unmasked text sits on 255); owner-reviewable. Steps 3–6 (OCR re-read, re-detection, value check, re-dilation) are NOT implemented |
+| the attestation | `attestMaskedFrame` (`@pratibimb/privacy`, pixels and digests only) hashes a private copy of the bytes and registers the frame in a module-private `WeakSet`. Its status is **MASK_VERIFIED**, never "verified". The manifest carries ids, rectangles, counts, hashes and status: no text, no pixels |
+| egress | `sendMaskVerifiedFrame`, in the single egress module beside `sendVerified`. In order: registry membership → loopback only → bytes copied once → SHA-256 equal to the attested one → a still WebP with no metadata chunk, of the attested size → one `fetch`. Not a general primitive. **No product module calls it**, and the product bundle does not contain it |
+| the sink | test-only (`tests/browser/support/frame-sink.mjs`), bound to 127.0.0.1:8995, the existing pinned `connect-src` origin. Accepts one still WebP of the expected size from the extension's origin, whose bytes match the declared digest, and rejects everything else. Never alters a payload; never decodes |
+| independent verification | the harness decodes what the sink accepted, in a page that is not the extension, with its own container reader. It checks digests, size, absence of the raw frame and of fixture text, every fixture ink pixel within 8 levels of black, and the controls |
+| controls, after lossy WebP | **owner decision after formal runs 1–2:** a control region passes when its decoded MEAN is within 8 levels of the encoded region's mean. The worst single pixel is recorded with its position, not gated. Runs 1 and 2, which failed earlier per-pixel versions of this check, are kept |
+| stream finding | unchanged and still open: no detector input, threshold, post-processing, geometry or RE-1 data was touched |

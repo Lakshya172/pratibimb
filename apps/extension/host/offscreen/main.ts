@@ -17,7 +17,7 @@ import { identityOf, isFromThisExtension, type ToOffscreen } from "../../host-li
 import { chromeRelay } from "../../host-lib/transport-chrome";
 import { installTransportControlPlane } from "../../host-lib/transport-control-plane";
 import { type CaptureTicket } from "../../host-lib/capture-authority";
-import { createPerceptionRealm, type PerceptionOptions, type PerceptionRealm } from "../../host-lib/perception-realm";
+import { browserWebpCodec, createPerceptionRealm, type PerceptionOptions, type PerceptionRealm } from "../../host-lib/perception-realm";
 import { createTr01Host, spawnTr01Worker, type Tr01Host } from "../../host-lib/tr01-host";
 import { createReleaseAuthority, type AttestedAsker } from "../../host-lib/value-release";
 
@@ -137,6 +137,8 @@ async function ensurePerception(): Promise<PerceptionRealm> {
     acceptedBackends: error === null ? ["wasm"] : [],
     // M10.6: TR-01 on the full frame, after the UI head, then the local redaction stage.
     textRegions: { detect: (frame, options) => textRegionHost().detect(frame, options) },
+    // M10.7: the realm's WebP codec. Used only by `encodeSanitized`, which nothing in this build calls.
+    codec: browserWebpCodec,
     ...(tr01Seam?.onMaskPlanned ? { onMaskPlanned: tr01Seam.onMaskPlanned } : {}),
     ...(tr01Seam?.onStage ? { onStage: tr01Seam.onStage } : {}),
   });
@@ -402,6 +404,8 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
       perceiveTab,
       sanitizedFrame: () => perceptionRealm?.sanitizedFrame() ?? null,
       tr01Status: () => tr01Host?.status() ?? null,
+      encodeSanitized: () => perceptionRealm?.encodeSanitized() ?? Promise.resolve({ ok: false, code: "NO_SANITIZED_FRAME", detail: "no perception realm" }),
+      codec: browserWebpCodec,
     })
   ) {
     return true;

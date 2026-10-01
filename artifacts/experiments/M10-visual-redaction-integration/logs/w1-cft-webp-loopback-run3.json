@@ -1,0 +1,5325 @@
+{
+  "experiment": "M10.7 — sanitized WebP through the egress choke point to a test-only loopback sink, on the real gesture route",
+  "verdict": "PASS",
+  "status": "EXPERIMENTALLY VERIFIED (HUMAN-IN-THE-LOOP)",
+  "dryRun": false,
+  "humanInTheLoop": true,
+  "invocationMethod": "a person clicked the extension's toolbar action once per window; nothing in this process produced, simulated or substituted for the click",
+  "realGesturePerWindow": [
+    {
+      "dpr": 1,
+      "realGesture": "RECORDED"
+    },
+    {
+      "dpr": 1.25,
+      "realGesture": "RECORDED"
+    },
+    {
+      "dpr": 1.5,
+      "realGesture": "RECORDED"
+    },
+    {
+      "dpr": 2,
+      "realGesture": "RECORDED"
+    }
+  ],
+  "notAClaim": [
+    "MASK-VERIFIED is steps 1–2 of the frozen verifier (mask, then WebP q62 decoded back). OCR re-read, D2/D3 re-detection, the vault value check and the 12 px re-dilation loop did not run",
+    "the sink is a test-only loopback collector; nothing was sent off this machine and no production egress exists",
+    "one synthetic fixture, one workstation, one operator; the M10.6 stream-vs-screenshot detector finding is unchanged by this unit"
+  ],
+  "sinkTolerance": 8,
+  "build": {
+    "productRoute": {
+      "background": "2d22c9d6a505b7e73693f3c8470558c52ceee0d78a2c26d229be8b7963f13043",
+      "content": "19a1d7bb361ac2def8cbfcc5882e48aa13f60f93a9f970d2437b41efd866fae7",
+      "manifest": "7d6f8fd65109e851c40f980a7ac9ee97256281b4821497c015660db919bbfa5a"
+    },
+    "evidenceRoute": {
+      "background": "2d22c9d6a505b7e73693f3c8470558c52ceee0d78a2c26d229be8b7963f13043",
+      "content": "19a1d7bb361ac2def8cbfcc5882e48aa13f60f93a9f970d2437b41efd866fae7",
+      "manifest": "7d6f8fd65109e851c40f980a7ac9ee97256281b4821497c015660db919bbfa5a"
+    },
+    "routeIdenticalToProduct": true,
+    "permissions": [
+      "offscreen",
+      "sidePanel",
+      "activeTab",
+      "tabCapture"
+    ],
+    "hostPermissions": [
+      "http://127.0.0.1/*"
+    ],
+    "csp": {
+      "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8995"
+    },
+    "productBundleCarriesFrameEgress": false,
+    "productBundleCarriesSinkPath": false,
+    "evidenceBundleCarriesFrameEgress": true,
+    "noCaptureVisibleTab": true
+  },
+  "gates": {
+    "deadlineMs": 2000,
+    "wasmBudgetBytes": 209715200
+  },
+  "machine": {
+    "at": "2026-10-01T11:19:53.446Z",
+    "acPower": "True",
+    "powerScheme": "Power Scheme GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (Balanced)",
+    "cpuLoadPercent": "21"
+  },
+  "cells": [
+    {
+      "dpr": 1,
+      "window": "1 of 4",
+      "realGesture": "RECORDED",
+      "failure": null,
+      "steps": {
+        "gesture": {
+          "tabId": 433440978,
+          "observedAt": "2026-10-01T11:20:16.057Z",
+          "waitedMs": 14836
+        }
+      },
+      "preflight": {
+        "freshProfile": true,
+        "noOffscreenBeforeThisRun": true,
+        "fixturePageServed": true,
+        "contentScriptAttested": true,
+        "fixtureTabIsActive": true,
+        "actionPresent": true,
+        "noGrantYet": true,
+        "captureRefusedBeforeGesture": true,
+        "browserRefusesStreamIdBeforeGesture": true,
+        "instrumentationReady": true,
+        "productTr01HostNotYetCreated": true,
+        "noSanitizedFrameHeld": true,
+        "sinkListeningAndIdle": true,
+        "pageDevicePixelRatio": 1
+      },
+      "stream": {
+        "capture": {
+          "w": 1280,
+          "h": 720,
+          "format": "live-bitmap",
+          "bytes": 3686400,
+          "dpr": 1,
+          "scaleToCss": 1
+        },
+        "route": "GESTURE_STREAM",
+        "viewport": {
+          "w": 1280,
+          "h": 720,
+          "dpr": 1,
+          "scrollX": 0,
+          "scrollY": 0
+        },
+        "requestedDeviceScale": 1,
+        "pageDevicePixelRatio": 1
+      },
+      "geometry": {
+        "visualRegions": [
+          {
+            "id": "canvas:0",
+            "kind": "canvas",
+            "rect": {
+              "x": 40,
+              "y": 60,
+              "w": 520,
+              "h": 200
+            }
+          },
+          {
+            "id": "img:0",
+            "kind": "img",
+            "rect": {
+              "x": 640,
+              "y": 60,
+              "w": 480,
+              "h": 160
+            }
+          },
+          {
+            "id": "canvas:1",
+            "kind": "canvas",
+            "rect": {
+              "x": -80,
+              "y": 330,
+              "w": 420,
+              "h": 150
+            }
+          }
+        ],
+        "detections": [
+          {
+            "x": 658.4216772151899,
+            "y": 97.57950949367088,
+            "w": 400.6566455696202,
+            "h": 27.590981012658247,
+            "score": 0.858251346725654
+          },
+          {
+            "x": 63.45052083333333,
+            "y": 105.48046875000001,
+            "w": 365.5989583333333,
+            "h": 27.539062499999986,
+            "score": 0.8963407838087287
+          },
+          {
+            "x": 658.2755335365853,
+            "y": 160.44798018292684,
+            "w": 209.69893292682934,
+            "h": 24.479039634146346,
+            "score": 0.8903142643872127
+          },
+          {
+            "x": 63.14123376623376,
+            "y": 179.45211038961043,
+            "w": 293.7175324675324,
+            "h": 24.72077922077918,
+            "score": 0.9106936051143898
+          },
+          {
+            "x": 636.3655660377358,
+            "y": 360.1040094339623,
+            "w": 337.2688679245283,
+            "h": 30.166981132075477,
+            "score": 0.7732013862369397
+          },
+          {
+            "x": 29.40456081081081,
+            "y": 394.33910472972974,
+            "w": 282.44087837837833,
+            "h": 24.696790540540576,
+            "score": 0.9695452370398605
+          }
+        ],
+        "masks": [
+          {
+            "regionId": "canvas:0",
+            "cssMask": [
+              {
+                "x": 59.45052083333333,
+                "y": 101.48046875000001,
+                "w": 373.5989583333333,
+                "h": 35.539062499999986
+              },
+              {
+                "x": 59.14123376623376,
+                "y": 175.45211038961043,
+                "w": 301.7175324675324,
+                "h": 32.72077922077918
+              }
+            ],
+            "pixelRects": [
+              {
+                "x": 59,
+                "y": 101,
+                "w": 375,
+                "h": 37
+              },
+              {
+                "x": 59,
+                "y": 175,
+                "w": 302,
+                "h": 34
+              }
+            ]
+          },
+          {
+            "regionId": "img:0",
+            "cssMask": [
+              {
+                "x": 654.4216772151899,
+                "y": 93.57950949367088,
+                "w": 408.6566455696202,
+                "h": 35.59098101265826
+              },
+              {
+                "x": 654.2755335365853,
+                "y": 156.44798018292684,
+                "w": 217.69893292682934,
+                "h": 32.479039634146346
+              }
+            ],
+            "pixelRects": [
+              {
+                "x": 654,
+                "y": 93,
+                "w": 410,
+                "h": 37
+              },
+              {
+                "x": 654,
+                "y": 156,
+                "w": 218,
+                "h": 33
+              }
+            ]
+          },
+          {
+            "regionId": "canvas:1",
+            "cssMask": [
+              {
+                "x": 25.40456081081081,
+                "y": 390.33910472972974,
+                "w": 290.44087837837833,
+                "h": 32.696790540540576
+              }
+            ],
+            "pixelRects": [
+              {
+                "x": 25,
+                "y": 390,
+                "w": 291,
+                "h": 34
+              }
+            ]
+          }
+        ]
+      },
+      "normal": {
+        "redaction": {
+          "outcome": "SANITIZED",
+          "failClosed": false,
+          "reason": null,
+          "refusal": null,
+          "detector": {
+            "modelId": "PP-OCRv4_mobile_det",
+            "ran": true,
+            "code": null,
+            "detections": 6
+          },
+          "regions": 3,
+          "maskRects": 5,
+          "pixelWrites": 56401,
+          "rawBitmapClosed": true,
+          "frameKept": true,
+          "ms": {
+            "detector": 756,
+            "mapping": 0,
+            "plan": 0,
+            "pixelMapping": 1,
+            "fill": 1
+          },
+          "detail": {
+            "visualRegions": [
+              {
+                "id": "canvas:0",
+                "rect": {
+                  "x": 40,
+                  "y": 60,
+                  "w": 520,
+                  "h": 200
+                }
+              },
+              {
+                "id": "img:0",
+                "rect": {
+                  "x": 640,
+                  "y": 60,
+                  "w": 480,
+                  "h": 160
+                }
+              },
+              {
+                "id": "canvas:1",
+                "rect": {
+                  "x": -80,
+                  "y": 330,
+                  "w": 420,
+                  "h": 150
+                }
+              }
+            ],
+            "detections": [
+              {
+                "x": 658.4216772151899,
+                "y": 97.57950949367088,
+                "w": 400.6566455696202,
+                "h": 27.590981012658247,
+                "score": 0.858251346725654
+              },
+              {
+                "x": 63.45052083333333,
+                "y": 105.48046875000001,
+                "w": 365.5989583333333,
+                "h": 27.539062499999986,
+                "score": 0.8963407838087287
+              },
+              {
+                "x": 658.2755335365853,
+                "y": 160.44798018292684,
+                "w": 209.69893292682934,
+                "h": 24.479039634146346,
+                "score": 0.8903142643872127
+              },
+              {
+                "x": 63.14123376623376,
+                "y": 179.45211038961043,
+                "w": 293.7175324675324,
+                "h": 24.72077922077918,
+                "score": 0.9106936051143898
+              },
+              {
+                "x": 636.3655660377358,
+                "y": 360.1040094339623,
+                "w": 337.2688679245283,
+                "h": 30.166981132075477,
+                "score": 0.7732013862369397
+              },
+              {
+                "x": 29.40456081081081,
+                "y": 394.33910472972974,
+                "w": 282.44087837837833,
+                "h": 24.696790540540576,
+                "score": 0.9695452370398605
+              }
+            ],
+            "masks": [
+              {
+                "regionId": "canvas:0",
+                "cssMask": [
+                  {
+                    "x": 59.45052083333333,
+                    "y": 101.48046875000001,
+                    "w": 373.5989583333333,
+                    "h": 35.539062499999986
+                  },
+                  {
+                    "x": 59.14123376623376,
+                    "y": 175.45211038961043,
+                    "w": 301.7175324675324,
+                    "h": 32.72077922077918
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 59,
+                    "y": 101,
+                    "w": 375,
+                    "h": 37
+                  },
+                  {
+                    "x": 59,
+                    "y": 175,
+                    "w": 302,
+                    "h": 34
+                  }
+                ]
+              },
+              {
+                "regionId": "img:0",
+                "cssMask": [
+                  {
+                    "x": 654.4216772151899,
+                    "y": 93.57950949367088,
+                    "w": 408.6566455696202,
+                    "h": 35.59098101265826
+                  },
+                  {
+                    "x": 654.2755335365853,
+                    "y": 156.44798018292684,
+                    "w": 217.69893292682934,
+                    "h": 32.479039634146346
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 654,
+                    "y": 93,
+                    "w": 410,
+                    "h": 37
+                  },
+                  {
+                    "x": 654,
+                    "y": 156,
+                    "w": 218,
+                    "h": 33
+                  }
+                ]
+              },
+              {
+                "regionId": "canvas:1",
+                "cssMask": [
+                  {
+                    "x": 25.40456081081081,
+                    "y": 390.33910472972974,
+                    "w": 290.44087837837833,
+                    "h": 32.696790540540576
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 25,
+                    "y": 390,
+                    "w": 291,
+                    "h": 34
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "verification": {
+          "maskPixels": 56401,
+          "maskPixelsNotFill": 0,
+          "outsideMaskUnchanged": true,
+          "ink": [
+            {
+              "pixels": 7942,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5510,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5282,
+              "uncovered": 0
+            },
+            {
+              "pixels": 7880,
+              "uncovered": 0
+            },
+            {
+              "pixels": 3451,
+              "uncovered": 0
+            }
+          ],
+          "controlsUnchanged": true,
+          "controlPixelsInsideMask": 0,
+          "rawCopyKeptByProbe": false
+        },
+        "rawRgbaSha256": "a6b402f29bff39faa0fdda85813591ef217de1d50d17d0c41bbaec2d4b8193c6"
+      },
+      "artifacts": {
+        "normal": {
+          "encode": {
+            "ok": true,
+            "sha256": "f4509cbf30a7b4a059b3e4dc954cfd67d8ee3cda2fb68c3a48380158829ee7ce",
+            "bytes": 4306,
+            "width": 1280,
+            "height": 720,
+            "manifest": {
+              "kind": "PRATIBIMB_MASKED_FRAME",
+              "version": 1,
+              "status": "MASK_VERIFIED",
+              "notRun": [
+                "full-frame OCR re-read (step 3)",
+                "D2/D3 re-detection (step 4)",
+                "vault value check (step 5)",
+                "12 px re-dilation loop (step 6)"
+              ],
+              "frameId": "transport-ed57ac54-ec52-4f14-9c3b-c2af16c2b49f",
+              "width": 1280,
+              "height": 720,
+              "contentType": "image/webp",
+              "quality": 0.62,
+              "scaleToCss": 1,
+              "failClosed": false,
+              "reason": null,
+              "regions": [
+                {
+                  "regionId": "canvas:0",
+                  "pixelRects": [
+                    {
+                      "x": 59,
+                      "y": 101,
+                      "w": 375,
+                      "h": 37
+                    },
+                    {
+                      "x": 59,
+                      "y": 175,
+                      "w": 302,
+                      "h": 34
+                    }
+                  ]
+                },
+                {
+                  "regionId": "img:0",
+                  "pixelRects": [
+                    {
+                      "x": 654,
+                      "y": 93,
+                      "w": 410,
+                      "h": 37
+                    },
+                    {
+                      "x": 654,
+                      "y": 156,
+                      "w": 218,
+                      "h": 33
+                    }
+                  ]
+                },
+                {
+                  "regionId": "canvas:1",
+                  "pixelRects": [
+                    {
+                      "x": 25,
+                      "y": 390,
+                      "w": 291,
+                      "h": 34
+                    }
+                  ]
+                }
+              ],
+              "counts": {
+                "regions": 3,
+                "maskRects": 5,
+                "maskRectAreaPx": 56401
+              },
+              "sanitizedRgbaSha256": "2f30706c2081e8e1070ded7551b4104614eff1725631f7aba5c8668cea53d48a",
+              "decodedRgbaSha256": "eed8d547f7f670021509d11d435ed99a5b463107463845fdf11b2a72cb193125",
+              "webpSha256": "f4509cbf30a7b4a059b3e4dc954cfd67d8ee3cda2fb68c3a48380158829ee7ce",
+              "webpBytes": 4306,
+              "check": {
+                "tolerance": 8,
+                "insetPx": 4,
+                "worstInterior": 2,
+                "worstEdge": 23,
+                "outside": {
+                  "pixels": 865199,
+                  "maxAbs": 49,
+                  "meanAbs": 0.6771528862146166,
+                  "psnrDb": 45.71939817102568
+                }
+              }
+            },
+            "ms": {
+              "encode": 42.89999997615814,
+              "decode": 11.700000047683716,
+              "check": 17
+            },
+            "memory": {
+              "webpBytes": 4306,
+              "decodedRgbaBytes": 3686400,
+              "attestedCopyBytes": 4306
+            }
+          },
+          "send": {
+            "attempted": true,
+            "sent": true,
+            "record": {
+              "requestId": "w1-normal",
+              "sessionId": "m10.7-evidence",
+              "destination": "http://127.0.0.1:8995/m10/frame",
+              "at": 1790853617559,
+              "transport": "LOOPBACK_HTTP",
+              "contentType": "image/webp",
+              "status": "MASK_VERIFIED",
+              "payloadSha256": "f4509cbf30a7b4a059b3e4dc954cfd67d8ee3cda2fb68c3a48380158829ee7ce",
+              "payloadBytes": 4306,
+              "width": 1280,
+              "height": 720,
+              "chunks": [
+                "VP8X",
+                "VP8 "
+              ],
+              "responseStatus": 200,
+              "peerReceipt": {
+                "sha256": "f4509cbf30a7b4a059b3e4dc954cfd67d8ee3cda2fb68c3a48380158829ee7ce",
+                "bytes": 4306,
+                "agrees": true
+              },
+              "elapsedMs": 5
+            }
+          },
+          "fetchesDuringSend": 1,
+          "sinkArrivalsDuringSend": 1
+        },
+        "timeout": {
+          "pass": {
+            "code": "DETECTOR_TIMEOUT",
+            "failClosed": true,
+            "verification": {
+              "maskPixels": 231800,
+              "maskPixelsNotFill": 0,
+              "outsideMaskUnchanged": true,
+              "ink": [
+                {
+                  "pixels": 7942,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 5510,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 5282,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 7880,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 3451,
+                  "uncovered": 0
+                }
+              ],
+              "controlsUnchanged": true,
+              "controlPixelsInsideMask": 0,
+              "rawCopyKeptByProbe": false
+            }
+          },
+          "encode": {
+            "ok": true,
+            "sha256": "a4a55194fb66350a645eb55813c34c2f208cb52d97a021d8c87e06fec5e6a305",
+            "bytes": 4136,
+            "width": 1280,
+            "height": 720,
+            "manifest": {
+              "kind": "PRATIBIMB_MASKED_FRAME",
+              "version": 1,
+              "status": "MASK_VERIFIED",
+              "notRun": [
+                "full-frame OCR re-read (step 3)",
+                "D2/D3 re-detection (step 4)",
+                "vault value check (step 5)",
+                "12 px re-dilation loop (step 6)"
+              ],
+              "frameId": "transport-3dcd6030-2736-44dd-b843-98957be0724b",
+              "width": 1280,
+              "height": 720,
+              "contentType": "image/webp",
+              "quality": 0.62,
+              "scaleToCss": 1,
+              "failClosed": true,
+              "reason": "TIMEOUT",
+              "regions": [
+                {
+                  "regionId": "canvas:0",
+                  "pixelRects": [
+                    {
+                      "x": 40,
+                      "y": 60,
+                      "w": 520,
+                      "h": 200
+                    }
+                  ]
+                },
+                {
+                  "regionId": "img:0",
+                  "pixelRects": [
+                    {
+                      "x": 640,
+                      "y": 60,
+                      "w": 480,
+                      "h": 160
+                    }
+                  ]
+                },
+                {
+                  "regionId": "canvas:1",
+                  "pixelRects": [
+                    {
+                      "x": 0,
+                      "y": 330,
+                      "w": 340,
+                      "h": 150
+                    }
+                  ]
+                }
+              ],
+              "counts": {
+                "regions": 3,
+                "maskRects": 3,
+                "maskRectAreaPx": 231800
+              },
+              "sanitizedRgbaSha256": "acee6b91ac1efd580aa192abc3d8cceead164decf0dff9f0672091249417a190",
+              "decodedRgbaSha256": "97a60bade0d7d4e41c4b0dd0dca77a50dae5a546d8092a5c6313e35a76a577a5",
+              "webpSha256": "a4a55194fb66350a645eb55813c34c2f208cb52d97a021d8c87e06fec5e6a305",
+              "webpBytes": 4136,
+              "check": {
+                "tolerance": 8,
+                "insetPx": 4,
+                "worstInterior": 4,
+                "worstEdge": 7,
+                "outside": {
+                  "pixels": 689800,
+                  "maxAbs": 49,
+                  "meanAbs": 0.7795472117521987,
+                  "psnrDb": 45.26512418754493
+                }
+              }
+            },
+            "ms": {
+              "encode": 36,
+              "decode": 10.099999904632568,
+              "check": 11.700000047683716
+            },
+            "memory": {
+              "webpBytes": 4136,
+              "decodedRgbaBytes": 3686400,
+              "attestedCopyBytes": 4136
+            }
+          },
+          "send": {
+            "attempted": true,
+            "sent": true,
+            "record": {
+              "requestId": "w1-timeout",
+              "sessionId": "m10.7-evidence",
+              "destination": "http://127.0.0.1:8995/m10/frame",
+              "at": 1790853618617,
+              "transport": "LOOPBACK_HTTP",
+              "contentType": "image/webp",
+              "status": "MASK_VERIFIED",
+              "payloadSha256": "a4a55194fb66350a645eb55813c34c2f208cb52d97a021d8c87e06fec5e6a305",
+              "payloadBytes": 4136,
+              "width": 1280,
+              "height": 720,
+              "chunks": [
+                "VP8X",
+                "VP8 "
+              ],
+              "responseStatus": 200,
+              "peerReceipt": {
+                "sha256": "a4a55194fb66350a645eb55813c34c2f208cb52d97a021d8c87e06fec5e6a305",
+                "bytes": 4136,
+                "agrees": true
+              },
+              "elapsedMs": 2
+            }
+          },
+          "fetchesDuringSend": 1
+        },
+        "refused": {
+          "pass": {
+            "outcome": "REFUSED",
+            "code": "REGION_INVALID",
+            "frameHeld": false
+          },
+          "encode": {
+            "ok": false,
+            "code": "NO_SANITIZED_FRAME",
+            "detail": "no sanitized frame is held: no pass yet, or the last one was REFUSED or failed"
+          },
+          "send": {
+            "attempted": false,
+            "reason": "no artifact: NO_SANITIZED_FRAME"
+          },
+          "fetchesDuringSend": 0,
+          "sinkArrivalsDuringSend": 0
+        }
+      },
+      "attempts": {
+        "results": [
+          {
+            "name": "raw RGBA buffer, shaped like an artifact",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "the kept sanitized frame object itself",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "an ImageBitmap",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "arbitrary bytes",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "an UNATTESTED WebP of the sanitized frame",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "empty bytes",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "malformed WebP-like bytes",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "an attested frame mutated after attestation",
+            "sent": false,
+            "stage": "HASH",
+            "cause": "PAYLOAD_HASH_MISMATCH"
+          },
+          {
+            "name": "an attested frame to a non-loopback destination",
+            "sent": false,
+            "stage": "DESTINATION",
+            "cause": "DESTINATION_NOT_LOOPBACK"
+          }
+        ],
+        "fetchesDuringAttempts": 0,
+        "sinkArrivalsDuringAttempts": 0
+      },
+      "independent": {
+        "normal": {
+          "kind": "normal",
+          "sinkArrivalId": 0,
+          "bytes": 4306,
+          "receivedSha256": "f4509cbf30a7b4a059b3e4dc954cfd67d8ee3cda2fb68c3a48380158829ee7ce",
+          "sentSha256": "f4509cbf30a7b4a059b3e4dc954cfd67d8ee3cda2fb68c3a48380158829ee7ce",
+          "attestedSha256": "f4509cbf30a7b4a059b3e4dc954cfd67d8ee3cda2fb68c3a48380158829ee7ce",
+          "hashChainEqual": true,
+          "peerReceiptAgrees": true,
+          "container": {
+            "chunks": [
+              "VP8X",
+              "VP8 "
+            ],
+            "width": 1280,
+            "height": 720
+          },
+          "decoded": {
+            "width": 1280,
+            "height": 720,
+            "sha256": "eed8d547f7f670021509d11d435ed99a5b463107463845fdf11b2a72cb193125"
+          },
+          "dimensionsEqualCapture": true,
+          "notRawFrame": true,
+          "noFixtureText": true,
+          "inkMaxChannel": [
+            0,
+            0,
+            1,
+            2,
+            0
+          ],
+          "everyInkPixelDark": true,
+          "controlsThroughWebp": {
+            "flat": [
+              {
+                "name": "swatch",
+                "px": {
+                  "x": 644,
+                  "y": 464,
+                  "w": 292,
+                  "h": 72
+                },
+                "encoded": {
+                  "min": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "max": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "mean": [
+                    58,
+                    123,
+                    212
+                  ]
+                },
+                "decodedMean": [
+                  58.043616818873666,
+                  123.20257800608827,
+                  212.5704908675799
+                ],
+                "meanDelta": 0.5704908675799061,
+                "worstPixelOutsideEncodedRange": 21,
+                "worstPixelAt": {
+                  "x": 644,
+                  "y": 466,
+                  "channel": 2,
+                  "fromRegionEdgePx": 0
+                }
+              },
+              {
+                "name": "blank",
+                "px": {
+                  "x": 984,
+                  "y": 584,
+                  "w": 272,
+                  "h": 112
+                },
+                "encoded": {
+                  "min": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "max": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "mean": [
+                    245,
+                    241,
+                    235
+                  ]
+                },
+                "decodedMean": [
+                  245,
+                  242,
+                  236
+                ],
+                "meanDelta": 1,
+                "worstPixelOutsideEncodedRange": 1,
+                "worstPixelAt": {
+                  "x": 984,
+                  "y": 584,
+                  "channel": 1,
+                  "fromRegionEdgePx": 0
+                }
+              }
+            ],
+            "text": [
+              {
+                "name": "control",
+                "px": {
+                  "x": 640,
+                  "y": 360,
+                  "w": 329,
+                  "h": 26
+                },
+                "encoded": {
+                  "min": [
+                    14,
+                    30,
+                    4
+                  ],
+                  "max": [
+                    255,
+                    245,
+                    255
+                  ],
+                  "mean": [
+                    207.5084171148001,
+                    204.63256955810147,
+                    199.3743277998597
+                  ]
+                },
+                "decodedMean": [
+                  207.95768061725508,
+                  205.2245732990414,
+                  199.58557400046763
+                ],
+                "meanDelta": 0.5920037409399299,
+                "worstPixelOutsideEncodedRange": 14,
+                "worstPixelAt": {
+                  "x": 871,
+                  "y": 368,
+                  "channel": 1,
+                  "fromRegionEdgePx": 8
+                }
+              }
+            ]
+          },
+          "swatchMaxDistanceFromCss": 22,
+          "blankMaxDistanceFromCss": 2,
+          "encodedSwatchMeanVsCss": [
+            0,
+            0,
+            -1
+          ],
+          "encodedBlankMeanVsCss": [
+            1,
+            0,
+            1
+          ],
+          "controlTextBrightest": 255,
+          "producerMaskInteriorsMax": 2,
+          "regionsWholeMax": null
+        },
+        "timeout": {
+          "kind": "timeout",
+          "sinkArrivalId": 1,
+          "bytes": 4136,
+          "receivedSha256": "a4a55194fb66350a645eb55813c34c2f208cb52d97a021d8c87e06fec5e6a305",
+          "sentSha256": "a4a55194fb66350a645eb55813c34c2f208cb52d97a021d8c87e06fec5e6a305",
+          "attestedSha256": "a4a55194fb66350a645eb55813c34c2f208cb52d97a021d8c87e06fec5e6a305",
+          "hashChainEqual": true,
+          "peerReceiptAgrees": true,
+          "container": {
+            "chunks": [
+              "VP8X",
+              "VP8 "
+            ],
+            "width": 1280,
+            "height": 720
+          },
+          "decoded": {
+            "width": 1280,
+            "height": 720,
+            "sha256": "97a60bade0d7d4e41c4b0dd0dca77a50dae5a546d8092a5c6313e35a76a577a5"
+          },
+          "dimensionsEqualCapture": true,
+          "notRawFrame": true,
+          "noFixtureText": true,
+          "inkMaxChannel": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "everyInkPixelDark": true,
+          "controlsThroughWebp": {
+            "flat": [
+              {
+                "name": "swatch",
+                "px": {
+                  "x": 644,
+                  "y": 464,
+                  "w": 292,
+                  "h": 72
+                },
+                "encoded": {
+                  "min": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "max": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "mean": [
+                    58,
+                    123,
+                    212
+                  ]
+                },
+                "decodedMean": [
+                  57.949153348554034,
+                  123.29142884322678,
+                  212.57838660578386
+                ],
+                "meanDelta": 0.5783866057838623,
+                "worstPixelOutsideEncodedRange": 21,
+                "worstPixelAt": {
+                  "x": 644,
+                  "y": 466,
+                  "channel": 2,
+                  "fromRegionEdgePx": 0
+                }
+              },
+              {
+                "name": "blank",
+                "px": {
+                  "x": 984,
+                  "y": 584,
+                  "w": 272,
+                  "h": 112
+                },
+                "encoded": {
+                  "min": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "max": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "mean": [
+                    245,
+                    241,
+                    235
+                  ]
+                },
+                "decodedMean": [
+                  245,
+                  242,
+                  236
+                ],
+                "meanDelta": 1,
+                "worstPixelOutsideEncodedRange": 1,
+                "worstPixelAt": {
+                  "x": 984,
+                  "y": 584,
+                  "channel": 1,
+                  "fromRegionEdgePx": 0
+                }
+              }
+            ],
+            "text": [
+              {
+                "name": "control",
+                "px": {
+                  "x": 640,
+                  "y": 360,
+                  "w": 329,
+                  "h": 26
+                },
+                "encoded": {
+                  "min": [
+                    14,
+                    30,
+                    4
+                  ],
+                  "max": [
+                    255,
+                    245,
+                    255
+                  ],
+                  "mean": [
+                    207.5084171148001,
+                    204.63256955810147,
+                    199.3743277998597
+                  ]
+                },
+                "decodedMean": [
+                  208.03249941547813,
+                  205.28910451250877,
+                  199.6397007248071
+                ],
+                "meanDelta": 0.6565349544073058,
+                "worstPixelOutsideEncodedRange": 14,
+                "worstPixelAt": {
+                  "x": 871,
+                  "y": 368,
+                  "channel": 1,
+                  "fromRegionEdgePx": 8
+                }
+              }
+            ]
+          },
+          "swatchMaxDistanceFromCss": 22,
+          "blankMaxDistanceFromCss": 2,
+          "encodedSwatchMeanVsCss": [
+            0,
+            0,
+            -1
+          ],
+          "encodedBlankMeanVsCss": [
+            1,
+            0,
+            1
+          ],
+          "controlTextBrightest": 255,
+          "producerMaskInteriorsMax": 4,
+          "regionsWholeMax": [
+            2,
+            3,
+            4
+          ]
+        },
+        "tolerance": 8
+      },
+      "vsM106": {
+        "note": "informational: the producer's mask rectangles for this window against M10.6's recorded cold-pass masks at the same scale",
+        "pixelRectsEqual": true
+      },
+      "bench": {
+        "n": 10,
+        "encodeMs": {
+          "n": 10,
+          "min": 33.89999997615814,
+          "median": 35.09999996423721,
+          "p90": 36.700000047683716,
+          "max": 44.39999997615814
+        },
+        "decodeMs": {
+          "n": 10,
+          "min": 8.899999976158142,
+          "median": 9.399999976158142,
+          "p90": 9.799999952316284,
+          "max": 10.700000047683716
+        },
+        "checkMs": {
+          "n": 10,
+          "min": 9.899999976158142,
+          "median": 11.350000023841858,
+          "p90": 14.100000023841858,
+          "max": 17.90000009536743
+        },
+        "wallMs": {
+          "n": 10,
+          "min": 53.300000071525574,
+          "median": 57.89999997615814,
+          "p90": 63.300000071525574,
+          "max": 65
+        },
+        "payloadBytes": {
+          "n": 10,
+          "min": 4306,
+          "median": 4306,
+          "p90": 4306,
+          "max": 4306
+        },
+        "bytesIdenticalAcrossRuns": true,
+        "decodedIdenticalAcrossRuns": true,
+        "memory": {
+          "webpBytes": 4306,
+          "decodedRgbaBytes": 3686400,
+          "attestedCopyBytes": 4306
+        },
+        "canvasBackingStoresNote": "two opaque canvases of capture size (encode, decode) are allocated by the browser per run and are not observable from JS; at 4 bytes per pixel that is 2 × w × h × 4 bytes, inferred, not measured"
+      },
+      "sink": {
+        "arrivals": [
+          {
+            "id": 0,
+            "at": "2026-10-01T11:20:17.557Z",
+            "method": "POST",
+            "path": "/m10/frame",
+            "origin": "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+            "contentType": "image/webp",
+            "bytes": 4306,
+            "sha256": "f4509cbf30a7b4a059b3e4dc954cfd67d8ee3cda2fb68c3a48380158829ee7ce",
+            "accepted": true,
+            "reason": null
+          },
+          {
+            "id": 1,
+            "at": "2026-10-01T11:20:18.616Z",
+            "method": "POST",
+            "path": "/m10/frame",
+            "origin": "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+            "contentType": "image/webp",
+            "bytes": 4136,
+            "sha256": "a4a55194fb66350a645eb55813c34c2f208cb52d97a021d8c87e06fec5e6a305",
+            "accepted": true,
+            "reason": null
+          }
+        ]
+      },
+      "memory": {
+        "workerWasmBytes": 137494528,
+        "offscreenWasmBytes": 27656192
+      },
+      "workerAudit": {
+        "received": 3,
+        "shapes": [
+          {
+            "type": "TR01_INIT",
+            "shape": {
+              "protocol": "number",
+              "type": "string"
+            }
+          },
+          {
+            "type": "TR01_DETECT",
+            "shape": {
+              "height": "number",
+              "protocol": "number",
+              "rgba": "Uint8ClampedArray(3686400)",
+              "runId": "number",
+              "type": "string",
+              "width": "number"
+            }
+          }
+        ],
+        "foreignArrivals": 0,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde"
+        ]
+      },
+      "offscreenNetwork": {
+        "arrivals": 4,
+        "foreign": 2,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+          "http://127.0.0.1:8995"
+        ],
+        "byOrigin": {
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde": 2,
+          "http://127.0.0.1:8995": 2
+        }
+      },
+      "pageRequestOrigins": [
+        "http://127.0.0.1:8983"
+      ],
+      "serviceWorkerAudit": {
+        "messages": 22,
+        "bytes": 5172,
+        "png": false,
+        "webpMagic": false,
+        "dataUrl": false,
+        "longestBase64": 0
+      },
+      "plainPerceiveOnce": {
+        "route": "GESTURE_STREAM",
+        "carriesPixels": false
+      },
+      "checks": {
+        "realGestureRecorded": true,
+        "gestureStreamRoute": true,
+        "m106MaskVerifiedOnRealFrame": true,
+        "artifactAttestedFromSanitizedFrame": true,
+        "webpDimensionsEqualCapture": true,
+        "maskRectsCarriedToArtifact": true,
+        "sentThroughEgressAndAcceptedOnce": true,
+        "hashSentEqualsReceivedEqualsAttested": true,
+        "receivedIsNotTheRawFrame": true,
+        "receivedDimensionsEqualCapture": true,
+        "receivedCarriesNoFixtureText": true,
+        "independentlyEveryInkPixelMasked": true,
+        "independentlyProducerMaskHeld": true,
+        "independentlyControlsPreservedThroughWebp": true,
+        "timeoutMaskedWholeAndSent": true,
+        "refusedNoWebpNoRequest": true,
+        "everyUnverifiedAttemptRefusedBeforeTheWire": true,
+        "sinkAcceptedOnlyTheTwoArtifacts": true,
+        "networkOnlyToTheSink": true,
+        "serviceWorkerSawNoPixels": true,
+        "workerReceivedOnlyPixelsDimensionsAndRunIds": true,
+        "wasmUnder200MB": true,
+        "detectorUnder2000ms": true
+      }
+    },
+    {
+      "dpr": 1.25,
+      "window": "2 of 4",
+      "realGesture": "RECORDED",
+      "failure": null,
+      "steps": {
+        "gesture": {
+          "tabId": 820777198,
+          "observedAt": "2026-10-01T11:20:25.951Z",
+          "waitedMs": 3559
+        }
+      },
+      "preflight": {
+        "freshProfile": true,
+        "noOffscreenBeforeThisRun": true,
+        "fixturePageServed": true,
+        "contentScriptAttested": true,
+        "fixtureTabIsActive": true,
+        "actionPresent": true,
+        "noGrantYet": true,
+        "captureRefusedBeforeGesture": true,
+        "browserRefusesStreamIdBeforeGesture": true,
+        "instrumentationReady": true,
+        "productTr01HostNotYetCreated": true,
+        "noSanitizedFrameHeld": true,
+        "sinkListeningAndIdle": true,
+        "pageDevicePixelRatio": 1.25
+      },
+      "stream": {
+        "capture": {
+          "w": 1280,
+          "h": 720,
+          "format": "live-bitmap",
+          "bytes": 3686400,
+          "dpr": 1.25,
+          "scaleToCss": 1
+        },
+        "route": "GESTURE_STREAM",
+        "viewport": {
+          "w": 1280,
+          "h": 720,
+          "dpr": 1.25,
+          "scrollX": 0,
+          "scrollY": 0
+        },
+        "requestedDeviceScale": 1.25,
+        "pageDevicePixelRatio": 1.25
+      },
+      "geometry": {
+        "visualRegions": [
+          {
+            "id": "canvas:0",
+            "kind": "canvas",
+            "rect": {
+              "x": 40,
+              "y": 60,
+              "w": 520,
+              "h": 200
+            }
+          },
+          {
+            "id": "img:0",
+            "kind": "img",
+            "rect": {
+              "x": 640,
+              "y": 60,
+              "w": 480,
+              "h": 160
+            }
+          },
+          {
+            "id": "canvas:1",
+            "kind": "canvas",
+            "rect": {
+              "x": -80,
+              "y": 330,
+              "w": 420,
+              "h": 150
+            }
+          }
+        ],
+        "detections": [
+          {
+            "x": 659.3035714285714,
+            "y": 98.3732142857143,
+            "w": 398.892857142857,
+            "h": 24.87857142857142,
+            "score": 0.9664444009095062
+          },
+          {
+            "x": 63.45052083333333,
+            "y": 105.48046875000001,
+            "w": 365.5989583333333,
+            "h": 27.539062499999986,
+            "score": 0.904696144388734
+          },
+          {
+            "x": 658.2755335365853,
+            "y": 160.44798018292684,
+            "w": 209.69893292682934,
+            "h": 24.479039634146346,
+            "score": 0.9165969801419097
+          },
+          {
+            "x": 63.14123376623376,
+            "y": 179.45211038961043,
+            "w": 293.7175324675324,
+            "h": 24.72077922077918,
+            "score": 0.9054793538423153
+          },
+          {
+            "x": 635.5075187969925,
+            "y": 359.33176691729324,
+            "w": 338.98496240601503,
+            "h": 32.836466165413526,
+            "score": 0.7159956992259175
+          },
+          {
+            "x": 29.40456081081081,
+            "y": 394.33910472972974,
+            "w": 282.44087837837833,
+            "h": 24.696790540540576,
+            "score": 0.9450063971131185
+          }
+        ],
+        "masks": [
+          {
+            "regionId": "canvas:0",
+            "cssMask": [
+              {
+                "x": 59.45052083333333,
+                "y": 101.48046875000001,
+                "w": 373.5989583333333,
+                "h": 35.539062499999986
+              },
+              {
+                "x": 59.14123376623376,
+                "y": 175.45211038961043,
+                "w": 301.7175324675324,
+                "h": 32.72077922077918
+              }
+            ],
+            "pixelRects": [
+              {
+                "x": 59,
+                "y": 101,
+                "w": 375,
+                "h": 37
+              },
+              {
+                "x": 59,
+                "y": 175,
+                "w": 302,
+                "h": 34
+              }
+            ]
+          },
+          {
+            "regionId": "img:0",
+            "cssMask": [
+              {
+                "x": 655.3035714285714,
+                "y": 94.3732142857143,
+                "w": 406.892857142857,
+                "h": 32.87857142857142
+              },
+              {
+                "x": 654.2755335365853,
+                "y": 156.44798018292684,
+                "w": 217.69893292682934,
+                "h": 32.479039634146346
+              }
+            ],
+            "pixelRects": [
+              {
+                "x": 655,
+                "y": 94,
+                "w": 408,
+                "h": 34
+              },
+              {
+                "x": 654,
+                "y": 156,
+                "w": 218,
+                "h": 33
+              }
+            ]
+          },
+          {
+            "regionId": "canvas:1",
+            "cssMask": [
+              {
+                "x": 25.40456081081081,
+                "y": 390.33910472972974,
+                "w": 290.44087837837833,
+                "h": 32.696790540540576
+              }
+            ],
+            "pixelRects": [
+              {
+                "x": 25,
+                "y": 390,
+                "w": 291,
+                "h": 34
+              }
+            ]
+          }
+        ]
+      },
+      "normal": {
+        "redaction": {
+          "outcome": "SANITIZED",
+          "failClosed": false,
+          "reason": null,
+          "refusal": null,
+          "detector": {
+            "modelId": "PP-OCRv4_mobile_det",
+            "ran": true,
+            "code": null,
+            "detections": 6
+          },
+          "regions": 3,
+          "maskRects": 5,
+          "pixelWrites": 55103,
+          "rawBitmapClosed": true,
+          "frameKept": true,
+          "ms": {
+            "detector": 788,
+            "mapping": 0,
+            "plan": 0,
+            "pixelMapping": 0,
+            "fill": 1
+          },
+          "detail": {
+            "visualRegions": [
+              {
+                "id": "canvas:0",
+                "rect": {
+                  "x": 40,
+                  "y": 60,
+                  "w": 520,
+                  "h": 200
+                }
+              },
+              {
+                "id": "img:0",
+                "rect": {
+                  "x": 640,
+                  "y": 60,
+                  "w": 480,
+                  "h": 160
+                }
+              },
+              {
+                "id": "canvas:1",
+                "rect": {
+                  "x": -80,
+                  "y": 330,
+                  "w": 420,
+                  "h": 150
+                }
+              }
+            ],
+            "detections": [
+              {
+                "x": 659.3035714285714,
+                "y": 98.3732142857143,
+                "w": 398.892857142857,
+                "h": 24.87857142857142,
+                "score": 0.9664444009095062
+              },
+              {
+                "x": 63.45052083333333,
+                "y": 105.48046875000001,
+                "w": 365.5989583333333,
+                "h": 27.539062499999986,
+                "score": 0.904696144388734
+              },
+              {
+                "x": 658.2755335365853,
+                "y": 160.44798018292684,
+                "w": 209.69893292682934,
+                "h": 24.479039634146346,
+                "score": 0.9165969801419097
+              },
+              {
+                "x": 63.14123376623376,
+                "y": 179.45211038961043,
+                "w": 293.7175324675324,
+                "h": 24.72077922077918,
+                "score": 0.9054793538423153
+              },
+              {
+                "x": 635.5075187969925,
+                "y": 359.33176691729324,
+                "w": 338.98496240601503,
+                "h": 32.836466165413526,
+                "score": 0.7159956992259175
+              },
+              {
+                "x": 29.40456081081081,
+                "y": 394.33910472972974,
+                "w": 282.44087837837833,
+                "h": 24.696790540540576,
+                "score": 0.9450063971131185
+              }
+            ],
+            "masks": [
+              {
+                "regionId": "canvas:0",
+                "cssMask": [
+                  {
+                    "x": 59.45052083333333,
+                    "y": 101.48046875000001,
+                    "w": 373.5989583333333,
+                    "h": 35.539062499999986
+                  },
+                  {
+                    "x": 59.14123376623376,
+                    "y": 175.45211038961043,
+                    "w": 301.7175324675324,
+                    "h": 32.72077922077918
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 59,
+                    "y": 101,
+                    "w": 375,
+                    "h": 37
+                  },
+                  {
+                    "x": 59,
+                    "y": 175,
+                    "w": 302,
+                    "h": 34
+                  }
+                ]
+              },
+              {
+                "regionId": "img:0",
+                "cssMask": [
+                  {
+                    "x": 655.3035714285714,
+                    "y": 94.3732142857143,
+                    "w": 406.892857142857,
+                    "h": 32.87857142857142
+                  },
+                  {
+                    "x": 654.2755335365853,
+                    "y": 156.44798018292684,
+                    "w": 217.69893292682934,
+                    "h": 32.479039634146346
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 655,
+                    "y": 94,
+                    "w": 408,
+                    "h": 34
+                  },
+                  {
+                    "x": 654,
+                    "y": 156,
+                    "w": 218,
+                    "h": 33
+                  }
+                ]
+              },
+              {
+                "regionId": "canvas:1",
+                "cssMask": [
+                  {
+                    "x": 25.40456081081081,
+                    "y": 390.33910472972974,
+                    "w": 290.44087837837833,
+                    "h": 32.696790540540576
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 25,
+                    "y": 390,
+                    "w": 291,
+                    "h": 34
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "verification": {
+          "maskPixels": 55103,
+          "maskPixelsNotFill": 0,
+          "outsideMaskUnchanged": true,
+          "ink": [
+            {
+              "pixels": 7942,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5510,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5282,
+              "uncovered": 0
+            },
+            {
+              "pixels": 7880,
+              "uncovered": 0
+            },
+            {
+              "pixels": 3451,
+              "uncovered": 0
+            }
+          ],
+          "controlsUnchanged": true,
+          "controlPixelsInsideMask": 0,
+          "rawCopyKeptByProbe": false
+        },
+        "rawRgbaSha256": "8e530fe537a89d2978e5cdd77522871acdd0e9cb388548d92eabf19b731ff072"
+      },
+      "artifacts": {
+        "normal": {
+          "encode": {
+            "ok": true,
+            "sha256": "3ea8794f03040c26985a08d9eb5181ff5e29c7ddd6e5a5659a17dea050d2e68d",
+            "bytes": 4198,
+            "width": 1280,
+            "height": 720,
+            "manifest": {
+              "kind": "PRATIBIMB_MASKED_FRAME",
+              "version": 1,
+              "status": "MASK_VERIFIED",
+              "notRun": [
+                "full-frame OCR re-read (step 3)",
+                "D2/D3 re-detection (step 4)",
+                "vault value check (step 5)",
+                "12 px re-dilation loop (step 6)"
+              ],
+              "frameId": "transport-32236676-9ce2-4c9e-9d40-925e46e454bc",
+              "width": 1280,
+              "height": 720,
+              "contentType": "image/webp",
+              "quality": 0.62,
+              "scaleToCss": 1,
+              "failClosed": false,
+              "reason": null,
+              "regions": [
+                {
+                  "regionId": "canvas:0",
+                  "pixelRects": [
+                    {
+                      "x": 59,
+                      "y": 101,
+                      "w": 375,
+                      "h": 37
+                    },
+                    {
+                      "x": 59,
+                      "y": 175,
+                      "w": 302,
+                      "h": 34
+                    }
+                  ]
+                },
+                {
+                  "regionId": "img:0",
+                  "pixelRects": [
+                    {
+                      "x": 655,
+                      "y": 94,
+                      "w": 408,
+                      "h": 34
+                    },
+                    {
+                      "x": 654,
+                      "y": 156,
+                      "w": 218,
+                      "h": 33
+                    }
+                  ]
+                },
+                {
+                  "regionId": "canvas:1",
+                  "pixelRects": [
+                    {
+                      "x": 25,
+                      "y": 390,
+                      "w": 291,
+                      "h": 34
+                    }
+                  ]
+                }
+              ],
+              "counts": {
+                "regions": 3,
+                "maskRects": 5,
+                "maskRectAreaPx": 55103
+              },
+              "sanitizedRgbaSha256": "0a80f09cff330707c96f65b0cc33529a78a20e3b305d673e37e20288c893557c",
+              "decodedRgbaSha256": "e37ec91ef68ce512e7731fc17145bba086adefbf0ae7e1b4397fa6d21355ac2c",
+              "webpSha256": "3ea8794f03040c26985a08d9eb5181ff5e29c7ddd6e5a5659a17dea050d2e68d",
+              "webpBytes": 4198,
+              "check": {
+                "tolerance": 8,
+                "insetPx": 4,
+                "worstInterior": 2,
+                "worstEdge": 23,
+                "outside": {
+                  "pixels": 866497,
+                  "maxAbs": 49,
+                  "meanAbs": 0.6700234776731291,
+                  "psnrDb": 46.00060088733579
+                }
+              }
+            },
+            "ms": {
+              "encode": 50.199999928474426,
+              "decode": 13.600000023841858,
+              "check": 17
+            },
+            "memory": {
+              "webpBytes": 4198,
+              "decodedRgbaBytes": 3686400,
+              "attestedCopyBytes": 4198
+            }
+          },
+          "send": {
+            "attempted": true,
+            "sent": true,
+            "record": {
+              "requestId": "w2-normal",
+              "sessionId": "m10.7-evidence",
+              "destination": "http://127.0.0.1:8995/m10/frame",
+              "at": 1790853627497,
+              "transport": "LOOPBACK_HTTP",
+              "contentType": "image/webp",
+              "status": "MASK_VERIFIED",
+              "payloadSha256": "3ea8794f03040c26985a08d9eb5181ff5e29c7ddd6e5a5659a17dea050d2e68d",
+              "payloadBytes": 4198,
+              "width": 1280,
+              "height": 720,
+              "chunks": [
+                "VP8X",
+                "VP8 "
+              ],
+              "responseStatus": 200,
+              "peerReceipt": {
+                "sha256": "3ea8794f03040c26985a08d9eb5181ff5e29c7ddd6e5a5659a17dea050d2e68d",
+                "bytes": 4198,
+                "agrees": true
+              },
+              "elapsedMs": 3
+            }
+          },
+          "fetchesDuringSend": 1,
+          "sinkArrivalsDuringSend": 1
+        },
+        "timeout": {
+          "pass": {
+            "code": "DETECTOR_TIMEOUT",
+            "failClosed": true,
+            "verification": {
+              "maskPixels": 231800,
+              "maskPixelsNotFill": 0,
+              "outsideMaskUnchanged": true,
+              "ink": [
+                {
+                  "pixels": 7942,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 5510,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 5282,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 7880,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 3451,
+                  "uncovered": 0
+                }
+              ],
+              "controlsUnchanged": true,
+              "controlPixelsInsideMask": 0,
+              "rawCopyKeptByProbe": false
+            }
+          },
+          "encode": {
+            "ok": true,
+            "sha256": "8c67ee09a4bc586f90821cce1f6b09260b308072e720797b681b7f8af7e3d644",
+            "bytes": 3972,
+            "width": 1280,
+            "height": 720,
+            "manifest": {
+              "kind": "PRATIBIMB_MASKED_FRAME",
+              "version": 1,
+              "status": "MASK_VERIFIED",
+              "notRun": [
+                "full-frame OCR re-read (step 3)",
+                "D2/D3 re-detection (step 4)",
+                "vault value check (step 5)",
+                "12 px re-dilation loop (step 6)"
+              ],
+              "frameId": "transport-e7748574-5f3a-4330-8459-c8a8310546e8",
+              "width": 1280,
+              "height": 720,
+              "contentType": "image/webp",
+              "quality": 0.62,
+              "scaleToCss": 1,
+              "failClosed": true,
+              "reason": "TIMEOUT",
+              "regions": [
+                {
+                  "regionId": "canvas:0",
+                  "pixelRects": [
+                    {
+                      "x": 40,
+                      "y": 60,
+                      "w": 520,
+                      "h": 200
+                    }
+                  ]
+                },
+                {
+                  "regionId": "img:0",
+                  "pixelRects": [
+                    {
+                      "x": 640,
+                      "y": 60,
+                      "w": 480,
+                      "h": 160
+                    }
+                  ]
+                },
+                {
+                  "regionId": "canvas:1",
+                  "pixelRects": [
+                    {
+                      "x": 0,
+                      "y": 330,
+                      "w": 340,
+                      "h": 150
+                    }
+                  ]
+                }
+              ],
+              "counts": {
+                "regions": 3,
+                "maskRects": 3,
+                "maskRectAreaPx": 231800
+              },
+              "sanitizedRgbaSha256": "9c352feb1bb7e713cb58c283a4fb7129b0a0f5f00a3a91d282bb7ed164aab7dc",
+              "decodedRgbaSha256": "e6be78d19ceab7816a92154b7c579bcacf4f6ed50df24fb9c5ac465a4df26db8",
+              "webpSha256": "8c67ee09a4bc586f90821cce1f6b09260b308072e720797b681b7f8af7e3d644",
+              "webpBytes": 3972,
+              "check": {
+                "tolerance": 8,
+                "insetPx": 4,
+                "worstInterior": 4,
+                "worstEdge": 7,
+                "outside": {
+                  "pixels": 689800,
+                  "maxAbs": 49,
+                  "meanAbs": 0.7748038078670146,
+                  "psnrDb": 45.4184711515688
+                }
+              }
+            },
+            "ms": {
+              "encode": 33.59999990463257,
+              "decode": 9.300000071525574,
+              "check": 11.600000023841858
+            },
+            "memory": {
+              "webpBytes": 3972,
+              "decodedRgbaBytes": 3686400,
+              "attestedCopyBytes": 3972
+            }
+          },
+          "send": {
+            "attempted": true,
+            "sent": true,
+            "record": {
+              "requestId": "w2-timeout",
+              "sessionId": "m10.7-evidence",
+              "destination": "http://127.0.0.1:8995/m10/frame",
+              "at": 1790853628533,
+              "transport": "LOOPBACK_HTTP",
+              "contentType": "image/webp",
+              "status": "MASK_VERIFIED",
+              "payloadSha256": "8c67ee09a4bc586f90821cce1f6b09260b308072e720797b681b7f8af7e3d644",
+              "payloadBytes": 3972,
+              "width": 1280,
+              "height": 720,
+              "chunks": [
+                "VP8X",
+                "VP8 "
+              ],
+              "responseStatus": 200,
+              "peerReceipt": {
+                "sha256": "8c67ee09a4bc586f90821cce1f6b09260b308072e720797b681b7f8af7e3d644",
+                "bytes": 3972,
+                "agrees": true
+              },
+              "elapsedMs": 2
+            }
+          },
+          "fetchesDuringSend": 1
+        },
+        "refused": {
+          "pass": {
+            "outcome": "REFUSED",
+            "code": "REGION_INVALID",
+            "frameHeld": false
+          },
+          "encode": {
+            "ok": false,
+            "code": "NO_SANITIZED_FRAME",
+            "detail": "no sanitized frame is held: no pass yet, or the last one was REFUSED or failed"
+          },
+          "send": {
+            "attempted": false,
+            "reason": "no artifact: NO_SANITIZED_FRAME"
+          },
+          "fetchesDuringSend": 0,
+          "sinkArrivalsDuringSend": 0
+        }
+      },
+      "attempts": {
+        "results": [
+          {
+            "name": "raw RGBA buffer, shaped like an artifact",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "the kept sanitized frame object itself",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "an ImageBitmap",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "arbitrary bytes",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "an UNATTESTED WebP of the sanitized frame",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "empty bytes",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "malformed WebP-like bytes",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "an attested frame mutated after attestation",
+            "sent": false,
+            "stage": "HASH",
+            "cause": "PAYLOAD_HASH_MISMATCH"
+          },
+          {
+            "name": "an attested frame to a non-loopback destination",
+            "sent": false,
+            "stage": "DESTINATION",
+            "cause": "DESTINATION_NOT_LOOPBACK"
+          }
+        ],
+        "fetchesDuringAttempts": 0,
+        "sinkArrivalsDuringAttempts": 0
+      },
+      "independent": {
+        "normal": {
+          "kind": "normal",
+          "sinkArrivalId": 2,
+          "bytes": 4198,
+          "receivedSha256": "3ea8794f03040c26985a08d9eb5181ff5e29c7ddd6e5a5659a17dea050d2e68d",
+          "sentSha256": "3ea8794f03040c26985a08d9eb5181ff5e29c7ddd6e5a5659a17dea050d2e68d",
+          "attestedSha256": "3ea8794f03040c26985a08d9eb5181ff5e29c7ddd6e5a5659a17dea050d2e68d",
+          "hashChainEqual": true,
+          "peerReceiptAgrees": true,
+          "container": {
+            "chunks": [
+              "VP8X",
+              "VP8 "
+            ],
+            "width": 1280,
+            "height": 720
+          },
+          "decoded": {
+            "width": 1280,
+            "height": 720,
+            "sha256": "e37ec91ef68ce512e7731fc17145bba086adefbf0ae7e1b4397fa6d21355ac2c"
+          },
+          "dimensionsEqualCapture": true,
+          "notRawFrame": true,
+          "noFixtureText": true,
+          "inkMaxChannel": [
+            0,
+            0,
+            1,
+            2,
+            1
+          ],
+          "everyInkPixelDark": true,
+          "controlsThroughWebp": {
+            "flat": [
+              {
+                "name": "swatch",
+                "px": {
+                  "x": 644,
+                  "y": 464,
+                  "w": 292,
+                  "h": 72
+                },
+                "encoded": {
+                  "min": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "max": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "mean": [
+                    58,
+                    123,
+                    212
+                  ]
+                },
+                "decodedMean": [
+                  58.043616818873666,
+                  123.20257800608827,
+                  212.5704908675799
+                ],
+                "meanDelta": 0.5704908675799061,
+                "worstPixelOutsideEncodedRange": 21,
+                "worstPixelAt": {
+                  "x": 644,
+                  "y": 466,
+                  "channel": 2,
+                  "fromRegionEdgePx": 0
+                }
+              },
+              {
+                "name": "blank",
+                "px": {
+                  "x": 984,
+                  "y": 584,
+                  "w": 272,
+                  "h": 112
+                },
+                "encoded": {
+                  "min": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "max": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "mean": [
+                    245,
+                    241,
+                    235
+                  ]
+                },
+                "decodedMean": [
+                  245,
+                  242,
+                  236
+                ],
+                "meanDelta": 1,
+                "worstPixelOutsideEncodedRange": 1,
+                "worstPixelAt": {
+                  "x": 984,
+                  "y": 584,
+                  "channel": 1,
+                  "fromRegionEdgePx": 0
+                }
+              }
+            ],
+            "text": [
+              {
+                "name": "control",
+                "px": {
+                  "x": 640,
+                  "y": 360,
+                  "w": 329,
+                  "h": 25
+                },
+                "encoded": {
+                  "min": [
+                    20,
+                    31,
+                    12
+                  ],
+                  "max": [
+                    255,
+                    245,
+                    255
+                  ],
+                  "mean": [
+                    204.97677811550153,
+                    202.04863221884497,
+                    196.9941641337386
+                  ]
+                },
+                "decodedMean": [
+                  205.38285714285715,
+                  202.65191489361703,
+                  197.1680243161094
+                ],
+                "meanDelta": 0.6032826747720605,
+                "worstPixelOutsideEncodedRange": 16,
+                "worstPixelAt": {
+                  "x": 652,
+                  "y": 366,
+                  "channel": 1,
+                  "fromRegionEdgePx": 6
+                }
+              }
+            ]
+          },
+          "swatchMaxDistanceFromCss": 22,
+          "blankMaxDistanceFromCss": 2,
+          "encodedSwatchMeanVsCss": [
+            0,
+            0,
+            -1
+          ],
+          "encodedBlankMeanVsCss": [
+            1,
+            0,
+            1
+          ],
+          "controlTextBrightest": 255,
+          "producerMaskInteriorsMax": 2,
+          "regionsWholeMax": null
+        },
+        "timeout": {
+          "kind": "timeout",
+          "sinkArrivalId": 3,
+          "bytes": 3972,
+          "receivedSha256": "8c67ee09a4bc586f90821cce1f6b09260b308072e720797b681b7f8af7e3d644",
+          "sentSha256": "8c67ee09a4bc586f90821cce1f6b09260b308072e720797b681b7f8af7e3d644",
+          "attestedSha256": "8c67ee09a4bc586f90821cce1f6b09260b308072e720797b681b7f8af7e3d644",
+          "hashChainEqual": true,
+          "peerReceiptAgrees": true,
+          "container": {
+            "chunks": [
+              "VP8X",
+              "VP8 "
+            ],
+            "width": 1280,
+            "height": 720
+          },
+          "decoded": {
+            "width": 1280,
+            "height": 720,
+            "sha256": "e6be78d19ceab7816a92154b7c579bcacf4f6ed50df24fb9c5ac465a4df26db8"
+          },
+          "dimensionsEqualCapture": true,
+          "notRawFrame": true,
+          "noFixtureText": true,
+          "inkMaxChannel": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "everyInkPixelDark": true,
+          "controlsThroughWebp": {
+            "flat": [
+              {
+                "name": "swatch",
+                "px": {
+                  "x": 644,
+                  "y": 464,
+                  "w": 292,
+                  "h": 72
+                },
+                "encoded": {
+                  "min": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "max": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "mean": [
+                    58,
+                    123,
+                    212
+                  ]
+                },
+                "decodedMean": [
+                  58.043616818873666,
+                  123.20257800608827,
+                  212.5704908675799
+                ],
+                "meanDelta": 0.5704908675799061,
+                "worstPixelOutsideEncodedRange": 21,
+                "worstPixelAt": {
+                  "x": 644,
+                  "y": 466,
+                  "channel": 2,
+                  "fromRegionEdgePx": 0
+                }
+              },
+              {
+                "name": "blank",
+                "px": {
+                  "x": 984,
+                  "y": 584,
+                  "w": 272,
+                  "h": 112
+                },
+                "encoded": {
+                  "min": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "max": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "mean": [
+                    245,
+                    241,
+                    235
+                  ]
+                },
+                "decodedMean": [
+                  245,
+                  242,
+                  236
+                ],
+                "meanDelta": 1,
+                "worstPixelOutsideEncodedRange": 1,
+                "worstPixelAt": {
+                  "x": 984,
+                  "y": 584,
+                  "channel": 1,
+                  "fromRegionEdgePx": 0
+                }
+              }
+            ],
+            "text": [
+              {
+                "name": "control",
+                "px": {
+                  "x": 640,
+                  "y": 360,
+                  "w": 329,
+                  "h": 25
+                },
+                "encoded": {
+                  "min": [
+                    20,
+                    31,
+                    12
+                  ],
+                  "max": [
+                    255,
+                    245,
+                    255
+                  ],
+                  "mean": [
+                    204.97677811550153,
+                    202.04863221884497,
+                    196.9941641337386
+                  ]
+                },
+                "decodedMean": [
+                  205.26954407294832,
+                  202.56267477203647,
+                  197.07890577507598
+                ],
+                "meanDelta": 0.5140425531915014,
+                "worstPixelOutsideEncodedRange": 12,
+                "worstPixelAt": {
+                  "x": 669,
+                  "y": 376,
+                  "channel": 1,
+                  "fromRegionEdgePx": 8
+                }
+              }
+            ]
+          },
+          "swatchMaxDistanceFromCss": 22,
+          "blankMaxDistanceFromCss": 2,
+          "encodedSwatchMeanVsCss": [
+            0,
+            0,
+            -1
+          ],
+          "encodedBlankMeanVsCss": [
+            1,
+            0,
+            1
+          ],
+          "controlTextBrightest": 255,
+          "producerMaskInteriorsMax": 4,
+          "regionsWholeMax": [
+            2,
+            3,
+            4
+          ]
+        },
+        "tolerance": 8
+      },
+      "vsM106": {
+        "note": "informational: the producer's mask rectangles for this window against M10.6's recorded cold-pass masks at the same scale",
+        "pixelRectsEqual": true
+      },
+      "bench": {
+        "n": 10,
+        "encodeMs": {
+          "n": 10,
+          "min": 34,
+          "median": 35.35000002384186,
+          "p90": 37,
+          "max": 39.799999952316284
+        },
+        "decodeMs": {
+          "n": 10,
+          "min": 8.700000047683716,
+          "median": 9.449999988079071,
+          "p90": 11.099999904632568,
+          "max": 11.5
+        },
+        "checkMs": {
+          "n": 10,
+          "min": 9.600000023841858,
+          "median": 10.050000011920929,
+          "p90": 13.699999928474426,
+          "max": 17.40000009536743
+        },
+        "wallMs": {
+          "n": 10,
+          "min": 52.700000047683716,
+          "median": 56.64999997615814,
+          "p90": 61.90000009536743,
+          "max": 63.800000071525574
+        },
+        "payloadBytes": {
+          "n": 10,
+          "min": 4198,
+          "median": 4198,
+          "p90": 4198,
+          "max": 4198
+        },
+        "bytesIdenticalAcrossRuns": true,
+        "decodedIdenticalAcrossRuns": true,
+        "memory": {
+          "webpBytes": 4198,
+          "decodedRgbaBytes": 3686400,
+          "attestedCopyBytes": 4198
+        },
+        "canvasBackingStoresNote": "two opaque canvases of capture size (encode, decode) are allocated by the browser per run and are not observable from JS; at 4 bytes per pixel that is 2 × w × h × 4 bytes, inferred, not measured"
+      },
+      "sink": {
+        "arrivals": [
+          {
+            "id": 2,
+            "at": "2026-10-01T11:20:27.495Z",
+            "method": "POST",
+            "path": "/m10/frame",
+            "origin": "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+            "contentType": "image/webp",
+            "bytes": 4198,
+            "sha256": "3ea8794f03040c26985a08d9eb5181ff5e29c7ddd6e5a5659a17dea050d2e68d",
+            "accepted": true,
+            "reason": null
+          },
+          {
+            "id": 3,
+            "at": "2026-10-01T11:20:28.531Z",
+            "method": "POST",
+            "path": "/m10/frame",
+            "origin": "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+            "contentType": "image/webp",
+            "bytes": 3972,
+            "sha256": "8c67ee09a4bc586f90821cce1f6b09260b308072e720797b681b7f8af7e3d644",
+            "accepted": true,
+            "reason": null
+          }
+        ]
+      },
+      "memory": {
+        "workerWasmBytes": 137494528,
+        "offscreenWasmBytes": 27656192
+      },
+      "workerAudit": {
+        "received": 3,
+        "shapes": [
+          {
+            "type": "TR01_INIT",
+            "shape": {
+              "protocol": "number",
+              "type": "string"
+            }
+          },
+          {
+            "type": "TR01_DETECT",
+            "shape": {
+              "height": "number",
+              "protocol": "number",
+              "rgba": "Uint8ClampedArray(3686400)",
+              "runId": "number",
+              "type": "string",
+              "width": "number"
+            }
+          }
+        ],
+        "foreignArrivals": 0,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde"
+        ]
+      },
+      "offscreenNetwork": {
+        "arrivals": 4,
+        "foreign": 2,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+          "http://127.0.0.1:8995"
+        ],
+        "byOrigin": {
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde": 2,
+          "http://127.0.0.1:8995": 2
+        }
+      },
+      "pageRequestOrigins": [
+        "http://127.0.0.1:8983"
+      ],
+      "serviceWorkerAudit": {
+        "messages": 22,
+        "bytes": 5184,
+        "png": false,
+        "webpMagic": false,
+        "dataUrl": false,
+        "longestBase64": 0
+      },
+      "plainPerceiveOnce": {
+        "route": "GESTURE_STREAM",
+        "carriesPixels": false
+      },
+      "checks": {
+        "realGestureRecorded": true,
+        "gestureStreamRoute": true,
+        "m106MaskVerifiedOnRealFrame": true,
+        "artifactAttestedFromSanitizedFrame": true,
+        "webpDimensionsEqualCapture": true,
+        "maskRectsCarriedToArtifact": true,
+        "sentThroughEgressAndAcceptedOnce": true,
+        "hashSentEqualsReceivedEqualsAttested": true,
+        "receivedIsNotTheRawFrame": true,
+        "receivedDimensionsEqualCapture": true,
+        "receivedCarriesNoFixtureText": true,
+        "independentlyEveryInkPixelMasked": true,
+        "independentlyProducerMaskHeld": true,
+        "independentlyControlsPreservedThroughWebp": true,
+        "timeoutMaskedWholeAndSent": true,
+        "refusedNoWebpNoRequest": true,
+        "everyUnverifiedAttemptRefusedBeforeTheWire": true,
+        "sinkAcceptedOnlyTheTwoArtifacts": true,
+        "networkOnlyToTheSink": true,
+        "serviceWorkerSawNoPixels": true,
+        "workerReceivedOnlyPixelsDimensionsAndRunIds": true,
+        "wasmUnder200MB": true,
+        "detectorUnder2000ms": true
+      }
+    },
+    {
+      "dpr": 1.5,
+      "window": "3 of 4",
+      "realGesture": "RECORDED",
+      "failure": null,
+      "steps": {
+        "gesture": {
+          "tabId": 426018198,
+          "observedAt": "2026-10-01T11:20:35.239Z",
+          "waitedMs": 3052
+        }
+      },
+      "preflight": {
+        "freshProfile": true,
+        "noOffscreenBeforeThisRun": true,
+        "fixturePageServed": true,
+        "contentScriptAttested": true,
+        "fixtureTabIsActive": true,
+        "actionPresent": true,
+        "noGrantYet": true,
+        "captureRefusedBeforeGesture": true,
+        "browserRefusesStreamIdBeforeGesture": true,
+        "instrumentationReady": true,
+        "productTr01HostNotYetCreated": true,
+        "noSanitizedFrameHeld": true,
+        "sinkListeningAndIdle": true,
+        "pageDevicePixelRatio": 1.5
+      },
+      "stream": {
+        "capture": {
+          "w": 1280,
+          "h": 720,
+          "format": "live-bitmap",
+          "bytes": 3686400,
+          "dpr": 1.5,
+          "scaleToCss": 1
+        },
+        "route": "GESTURE_STREAM",
+        "viewport": {
+          "w": 1280,
+          "h": 720,
+          "dpr": 1.5,
+          "scrollX": 0,
+          "scrollY": 0
+        },
+        "requestedDeviceScale": 1.5,
+        "pageDevicePixelRatio": 1.5
+      },
+      "geometry": {
+        "visualRegions": [
+          {
+            "id": "canvas:0",
+            "kind": "canvas",
+            "rect": {
+              "x": 40,
+              "y": 60,
+              "w": 520,
+              "h": 200
+            }
+          },
+          {
+            "id": "img:0",
+            "kind": "img",
+            "rect": {
+              "x": 640,
+              "y": 60,
+              "w": 480,
+              "h": 160
+            }
+          },
+          {
+            "id": "canvas:1",
+            "kind": "canvas",
+            "rect": {
+              "x": -80,
+              "y": 330,
+              "w": 420,
+              "h": 150
+            }
+          }
+        ],
+        "detections": [
+          {
+            "x": 659.3035714285714,
+            "y": 98.3732142857143,
+            "w": 398.892857142857,
+            "h": 24.87857142857142,
+            "score": 0.9689629982802517
+          },
+          {
+            "x": 63.45052083333333,
+            "y": 105.48046875000001,
+            "w": 365.5989583333333,
+            "h": 27.539062499999986,
+            "score": 0.9115771422712066
+          },
+          {
+            "x": 658.2755335365853,
+            "y": 160.44798018292684,
+            "w": 209.69893292682934,
+            "h": 24.479039634146346,
+            "score": 0.8986384133497874
+          },
+          {
+            "x": 63.14123376623376,
+            "y": 179.45211038961043,
+            "w": 293.7175324675324,
+            "h": 24.72077922077918,
+            "score": 0.9016988519970719
+          },
+          {
+            "x": 636.3655660377358,
+            "y": 360.1040094339623,
+            "w": 337.2688679245283,
+            "h": 30.166981132075477,
+            "score": 0.7782750345803877
+          },
+          {
+            "x": 29.40456081081081,
+            "y": 394.33910472972974,
+            "w": 282.44087837837833,
+            "h": 24.696790540540576,
+            "score": 0.9585743094709434
+          }
+        ],
+        "masks": [
+          {
+            "regionId": "canvas:0",
+            "cssMask": [
+              {
+                "x": 59.45052083333333,
+                "y": 101.48046875000001,
+                "w": 373.5989583333333,
+                "h": 35.539062499999986
+              },
+              {
+                "x": 59.14123376623376,
+                "y": 175.45211038961043,
+                "w": 301.7175324675324,
+                "h": 32.72077922077918
+              }
+            ],
+            "pixelRects": [
+              {
+                "x": 59,
+                "y": 101,
+                "w": 375,
+                "h": 37
+              },
+              {
+                "x": 59,
+                "y": 175,
+                "w": 302,
+                "h": 34
+              }
+            ]
+          },
+          {
+            "regionId": "img:0",
+            "cssMask": [
+              {
+                "x": 655.3035714285714,
+                "y": 94.3732142857143,
+                "w": 406.892857142857,
+                "h": 32.87857142857142
+              },
+              {
+                "x": 654.2755335365853,
+                "y": 156.44798018292684,
+                "w": 217.69893292682934,
+                "h": 32.479039634146346
+              }
+            ],
+            "pixelRects": [
+              {
+                "x": 655,
+                "y": 94,
+                "w": 408,
+                "h": 34
+              },
+              {
+                "x": 654,
+                "y": 156,
+                "w": 218,
+                "h": 33
+              }
+            ]
+          },
+          {
+            "regionId": "canvas:1",
+            "cssMask": [
+              {
+                "x": 25.40456081081081,
+                "y": 390.33910472972974,
+                "w": 290.44087837837833,
+                "h": 32.696790540540576
+              }
+            ],
+            "pixelRects": [
+              {
+                "x": 25,
+                "y": 390,
+                "w": 291,
+                "h": 34
+              }
+            ]
+          }
+        ]
+      },
+      "normal": {
+        "redaction": {
+          "outcome": "SANITIZED",
+          "failClosed": false,
+          "reason": null,
+          "refusal": null,
+          "detector": {
+            "modelId": "PP-OCRv4_mobile_det",
+            "ran": true,
+            "code": null,
+            "detections": 6
+          },
+          "regions": 3,
+          "maskRects": 5,
+          "pixelWrites": 55103,
+          "rawBitmapClosed": true,
+          "frameKept": true,
+          "ms": {
+            "detector": 938,
+            "mapping": 1,
+            "plan": 0,
+            "pixelMapping": 0,
+            "fill": 1
+          },
+          "detail": {
+            "visualRegions": [
+              {
+                "id": "canvas:0",
+                "rect": {
+                  "x": 40,
+                  "y": 60,
+                  "w": 520,
+                  "h": 200
+                }
+              },
+              {
+                "id": "img:0",
+                "rect": {
+                  "x": 640,
+                  "y": 60,
+                  "w": 480,
+                  "h": 160
+                }
+              },
+              {
+                "id": "canvas:1",
+                "rect": {
+                  "x": -80,
+                  "y": 330,
+                  "w": 420,
+                  "h": 150
+                }
+              }
+            ],
+            "detections": [
+              {
+                "x": 659.3035714285714,
+                "y": 98.3732142857143,
+                "w": 398.892857142857,
+                "h": 24.87857142857142,
+                "score": 0.9689629982802517
+              },
+              {
+                "x": 63.45052083333333,
+                "y": 105.48046875000001,
+                "w": 365.5989583333333,
+                "h": 27.539062499999986,
+                "score": 0.9115771422712066
+              },
+              {
+                "x": 658.2755335365853,
+                "y": 160.44798018292684,
+                "w": 209.69893292682934,
+                "h": 24.479039634146346,
+                "score": 0.8986384133497874
+              },
+              {
+                "x": 63.14123376623376,
+                "y": 179.45211038961043,
+                "w": 293.7175324675324,
+                "h": 24.72077922077918,
+                "score": 0.9016988519970719
+              },
+              {
+                "x": 636.3655660377358,
+                "y": 360.1040094339623,
+                "w": 337.2688679245283,
+                "h": 30.166981132075477,
+                "score": 0.7782750345803877
+              },
+              {
+                "x": 29.40456081081081,
+                "y": 394.33910472972974,
+                "w": 282.44087837837833,
+                "h": 24.696790540540576,
+                "score": 0.9585743094709434
+              }
+            ],
+            "masks": [
+              {
+                "regionId": "canvas:0",
+                "cssMask": [
+                  {
+                    "x": 59.45052083333333,
+                    "y": 101.48046875000001,
+                    "w": 373.5989583333333,
+                    "h": 35.539062499999986
+                  },
+                  {
+                    "x": 59.14123376623376,
+                    "y": 175.45211038961043,
+                    "w": 301.7175324675324,
+                    "h": 32.72077922077918
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 59,
+                    "y": 101,
+                    "w": 375,
+                    "h": 37
+                  },
+                  {
+                    "x": 59,
+                    "y": 175,
+                    "w": 302,
+                    "h": 34
+                  }
+                ]
+              },
+              {
+                "regionId": "img:0",
+                "cssMask": [
+                  {
+                    "x": 655.3035714285714,
+                    "y": 94.3732142857143,
+                    "w": 406.892857142857,
+                    "h": 32.87857142857142
+                  },
+                  {
+                    "x": 654.2755335365853,
+                    "y": 156.44798018292684,
+                    "w": 217.69893292682934,
+                    "h": 32.479039634146346
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 655,
+                    "y": 94,
+                    "w": 408,
+                    "h": 34
+                  },
+                  {
+                    "x": 654,
+                    "y": 156,
+                    "w": 218,
+                    "h": 33
+                  }
+                ]
+              },
+              {
+                "regionId": "canvas:1",
+                "cssMask": [
+                  {
+                    "x": 25.40456081081081,
+                    "y": 390.33910472972974,
+                    "w": 290.44087837837833,
+                    "h": 32.696790540540576
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 25,
+                    "y": 390,
+                    "w": 291,
+                    "h": 34
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "verification": {
+          "maskPixels": 55103,
+          "maskPixelsNotFill": 0,
+          "outsideMaskUnchanged": true,
+          "ink": [
+            {
+              "pixels": 7942,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5510,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5282,
+              "uncovered": 0
+            },
+            {
+              "pixels": 7880,
+              "uncovered": 0
+            },
+            {
+              "pixels": 3451,
+              "uncovered": 0
+            }
+          ],
+          "controlsUnchanged": true,
+          "controlPixelsInsideMask": 0,
+          "rawCopyKeptByProbe": false
+        },
+        "rawRgbaSha256": "c936f6b5110ae57df60ee7ad0cb38580e35502bb9f9a04da396e14874c2cf452"
+      },
+      "artifacts": {
+        "normal": {
+          "encode": {
+            "ok": true,
+            "sha256": "60b673bba09489ceafe77e61444fda93454f0313ef54893d9f96537b52540529",
+            "bytes": 4182,
+            "width": 1280,
+            "height": 720,
+            "manifest": {
+              "kind": "PRATIBIMB_MASKED_FRAME",
+              "version": 1,
+              "status": "MASK_VERIFIED",
+              "notRun": [
+                "full-frame OCR re-read (step 3)",
+                "D2/D3 re-detection (step 4)",
+                "vault value check (step 5)",
+                "12 px re-dilation loop (step 6)"
+              ],
+              "frameId": "transport-a2530648-eda8-41e3-b8b2-1d8a0975107b",
+              "width": 1280,
+              "height": 720,
+              "contentType": "image/webp",
+              "quality": 0.62,
+              "scaleToCss": 1,
+              "failClosed": false,
+              "reason": null,
+              "regions": [
+                {
+                  "regionId": "canvas:0",
+                  "pixelRects": [
+                    {
+                      "x": 59,
+                      "y": 101,
+                      "w": 375,
+                      "h": 37
+                    },
+                    {
+                      "x": 59,
+                      "y": 175,
+                      "w": 302,
+                      "h": 34
+                    }
+                  ]
+                },
+                {
+                  "regionId": "img:0",
+                  "pixelRects": [
+                    {
+                      "x": 655,
+                      "y": 94,
+                      "w": 408,
+                      "h": 34
+                    },
+                    {
+                      "x": 654,
+                      "y": 156,
+                      "w": 218,
+                      "h": 33
+                    }
+                  ]
+                },
+                {
+                  "regionId": "canvas:1",
+                  "pixelRects": [
+                    {
+                      "x": 25,
+                      "y": 390,
+                      "w": 291,
+                      "h": 34
+                    }
+                  ]
+                }
+              ],
+              "counts": {
+                "regions": 3,
+                "maskRects": 5,
+                "maskRectAreaPx": 55103
+              },
+              "sanitizedRgbaSha256": "396d8c24e5d092498bd797feb0c01b8b46eec91d6bc3ae5a5fc4338626ab92db",
+              "decodedRgbaSha256": "b8ef89ec740db46824d61da7cb613d24913cd7f5c5891281badae02da40c2600",
+              "webpSha256": "60b673bba09489ceafe77e61444fda93454f0313ef54893d9f96537b52540529",
+              "webpBytes": 4182,
+              "check": {
+                "tolerance": 8,
+                "insetPx": 4,
+                "worstInterior": 2,
+                "worstEdge": 23,
+                "outside": {
+                  "pixels": 866497,
+                  "maxAbs": 51,
+                  "meanAbs": 0.6713729726319498,
+                  "psnrDb": 45.888722337942895
+                }
+              }
+            },
+            "ms": {
+              "encode": 37.699999928474426,
+              "decode": 9.800000071525574,
+              "check": 14.899999976158142
+            },
+            "memory": {
+              "webpBytes": 4182,
+              "decodedRgbaBytes": 3686400,
+              "attestedCopyBytes": 4182
+            }
+          },
+          "send": {
+            "attempted": true,
+            "sent": true,
+            "record": {
+              "requestId": "w3-normal",
+              "sessionId": "m10.7-evidence",
+              "destination": "http://127.0.0.1:8995/m10/frame",
+              "at": 1790853636883,
+              "transport": "LOOPBACK_HTTP",
+              "contentType": "image/webp",
+              "status": "MASK_VERIFIED",
+              "payloadSha256": "60b673bba09489ceafe77e61444fda93454f0313ef54893d9f96537b52540529",
+              "payloadBytes": 4182,
+              "width": 1280,
+              "height": 720,
+              "chunks": [
+                "VP8X",
+                "VP8 "
+              ],
+              "responseStatus": 200,
+              "peerReceipt": {
+                "sha256": "60b673bba09489ceafe77e61444fda93454f0313ef54893d9f96537b52540529",
+                "bytes": 4182,
+                "agrees": true
+              },
+              "elapsedMs": 3
+            }
+          },
+          "fetchesDuringSend": 1,
+          "sinkArrivalsDuringSend": 1
+        },
+        "timeout": {
+          "pass": {
+            "code": "DETECTOR_TIMEOUT",
+            "failClosed": true,
+            "verification": {
+              "maskPixels": 231800,
+              "maskPixelsNotFill": 0,
+              "outsideMaskUnchanged": true,
+              "ink": [
+                {
+                  "pixels": 7942,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 5510,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 5282,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 7880,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 3451,
+                  "uncovered": 0
+                }
+              ],
+              "controlsUnchanged": true,
+              "controlPixelsInsideMask": 0,
+              "rawCopyKeptByProbe": false
+            }
+          },
+          "encode": {
+            "ok": true,
+            "sha256": "28cefb63c3a417e0a25158adc9be716264aef0cf6773bc71332f9781e46266e9",
+            "bytes": 4000,
+            "width": 1280,
+            "height": 720,
+            "manifest": {
+              "kind": "PRATIBIMB_MASKED_FRAME",
+              "version": 1,
+              "status": "MASK_VERIFIED",
+              "notRun": [
+                "full-frame OCR re-read (step 3)",
+                "D2/D3 re-detection (step 4)",
+                "vault value check (step 5)",
+                "12 px re-dilation loop (step 6)"
+              ],
+              "frameId": "transport-dbd20952-54b0-419e-b316-b6e0375214e7",
+              "width": 1280,
+              "height": 720,
+              "contentType": "image/webp",
+              "quality": 0.62,
+              "scaleToCss": 1,
+              "failClosed": true,
+              "reason": "TIMEOUT",
+              "regions": [
+                {
+                  "regionId": "canvas:0",
+                  "pixelRects": [
+                    {
+                      "x": 40,
+                      "y": 60,
+                      "w": 520,
+                      "h": 200
+                    }
+                  ]
+                },
+                {
+                  "regionId": "img:0",
+                  "pixelRects": [
+                    {
+                      "x": 640,
+                      "y": 60,
+                      "w": 480,
+                      "h": 160
+                    }
+                  ]
+                },
+                {
+                  "regionId": "canvas:1",
+                  "pixelRects": [
+                    {
+                      "x": 0,
+                      "y": 330,
+                      "w": 340,
+                      "h": 150
+                    }
+                  ]
+                }
+              ],
+              "counts": {
+                "regions": 3,
+                "maskRects": 3,
+                "maskRectAreaPx": 231800
+              },
+              "sanitizedRgbaSha256": "f0bde44f69b03e17e8bd768777fede491ce32616077ad99032833596a888d2a3",
+              "decodedRgbaSha256": "8d87062c1657ed9fe4ae72390e3e48d50355a71f847f15515dd16dd1f9bdb683",
+              "webpSha256": "28cefb63c3a417e0a25158adc9be716264aef0cf6773bc71332f9781e46266e9",
+              "webpBytes": 4000,
+              "check": {
+                "tolerance": 8,
+                "insetPx": 4,
+                "worstInterior": 4,
+                "worstEdge": 7,
+                "outside": {
+                  "pixels": 689800,
+                  "maxAbs": 51,
+                  "meanAbs": 0.7787972359137915,
+                  "psnrDb": 45.30266138726922
+                }
+              }
+            },
+            "ms": {
+              "encode": 34.5,
+              "decode": 13,
+              "check": 12.399999976158142
+            },
+            "memory": {
+              "webpBytes": 4000,
+              "decodedRgbaBytes": 3686400,
+              "attestedCopyBytes": 4000
+            }
+          },
+          "send": {
+            "attempted": true,
+            "sent": true,
+            "record": {
+              "requestId": "w3-timeout",
+              "sessionId": "m10.7-evidence",
+              "destination": "http://127.0.0.1:8995/m10/frame",
+              "at": 1790853637919,
+              "transport": "LOOPBACK_HTTP",
+              "contentType": "image/webp",
+              "status": "MASK_VERIFIED",
+              "payloadSha256": "28cefb63c3a417e0a25158adc9be716264aef0cf6773bc71332f9781e46266e9",
+              "payloadBytes": 4000,
+              "width": 1280,
+              "height": 720,
+              "chunks": [
+                "VP8X",
+                "VP8 "
+              ],
+              "responseStatus": 200,
+              "peerReceipt": {
+                "sha256": "28cefb63c3a417e0a25158adc9be716264aef0cf6773bc71332f9781e46266e9",
+                "bytes": 4000,
+                "agrees": true
+              },
+              "elapsedMs": 3
+            }
+          },
+          "fetchesDuringSend": 1
+        },
+        "refused": {
+          "pass": {
+            "outcome": "REFUSED",
+            "code": "REGION_INVALID",
+            "frameHeld": false
+          },
+          "encode": {
+            "ok": false,
+            "code": "NO_SANITIZED_FRAME",
+            "detail": "no sanitized frame is held: no pass yet, or the last one was REFUSED or failed"
+          },
+          "send": {
+            "attempted": false,
+            "reason": "no artifact: NO_SANITIZED_FRAME"
+          },
+          "fetchesDuringSend": 0,
+          "sinkArrivalsDuringSend": 0
+        }
+      },
+      "attempts": {
+        "results": [
+          {
+            "name": "raw RGBA buffer, shaped like an artifact",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "the kept sanitized frame object itself",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "an ImageBitmap",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "arbitrary bytes",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "an UNATTESTED WebP of the sanitized frame",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "empty bytes",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "malformed WebP-like bytes",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "an attested frame mutated after attestation",
+            "sent": false,
+            "stage": "HASH",
+            "cause": "PAYLOAD_HASH_MISMATCH"
+          },
+          {
+            "name": "an attested frame to a non-loopback destination",
+            "sent": false,
+            "stage": "DESTINATION",
+            "cause": "DESTINATION_NOT_LOOPBACK"
+          }
+        ],
+        "fetchesDuringAttempts": 0,
+        "sinkArrivalsDuringAttempts": 0
+      },
+      "independent": {
+        "normal": {
+          "kind": "normal",
+          "sinkArrivalId": 4,
+          "bytes": 4182,
+          "receivedSha256": "60b673bba09489ceafe77e61444fda93454f0313ef54893d9f96537b52540529",
+          "sentSha256": "60b673bba09489ceafe77e61444fda93454f0313ef54893d9f96537b52540529",
+          "attestedSha256": "60b673bba09489ceafe77e61444fda93454f0313ef54893d9f96537b52540529",
+          "hashChainEqual": true,
+          "peerReceiptAgrees": true,
+          "container": {
+            "chunks": [
+              "VP8X",
+              "VP8 "
+            ],
+            "width": 1280,
+            "height": 720
+          },
+          "decoded": {
+            "width": 1280,
+            "height": 720,
+            "sha256": "b8ef89ec740db46824d61da7cb613d24913cd7f5c5891281badae02da40c2600"
+          },
+          "dimensionsEqualCapture": true,
+          "notRawFrame": true,
+          "noFixtureText": true,
+          "inkMaxChannel": [
+            0,
+            0,
+            1,
+            2,
+            1
+          ],
+          "everyInkPixelDark": true,
+          "controlsThroughWebp": {
+            "flat": [
+              {
+                "name": "swatch",
+                "px": {
+                  "x": 644,
+                  "y": 464,
+                  "w": 292,
+                  "h": 72
+                },
+                "encoded": {
+                  "min": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "max": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "mean": [
+                    58,
+                    123,
+                    212
+                  ]
+                },
+                "decodedMean": [
+                  58.135416666666664,
+                  123.18597792998477,
+                  212.5556506849315
+                ],
+                "meanDelta": 0.5556506849314928,
+                "worstPixelOutsideEncodedRange": 21,
+                "worstPixelAt": {
+                  "x": 644,
+                  "y": 466,
+                  "channel": 2,
+                  "fromRegionEdgePx": 0
+                }
+              },
+              {
+                "name": "blank",
+                "px": {
+                  "x": 984,
+                  "y": 584,
+                  "w": 272,
+                  "h": 112
+                },
+                "encoded": {
+                  "min": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "max": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "mean": [
+                    245,
+                    241,
+                    235
+                  ]
+                },
+                "decodedMean": [
+                  245,
+                  242,
+                  236
+                ],
+                "meanDelta": 1,
+                "worstPixelOutsideEncodedRange": 1,
+                "worstPixelAt": {
+                  "x": 984,
+                  "y": 584,
+                  "channel": 1,
+                  "fromRegionEdgePx": 0
+                }
+              }
+            ],
+            "text": [
+              {
+                "name": "control",
+                "px": {
+                  "x": 640,
+                  "y": 360,
+                  "w": 329,
+                  "h": 25
+                },
+                "encoded": {
+                  "min": [
+                    21,
+                    31,
+                    12
+                  ],
+                  "max": [
+                    255,
+                    245,
+                    255
+                  ],
+                  "mean": [
+                    205.5130699088146,
+                    202.4449848024316,
+                    197.31841945288753
+                  ]
+                },
+                "decodedMean": [
+                  206.04133738601823,
+                  202.87161094224925,
+                  197.36413373860182
+                ],
+                "meanDelta": 0.5282674772036273,
+                "worstPixelOutsideEncodedRange": 21,
+                "worstPixelAt": {
+                  "x": 946,
+                  "y": 376,
+                  "channel": 1,
+                  "fromRegionEdgePx": 8
+                }
+              }
+            ]
+          },
+          "swatchMaxDistanceFromCss": 22,
+          "blankMaxDistanceFromCss": 2,
+          "encodedSwatchMeanVsCss": [
+            0,
+            0,
+            -1
+          ],
+          "encodedBlankMeanVsCss": [
+            1,
+            0,
+            1
+          ],
+          "controlTextBrightest": 255,
+          "producerMaskInteriorsMax": 2,
+          "regionsWholeMax": null
+        },
+        "timeout": {
+          "kind": "timeout",
+          "sinkArrivalId": 5,
+          "bytes": 4000,
+          "receivedSha256": "28cefb63c3a417e0a25158adc9be716264aef0cf6773bc71332f9781e46266e9",
+          "sentSha256": "28cefb63c3a417e0a25158adc9be716264aef0cf6773bc71332f9781e46266e9",
+          "attestedSha256": "28cefb63c3a417e0a25158adc9be716264aef0cf6773bc71332f9781e46266e9",
+          "hashChainEqual": true,
+          "peerReceiptAgrees": true,
+          "container": {
+            "chunks": [
+              "VP8X",
+              "VP8 "
+            ],
+            "width": 1280,
+            "height": 720
+          },
+          "decoded": {
+            "width": 1280,
+            "height": 720,
+            "sha256": "8d87062c1657ed9fe4ae72390e3e48d50355a71f847f15515dd16dd1f9bdb683"
+          },
+          "dimensionsEqualCapture": true,
+          "notRawFrame": true,
+          "noFixtureText": true,
+          "inkMaxChannel": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "everyInkPixelDark": true,
+          "controlsThroughWebp": {
+            "flat": [
+              {
+                "name": "swatch",
+                "px": {
+                  "x": 644,
+                  "y": 464,
+                  "w": 292,
+                  "h": 72
+                },
+                "encoded": {
+                  "min": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "max": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "mean": [
+                    58,
+                    123,
+                    212
+                  ]
+                },
+                "decodedMean": [
+                  58.135416666666664,
+                  123.18597792998477,
+                  212.5556506849315
+                ],
+                "meanDelta": 0.5556506849314928,
+                "worstPixelOutsideEncodedRange": 21,
+                "worstPixelAt": {
+                  "x": 644,
+                  "y": 466,
+                  "channel": 2,
+                  "fromRegionEdgePx": 0
+                }
+              },
+              {
+                "name": "blank",
+                "px": {
+                  "x": 984,
+                  "y": 584,
+                  "w": 272,
+                  "h": 112
+                },
+                "encoded": {
+                  "min": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "max": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "mean": [
+                    245,
+                    241,
+                    235
+                  ]
+                },
+                "decodedMean": [
+                  245,
+                  242,
+                  236
+                ],
+                "meanDelta": 1,
+                "worstPixelOutsideEncodedRange": 1,
+                "worstPixelAt": {
+                  "x": 984,
+                  "y": 584,
+                  "channel": 1,
+                  "fromRegionEdgePx": 0
+                }
+              }
+            ],
+            "text": [
+              {
+                "name": "control",
+                "px": {
+                  "x": 640,
+                  "y": 360,
+                  "w": 329,
+                  "h": 25
+                },
+                "encoded": {
+                  "min": [
+                    21,
+                    31,
+                    12
+                  ],
+                  "max": [
+                    255,
+                    245,
+                    255
+                  ],
+                  "mean": [
+                    205.5130699088146,
+                    202.4449848024316,
+                    197.31841945288753
+                  ]
+                },
+                "decodedMean": [
+                  206.04632218844984,
+                  202.86978723404255,
+                  197.3748328267477
+                ],
+                "meanDelta": 0.533252279635235,
+                "worstPixelOutsideEncodedRange": 15,
+                "worstPixelAt": {
+                  "x": 886,
+                  "y": 368,
+                  "channel": 1,
+                  "fromRegionEdgePx": 8
+                }
+              }
+            ]
+          },
+          "swatchMaxDistanceFromCss": 22,
+          "blankMaxDistanceFromCss": 2,
+          "encodedSwatchMeanVsCss": [
+            0,
+            0,
+            -1
+          ],
+          "encodedBlankMeanVsCss": [
+            1,
+            0,
+            1
+          ],
+          "controlTextBrightest": 255,
+          "producerMaskInteriorsMax": 4,
+          "regionsWholeMax": [
+            2,
+            3,
+            4
+          ]
+        },
+        "tolerance": 8
+      },
+      "vsM106": {
+        "note": "informational: the producer's mask rectangles for this window against M10.6's recorded cold-pass masks at the same scale",
+        "pixelRectsEqual": true
+      },
+      "bench": {
+        "n": 10,
+        "encodeMs": {
+          "n": 10,
+          "min": 33.60000002384186,
+          "median": 34.700000047683716,
+          "p90": 35.5,
+          "max": 39.699999928474426
+        },
+        "decodeMs": {
+          "n": 10,
+          "min": 8.600000023841858,
+          "median": 9.099999964237213,
+          "p90": 10.100000023841858,
+          "max": 10.399999976158142
+        },
+        "checkMs": {
+          "n": 10,
+          "min": 9.800000071525574,
+          "median": 11.399999976158142,
+          "p90": 14.399999976158142,
+          "max": 17.699999928474426
+        },
+        "wallMs": {
+          "n": 10,
+          "min": 52.60000002384186,
+          "median": 55.5,
+          "p90": 62.299999952316284,
+          "max": 64.19999992847443
+        },
+        "payloadBytes": {
+          "n": 10,
+          "min": 4182,
+          "median": 4182,
+          "p90": 4182,
+          "max": 4182
+        },
+        "bytesIdenticalAcrossRuns": true,
+        "decodedIdenticalAcrossRuns": true,
+        "memory": {
+          "webpBytes": 4182,
+          "decodedRgbaBytes": 3686400,
+          "attestedCopyBytes": 4182
+        },
+        "canvasBackingStoresNote": "two opaque canvases of capture size (encode, decode) are allocated by the browser per run and are not observable from JS; at 4 bytes per pixel that is 2 × w × h × 4 bytes, inferred, not measured"
+      },
+      "sink": {
+        "arrivals": [
+          {
+            "id": 4,
+            "at": "2026-10-01T11:20:36.881Z",
+            "method": "POST",
+            "path": "/m10/frame",
+            "origin": "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+            "contentType": "image/webp",
+            "bytes": 4182,
+            "sha256": "60b673bba09489ceafe77e61444fda93454f0313ef54893d9f96537b52540529",
+            "accepted": true,
+            "reason": null
+          },
+          {
+            "id": 5,
+            "at": "2026-10-01T11:20:37.918Z",
+            "method": "POST",
+            "path": "/m10/frame",
+            "origin": "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+            "contentType": "image/webp",
+            "bytes": 4000,
+            "sha256": "28cefb63c3a417e0a25158adc9be716264aef0cf6773bc71332f9781e46266e9",
+            "accepted": true,
+            "reason": null
+          }
+        ]
+      },
+      "memory": {
+        "workerWasmBytes": 137494528,
+        "offscreenWasmBytes": 27656192
+      },
+      "workerAudit": {
+        "received": 3,
+        "shapes": [
+          {
+            "type": "TR01_INIT",
+            "shape": {
+              "protocol": "number",
+              "type": "string"
+            }
+          },
+          {
+            "type": "TR01_DETECT",
+            "shape": {
+              "height": "number",
+              "protocol": "number",
+              "rgba": "Uint8ClampedArray(3686400)",
+              "runId": "number",
+              "type": "string",
+              "width": "number"
+            }
+          }
+        ],
+        "foreignArrivals": 0,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde"
+        ]
+      },
+      "offscreenNetwork": {
+        "arrivals": 4,
+        "foreign": 2,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+          "http://127.0.0.1:8995"
+        ],
+        "byOrigin": {
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde": 2,
+          "http://127.0.0.1:8995": 2
+        }
+      },
+      "pageRequestOrigins": [
+        "http://127.0.0.1:8983"
+      ],
+      "serviceWorkerAudit": {
+        "messages": 22,
+        "bytes": 5160,
+        "png": false,
+        "webpMagic": false,
+        "dataUrl": false,
+        "longestBase64": 0
+      },
+      "plainPerceiveOnce": {
+        "route": "GESTURE_STREAM",
+        "carriesPixels": false
+      },
+      "checks": {
+        "realGestureRecorded": true,
+        "gestureStreamRoute": true,
+        "m106MaskVerifiedOnRealFrame": true,
+        "artifactAttestedFromSanitizedFrame": true,
+        "webpDimensionsEqualCapture": true,
+        "maskRectsCarriedToArtifact": true,
+        "sentThroughEgressAndAcceptedOnce": true,
+        "hashSentEqualsReceivedEqualsAttested": true,
+        "receivedIsNotTheRawFrame": true,
+        "receivedDimensionsEqualCapture": true,
+        "receivedCarriesNoFixtureText": true,
+        "independentlyEveryInkPixelMasked": true,
+        "independentlyProducerMaskHeld": true,
+        "independentlyControlsPreservedThroughWebp": true,
+        "timeoutMaskedWholeAndSent": true,
+        "refusedNoWebpNoRequest": true,
+        "everyUnverifiedAttemptRefusedBeforeTheWire": true,
+        "sinkAcceptedOnlyTheTwoArtifacts": true,
+        "networkOnlyToTheSink": true,
+        "serviceWorkerSawNoPixels": true,
+        "workerReceivedOnlyPixelsDimensionsAndRunIds": true,
+        "wasmUnder200MB": true,
+        "detectorUnder2000ms": true
+      }
+    },
+    {
+      "dpr": 2,
+      "window": "4 of 4",
+      "realGesture": "RECORDED",
+      "failure": null,
+      "steps": {
+        "gesture": {
+          "tabId": 2101514964,
+          "observedAt": "2026-10-01T11:20:45.522Z",
+          "waitedMs": 4085
+        }
+      },
+      "preflight": {
+        "freshProfile": true,
+        "noOffscreenBeforeThisRun": true,
+        "fixturePageServed": true,
+        "contentScriptAttested": true,
+        "fixtureTabIsActive": true,
+        "actionPresent": true,
+        "noGrantYet": true,
+        "captureRefusedBeforeGesture": true,
+        "browserRefusesStreamIdBeforeGesture": true,
+        "instrumentationReady": true,
+        "productTr01HostNotYetCreated": true,
+        "noSanitizedFrameHeld": true,
+        "sinkListeningAndIdle": true,
+        "pageDevicePixelRatio": 2
+      },
+      "stream": {
+        "capture": {
+          "w": 1280,
+          "h": 720,
+          "format": "live-bitmap",
+          "bytes": 3686400,
+          "dpr": 2,
+          "scaleToCss": 1
+        },
+        "route": "GESTURE_STREAM",
+        "viewport": {
+          "w": 1280,
+          "h": 720,
+          "dpr": 2,
+          "scrollX": 0,
+          "scrollY": 0
+        },
+        "requestedDeviceScale": 2,
+        "pageDevicePixelRatio": 2
+      },
+      "geometry": {
+        "visualRegions": [
+          {
+            "id": "canvas:0",
+            "kind": "canvas",
+            "rect": {
+              "x": 40,
+              "y": 60,
+              "w": 520,
+              "h": 200
+            }
+          },
+          {
+            "id": "img:0",
+            "kind": "img",
+            "rect": {
+              "x": 640,
+              "y": 60,
+              "w": 480,
+              "h": 160
+            }
+          },
+          {
+            "id": "canvas:1",
+            "kind": "canvas",
+            "rect": {
+              "x": -80,
+              "y": 330,
+              "w": 420,
+              "h": 150
+            }
+          }
+        ],
+        "detections": [
+          {
+            "x": 659.3035714285714,
+            "y": 98.3732142857143,
+            "w": 398.892857142857,
+            "h": 24.87857142857142,
+            "score": 0.9690073440385714
+          },
+          {
+            "x": 63.45052083333333,
+            "y": 105.48046875000001,
+            "w": 365.5989583333333,
+            "h": 27.539062499999986,
+            "score": 0.9116420006044477
+          },
+          {
+            "x": 658.2755335365853,
+            "y": 160.44798018292684,
+            "w": 209.69893292682934,
+            "h": 24.479039634146346,
+            "score": 0.898959429481978
+          },
+          {
+            "x": 63.14123376623376,
+            "y": 179.45211038961043,
+            "w": 293.7175324675324,
+            "h": 24.72077922077918,
+            "score": 0.9014470655549396
+          },
+          {
+            "x": 636.3655660377358,
+            "y": 360.1040094339623,
+            "w": 337.2688679245283,
+            "h": 30.166981132075477,
+            "score": 0.7744384262185482
+          },
+          {
+            "x": 29.40456081081081,
+            "y": 394.33910472972974,
+            "w": 282.44087837837833,
+            "h": 24.696790540540576,
+            "score": 0.9584543829823635
+          }
+        ],
+        "masks": [
+          {
+            "regionId": "canvas:0",
+            "cssMask": [
+              {
+                "x": 59.45052083333333,
+                "y": 101.48046875000001,
+                "w": 373.5989583333333,
+                "h": 35.539062499999986
+              },
+              {
+                "x": 59.14123376623376,
+                "y": 175.45211038961043,
+                "w": 301.7175324675324,
+                "h": 32.72077922077918
+              }
+            ],
+            "pixelRects": [
+              {
+                "x": 59,
+                "y": 101,
+                "w": 375,
+                "h": 37
+              },
+              {
+                "x": 59,
+                "y": 175,
+                "w": 302,
+                "h": 34
+              }
+            ]
+          },
+          {
+            "regionId": "img:0",
+            "cssMask": [
+              {
+                "x": 655.3035714285714,
+                "y": 94.3732142857143,
+                "w": 406.892857142857,
+                "h": 32.87857142857142
+              },
+              {
+                "x": 654.2755335365853,
+                "y": 156.44798018292684,
+                "w": 217.69893292682934,
+                "h": 32.479039634146346
+              }
+            ],
+            "pixelRects": [
+              {
+                "x": 655,
+                "y": 94,
+                "w": 408,
+                "h": 34
+              },
+              {
+                "x": 654,
+                "y": 156,
+                "w": 218,
+                "h": 33
+              }
+            ]
+          },
+          {
+            "regionId": "canvas:1",
+            "cssMask": [
+              {
+                "x": 25.40456081081081,
+                "y": 390.33910472972974,
+                "w": 290.44087837837833,
+                "h": 32.696790540540576
+              }
+            ],
+            "pixelRects": [
+              {
+                "x": 25,
+                "y": 390,
+                "w": 291,
+                "h": 34
+              }
+            ]
+          }
+        ]
+      },
+      "normal": {
+        "redaction": {
+          "outcome": "SANITIZED",
+          "failClosed": false,
+          "reason": null,
+          "refusal": null,
+          "detector": {
+            "modelId": "PP-OCRv4_mobile_det",
+            "ran": true,
+            "code": null,
+            "detections": 6
+          },
+          "regions": 3,
+          "maskRects": 5,
+          "pixelWrites": 55103,
+          "rawBitmapClosed": true,
+          "frameKept": true,
+          "ms": {
+            "detector": 822,
+            "mapping": 0,
+            "plan": 0,
+            "pixelMapping": 0,
+            "fill": 1
+          },
+          "detail": {
+            "visualRegions": [
+              {
+                "id": "canvas:0",
+                "rect": {
+                  "x": 40,
+                  "y": 60,
+                  "w": 520,
+                  "h": 200
+                }
+              },
+              {
+                "id": "img:0",
+                "rect": {
+                  "x": 640,
+                  "y": 60,
+                  "w": 480,
+                  "h": 160
+                }
+              },
+              {
+                "id": "canvas:1",
+                "rect": {
+                  "x": -80,
+                  "y": 330,
+                  "w": 420,
+                  "h": 150
+                }
+              }
+            ],
+            "detections": [
+              {
+                "x": 659.3035714285714,
+                "y": 98.3732142857143,
+                "w": 398.892857142857,
+                "h": 24.87857142857142,
+                "score": 0.9690073440385714
+              },
+              {
+                "x": 63.45052083333333,
+                "y": 105.48046875000001,
+                "w": 365.5989583333333,
+                "h": 27.539062499999986,
+                "score": 0.9116420006044477
+              },
+              {
+                "x": 658.2755335365853,
+                "y": 160.44798018292684,
+                "w": 209.69893292682934,
+                "h": 24.479039634146346,
+                "score": 0.898959429481978
+              },
+              {
+                "x": 63.14123376623376,
+                "y": 179.45211038961043,
+                "w": 293.7175324675324,
+                "h": 24.72077922077918,
+                "score": 0.9014470655549396
+              },
+              {
+                "x": 636.3655660377358,
+                "y": 360.1040094339623,
+                "w": 337.2688679245283,
+                "h": 30.166981132075477,
+                "score": 0.7744384262185482
+              },
+              {
+                "x": 29.40456081081081,
+                "y": 394.33910472972974,
+                "w": 282.44087837837833,
+                "h": 24.696790540540576,
+                "score": 0.9584543829823635
+              }
+            ],
+            "masks": [
+              {
+                "regionId": "canvas:0",
+                "cssMask": [
+                  {
+                    "x": 59.45052083333333,
+                    "y": 101.48046875000001,
+                    "w": 373.5989583333333,
+                    "h": 35.539062499999986
+                  },
+                  {
+                    "x": 59.14123376623376,
+                    "y": 175.45211038961043,
+                    "w": 301.7175324675324,
+                    "h": 32.72077922077918
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 59,
+                    "y": 101,
+                    "w": 375,
+                    "h": 37
+                  },
+                  {
+                    "x": 59,
+                    "y": 175,
+                    "w": 302,
+                    "h": 34
+                  }
+                ]
+              },
+              {
+                "regionId": "img:0",
+                "cssMask": [
+                  {
+                    "x": 655.3035714285714,
+                    "y": 94.3732142857143,
+                    "w": 406.892857142857,
+                    "h": 32.87857142857142
+                  },
+                  {
+                    "x": 654.2755335365853,
+                    "y": 156.44798018292684,
+                    "w": 217.69893292682934,
+                    "h": 32.479039634146346
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 655,
+                    "y": 94,
+                    "w": 408,
+                    "h": 34
+                  },
+                  {
+                    "x": 654,
+                    "y": 156,
+                    "w": 218,
+                    "h": 33
+                  }
+                ]
+              },
+              {
+                "regionId": "canvas:1",
+                "cssMask": [
+                  {
+                    "x": 25.40456081081081,
+                    "y": 390.33910472972974,
+                    "w": 290.44087837837833,
+                    "h": 32.696790540540576
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 25,
+                    "y": 390,
+                    "w": 291,
+                    "h": 34
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "verification": {
+          "maskPixels": 55103,
+          "maskPixelsNotFill": 0,
+          "outsideMaskUnchanged": true,
+          "ink": [
+            {
+              "pixels": 7942,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5510,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5282,
+              "uncovered": 0
+            },
+            {
+              "pixels": 7880,
+              "uncovered": 0
+            },
+            {
+              "pixels": 3451,
+              "uncovered": 0
+            }
+          ],
+          "controlsUnchanged": true,
+          "controlPixelsInsideMask": 0,
+          "rawCopyKeptByProbe": false
+        },
+        "rawRgbaSha256": "ce2e8b86599aef55a0ca6a88e53ca993f7c1d9cead53c78dc72a83da74eff3f3"
+      },
+      "artifacts": {
+        "normal": {
+          "encode": {
+            "ok": true,
+            "sha256": "63a8bf284999da20d93fc8d29fa551c0dec95f2e7bbdae1a8e91817cbe0ecfe3",
+            "bytes": 4236,
+            "width": 1280,
+            "height": 720,
+            "manifest": {
+              "kind": "PRATIBIMB_MASKED_FRAME",
+              "version": 1,
+              "status": "MASK_VERIFIED",
+              "notRun": [
+                "full-frame OCR re-read (step 3)",
+                "D2/D3 re-detection (step 4)",
+                "vault value check (step 5)",
+                "12 px re-dilation loop (step 6)"
+              ],
+              "frameId": "transport-2a7d8d35-7070-4e21-b621-cbadd0588ce0",
+              "width": 1280,
+              "height": 720,
+              "contentType": "image/webp",
+              "quality": 0.62,
+              "scaleToCss": 1,
+              "failClosed": false,
+              "reason": null,
+              "regions": [
+                {
+                  "regionId": "canvas:0",
+                  "pixelRects": [
+                    {
+                      "x": 59,
+                      "y": 101,
+                      "w": 375,
+                      "h": 37
+                    },
+                    {
+                      "x": 59,
+                      "y": 175,
+                      "w": 302,
+                      "h": 34
+                    }
+                  ]
+                },
+                {
+                  "regionId": "img:0",
+                  "pixelRects": [
+                    {
+                      "x": 655,
+                      "y": 94,
+                      "w": 408,
+                      "h": 34
+                    },
+                    {
+                      "x": 654,
+                      "y": 156,
+                      "w": 218,
+                      "h": 33
+                    }
+                  ]
+                },
+                {
+                  "regionId": "canvas:1",
+                  "pixelRects": [
+                    {
+                      "x": 25,
+                      "y": 390,
+                      "w": 291,
+                      "h": 34
+                    }
+                  ]
+                }
+              ],
+              "counts": {
+                "regions": 3,
+                "maskRects": 5,
+                "maskRectAreaPx": 55103
+              },
+              "sanitizedRgbaSha256": "9952fa7c25b8f52928020aa89a874624dbeebedea11563351d95eb7990e99292",
+              "decodedRgbaSha256": "4dedef1de5e4b9ff4c46873af87e9b0a22dbe06b94144a70727ba307aa94110d",
+              "webpSha256": "63a8bf284999da20d93fc8d29fa551c0dec95f2e7bbdae1a8e91817cbe0ecfe3",
+              "webpBytes": 4236,
+              "check": {
+                "tolerance": 8,
+                "insetPx": 4,
+                "worstInterior": 2,
+                "worstEdge": 16,
+                "outside": {
+                  "pixels": 866497,
+                  "maxAbs": 35,
+                  "meanAbs": 0.6472394018675195,
+                  "psnrDb": 47.23899401700162
+                }
+              }
+            },
+            "ms": {
+              "encode": 44.10000002384186,
+              "decode": 12.299999952316284,
+              "check": 15.700000047683716
+            },
+            "memory": {
+              "webpBytes": 4236,
+              "decodedRgbaBytes": 3686400,
+              "attestedCopyBytes": 4236
+            }
+          },
+          "send": {
+            "attempted": true,
+            "sent": true,
+            "record": {
+              "requestId": "w4-normal",
+              "sessionId": "m10.7-evidence",
+              "destination": "http://127.0.0.1:8995/m10/frame",
+              "at": 1790853647044,
+              "transport": "LOOPBACK_HTTP",
+              "contentType": "image/webp",
+              "status": "MASK_VERIFIED",
+              "payloadSha256": "63a8bf284999da20d93fc8d29fa551c0dec95f2e7bbdae1a8e91817cbe0ecfe3",
+              "payloadBytes": 4236,
+              "width": 1280,
+              "height": 720,
+              "chunks": [
+                "VP8X",
+                "VP8 "
+              ],
+              "responseStatus": 200,
+              "peerReceipt": {
+                "sha256": "63a8bf284999da20d93fc8d29fa551c0dec95f2e7bbdae1a8e91817cbe0ecfe3",
+                "bytes": 4236,
+                "agrees": true
+              },
+              "elapsedMs": 3
+            }
+          },
+          "fetchesDuringSend": 1,
+          "sinkArrivalsDuringSend": 1
+        },
+        "timeout": {
+          "pass": {
+            "code": "DETECTOR_TIMEOUT",
+            "failClosed": true,
+            "verification": {
+              "maskPixels": 231800,
+              "maskPixelsNotFill": 0,
+              "outsideMaskUnchanged": true,
+              "ink": [
+                {
+                  "pixels": 7942,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 5510,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 5282,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 7880,
+                  "uncovered": 0
+                },
+                {
+                  "pixels": 3451,
+                  "uncovered": 0
+                }
+              ],
+              "controlsUnchanged": true,
+              "controlPixelsInsideMask": 0,
+              "rawCopyKeptByProbe": false
+            }
+          },
+          "encode": {
+            "ok": true,
+            "sha256": "6970b889392f317721db17f9fd83e8a02c30216488928972025ab2ea41e2b30b",
+            "bytes": 4112,
+            "width": 1280,
+            "height": 720,
+            "manifest": {
+              "kind": "PRATIBIMB_MASKED_FRAME",
+              "version": 1,
+              "status": "MASK_VERIFIED",
+              "notRun": [
+                "full-frame OCR re-read (step 3)",
+                "D2/D3 re-detection (step 4)",
+                "vault value check (step 5)",
+                "12 px re-dilation loop (step 6)"
+              ],
+              "frameId": "transport-f62e5314-24cd-4e82-ace6-f11f6957bac2",
+              "width": 1280,
+              "height": 720,
+              "contentType": "image/webp",
+              "quality": 0.62,
+              "scaleToCss": 1,
+              "failClosed": true,
+              "reason": "TIMEOUT",
+              "regions": [
+                {
+                  "regionId": "canvas:0",
+                  "pixelRects": [
+                    {
+                      "x": 40,
+                      "y": 60,
+                      "w": 520,
+                      "h": 200
+                    }
+                  ]
+                },
+                {
+                  "regionId": "img:0",
+                  "pixelRects": [
+                    {
+                      "x": 640,
+                      "y": 60,
+                      "w": 480,
+                      "h": 160
+                    }
+                  ]
+                },
+                {
+                  "regionId": "canvas:1",
+                  "pixelRects": [
+                    {
+                      "x": 0,
+                      "y": 330,
+                      "w": 340,
+                      "h": 150
+                    }
+                  ]
+                }
+              ],
+              "counts": {
+                "regions": 3,
+                "maskRects": 3,
+                "maskRectAreaPx": 231800
+              },
+              "sanitizedRgbaSha256": "7476e6472e0e8584afa4ed6b96135e6a4d22b5e66b2cc4b37bbdc91a713cc623",
+              "decodedRgbaSha256": "f45d4a4cad246c434765e7f4b57db29c00d5804116a3f010ae0362862ef838df",
+              "webpSha256": "6970b889392f317721db17f9fd83e8a02c30216488928972025ab2ea41e2b30b",
+              "webpBytes": 4112,
+              "check": {
+                "tolerance": 8,
+                "insetPx": 4,
+                "worstInterior": 4,
+                "worstEdge": 9,
+                "outside": {
+                  "pixels": 689800,
+                  "maxAbs": 33,
+                  "meanAbs": 0.7630733545955349,
+                  "psnrDb": 46.632303258531806
+                }
+              }
+            },
+            "ms": {
+              "encode": 45.800000071525574,
+              "decode": 15.600000023841858,
+              "check": 12.399999976158142
+            },
+            "memory": {
+              "webpBytes": 4112,
+              "decodedRgbaBytes": 3686400,
+              "attestedCopyBytes": 4112
+            }
+          },
+          "send": {
+            "attempted": true,
+            "sent": true,
+            "record": {
+              "requestId": "w4-timeout",
+              "sessionId": "m10.7-evidence",
+              "destination": "http://127.0.0.1:8995/m10/frame",
+              "at": 1790853648146,
+              "transport": "LOOPBACK_HTTP",
+              "contentType": "image/webp",
+              "status": "MASK_VERIFIED",
+              "payloadSha256": "6970b889392f317721db17f9fd83e8a02c30216488928972025ab2ea41e2b30b",
+              "payloadBytes": 4112,
+              "width": 1280,
+              "height": 720,
+              "chunks": [
+                "VP8X",
+                "VP8 "
+              ],
+              "responseStatus": 200,
+              "peerReceipt": {
+                "sha256": "6970b889392f317721db17f9fd83e8a02c30216488928972025ab2ea41e2b30b",
+                "bytes": 4112,
+                "agrees": true
+              },
+              "elapsedMs": 2
+            }
+          },
+          "fetchesDuringSend": 1
+        },
+        "refused": {
+          "pass": {
+            "outcome": "REFUSED",
+            "code": "REGION_INVALID",
+            "frameHeld": false
+          },
+          "encode": {
+            "ok": false,
+            "code": "NO_SANITIZED_FRAME",
+            "detail": "no sanitized frame is held: no pass yet, or the last one was REFUSED or failed"
+          },
+          "send": {
+            "attempted": false,
+            "reason": "no artifact: NO_SANITIZED_FRAME"
+          },
+          "fetchesDuringSend": 0,
+          "sinkArrivalsDuringSend": 0
+        }
+      },
+      "attempts": {
+        "results": [
+          {
+            "name": "raw RGBA buffer, shaped like an artifact",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "the kept sanitized frame object itself",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "an ImageBitmap",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "arbitrary bytes",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "an UNATTESTED WebP of the sanitized frame",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "empty bytes",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "malformed WebP-like bytes",
+            "sent": false,
+            "stage": "VERIFY",
+            "cause": "FRAME_NOT_MASK_VERIFIED"
+          },
+          {
+            "name": "an attested frame mutated after attestation",
+            "sent": false,
+            "stage": "HASH",
+            "cause": "PAYLOAD_HASH_MISMATCH"
+          },
+          {
+            "name": "an attested frame to a non-loopback destination",
+            "sent": false,
+            "stage": "DESTINATION",
+            "cause": "DESTINATION_NOT_LOOPBACK"
+          }
+        ],
+        "fetchesDuringAttempts": 0,
+        "sinkArrivalsDuringAttempts": 0
+      },
+      "independent": {
+        "normal": {
+          "kind": "normal",
+          "sinkArrivalId": 6,
+          "bytes": 4236,
+          "receivedSha256": "63a8bf284999da20d93fc8d29fa551c0dec95f2e7bbdae1a8e91817cbe0ecfe3",
+          "sentSha256": "63a8bf284999da20d93fc8d29fa551c0dec95f2e7bbdae1a8e91817cbe0ecfe3",
+          "attestedSha256": "63a8bf284999da20d93fc8d29fa551c0dec95f2e7bbdae1a8e91817cbe0ecfe3",
+          "hashChainEqual": true,
+          "peerReceiptAgrees": true,
+          "container": {
+            "chunks": [
+              "VP8X",
+              "VP8 "
+            ],
+            "width": 1280,
+            "height": 720
+          },
+          "decoded": {
+            "width": 1280,
+            "height": 720,
+            "sha256": "4dedef1de5e4b9ff4c46873af87e9b0a22dbe06b94144a70727ba307aa94110d"
+          },
+          "dimensionsEqualCapture": true,
+          "notRawFrame": true,
+          "noFixtureText": true,
+          "inkMaxChannel": [
+            0,
+            0,
+            0,
+            2,
+            0
+          ],
+          "everyInkPixelDark": true,
+          "controlsThroughWebp": {
+            "flat": [
+              {
+                "name": "swatch",
+                "px": {
+                  "x": 644,
+                  "y": 464,
+                  "w": 292,
+                  "h": 72
+                },
+                "encoded": {
+                  "min": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "max": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "mean": [
+                    58,
+                    123,
+                    212
+                  ]
+                },
+                "decodedMean": [
+                  57.90881849315068,
+                  123.2476693302892,
+                  213.02235540334854
+                ],
+                "meanDelta": 1.0223554033485414,
+                "worstPixelOutsideEncodedRange": 5,
+                "worstPixelAt": {
+                  "x": 676,
+                  "y": 484,
+                  "channel": 2,
+                  "fromRegionEdgePx": 20
+                }
+              },
+              {
+                "name": "blank",
+                "px": {
+                  "x": 984,
+                  "y": 584,
+                  "w": 272,
+                  "h": 112
+                },
+                "encoded": {
+                  "min": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "max": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "mean": [
+                    245,
+                    241,
+                    235
+                  ]
+                },
+                "decodedMean": [
+                  245,
+                  242,
+                  236
+                ],
+                "meanDelta": 1,
+                "worstPixelOutsideEncodedRange": 1,
+                "worstPixelAt": {
+                  "x": 984,
+                  "y": 584,
+                  "channel": 1,
+                  "fromRegionEdgePx": 0
+                }
+              }
+            ],
+            "text": [
+              {
+                "name": "control",
+                "px": {
+                  "x": 640,
+                  "y": 360,
+                  "w": 329,
+                  "h": 25
+                },
+                "encoded": {
+                  "min": [
+                    24,
+                    32,
+                    18
+                  ],
+                  "max": [
+                    255,
+                    243,
+                    251
+                  ],
+                  "mean": [
+                    206.35963525835865,
+                    203.27452887537993,
+                    198.20741641337386
+                  ]
+                },
+                "decodedMean": [
+                  206.65240121580547,
+                  203.8176291793313,
+                  198.20814589665653
+                ],
+                "meanDelta": 0.5431003039513769,
+                "worstPixelOutsideEncodedRange": 20,
+                "worstPixelAt": {
+                  "x": 922,
+                  "y": 372,
+                  "channel": 1,
+                  "fromRegionEdgePx": 12
+                }
+              }
+            ]
+          },
+          "swatchMaxDistanceFromCss": 6,
+          "blankMaxDistanceFromCss": 2,
+          "encodedSwatchMeanVsCss": [
+            0,
+            0,
+            -1
+          ],
+          "encodedBlankMeanVsCss": [
+            1,
+            0,
+            1
+          ],
+          "controlTextBrightest": 255,
+          "producerMaskInteriorsMax": 2,
+          "regionsWholeMax": null
+        },
+        "timeout": {
+          "kind": "timeout",
+          "sinkArrivalId": 7,
+          "bytes": 4112,
+          "receivedSha256": "6970b889392f317721db17f9fd83e8a02c30216488928972025ab2ea41e2b30b",
+          "sentSha256": "6970b889392f317721db17f9fd83e8a02c30216488928972025ab2ea41e2b30b",
+          "attestedSha256": "6970b889392f317721db17f9fd83e8a02c30216488928972025ab2ea41e2b30b",
+          "hashChainEqual": true,
+          "peerReceiptAgrees": true,
+          "container": {
+            "chunks": [
+              "VP8X",
+              "VP8 "
+            ],
+            "width": 1280,
+            "height": 720
+          },
+          "decoded": {
+            "width": 1280,
+            "height": 720,
+            "sha256": "f45d4a4cad246c434765e7f4b57db29c00d5804116a3f010ae0362862ef838df"
+          },
+          "dimensionsEqualCapture": true,
+          "notRawFrame": true,
+          "noFixtureText": true,
+          "inkMaxChannel": [
+            0,
+            2,
+            0,
+            2,
+            0
+          ],
+          "everyInkPixelDark": true,
+          "controlsThroughWebp": {
+            "flat": [
+              {
+                "name": "swatch",
+                "px": {
+                  "x": 644,
+                  "y": 464,
+                  "w": 292,
+                  "h": 72
+                },
+                "encoded": {
+                  "min": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "max": [
+                    58,
+                    123,
+                    212
+                  ],
+                  "mean": [
+                    58,
+                    123,
+                    212
+                  ]
+                },
+                "decodedMean": [
+                  58.16947298325723,
+                  123.10868531202435,
+                  213.02235540334854
+                ],
+                "meanDelta": 1.0223554033485414,
+                "worstPixelOutsideEncodedRange": 5,
+                "worstPixelAt": {
+                  "x": 676,
+                  "y": 484,
+                  "channel": 2,
+                  "fromRegionEdgePx": 20
+                }
+              },
+              {
+                "name": "blank",
+                "px": {
+                  "x": 984,
+                  "y": 584,
+                  "w": 272,
+                  "h": 112
+                },
+                "encoded": {
+                  "min": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "max": [
+                    245,
+                    241,
+                    235
+                  ],
+                  "mean": [
+                    245,
+                    241,
+                    235
+                  ]
+                },
+                "decodedMean": [
+                  245,
+                  242,
+                  236
+                ],
+                "meanDelta": 1,
+                "worstPixelOutsideEncodedRange": 1,
+                "worstPixelAt": {
+                  "x": 984,
+                  "y": 584,
+                  "channel": 1,
+                  "fromRegionEdgePx": 0
+                }
+              }
+            ],
+            "text": [
+              {
+                "name": "control",
+                "px": {
+                  "x": 640,
+                  "y": 360,
+                  "w": 329,
+                  "h": 25
+                },
+                "encoded": {
+                  "min": [
+                    24,
+                    32,
+                    18
+                  ],
+                  "max": [
+                    255,
+                    243,
+                    251
+                  ],
+                  "mean": [
+                    206.35963525835865,
+                    203.27452887537993,
+                    198.20741641337386
+                  ]
+                },
+                "decodedMean": [
+                  206.79379939209727,
+                  203.9276595744681,
+                  198.3190273556231
+                ],
+                "meanDelta": 0.653130699088166,
+                "worstPixelOutsideEncodedRange": 20,
+                "worstPixelAt": {
+                  "x": 922,
+                  "y": 372,
+                  "channel": 1,
+                  "fromRegionEdgePx": 12
+                }
+              }
+            ]
+          },
+          "swatchMaxDistanceFromCss": 6,
+          "blankMaxDistanceFromCss": 2,
+          "encodedSwatchMeanVsCss": [
+            0,
+            0,
+            -1
+          ],
+          "encodedBlankMeanVsCss": [
+            1,
+            0,
+            1
+          ],
+          "controlTextBrightest": 255,
+          "producerMaskInteriorsMax": 4,
+          "regionsWholeMax": [
+            3,
+            4,
+            4
+          ]
+        },
+        "tolerance": 8
+      },
+      "vsM106": {
+        "note": "informational: the producer's mask rectangles for this window against M10.6's recorded cold-pass masks at the same scale",
+        "pixelRectsEqual": true
+      },
+      "bench": {
+        "n": 10,
+        "encodeMs": {
+          "n": 10,
+          "min": 33.89999997615814,
+          "median": 36,
+          "p90": 42.09999990463257,
+          "max": 44.89999997615814
+        },
+        "decodeMs": {
+          "n": 10,
+          "min": 9.100000023841858,
+          "median": 9.700000047683716,
+          "p90": 10.899999976158142,
+          "max": 11.700000047683716
+        },
+        "checkMs": {
+          "n": 10,
+          "min": 9.899999976158142,
+          "median": 10.449999988079071,
+          "p90": 13.200000047683716,
+          "max": 18.299999952316284
+        },
+        "wallMs": {
+          "n": 10,
+          "min": 53,
+          "median": 57.60000002384186,
+          "p90": 65.29999995231628,
+          "max": 66.5
+        },
+        "payloadBytes": {
+          "n": 10,
+          "min": 4236,
+          "median": 4236,
+          "p90": 4236,
+          "max": 4236
+        },
+        "bytesIdenticalAcrossRuns": true,
+        "decodedIdenticalAcrossRuns": true,
+        "memory": {
+          "webpBytes": 4236,
+          "decodedRgbaBytes": 3686400,
+          "attestedCopyBytes": 4236
+        },
+        "canvasBackingStoresNote": "two opaque canvases of capture size (encode, decode) are allocated by the browser per run and are not observable from JS; at 4 bytes per pixel that is 2 × w × h × 4 bytes, inferred, not measured"
+      },
+      "sink": {
+        "arrivals": [
+          {
+            "id": 6,
+            "at": "2026-10-01T11:20:47.042Z",
+            "method": "POST",
+            "path": "/m10/frame",
+            "origin": "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+            "contentType": "image/webp",
+            "bytes": 4236,
+            "sha256": "63a8bf284999da20d93fc8d29fa551c0dec95f2e7bbdae1a8e91817cbe0ecfe3",
+            "accepted": true,
+            "reason": null
+          },
+          {
+            "id": 7,
+            "at": "2026-10-01T11:20:48.144Z",
+            "method": "POST",
+            "path": "/m10/frame",
+            "origin": "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+            "contentType": "image/webp",
+            "bytes": 4112,
+            "sha256": "6970b889392f317721db17f9fd83e8a02c30216488928972025ab2ea41e2b30b",
+            "accepted": true,
+            "reason": null
+          }
+        ]
+      },
+      "memory": {
+        "workerWasmBytes": 137494528,
+        "offscreenWasmBytes": 27656192
+      },
+      "workerAudit": {
+        "received": 3,
+        "shapes": [
+          {
+            "type": "TR01_INIT",
+            "shape": {
+              "protocol": "number",
+              "type": "string"
+            }
+          },
+          {
+            "type": "TR01_DETECT",
+            "shape": {
+              "height": "number",
+              "protocol": "number",
+              "rgba": "Uint8ClampedArray(3686400)",
+              "runId": "number",
+              "type": "string",
+              "width": "number"
+            }
+          }
+        ],
+        "foreignArrivals": 0,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde"
+        ]
+      },
+      "offscreenNetwork": {
+        "arrivals": 4,
+        "foreign": 2,
+        "origins": [
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+          "http://127.0.0.1:8995"
+        ],
+        "byOrigin": {
+          "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde": 2,
+          "http://127.0.0.1:8995": 2
+        }
+      },
+      "pageRequestOrigins": [
+        "http://127.0.0.1:8983"
+      ],
+      "serviceWorkerAudit": {
+        "messages": 22,
+        "bytes": 5180,
+        "png": false,
+        "webpMagic": false,
+        "dataUrl": false,
+        "longestBase64": 0
+      },
+      "plainPerceiveOnce": {
+        "route": "GESTURE_STREAM",
+        "carriesPixels": false
+      },
+      "checks": {
+        "realGestureRecorded": true,
+        "gestureStreamRoute": true,
+        "m106MaskVerifiedOnRealFrame": true,
+        "artifactAttestedFromSanitizedFrame": true,
+        "webpDimensionsEqualCapture": true,
+        "maskRectsCarriedToArtifact": true,
+        "sentThroughEgressAndAcceptedOnce": true,
+        "hashSentEqualsReceivedEqualsAttested": true,
+        "receivedIsNotTheRawFrame": true,
+        "receivedDimensionsEqualCapture": true,
+        "receivedCarriesNoFixtureText": true,
+        "independentlyEveryInkPixelMasked": true,
+        "independentlyProducerMaskHeld": true,
+        "independentlyControlsPreservedThroughWebp": true,
+        "timeoutMaskedWholeAndSent": true,
+        "refusedNoWebpNoRequest": true,
+        "everyUnverifiedAttemptRefusedBeforeTheWire": true,
+        "sinkAcceptedOnlyTheTwoArtifacts": true,
+        "networkOnlyToTheSink": true,
+        "serviceWorkerSawNoPixels": true,
+        "workerReceivedOnlyPixelsDimensionsAndRunIds": true,
+        "wasmUnder200MB": true,
+        "detectorUnder2000ms": true
+      }
+    }
+  ],
+  "recordedAt": "2026-10-01T11:20:52.470Z",
+  "provenance": {
+    "workstation": "W1",
+    "host": "LAPTOP-6E14K34L",
+    "workstationSource": "registry",
+    "os": "win32 10.0.26200",
+    "cpu": "Intel(R) Core(TM) 7 240H",
+    "node": "v24.19.0",
+    "playwright": "1.63.0",
+    "browserBinary": "C:/Users/RONIT/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe",
+    "headless": false
+  }
+}

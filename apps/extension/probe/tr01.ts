@@ -24,12 +24,14 @@
  */
 import { decodeDataUrl, geometryFrom, type CaptureGeometry } from "@pratibimb/perception";
 import { observePage } from "@pratibimb/extension-transport";
-import { MASK_FILL, redactionMask, type VisualRegion } from "@pratibimb/privacy";
+import { MASK_FILL, redactionMask, type MaskVerifiedFrame, type VisualRegion } from "@pratibimb/privacy";
+import { sendMaskVerifiedFrame } from "@pratibimb/egress";
 
 import { createPinnedInferenceSession, bootstrapOrtRealm, resolvePackagedAsset } from "../entrypoints/ortRuntime";
 import { createTr01Host, spawnTr01Worker, type Tr01Host, type Tr01Outcome, type WorkerLike } from "../host-lib/tr01-host";
 import { chromeRelay } from "../host-lib/transport-chrome";
 import { reportFromFullFrame, sanitizeFrame } from "../host-lib/visual-redaction";
+import type { ArtifactOutcome, WebpCodec } from "../host-lib/perception-realm";
 
 // ── the offscreen realm's own WASM memory, tracked from here on ─────────────────────────────────
 const offscreenMemories: WebAssembly.Memory[] = [];
@@ -390,6 +392,10 @@ export interface Tr01ProbeContext {
   ) => Promise<{ observed: { visualRegions: readonly unknown[]; viewport: unknown }; summary: { readonly redaction: unknown } }>;
   readonly sanitizedFrame: () => { width: number; height: number; rgba: Uint8ClampedArray } | null;
   readonly tr01Status: () => unknown;
+  /** M10.7: the realm's own encode-and-attest of its kept sanitized frame. */
+  readonly encodeSanitized: () => Promise<ArtifactOutcome>;
+  /** M10.7: the realm's codec, lent so the probe can build an UNATTESTED WebP to be refused. */
+  readonly codec: WebpCodec;
 }
 
 /** Two independent 32-bit hashes and a count over a pixel selection. A digest, never the pixels. */
@@ -414,7 +420,7 @@ function digest(rgba: Uint8ClampedArray, width: number, height: number, include:
 /** Set by a `pass` before it runs: the fixture's control rectangles and the page's CSS width. */
 let passControls: { rects: CssRect[]; cssWidth: number } = { rects: [], cssWidth: 1 };
 /** Written by the pre-fill hook: the mask about to be applied, and digests of what must not change. */
-type Planned = { rects: { x: number; y: number; w: number; h: number }[]; outside: string; controls: string[]; controlsInMask: number };
+type Planned = { rects: { x: number; y: number; w: number; h: number }[]; outside: string; controls: string[]; controlsInMask: number; rawSha256: Promise<string> };
 let planned: Planned | null = null;
 /** Read through a function: the hook assigns `planned` from inside the pass, which flow analysis cannot see. */
 const plannedNow = (): Planned | null => planned;
@@ -450,7 +456,14 @@ export const tr01Seam = {
       return digest(rgba, frame.width, frame.height, (x, y) => x >= b.x0 && x < b.x1 && y >= b.y0 && y < b.y1);
     });
     mark("maskPlanned");
+    // M10.7: the RAW frame's SHA-256, so the sink can show it never received those bytes. The digest
+    // is started over a transient copy (the fill is about to overwrite the original); the copy is
+    // dropped when the digest resolves. Test builds only.
+    const rawSha256 = globalThis.crypto.subtle
+      .digest("SHA-256", rgba.slice())
+      .then((d) => [...new Uint8Array(d)].map((b) => b.toString(16).padStart(2, "0")).join(""));
     planned = {
+      rawSha256,
       rects: rects.map((r) => ({ x: r.x, y: r.y, w: r.w, h: r.h })),
       outside: digest(rgba, frame.width, frame.height, (x, y) => masked[y * frame.width + x] === 0),
       controls,
@@ -548,10 +561,123 @@ async function pass(msg: Record<string, unknown>, ctx: Tr01ProbeContext): Promis
     frame: frame ? { width: frame.width, height: frame.height, rgbaBytes: frame.rgba.byteLength } : null,
     verification,
     tr01: ctx.tr01Status(),
+    rawRgbaSha256: p ? await p.rawSha256 : null,
     // Relative to the pass's start, in this realm's clock.
     timeline: timeline.map((e) => ({ ...e, at: e.at - t0 })),
     wallMs,
   };
+}
+
+// ── M10.7: the sanitized artifact, its egress, and the attempts egress must refuse ───────────────
+
+const describeArtifact = (enc: ArtifactOutcome) =>
+  enc.ok
+    ? { ok: true as const, sha256: enc.frame.sha256, bytes: enc.frame.bytes.length, width: enc.frame.width, height: enc.frame.height, manifest: enc.frame.manifest, ms: enc.ms, memory: enc.memory }
+    : { ok: false as const, code: enc.code, detail: enc.detail };
+
+async function artifact(msg: Record<string, unknown>, ctx: Tr01ProbeContext): Promise<unknown> {
+  const t0 = performance.now();
+  const enc = await ctx.encodeSanitized();
+  const encodeWallMs = performance.now() - t0;
+  const out: Record<string, unknown> = { encode: describeArtifact(enc), encodeWallMs };
+  if (msg["send"] === true) {
+    const before = offscreenArrivals.length;
+    if (!enc.ok) {
+      out["send"] = { attempted: false, reason: `no artifact: ${enc.code}` };
+    } else {
+      const sent = await sendMaskVerifiedFrame({ frame: enc.frame, destination: String(msg["destination"]), requestId: String(msg["requestId"] ?? "m107"), sessionId: "m10.7-evidence" });
+      out["send"] = sent.sent ? { attempted: true, sent: true, record: sent.record } : { attempted: true, sent: false, refusal: sent.refusal };
+    }
+    out["fetchesDuringSend"] = offscreenArrivals.length - before;
+  }
+  return out;
+}
+
+async function artifactBench(msg: Record<string, unknown>, ctx: Tr01ProbeContext): Promise<unknown> {
+  const n = Math.min(50, Math.max(1, Number(msg["n"] ?? 10)));
+  const runs: unknown[] = [];
+  for (let i = 0; i < n; i++) {
+    const t0 = performance.now();
+    const enc = await ctx.encodeSanitized();
+    const wall = performance.now() - t0;
+    runs.push(enc.ok ? { ok: true, wallMs: wall, ms: enc.ms, bytes: enc.frame.bytes.length, sha256: enc.frame.sha256, decodedSha256: enc.frame.manifest.decodedRgbaSha256, memory: enc.memory } : { ok: false, code: enc.code });
+  }
+  return { runs };
+}
+
+/**
+ * Per-channel min / max / mean of the KEPT SANITIZED frame over the capture pixels wholly inside each
+ * CSS rectangle (optionally inset). NUMBERS, never pixels: the sink compares its own decode of the
+ * received WebP against what was encoded, not against the fixture's CSS colours, which the tab
+ * stream's own colour conversion has already moved.
+ */
+function regionStats(msg: Record<string, unknown>, ctx: Tr01ProbeContext): unknown {
+  const frame = ctx.sanitizedFrame();
+  if (!frame) return { error: "no sanitized frame held" };
+  const s = frame.width / Number(msg["cssWidth"] ?? frame.width);
+  const inset = Number(msg["inset"] ?? 0);
+  const rects = (msg["rects"] as { name: string; rect: CssRect }[] | undefined) ?? [];
+  return {
+    stats: rects.map(({ name, rect }) => {
+      const b = pixelRectOf(rect, s, frame.width, frame.height);
+      const x0 = b.x0 + inset, y0 = b.y0 + inset, x1 = b.x1 - inset, y1 = b.y1 - inset;
+      const min = [255, 255, 255], max = [0, 0, 0], sum = [0, 0, 0];
+      let n = 0;
+      for (let y = y0; y < y1; y++)
+        for (let x = x0; x < x1; x++) {
+          const o = (y * frame.width + x) * 4;
+          for (let k = 0; k < 3; k++) {
+            const v = frame.rgba[o + k] as number;
+            min[k] = Math.min(min[k] as number, v);
+            max[k] = Math.max(max[k] as number, v);
+            sum[k] = (sum[k] as number) + v;
+          }
+          n++;
+        }
+      return { name, px: { x: x0, y: y0, w: Math.max(0, x1 - x0), h: Math.max(0, y1 - y0) }, n, min, max, mean: sum.map((v) => (n ? v / n : null)) };
+    }),
+  };
+}
+
+/** Each attempt must be REFUSED by `sendMaskVerifiedFrame` before any byte leaves. */
+async function egressAttempts(msg: Record<string, unknown>, ctx: Tr01ProbeContext): Promise<unknown> {
+  const destination = String(msg["destination"]);
+  const kept = ctx.sanitizedFrame();
+  if (!kept) return { error: "no sanitized frame held" };
+  const fetchesBefore = offscreenArrivals.length;
+  const asFrame = (x: unknown) => x as MaskVerifiedFrame;
+  const shaOf = async (b: Uint8Array) => [...new Uint8Array(await globalThis.crypto.subtle.digest("SHA-256", b as unknown as BufferSource))].map((v) => v.toString(16).padStart(2, "0")).join("");
+  const unattestedWebp = (await ctx.codec.encode(kept, 0.62)).bytes;
+  const rawRgba = new Uint8Array(kept.width * kept.height * 4);
+  const bitmap = await createImageBitmap(new ImageData(1, 1));
+  const shaped = async (bytes: Uint8Array) => ({ contentType: "image/webp", width: kept.width, height: kept.height, bytes, sha256: await shaOf(bytes), manifest: { status: "MASK_VERIFIED" } });
+  const attempts: [string, unknown, string][] = [
+    ["raw RGBA buffer, shaped like an artifact", await shaped(rawRgba), destination],
+    ["the kept sanitized frame object itself", kept, destination],
+    ["an ImageBitmap", bitmap, destination],
+    ["arbitrary bytes", await shaped(Uint8Array.from([1, 2, 3, 4, 5, 6, 7, 8])), destination],
+    ["an UNATTESTED WebP of the sanitized frame", await shaped(unattestedWebp), destination],
+    ["empty bytes", await shaped(new Uint8Array(0)), destination],
+    ["malformed WebP-like bytes", await shaped(Uint8Array.from([...new TextEncoder().encode("RIFF"), 4, 0, 0, 0, ...new TextEncoder().encode("WEBP")])), destination],
+  ];
+  // A genuine attested frame, then one byte changed after attestation: the hash pin must catch it.
+  const tampered = await ctx.encodeSanitized();
+  if (tampered.ok) {
+    const b = tampered.frame.bytes as Uint8Array;
+    b[b.length - 1] = (b[b.length - 1] as number) ^ 0xff;
+    attempts.push(["an attested frame mutated after attestation", tampered.frame, destination]);
+  }
+  // A genuine attested frame, sent somewhere that is not this machine.
+  const elsewhere = await ctx.encodeSanitized();
+  if (elsewhere.ok) attempts.push(["an attested frame to a non-loopback destination", elsewhere.frame, "http://example.invalid/m10/frame"]);
+
+  const results = [];
+  for (const [name, frame, to] of attempts) {
+    const r = await sendMaskVerifiedFrame({ frame: asFrame(frame), destination: to, requestId: `attempt-${results.length}`, sessionId: "m10.7-evidence" });
+    results.push(r.sent ? { name, sent: true } : { name, sent: false, stage: r.refusal.stage, cause: r.refusal.cause });
+  }
+  bitmap.close();
+  return { results, fetchesDuringAttempts: offscreenArrivals.length - fetchesBefore };
 }
 
 export function serveTr01Probe(message: unknown, sender: { tab?: unknown }, sendResponse: (reply: unknown) => void, context?: Tr01ProbeContext): boolean {
@@ -566,11 +692,24 @@ export function serveTr01Probe(message: unknown, sender: { tab?: unknown }, send
       ? context
         ? pass(msg, context)
         : Promise.resolve({ error: "no offscreen context" })
+      : msg["op"] === "artifact" && context
+        ? artifact(msg, context)
+      : msg["op"] === "artifact-bench" && context
+        ? artifactBench(msg, context)
+      : msg["op"] === "region-stats" && context
+        ? Promise.resolve(regionStats(msg, context))
+      : msg["op"] === "egress-attempts" && context
+        ? egressAttempts(msg, context)
       : msg["op"] === "product-state"
         ? // Preflight: the product host's state and whether a sanitized frame is held — no stale pass.
           Promise.resolve(context ? { tr01: context.tr01Status(), sanitizedFrameHeld: context.sanitizedFrame() !== null } : { error: "no offscreen context" })
       : msg["op"] === "offscreen-arrivals"
-        ? Promise.resolve({ arrivals: offscreenArrivals.length, foreign: offscreenArrivals.filter((a) => a.foreign).length, origins: [...new Set(offscreenArrivals.map((a) => a.origin))] })
+        ? Promise.resolve({
+            arrivals: offscreenArrivals.length,
+            foreign: offscreenArrivals.filter((a) => a.foreign).length,
+            origins: [...new Set(offscreenArrivals.map((a) => a.origin))],
+            byOrigin: offscreenArrivals.reduce<Record<string, number>>((m, a) => ({ ...m, [a.origin]: (m[a.origin] ?? 0) + 1 }), {}),
+          })
         : step(msg);
   void run.then(sendResponse, (e: unknown) => sendResponse({ error: e instanceof Error ? `${e.name}: ${e.message}` : String(e) }));
   return true;

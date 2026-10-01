@@ -90,7 +90,17 @@ import {
 } from "@pratibimb/perception";
 
 import { TR01 } from "@pratibimb/perception";
-import { wipeFrame, type PixelRect, type Rect, type RgbaFrame, type VisualRegion } from "@pratibimb/privacy";
+import {
+  WEBP_QUALITY,
+  attestMaskedFrame,
+  wipeFrame,
+  type AttestRefusalCode,
+  type MaskVerifiedFrame,
+  type PixelRect,
+  type Rect,
+  type RgbaFrame,
+  type VisualRegion,
+} from "@pratibimb/privacy";
 
 import { type CaptureRoute, type CaptureTicket } from "./capture-authority";
 import { perceiveText, textPerceptionAbsent, type TextPerception, type TextPerceptionReport } from "./text-perception";
@@ -265,6 +275,114 @@ export interface SanitizedFrame {
   readonly rgba: Uint8ClampedArray;
 }
 
+/**
+ * M10.7 — the image codec, which only this realm owns (ADR-0009: pixels stay in the perception realm).
+ * The browser implementation is `webp-codec.ts`; tests hand in a fake.
+ */
+export interface WebpCodec {
+  encode(frame: RgbaFrame, quality: number): Promise<{ readonly bytes: Uint8Array; readonly contentType: string }>;
+  decode(bytes: Uint8Array): Promise<RgbaFrame>;
+}
+
+export type ArtifactRefusalCode = "NO_SANITIZED_FRAME" | "CODEC_UNAVAILABLE" | "ENCODE_FAILED" | "ENCODED_AS_OTHER_TYPE" | "DECODE_FAILED" | AttestRefusalCode;
+
+/** The outcome of encoding the kept sanitized frame. Timings and sizes; never the pixels. */
+export type ArtifactOutcome =
+  | {
+      readonly ok: true;
+      readonly frame: MaskVerifiedFrame;
+      readonly ms: { readonly encode: number; readonly decode: number; readonly check: number };
+      /** Exact byteLength of each buffer this step allocated in JS. Canvas backing stores are not observable. */
+      readonly memory: { readonly webpBytes: number; readonly decodedRgbaBytes: number; readonly attestedCopyBytes: number };
+    }
+  | { readonly ok: false; readonly code: ArtifactRefusalCode; readonly detail: string };
+
+/**
+ * M10.7 — THE PERCEPTION REALM'S WEBP CODEC. The only image encoder in the extension, and in this file
+ * because only this file may turn bytes into pixels (`visualBoundary.test.ts`).
+ *
+ * ADR-0009 keeps pixels in the perception realm, so encoding them lives here too: not in the service
+ * worker, not in `@pratibimb/privacy` (which works on pixels and geometry and never on a browser
+ * codec), not in the transport, not in the TR-01 worker. The offscreen document hands it to the
+ * realm as `deps.codec`; nothing else references it (`webpEgressBoundary.test.ts`).
+ *
+ * ENCODE: the RGBA goes into an OPAQUE 2D OffscreenCanvas (`alpha: false`), and `convertToBlob`
+ * asks for `image/webp` at the given quality. The blob's type is returned as the browser labelled it,
+ * because a browser that cannot encode WebP returns PNG from the same call; the realm refuses that.
+ *
+ * DECODE: back through `createImageBitmap` with `premultiplyAlpha: "none"` and
+ * `colorSpaceConversion: "none"`, drawn onto an opaque canvas and read out. The bitmap is closed at
+ * once. This decode exists only so the mask can be checked on the bytes that would be sent.
+ *
+ * No network, no DOM, no model, no text.
+ */
+const opaque2d = (w: number, h: number): OffscreenCanvasRenderingContext2D => {
+  const ctx = new OffscreenCanvas(w, h).getContext("2d", { alpha: false });
+  if (!ctx) throw new Error("no 2D context");
+  return ctx;
+};
+
+/**
+ * THE PAYLOAD CARRIES PIXELS AND NOTHING ELSE. Chrome's WebP encoder embeds a colour profile: an
+ * `ICCP` chunk (MEASURED on W1, Chrome for Testing: 456 bytes, an sRGB profile, "Google Inc. 2016")
+ * flagged in `VP8X`. It comes from the browser, not the page, but it is metadata, and egress admits
+ * none. So it is removed here, before the decode-back and the attestation — which therefore run on
+ * exactly the bytes that would be sent. Pure. Bytes that are not a WebP with a `VP8X` header, or that
+ * carry any other extra chunk, are returned unchanged; egress then judges them on their own.
+ */
+export function stripWebpColourProfile(bytes: Uint8Array): Uint8Array {
+  const tag = (o: number) => String.fromCharCode(bytes[o] as number, bytes[o + 1] as number, bytes[o + 2] as number, bytes[o + 3] as number);
+  const u32 = (o: number) => ((bytes[o] as number) | ((bytes[o + 1] as number) << 8) | ((bytes[o + 2] as number) << 16) | ((bytes[o + 3] as number) << 24)) >>> 0;
+  if (bytes.length < 30 || tag(0) !== "RIFF" || tag(8) !== "WEBP" || tag(12) !== "VP8X" || u32(4) + 8 !== bytes.length) return bytes;
+  const kept: Uint8Array[] = [];
+  let dropped = false;
+  for (let o = 12; o < bytes.length; ) {
+    if (o + 8 > bytes.length) return bytes;
+    const size = u32(o + 4);
+    const end = o + 8 + size + (size & 1);
+    if (end > bytes.length) return bytes;
+    if (tag(o) === "ICCP") dropped = true;
+    else kept.push(bytes.subarray(o, end));
+    o = end;
+  }
+  if (!dropped) return bytes;
+  const body = kept.reduce((n, c) => n + c.length, 0);
+  const out = new Uint8Array(12 + body);
+  out.set(bytes.subarray(0, 12), 0);
+  let at = 12;
+  for (const c of kept) {
+    out.set(c, at);
+    at += c.length;
+  }
+  out[20] = (out[20] as number) & ~0x20; // VP8X flags: no ICC profile
+  const riff = out.length - 8;
+  out[4] = riff & 0xff;
+  out[5] = (riff >>> 8) & 0xff;
+  out[6] = (riff >>> 16) & 0xff;
+  out[7] = (riff >>> 24) & 0xff;
+  return out;
+}
+
+export const browserWebpCodec: WebpCodec = {
+  async encode(frame: RgbaFrame, quality: number) {
+    const ctx = opaque2d(frame.width, frame.height);
+    const view = frame.rgba instanceof Uint8ClampedArray ? frame.rgba : new Uint8ClampedArray(frame.rgba.buffer, frame.rgba.byteOffset, frame.rgba.byteLength);
+    ctx.putImageData(new ImageData(view as Uint8ClampedArray<ArrayBuffer>, frame.width, frame.height), 0, 0);
+    const blob = await (ctx.canvas as OffscreenCanvas).convertToBlob({ type: "image/webp", quality });
+    return { bytes: stripWebpColourProfile(new Uint8Array(await blob.arrayBuffer())), contentType: blob.type };
+  },
+  async decode(bytes: Uint8Array) {
+    const bitmap = await createImageBitmap(new Blob([bytes as unknown as BlobPart], { type: "image/webp" }), { premultiplyAlpha: "none", colorSpaceConversion: "none" });
+    try {
+      const ctx = opaque2d(bitmap.width, bitmap.height);
+      ctx.drawImage(bitmap, 0, 0);
+      return { width: bitmap.width, height: bitmap.height, rgba: ctx.getImageData(0, 0, bitmap.width, bitmap.height).data };
+    } finally {
+      bitmap.close();
+    }
+  },
+};
+
 /** A pass that could not start. Still a summary, so callers have one shape to read. */
 export const perceptionRefused = (code: string, detail: string, route: CaptureRoute | null = null): PerceptionSummary => ({
   ran: false,
@@ -339,6 +457,11 @@ export interface PerceptionRealmDeps {
   readonly textRegions?: {
     detect(frame: Tr01Frame, options?: { readonly deadlineMs?: number }): Promise<Tr01Outcome>;
   } | null;
+  /**
+   * M10.7 — the WebP codec. `null` or absent: `encodeSanitized` refuses with CODEC_UNAVAILABLE. Nothing
+   * else in the pass uses it; a pass never encodes on its own.
+   */
+  readonly codec?: WebpCodec | null;
   /** VERIFICATION SEAM (test builds only): see `SanitizeInput.beforeFill`. */
   readonly onMaskPlanned?: (frame: RgbaFrame, pixelRects: readonly PixelRect[]) => void;
   /**
@@ -373,6 +496,13 @@ export interface PerceptionRealm {
   ): Promise<PerceptionSummary>;
   /** The last pass's sanitized frame, or `null` — after a REFUSED or failed pass, always `null`. */
   sanitizedFrame(): SanitizedFrame | null;
+  /**
+   * M10.7 — encode THIS REALM'S KEPT SANITIZED FRAME as WebP q62, decode the bytes back, and attest
+   * that the mask survived (steps 1–2 of the frozen verifier). It takes no frame: there is no way to
+   * hand it the raw one, which was masked in place and whose bitmap is already closed. With no kept
+   * frame (no pass yet, or the last one REFUSED or failed) it refuses: no frame, no WebP.
+   */
+  encodeSanitized(): Promise<ArtifactOutcome>;
   readonly modelId: string;
   readonly revision: string;
 }
@@ -392,6 +522,13 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
   let current: DecodedImage | null = null;
   /** The only frame this realm keeps between passes: the last SANITIZED one. */
   let sanitized: SanitizedFrame | null = null;
+  /** What the kept frame's mask was, for its attestation: ids, pixel rectangles, failure state. */
+  let sanitizedPlan: {
+    readonly regions: readonly { readonly regionId: string; readonly pixelRects: readonly PixelRect[] }[];
+    readonly failClosed: boolean;
+    readonly reason: string | null;
+    readonly scaleToCss: number;
+  } | null = null;
   /** Rasterise-and-normalise time, accumulated inside the pass so it is reported, not inferred. */
   let preprocessMs = 0;
   /** The head's anchor count, read off the output tensor rather than assumed from the contract. */
@@ -440,6 +577,54 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
     revision: detector.revision,
     sanitizedFrame: () => sanitized,
 
+    async encodeSanitized(): Promise<ArtifactOutcome> {
+      // Read once: a pass that starts while this runs replaces the kept frame, never this one's.
+      const frame = sanitized;
+      const plan = sanitizedPlan;
+      if (frame === null || plan === null) return { ok: false, code: "NO_SANITIZED_FRAME", detail: "no sanitized frame is held: no pass yet, or the last one was REFUSED or failed" };
+      const codec = deps.codec ?? null;
+      if (codec === null) return { ok: false, code: "CODEC_UNAVAILABLE", detail: "this realm has no WebP codec" };
+      const hr = (): number => (globalThis.performance ? globalThis.performance.now() : now());
+
+      const t0 = hr();
+      let encoded: { readonly bytes: Uint8Array; readonly contentType: string };
+      try {
+        encoded = await codec.encode(frame, WEBP_QUALITY);
+      } catch (cause) {
+        return { ok: false, code: "ENCODE_FAILED", detail: String((cause as Error)?.message ?? cause) };
+      }
+      const t1 = hr();
+      // A browser that cannot encode WebP silently returns PNG under the same call. That is a refusal.
+      if (encoded.contentType !== "image/webp") return { ok: false, code: "ENCODED_AS_OTHER_TYPE", detail: `the encoder produced ${encoded.contentType || "an unlabelled blob"}` };
+
+      let decoded: RgbaFrame;
+      try {
+        decoded = await codec.decode(encoded.bytes);
+      } catch (cause) {
+        return { ok: false, code: "DECODE_FAILED", detail: String((cause as Error)?.message ?? cause) };
+      }
+      const t2 = hr();
+      const attested = await attestMaskedFrame({
+        bytes: encoded.bytes,
+        sanitized: frame,
+        decoded,
+        regions: plan.regions,
+        frameId: String(frame.frameId),
+        scaleToCss: plan.scaleToCss,
+        failClosed: plan.failClosed,
+        reason: plan.reason,
+        quality: WEBP_QUALITY,
+      });
+      const t3 = hr();
+      if (!attested.ok) return { ok: false, code: attested.code, detail: attested.detail };
+      return {
+        ok: true,
+        frame: attested.frame,
+        ms: { encode: t1 - t0, decode: t2 - t1, check: t3 - t2 },
+        memory: { webpBytes: encoded.bytes.byteLength, decodedRgbaBytes: decoded.rgba.byteLength, attestedCopyBytes: attested.frame.bytes.byteLength },
+      };
+    },
+
     async perceive(
       graph: ElementGraph,
       measurement: ViewportMeasurement,
@@ -451,6 +636,7 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
       current = null;
       // A new pass starts with NO frame held: an older frame must never stand in for this one.
       sanitized = null;
+      sanitizedPlan = null;
       preprocessMs = 0;
       let decodeMs = 0;
       let encodeMs = 0;
@@ -638,6 +824,15 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
       });
       stage("mask:end");
       sanitized = redacted.outcome === "SANITIZED" ? { frameId: framed.id, width: image.width, height: image.height, rgba: image.rgba } : null;
+      sanitizedPlan =
+        redacted.outcome === "SANITIZED"
+          ? {
+              regions: redacted.regions.map((r) => ({ regionId: r.regionId, pixelRects: r.pixelRects })),
+              failClosed: redacted.failClosed,
+              reason: redacted.reason,
+              scaleToCss: captureBlock.scaleToCss,
+            }
+          : null;
       const sane = redacted.outcome === "SANITIZED" ? redacted : null;
       const redaction: RedactionSummary = {
         outcome: redacted.outcome,
@@ -689,6 +884,7 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
       } catch (cause) {
         // A pass that failed does not hand a frame on, even a sanitized one.
         sanitized = null;
+        sanitizedPlan = null;
         return {
           ...perceptionRefused("FUSION_FAILED", String((cause as Error)?.message ?? cause), route),
           capture: captureBlock,

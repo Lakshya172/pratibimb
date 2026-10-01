@@ -14,9 +14,11 @@ import { readFileSync } from "node:fs";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { buildElementGraph, frameId, type ViewportMeasurement } from "@pratibimb/perception";
-import { MASK_FILL, type VisualRegion } from "@pratibimb/privacy";
+import { MASK_FILL, isMaskVerifiedFrame, type VisualRegion } from "@pratibimb/privacy";
 
-import { createPerceptionRealm, type PerceptionRealm, type PerceptionRealmDeps } from "../host-lib/perception-realm";
+import { inspectWebp } from "@pratibimb/egress";
+
+import { createPerceptionRealm, stripWebpColourProfile, type PerceptionRealm, type PerceptionRealmDeps, type WebpCodec } from "../host-lib/perception-realm";
 import type { Tr01Frame, Tr01Outcome } from "../host-lib/tr01-host";
 import { createTr01WorkerCore } from "../host-lib/tr01-worker-core";
 import { generateFrame, HEIGHT, WIDTH } from "./support/maskFixture";
@@ -327,5 +329,155 @@ describe("the TR-01 worker scrubs the pixels it was lent (M10.6)", () => {
       expect(rgba.every((v) => v === 0)).toBe(true);
       expect(posted).toHaveLength(2);
     }
+  });
+});
+
+// ───────────────────────────── M10.7: the sanitized WebP artifact ─────────────────────────────
+
+/** RIFF/WEBP with a VP8L header of the frame's size: the container a fake codec "encodes". */
+function webpOf(w: number, h: number): Uint8Array {
+  const bits = ((w - 1) & 0x3fff) | (((h - 1) & 0x3fff) << 14);
+  const chunk = [0x2f, bits & 0xff, (bits >>> 8) & 0xff, (bits >>> 16) & 0xff, (bits >>> 24) & 0xff, 0, 0, 0];
+  const body = [...new TextEncoder().encode("WEBPVP8L"), chunk.length, 0, 0, 0, ...chunk];
+  return Uint8Array.from([...new TextEncoder().encode("RIFF"), body.length & 0xff, (body.length >>> 8) & 0xff, 0, 0, ...body]);
+}
+
+/** A lossless fake codec: decode returns exactly what was encoded, unless told otherwise. */
+function fakeCodec(over: { contentType?: string; bytes?: Uint8Array; decode?: (encoded: Uint8ClampedArray, w: number, h: number) => { width: number; height: number; rgba: Uint8ClampedArray }; failDecode?: boolean } = {}) {
+  const calls: { sha: string; sameBufferAsKept: boolean; quality: number }[] = [];
+  let encoded: { rgba: Uint8ClampedArray; w: number; h: number } | null = null;
+  const codec: WebpCodec = {
+    async encode(frame, quality) {
+      calls.push({ sha: sha(frame.rgba as Uint8ClampedArray), sameBufferAsKept: frame.rgba === streamFrame.rgba, quality });
+      encoded = { rgba: (frame.rgba as Uint8ClampedArray).slice(), w: frame.width, h: frame.height };
+      return { bytes: over.bytes ?? webpOf(frame.width, frame.height), contentType: over.contentType ?? "image/webp" };
+    },
+    async decode() {
+      if (over.failDecode) throw new Error("decoder trap");
+      const e = encoded!;
+      return over.decode ? over.decode(e.rgba, e.w, e.h) : { width: e.w, height: e.h, rgba: e.rgba.slice() };
+    },
+  };
+  return { codec, calls };
+}
+
+describe("M10.7: only the kept SANITIZED frame can be encoded, and only a surviving mask is attested", () => {
+  it("valid masked frame → WebP q62 of the sanitized buffer → MASK-VERIFIED artifact; never the raw pixels", async () => {
+    const rawSha = sha(streamFrame.rgba);
+    const { codec, calls } = fakeCodec();
+    const r = realm({ codec });
+    const summary = await perceive(r, REGIONS, measurement(), { collect: true });
+    const out = await r.encodeSanitized();
+    expect(out.ok).toBe(true);
+    if (!out.ok) return;
+    expect(calls).toHaveLength(1);
+    expect(calls[0]).toMatchObject({ sameBufferAsKept: true, quality: 0.62 });
+    expect(calls[0]?.sha).not.toBe(rawSha);
+    expect(calls[0]?.sha).toBe(sha(r.sanitizedFrame()!.rgba));
+    expect(isMaskVerifiedFrame(out.frame)).toBe(true);
+    expect(out.frame.manifest).toMatchObject({ status: "MASK_VERIFIED", failClosed: false, width: WIDTH, height: HEIGHT, counts: { regions: 3, maskRects: 4 } });
+    expect(out.frame.manifest.regions.map((g) => [g.regionId, g.pixelRects])).toEqual(summary.redaction.detail!.masks.map((m) => [m.regionId, m.pixelRects]));
+    expect(out.frame.manifest.sanitizedRgbaSha256).not.toBe(rawSha);
+  });
+
+  it.each([
+    ["detector error", "DETECTOR_ERROR"],
+    ["detector timeout", "DETECTOR_TIMEOUT"],
+    ["malformed detector output", "MODEL_OUTPUT_MALFORMED"],
+  ] as const)("%s → regions masked whole → a masked WebP may continue", async (_n, code) => {
+    const { codec } = fakeCodec();
+    const r = realm({ codec, textRegions: textRegions(() => failed(code)) });
+    await perceive(r);
+    const out = await r.encodeSanitized();
+    expect(out).toMatchObject({ ok: true, frame: { manifest: { failClosed: true, counts: { regions: 3, maskRects: 3 } } } });
+  });
+
+  it("empty successful detection → nothing masked → the WebP is allowed (the empty mask was observed, not assumed)", async () => {
+    const { codec } = fakeCodec();
+    const r = realm({ codec, textRegions: textRegions(() => ok([])) });
+    await perceive(r);
+    expect(await r.encodeSanitized()).toMatchObject({ ok: true, frame: { manifest: { failClosed: false, counts: { maskRects: 0 } } } });
+  });
+
+  it("REFUSED → no frame → no WebP: the codec is never called", async () => {
+    const { codec, calls } = fakeCodec();
+    const r = realm({ codec });
+    await perceive(r, [{ id: "canvas:0", rect: { x: NaN, y: 0, w: 10, h: 10 } }]);
+    expect(await r.encodeSanitized()).toMatchObject({ ok: false, code: "NO_SANITIZED_FRAME" });
+    expect(calls).toHaveLength(0);
+  });
+
+  it("no pass yet, or a later pass that failed → no WebP", async () => {
+    const { codec, calls } = fakeCodec();
+    let refuse = false;
+    const r = realm({ codec, requestCapture: async () => (refuse ? { ok: false, refused: "NO_ACTIVE_TAB_GRANT", detail: "gone" } : { ok: true, route: "GESTURE_STREAM", handle: "h" }) });
+    expect(await r.encodeSanitized()).toMatchObject({ ok: false, code: "NO_SANITIZED_FRAME" });
+    await perceive(r);
+    refuse = true;
+    await perceive(r);
+    expect(await r.encodeSanitized()).toMatchObject({ ok: false, code: "NO_SANITIZED_FRAME" });
+    expect(calls).toHaveLength(0);
+  });
+
+  it("encodeSanitized takes no frame: the raw one cannot be handed to it", () => {
+    // @ts-expect-error — there is no parameter to pass a frame through.
+    void realm().encodeSanitized(streamFrame);
+    expect(realm().encodeSanitized.length).toBe(0);
+  });
+
+  it.each([
+    ["no codec", { codec: null }, "CODEC_UNAVAILABLE"],
+    ["a browser that answered with PNG", { codec: fakeCodec({ contentType: "image/png" }).codec }, "ENCODED_AS_OTHER_TYPE"],
+    ["an empty encode", { codec: fakeCodec({ bytes: new Uint8Array(0) }).codec }, "ENCODE_EMPTY"],
+    ["bytes that are not WebP", { codec: fakeCodec({ bytes: new TextEncoder().encode("\x89PNG\r\n\x1a\n0000") }).codec }, "NOT_WEBP"],
+    ["a decoder that fails", { codec: fakeCodec({ failDecode: true }).codec }, "DECODE_FAILED"],
+    ["a decode of another size", { codec: fakeCodec({ decode: (e, w, h) => ({ width: w, height: h - 1, rgba: e.slice(0, w * (h - 1) * 4) }) }).codec }, "DIMENSION_MISMATCH"],
+    ["a decode in which the mask did not survive", { codec: fakeCodec({ decode: (_e, w, h) => ({ width: w, height: h, rgba: new Uint8ClampedArray(w * h * 4).fill(255) }) }).codec }, "MASK_NOT_PRESERVED"],
+  ] as const)("%s → refused, nothing attested", async (_n, deps, code) => {
+    const r = realm(deps as Partial<PerceptionRealmDeps>);
+    await perceive(r);
+    const out = await r.encodeSanitized();
+    expect(out).toMatchObject({ ok: false, code });
+  });
+
+  it("the artifact's manifest carries no text and no pixels", async () => {
+    const r = realm({ codec: fakeCodec().codec });
+    await perceive(r);
+    const out = await r.encodeSanitized();
+    if (!out.ok) throw new Error(out.code);
+    const text = JSON.stringify(out.frame.manifest);
+    expect(text).not.toMatch(/SYNTH|[A-Za-z0-9+/]{200,}|data:image/);
+    expect(JSON.stringify({ ms: out.ms, memory: out.memory })).not.toMatch(/[A-Za-z0-9+/]{200,}/);
+  });
+});
+
+describe("M10.7: the encoder's payload carries pixels only — Chrome's colour profile is removed", () => {
+  const ascii = (s: string) => [...new TextEncoder().encode(s)];
+  const le32 = (n: number) => [n & 0xff, (n >>> 8) & 0xff, (n >>> 16) & 0xff, (n >>> 24) & 0xff];
+  const riff = (chunks: [string, number[]][]) => {
+    const body = [...ascii("WEBP")];
+    for (const [id, data] of chunks) body.push(...ascii(id), ...le32(data.length), ...data, ...(data.length % 2 ? [0] : []));
+    return Uint8Array.from([...ascii("RIFF"), ...le32(body.length), ...body]);
+  };
+  const vp8 = [0, 0, 0, 0x9d, 0x01, 0x2a, 64, 0, 48, 0];
+  const vp8x = (flags: number) => [flags, 0, 0, 0, 63, 0, 0, 47, 0, 0];
+  const icc = Array.from({ length: 456 }, (_, i) => i & 0xff);
+
+  it("drops ICCP, clears the ICC flag and fixes the RIFF size; egress then admits it", () => {
+    const chrome = riff([["VP8X", vp8x(0x20)], ["ICCP", icc], ["VP8 ", vp8]]);
+    expect(inspectWebp(chrome)).toMatchObject({ ok: false });
+    const out = stripWebpColourProfile(chrome);
+    expect(out.length).toBe(chrome.length - (8 + 456));
+    expect(inspectWebp(out)).toEqual({ ok: true, width: 64, height: 48, chunks: ["VP8X", "VP8 "], codec: "VP8" });
+    expect(out[20]! & 0x20).toBe(0);
+  });
+
+  it("leaves bytes without a profile, and anything it does not recognise, unchanged for egress to judge", () => {
+    const plain = riff([["VP8X", vp8x(0)], ["VP8 ", vp8]]);
+    expect(stripWebpColourProfile(plain)).toBe(plain);
+    const exif = riff([["VP8X", vp8x(0x28)], ["ICCP", icc], ["VP8 ", vp8], ["EXIF", [1, 2]]]);
+    expect(inspectWebp(stripWebpColourProfile(exif)).ok).toBe(false);
+    const png = Uint8Array.from([0x89, 0x50, 0x4e, 0x47, ...new Array(40).fill(0)]);
+    expect(stripWebpColourProfile(png)).toBe(png);
   });
 });
