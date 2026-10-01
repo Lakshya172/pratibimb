@@ -1,0 +1,326 @@
+{
+  "experiment": "M12 — QG-04 runtime interception in the real extension (no click)",
+  "phases": {
+    "productBuild": {
+      "build": {
+        "csp": {
+          "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; connect-src 'self' http://127.0.0.1:8995"
+        },
+        "permissions": [
+          "offscreen",
+          "sidePanel",
+          "activeTab",
+          "tabCapture"
+        ],
+        "hostPermissions": [
+          "http://127.0.0.1/*"
+        ],
+        "markers": {
+          "qg04Sender": false,
+          "qg04Planner": false,
+          "frameEgress": false,
+          "sinkPath": false,
+          "cspProbe": false,
+          "e4Emit": false,
+          "e4Collector": false,
+          "qg04Protocol": false
+        }
+      },
+      "evidenceMessages": {
+        "CSP_PROBE": {
+          "refused": "UNKNOWN_KIND"
+        },
+        "E4_EMIT": {
+          "refused": "UNKNOWN_KIND"
+        },
+        "offscreenRequests": [],
+        "sinkArrivals": 0,
+        "foreignArrivals": 0
+      },
+      "injectedForeign": {
+        "offscreen": {
+          "fetch": "REJECTED TypeError",
+          "xhr": "ERROR",
+          "webSocket": "ERROR",
+          "sendBeacon": "QUEUED",
+          "eventSource": "ERROR",
+          "image": "ERROR",
+          "iframe": "LOADED"
+        },
+        "worker": {
+          "fetch": "REJECTED TypeError",
+          "xhr": "ABSENT",
+          "webSocket": "ERROR",
+          "sendBeacon": "ABSENT",
+          "eventSource": "ERROR"
+        },
+        "arrivals": [
+          {
+            "at": "2026-10-01T15:52:51.920Z",
+            "method": "GET",
+            "path": "/offscreen/img?q=1",
+            "origin": null,
+            "kind": "http"
+          },
+          {
+            "at": "2026-10-01T15:52:51.925Z",
+            "method": "GET",
+            "path": "/offscreen/iframe",
+            "origin": null,
+            "kind": "http"
+          }
+        ],
+        "offscreenRequests": [
+          {
+            "url": "http://127.0.0.1:8996/offscreen/xhr",
+            "method": "POST",
+            "type": "XHR",
+            "outcome": "FAILED",
+            "errorText": "",
+            "blockedReason": "csp",
+            "corsError": null
+          },
+          {
+            "url": "http://127.0.0.1:8996/offscreen/es",
+            "method": "GET",
+            "type": "EventSource",
+            "outcome": "FAILED",
+            "errorText": "",
+            "blockedReason": "csp",
+            "corsError": null
+          },
+          {
+            "url": "http://127.0.0.1:8996/offscreen/img?q=1",
+            "method": "GET",
+            "type": "Image",
+            "outcome": "FINISHED",
+            "status": 200
+          },
+          {
+            "url": "http://127.0.0.1:8996/offscreen/iframe",
+            "method": "GET",
+            "type": "Document",
+            "outcome": "PENDING",
+            "status": 200
+          }
+        ],
+        "workerRequests": [
+          {
+            "url": "http://127.0.0.1:8996/worker/es",
+            "method": "GET",
+            "type": "EventSource",
+            "outcome": "FAILED",
+            "errorText": "",
+            "blockedReason": "csp",
+            "corsError": null
+          }
+        ]
+      },
+      "injectedLoopback": {
+        "offscreen": "RESPONSE 400",
+        "sinkArrivals": [
+          {
+            "path": "/m10/frame",
+            "origin": "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+            "contentType": "image/webp",
+            "bytes": 16,
+            "accepted": false,
+            "reason": "not a WebP container: not RIFF"
+          }
+        ]
+      },
+      "connectSrcArrivals": {
+        "offscreen": [],
+        "worker": []
+      },
+      "outsideConnectSrcArrivals": {
+        "offscreen": [
+          "image",
+          "iframe"
+        ]
+      },
+      "checks": {
+        "productBundleCarriesNoSendPathOrEmitter": true,
+        "cspProbeUnknownToProduct": true,
+        "e4EmitUnknownToProduct": true,
+        "evidenceMessagesCausedNoRequest": true,
+        "injectedConnectSrcPrimitivesNeverArrive": true
+      },
+      "findings": {
+        "channelsOutsideConnectSrcReachedForeignOrigin": [
+          "image",
+          "iframe"
+        ],
+        "injectedCodeReachesPinnedLoopback": true,
+        "note": "recorded, not gated: ADR-0001's extension_pages CSP pins connect-src only; this unit measures it and does not change it"
+      }
+    },
+    "evidenceBuild": {
+      "build": {
+        "markers": {
+          "qg04Sender": true,
+          "qg04Planner": true,
+          "frameEgress": true,
+          "sinkPath": true,
+          "cspProbe": false,
+          "e4Emit": false,
+          "e4Collector": false,
+          "qg04Protocol": true
+        }
+      },
+      "pass": {
+        "route": "WORKER_FRAME",
+        "outcome": "SANITIZED",
+        "capture": {
+          "w": 1600,
+          "h": 900,
+          "format": "png",
+          "bytes": 62975,
+          "dpr": 1.0000000149011612,
+          "scaleToCss": 0.8
+        },
+        "frameHeld": true
+      },
+      "attempts": {
+        "frameBodyAttested": {
+          "state": "MASK_VERIFIED",
+          "bytes": 8429,
+          "sha256": "e97bfa96f567b07c3812eebfe03d2cd460c8078fabfc36ce8a297b2214e50f4b"
+        },
+        "maskVerifiedProduction": {
+          "sent": false,
+          "stage": "STATE",
+          "cause": "STATE_NOT_ADMISSIBLE",
+          "detail": "a frame needs VERIFIED; this one is MASK_VERIFIED"
+        },
+        "forged": {
+          "DETECTOR_VERIFIED": "NOT_ATTESTED",
+          "MASK_VERIFIED": "NOT_ATTESTED",
+          "MASKED_LOCAL": "NOT_ATTESTED",
+          "VERIFIED": "NOT_ATTESTED"
+        },
+        "malformedServerCheck": {
+          "ok": false,
+          "reason": "the body does not hash to its declared digest"
+        },
+        "parsedFramePart": {
+          "ok": true,
+          "frameBytes": 6932
+        },
+        "maskVerifiedTestConfig": {
+          "sent": false,
+          "stage": "STATE",
+          "cause": "STATE_NOT_ADMISSIBLE",
+          "detail": "a frame needs VERIFIED; this one is MASK_VERIFIED"
+        },
+        "rawFrameAttest": "FRAME_NOT_MASK_VERIFIED",
+        "plans": {
+          "verifier BLOCK": {
+            "mode": "STRUCTURE_ONLY",
+            "reason": "VERIFIER_BLOCK",
+            "bodyBytes": 1344,
+            "imageBytes": false,
+            "productionSend": "CONFIGURATION_MISSING"
+          },
+          "MASK_VERIFIED verdict": {
+            "mode": "STRUCTURE_ONLY",
+            "reason": "STATE_NOT_ADMISSIBLE",
+            "bodyBytes": 1344,
+            "imageBytes": false,
+            "productionSend": "CONFIGURATION_MISSING"
+          },
+          "DETECTOR_VERIFIED verdict": {
+            "mode": "STRUCTURE_ONLY",
+            "reason": "STATE_NOT_ADMISSIBLE",
+            "bodyBytes": 1344,
+            "imageBytes": false,
+            "productionSend": "CONFIGURATION_MISSING"
+          },
+          "raw frame": {
+            "mode": "STRUCTURE_ONLY",
+            "reason": "FRAME_NOT_MASK_VERIFIED",
+            "bodyBytes": 690,
+            "imageBytes": false,
+            "productionSend": "CONFIGURATION_MISSING"
+          },
+          "REFUSED": {
+            "mode": "STRUCTURE_ONLY",
+            "reason": "REFUSED",
+            "bodyBytes": 690,
+            "imageBytes": false,
+            "productionSend": "CONFIGURATION_MISSING"
+          }
+        },
+        "fetchesBeforePermittedSend": 0,
+        "permittedTestSend": {
+          "sent": true,
+          "status": 200,
+          "sha256": "0361fe57538f260e128bf3cfc90d84a2f09ae619007dfb1de150342e9977e2c6"
+        },
+        "fetchesTotal": 1
+      },
+      "offscreenRequests": [
+        {
+          "url": "http://127.0.0.1:8995/m10/frame",
+          "method": "POST",
+          "type": "Fetch",
+          "outcome": "FINISHED",
+          "status": 200
+        }
+      ],
+      "sinkArrivals": [
+        {
+          "path": "/m10/frame",
+          "origin": "chrome-extension://iliejkpoaboifflkfgjmjemhfkbommde",
+          "contentType": "image/webp",
+          "bytes": 6932,
+          "sha256": "0361fe57538f260e128bf3cfc90d84a2f09ae619007dfb1de150342e9977e2c6",
+          "accepted": true,
+          "reason": null
+        }
+      ],
+      "foreignArrivals": 0,
+      "checks": {
+        "realFrameSanitizedInTheRealm": true,
+        "evidenceBuildCarriesTheSender": true,
+        "maskVerifiedAttestedButNotAdmissible": true,
+        "everyForgedStateRefused": true,
+        "rawFrameNeverAttested": true,
+        "malformedPayloadRefusedByServerCheck": true,
+        "frameBodyParsesWithItsFramePart": true,
+        "everyFallbackStructureOnlyWithoutImage": true,
+        "noRequestBeforeThePermittedSend": true,
+        "exactlyOnePermittedTestSend": true,
+        "networkSawExactlyThatOneRequest": true,
+        "sinkReceivedOnlyThePermittedFrame": true,
+        "foreignOriginReceivedNothing": true
+      }
+    }
+  },
+  "verdict": "PASS",
+  "openFindings": {
+    "channelsOutsideConnectSrcReachedForeignOrigin": [
+      "image",
+      "iframe"
+    ],
+    "injectedCodeReachesPinnedLoopback": true,
+    "note": "recorded, not gated: ADR-0001's extension_pages CSP pins connect-src only; this unit measures it and does not change it"
+  },
+  "notAClaim": [
+    "phase B ran on the degraded M3_WORKER_FRAME route with no click; its frame is a real tab frame sanitized in the realm, but the route is not the gesture route",
+    "the extension's production QG-04 sender has no origin, no authentication and no transport; nothing here sent a frame off this machine",
+    "the foreign origin is a second loopback port standing in for 'anywhere not pinned'; it is not a production server"
+  ],
+  "recordedAt": "2026-10-01T15:53:05.911Z",
+  "provenance": {
+    "workstation": "W1",
+    "host": "LAPTOP-6E14K34L",
+    "workstationSource": "registry",
+    "os": "win32 10.0.26200",
+    "cpu": "Intel(R) Core(TM) 7 240H",
+    "node": "v24.19.0",
+    "playwright": "1.63.0",
+    "browserBinary": "C:/Users/RONIT/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe",
+    "headless": false
+  }
+}

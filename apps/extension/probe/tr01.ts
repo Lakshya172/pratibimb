@@ -25,7 +25,18 @@
 import { decodeDataUrl, geometryFrom, type CaptureGeometry } from "@pratibimb/perception";
 import { observePage } from "@pratibimb/extension-transport";
 import { MASK_FILL, redactionMask, type MaskVerifiedFrame, type VisualRegion } from "@pratibimb/privacy";
-import { sendMaskVerifiedFrame } from "@pratibimb/egress";
+import {
+  PRODUCTION_HANDOFF_CONFIG,
+  attestHandoffBody,
+  attestedBody,
+  parseHandoffBody,
+  planHandoff,
+  sendMaskVerifiedFrame,
+  sendProductionHandoff,
+  validateQg04Request,
+} from "@pratibimb/egress";
+import { buildElementGraph, frameId } from "@pratibimb/perception";
+import { sanitize } from "@pratibimb/privacy";
 
 import { createPinnedInferenceSession, bootstrapOrtRealm, resolvePackagedAsset } from "../entrypoints/ortRuntime";
 import { createTr01Host, spawnTr01Worker, type Tr01Host, type Tr01Outcome, type WorkerLike } from "../host-lib/tr01-host";
@@ -639,6 +650,100 @@ function regionStats(msg: Record<string, unknown>, ctx: Tr01ProbeContext): unkno
   };
 }
 
+/**
+ * M12 — QG-04 IN THE REAL EXTENSION REALM. Everything the production handoff code refuses, driven with
+ * the realm's real kept frame, its real MASK_VERIFIED artifact, and a verified handoff built by the
+ * real `sanitize()` from a synthetic, value-free page description. The offscreen document's network
+ * arrivals are counted around it: the only request allowed is the one explicitly permitted test send
+ * to the loopback sink, at the end.
+ */
+async function qg04Attempts(msg: Record<string, unknown>, ctx: Tr01ProbeContext): Promise<unknown> {
+  const kept = ctx.sanitizedFrame();
+  if (!kept) return { error: "no sanitized frame held" };
+  const enc = await ctx.encodeSanitized();
+  if (!enc.ok) return { error: `no artifact: ${enc.code}` };
+  const frame = enc.frame;
+  const before = offscreenArrivals.length;
+  const W = frame.width;
+  const H = frame.height;
+  const origin = "http://127.0.0.1:8983";
+  const graph = buildElementGraph(
+    [{ selector: "#submit", role: "button", name: "Submit", rect: { x: 10, y: 10, w: 100, h: 30 }, enabled: true, cssHidden: false, parentIndex: -1 }],
+    { dpr: 1, zoom: 1, viewportCss: { w: W, h: H }, captureSize: { w: W, h: H }, scroll: { x: 0, y: 0 }, origin },
+    frameId("m12-qg04")
+  );
+  const sanitized = await sanitize(graph, "Submit the form", { sessionId: "m12-session", requestId: "m12-request", origin, viewport: { w: W, h: H, dpr: 1, zoom: 1, scrollX: 0, scrollY: 0 } }, { fields: [] });
+  if (!sanitized.ok) return { error: `sanitize refused: ${sanitized.refused}` };
+  const handoff = sanitized.handoff;
+  const expected = { requestId: "m12-request", sessionId: "m12-session" };
+  const runtime = { tr01ModelSha256: null, ortWasmSha256: null };
+  const testConfig = { origin: "https://reasoner.example.test", authentication: { state: "NOT_CONFIGURED" as const } };
+  const dest = "https://reasoner.example.test/v1/plan";
+  const imageBytesIn = (b: Uint8Array | null) => {
+    if (!b) return null;
+    let t = "";
+    for (let i = 0; i < b.length; i += 0x8000) t += String.fromCharCode(...b.subarray(i, i + 0x8000));
+    return /RIFF|WEBP|VP8|image\/webp|name="frame"/.test(t);
+  };
+  const out: Record<string, unknown> = {};
+
+  // A real MASK_VERIFIED frame body: attested, then refused for its state, in production and test config.
+  const frameBody = await attestHandoffBody({ handoff, frame, runtime });
+  out["frameBodyAttested"] = frameBody.ok ? { state: frameBody.attestation.state, bytes: frameBody.attestation.bodyBytes, sha256: frameBody.attestation.bodySha256 } : { refused: frameBody.code };
+  if (frameBody.ok) {
+    out["maskVerifiedProduction"] = await sendProductionHandoff({ attestation: frameBody.attestation, expected, destination: dest, config: PRODUCTION_HANDOFF_CONFIG });
+    // Forged attestations with every state, VERIFIED included: not from the registry → refused.
+    out["forged"] = Object.fromEntries(
+      await Promise.all(["DETECTOR_VERIFIED", "MASK_VERIFIED", "MASKED_LOCAL", "VERIFIED"].map(async (state) => [state, (await sendProductionHandoff({ attestation: { ...frameBody.attestation, state } as never, expected, destination: dest, config: testConfig })).cause]))
+    );
+    // Malformed payload: the server's check refuses a body whose part was altered.
+    const body = attestedBody(frameBody.attestation)!;
+    const altered = body.slice();
+    altered[60] = (altered[60] as number) ^ 1;
+    out["malformedServerCheck"] = await validateQg04Request({ contentType: frameBody.attestation.contentType, payloadSha256: frameBody.attestation.bodySha256, requestId: "m12-request", body: altered });
+    out["parsedFramePart"] = (() => {
+      const p = parseHandoffBody(body, frameBody.attestation.contentType);
+      return p.ok ? { ok: true, frameBytes: p.frame?.length ?? 0 } : { ok: false, reason: p.reason };
+    })();
+  }
+  const frameBody2 = await attestHandoffBody({ handoff, frame, runtime });
+  if (frameBody2.ok) out["maskVerifiedTestConfig"] = await sendProductionHandoff({ attestation: frameBody2.attestation, expected, destination: dest, config: testConfig });
+
+  // A raw frame: never attested, and the fallback carries none of it.
+  const raw = { contentType: "image/webp", width: W, height: H, bytes: kept.rgba.slice(0, 64), sha256: "x", manifest: {} };
+  const rawAttest = await attestHandoffBody({ handoff, frame: raw as never, runtime });
+  out["rawFrameAttest"] = rawAttest.ok ? "ATTESTED (WRONG)" : rawAttest.code;
+
+  // The fallback for each frame problem: structure-only, no image byte, still not sendable in production.
+  const plans: Record<string, unknown> = {};
+  for (const [name, f, verdict, refused] of [
+    ["verifier BLOCK", frame, { verdict: "BLOCK", state: "VERIFIED", frameSha256: frame.sha256, requestId: "m12-request" }, false],
+    ["MASK_VERIFIED verdict", frame, { verdict: "PASS", state: "MASK_VERIFIED", frameSha256: frame.sha256, requestId: "m12-request" }, false],
+    ["DETECTOR_VERIFIED verdict", frame, { verdict: "PASS", state: "DETECTOR_VERIFIED", frameSha256: frame.sha256, requestId: "m12-request" }, false],
+    ["raw frame", raw, null, false],
+    ["REFUSED", null, null, true],
+  ] as const) {
+    const plan = await planHandoff({ handoff, frame: f, verdict, refused, runtime });
+    if (plan.mode !== "STRUCTURE_ONLY") {
+      plans[name] = plan;
+      continue;
+    }
+    const b = attestedBody(plan.attestation);
+    const sent = await sendProductionHandoff({ attestation: plan.attestation, expected, destination: dest, config: PRODUCTION_HANDOFF_CONFIG });
+    plans[name] = { mode: plan.mode, reason: plan.notice.reason, bodyBytes: b?.length ?? null, imageBytes: imageBytesIn(b), productionSend: sent.cause };
+  }
+  out["plans"] = plans;
+  out["fetchesBeforePermittedSend"] = offscreenArrivals.length - before;
+
+  // The ONE explicitly permitted request: the test-only loopback sink, through the test-only sender.
+  if (typeof msg["sinkUrl"] === "string") {
+    const permitted = await sendMaskVerifiedFrame({ frame, destination: String(msg["sinkUrl"]), requestId: "m12-permitted", sessionId: "m12-evidence" });
+    out["permittedTestSend"] = permitted.sent ? { sent: true, status: permitted.record.responseStatus, sha256: permitted.record.payloadSha256 } : { sent: false, cause: permitted.refusal.cause };
+  }
+  out["fetchesTotal"] = offscreenArrivals.length - before;
+  return out;
+}
+
 /** Each attempt must be REFUSED by `sendMaskVerifiedFrame` before any byte leaves. */
 async function egressAttempts(msg: Record<string, unknown>, ctx: Tr01ProbeContext): Promise<unknown> {
   const destination = String(msg["destination"]);
@@ -698,6 +803,8 @@ export function serveTr01Probe(message: unknown, sender: { tab?: unknown }, send
         ? artifactBench(msg, context)
       : msg["op"] === "region-stats" && context
         ? Promise.resolve(regionStats(msg, context))
+      : msg["op"] === "qg04-attempts" && context
+        ? qg04Attempts(msg, context)
       : msg["op"] === "egress-attempts" && context
         ? egressAttempts(msg, context)
       : msg["op"] === "product-state"
