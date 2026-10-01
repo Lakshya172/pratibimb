@@ -1,0 +1,497 @@
+{
+ "experiment": "M8.2-qg03-visual-text-feasibility",
+ "runner": "run-firefox.mjs",
+ "platform": "windows",
+ "firefoxPath": "C:/Program Files/Mozilla Firefox/firefox.exe",
+ "firefoxVersion": "Mozilla Firefox 156.0.1",
+ "startedAt": "2026-09-25T19:40:04.159Z",
+ "launches": [
+  {
+   "candidate": "TR-02",
+   "mode": "teardown",
+   "backend": "wasm",
+   "headless": false,
+   "browser": "firefox",
+   "platform": "windows",
+   "browserVersion": "Mozilla Firefox 156.0.1",
+   "livenessSeen": true,
+   "timedOut": false,
+   "wallMs": 12670,
+   "result": {
+    "context": "firefox-mv3-event-page",
+    "mode": "teardown",
+    "candidate": "TR-02",
+    "backend": "wasm",
+    "startedAt": "2026-09-25T19:40:10.077Z",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0",
+    "ortVersion": "1.29.0",
+    "pin": {
+     "installed": true,
+     "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+     "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea"
+    },
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasm": {
+       "instances": 0,
+       "bytes": 0,
+       "mb": 0,
+       "pages": 0,
+       "growCount": 0
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 0,
+      "at": 3387
+     },
+     {
+      "label": "cycle1-after-create",
+      "wasm": {
+       "instances": 2,
+       "bytes": 20185088,
+       "mb": 19.3,
+       "pages": 308,
+       "growCount": 1
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 4236
+     },
+     {
+      "label": "cycle1-after-inference",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 5065
+     },
+     {
+      "label": "cycle1-after-release",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 5066
+     },
+     {
+      "label": "cycle2-after-create",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 5167
+     },
+     {
+      "label": "cycle2-after-inference",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 5943
+     },
+     {
+      "label": "cycle2-after-release",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 5944
+     },
+     {
+      "label": "cycle3-after-create",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 6059
+     },
+     {
+      "label": "cycle3-after-inference",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 6726
+     },
+     {
+      "label": "cycle3-after-release",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 6728
+     },
+     {
+      "label": "cycle4-after-create",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 6816
+     },
+     {
+      "label": "cycle4-after-inference",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 7450
+     },
+     {
+      "label": "cycle4-after-release",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 7451
+     },
+     {
+      "label": "cycle5-after-create",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 7533
+     },
+     {
+      "label": "cycle5-after-inference",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 8200
+     },
+     {
+      "label": "cycle5-after-release",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 8202
+     }
+    ],
+    "errors": [],
+    "timerResolutionMs": 1,
+    "conclusion": "completed",
+    "cycles": [
+     {
+      "cycle": 1,
+      "ok": true,
+      "createMs": 500,
+      "afterCreate": {
+       "instances": 2,
+       "bytes": 20185088,
+       "mb": 19.3,
+       "pages": 308,
+       "growCount": 1
+      },
+      "inferenceMs": 821,
+      "outputSha256": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8",
+      "afterInference": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "afterRelease": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "grows": 10
+     },
+     {
+      "cycle": 2,
+      "ok": true,
+      "createMs": 101,
+      "afterCreate": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "inferenceMs": 767,
+      "outputSha256": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8",
+      "afterInference": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "afterRelease": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "grows": 0
+     },
+     {
+      "cycle": 3,
+      "ok": true,
+      "createMs": 115,
+      "afterCreate": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "inferenceMs": 659,
+      "outputSha256": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8",
+      "afterInference": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "afterRelease": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "grows": 0
+     },
+     {
+      "cycle": 4,
+      "ok": true,
+      "createMs": 88,
+      "afterCreate": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "inferenceMs": 627,
+      "outputSha256": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8",
+      "afterInference": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "afterRelease": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "grows": 0
+     },
+     {
+      "cycle": 5,
+      "ok": true,
+      "createMs": 82,
+      "afterCreate": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "inferenceMs": 655,
+      "outputSha256": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8",
+      "afterInference": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "afterRelease": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "grows": 0
+     }
+    ],
+    "network": [
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://70f0d9bf-9123-4f49-a9f1-fd84674fb4e8",
+      "foreign": false,
+      "path": "/ort-wasm-simd-threaded.jsep.wasm"
+     },
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://70f0d9bf-9123-4f49-a9f1-fd84674fb4e8",
+      "foreign": false,
+      "path": "/models/candidate.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://70f0d9bf-9123-4f49-a9f1-fd84674fb4e8",
+      "foreign": false,
+      "path": "/fixtures/input-dev.f32"
+     }
+    ],
+    "gpu": {
+     "submits": 0,
+     "computePipelines": 0,
+     "devices": 0,
+     "adapterInfo": null,
+     "requestedOptions": null,
+     "hookError": null
+    },
+    "selfOrigin": "moz-extension://70f0d9bf-9123-4f49-a9f1-fd84674fb4e8"
+   },
+   "firefoxProcessesReaped": 0,
+   "webExtLogTail": [
+    "}",
+    "Use --verbose or --devtools to see logging",
+    "Installed D:\\PratiBimb\\artifacts\\experiments\\M8.2-qg03-visual-text-feasibility\\models\\ext\\TR-02\\firefox as a temporary add-on",
+    "Automatic extension reloading has been disabled"
+   ],
+   "launch": 1
+  }
+ ]
+}

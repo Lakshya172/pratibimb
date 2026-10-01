@@ -117,10 +117,10 @@ Substitution requires an ADR.
 | Inference runtime | **ONNX Runtime Web**; **Transformers.js** for NER and the local VLM | Raw ORT gives manual control of pre-processing and NMS for the detectors; Transformers.js is faster to integrate for the transformer models |
 | Acceleration | **WebGPU when genuinely available and validated; WASM/SIMD always** | Feature-detect `navigator.gpu`; surface the live backend in the ledger |
 | Execution context | **Offscreen document + dedicated worker** | MV3 service workers have no DOM and terminate when idle; they cannot hold inference sessions |
-| Capture | **`tabs.captureVisibleTab`**, **PNG, explicit (ADR-0002)** | Faster than screen capture and raises no OS picker mid-demo. **Rate-limited, particularly under `activeTab`** — which is why the change gate does not depend on it. |
+| Capture | **Gesture-authorised tab capture (ADR-0009)** — a user invocation grants `activeTab`; `tabCapture.getMediaStreamId` yields an opaque handle; the offscreen realm redeems it with `getUserMedia`. **PNG, explicit (ADR-0002)** still governs any *encoded* frame, i.e. the `DEGRADED_TEST_ROUTE` only. | **Amended 2026-09-24 by ADR-0009, approved by the owner.** Was `tabs.captureVisibleTab`. That API can only be called from the service worker and returns the image there, putting a page's pixels in the worker — the one thing the trust boundary in §2 exists to prevent for DOM values. A stream handle is opaque and the worker never holds a frame. **Cost, accepted explicitly: a fresh user invocation is required after navigation, because `activeTab` is revoked.** The change gate still does not depend on capture. |
 | Element source | **Derived element graph** | Built from roles, ARIA attributes, accessible-name computation, computed styles and geometry. **NOT the browser's accessibility tree** — `chrome.automation` is ChromeOS-only for extensions and no content-script API exposes the native AX tree. Never claim otherwise to a panel. |
 | Same-origin frames | `all_frames` | |
-| Change signal | **MutationObserver (structural) + bounded dHash polling (visual) + low-rate full-frame dHash (safety net)** | See section 6 |
+| Change signal | **MutationObserver (structural)** — the v1 mechanism, because it takes no capture. **Bounded dHash polling is DEFERRED and the low-rate full-frame dHash safety net is WITHDRAWN FROM v1.** **Amended 2026-09-24 by ADR-0010, approved by the owner.** | See section 6 |
 
 ### Server
 
@@ -157,11 +157,11 @@ A page can change on screen with no mutation record at all: CSS animations and
 transitions, canvas and WebGL drawing, video frames, pseudo-element content, timer- and
 scroll-driven visual state, and repaints inside cross-origin frames.
 
-| Signal | Mechanism | Covers | Cost |
-|---|---|---|---|
-| Structural | MutationObserver on the document; ResizeObserver on tracked elements | Subtree edits, attribute and text changes, geometry, insertion and removal | Free, event-driven, names the dirty node |
-| Visual | dHash over **enumerated** dynamic regions, at a bounded poll rate, only while they intersect the viewport | canvas, video, WebGL, elements with running animations | One partial capture per poll, not per rendered frame |
-| Safety net | Full-frame dHash at a low fixed interval | Anything both signals miss | One capture per interval, capped |
+| Signal | Mechanism | Covers | Cost | v1 status |
+|---|---|---|---|---|
+| Structural | MutationObserver on the document; ResizeObserver on tracked elements | Subtree edits, attribute and text changes, geometry, insertion and removal | Free, event-driven, names the dirty node | **IN FORCE.** It takes no capture, which is why it survives ADR-0009 unchanged |
+| Visual | dHash over **enumerated** dynamic regions, at a bounded poll rate, only while they intersect the viewport | canvas, video, WebGL, elements with running animations | One partial capture per poll, not per rendered frame | **DEFERRED.** Needs a timer and, by a mechanism this row never names, possibly a capture. Restoring it requires a separate approved ADR that names and validates that mechanism |
+| Safety net | Full-frame dHash at a low fixed interval | Anything both signals miss | One capture per interval, capped | **WITHDRAWN FROM v1.** It is by definition a capture with nobody behind it, which the capture policy approved in ADR-0009 forbids. Restoring it requires a separate approved ADR |
 
 Dynamic regions are **enumerated, not guessed**: `<canvas>` and `<video>` elements, plus
 anything reporting a running animation through `document.getAnimations()`. The
@@ -171,19 +171,35 @@ suppresses polling for regions that are off screen.
 **We do not claim to detect every visual change for free.** On a page that is one
 full-screen canvas animation this degrades to the poll rate, and we say so.
 
+**In v1 it degrades further, and deliberately.** With both capture-bearing signals out of the v1
+contract, the visual state PratiBimb reasons over is exactly as fresh as the last explicit human
+invocation and no fresher: a canvas that repaints after the frame was taken is not noticed until
+a person asks again. The analysis above is unchanged and still correct — MutationObserver cannot
+see that repaint — but under gesture-authorised capture the v1 answer is re-authorisation, not a
+background hash. **No autonomous capture, periodic polling, capture retry loop or safety-net
+capture is part of the v1 product contract**, and any future change-driven capture requires a
+separate approved ADR before it is implemented. **Amended 2026-09-24 by ADR-0010 (Option B —
+narrow), approved by the owner.**
+
 ---
 
 ## 7. FROZEN — perception tiers
 
 | Tier | Contents | Weights | Firing (10-step form task) |
 |---|---|---|---|
-| **T0** | Change gate — structural signal plus bounded visual polling. Sub-millisecond for the structural half. No model. | — | ~100 evaluations / ~8 captures |
+| **T0** | Change gate — **the structural signal alone in v1**; bounded visual polling is DEFERRED and the full-frame safety net is WITHDRAWN FROM v1 (section 6). Sub-millisecond. No model. | — | ~100 evaluations / ~8 captures |
 | **T1** | **Perceive** — UI element detector + YuNet faces. Runs on **every changed frame**. **This is the local vision model the brief requires, and it is on the normal path.** | 12.3 MB | ~8x |
 | **T2** | **Sanitize** — selective OCR + GLiNER-PII. Runs when a request is about to leave, on non-DOM regions and dirty subtrees only. | 105 MB | ~3x |
 | **T3** | **Local VLM** — offline fallback. Loaded on demand in an isolated worker, torn down immediately after. Kept out of the normal path so the resource figure stays defensible. | ~240 MB | 0x online |
 
 Approximately **120 MB resident** across the four models. The expensive tiers are gated.
 **The vision tier is not.**
+
+**The firing column is a dossier projection and predates ADR-0009.** It assumes captures the
+system takes for itself. Under explicit capture a frame is taken when a person invokes the
+extension — one per document — so T0's capture count and T1's multiplier are both lower and
+shaped by the task rather than by a cadence. **No replacement figure is given here, because none
+has been measured** (`AGENTS.md` section 5).
 
 **T0 is a debounce, not an avoidance strategy.** A run where the DOM does all the work
 invites the line *"you built a DOM scraper with a redaction layer."* The demonstration

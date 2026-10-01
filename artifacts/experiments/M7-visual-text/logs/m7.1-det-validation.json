@@ -1,0 +1,764 @@
+{
+  "experiment": "M7.1-ppocrv5-det-validation",
+  "question": "Can the pinned PP-OCRv5_mobile_det be validated under the repository's frozen WASM rule and realistic text-bearing input?",
+  "at": "2026-09-25T12:57:52.003Z",
+  "workstation": "W1",
+  "model": {
+    "file": "ppocrv5_mobile_det.onnx",
+    "sha256": "d9056b16f446cd313875244fd37c935fc94f05c68946e3bc85a8a2c4db5ac068",
+    "bytes": 4766440
+  },
+  "criterion": {
+    "source": "W1-S04a-1 harness/s04a1-probe.js",
+    "statistic": "exact count + relErr(sumAbs)",
+    "rtol": 0.02
+  },
+  "dbPostprocess": {
+    "thresh": 0.3,
+    "boxThresh": 0.6,
+    "maxCandidates": 1000,
+    "unclipRatio": 1.5,
+    "minSize": 3
+  },
+  "textCriteria": {
+    "source": "docs/perception/text-region-acceptance.md",
+    "localisationIou": 0.5,
+    "secretContainment": 0.95,
+    "floodAreaRatio": 3,
+    "wholeCanvasShare": 0.9
+  },
+  "browser": {
+    "executablePath": "C:\\Users\\RONIT\\AppData\\Local\\ms-playwright\\chromium-1243\\chrome-win64\\chrome.exe",
+    "version": "153.0.8010.12",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "dpr": 1
+  },
+  "groundTruth": {
+    "canvas": {
+      "id": "idcard",
+      "x": 39,
+      "y": 140,
+      "w": 422,
+      "h": 262
+    },
+    "textRegions": [
+      {
+        "id": "identifier",
+        "sensitive": true,
+        "chars": 14,
+        "x": 179,
+        "y": 284,
+        "w": 145,
+        "h": 15
+      },
+      {
+        "id": "holder-name",
+        "sensitive": true,
+        "chars": 12,
+        "x": 179,
+        "y": 230,
+        "w": 110,
+        "h": 11
+      },
+      {
+        "id": "card-title",
+        "sensitive": false,
+        "chars": 25,
+        "x": 53,
+        "y": 156,
+        "w": 234,
+        "h": 12
+      },
+      {
+        "id": "field-label",
+        "sensitive": false,
+        "chars": 18,
+        "x": 179,
+        "y": 263,
+        "w": 118,
+        "h": 10
+      }
+    ]
+  },
+  "screenshot": {
+    "sha256": "7fb4bb0af21fc39487de7e24f08f25710e9ce91dfcc8e3cc19edacee3ec897f8",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "dpr": 1
+  },
+  "reference": {
+    "reference_runtime": "onnxruntime 1.29.0",
+    "provider": "CPUExecutionProvider",
+    "model_sha256": "d9056b16f446cd313875244fd37c935fc94f05c68946e3bc85a8a2c4db5ac068",
+    "session_load_ms": 327.7,
+    "input_name": "x",
+    "output_name": "fetch_name_0",
+    "inputs": {
+      "synthetic": {
+        "meta": {
+          "kind": "S-04a-1 synthetic",
+          "formula": "x[i] = ((i*37) % 255) / 255",
+          "shape": [
+            1,
+            3,
+            640,
+            640
+          ]
+        },
+        "input_sha256": "fdb3f260442a827b43142979711f4f147b7bc738bac244b7cb5f0a076d8c9740",
+        "input_count": 1228800,
+        "native_output": {
+          "count": 409600,
+          "shape": [
+            1,
+            1,
+            640,
+            640
+          ],
+          "min": 1.1920928955078125e-7,
+          "max": 0.000001519918441772461,
+          "sum": 0.22270217537879944,
+          "sumAbs": 0.22270217537879944,
+          "sumSq": 1.2320777020846663e-7,
+          "sampleIdx": [
+            0,
+            136533,
+            273066,
+            409599
+          ],
+          "sampleVals": [
+            4.470348358154297e-7,
+            6.258487701416016e-7,
+            4.470348358154297e-7,
+            6.258487701416016e-7
+          ]
+        },
+        "native_output_sha256": "1be3733f096e7ea57394d5654b214b736c86e4a84ed76ddfe63e41106e531a79",
+        "native_runs": 5,
+        "native_deterministic": true,
+        "native_infer_ms": {
+          "median": 95.8,
+          "min": 90.8,
+          "max": 150
+        }
+      },
+      "realistic": {
+        "meta": {
+          "kind": "realistic — M7 visual fixture screenshot",
+          "png_sha256": "7fb4bb0af21fc39487de7e24f08f25710e9ce91dfcc8e3cc19edacee3ec897f8",
+          "source_hw": [
+            720,
+            1280
+          ],
+          "resized_hw": [
+            640,
+            1024
+          ],
+          "ratio_h": 0.8888888888888888,
+          "ratio_w": 0.8,
+          "shape": [
+            1,
+            3,
+            640,
+            1024
+          ],
+          "preprocess": "inference.yml: BGR, DetResizeForTest(resize_long=960, stride 128), NormalizeImage(1/255, ImageNet mean/std, hwc), ToCHW"
+        },
+        "input_sha256": "fe06e238904cf4525973cbd4a64842254dae6bbf838bb845219e4a4e078fb995",
+        "input_count": 1966080,
+        "native_output": {
+          "count": 655360,
+          "shape": [
+            1,
+            1,
+            640,
+            1024
+          ],
+          "min": 0,
+          "max": 1,
+          "sum": 13339.506346523762,
+          "sumAbs": 13339.506346523762,
+          "sumSq": 13153.169764904575,
+          "sampleIdx": [
+            0,
+            218453,
+            436906,
+            655359
+          ],
+          "sampleVals": [
+            4.470348358154297e-7,
+            5.960464477539063e-8,
+            4.470348358154297e-7,
+            6.258487701416016e-7
+          ]
+        },
+        "native_output_sha256": "2385ed982cbf4f36100ae9ada850de053744ef2bb3c7891cc6e6fecbb319c0be",
+        "native_runs": 5,
+        "native_deterministic": true,
+        "native_infer_ms": {
+          "median": 156.3,
+          "min": 133.6,
+          "max": 207.5
+        }
+      }
+    }
+  },
+  "web": {
+    "runtime": "onnxruntime-web 1.29.0",
+    "executionProvider": "wasm",
+    "numThreads": 1,
+    "wasmSha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+    "wasmIsPinned": true,
+    "sessionLoadMs": 1194.9,
+    "memoryBytes": {
+      "before": 0,
+      "afterLoad": 29097984,
+      "afterInference": 125435904
+    }
+  },
+  "results": {
+    "synthetic": {
+      "input": {
+        "kind": "S-04a-1 synthetic",
+        "formula": "x[i] = ((i*37) % 255) / 255",
+        "shape": [
+          1,
+          3,
+          640,
+          640
+        ]
+      },
+      "inputSha256": "fdb3f260442a827b43142979711f4f147b7bc738bac244b7cb5f0a076d8c9740",
+      "wasm": {
+        "dims": [
+          1,
+          1,
+          640,
+          640
+        ],
+        "count": 409600,
+        "min": 8.940696716308594e-8,
+        "max": 0.0000014901161193847656,
+        "sum": 0.2135320007801056,
+        "sumAbs": 0.2135320007801056,
+        "sumSq": 1.1382258069403406e-7,
+        "sampleIdx": [
+          0,
+          136533,
+          273066,
+          409599
+        ],
+        "sampleVals": [
+          4.470348358154297e-7,
+          6.258487701416016e-7,
+          4.470348358154297e-7,
+          6.258487701416016e-7
+        ],
+        "runs": 5,
+        "deterministic": true,
+        "outputSha256": "de2c4185c175997a9c77126df4d268f160b152ae24a1901942a16ecea193eced",
+        "inferMs": {
+          "median": 461.1,
+          "min": 445.1,
+          "max": 532.2
+        }
+      },
+      "native": {
+        "count": 409600,
+        "shape": [
+          1,
+          1,
+          640,
+          640
+        ],
+        "min": 1.1920928955078125e-7,
+        "max": 0.000001519918441772461,
+        "sum": 0.22270217537879944,
+        "sumAbs": 0.22270217537879944,
+        "sumSq": 1.2320777020846663e-7,
+        "sampleIdx": [
+          0,
+          136533,
+          273066,
+          409599
+        ],
+        "sampleVals": [
+          4.470348358154297e-7,
+          6.258487701416016e-7,
+          4.470348358154297e-7,
+          6.258487701416016e-7
+        ],
+        "deterministic": true,
+        "inferMs": {
+          "median": 95.8,
+          "min": 90.8,
+          "max": 150
+        }
+      },
+      "maxAbsDiffWasmVsNative": 1.7881393432617188e-7,
+      "s04a1": {
+        "countOk": true,
+        "relErrSumAbs": 0.04117685237288805,
+        "criterion": 0.02,
+        "pass": false
+      }
+    },
+    "realistic": {
+      "input": {
+        "kind": "realistic — M7 visual fixture screenshot",
+        "png_sha256": "7fb4bb0af21fc39487de7e24f08f25710e9ce91dfcc8e3cc19edacee3ec897f8",
+        "source_hw": [
+          720,
+          1280
+        ],
+        "resized_hw": [
+          640,
+          1024
+        ],
+        "ratio_h": 0.8888888888888888,
+        "ratio_w": 0.8,
+        "shape": [
+          1,
+          3,
+          640,
+          1024
+        ],
+        "preprocess": "inference.yml: BGR, DetResizeForTest(resize_long=960, stride 128), NormalizeImage(1/255, ImageNet mean/std, hwc), ToCHW"
+      },
+      "inputSha256": "fe06e238904cf4525973cbd4a64842254dae6bbf838bb845219e4a4e078fb995",
+      "wasm": {
+        "dims": [
+          1,
+          1,
+          640,
+          1024
+        ],
+        "count": 655360,
+        "min": 0,
+        "max": 1,
+        "sum": 13339.449882239103,
+        "sumAbs": 13339.449882239103,
+        "sumSq": 13153.124498918054,
+        "sampleIdx": [
+          0,
+          218453,
+          436906,
+          655359
+        ],
+        "sampleVals": [
+          4.470348358154297e-7,
+          8.940696716308594e-8,
+          4.470348358154297e-7,
+          6.258487701416016e-7
+        ],
+        "runs": 5,
+        "deterministic": true,
+        "outputSha256": "78779aefac0b1bfe8ef640fbd504ac4e6a385d7daf5f73bc1cb8e9c2c5cd0714",
+        "inferMs": {
+          "median": 717.2,
+          "min": 689,
+          "max": 768.8
+        }
+      },
+      "native": {
+        "count": 655360,
+        "shape": [
+          1,
+          1,
+          640,
+          1024
+        ],
+        "min": 0,
+        "max": 1,
+        "sum": 13339.506346523762,
+        "sumAbs": 13339.506346523762,
+        "sumSq": 13153.169764904575,
+        "sampleIdx": [
+          0,
+          218453,
+          436906,
+          655359
+        ],
+        "sampleVals": [
+          4.470348358154297e-7,
+          5.960464477539063e-8,
+          4.470348358154297e-7,
+          6.258487701416016e-7
+        ],
+        "deterministic": true,
+        "inferMs": {
+          "median": 156.3,
+          "min": 133.6,
+          "max": 207.5
+        }
+      },
+      "maxAbsDiffWasmVsNative": 0.00022673606872558594,
+      "s04a1": {
+        "countOk": true,
+        "relErrSumAbs": 0.0000042328616360789425,
+        "criterion": 0.02,
+        "pass": true
+      },
+      "postprocessMs": 64.4,
+      "geometry": {
+        "wasm": {
+          "reading": "PP-OCRv5_mobile_det",
+          "boxes": 15,
+          "perRegion": [
+            {
+              "id": "identifier",
+              "chars": 14,
+              "box": {
+                "id": "identifier",
+                "sensitive": true,
+                "chars": 14,
+                "x": 179,
+                "y": 284,
+                "w": 145,
+                "h": 15
+              },
+              "bestIou": 0.427,
+              "containment": 1,
+              "localised": false,
+              "covered": true
+            },
+            {
+              "id": "holder-name",
+              "chars": 12,
+              "box": {
+                "id": "holder-name",
+                "sensitive": true,
+                "chars": 12,
+                "x": 179,
+                "y": 230,
+                "w": 110,
+                "h": 11
+              },
+              "bestIou": 0.365,
+              "containment": 1,
+              "localised": false,
+              "covered": true
+            }
+          ],
+          "flood": {
+            "predictionsInsideCanvas": 7,
+            "predictedAreaPx": 21969,
+            "trueTextAreaPx": 7373,
+            "ratio": 2.98,
+            "widestShareOfCanvas": 0.048
+          },
+          "criteria": {
+            "localisation": false,
+            "secretCoverage": true,
+            "noFlood": true
+          },
+          "allRegions": [
+            {
+              "id": "identifier",
+              "sensitive": true,
+              "bestIou": 0.427
+            },
+            {
+              "id": "holder-name",
+              "sensitive": true,
+              "bestIou": 0.365
+            },
+            {
+              "id": "card-title",
+              "sensitive": false,
+              "bestIou": 0.529
+            },
+            {
+              "id": "field-label",
+              "sensitive": false,
+              "bestIou": 0.374
+            }
+          ],
+          "totalPredictions": 15,
+          "predictionsOutsideCanvas": 8,
+          "falsePositiveAreaInCanvasPx": 14596,
+          "canvasOvercoverage": 0.199
+        },
+        "native": {
+          "reading": "PP-OCRv5_mobile_det",
+          "boxes": 15,
+          "perRegion": [
+            {
+              "id": "identifier",
+              "chars": 14,
+              "box": {
+                "id": "identifier",
+                "sensitive": true,
+                "chars": 14,
+                "x": 179,
+                "y": 284,
+                "w": 145,
+                "h": 15
+              },
+              "bestIou": 0.427,
+              "containment": 1,
+              "localised": false,
+              "covered": true
+            },
+            {
+              "id": "holder-name",
+              "chars": 12,
+              "box": {
+                "id": "holder-name",
+                "sensitive": true,
+                "chars": 12,
+                "x": 179,
+                "y": 230,
+                "w": 110,
+                "h": 11
+              },
+              "bestIou": 0.365,
+              "containment": 1,
+              "localised": false,
+              "covered": true
+            }
+          ],
+          "flood": {
+            "predictionsInsideCanvas": 7,
+            "predictedAreaPx": 21969,
+            "trueTextAreaPx": 7373,
+            "ratio": 2.98,
+            "widestShareOfCanvas": 0.048
+          },
+          "criteria": {
+            "localisation": false,
+            "secretCoverage": true,
+            "noFlood": true
+          },
+          "allRegions": [
+            {
+              "id": "identifier",
+              "sensitive": true,
+              "bestIou": 0.427
+            },
+            {
+              "id": "holder-name",
+              "sensitive": true,
+              "bestIou": 0.365
+            },
+            {
+              "id": "card-title",
+              "sensitive": false,
+              "bestIou": 0.529
+            },
+            {
+              "id": "field-label",
+              "sensitive": false,
+              "bestIou": 0.374
+            }
+          ],
+          "totalPredictions": 15,
+          "predictionsOutsideCanvas": 8,
+          "falsePositiveAreaInCanvasPx": 14596,
+          "canvasOvercoverage": 0.199
+        },
+        "sensitivityCentresConvention": {
+          "reading": "PP-OCRv5_mobile_det",
+          "boxes": 15,
+          "perRegion": [
+            {
+              "id": "identifier",
+              "chars": 14,
+              "box": {
+                "id": "identifier",
+                "sensitive": true,
+                "chars": 14,
+                "x": 179,
+                "y": 284,
+                "w": 145,
+                "h": 15
+              },
+              "bestIou": 0.472,
+              "containment": 1,
+              "localised": false,
+              "covered": true
+            },
+            {
+              "id": "holder-name",
+              "chars": 12,
+              "box": {
+                "id": "holder-name",
+                "sensitive": true,
+                "chars": 12,
+                "x": 179,
+                "y": 230,
+                "w": 110,
+                "h": 11
+              },
+              "bestIou": 0.413,
+              "containment": 1,
+              "localised": false,
+              "covered": true
+            }
+          ],
+          "flood": {
+            "predictionsInsideCanvas": 7,
+            "predictedAreaPx": 19373,
+            "trueTextAreaPx": 7373,
+            "ratio": 2.63,
+            "widestShareOfCanvas": 0.042
+          },
+          "criteria": {
+            "localisation": false,
+            "secretCoverage": true,
+            "noFlood": true
+          },
+          "allRegions": [
+            {
+              "id": "identifier",
+              "sensitive": true,
+              "bestIou": 0.472
+            },
+            {
+              "id": "holder-name",
+              "sensitive": true,
+              "bestIou": 0.413
+            },
+            {
+              "id": "card-title",
+              "sensitive": false,
+              "bestIou": 0.611
+            },
+            {
+              "id": "field-label",
+              "sensitive": false,
+              "bestIou": 0.428
+            }
+          ],
+          "totalPredictions": 15,
+          "predictionsOutsideCanvas": 8,
+          "falsePositiveAreaInCanvasPx": 12000,
+          "canvasOvercoverage": 0.175
+        }
+      },
+      "boxes": {
+        "wasm": [
+          {
+            "x": 19,
+            "y": 20.4,
+            "w": 277.1,
+            "h": 30,
+            "score": 0.807
+          },
+          {
+            "x": 18,
+            "y": 50,
+            "w": 466.5,
+            "h": 24.9,
+            "score": 0.7728
+          },
+          {
+            "x": 17.7,
+            "y": 84.5,
+            "w": 149.6,
+            "h": 26.7,
+            "score": 0.7981
+          },
+          {
+            "x": 38.5,
+            "y": 105.5,
+            "w": 143,
+            "h": 24.1,
+            "score": 0.8771
+          },
+          {
+            "x": 49.1,
+            "y": 152.2,
+            "w": 241.9,
+            "h": 21.9,
+            "score": 0.9379
+          },
+          {
+            "x": 173.1,
+            "y": 204.2,
+            "w": 48.8,
+            "h": 23.7,
+            "score": 0.8481
+          },
+          {
+            "x": 172.8,
+            "y": 221.9,
+            "w": 125.6,
+            "h": 26.4,
+            "score": 0.8098
+          },
+          {
+            "x": 173.6,
+            "y": 255.2,
+            "w": 131.6,
+            "h": 24,
+            "score": 0.8799
+          },
+          {
+            "x": 171.1,
+            "y": 274.4,
+            "w": 160.3,
+            "h": 31.8,
+            "score": 0.8839
+          },
+          {
+            "x": 172.9,
+            "y": 310.8,
+            "w": 54.3,
+            "h": 24.1,
+            "score": 0.9129
+          },
+          {
+            "x": 172.5,
+            "y": 328.5,
+            "w": 93.7,
+            "h": 28.1,
+            "score": 0.8446
+          },
+          {
+            "x": 37.4,
+            "y": 427.4,
+            "w": 69,
+            "h": 24.9,
+            "score": 0.8953
+          },
+          {
+            "x": 33,
+            "y": 469.6,
+            "w": 146.4,
+            "h": 21.6,
+            "score": 0.8639
+          },
+          {
+            "x": 482.5,
+            "y": 513,
+            "w": 102.5,
+            "h": 23.6,
+            "score": 0.9094
+          },
+          {
+            "x": 30.6,
+            "y": 577.6,
+            "w": 101.3,
+            "h": 26,
+            "score": 0.8413
+          }
+        ],
+        "candidates": 15
+      }
+    }
+  },
+  "verdict": {
+    "wasmCorrectnessRealistic": "PASS",
+    "wasmCorrectnessSynthetic": "FAIL",
+    "textRegionQuality": "FAIL",
+    "deterministic": true,
+    "candidate": "REJECTED FOR V1 (see the failing dimension above)"
+  },
+  "failure": null
+}

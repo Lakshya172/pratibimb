@@ -56,6 +56,15 @@ export interface PagePoint {
 export type PageRequest =
   | { readonly op: "OBSERVE"; readonly requestId: string }
   | { readonly op: "CLOCK"; readonly requestId: string }
+  /**
+   * "Has this document's structure moved since sequence N?" — constitution §6's structural signal,
+   * asked rather than pushed.
+   *
+   * It measures nothing and captures nothing: the answer is counters the document's own observers
+   * have already accumulated. `sinceSeq` is `null` when the caller holds no observation to compare,
+   * which is answered `stale: true` — an unestablished staleness is not a fresh one.
+   */
+  | { readonly op: "STRUCTURE"; readonly requestId: string; readonly sinceSeq: number | null }
   | { readonly op: "HIT_TEST"; readonly requestId: string; readonly cycleId: string; readonly point: PagePoint }
   | {
       readonly op: "DISPATCH";
@@ -91,6 +100,58 @@ export type FocusReading =
   | { readonly state: "NONE" }
   | { readonly state: "UNESTABLISHED" };
 
+/**
+ * What a document says about its own structure — constitution §6's structural signal, IN FORCE for
+ * v1 under ADR-0010, where the visual signals are DEFERRED and WITHDRAWN.
+ *
+ * COUNTERS AND A SEQUENCE NUMBER, AND NOTHING ELSE. No selector, no attribute name, no node, no
+ * text, no value, no geometry, no pixel. A structural event says THAT the page moved and roughly in
+ * what category; what moved is answered by observing, which is a separate explicit request.
+ *
+ * `watching` is `false` when no observer is installed — a surface that cannot watch. Staleness is
+ * then UNESTABLISHED, and this transport treats that as stale rather than as fresh.
+ */
+export interface StructuralReading {
+  /** Whether observers are installed in this document at all. */
+  readonly watching: boolean;
+  /**
+   * Monotonic, per document. **One increment per delivered observer batch**, not per record — the
+   * coalescing rule in full, with no timer and no debounce window. A batch that reports twenty node
+   * insertions advances this by one, because the browser delivered it as one callback.
+   */
+  readonly seq: number;
+  /** Batches that carried at least one node insertion or removal. */
+  readonly nodes: number;
+  /** Batches that carried at least one change to an attribute the element graph reads. */
+  readonly attributes: number;
+  /** Batches that carried a character-data change — §6's "text changes". */
+  readonly text: number;
+  /** Batches that carried a change to the document's own geometry or a tracked element's. */
+  readonly resizes: number;
+  /**
+   * How many elements are under resize observation right now.
+   *
+   * Reported so the fan-out of §6's *"ResizeObserver on tracked elements"* is auditable rather than
+   * asserted: it is the size of the last observed element graph, not the size of the document. A
+   * surface that tracks nothing reports 0.
+   */
+  readonly tracked: number;
+  /** The agent's own clock at the most recent increment; `null` if there has not been one. */
+  readonly at: number | null;
+}
+
+/** A reading with nothing watching it: every field at rest, `watching` false. */
+export const UNWATCHED_STRUCTURE: StructuralReading = {
+  watching: false,
+  seq: 0,
+  nodes: 0,
+  attributes: 0,
+  text: 0,
+  resizes: 0,
+  tracked: 0,
+  at: null,
+};
+
 /** What the page says about its own viewport. `zoom` is not here: a content script cannot read it. */
 export interface ViewportReading {
   readonly w: number;
@@ -98,6 +159,33 @@ export interface ViewportReading {
   readonly dpr: number;
   readonly scrollX: number;
   readonly scrollY: number;
+}
+
+/**
+ * VISUAL-ONLY REGIONS (M10) — the areas of the document whose pixels the element graph cannot
+ * describe, so the local privacy planner (`@pratibimb/privacy` `planVisualRedaction`) has something to
+ * protect.
+ *
+ * GEOMETRY ONLY. A kind, a positional id and the CSS-pixel rectangle `getBoundingClientRect` gives —
+ * the same rectangle every measurement carries. No `src`, no URL, no alt text, no pixel, no bitmap.
+ *
+ * `id` is `<kind>:<n>`, where `n` is the element's index among ALL elements of that tag in document
+ * order (hidden ones included, so a visible region keeps its id when an earlier one is hidden). It is
+ * derived from position alone — not from the page's `id` attribute, a URL or any content — and the
+ * parser refuses any other form, so no page string can ride in it.
+ *
+ * DOCUMENT CONTEXT is the observation's own: a reply answers for exactly one document, and the
+ * browser-attested `AttestedDocument` the service worker adds to it is where every region belongs.
+ * A page cannot claim a frame or document for a region, so none is carried per region.
+ */
+export const VISUAL_REGION_KINDS = ["canvas", "img"] as const;
+export type VisualRegionKind = (typeof VISUAL_REGION_KINDS)[number];
+
+export interface VisualRegionReading {
+  readonly id: string;
+  readonly kind: VisualRegionKind;
+  /** CSS viewport pixels, the FULL element rectangle; clipping to the capture happens downstream. */
+  readonly rect: { readonly x: number; readonly y: number; readonly w: number; readonly h: number };
 }
 
 /** Every way the page refuses. Each is a refusal to act, never a partial action. */
@@ -122,8 +210,19 @@ export type PageReply =
       readonly measurements: readonly DomMeasurement[];
       readonly focus: FocusReading;
       readonly viewport: ViewportReading;
+      /** The structural sequence this reading belongs to. A graph is only ever current for one. */
+      readonly structure: StructuralReading;
+      /** Every rendered canvas and image, geometry only. Required: an absent list is not an empty one. */
+      readonly visualRegions: readonly VisualRegionReading[];
     }
   | { readonly op: "CLOCK"; readonly requestId: string; readonly now: number }
+  | {
+      readonly op: "STRUCTURE";
+      readonly requestId: string;
+      readonly structure: StructuralReading;
+      /** `true` when nothing is watching, when the caller named no sequence, or when it moved. */
+      readonly stale: boolean;
+    }
   | {
       readonly op: "HIT_TEST";
       readonly requestId: string;
@@ -323,6 +422,66 @@ function parseViewport(u: unknown): ViewportReading | null {
   return { w: u.w, h: u.h, dpr: u.dpr, scrollX: u.scrollX, scrollY: u.scrollY };
 }
 
+const VISUAL_REGION_ID = /^(canvas|img):(0|[1-9][0-9]{0,8})$/;
+
+/**
+ * One visual-only region, strictly: exact keys, a known kind, an id of the positional form whose
+ * prefix IS the kind, and a finite rectangle with positive extent. Negative x/y is legitimate (an
+ * element scrolled partly above or left of the viewport); a zero, negative or non-finite extent is
+ * not a region and is refused, never coerced.
+ */
+function parseVisualRegion(u: unknown): VisualRegionReading | null {
+  if (!isRecord(u) || !keysExactly(u, ["id", "kind", "rect"])) return null;
+  if (!(VISUAL_REGION_KINDS as readonly unknown[]).includes(u.kind)) return null;
+  const kind = u.kind as VisualRegionKind;
+  if (typeof u.id !== "string") return null;
+  const match = VISUAL_REGION_ID.exec(u.id);
+  if (!match || match[1] !== kind) return null;
+  const rect = parseBox(u.rect);
+  if (!rect || rect.w <= 0 || rect.h <= 0) return null;
+  return { id: u.id, kind, rect };
+}
+
+/**
+ * The whole list, or nothing. One malformed region, a duplicate id or an oversized list refuses the
+ * entire observation: dropping the bad entry would silently drop a masking obligation.
+ */
+export function parseVisualRegions(u: unknown): readonly VisualRegionReading[] | null {
+  if (!Array.isArray(u) || u.length > MAX_MEASUREMENTS) return null;
+  const seen = new Set<string>();
+  const out: VisualRegionReading[] = [];
+  for (const raw of u) {
+    const region = parseVisualRegion(raw);
+    if (!region || seen.has(region.id)) return null;
+    seen.add(region.id);
+    out.push(region);
+  }
+  return out;
+}
+
+/** A sequence number as it crosses a message: a non-negative integer, never a float. */
+const isSeq = (u: unknown): u is number => isFinite_(u) && Number.isInteger(u) && u >= 0;
+
+export function parseStructuralReading(u: unknown): StructuralReading | null {
+  if (!isRecord(u) || !keysExactly(u, ["watching", "seq", "nodes", "attributes", "text", "resizes", "tracked", "at"])) {
+    return null;
+  }
+  if (typeof u.watching !== "boolean") return null;
+  if (!isSeq(u.seq) || !isSeq(u.nodes) || !isSeq(u.attributes) || !isSeq(u.text) || !isSeq(u.resizes)) return null;
+  if (!isSeq(u.tracked)) return null;
+  if (u.at !== null && !isFinite_(u.at)) return null;
+  return {
+    watching: u.watching,
+    seq: u.seq,
+    nodes: u.nodes,
+    attributes: u.attributes,
+    text: u.text,
+    resizes: u.resizes,
+    tracked: u.tracked,
+    at: u.at as number | null,
+  };
+}
+
 export function parsePageRequest(u: unknown): PageRequest | null {
   if (!isRecord(u) || !isId(u.requestId)) return null;
   const requestId = u.requestId;
@@ -330,6 +489,11 @@ export function parsePageRequest(u: unknown): PageRequest | null {
     case "OBSERVE":
     case "CLOCK":
       return keysExactly(u, ["op", "requestId"]) ? { op: u.op, requestId } : null;
+    case "STRUCTURE": {
+      if (!keysExactly(u, ["op", "requestId", "sinceSeq"])) return null;
+      if (u.sinceSeq !== null && !isSeq(u.sinceSeq)) return null;
+      return { op: "STRUCTURE", requestId, sinceSeq: u.sinceSeq as number | null };
+    }
     case "HIT_TEST": {
       if (!keysExactly(u, ["op", "requestId", "cycleId", "point"]) || !isId(u.cycleId)) return null;
       const point = parsePagePoint(u.point);
@@ -355,8 +519,14 @@ export function parsePageReply(u: unknown): PageReply | null {
   if (!isRecord(u) || !isId(u.requestId)) return null;
   const requestId = u.requestId;
   switch (u.op) {
+    case "STRUCTURE": {
+      if (!keysExactly(u, ["op", "requestId", "structure", "stale"])) return null;
+      if (typeof u.stale !== "boolean") return null;
+      const structure = parseStructuralReading(u.structure);
+      return structure ? { op: "STRUCTURE", requestId, structure, stale: u.stale } : null;
+    }
     case "OBSERVE": {
-      if (!keysExactly(u, ["op", "requestId", "measurements", "focus", "viewport"])) return null;
+      if (!keysExactly(u, ["op", "requestId", "measurements", "focus", "viewport", "structure", "visualRegions"])) return null;
       if (!Array.isArray(u.measurements) || u.measurements.length > MAX_MEASUREMENTS) return null;
       const measurements: DomMeasurement[] = [];
       for (const raw of u.measurements) {
@@ -366,7 +536,11 @@ export function parsePageReply(u: unknown): PageReply | null {
       }
       const focus = parseFocusReading(u.focus);
       const viewport = parseViewport(u.viewport);
-      return focus && viewport ? { op: "OBSERVE", requestId, measurements, focus, viewport } : null;
+      const structure = parseStructuralReading(u.structure);
+      const visualRegions = parseVisualRegions(u.visualRegions);
+      return focus && viewport && structure && visualRegions
+        ? { op: "OBSERVE", requestId, measurements, focus, viewport, structure, visualRegions }
+        : null;
     }
     case "CLOCK":
       return keysExactly(u, ["op", "requestId", "now"]) && isFinite_(u.now) ? { op: "CLOCK", requestId, now: u.now } : null;

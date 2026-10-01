@@ -57,6 +57,9 @@ class FakePage implements PageSurface<FakeElement> {
       focus: { state: "NONE" } as const,
     };
   }
+  visualRegions() {
+    return [];
+  }
   /** The browser's event objects are modelled as integer-only, so exactness has something to fail on. */
   prepareClick(element: FakeElement, point: PagePoint) {
     const exact = Number.isInteger(point.x) && Number.isInteger(point.y);
@@ -219,5 +222,143 @@ describe("message hygiene", () => {
     expect(agent.handle(hitTest("c1"))?.op).toBe("HIT_TEST");
     expect(agent.handle(hitTest("c2"))?.op).toBe("HIT_TEST");
     expect(refusalOf(agent.handle(hitTest("c3")))).toBe("STATE_CAPACITY_EXHAUSTED");
+  });
+});
+
+/**
+ * M2-EXEC — ONE APPROVED TASK, ONE BROWSER ACTION.
+ *
+ * M2 saw ten raw events at a button where five were expected, while the transport recorded one
+ * dispatch and zero refusals, and could not say which of five things had happened. Three of those
+ * five are answerable here, in Node, against a surface this test controls:
+ *
+ *   A. two logical dispatches — the agent was asked twice
+ *   B. two transport deliveries — the same ask arrived twice
+ *   C. two browser actions — `fire()` ran twice
+ *
+ * The point of every test below is the same pair of assertions: the refusal, and **`page.fired`**.
+ * A refusal that still fired would be the exact bug the symptom looked like, and a refusal code on
+ * its own cannot rule it out. So the count of real dispatches is asserted every time.
+ *
+ * The audit is asserted alongside `page.fired` so that the instrument the evidence run reads is
+ * itself checked against the thing it claims to measure. An instrument nobody checks is a belief.
+ */
+describe("one approved task, one browser action (M2-EXEC)", () => {
+  it("fires exactly once for one cycle, and says so", () => {
+    const page = new FakePage();
+    const agent = createPageAgent(page);
+    agent.handle(hitTest("c1"));
+    expect(agent.handle(dispatch("c1", "d1"))?.op).toBe("DISPATCH");
+
+    expect(page.fired).toHaveLength(1);
+    const audit = agent.audit();
+    expect(audit.firesStarted).toBe(1);
+    expect(audit.firesCompleted).toBe(1);
+    expect(audit.dispatchRequests).toBe(1);
+    expect(audit.refusals).toEqual([]);
+    expect(audit.fires).toHaveLength(1);
+    expect(audit.fires[0]?.cycleId).toBe("c1");
+    expect(audit.fires[0]?.deliveryId).toBe("d1");
+    expect(audit.fires[0]?.to).toBe("#save");
+  });
+
+  it("A: a second dispatch for the same cycle refuses and fires nothing, even with a fresh delivery id", () => {
+    const page = new FakePage();
+    const agent = createPageAgent(page);
+    agent.handle(hitTest("c1"));
+    agent.handle(dispatch("c1", "d1"));
+    expect(refusalOf(agent.handle(dispatch("c1", "d2")))).toBe("CYCLE_ALREADY_DISPATCHED");
+
+    expect(page.fired).toHaveLength(1);
+    expect(agent.audit().firesStarted).toBe(1);
+    expect(agent.audit().dispatchRequests).toBe(2);
+    expect(agent.audit().refusals).toContain("CYCLE_ALREADY_DISPATCHED");
+  });
+
+  it("B: the same delivery arriving twice refuses and fires nothing", () => {
+    const page = new FakePage();
+    const agent = createPageAgent(page);
+    agent.handle(hitTest("c1"));
+    agent.handle(dispatch("c1", "d1"));
+    expect(refusalOf(agent.handle(dispatch("c1", "d1")))).toBe("DUPLICATE_DELIVERY");
+
+    expect(page.fired).toHaveLength(1);
+    expect(agent.audit().firesStarted).toBe(1);
+  });
+
+  it("A: a second cycle needs its own hit test, and a dispatch without one fires nothing", () => {
+    const page = new FakePage();
+    const agent = createPageAgent(page);
+    agent.handle(hitTest("c1"));
+    agent.handle(dispatch("c1", "d1"));
+    expect(refusalOf(agent.handle(dispatch("c2", "d2")))).toBe("NO_HIT_TEST_FOR_CYCLE");
+
+    expect(page.fired).toHaveLength(1);
+    expect(agent.audit().firesStarted).toBe(1);
+  });
+
+  it("counts a refused dispatch as an attempt and not as an action", () => {
+    const page = new FakePage();
+    const agent = createPageAgent(page);
+    agent.handle(hitTest("c1"));
+    expect(refusalOf(agent.handle(dispatch("c1", "d1", { x: 10, y: 10 })))).toBe("POINT_NOT_HIT_TESTED");
+
+    expect(page.fired).toHaveLength(0);
+    const audit = agent.audit();
+    expect(audit.dispatchRequests).toBe(1);
+    expect(audit.firesStarted).toBe(0);
+    expect(audit.firesCompleted).toBe(0);
+    expect(audit.fires).toEqual([]);
+  });
+
+  it("records a sequence that threw part-way as started and not completed", () => {
+    const page = new FakePage();
+    page.prepareClick = (element, point) => ({
+      coordinatesExact: true,
+      fire: () => {
+        page.fired.push({ selector: element.selector, point });
+        throw new Error("the document went away mid-sequence");
+      },
+    });
+    const agent = createPageAgent(page);
+    agent.handle(hitTest("c1"));
+    expect(() => agent.handle(dispatch("c1", "d1"))).toThrow();
+
+    // The distinction matters: "fired and we do not know how far it got" is not "did not fire".
+    const audit = agent.audit();
+    expect(audit.firesStarted).toBe(1);
+    expect(audit.firesCompleted).toBe(0);
+    expect(audit.fires[0]?.doneAt).toBeNull();
+  });
+
+  it("dates the events from before they were dispatched, which is what attribution needs", () => {
+    const page = new FakePage();
+    const agent = createPageAgent(page);
+    agent.handle(hitTest("c1"));
+    agent.handle(dispatch("c1", "d1"));
+
+    // A MouseEvent's timeStamp is fixed at construction, so a page-side observation carries a time
+    // from before `at`. A window anchored at `at` would call our own click somebody else's.
+    const fire = agent.audit().fires[0];
+    expect(fire?.preparedAt).toBeLessThan(fire?.at ?? 0);
+    expect(fire?.doneAt ?? 0).toBeGreaterThanOrEqual(fire?.at ?? 0);
+  });
+
+  it("C: two agents over one document are two separate counts, which is why only one may connect", () => {
+    // If a document ever held two agents, each would have its own cycle and delivery state and
+    // neither would see the other's dispatch — so both would fire, and both would be right to. That
+    // is exactly the shape of the M2 symptom, and it is why the router refuses the second port
+    // rather than the agent refusing the second dispatch. See swRouter.test.ts.
+    const page = new FakePage();
+    const first = createPageAgent(page);
+    const second = createPageAgent(page);
+    first.handle(hitTest("c1"));
+    second.handle(hitTest("c1"));
+    first.handle(dispatch("c1", "d1"));
+    second.handle(dispatch("c1", "d1"));
+
+    expect(page.fired).toHaveLength(2);
+    expect(first.audit().firesStarted).toBe(1);
+    expect(second.audit().firesStarted).toBe(1);
   });
 });

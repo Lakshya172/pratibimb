@@ -1,0 +1,24 @@
+<!doctype html>
+<!--
+  HELD-OUT VISUAL-TEXT SET (RE-1) — image H3: wrapped letter: sensitive tokens inline, adjacent to non-sensitive words.
+  Every value on this page is SYNTHETIC. Identifier-like numbers are checksum-invalid, phone numbers
+  start with 0 (not a valid Indian mobile), and addresses use the reserved `.example` domain.
+  Scored once per candidate under docs/perception/redaction-evaluation.md, never used for tuning.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Held-out H3</title>
+  <style>
+    body { margin: 0; font: 14px/1.4 system-ui, sans-serif; color: #222; background: #fff; }
+    header { position: absolute; left: 40px; top: 18px; }
+    #img { position: absolute; left: 40px; top: 60px; display: block; }
+  </style>
+</head>
+<body>
+  <header>Document viewer — synthetic evaluation image H3</header>
+  <canvas id="img" width="1000" height="380" aria-label="Synthetic document image"></canvas>
+  <script>window.__spec = {"id":"H3","case":"wrapped letter: sensitive tokens inline, adjacent to non-sensitive words","background":"#fbfaf7","decorations":[],"lines":[{"x":40,"baseline":60,"font":"16px Georgia","runs":[{"id":"h3-a1","text":"Dear customer, your application "},{"id":"h3-prn","text":"PRN-58273-XK","sensitive":true},{"id":"h3-a2","text":" has been received and is under review."}]},{"x":40,"baseline":84,"font":"16px Georgia","runs":[{"id":"h3-b1","text":"Please quote the UPI handle "},{"id":"h3-upi","text":"kavya.rao@bank.example","sensitive":true},{"id":"h3-b2","text":" in all correspondence;"}]},{"x":40,"baseline":108,"font":"16px Georgia","runs":[{"id":"h3-c1","text":"the registered number "},{"id":"h3-phone","text":"+91 01234 41273","sensitive":true},{"id":"h3-c2","text":" will receive status updates."}]},{"x":40,"baseline":170,"font":"italic 16px Georgia","runs":[{"id":"h3-sign","text":"Operations Desk"}]},{"x":40,"baseline":230,"font":"16px Georgia","runs":[{"id":"h3-p1","text":"Your request is processed in the order it was received,"}]},{"x":40,"baseline":254,"font":"16px Georgia","runs":[{"id":"h3-p2","text":"and no action is needed from you at this stage."}]}]};</script>
+  <script src="render.js"></script>
+</body>
+</html>

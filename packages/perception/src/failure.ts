@@ -42,6 +42,8 @@ export type PerceptionErrorCode =
   | "DETECTOR_UNAVAILABLE"
   /** The chosen backend is not supported for this detector on this browser. */
   | "DETECTOR_BACKEND_UNSUPPORTED"
+  /** A detector did not answer within its deadline. INV-23: counts as a positive, never as "nothing found". */
+  | "DETECTOR_TIMEOUT"
   /** A detector returned something that does not satisfy its output contract. */
   | "MODEL_OUTPUT_MALFORMED"
   /** A pinned model asset is absent, or its bytes do not match the registry. */

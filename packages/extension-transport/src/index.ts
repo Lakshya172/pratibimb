@@ -33,6 +33,10 @@ export {
   relayRefused,
   requestIdOf,
   sameAttestedDocument,
+  parseStructuralReading,
+  parseVisualRegions,
+  UNWATCHED_STRUCTURE,
+  VISUAL_REGION_KINDS,
   type AttachedNotice,
   type AttestedDocument,
   type CoreRefusalCode,
@@ -47,18 +51,31 @@ export {
   type RelayEnvelope,
   type RelayRefusalCode,
   type RelayRequest,
+  type StructuralReading,
   type TransportRefusalCode,
   type ViewportReading,
+  type VisualRegionKind,
+  type VisualRegionReading,
 } from "./contracts.js";
+
+export {
+  VISUAL_REGION_SELECTOR,
+  visualRegionId,
+  visualRegionsFrom,
+  type VisualRegionSample,
+} from "./visualRegions.js";
 
 export { TransportRefusal, refuse } from "./errors.js";
 
 export {
   DEFAULT_CYCLE_CAPACITY,
   createPageAgent,
+  type FireNote,
   type PageAgent,
+  type PageAgentAudit,
   type PageSurface,
   type PreparedClick,
+  type StructuralEvent,
 } from "./pageAgent.js";
 
 export {
@@ -86,6 +103,7 @@ export {
   observeBoundDocument,
   observePage,
   observationDeps,
+  readStructure,
   toPostActionObservation,
   type ObservationDeps,
   type ObservationReport,

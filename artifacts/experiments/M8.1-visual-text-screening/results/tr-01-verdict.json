@@ -1,0 +1,132 @@
+{
+ "candidate": "TR-01",
+ "runsCompared": [
+  "run1",
+  "run2"
+ ],
+ "measured": true,
+ "g4": {
+  "deterministic": true,
+  "perInput": {
+   "synthetic": {
+    "inputSame": true,
+    "wasmSame": true,
+    "nativeSame": true,
+    "boxesSame": null,
+    "withinRun": true
+   },
+   "dev": {
+    "inputSame": true,
+    "wasmSame": true,
+    "nativeSame": true,
+    "boxesSame": true,
+    "withinRun": true
+   },
+   "H1": {
+    "inputSame": true,
+    "wasmSame": true,
+    "nativeSame": true,
+    "boxesSame": true,
+    "withinRun": true
+   },
+   "H2": {
+    "inputSame": true,
+    "wasmSame": true,
+    "nativeSame": true,
+    "boxesSame": true,
+    "withinRun": true
+   },
+   "H3": {
+    "inputSame": true,
+    "wasmSame": true,
+    "nativeSame": true,
+    "boxesSame": true,
+    "withinRun": true
+   },
+   "H4": {
+    "inputSame": true,
+    "wasmSame": true,
+    "nativeSame": true,
+    "boxesSame": true,
+    "withinRun": true
+   },
+   "H5": {
+    "inputSame": true,
+    "wasmSame": true,
+    "nativeSame": true,
+    "boxesSame": true,
+    "withinRun": true
+   },
+   "H6": {
+    "inputSame": true,
+    "wasmSame": true,
+    "nativeSame": true,
+    "boxesSame": true,
+    "withinRun": true
+   }
+  }
+ },
+ "heldOutSetWithFullG4": {
+  "criterion": "RE-1",
+  "images": 6,
+  "sensitiveStrings": 20,
+  "sensitiveGlyphs": 306,
+  "perGlyphMissRateUpper95": 0.00980392156862745,
+  "gates": {
+   "heldOutLargeEnough": true,
+   "noExposedSensitiveGlyph": true,
+   "overMaskWithinBudget": true,
+   "noBlanketBox": true,
+   "wasmValidOnEveryInput": true,
+   "deterministic": true,
+   "noPlaintextOutput": true
+  },
+  "pass": true
+ },
+ "developmentScreenPass": true,
+ "qg03RealisticCell": {
+  "run1": {
+   "input": "development fixture (visual.html) — the fixed realistic text-bearing fixture",
+   "countOk": true,
+   "relErrSumAbs": 6.517290281877041e-7,
+   "criterion": 0.02,
+   "pass": true
+  },
+  "run2": {
+   "input": "development fixture (visual.html) — the fixed realistic text-bearing fixture",
+   "countOk": true,
+   "relErrSumAbs": 6.517290281877041e-7,
+   "criterion": 0.02,
+   "pass": true
+  }
+ },
+ "syntheticDiagnostic": {
+  "run1": {
+   "countOk": true,
+   "relErrSumAbs": 0.1039136302294197,
+   "criterion": 0.02,
+   "pass": false
+  },
+  "run2": {
+   "countOk": true,
+   "relErrSumAbs": 0.1039136302294197,
+   "criterion": 0.02,
+   "pass": false
+  }
+ },
+ "verdict": {
+  "status": "ELIGIBLE FOR QG-03 / ADOPTION REVIEW",
+  "checklist": {
+   "1 provenance and licence verified": true,
+   "2 reproducible artifact": true,
+   "3 realistic-input WASM <= 2e-2 (QG-03 text-region cell)": true,
+   "4 every RE-1 gate on the held-out set": true,
+   "5 deterministic": true,
+   "6 no plaintext-capable output": true,
+   "7 runtime compatible": true,
+   "8 no unresolved security boundary conflict": true,
+   "development screen did not reject": true
+  },
+  "failed": []
+ }
+}

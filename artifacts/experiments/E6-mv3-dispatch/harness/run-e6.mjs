@@ -37,7 +37,12 @@ if (!REACT_DIR) refuse("set E6_REACT_DIR to a directory holding react.production
 const REACT = readFileSync(join(REACT_DIR, "react.production.min.js"));
 const REACT_DOM = readFileSync(join(REACT_DIR, "react-dom.production.min.js"));
 
-execSync("npm run build -w @pratibimb/extension", { cwd: ROOT, stdio: "pipe" });
+/**
+ * E6's mechanisms are not in a production build (see `apps/extension/e6/absent.ts`). They are a
+ * separate module the bundler only resolves when this flag is set, so this harness asks for them
+ * explicitly and nothing else does.
+ */
+execSync("npm run build -w @pratibimb/extension", { cwd: ROOT, stdio: "pipe", env: { ...process.env, E6_PROBE: "1" } });
 if (!existsSync(join(EXT, "manifest.json"))) refuse("host build failed");
 
 const server = createServer((req, res) => {
@@ -195,7 +200,7 @@ const log = {
   hostname: hostname(),
   node: process.version,
   cells: cellMeta,
-  host: "apps/extension (Track G) + host-lib/e6-mechanisms.ts; built fresh by this harness",
+  host: "apps/extension (Track G) + e6/probe.ts, built fresh by this harness with E6_PROBE=1; the mechanisms are not in a production build",
   mechanismC: "NOT RUN — chrome.debugger requires a new permission, shows an infobar, and needs explicit approval",
   react: { version: "18.3.1", reactSha256: sha(REACT), reactDomSha256: sha(REACT_DOM), source: "npm pack react@18.3.1 react-dom@18.3.1 (UMD production builds), not committed" },
   preRegistration: { commit: "3111459" },

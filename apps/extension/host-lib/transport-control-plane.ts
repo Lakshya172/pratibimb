@@ -32,6 +32,7 @@ import {
   createTransportCycle,
   observeBoundDocument,
   observePage,
+  readStructure,
   toPostActionObservation,
   type TransportBinding,
 } from "@pratibimb/extension-transport";
@@ -50,6 +51,8 @@ export function installTransportControlPlane(): void {
     /** Read a document and bind to whoever answered. */
     observePage: (target: { tabId: number; frameId: number }) => observePage(chromeRelay, target),
     observeBoundDocument: (binding: TransportBinding) => observeBoundDocument(chromeRelay, binding),
+    /** Constitution §6: has this document moved past a sequence? No measurement, no capture. */
+    readStructure: (binding: TransportBinding, sinceSeq: number | null) => readStructure(chromeRelay, binding, sinceSeq),
     /** The two bridges for one action, bound to that document. */
     createTransportCycle: (binding: TransportBinding) => createTransportCycle(chromeRelay, binding),
     createPostActionObserver: (binding: TransportBinding) => createPostActionObserver(chromeRelay, binding),

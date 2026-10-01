@@ -34,6 +34,15 @@ A model is proposed for a frozen interface (`UIElementDetector`, `OCRProvider`,
 9  ADOPT        status -> ADOPTED in agentos/registry/model-registry.md
 ```
 
+> **Text-region models — step 4's WASM correctness input (owner decision, 2026-09-25).** For a
+> text-region detector the correctness value is measured on the **fixed realistic text-bearing
+> fixture**, relative `sumAbs` ≤ 2e-2 vs native, as recorded in
+> [`qg03-wasm-correctness-decision.md`](../../docs/testing/qg03-wasm-correctness-decision.md)
+> (Option A). A synthetic input is recorded as diagnostic evidence and does not decide the cell.
+> Such a candidate must also pass RE-1 ([`redaction-evaluation.md`](../../docs/perception/redaction-evaluation.md)),
+> including determinism and no plaintext output, and every step above. Passing the WASM cell is not
+> adoption. This note applies to text-region models only.
+
 ## Blocking rules — FROZEN
 
 1. **No model enters the build until its row is complete across all four combinations.**

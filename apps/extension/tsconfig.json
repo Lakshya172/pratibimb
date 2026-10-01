@@ -1,0 +1,26 @@
+{
+  "//": "apps/extension enters the typecheck graph here. It is NOT a project reference: WXT builds this package with Vite, so there is no tsc output to produce and `composite` would demand one. `npm run typecheck` runs `tsc -b` for the referenced projects and then this project separately.",
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "composite": false,
+    "declaration": false,
+    "baseUrl": "../..",
+    "paths": {
+      "@pratibimb/perception": ["packages/perception/src/index.ts"],
+      "@pratibimb/agent": ["packages/agent/src/index.ts"],
+      "@pratibimb/extension-transport": ["packages/extension-transport/src/index.ts"],
+      "@pratibimb/privacy": ["packages/privacy/src/index.ts"],
+      "@pratibimb/egress": ["packages/egress/src/index.ts"],
+      "@pratibimb/reasoner": ["packages/reasoner/src/index.ts"],
+      "@pratibimb/plan": ["packages/plan/src/index.ts"],
+      "@pratibimb/orchestrator": ["packages/orchestrator/src/index.ts"],
+      "@pratibimb/security": ["packages/security/src/index.ts"],
+      "#e6-probe": ["apps/extension/e6/absent.ts"],
+      "#structural-probe": ["apps/extension/probe/structural.ts"],
+      "#tr01-probe": ["apps/extension/probe/tr01.ts"],
+      "#tr01-instrument": ["apps/extension/probe/tr01-instrument.ts"]
+    }
+  },
+  "include": ["types/**/*.d.ts", "host-lib/**/*.ts", "host/**/*.ts", "e6/**/*.ts", "probe/**/*.ts", "entrypoints/**/*.ts", "test/**/*.ts"]
+}

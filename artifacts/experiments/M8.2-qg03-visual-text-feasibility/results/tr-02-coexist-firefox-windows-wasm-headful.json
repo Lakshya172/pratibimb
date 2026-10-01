@@ -1,0 +1,285 @@
+{
+ "experiment": "M8.2-qg03-visual-text-feasibility",
+ "runner": "run-firefox.mjs",
+ "platform": "windows",
+ "firefoxPath": "C:/Program Files/Mozilla Firefox/firefox.exe",
+ "firefoxVersion": "Mozilla Firefox 156.0.1",
+ "startedAt": "2026-09-25T19:41:08.080Z",
+ "launches": [
+  {
+   "candidate": "TR-02",
+   "mode": "coexist",
+   "backend": "wasm",
+   "headless": false,
+   "browser": "firefox",
+   "platform": "windows",
+   "browserVersion": "Mozilla Firefox 156.0.1",
+   "livenessSeen": true,
+   "timedOut": false,
+   "wallMs": 14735,
+   "result": {
+    "context": "firefox-mv3-event-page",
+    "mode": "coexist",
+    "candidate": "TR-02",
+    "backend": "wasm",
+    "startedAt": "2026-09-25T19:41:14.001Z",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:156.0) Gecko/20100101 Firefox/156.0",
+    "ortVersion": "1.29.0",
+    "pin": {
+     "installed": true,
+     "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+     "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea"
+    },
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasm": {
+       "instances": 0,
+       "bytes": 0,
+       "mb": 0,
+       "pages": 0,
+       "growCount": 0
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 0,
+      "at": 3143
+     },
+     {
+      "label": "after-solo",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 4869
+     },
+     {
+      "label": "after-coexist-create",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 4986
+     },
+     {
+      "label": "after-coexist-rounds",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 10747
+     },
+     {
+      "label": "after-release-all",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 10751
+     },
+     {
+      "label": "after-final-release",
+      "wasm": {
+       "instances": 2,
+       "bytes": 159776768,
+       "mb": 152.4,
+       "pages": 2438,
+       "growCount": 10
+      },
+      "js": null,
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 5,
+      "at": 11619
+     }
+    ],
+    "errors": [],
+    "timerResolutionMs": null,
+    "conclusion": "completed",
+    "solo": {
+     "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8",
+     "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+     "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed"
+    },
+    "soloMs": {
+     "candidate": 797,
+     "uiHead": 53,
+     "yunet": 61
+    },
+    "created": {
+     "uiHead": true,
+     "yunet": true,
+     "candidate": true
+    },
+    "createMs": {
+     "uiHead": 12,
+     "yunet": 17,
+     "candidate": 88
+    },
+    "rounds": [
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     },
+     {
+      "uiHead": "74e15bc385a3eb23b2df279665c77b70732568e4014328660eced1d9cbec9c5a",
+      "yunet": "010220d74eeea684a193902bb40d2a9b3473c8329564b1b1ebccec230b26a9ed",
+      "candidate": "6fe4d8a00f1a25869fa97ca5dc1c26481ce38d39e4b58448cc48f9a2918e61e8"
+     }
+    ],
+    "roundMs": [
+     {
+      "uiHead": 64,
+      "yunet": 63,
+      "candidate": 686,
+      "round": 825
+     },
+     {
+      "uiHead": 64,
+      "yunet": 61,
+      "candidate": 720,
+      "round": 854
+     },
+     {
+      "uiHead": 58,
+      "yunet": 60,
+      "candidate": 736,
+      "round": 863
+     },
+     {
+      "uiHead": 61,
+      "yunet": 70,
+      "candidate": 649,
+      "round": 789
+     },
+     {
+      "uiHead": 60,
+      "yunet": 59,
+      "candidate": 650,
+      "round": 777
+     }
+    ],
+    "uiHeadShippedDecode": {
+     "ok": true,
+     "detections": 23
+    },
+    "recreated": {
+     "uiHead": true,
+     "yunet": true,
+     "candidate": true
+    },
+    "network": [
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://41a389b7-580a-489d-82d7-689d61fabf52",
+      "foreign": false,
+      "path": "/ort-wasm-simd-threaded.jsep.wasm"
+     },
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://41a389b7-580a-489d-82d7-689d61fabf52",
+      "foreign": false,
+      "path": "/models/t1-ui-head.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://41a389b7-580a-489d-82d7-689d61fabf52",
+      "foreign": false,
+      "path": "/models/yunet.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://41a389b7-580a-489d-82d7-689d61fabf52",
+      "foreign": false,
+      "path": "/models/candidate.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "moz-extension://41a389b7-580a-489d-82d7-689d61fabf52",
+      "foreign": false,
+      "path": "/fixtures/input-dev.f32"
+     }
+    ],
+    "gpu": {
+     "submits": 0,
+     "computePipelines": 0,
+     "devices": 0,
+     "adapterInfo": null,
+     "requestedOptions": null,
+     "hookError": null
+    },
+    "selfOrigin": "moz-extension://41a389b7-580a-489d-82d7-689d61fabf52"
+   },
+   "firefoxProcessesReaped": 0,
+   "webExtLogTail": [
+    "}",
+    "Use --verbose or --devtools to see logging",
+    "Installed D:\\PratiBimb\\artifacts\\experiments\\M8.2-qg03-visual-text-feasibility\\models\\ext\\TR-02\\firefox as a temporary add-on",
+    "Automatic extension reloading has been disabled"
+   ],
+   "launch": 1
+  }
+ ]
+}

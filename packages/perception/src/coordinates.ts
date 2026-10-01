@@ -175,6 +175,31 @@ export function cssToCapture(b: CssBox, g: CaptureGeometry): CaptureBox {
   return captureBox(b.x / s, b.y / s, b.w / s, b.h / s);
 }
 
+/**
+ * CSS box → the integer capture-pixel rectangle that covers it, rounded OUTWARD and clipped to the
+ * frame. Used to paint a redaction mask: rounding may only grow a mask, never shrink it
+ * ("over-masking is free and under-masking is fatal"). `null` only when the box lies wholly outside
+ * the frame. A non-finite or non-positive box is REFUSED (throws), never read as "nothing to mask".
+ */
+export function cssToCapturePixelRect(
+  b: CssBox,
+  g: CaptureGeometry
+): { readonly x: number; readonly y: number; readonly w: number; readonly h: number } | null {
+  if (![b.x, b.y, b.w, b.h].every(Number.isFinite) || b.w <= 0 || b.h <= 0) {
+    throw new PerceptionError(
+      `Mask box is not a finite, positive rectangle: (${b.x}, ${b.y}, ${b.w}, ${b.h}).`,
+      "COORDINATE_TRANSFORM_AMBIGUOUS"
+    );
+  }
+  const c = cssToCapture(b, g);
+  const x0 = Math.max(0, Math.floor(c.x));
+  const y0 = Math.max(0, Math.floor(c.y));
+  const x1 = Math.min(g.captureSize.w, Math.ceil(c.x + c.w));
+  const y1 = Math.min(g.captureSize.h, Math.ceil(c.y + c.h));
+  if (x1 <= x0 || y1 <= y0) return null;
+  return { x: x0, y: y0, w: x1 - x0, h: y1 - y0 };
+}
+
 // ─────────────────────────── css ⇄ document ─────────────────────────────
 
 /**

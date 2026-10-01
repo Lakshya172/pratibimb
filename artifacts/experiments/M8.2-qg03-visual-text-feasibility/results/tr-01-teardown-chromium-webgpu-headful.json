@@ -1,0 +1,723 @@
+{
+ "experiment": "M8.2-qg03-visual-text-feasibility",
+ "runner": "run-chromium.mjs",
+ "chromePath": "C:/Users/RONIT/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe",
+ "startedAt": "2026-09-25T19:37:49.349Z",
+ "machineStateStart": {
+  "at": "2026-09-25T19:37:49.350Z",
+  "powerScheme": "Power Scheme GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (Balanced)",
+  "battery": "BatteryStatus=2 Charge=100"
+ },
+ "launches": [
+  {
+   "candidate": "TR-01",
+   "mode": "teardown",
+   "backend": "webgpu",
+   "headless": false,
+   "browser": "chromium",
+   "platform": "windows",
+   "extensionLoaded": true,
+   "startedAt": "2026-09-25T19:37:50.500Z",
+   "browserVersion": "153.0.8010.12",
+   "result": {
+    "context": "chrome-offscreen-document",
+    "mode": "teardown",
+    "candidate": "TR-01",
+    "backend": "webgpu",
+    "startedAt": "2026-09-25T19:37:51.601Z",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "ortVersion": "1.29.0",
+    "pin": {
+     "installed": true,
+     "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+     "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea"
+    },
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasm": {
+       "instances": 0,
+       "bytes": 0,
+       "mb": 0,
+       "pages": 0,
+       "growCount": 0
+      },
+      "js": {
+       "usedMB": 2.6,
+       "totalMB": 3.3
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 0,
+      "at": 84
+     },
+     {
+      "label": "cycle1-after-create",
+      "wasm": {
+       "instances": 1,
+       "bytes": 29097984,
+       "mb": 27.8,
+       "pages": 444,
+       "growCount": 3
+      },
+      "js": {
+       "usedMB": 44,
+       "totalMB": 46.1
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 1293
+     },
+     {
+      "label": "cycle1-after-inference",
+      "wasm": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "js": {
+       "usedMB": 48.9,
+       "totalMB": 55.1
+      },
+      "gpu": {
+       "submits": 20,
+       "computePipelines": 35
+      },
+      "networkArrivals": 3,
+      "at": 3621
+     },
+     {
+      "label": "cycle1-after-release",
+      "wasm": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "js": {
+       "usedMB": 48.9,
+       "totalMB": 55.1
+      },
+      "gpu": {
+       "submits": 20,
+       "computePipelines": 35
+      },
+      "networkArrivals": 3,
+      "at": 3629
+     },
+     {
+      "label": "cycle2-after-create",
+      "wasm": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "js": {
+       "usedMB": 49.5,
+       "totalMB": 55.1
+      },
+      "gpu": {
+       "submits": 20,
+       "computePipelines": 35
+      },
+      "networkArrivals": 3,
+      "at": 3809
+     },
+     {
+      "label": "cycle2-after-inference",
+      "wasm": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "js": {
+       "usedMB": 54.9,
+       "totalMB": 60.1
+      },
+      "gpu": {
+       "submits": 40,
+       "computePipelines": 35
+      },
+      "networkArrivals": 3,
+      "at": 3977
+     },
+     {
+      "label": "cycle2-after-release",
+      "wasm": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "js": {
+       "usedMB": 54.9,
+       "totalMB": 60.1
+      },
+      "gpu": {
+       "submits": 40,
+       "computePipelines": 35
+      },
+      "networkArrivals": 3,
+      "at": 3983
+     },
+     {
+      "label": "cycle3-after-create",
+      "wasm": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "js": {
+       "usedMB": 55.6,
+       "totalMB": 60.1
+      },
+      "gpu": {
+       "submits": 40,
+       "computePipelines": 35
+      },
+      "networkArrivals": 3,
+      "at": 4128
+     },
+     {
+      "label": "cycle3-after-inference",
+      "wasm": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "js": {
+       "usedMB": 60.9,
+       "totalMB": 65.2
+      },
+      "gpu": {
+       "submits": 60,
+       "computePipelines": 35
+      },
+      "networkArrivals": 3,
+      "at": 4273
+     },
+     {
+      "label": "cycle3-after-release",
+      "wasm": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "js": {
+       "usedMB": 60.9,
+       "totalMB": 65.2
+      },
+      "gpu": {
+       "submits": 60,
+       "computePipelines": 35
+      },
+      "networkArrivals": 3,
+      "at": 4278
+     },
+     {
+      "label": "cycle4-after-create",
+      "wasm": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "js": {
+       "usedMB": 61.8,
+       "totalMB": 65.4
+      },
+      "gpu": {
+       "submits": 60,
+       "computePipelines": 35
+      },
+      "networkArrivals": 3,
+      "at": 4442
+     },
+     {
+      "label": "cycle4-after-inference",
+      "wasm": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "js": {
+       "usedMB": 62.4,
+       "totalMB": 69.7
+      },
+      "gpu": {
+       "submits": 80,
+       "computePipelines": 35
+      },
+      "networkArrivals": 3,
+      "at": 4596
+     },
+     {
+      "label": "cycle4-after-release",
+      "wasm": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "js": {
+       "usedMB": 62.4,
+       "totalMB": 69.7
+      },
+      "gpu": {
+       "submits": 80,
+       "computePipelines": 35
+      },
+      "networkArrivals": 3,
+      "at": 4600
+     },
+     {
+      "label": "cycle5-after-create",
+      "wasm": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "js": {
+       "usedMB": 63,
+       "totalMB": 69.7
+      },
+      "gpu": {
+       "submits": 80,
+       "computePipelines": 35
+      },
+      "networkArrivals": 3,
+      "at": 4744
+     },
+     {
+      "label": "cycle5-after-inference",
+      "wasm": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "js": {
+       "usedMB": 70,
+       "totalMB": 75.7
+      },
+      "gpu": {
+       "submits": 100,
+       "computePipelines": 35
+      },
+      "networkArrivals": 3,
+      "at": 4893
+     },
+     {
+      "label": "cycle5-after-release",
+      "wasm": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "js": {
+       "usedMB": 70,
+       "totalMB": 75.7
+      },
+      "gpu": {
+       "submits": 100,
+       "computePipelines": 35
+      },
+      "networkArrivals": 3,
+      "at": 4897
+     }
+    ],
+    "errors": [],
+    "timerResolutionMs": 0.1,
+    "conclusion": "completed",
+    "cycles": [
+     {
+      "cycle": 1,
+      "ok": true,
+      "createMs": 1046.7000000178814,
+      "afterCreate": {
+       "instances": 1,
+       "bytes": 29097984,
+       "mb": 27.8,
+       "pages": 444,
+       "growCount": 3
+      },
+      "inferenceMs": 2321.699999988079,
+      "outputSha256": "18ad49fda9f0bd2614cd2704a61cdb97dbcdcf5fb4f8cd568c47bd5be8dd0c98",
+      "afterInference": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "afterRelease": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "grows": 4
+     },
+     {
+      "cycle": 2,
+      "ok": true,
+      "createMs": 180,
+      "afterCreate": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "inferenceMs": 159.7000000178814,
+      "outputSha256": "18ad49fda9f0bd2614cd2704a61cdb97dbcdcf5fb4f8cd568c47bd5be8dd0c98",
+      "afterInference": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "afterRelease": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "grows": 0
+     },
+     {
+      "cycle": 3,
+      "ok": true,
+      "createMs": 145.59999999403954,
+      "afterCreate": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "inferenceMs": 137.2999999821186,
+      "outputSha256": "18ad49fda9f0bd2614cd2704a61cdb97dbcdcf5fb4f8cd568c47bd5be8dd0c98",
+      "afterInference": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "afterRelease": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "grows": 0
+     },
+     {
+      "cycle": 4,
+      "ok": true,
+      "createMs": 164.09999999403954,
+      "afterCreate": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "inferenceMs": 146.5,
+      "outputSha256": "18ad49fda9f0bd2614cd2704a61cdb97dbcdcf5fb4f8cd568c47bd5be8dd0c98",
+      "afterInference": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "afterRelease": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "grows": 0
+     },
+     {
+      "cycle": 5,
+      "ok": true,
+      "createMs": 143.60000002384186,
+      "afterCreate": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "inferenceMs": 140.7999999821186,
+      "outputSha256": "18ad49fda9f0bd2614cd2704a61cdb97dbcdcf5fb4f8cd568c47bd5be8dd0c98",
+      "afterInference": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "afterRelease": {
+       "instances": 1,
+       "bytes": 34930688,
+       "mb": 33.3,
+       "pages": 533,
+       "growCount": 4
+      },
+      "grows": 0
+     }
+    ],
+    "network": [
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://ggfdfhhclninbclpidbeinmimjngklei",
+      "foreign": false,
+      "path": "/ort-wasm-simd-threaded.jsep.wasm"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://ggfdfhhclninbclpidbeinmimjngklei",
+      "foreign": false,
+      "path": "/models/candidate.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://ggfdfhhclninbclpidbeinmimjngklei",
+      "foreign": false,
+      "path": "/fixtures/input-dev.f32"
+     }
+    ],
+    "gpu": {
+     "submits": 100,
+     "computePipelines": 35,
+     "devices": 1,
+     "adapterInfo": {
+      "vendor": "intel",
+      "architecture": "gen-12lp",
+      "device": "",
+      "description": "",
+      "isFallbackAdapter": null,
+      "identified": true
+     },
+     "requestedOptions": {},
+     "hookError": null
+    },
+    "selfOrigin": "chrome-extension://ggfdfhhclninbclpidbeinmimjngklei",
+    "contextTeardown": {
+     "closed": true,
+     "recreated": true,
+     "result": {
+      "context": "chrome-offscreen-document",
+      "mode": "teardown-fresh",
+      "candidate": "TR-01",
+      "backend": "webgpu",
+      "startedAt": "2026-09-25T19:37:56.663Z",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "ortVersion": "1.29.0",
+      "pin": {
+       "installed": true,
+       "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+       "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea"
+      },
+      "memory": [
+       {
+        "label": "baseline-before-anything",
+        "wasm": {
+         "instances": 0,
+         "bytes": 0,
+         "mb": 0,
+         "pages": 0,
+         "growCount": 0
+        },
+        "js": {
+         "usedMB": 4.5,
+         "totalMB": 14.2
+        },
+        "gpu": {
+         "submits": 0,
+         "computePipelines": 0
+        },
+        "networkArrivals": 0,
+        "at": 228
+       },
+       {
+        "label": "cycle1-after-create",
+        "wasm": {
+         "instances": 1,
+         "bytes": 29097984,
+         "mb": 27.8,
+         "pages": 444,
+         "growCount": 3
+        },
+        "js": {
+         "usedMB": 45.9,
+         "totalMB": 53.2
+        },
+        "gpu": {
+         "submits": 0,
+         "computePipelines": 0
+        },
+        "networkArrivals": 3,
+        "at": 1920
+       },
+       {
+        "label": "cycle1-after-inference",
+        "wasm": {
+         "instances": 1,
+         "bytes": 34930688,
+         "mb": 33.3,
+         "pages": 533,
+         "growCount": 4
+        },
+        "js": {
+         "usedMB": 49.8,
+         "totalMB": 56.3
+        },
+        "gpu": {
+         "submits": 20,
+         "computePipelines": 35
+        },
+        "networkArrivals": 3,
+        "at": 2346
+       },
+       {
+        "label": "cycle1-after-release",
+        "wasm": {
+         "instances": 1,
+         "bytes": 34930688,
+         "mb": 33.3,
+         "pages": 533,
+         "growCount": 4
+        },
+        "js": {
+         "usedMB": 49.8,
+         "totalMB": 56.3
+        },
+        "gpu": {
+         "submits": 20,
+         "computePipelines": 35
+        },
+        "networkArrivals": 3,
+        "at": 2352
+       }
+      ],
+      "errors": [],
+      "timerResolutionMs": 0.1,
+      "conclusion": "completed",
+      "cycles": [
+       {
+        "cycle": 1,
+        "ok": true,
+        "createMs": 1439.1000000238419,
+        "afterCreate": {
+         "instances": 1,
+         "bytes": 29097984,
+         "mb": 27.8,
+         "pages": 444,
+         "growCount": 3
+        },
+        "inferenceMs": 421.69999998807907,
+        "outputSha256": "18ad49fda9f0bd2614cd2704a61cdb97dbcdcf5fb4f8cd568c47bd5be8dd0c98",
+        "afterInference": {
+         "instances": 1,
+         "bytes": 34930688,
+         "mb": 33.3,
+         "pages": 533,
+         "growCount": 4
+        },
+        "afterRelease": {
+         "instances": 1,
+         "bytes": 34930688,
+         "mb": 33.3,
+         "pages": 533,
+         "growCount": 4
+        },
+        "grows": 4
+       }
+      ],
+      "network": [
+       {
+        "kind": "fetch",
+        "origin": "chrome-extension://ggfdfhhclninbclpidbeinmimjngklei",
+        "foreign": false,
+        "path": "/ort-wasm-simd-threaded.jsep.wasm"
+       },
+       {
+        "kind": "fetch",
+        "origin": "chrome-extension://ggfdfhhclninbclpidbeinmimjngklei",
+        "foreign": false,
+        "path": "/models/candidate.onnx"
+       },
+       {
+        "kind": "fetch",
+        "origin": "chrome-extension://ggfdfhhclninbclpidbeinmimjngklei",
+        "foreign": false,
+        "path": "/fixtures/input-dev.f32"
+       }
+      ],
+      "gpu": {
+       "submits": 20,
+       "computePipelines": 35,
+       "devices": 1,
+       "adapterInfo": {
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "device": "",
+        "description": "",
+        "isFallbackAdapter": null,
+        "identified": true
+       },
+       "requestedOptions": {},
+       "hookError": null
+      },
+      "selfOrigin": "chrome-extension://ggfdfhhclninbclpidbeinmimjngklei"
+     }
+    }
+   },
+   "wallMs": 7599,
+   "launch": 1
+  }
+ ],
+ "machineStateEnd": {
+  "at": "2026-09-25T19:37:59.867Z",
+  "powerScheme": "Power Scheme GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (Balanced)",
+  "battery": "BatteryStatus=2 Charge=100"
+ }
+}

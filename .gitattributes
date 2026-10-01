@@ -1,0 +1,19 @@
+# Line-ending policy.
+#
+# WHY THIS FILE EXISTS. Twenty test files read this repository's own source with
+# readFileSync and assert on its text. The egress guard's transport test, for one,
+# slices guard.ts on a literal written with an LF newline. With core.autocrlf=true a
+# Windows checkout smudges an LF blob to CRLF in the working tree, so the identical
+# commit passes on Linux CI and fails on Windows. Pinning the module sources to LF
+# makes the working tree match the blob on every platform, which is what those
+# assertions already assume.
+#
+# DELIBERATELY NARROW. Only the two module classes the test suite parses. Markdown,
+# JSON evidence, HTML fixtures and .js keep the existing convention, so this
+# normalises seven enumerated files and nothing else. Recorded evidence is
+# unaffected: the one harness that digests its own source (E2's harnessSha256LF)
+# normalises to LF before hashing.
+*.ts   text eol=lf
+*.cts  text eol=lf
+*.mts  text eol=lf
+*.mjs  text eol=lf

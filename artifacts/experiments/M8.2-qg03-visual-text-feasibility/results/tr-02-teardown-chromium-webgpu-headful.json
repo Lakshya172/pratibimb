@@ -1,0 +1,723 @@
+{
+ "experiment": "M8.2-qg03-visual-text-feasibility",
+ "runner": "run-chromium.mjs",
+ "chromePath": "C:/Users/RONIT/AppData/Local/ms-playwright/chromium-1243/chrome-win64/chrome.exe",
+ "startedAt": "2026-09-25T19:39:50.506Z",
+ "machineStateStart": {
+  "at": "2026-09-25T19:39:50.506Z",
+  "powerScheme": "Power Scheme GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (Balanced)",
+  "battery": "BatteryStatus=2 Charge=100"
+ },
+ "launches": [
+  {
+   "candidate": "TR-02",
+   "mode": "teardown",
+   "backend": "webgpu",
+   "headless": false,
+   "browser": "chromium",
+   "platform": "windows",
+   "extensionLoaded": true,
+   "startedAt": "2026-09-25T19:39:51.781Z",
+   "browserVersion": "153.0.8010.12",
+   "result": {
+    "context": "chrome-offscreen-document",
+    "mode": "teardown",
+    "candidate": "TR-02",
+    "backend": "webgpu",
+    "startedAt": "2026-09-25T19:39:54.512Z",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+    "ortVersion": "1.29.0",
+    "pin": {
+     "installed": true,
+     "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+     "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea"
+    },
+    "memory": [
+     {
+      "label": "baseline-before-anything",
+      "wasm": {
+       "instances": 0,
+       "bytes": 0,
+       "mb": 0,
+       "pages": 0,
+       "growCount": 0
+      },
+      "js": {
+       "usedMB": 2.6,
+       "totalMB": 3.3
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 0,
+      "at": 114
+     },
+     {
+      "label": "cycle1-after-create",
+      "wasm": {
+       "instances": 1,
+       "bytes": 20185088,
+       "mb": 19.3,
+       "pages": 308,
+       "growCount": 1
+      },
+      "js": {
+       "usedMB": 45.2,
+       "totalMB": 47.7
+      },
+      "gpu": {
+       "submits": 0,
+       "computePipelines": 0
+      },
+      "networkArrivals": 3,
+      "at": 1351
+     },
+     {
+      "label": "cycle1-after-inference",
+      "wasm": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "js": {
+       "usedMB": 52.4,
+       "totalMB": 58.8
+      },
+      "gpu": {
+       "submits": 15,
+       "computePipelines": 37
+      },
+      "networkArrivals": 3,
+      "at": 4363
+     },
+     {
+      "label": "cycle1-after-release",
+      "wasm": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "js": {
+       "usedMB": 52.4,
+       "totalMB": 58.8
+      },
+      "gpu": {
+       "submits": 15,
+       "computePipelines": 37
+      },
+      "networkArrivals": 3,
+      "at": 4368
+     },
+     {
+      "label": "cycle2-after-create",
+      "wasm": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "js": {
+       "usedMB": 53.6,
+       "totalMB": 58.8
+      },
+      "gpu": {
+       "submits": 15,
+       "computePipelines": 37
+      },
+      "networkArrivals": 3,
+      "at": 4493
+     },
+     {
+      "label": "cycle2-after-inference",
+      "wasm": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "js": {
+       "usedMB": 60.2,
+       "totalMB": 66.2
+      },
+      "gpu": {
+       "submits": 30,
+       "computePipelines": 37
+      },
+      "networkArrivals": 3,
+      "at": 4683
+     },
+     {
+      "label": "cycle2-after-release",
+      "wasm": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "js": {
+       "usedMB": 60.2,
+       "totalMB": 66.2
+      },
+      "gpu": {
+       "submits": 30,
+       "computePipelines": 37
+      },
+      "networkArrivals": 3,
+      "at": 4685
+     },
+     {
+      "label": "cycle3-after-create",
+      "wasm": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "js": {
+       "usedMB": 60.7,
+       "totalMB": 66.2
+      },
+      "gpu": {
+       "submits": 30,
+       "computePipelines": 37
+      },
+      "networkArrivals": 3,
+      "at": 4793
+     },
+     {
+      "label": "cycle3-after-inference",
+      "wasm": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "js": {
+       "usedMB": 68,
+       "totalMB": 73.6
+      },
+      "gpu": {
+       "submits": 45,
+       "computePipelines": 37
+      },
+      "networkArrivals": 3,
+      "at": 4979
+     },
+     {
+      "label": "cycle3-after-release",
+      "wasm": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "js": {
+       "usedMB": 68,
+       "totalMB": 73.6
+      },
+      "gpu": {
+       "submits": 45,
+       "computePipelines": 37
+      },
+      "networkArrivals": 3,
+      "at": 4982
+     },
+     {
+      "label": "cycle4-after-create",
+      "wasm": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "js": {
+       "usedMB": 68.4,
+       "totalMB": 73.6
+      },
+      "gpu": {
+       "submits": 45,
+       "computePipelines": 37
+      },
+      "networkArrivals": 3,
+      "at": 5071
+     },
+     {
+      "label": "cycle4-after-inference",
+      "wasm": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "js": {
+       "usedMB": 72,
+       "totalMB": 77.3
+      },
+      "gpu": {
+       "submits": 60,
+       "computePipelines": 37
+      },
+      "networkArrivals": 3,
+      "at": 5250
+     },
+     {
+      "label": "cycle4-after-release",
+      "wasm": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "js": {
+       "usedMB": 72,
+       "totalMB": 77.3
+      },
+      "gpu": {
+       "submits": 60,
+       "computePipelines": 37
+      },
+      "networkArrivals": 3,
+      "at": 5252
+     },
+     {
+      "label": "cycle5-after-create",
+      "wasm": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "js": {
+       "usedMB": 72.4,
+       "totalMB": 77.3
+      },
+      "gpu": {
+       "submits": 60,
+       "computePipelines": 37
+      },
+      "networkArrivals": 3,
+      "at": 5362
+     },
+     {
+      "label": "cycle5-after-inference",
+      "wasm": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "js": {
+       "usedMB": 81.4,
+       "totalMB": 85.2
+      },
+      "gpu": {
+       "submits": 75,
+       "computePipelines": 37
+      },
+      "networkArrivals": 3,
+      "at": 5550
+     },
+     {
+      "label": "cycle5-after-release",
+      "wasm": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "js": {
+       "usedMB": 81.4,
+       "totalMB": 85.2
+      },
+      "gpu": {
+       "submits": 75,
+       "computePipelines": 37
+      },
+      "networkArrivals": 3,
+      "at": 5556
+     }
+    ],
+    "errors": [],
+    "timerResolutionMs": 0.1,
+    "conclusion": "completed",
+    "cycles": [
+     {
+      "cycle": 1,
+      "ok": true,
+      "createMs": 1042.7999999821186,
+      "afterCreate": {
+       "instances": 1,
+       "bytes": 20185088,
+       "mb": 19.3,
+       "pages": 308,
+       "growCount": 1
+      },
+      "inferenceMs": 3004.5,
+      "outputSha256": "85fd1e4ec98106e95ec1a518daac84207efd0fafb9b31d5aa6e36d5d054162f4",
+      "afterInference": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "afterRelease": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "grows": 3
+     },
+     {
+      "cycle": 2,
+      "ok": true,
+      "createMs": 124.39999997615814,
+      "afterCreate": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "inferenceMs": 182.89999997615814,
+      "outputSha256": "85fd1e4ec98106e95ec1a518daac84207efd0fafb9b31d5aa6e36d5d054162f4",
+      "afterInference": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "afterRelease": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "grows": 0
+     },
+     {
+      "cycle": 3,
+      "ok": true,
+      "createMs": 107.2000000178814,
+      "afterCreate": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "inferenceMs": 179.5,
+      "outputSha256": "85fd1e4ec98106e95ec1a518daac84207efd0fafb9b31d5aa6e36d5d054162f4",
+      "afterInference": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "afterRelease": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "grows": 0
+     },
+     {
+      "cycle": 4,
+      "ok": true,
+      "createMs": 89,
+      "afterCreate": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "inferenceMs": 169.7999999821186,
+      "outputSha256": "85fd1e4ec98106e95ec1a518daac84207efd0fafb9b31d5aa6e36d5d054162f4",
+      "afterInference": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "afterRelease": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "grows": 0
+     },
+     {
+      "cycle": 5,
+      "ok": true,
+      "createMs": 109.7000000178814,
+      "afterCreate": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "inferenceMs": 177.69999998807907,
+      "outputSha256": "85fd1e4ec98106e95ec1a518daac84207efd0fafb9b31d5aa6e36d5d054162f4",
+      "afterInference": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "afterRelease": {
+       "instances": 1,
+       "bytes": 35389440,
+       "mb": 33.8,
+       "pages": 540,
+       "growCount": 3
+      },
+      "grows": 0
+     }
+    ],
+    "network": [
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/ort-wasm-simd-threaded.jsep.wasm"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/models/candidate.onnx"
+     },
+     {
+      "kind": "fetch",
+      "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+      "foreign": false,
+      "path": "/fixtures/input-dev.f32"
+     }
+    ],
+    "gpu": {
+     "submits": 75,
+     "computePipelines": 37,
+     "devices": 1,
+     "adapterInfo": {
+      "vendor": "intel",
+      "architecture": "gen-12lp",
+      "device": "",
+      "description": "",
+      "isFallbackAdapter": null,
+      "identified": true
+     },
+     "requestedOptions": {},
+     "hookError": null
+    },
+    "selfOrigin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+    "contextTeardown": {
+     "closed": true,
+     "recreated": true,
+     "result": {
+      "context": "chrome-offscreen-document",
+      "mode": "teardown-fresh",
+      "candidate": "TR-02",
+      "backend": "webgpu",
+      "startedAt": "2026-09-25T19:40:00.138Z",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+      "ortVersion": "1.29.0",
+      "pin": {
+       "installed": true,
+       "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+       "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea"
+      },
+      "memory": [
+       {
+        "label": "baseline-before-anything",
+        "wasm": {
+         "instances": 0,
+         "bytes": 0,
+         "mb": 0,
+         "pages": 0,
+         "growCount": 0
+        },
+        "js": {
+         "usedMB": 33.6,
+         "totalMB": 38.9
+        },
+        "gpu": {
+         "submits": 0,
+         "computePipelines": 0
+        },
+        "networkArrivals": 0,
+        "at": 154
+       },
+       {
+        "label": "cycle1-after-create",
+        "wasm": {
+         "instances": 1,
+         "bytes": 20185088,
+         "mb": 19.3,
+         "pages": 308,
+         "growCount": 1
+        },
+        "js": {
+         "usedMB": 75.8,
+         "totalMB": 79.7
+        },
+        "gpu": {
+         "submits": 0,
+         "computePipelines": 0
+        },
+        "networkArrivals": 3,
+        "at": 683
+       },
+       {
+        "label": "cycle1-after-inference",
+        "wasm": {
+         "instances": 1,
+         "bytes": 35389440,
+         "mb": 33.8,
+         "pages": 540,
+         "growCount": 3
+        },
+        "js": {
+         "usedMB": 83.2,
+         "totalMB": 89.1
+        },
+        "gpu": {
+         "submits": 15,
+         "computePipelines": 37
+        },
+        "networkArrivals": 3,
+        "at": 1062
+       },
+       {
+        "label": "cycle1-after-release",
+        "wasm": {
+         "instances": 1,
+         "bytes": 35389440,
+         "mb": 33.8,
+         "pages": 540,
+         "growCount": 3
+        },
+        "js": {
+         "usedMB": 83.2,
+         "totalMB": 89.1
+        },
+        "gpu": {
+         "submits": 15,
+         "computePipelines": 37
+        },
+        "networkArrivals": 3,
+        "at": 1065
+       }
+      ],
+      "errors": [],
+      "timerResolutionMs": 0.1,
+      "conclusion": "completed",
+      "cycles": [
+       {
+        "cycle": 1,
+        "ok": true,
+        "createMs": 262.90000000596046,
+        "afterCreate": {
+         "instances": 1,
+         "bytes": 20185088,
+         "mb": 19.3,
+         "pages": 308,
+         "growCount": 1
+        },
+        "inferenceMs": 368.19999998807907,
+        "outputSha256": "85fd1e4ec98106e95ec1a518daac84207efd0fafb9b31d5aa6e36d5d054162f4",
+        "afterInference": {
+         "instances": 1,
+         "bytes": 35389440,
+         "mb": 33.8,
+         "pages": 540,
+         "growCount": 3
+        },
+        "afterRelease": {
+         "instances": 1,
+         "bytes": 35389440,
+         "mb": 33.8,
+         "pages": 540,
+         "growCount": 3
+        },
+        "grows": 3
+       }
+      ],
+      "network": [
+       {
+        "kind": "fetch",
+        "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+        "foreign": false,
+        "path": "/ort-wasm-simd-threaded.jsep.wasm"
+       },
+       {
+        "kind": "fetch",
+        "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+        "foreign": false,
+        "path": "/models/candidate.onnx"
+       },
+       {
+        "kind": "fetch",
+        "origin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom",
+        "foreign": false,
+        "path": "/fixtures/input-dev.f32"
+       }
+      ],
+      "gpu": {
+       "submits": 15,
+       "computePipelines": 37,
+       "devices": 1,
+       "adapterInfo": {
+        "vendor": "intel",
+        "architecture": "gen-12lp",
+        "device": "",
+        "description": "",
+        "isFallbackAdapter": null,
+        "identified": true
+       },
+       "requestedOptions": {},
+       "hookError": null
+      },
+      "selfOrigin": "chrome-extension://agficnoghddnfgljecmkaplmfelgkbom"
+     }
+    }
+   },
+   "wallMs": 8417,
+   "launch": 1
+  }
+ ],
+ "machineStateEnd": {
+  "at": "2026-09-25T19:40:01.938Z",
+  "powerScheme": "Power Scheme GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (Balanced)",
+  "battery": "BatteryStatus=2 Charge=100"
+ }
+}

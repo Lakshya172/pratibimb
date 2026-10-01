@@ -24,7 +24,7 @@ export {
 export {
   type Size, type ScrollOffset, type CaptureGeometry, type Containment,
   scaleToCss, assertGeometryConsistent,
-  deviceToCss, cssToDevice, captureToCss, cssToCapture,
+  deviceToCss, cssToDevice, captureToCss, cssToCapture, cssToCapturePixelRect,
   cssToDocument, documentToCss,
   classifyContainment, clipToViewport,
 } from "./coordinates.js";
@@ -89,3 +89,10 @@ export {
   UI_CLASSES, HEAD_CONTRACT, PROVISIONAL_THRESHOLDS, UI_DETECTOR_ROLE,
   decodeHeadOutput, projectToCapture, createUiElementDetector,
 } from "./uiDetectorHead.js";
+
+export {
+  type LongSideResize, type TextRegionTensor, type TextRegionBox, type TextRegionOutput,
+  type TextRegionRuntime, type TextRegionStage, type DbParameters,
+  TEXT_REGION_ROLE, TEXT_REGION_LABEL, TR01, TR01_RESIZE, DB_POSTPROCESS,
+  textRegionInputSize, preprocessTextRegion, dbPostprocess, validateTextRegionOutput, createTextRegionDetector,
+} from "./textRegion.js";

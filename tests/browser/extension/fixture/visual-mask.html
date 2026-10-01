@@ -1,0 +1,96 @@
+<!doctype html>
+<!--
+  M10.5 pixel-mask fixture. SYNTHETIC ONLY (SECURITY.md section 2): every string is made up and
+  marked SYNTH; none is a real identifier.
+
+  Visual-only regions (enumerated by the product):
+    canvas:0  #c0   canvas with two synthetic "sensitive" text lines
+    canvas:1  #c1   canvas partly OFF-SCREEN (left -80 px), one text line in the visible part
+    img:0     #i0   image carrying two synthetic text lines (drawn off-DOM, then set as its src)
+  Controls (never visual-only regions, so never masked by this mechanism):
+    #control  a DOM text line
+    #swatch   a plain colour block
+
+  window.__maskTruth gives each drawn line's INK rectangle in CSS viewport pixels (measureText's actual
+  bounding box, offset by the element's rectangle), and the controls' rectangles. Geometry only; the
+  harness never reads the strings.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>M10.5 visual mask</title>
+    <style>
+      html, body { margin: 0; padding: 0; background: #f4f1ea; }
+      body { width: 1280px; height: 720px; position: relative; overflow: hidden; font-family: Arial, sans-serif; }
+      #c0 { position: absolute; left: 40px; top: 60px; width: 520px; height: 200px; }
+      #i0 { position: absolute; left: 640px; top: 60px; width: 480px; height: 160px; }
+      #c1 { position: absolute; left: -80px; top: 330px; width: 420px; height: 150px; }
+      #control { position: absolute; left: 640px; top: 360px; margin: 0; font-size: 22px; color: #222; }
+      #swatch { position: absolute; left: 640px; top: 460px; width: 300px; height: 80px; background: #3a7bd5; }
+    </style>
+  </head>
+  <body>
+    <canvas id="c0" width="520" height="200"></canvas>
+    <img id="i0" alt="" />
+    <canvas id="c1" width="420" height="150"></canvas>
+    <p id="control">Public heading shown in the page</p>
+    <div id="swatch"></div>
+    <script>
+      const truth = { sensitiveInk: [], control: [] };
+      const lines = {
+        c0: [
+          { text: "SYNTH-ID 0000 1111 2222", x: 24, y: 70, font: "bold 30px Arial" },
+          { text: "SYNTH-DOB 01/01/2000", x: 24, y: 140, font: "26px Arial" },
+        ],
+        i0: [
+          { text: "SYNTH-CARD 4000 0000 0000", x: 20, y: 60, font: "bold 28px Arial" },
+          { text: "SYNTH-EXP 00/00", x: 20, y: 120, font: "24px Arial" },
+        ],
+        c1: [{ text: "SYNTH-REF 9999 8888", x: 110, y: 85, font: "bold 26px Arial" }],
+      };
+
+      /** Draw lines on a 2D context, returning each line's ink box in the canvas's own pixels. */
+      function draw(ctx, w, h, spec) {
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = "#111111";
+        return spec.map((l) => {
+          ctx.font = l.font;
+          ctx.fillText(l.text, l.x, l.y);
+          const m = ctx.measureText(l.text);
+          return {
+            x: l.x - m.actualBoundingBoxLeft,
+            y: l.y - m.actualBoundingBoxAscent,
+            w: m.actualBoundingBoxLeft + m.actualBoundingBoxRight,
+            h: m.actualBoundingBoxAscent + m.actualBoundingBoxDescent,
+          };
+        });
+      }
+      const offset = (el, boxes, id) => {
+        const r = el.getBoundingClientRect();
+        for (const b of boxes) truth.sensitiveInk.push({ element: id, rect: { x: r.x + b.x, y: r.y + b.y, w: b.w, h: b.h } });
+      };
+
+      for (const id of ["c0", "c1"]) {
+        const el = document.getElementById(id);
+        offset(el, draw(el.getContext("2d"), el.width, el.height, lines[id]), id);
+      }
+      // The image: drawn on a canvas that is NEVER attached to the document, then used as the src.
+      const scratch = document.createElement("canvas");
+      scratch.width = 480;
+      scratch.height = 160;
+      const imgInk = draw(scratch.getContext("2d"), 480, 160, lines.i0);
+      const img = document.getElementById("i0");
+      img.onload = () => {
+        offset(img, imgInk, "i0");
+        for (const id of ["control", "swatch"]) {
+          const r = document.getElementById(id).getBoundingClientRect();
+          truth.control.push({ element: id, rect: { x: r.x, y: r.y, w: r.width, h: r.height } });
+        }
+        window.__maskTruth = truth;
+        window.__maskReady = true;
+      };
+      img.src = scratch.toDataURL("image/png");
+    </script>
+  </body>
+</html>

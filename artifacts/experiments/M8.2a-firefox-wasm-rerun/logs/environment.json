@@ -1,0 +1,54 @@
+{
+ "experiment": "M8.2a-firefox-wasm-rerun",
+ "date": "2026-09-30",
+ "workstation": "W1 (LAPTOP-6E14K34L); W2 not used",
+ "wsl": {
+  "version": "WSL version: 2.6.3.0;Kernel version: 6.6.87.2-1;WSLg version: 1.0.71;",
+  "distribution": "Ubuntu-26.04 (Ubuntu 26.04.1 LTS)",
+  "kernel": "6.6.87.2-microsoft-standard-WSL2"
+ },
+ "firefox": {
+  "version": "Mozilla Firefox 155.0.1 — checked before and after every runner invocation; rv:155.0 in every report",
+  "location": "/opt/pratibimb-tooling/firefox — the M8.2 tarball (signature-verified there); not modified",
+  "updates": "web-ext profiles set app.update.enabled=false (web-ext lib/firefox/preferences.js); the Linux tarball has no out-of-profile updater"
+ },
+ "webExt": "8.3.0 (/opt/pratibimb-tooling/webext, from the committed lockfile)",
+ "windowsFirefox": "not touched and not run in M8.2a; the M8.2 156.0.1 deviation stays documented in M8.2",
+ "extensionReuse": {
+  "note": "M8.2's Firefox extension builds, reused unchanged; m82-config.js is rewritten per launch by the runner and excluded from the manifest",
+  "buildJson": {
+   "libDbPostprocess": "20086902419586ce26c2314e7b86f3d1da5cee90034d38803707e71ee330933d",
+   "refSha256": {
+    "TR-01": "3f507508c000c476a080140e416d76693655448a69210f0d70f39d2ab2f8f169",
+    "TR-02": "8f31d84a21dfe0d64a7b8efe151cdb44f8af839209f121724e1380c99d7be2d4"
+   }
+  },
+  "manifest": {
+   "TR-01": {
+    "files": 42,
+    "manifestSha256": "beb84ce6b2b27c6b3d8ca95acbb379beb0e3e52215b29f9966e532f92d00bd5c",
+    "candidateOnnx": "18aaccf9c9cd27656becda13bc0ef31eaa0ea3aef4d45166839f2093561575e8",
+    "refJs": "3f507508c000c476a080140e416d76693655448a69210f0d70f39d2ab2f8f169",
+    "libJs": "33952c0d178a96c1633a2708ae8254841b97861bc0c965e52972b495c023d15c",
+    "probe": "809667d7c5382f8edd653f3c125edbcff6c34b1d87182566d3847359d925dd49"
+   },
+   "TR-02": {
+    "files": 42,
+    "manifestSha256": "44b02e07cc04a66ff857bbede26e3098a1a39034a8ce63893ef739eec1df9b92",
+    "candidateOnnx": "322c3e636b936e5bc695ed29ccf2e1588a827989b23e6f395ad7e7edbc236f55",
+    "refJs": "8f31d84a21dfe0d64a7b8efe151cdb44f8af839209f121724e1380c99d7be2d4",
+    "libJs": "33952c0d178a96c1633a2708ae8254841b97861bc0c965e52972b495c023d15c",
+    "probe": "809667d7c5382f8edd653f3c125edbcff6c34b1d87182566d3847359d925dd49"
+   }
+  },
+  "refJsEqualsBuild": {
+   "TR-01": true,
+   "TR-02": true
+  },
+  "candidateOnnxEqualsFrozen": {
+   "TR-01": true,
+   "TR-02": true
+  }
+ },
+ "amendment": "extensions.background.idle.timeout=900000 — harness/amendment.mjs"
+}

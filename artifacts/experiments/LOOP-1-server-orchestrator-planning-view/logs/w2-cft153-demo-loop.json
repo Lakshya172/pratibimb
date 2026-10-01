@@ -1,0 +1,337 @@
+{
+  "experiment": "LOOP-1 — server client → planner → validation → orchestrator → grant → rehydration → guarded click → VERIFY RESULT → Planning View",
+  "verdict": "PASS",
+  "recordedAt": "2026-09-14T14:34:28.195Z",
+  "provenance": {
+    "workstation": "W2",
+    "host": "LAPTOP-SRCINK2B",
+    "os": "win32 10.0.26200",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M              ",
+    "gpu": "not used by this run, so not recorded",
+    "node": "v26.4.0",
+    "playwright": "1.63.0",
+    "browser": "Chromium 153.0.8010.12",
+    "browserBinary": "C:\\Users\\OMEN\\cft\\chrome.exe",
+    "launch": "playwright chromium.launch({ headless: true, executablePath }); no extension loaded",
+    "extensionLoaded": false,
+    "origin": "http://127.0.0.1:8975"
+  },
+  "whatIsReal": [
+    "the page is a real document in a same-origin frame, served from loopback",
+    "the packages under test are the BUILT dist/ the Planning View imports, not a re-implementation",
+    "observe, sanitize, verify, parse, validate, bind, grant, rehydrate, permit, hit-test, dispatch and VERIFY RESULT are the shipped implementations",
+    "playwright opens the browser and reads results back; it does not click, fill or decide"
+  ],
+  "whatIsNot": [
+    "the reasoner is a deterministic planner in the same realm: no model, no network request, no egress",
+    "the literal-echo run's secret is handed to the reasoner by the page, because nothing in the handoff contains it",
+    "no extension, no screen capture, no VLM, no OCR, no detector"
+  ],
+  "checks": {
+    "successWalksEveryState": true,
+    "successPlanUsedTheReference": true,
+    "successGrantWasExplicitOneShotAndBound": true,
+    "successRehydratedLocally": true,
+    "successRestoredTheRightValue": true,
+    "successWentThroughTheAuditedPath": true,
+    "successUsedE6MechanismB": true,
+    "successDispatchedAtTheExactPermittedPoint": true,
+    "successConfirmedByTheVerifier": true,
+    "successPageAgrees": true,
+    "refusalStoppedAtValidatePlan": true,
+    "refusalCameFromTheLiteralCheck": true,
+    "refusalAskedNoHuman": true,
+    "refusalRehydratedNothing": true,
+    "refusalDidNotTouchTheField": true,
+    "refusalDispatchedNothing": true,
+    "refusalLeftThePageUnchanged": true,
+    "refusalDidNotQuoteTheSecret": true,
+    "refusalKeptOnlyAClassMarker": true,
+    "refusalDroppedTheRawBytes": true,
+    "noSecretInAnySentOrLoggedSurface": true,
+    "localPaneDoesShowTheValue": true,
+    "localPaneSaysTheValuesStayLocal": true,
+    "otpNeverReceivedAReference": true,
+    "noConsoleErrors": true,
+    "paneGoalShowsTheRealGoalAndState": true,
+    "panePageShowsObservedStructureAndSensitivity": true,
+    "paneServerShowsReferencesHintsAndNoValues": true,
+    "panePlanShowsThePlanValidationAndGrant": true,
+    "paneEgressShowsIdentityDigestAndResult": true,
+    "paneWallReflectsTheRunItself": true,
+    "paneRefusalStateIsShownWithoutTheSecret": true
+  },
+  "success": {
+    "record": {
+      "state": "DONE",
+      "path": [
+        "OBSERVE",
+        "SANITIZE",
+        "VERIFY_PAYLOAD",
+        "SEND",
+        "VALIDATE_PLAN",
+        "AWAIT_GRANT",
+        "REHYDRATE",
+        "ACT",
+        "VERIFY_RESULT",
+        "DONE"
+      ],
+      "refusal": null,
+      "timings": {
+        "observeMs": 2,
+        "sanitizeMs": 8,
+        "verifyPayloadMs": 0,
+        "sendMs": 0,
+        "validatePlanMs": 1,
+        "grantMs": 0,
+        "rehydrateMs": 0,
+        "refreshMs": 2,
+        "verifyResultMs": 1,
+        "actMs": 2,
+        "totalMs": 16
+      },
+      "reasoner": "deterministic:reference",
+      "transport": "IN_PROCESS",
+      "responseHasRawBytes": false,
+      "planSteps": [
+        {
+          "op": "insert",
+          "target": "#mobile_confirm",
+          "ref": "<PII:PHONE:1>"
+        },
+        {
+          "op": "click",
+          "target": "#submit"
+        }
+      ],
+      "validationOk": true,
+      "grant": {
+        "requested": true,
+        "granted": true,
+        "oneShotUsed": true,
+        "boundTo": {
+          "ref": "<PII:PHONE:1>",
+          "fingerprint": "#mobile_confirm|textbox|Confirm mobile number",
+          "origin": "http://127.0.0.1:8975",
+          "sessionId": "demo-session-1"
+        }
+      },
+      "rehydrated": [
+        {
+          "ref": "<PII:PHONE:1>",
+          "target": "#mobile_confirm",
+          "piiClass": "PHONE",
+          "inserted": true
+        }
+      ],
+      "confirmationSubject": {
+        "nodeId": "e12",
+        "selector": "#submit",
+        "role": "button",
+        "name": "Submit application",
+        "frameId": "demo-r1-frame-2",
+        "origin": "http://127.0.0.1:8975"
+      },
+      "act": {
+        "reached": "VERIFY_RESULT",
+        "hit": "MATCH",
+        "dispatch": "EXECUTED",
+        "point": {
+          "x": 112,
+          "y": 604
+        },
+        "verification": {
+          "verification": "CONFIRMED",
+          "postcondition": "TARGET_ENABLED",
+          "evidence": "#submit is disabled, as expected."
+        }
+      },
+      "handoffBytes": 3389,
+      "ledger": {
+        "payloadSha256": "069a97dd8b726cd0424476650facd407e1de078deee3a4b3dfff63e76a19eb37",
+        "payloadBytes": 3389,
+        "references": [
+          "<PII:NAME:1>",
+          "<PII:PHONE:1>",
+          "<PII:AADHAAR:1>",
+          "<PII:DOB:1>"
+        ],
+        "maskedWithoutReference": 1,
+        "leakCheck": "CLEAN",
+        "destination": "(no egress client in this phase)",
+        "note": "privacy-layer record only: this phase has no egress client, so this is not evidence of a network send"
+      }
+    },
+    "pageState": {
+      "confirmFieldFilled": true,
+      "confirmMatchesRegistered": true,
+      "status": "Application submitted",
+      "submitted": "true",
+      "submitDisabled": true,
+      "eventSequence": [
+        "pointerdown",
+        "mousedown",
+        "pointerup",
+        "mouseup",
+        "click"
+      ],
+      "eventPoints": [
+        {
+          "x": 112,
+          "y": 604
+        },
+        {
+          "x": 112,
+          "y": 604
+        },
+        {
+          "x": 112,
+          "y": 604
+        },
+        {
+          "x": 112,
+          "y": 604
+        },
+        {
+          "x": 112,
+          "y": 604
+        }
+      ]
+    },
+    "leaks": {
+      "secretsOnPage": 5,
+      "surfacesContainingASecret": []
+    },
+    "panes": {
+      "goal": "Submit my application with my registered mobile number.\n\nsession\ndemo-session-1\nrequest\ndemo-request-1\nstate\nDONE",
+      "page": "(not captured: the local pane shows the values by design; see localPane checks)",
+      "server": "Checked: none of the 5 local values appears in these 3389 bytes.\n\nELEMENT\tREFERENCE\tCLASS\tMETHOD\tSAFE HINT\n#name\t<PII:NAME:1>\tNAME\ttoken_reference\tlen 12 · alpha · name\n#mobile\t<PII:PHONE:1>\tPHONE\ttoken_reference\tlen 10 · numeric · tel\n#aadhaar\t<PII:AADHAAR:1>\tAADHAAR\ttoken_reference\tlen 14 · numeric\n#dob\t<PII:DOB:1>\tDOB\ttoken_reference\tlen 10 · date · date\n#otp\tno reference\tOTP\tmasked_no_token\tlen 6 · numeric · one-time-code\n\nGoal sent: Submit my application with my registered mobile number.\n\nthe exact payload (3389 bytes)",
+      "plan": "from deterministic:reference via IN_PROCESS\n\ninsert <PII:PHONE:1> → #mobile_confirm\nclick #submit\nvalidation\nVALID\ntarget\n#mobile_confirm, #submit\nfreshness\nALLOW · hit-test MATCH · reached VERIFY_RESULT\nhuman grant\nGRANTED one-shot · bound to reference, field, origin and session · used: yes\nrehydration\nREHYDRATED LOCALLY <PII:PHONE:1> → #mobile_confirm (PHONE)",
+      "egress": "request\ndemo-request-1\nsession\ndemo-session-1\ndestination\n(no egress client in this phase)\nverification\nverified handoff\npayload sha-256\n069a97dd8b726cd0424476650facd407e1de078deee3a4b3dfff63e76a19eb37\npayload bytes\n3389\nreferences\n<PII:NAME:1> <PII:PHONE:1> <PII:AADHAAR:1> <PII:DOB:1>\nmasked, no reference\n1\nleak check\nCLEAN\nVERIFY RESULT\nCONFIRMED #submit is disabled, as expected.\n\nobserve 2ms\nsanitize 8ms\nverifyPayload 0ms\nsend 0ms\nvalidatePlan 1ms\ngrant 0ms\nrehydrate 0ms\nrefresh 2ms\nverifyResult 1ms\nact 2ms\ntotal 16ms\n\nprivacy-layer record only: this phase has no egress client, so this is not evidence of a network send This pane is a privacy-layer record, not evidence that any byte left the machine.",
+      "wall": "LOCAL VALUE\n→\nSANITIZE\n→\nTOKEN\n→\nSERVER\n→\nPLAN\n→\nHUMAN GRANT\n→\nLOCAL REHYDRATION\n→\nCLICK\n→\nVERIFIED",
+      "verdict": "DONE · VERIFY RESULT = CONFIRMED"
+    },
+    "localPane": {
+      "showsTheRegisteredValue": true,
+      "showsObservedStructure": true,
+      "showsSensitivityClasses": true,
+      "saysValuesStayLocal": true
+    }
+  },
+  "refusal": {
+    "record": {
+      "state": "REFUSED",
+      "path": [
+        "OBSERVE",
+        "SANITIZE",
+        "VERIFY_PAYLOAD",
+        "SEND",
+        "VALIDATE_PLAN",
+        "REFUSED"
+      ],
+      "refusal": {
+        "stage": "VALIDATE_PLAN",
+        "cause": "LITERAL_REFUSED",
+        "detail": "the plan returned a value this client holds locally and never sent. Refused before rehydration and before any action; the value is not quoted.",
+        "planRefusal": {
+          "cause": "LITERAL_REFUSED",
+          "at": 0,
+          "target": "#mobile_confirm",
+          "literalCause": "VAULT_LITERAL_ECHO",
+          "literalSeverity": "LEAKAGE_EVENT",
+          "literalFindings": [
+            {
+              "cause": "VAULT_LITERAL_ECHO",
+              "severity": "LEAKAGE_EVENT",
+              "piiClass": "PHONE"
+            },
+            {
+              "cause": "PII_SHAPED_LITERAL",
+              "severity": "PLAN_DEFECT",
+              "piiClass": "PHONE"
+            }
+          ],
+          "piiClass": "PHONE",
+          "detail": "the plan returned a value this client holds locally and never sent. Refused before rehydration and before any action; the value is not quoted."
+        }
+      },
+      "timings": {
+        "observeMs": 0,
+        "sanitizeMs": 2,
+        "verifyPayloadMs": 0,
+        "sendMs": 0,
+        "validatePlanMs": 0,
+        "totalMs": 2
+      },
+      "reasoner": "deterministic:literal-echo",
+      "transport": "IN_PROCESS",
+      "responseHasRawBytes": false,
+      "planSteps": [
+        {
+          "op": "insert",
+          "target": "#mobile_confirm",
+          "literalMarker": "⟨literal:PHONE⟩",
+          "literalClass": "PHONE"
+        },
+        {
+          "op": "click",
+          "target": "#submit"
+        }
+      ],
+      "validationOk": false,
+      "grant": {
+        "requested": false,
+        "granted": null,
+        "oneShotUsed": null,
+        "boundTo": null
+      },
+      "rehydrated": [],
+      "confirmationSubject": null,
+      "act": null,
+      "handoffBytes": 3389,
+      "ledger": {
+        "payloadSha256": "f6eb480f3ff9b9eb9bf0470face7a599ad76acf47f248d31e30e065cb8fb3cfc",
+        "payloadBytes": 3389,
+        "references": [
+          "<PII:NAME:1>",
+          "<PII:PHONE:1>",
+          "<PII:AADHAAR:1>",
+          "<PII:DOB:1>"
+        ],
+        "maskedWithoutReference": 1,
+        "leakCheck": "CLEAN",
+        "destination": "(no egress client in this phase)",
+        "note": "privacy-layer record only: this phase has no egress client, so this is not evidence of a network send"
+      }
+    },
+    "pageState": {
+      "confirmFieldFilled": false,
+      "confirmMatchesRegistered": false,
+      "status": "Not submitted",
+      "submitted": "false",
+      "submitDisabled": false,
+      "eventSequence": [],
+      "eventPoints": []
+    },
+    "leaks": {
+      "secretsOnPage": 5,
+      "surfacesContainingASecret": []
+    },
+    "panes": {
+      "goal": "Submit my application with my registered mobile number.\n\nsession\ndemo-session-2\nrequest\ndemo-request-2\nstate\nREFUSED",
+      "page": "(not captured: the local pane shows the values by design; see localPane checks)",
+      "server": "Checked: none of the 5 local values appears in these 3389 bytes.\n\nELEMENT\tREFERENCE\tCLASS\tMETHOD\tSAFE HINT\n#name\t<PII:NAME:1>\tNAME\ttoken_reference\tlen 12 · alpha · name\n#mobile\t<PII:PHONE:1>\tPHONE\ttoken_reference\tlen 10 · numeric · tel\n#aadhaar\t<PII:AADHAAR:1>\tAADHAAR\ttoken_reference\tlen 14 · numeric\n#dob\t<PII:DOB:1>\tDOB\ttoken_reference\tlen 10 · date · date\n#otp\tno reference\tOTP\tmasked_no_token\tlen 6 · numeric · one-time-code\n\nGoal sent: Submit my application with my registered mobile number.\n\nthe exact payload (3389 bytes)",
+      "plan": "from deterministic:literal-echo via IN_PROCESS\n\ninsert ⟨literal:PHONE⟩ → #mobile_confirm\nclick #submit\n\nLITERAL ECHO — the reasoner returned a PHONE this client holds locally and never sent. Refused before rehydration and before any action. The value is not quoted here, and it was not kept.\n\nvalidation\nREFUSED · VAULT_LITERAL_ECHO\ntarget\n#mobile_confirm\nfreshness\nnot reached\nhuman grant\nnot reached\nrehydration\nnothing was rehydrated",
+      "egress": "request\ndemo-request-2\nsession\ndemo-session-2\ndestination\n(no egress client in this phase)\nverification\nverified handoff\npayload sha-256\nf6eb480f3ff9b9eb9bf0470face7a599ad76acf47f248d31e30e065cb8fb3cfc\npayload bytes\n3389\nreferences\n<PII:NAME:1> <PII:PHONE:1> <PII:AADHAAR:1> <PII:DOB:1>\nmasked, no reference\n1\nleak check\nCLEAN\nVERIFY RESULT\nno action was dispatched\n\nobserve 0ms\nsanitize 2ms\nverifyPayload 0ms\nsend 0ms\nvalidatePlan 0ms\ntotal 2ms\n\nprivacy-layer record only: this phase has no egress client, so this is not evidence of a network send This pane is a privacy-layer record, not evidence that any byte left the machine.",
+      "wall": "LOCAL VALUE\n→\nSANITIZE\n→\nTOKEN\n→\nSERVER\n→\nPLAN\n→\nHUMAN GRANT\n→\nLOCAL REHYDRATION\n→\nCLICK\n→\nVERIFIED",
+      "verdict": "REFUSED at VALIDATE_PLAN — LITERAL_REFUSED · nothing executed"
+    },
+    "localPane": {
+      "showsTheRegisteredValue": true,
+      "showsObservedStructure": true,
+      "showsSensitivityClasses": true,
+      "saysValuesStayLocal": true
+    }
+  },
+  "consoleErrors": []
+}

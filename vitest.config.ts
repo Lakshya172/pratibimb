@@ -6,7 +6,16 @@ export default defineConfig({
     // in an offscreen document and in a dedicated worker, so the unit suite runs in plain
     // Node and the BROWSER matrix (G1/G2/G3) is a separate, real-browser gate.
     environment: "node",
-    include: ["packages/*/test/**/*.test.ts"],
+    // `apps/*/test` holds the demo-reliability suite: the presenter-facing behaviour that has to
+    // keep working, checked without a browser so it runs in the ordinary gate.
+    // `tests/browser/support` holds the small modules the browser runners share. They are plain
+    // .mjs because the runners are, and they are covered here so a provenance regression is caught
+    // by the ordinary gate rather than by noticing a mislabelled evidence file after the fact.
+    include: [
+      "packages/*/test/**/*.test.ts",
+      "apps/*/test/**/*.test.ts",
+      "tests/browser/support/**/*.test.mjs",
+    ],
     reporters: ["default"],
   },
   resolve: {
@@ -16,6 +25,11 @@ export default defineConfig({
       "@pratibimb/evaluation": new URL("./packages/evaluation/src/index.ts", import.meta.url).pathname,
       "@pratibimb/agent": new URL("./packages/agent/src/index.ts", import.meta.url).pathname,
       "@pratibimb/extension-transport": new URL("./packages/extension-transport/src/index.ts", import.meta.url).pathname,
+      "@pratibimb/privacy": new URL("./packages/privacy/src/index.ts", import.meta.url).pathname,
+      "@pratibimb/egress": new URL("./packages/egress/src/index.ts", import.meta.url).pathname,
+      "@pratibimb/reasoner": new URL("./packages/reasoner/src/index.ts", import.meta.url).pathname,
+      "@pratibimb/plan": new URL("./packages/plan/src/index.ts", import.meta.url).pathname,
+      "@pratibimb/orchestrator": new URL("./packages/orchestrator/src/index.ts", import.meta.url).pathname,
     },
   },
 });
