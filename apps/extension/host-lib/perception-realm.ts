@@ -42,6 +42,25 @@
  * measured why: the preprocessing a browser can actually perform moves 16–34% of its detections.
  * This file runs it, records what it produced, and asserts nothing about whether the boxes are
  * right. M3.1 verifies a pipeline and a boundary, not a detector.
+ *
+ * ─────────────────────────────────────────────────────────────────────────────────────
+ * M10.6 — THE LOCAL REDACTION STAGE, IN THE ORDER M9 FIXED
+ *
+ *     capture → UI head → TR-01 (FULL frame, dedicated worker) → UNREAD_REGION per visual region
+ *       → fail-closed plan → canonical geometry → opaque fill IN PLACE → keep the sanitized frame
+ *
+ * Sequential, never concurrent: the UI head's inference completes before TR-01 is asked. TR-01 sees
+ * the whole captured frame — the input its M8.1 / M8.2 / M8.2a evidence covers — never a crop.
+ *
+ * THE RAW FRAME DOES NOT OUTLIVE THE PASS. The `ImageBitmap` is closed as soon as it is decoded. The
+ * decoded buffer is masked in place, so once the mask is applied the unredacted pixels no longer
+ * exist in this realm (the frozen "closed immediately after masking"). A frame the pass cannot
+ * sanitize — REFUSED, or a geometry it cannot trust — is overwritten and dropped: `sanitizedFrame()`
+ * then answers `null`, and nothing downstream can have it. The TR-01 worker receives a copy for
+ * inference and scrubs it when the run ends.
+ *
+ * Visual-only regions are REQUIRED on every pass. A caller that forgot them must not be able to
+ * produce a frame that looks sanitized because there was nothing to plan against.
  */
 import {
   type Backend,
@@ -70,8 +89,14 @@ import {
   toVisualDetections,
 } from "@pratibimb/perception";
 
+import { TR01 } from "@pratibimb/perception";
+import { wipeFrame, type PixelRect, type Rect, type RgbaFrame, type VisualRegion } from "@pratibimb/privacy";
+
 import { type CaptureRoute, type CaptureTicket } from "./capture-authority";
 import { perceiveText, textPerceptionAbsent, type TextPerception, type TextPerceptionReport } from "./text-perception";
+import type { Tr01Frame, Tr01Outcome } from "./tr01-host";
+import type { Tr01Detection } from "./tr01-protocol";
+import { reportFromFullFrame, sanitizeFrame } from "./visual-redaction";
 
 /** The ORT surface this file needs, typed structurally so nothing here imports ORT's types. */
 interface OrtSession {
@@ -133,6 +158,11 @@ export interface PerceptionSummary {
    * nothing sensitive. See `text-perception.ts` for why there is no model behind this.
    */
   readonly text: TextPerceptionReport;
+  /**
+   * M10.6 — what the local redaction stage did to this pass's frame. Codes, counts, timings and (on
+   * request) geometry. Never a pixel: the sanitized frame stays in this realm (`sanitizedFrame()`).
+   */
+  readonly redaction: RedactionSummary;
   /** Geometry, role, structural name, provenance. The manifest's own element projection. */
   readonly elements: readonly SanitizedElement[];
   /**
@@ -188,6 +218,53 @@ export interface PerceptionSummary {
   };
 }
 
+/** The redaction stage's record. `NOT_RUN` when the pass never had a frame to redact. */
+export interface RedactionSummary {
+  readonly outcome: "SANITIZED" | "REFUSED" | "NOT_RUN";
+  /** True when the detector gave no trustworthy report and every visual region was masked whole. */
+  readonly failClosed: boolean | null;
+  readonly reason: string | null;
+  readonly refusal: { readonly code: string; readonly detail: string } | null;
+  readonly detector: { readonly modelId: string; readonly ran: boolean; readonly code: string | null; readonly detections: number };
+  readonly regions: number;
+  readonly maskRects: number;
+  readonly pixelWrites: number;
+  /** The capture's ImageBitmap was closed before the pass returned. `null` when there was none. */
+  readonly rawBitmapClosed: boolean | null;
+  /** A sanitized frame is held in this realm for the next stage. Never true after REFUSED. */
+  readonly frameKept: boolean;
+  readonly ms: { readonly detector: number; readonly mapping: number; readonly plan: number; readonly pixelMapping: number; readonly fill: number };
+  /** Only when the caller asked to collect: the geometry the stage worked on. */
+  readonly detail?: {
+    readonly visualRegions: readonly VisualRegion[];
+    /** TR-01 boxes in CAPTURE pixels, as the detector saw the full frame. */
+    readonly detections: readonly Tr01Detection[];
+    readonly masks: readonly { readonly regionId: string; readonly cssMask: readonly Rect[]; readonly pixelRects: readonly PixelRect[] }[];
+  };
+}
+
+const redactionNotRun = (): RedactionSummary => ({
+  outcome: "NOT_RUN",
+  failClosed: null,
+  reason: null,
+  refusal: null,
+  detector: { modelId: TR01.modelId, ran: false, code: null, detections: 0 },
+  regions: 0,
+  maskRects: 0,
+  pixelWrites: 0,
+  rawBitmapClosed: null,
+  frameKept: false,
+  ms: { detector: 0, mapping: 0, plan: 0, pixelMapping: 0, fill: 0 },
+});
+
+/** The frame this realm keeps after a pass: sanitized, and only sanitized. */
+export interface SanitizedFrame {
+  readonly frameId: CaptureFrame["id"];
+  readonly width: number;
+  readonly height: number;
+  readonly rgba: Uint8ClampedArray;
+}
+
 /** A pass that could not start. Still a summary, so callers have one shape to read. */
 export const perceptionRefused = (code: string, detail: string, route: CaptureRoute | null = null): PerceptionSummary => ({
   ran: false,
@@ -198,23 +275,32 @@ export const perceptionRefused = (code: string, detail: string, route: CaptureRo
   detector: { modelId: "none", revision: "none", backend: "wasm", ran: false, detections: 0, byClass: {}, refusal: null },
   fusion: null,
   text: textPerceptionAbsent(),
+  redaction: redactionNotRun(),
   elements: [],
   sourceBySelector: {},
   ms: { capture: 0, decode: 0, encode: 0, preprocess: 0, infer: 0, fuse: 0, total: 0 },
 });
 
-/** A bitmap turned into the RGBA the perception package's preprocessor wants. Closed on every path. */
-function rgbaFrom(bitmap: ImageBitmap): DecodedImage {
+type RawImage = DecodedImage & { readonly rgba: Uint8ClampedArray };
+
+/**
+ * A bitmap turned into the RGBA the perception package's preprocessor wants. The bitmap is closed on
+ * every path, and whether the close took effect (a closed ImageBitmap reports zero size) is returned
+ * so the pass can say so rather than assume it.
+ */
+function rgbaFrom(bitmap: ImageBitmap): { readonly image: RawImage; readonly closed: boolean } {
+  let image: RawImage;
   try {
     const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
     if (!ctx) throw new Error("no 2d context in this realm");
     ctx.drawImage(bitmap, 0, 0);
     const data = ctx.getImageData(0, 0, bitmap.width, bitmap.height);
-    return { width: bitmap.width, height: bitmap.height, rgba: data.data };
+    image = { width: bitmap.width, height: bitmap.height, rgba: data.data };
   } finally {
     bitmap.close();
   }
+  return { image, closed: bitmap.width === 0 && bitmap.height === 0 };
 }
 
 export interface PerceptionRealmDeps {
@@ -246,16 +332,47 @@ export interface PerceptionRealmDeps {
    * a model is a registry decision with a gate attached, not something a realm does for itself.
    */
   readonly text?: TextPerception | null;
+  /**
+   * M10.6 — the TR-01 detector host (`tr01-host.ts`), owned by this document. `null` or absent means
+   * no text-region detector: every visual region is then masked whole, never left unmasked.
+   */
+  readonly textRegions?: {
+    detect(frame: Tr01Frame, options?: { readonly deadlineMs?: number }): Promise<Tr01Outcome>;
+  } | null;
+  /** VERIFICATION SEAM (test builds only): see `SanitizeInput.beforeFill`. */
+  readonly onMaskPlanned?: (frame: RgbaFrame, pixelRects: readonly PixelRect[]) => void;
+  /**
+   * VERIFICATION SEAM (test builds only): told the NAME of each stage as the pass reaches it, so a
+   * real-capture run can record the order it actually ran in. A name, never a pixel or a box.
+   */
+  readonly onStage?: (stage: PassStage) => void;
   readonly now?: () => number;
 }
 
+/** The pass's stages, in the order it runs them. */
+export type PassStage = "frame" | "uihead:start" | "uihead:end" | "tr01:start" | "tr01:end" | "findings" | "mask:end";
+
+export interface PerceptionOptions {
+  readonly collect?: boolean;
+  readonly documentId?: string | null;
+  /** May only TIGHTEN TR-01's 2,000 ms deadline for this pass (the host clamps it). */
+  readonly detectorDeadlineMs?: number;
+}
+
 export interface PerceptionRealm {
-  /** Capture, detect and fuse against a DOM graph this realm already has. Never throws. */
+  /**
+   * Capture, detect, redact and fuse against a DOM graph this realm already has. Never throws.
+   *
+   * `visualRegions` are the OBSERVATION's regions for the same document, in CSS pixels. Required.
+   */
   perceive(
     graph: ElementGraph,
     measurement: ViewportMeasurement,
-    options?: { readonly collect?: boolean; readonly documentId?: string | null }
+    visualRegions: readonly VisualRegion[],
+    options?: PerceptionOptions
   ): Promise<PerceptionSummary>;
+  /** The last pass's sanitized frame, or `null` — after a REFUSED or failed pass, always `null`. */
+  sanitizedFrame(): SanitizedFrame | null;
   readonly modelId: string;
   readonly revision: string;
 }
@@ -273,6 +390,8 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
    * is the same pixels, handed to both.
    */
   let current: DecodedImage | null = null;
+  /** The only frame this realm keeps between passes: the last SANITIZED one. */
+  let sanitized: SanitizedFrame | null = null;
   /** Rasterise-and-normalise time, accumulated inside the pass so it is reported, not inferred. */
   let preprocessMs = 0;
   /** The head's anchor count, read off the output tensor rather than assumed from the contract. */
@@ -307,19 +426,31 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
         };
 
   const detector: Detector = createUiElementDetector(runtime);
+  /** A seam that throws must not change the pass it is watching. */
+  const stage = (s: PassStage): void => {
+    try {
+      deps.onStage?.(s);
+    } catch {
+      /* the observer's failure is its own */
+    }
+  };
 
   return {
     modelId: detector.modelId,
     revision: detector.revision,
+    sanitizedFrame: () => sanitized,
 
     async perceive(
       graph: ElementGraph,
       measurement: ViewportMeasurement,
-      options: { readonly collect?: boolean; readonly documentId?: string | null } = {}
+      visualRegions: readonly VisualRegion[],
+      options: PerceptionOptions = {}
     ): Promise<PerceptionSummary> {
       const started = now();
       anchors = 0;
       current = null;
+      // A new pass starts with NO frame held: an older frame must never stand in for this one.
+      sanitized = null;
       preprocessMs = 0;
       let decodeMs = 0;
       let encodeMs = 0;
@@ -341,7 +472,8 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
       }
 
       const route: CaptureRoute = ticket.route;
-      let image: DecodedImage;
+      let image: RawImage;
+      let rawBitmapClosed = false;
       /** Present only when the frame arrived encoded. A live frame is never encoded to fill it. */
       let encoded: Uint8Array | undefined;
       try {
@@ -384,7 +516,7 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
             const capturer = new (globalThis as unknown as {
               ImageCapture: new (t: MediaStreamTrack) => { grabFrame(): Promise<ImageBitmap> };
             }).ImageCapture(track);
-            image = rgbaFrom(await capturer.grabFrame());
+            ({ image, closed: rawBitmapClosed } = rgbaFrom(await capturer.grabFrame()));
           } finally {
             // One frame, then the tab stops being captured. A live track is an open camera.
             track.stop();
@@ -406,7 +538,7 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
           const tDecode = now();
           const decoded = decodeDataUrl(ticket.dataUrl);
           if (decoded.format !== "png") throw new Error(`the worker returned image/${decoded.format}`);
-          image = rgbaFrom(await createImageBitmap(new Blob([decoded.bytes as unknown as BlobPart], { type: "image/png" })));
+          ({ image, closed: rawBitmapClosed } = rgbaFrom(await createImageBitmap(new Blob([decoded.bytes as unknown as BlobPart], { type: "image/png" }))));
           decodeMs = now() - tDecode;
           encoded = decoded.bytes;
         }
@@ -415,6 +547,7 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
       }
       const captureMs = now() - tCapture - decodeMs - encodeMs;
       current = image;
+      stage("frame");
 
       let geometry: CaptureGeometry;
       try {
@@ -423,6 +556,8 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
         // checks came from the assumption.
         geometry = geometryFrom(measurement, image.width, image.height);
       } catch (cause) {
+        // A frame whose geometry cannot be trusted cannot be masked: it is overwritten, not kept.
+        wipeFrame(image);
         return perceptionRefused("CAPTURE_DIMENSION_MISMATCH", String((cause as Error)?.message ?? cause), route);
       }
 
@@ -450,7 +585,9 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
       };
 
       const tInfer = now();
+      stage("uihead:start");
       const detected = await detector.detect(framed, backend);
+      stage("uihead:end");
       const inferMs = now() - tInfer - preprocessMs;
 
       let visual: readonly VisualDetection[] = [];
@@ -466,7 +603,75 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
        * structurally cannot carry a string. Today it reports its own absence; the call is here so
        * that absence is recorded on every pass rather than inferred from a missing field.
        */
+      /**
+       * M10.6 — TR-01, AFTER the UI head has finished (M9: sequential, never concurrent), on the
+       * FULL frame. The host copies the pixels for its worker; this realm keeps its own.
+       */
+      const tText = now();
+      stage("tr01:start");
+      const textOutcome: Tr01Outcome = deps.textRegions
+        ? await deps.textRegions.detect(
+            { width: image.width, height: image.height, rgba: image.rgba },
+            options.detectorDeadlineMs === undefined ? {} : { deadlineMs: options.detectorDeadlineMs }
+          )
+        : { ok: false, runId: null, code: "DETECTOR_UNAVAILABLE", detail: "no text-region detector in this realm" };
+      stage("tr01:end");
+      const detectorMs = now() - tText;
+
       const text = await perceiveText(deps.text ?? null, image, now);
+
+      /**
+       * THE REDACTION STAGE: full-frame boxes → UNREAD_REGION per visual region → fail-closed plan
+       * → canonical geometry → opaque fill, IN PLACE. After this, `image` IS the sanitized frame.
+       */
+      const tMap = now();
+      const report = reportFromFullFrame(textOutcome, geometry, visualRegions);
+      const mappingMs = now() - tMap;
+      stage("findings");
+      const redacted = sanitizeFrame({
+        frame: image,
+        geometry,
+        regions: visualRegions,
+        report,
+        now,
+        ...(deps.onMaskPlanned ? { beforeFill: deps.onMaskPlanned } : {}),
+      });
+      stage("mask:end");
+      sanitized = redacted.outcome === "SANITIZED" ? { frameId: framed.id, width: image.width, height: image.height, rgba: image.rgba } : null;
+      const sane = redacted.outcome === "SANITIZED" ? redacted : null;
+      const redaction: RedactionSummary = {
+        outcome: redacted.outcome,
+        failClosed: sane ? sane.failClosed : null,
+        reason: sane ? sane.reason : null,
+        refusal: redacted.outcome === "REFUSED" ? { code: redacted.code, detail: redacted.detail } : null,
+        detector: {
+          modelId: TR01.modelId,
+          ran: textOutcome.ok,
+          code: textOutcome.ok ? null : textOutcome.code,
+          detections: textOutcome.ok ? textOutcome.detections.length : 0,
+        },
+        regions: visualRegions.length,
+        maskRects: sane ? sane.regions.reduce((n, r) => n + r.pixelRects.length, 0) : 0,
+        pixelWrites: sane ? sane.pixelWrites : 0,
+        rawBitmapClosed,
+        frameKept: sanitized !== null,
+        ms: {
+          detector: detectorMs,
+          mapping: mappingMs,
+          plan: sane ? sane.ms.plan : 0,
+          pixelMapping: sane ? sane.ms.pixelMapping : 0,
+          fill: sane ? sane.ms.fill : 0,
+        },
+        ...(options.collect
+          ? {
+              detail: {
+                visualRegions: visualRegions.map((r) => ({ id: r.id, rect: { x: r.rect.x, y: r.rect.y, w: r.rect.w, h: r.rect.h } })),
+                detections: textOutcome.ok ? textOutcome.detections : [],
+                masks: sane ? sane.regions.map((r) => ({ regionId: r.regionId, cssMask: r.cssMask, pixelRects: r.pixelRects })) : [],
+              },
+            }
+          : {}),
+      };
 
       const tFuse = now();
       const sourceBySelector: Record<string, SanitizedElement["source"]> = {};
@@ -482,10 +687,13 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
           if (node) sourceBySelector[node.domRef.selector] = projectElement(element).source;
         }
       } catch (cause) {
+        // A pass that failed does not hand a frame on, even a sanitized one.
+        sanitized = null;
         return {
           ...perceptionRefused("FUSION_FAILED", String((cause as Error)?.message ?? cause), route),
           capture: captureBlock,
           text: textPerceptionAbsent(),
+          redaction: { ...redaction, frameKept: false },
           workerSawPixels: route === "WORKER_FRAME",
           ms: { capture: captureMs, decode: decodeMs, encode: encodeMs, preprocess: preprocessMs, infer: inferMs, fuse: 0, total: now() - started },
         };
@@ -517,6 +725,7 @@ export function createPerceptionRealm(deps: PerceptionRealmDeps): PerceptionReal
           overlaySuspected: fusion.overlaySuspectCount,
         },
         text,
+        redaction,
         elements,
         sourceBySelector,
         ...(options.collect

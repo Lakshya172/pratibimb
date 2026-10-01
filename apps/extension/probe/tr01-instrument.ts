@@ -59,8 +59,23 @@ export function installInstrument(): void {
   }
 }
 
+/**
+ * M10.6 — THE SHAPE of every message the worker received: its keys, and each value's TYPE (a string
+ * is recorded as the word "string", never its content; a typed array as its constructor and length).
+ * The boundary audit asks this rather than trusting the protocol's parser to have been the only way in.
+ */
+const received: { type: unknown; shape: Record<string, string> }[] = [];
+const shapeOf = (v: unknown): string =>
+  v === null ? "null" : ArrayBuffer.isView(v) ? `${v.constructor.name}(${(v as Uint8Array).length})` : Array.isArray(v) ? `array(${v.length})` : typeof v;
+
 export function serveInstrument(message: unknown, post: (reply: unknown) => void): boolean {
-  if (typeof message !== "object" || message === null || (message as { type?: unknown }).type !== "TR01_INSTRUMENT") return false;
+  if (typeof message !== "object" || message === null || (message as { type?: unknown }).type !== "TR01_INSTRUMENT") {
+    if (typeof message === "object" && message !== null && received.length < 500) {
+      const m = message as Record<string, unknown>;
+      received.push({ type: typeof m["type"] === "string" ? m["type"] : shapeOf(m["type"]), shape: Object.fromEntries(Object.keys(m).sort().map((k) => [k, shapeOf(m[k])])) });
+    }
+    return false;
+  }
   post({
     type: "TR01_INSTRUMENT",
     wasmMemories: memories.length,
@@ -68,6 +83,7 @@ export function serveInstrument(message: unknown, post: (reply: unknown) => void
     arrivals: arrivals.length,
     foreignArrivals: arrivals.filter((a) => a.foreign).length,
     arrivalOrigins: [...new Set(arrivals.map((a) => a.origin))],
+    received,
   });
   return true;
 }

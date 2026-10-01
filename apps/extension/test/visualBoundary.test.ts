@@ -53,6 +53,26 @@ describe("the visual tier cannot carry pixels out of its realm", () => {
       route: "WORKER_FRAME",
       workerSawPixels: true,
       text: textPerceptionAbsent(),
+      // M10.6: the redaction stage's record, with its optional geometry present. Codes, counts,
+      // timings and rectangles; the sanitized frame itself never enters the summary.
+      redaction: {
+        outcome: "SANITIZED",
+        failClosed: false,
+        reason: null,
+        refusal: null,
+        detector: { modelId: "PP-OCRv4_mobile_det", ran: true, code: null, detections: 6 },
+        regions: 3,
+        maskRects: 5,
+        pixelWrites: 56401,
+        rawBitmapClosed: true,
+        frameKept: true,
+        ms: { detector: 420, mapping: 0.1, plan: 0.1, pixelMapping: 0, fill: 0.2 },
+        detail: {
+          visualRegions: [{ id: "canvas:0", rect: { x: 40, y: 60, w: 520, h: 200 } }],
+          detections: [{ x: 60, y: 100, w: 400, h: 40, score: 0.9 }],
+          masks: [{ regionId: "canvas:0", cssMask: [{ x: 56, y: 96, w: 408, h: 48 }], pixelRects: [{ x: 56, y: 96, w: 408, h: 48 }] }],
+        },
+      },
       capture: { w: 1600, h: 900, format: "png", bytes: 40703, dpr: 1, scaleToCss: 0.8 },
       detector: {
         modelId: "pratibimb-t1-ui-head",

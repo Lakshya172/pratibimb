@@ -123,6 +123,12 @@ export interface SanitizeInput {
   /** Untrusted: re-parsed by the planner whatever its static type. */
   readonly report: unknown;
   readonly now?: () => number;
+  /**
+   * VERIFICATION SEAM, absent in a product build. Called once the pixel rectangles are known and
+   * BEFORE the fill, so an evidence run can take a digest of what must stay unchanged without keeping
+   * a raw copy of the frame. It cannot change the plan; if it throws, masking proceeds regardless.
+   */
+  readonly beforeFill?: (frame: RgbaFrame, pixelRects: readonly PixelRect[]) => void;
 }
 
 /** Refuse, after overwriting the frame so no raw pixels outlive the decision. */
@@ -181,6 +187,14 @@ export function sanitizeFrame(input: SanitizeInput): SanitizeOutcome {
     return refuse(frame, "GEOMETRY_INVALID", String((cause as Error)?.message ?? cause));
   }
   const t2 = now();
+  if (input.beforeFill) {
+    try {
+      input.beforeFill(frame, all);
+    } catch {
+      // A verification seam must never be able to leave a frame unmasked.
+    }
+  }
+  const tFill = now();
   const { pixelWrites } = fillOpaque(frame, all);
   const t3 = now();
 
@@ -191,6 +205,6 @@ export function sanitizeFrame(input: SanitizeInput): SanitizeOutcome {
     reason: plan.reason,
     regions,
     pixelWrites,
-    ms: { plan: t1 - t0, pixelMapping: t2 - t1, fill: t3 - t2 },
+    ms: { plan: t1 - t0, pixelMapping: t2 - t1, fill: t3 - tFill },
   };
 }

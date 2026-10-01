@@ -226,8 +226,8 @@ export async function runExtensionTask(
     fallback: deterministic,
     ...(deps.perceive
       ? {
-          perceive: async (graph, measurement, perceiveOptions) => {
-            const summary = await deps.perceive!(graph, measurement, perceiveOptions);
+          perceive: async (graph, measurement, visualRegions, perceiveOptions) => {
+            const summary = await deps.perceive!(graph, measurement, visualRegions, perceiveOptions);
             seen = summary;
             return summary;
           },

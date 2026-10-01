@@ -170,7 +170,16 @@ export function createTr01WorkerCore(deps: Tr01WorkerDeps): Tr01WorkerCore {
         case "TR01_INIT":
           return init();
         case "TR01_DETECT":
-          return detect(request.runId, request.width, request.height, request.rgba);
+          /**
+           * M10.6: the pixels this worker was lent are SCRUBBED when the run ends, whatever its
+           * outcome. The perception realm masks its own frame in place; no unredacted copy should
+           * outlive the run anywhere, including here.
+           */
+          try {
+            return await detect(request.runId, request.width, request.height, request.rgba);
+          } finally {
+            request.rgba.fill(0);
+          }
       }
     },
   };

@@ -5,9 +5,9 @@
  * never written to storage. It exists so later experiments can check that a value stays on this side.
  * There is no production vault, sanitizer, verifier or egress module in this host.
  */
-import { observePage, type TransportBinding } from "@pratibimb/extension-transport";
+import { observePage, type TransportBinding, type VisualRegionReading } from "@pratibimb/extension-transport";
 import { serveStructuralProbe } from "#structural-probe";
-import { serveTr01Probe } from "#tr01-probe";
+import { serveTr01Probe, tr01Seam } from "#tr01-probe";
 import { type GrantDecision, type GrantRequest } from "@pratibimb/orchestrator";
 
 import { bootstrapOrtRealm, createPinnedInferenceSession, resolvePackagedAsset } from "../../entrypoints/ortRuntime";
@@ -17,7 +17,8 @@ import { identityOf, isFromThisExtension, type ToOffscreen } from "../../host-li
 import { chromeRelay } from "../../host-lib/transport-chrome";
 import { installTransportControlPlane } from "../../host-lib/transport-control-plane";
 import { type CaptureTicket } from "../../host-lib/capture-authority";
-import { createPerceptionRealm, type PerceptionRealm } from "../../host-lib/perception-realm";
+import { createPerceptionRealm, type PerceptionOptions, type PerceptionRealm } from "../../host-lib/perception-realm";
+import { createTr01Host, spawnTr01Worker, type Tr01Host } from "../../host-lib/tr01-host";
 import { createReleaseAuthority, type AttestedAsker } from "../../host-lib/value-release";
 
 const instanceId = crypto.randomUUID();
@@ -88,6 +89,16 @@ let captureTabId = -1;
 /** The document the run is bound to, so a grant can be bound to a page rather than a tab number. */
 let captureDocumentId: string | null = null;
 
+/**
+ * M10.6 — THE TR-01 DETECTOR HOST, one per document, created lazily on the first pass that needs it.
+ *
+ * Its worker is created on first use, initialised once, and replaced only after a timeout, crash or
+ * malformed reply (`tr01-host.ts`). The spawn is the product's own unless an evidence build's
+ * `#tr01-probe` supplies an instrumented one; a product build's seam is `null`.
+ */
+let tr01Host: Tr01Host | null = null;
+const textRegionHost = (): Tr01Host => (tr01Host ??= createTr01Host({ spawn: tr01Seam?.spawn ?? spawnTr01Worker }));
+
 async function ensurePerception(): Promise<PerceptionRealm> {
   if (perceptionRealm !== null) return perceptionRealm;
   const t0 = performance.now();
@@ -124,8 +135,55 @@ async function ensurePerception(): Promise<PerceptionRealm> {
     // Empty when the session did not come up: a detector with no runtime REFUSES rather than
     // returning zero detections, which is indistinguishable from a page with no controls.
     acceptedBackends: error === null ? ["wasm"] : [],
+    // M10.6: TR-01 on the full frame, after the UI head, then the local redaction stage.
+    textRegions: { detect: (frame, options) => textRegionHost().detect(frame, options) },
+    ...(tr01Seam?.onMaskPlanned ? { onMaskPlanned: tr01Seam.onMaskPlanned } : {}),
+    ...(tr01Seam?.onStage ? { onStage: tr01Seam.onStage } : {}),
   });
   return perceptionRealm;
+}
+
+/**
+ * One perception pass over a tab, as a caller that is not the run loop asks for it.
+ *
+ * Observes the document (element graph, viewport, visual-only regions), then runs the realm's pass
+ * — capture on the gesture route, UI head, TR-01, redaction — against that same reading.
+ * `adjustRegions` exists only for an evidence build's probe, which uses it to inject an invalid region
+ * INSIDE this realm (the transport refuses one on the wire); nothing in a product build passes it.
+ */
+async function perceiveTab(
+  tabId: number,
+  frameId: number,
+  extra: { readonly adjustRegions?: (regions: readonly VisualRegionReading[]) => readonly { id: string; rect: { x: number; y: number; w: number; h: number } }[]; readonly detectorDeadlineMs?: number } = {}
+) {
+  captureTabId = tabId;
+  try {
+    const observed = await observePage(chromeRelay, { tabId, frameId });
+    const realm = await ensurePerception();
+    const regions = extra.adjustRegions ? extra.adjustRegions(observed.visualRegions) : observed.visualRegions;
+    const options: PerceptionOptions = {
+      collect: true,
+      documentId: observed.binding.document.documentId,
+      ...(extra.detectorDeadlineMs === undefined ? {} : { detectorDeadlineMs: extra.detectorDeadlineMs }),
+    };
+    const summary = await realm.perceive(
+      observed.graph,
+      {
+        dpr: observed.viewport.dpr,
+        zoom: 1,
+        viewportCssWidth: observed.viewport.w,
+        viewportCssHeight: observed.viewport.h,
+        scrollX: observed.viewport.scrollX,
+        scrollY: observed.viewport.scrollY,
+        origin: observed.binding.document.origin,
+      },
+      regions,
+      options
+    );
+    return { observed, summary };
+  } finally {
+    captureTabId = -1;
+  }
 }
 
 async function cspProbe(allowed: string, foreign: string) {
@@ -272,7 +330,7 @@ async function runTask(request: ExtensionRunRequest): Promise<ExtensionRunResult
       relay: chromeRelay,
       capabilities,
       sendToBoundary,
-      perceive: async (graph, measurement, options) => (await ensurePerception()).perceive(graph, measurement, options),
+      perceive: async (graph, measurement, visualRegions, options) => (await ensurePerception()).perceive(graph, measurement, visualRegions, options),
       perceptionBoot: () => perceptionBoot,
       askHuman: (grantRequest) =>
         new Promise<GrantDecision>((resolve) => {
@@ -339,7 +397,15 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
    * M10.4: `#tr01-probe` resolves to `probe/tr01-absent.ts` unless `TR01_PROBE=1` is set, so a
    * product build answers a `TR01_PROBE` exactly as it answers a kind that was never defined.
    */
-  if (serveTr01Probe(msg, sender, sendResponse)) return true;
+  if (
+    serveTr01Probe(msg, sender, sendResponse, {
+      perceiveTab,
+      sanitizedFrame: () => perceptionRealm?.sanitizedFrame() ?? null,
+      tr01Status: () => tr01Host?.status() ?? null,
+    })
+  ) {
+    return true;
+  }
 
   if (msg.kind === "REALM_PROBE") {
     void (async () => {
@@ -369,25 +435,11 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
    */
   if (msg.kind === "PERCEIVE_ONCE") {
     void (async () => {
-      captureTabId = msg.tabId;
       try {
-        const binding = { tabId: msg.tabId, frameId: msg.frameId };
-        const observed = await observePage(chromeRelay, binding);
-        const realm = await ensurePerception();
-        const summary = await realm.perceive(
-          observed.graph,
-          {
-            dpr: observed.viewport.dpr,
-            zoom: 1,
-            viewportCssWidth: observed.viewport.w,
-            viewportCssHeight: observed.viewport.h,
-            scrollX: observed.viewport.scrollX,
-            scrollY: observed.viewport.scrollY,
-            origin: observed.binding.document.origin,
-          },
-          { collect: true, documentId: observed.binding.document.documentId }
-        );
+        const { observed, summary } = await perceiveTab(msg.tabId, msg.frameId);
         sendResponse({
+          // M10.6: what the redaction stage did — codes, counts, timings and geometry. No pixel.
+          redaction: summary.redaction,
           refused: summary.ran ? null : summary.refusal,
           route: summary.route,
           capture: summary.capture,
@@ -402,8 +454,6 @@ chrome.runtime.onMessage.addListener((raw: unknown, sender, sendResponse) => {
         });
       } catch (e) {
         sendResponse({ refused: { code: "PERCEIVE_ONCE_THREW", detail: e instanceof Error ? e.message : String(e) } });
-      } finally {
-        captureTabId = -1;
       }
     })();
     return true;

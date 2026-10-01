@@ -1,9 +1,9 @@
 # M10 — visual redaction integration (in progress)
 
 > **Status: IN PROGRESS.** M10 is being delivered as separately committed units. Product visual-only
-> PII protection remains **NOT VERIFIED**: no frame is captured, masked, encoded or sent by anything
-> recorded here, and no product path calls TR-01 or the mask yet. M10.5 sanitizes real frames, but only
-> in the evidence build, in memory, and nothing is encoded or sent.
+> PII protection remains **NOT VERIFIED**: nothing recorded here encodes or sends a frame. From M10.6
+> the product perception pass on the gesture route captures, runs TR-01 and masks in place, and keeps
+> the sanitized RGBA frame in the offscreen document; encoding and the test loopback are the next unit.
 
 | unit | commit | what it established |
 |---|---|---|
@@ -11,7 +11,8 @@
 | M10.2 | `6386abd` | fail-closed `TextFinding` and `planVisualRedaction` (`packages/privacy/src/textFinding.ts`) |
 | M10.3 | `6121081` | visual-only region enumeration in OBSERVE (`visualRegions`) |
 | M10.4 | `67e0509` | TR-01 in a dedicated worker owned by the offscreen document; external 2,000 ms deadline |
-| M10.5 | this unit | full-frame TR-01 → fail-closed plan → canonical geometry → opaque pixel mask, in place |
+| M10.5 | `4e8fbfb` | full-frame TR-01 → fail-closed plan → canonical geometry → opaque pixel mask, in place |
+| M10.6 | this unit | that chain wired into the product perception pass, on the real toolbar-gesture stream |
 
 ## Hypothesis
 
@@ -37,6 +38,17 @@ planner unchanged. The ordinary element graph is unaffected, and no pixel, URL o
 It should cover every fixture ink pixel and change no pixel outside the mask. Detector failure should
 mask every region whole, and REFUSED should leave no frame.
 
+**M10.6.** The product perception pass can run that chain on a frame from the real gesture route:
+
+- a person's toolbar click → `activeTab` → `getMediaStreamId` → offscreen `getUserMedia` → `grabFrame`;
+- then the UI head, then TR-01 on the full frame (sequential, M9), then association with the
+  observation's `visualRegions`, `UNREAD_REGION` findings, the fail-closed plan, the canonical geometry
+  and the opaque fill in place;
+- leaving only the sanitized RGBA frame in the offscreen document, with the raw bitmap closed.
+
+The worker and the service worker should receive nothing beyond what M10.4 and M3.1 allow, and the
+detector's output on frozen frames should be unchanged from M8.1.
+
 ## Environment
 
 W1 (`LAPTOP-6E14K34L`), Windows 11, Chrome for Testing (Playwright `chromium-1243`), headed, built
@@ -53,6 +65,13 @@ MV3 host from this commit's tree. Full provenance is in each log.
   `tests/browser/extension/fixture/visual-mask.html` at 1280×720 CSS px. Node tests use the frozen
   synthetic RGBA fixture (`apps/extension/test/support/maskFixture*`) and the 90 canonical golden
   vectors.
+- **M10.6:** the evidence build `TR01_PROBE=1` only: no `M3_WORKER_FRAME`, so the capture route is
+  the product's. The harness refuses to run unless the evidence build's `background.js`,
+  `content.js` and `manifest.json` are byte-identical to the product build's. Each of four windows
+  launches Chrome with `--force-device-scale-factor` 1, 1.25, 1.5 and 2 and a fresh profile, on the
+  M10.5 fixture `/mask/` at 1280×720 CSS px, and waits for **one real toolbar click by the owner**.
+  Nothing in the harness produces, simulates or substitutes for the click. Machine state at launch
+  (read, not changed): on AC power, Windows power plan Balanced, CPU load 23%.
 
 ## Expected result
 
@@ -91,6 +110,23 @@ MV3 host from this commit's tree. Full provenance is in each log.
   buffer is wiped.
 - In Node, the 90 golden vectors reproduce the pre-registered masks and exactly the pixels they
   cover.
+
+**M10.6**, in each window:
+
+- **Before the click:** the capture authority refuses (`NO_ACTIVE_TAB_GRANT`), and so does the
+  browser (`getMediaStreamId` fails). There is no grant, no TR-01 host and no held frame.
+- **After the click:** every pass runs on a stream id the browser minted. Its timeline shows the
+  stages in M9 order, with the worker given the full frame.
+- **Masking:** the model hash is verified at runtime. Every fixture ink pixel is filled, and the
+  controls and everything outside the mask are unchanged.
+- **Failure paths:** a 50 ms deadline gives `DETECTOR_TIMEOUT` and masks the regions whole, and the
+  next pass recovers on a fresh worker. A corrupted region gives REFUSED with no frame.
+- **Boundaries:**
+  - the worker receives only `TR01_INIT` and `TR01_DETECT {protocol, runId, width, height, rgba}`;
+  - the service worker records no pixels;
+  - there are no foreign-origin arrivals;
+  - warm TR-01 stays under 2,000 ms, and combined WASM memory is at most 200 MB.
+- **RE-1:** on the frozen frames, the product path's boxes, masks and RE-1 scores equal M8.1's.
 
 ## Actual result
 
@@ -191,6 +227,159 @@ Memory:
 - **Even counting those buffers against the WASM gate,** the total is 172,523,520 B (164.5 MiB) at
   DPR 1 and 194,641,920 B (185.6 MiB, 194.6 MB) at DPR 2, both under 200 MB.
 
+**M10.6: PASS on the real gesture route in all four windows**, `logs/w1-cft-gesture-redaction.json`
+(verdict `EXPERIMENTALLY VERIFIED (HUMAN-IN-THE-LOOP)`, every check true in every window). **One
+finding is recorded below rather than passed over: on gesture-stream frames, TR-01's boxes are not
+byte-equal to M8.1's.**
+
+Gesture evidence, per window:
+
+| requested scale | page `devicePixelRatio` | click waited for | stream ids minted after the click | stream frame | CSS viewport | scale to CSS |
+|---|---|---|---|---|---|---|
+| 1 | 1 | 56,368 ms | 22 | 1280×720 | 1280×720 | 1 |
+| 1.25 | 1.25 | 231,086 ms | 16 | 1280×720 | 1280×720 | 1 |
+| 1.5 | 1.5 | 4,578 ms | 16 | 1280×720 | 1280×720 | 1 |
+| 2 | 2 | 11,703 ms | 16 | 1280×720 | 1280×720 | 1 |
+
+- **Before each click, both gates refused.** The authority gave `NO_ACTIVE_TAB_GRANT`, and Chrome
+  refused `getMediaStreamId`.
+- **After it, every pass's ticket was a `GESTURE_STREAM` handle**, recorded by the service worker:
+  none refused, none on any other route. The extra passes in the DPR-1 window are RE-1's.
+- **The stream frame is CSS-sized at every scale.** The product requests the CSS viewport as
+  `maxWidth`/`maxHeight` (M4), so at device scales above 1 the browser downscales; the geometry is
+  built from the frame that arrived.
+
+The stream frame differs from M10.5, whose `captureVisibleTab` frames were device-sized
+(1600×900 … 2560×1440).
+
+Each window's observation carried `canvas:0` (40, 60, 520×200), `img:0` (640, 60, 480×160) and
+`canvas:1` (−80, 330, 420×150), identical at every scale. TR-01 found 6 lines on the full frame in
+every window.
+
+- **At DPR 1,** the boxes and the pixel mask equal M10.5's DPR-1 cell exactly: 5 rectangles, 56,401
+  pixels.
+- **At 1.25, 1.5 and 2,** the first `img:0` line's box differs slightly: (659.30, 98.37, 398.89×24.88)
+  against (658.42, 97.58, 400.66×27.59). Its mask rectangle is therefore (655, 94, 408×34), and the
+  mask is 55,103 pixels.
+- **In every window,** all 30,065 pixels wholly inside the five fixture ink rectangles are filled.
+  The two controls are byte-identical and no pixel outside the mask changed.
+
+**Order, measured on the real pass.** A test-build stage seam (`onStage`, absent from the product)
+records the stages, and the instrumented spawn records the worker's DETECT. Every pass (cold, 10
+warm, recovery; 12 per window) ran in this order:
+
+> frame → UI head start → UI head end → TR-01 start → DETECT posted → worker reply → TR-01 end →
+> findings → mask planned → fill done
+
+Every DETECT carried the full frame: 1280×720, `rgba` length 3,686,400. The worker verified the
+model at runtime: `18aaccf9…`, 4,766,440 B.
+
+**Timeout and REFUSED, every window:**
+
+- **Timeout:** a 50 ms deadline gave `DETECTOR_TIMEOUT` with 1 termination. Every region's visible
+  area was filled whole (231,800 pixels, all fill), nothing outside changed, and the sanitized frame
+  was kept. The recovery pass ran on generation 2 with 6 detections and 0 stale replies dropped.
+- **REFUSED:** a NaN-width region and a duplicate region id each gave `REFUSED` (`REGION_INVALID`),
+  with no frame held.
+
+**Boundaries, every window:**
+
+- **Worker:** it received only `TR01_INIT {protocol, type}` and `TR01_DETECT {height, protocol, rgba:
+  Uint8ClampedArray(3686400), runId, type, width}`. Its arrivals were from the extension's own origin
+  only.
+- **Instrument scope:** the instrument records the worker instance it lives in. After the timeout's
+  termination that is generation 2, so the counts (11 at DPR 1, 5 elsewhere) cover the recovered
+  worker. Generation 1 runs the same code.
+- **Offscreen document:** 2 arrivals, 0 foreign.
+- **Service worker:** its own record of every message (112 at DPR 1, 82 elsewhere) contains no PNG
+  signature, no data URL and no base64 run of 200 characters or more.
+- **What it receives from the plain product `PERCEIVE_ONCE`:** the redaction summary and no pixels.
+
+Latency on the real pass, in ms (n = 10 warm passes per window). Every stage is timed by the
+perception realm's own clock, `Date.now()`, so each reading is a whole millisecond and a median can
+end in .5.
+
+| stage (median / p90 / min / max) | DPR 1 | DPR 1.25 | DPR 1.5 | DPR 2 |
+|---|---|---|---|---|
+| capture (`getUserMedia` → `grabFrame` → RGBA) | 94 / 97 / 93 / 103 | 134 / 176 / 36 / 186 | 99 / 103 / 93 / 110 | 95 / 104 / 94 / 104 |
+| UI head preprocess | 16.5 / 24 / 15 / 26 | 17 / 26 / 14 / 35 | 15.5 / 26 / 14 / 27 | 14 / 22 / 13 / 23 |
+| UI head inference | 30.5 / 33 / 28 / 34 | 28.5 / 32 / 27 / 33 | 29 / 33 / 27 / 35 | 28.5 / 31 / 26 / 31 |
+| TR-01 (host, post → result) | 349 / 405 / 331 / 410 | 340.5 / 385 / 310 / 426 | 348 / 378 / 315 / 506 | 296 / 306 / 282 / 338 |
+| association + findings | 0 / 1 / 0 / 1 | 0 / 0 / 0 / 1 | 0 / 0 / 0 / 0 | 0 / 1 / 0 / 1 |
+| plan / pixel mapping / fill | ≤ 1 each | ≤ 1 each | ≤ 1 each | ≤ 1 each |
+| **whole local pass** | **500.5 / 571 / 484 / 575** | **549 / 618 / 429 / 647** | **504 / 545 / 470 / 678** | **445.5 / 463 / 436 / 496** |
+| cold pass (includes TR-01 initialisation) | 1,285 | 1,248 | 1,093 | 1,090 |
+| TR-01 initialisation: runtime / model / session | 82 / 28.1 / 336.2 | 81.2 / 14.8 / 306.1 | 66.3 / 13.8 / 286.7 | 61.5 / 13 / 244.4 |
+
+- **Deadline gate:** the slowest warm TR-01 run was 506 ms, against the 2,000 ms gate.
+- **Memory gate:** WASM linear memory in every window was TR-01 worker 137,494,528 B plus UI head
+  27,656,192 B, so 165,150,720 B (157.5 MiB) against the 200 MB gate.
+
+**RE-1 on the product path, frozen frames: PASS**, `logs/w1-cft-re1-product.json`. The six frozen
+held-out frames (H1–H6) were run through the product's TR-01 host, `reportFromFullFrame` and
+`sanitizeFrame`:
+
+- TR-01's boxes and scores equal M8.1's recorded run 1;
+- the product's CSS mask equals the canonical `redactionMask`;
+- the RE-1 scores equal M8.1's, field for field;
+- 0 sensitive glyphs were exposed, out of 40, 64, 47, 45, 51 and 59.
+
+**RE-1 on gesture-stream frames (M9 J7): every RE-1 gate passes, but the boxes are not
+byte-equal.** In the DPR-1 window, each frozen frame was shown 1:1 at (0, 0) in the granted document
+(no navigation, so the same grant held) and captured through the gesture stream.
+`logs/w1-cft-re1-stream-analysis.json` re-reads the formal record with deep equality:
+
+| | H1 | H2 | H3 | H4 | H5 | H6 |
+|---|---|---|---|---|---|---|
+| boxes (stream / M8.1) | 11 / 11 | 11 / 11 | 7 / 7 | 8 / 8 | 7 / 7 | 13 / 13 |
+| boxes byte-equal to M8.1 | no | no | no | no | no | no |
+| largest coordinate difference, px | 0 | 2.71 | 2.70 | 2.65 | 2.71 | 2.71 |
+| largest score difference | 0.009 | 0.106 | 0.091 | 0.140 | 0.099 | 0.101 |
+| RE-1 score equal to M8.1's | yes | yes | yes | no (`strings`, over-mask fields) | yes | yes |
+| every RE-1 gate | pass | pass | pass | pass | pass | pass |
+| exposed sensitive glyphs | 0 / 40 | 0 / 64 | 0 / 47 | 0 / 45 | 0 / 51 | 0 / 59 |
+
+The same frames shown the same way, but captured by the degraded `captureVisibleTab` route (PNG),
+reproduced M8.1's boxes and scores exactly (the dry run below). So did the frozen-frame product run.
+
+- **INFERENCE** (resting on those two facts and this one): the difference enters with the tab-capture
+  stream's pixels, not with the product's geometry or post-processing.
+- **UNKNOWN:** the stream frame's pixel difference itself was not measured, because no raw stream
+  frame is kept.
+
+The owner reviewed this result and directed that it be recorded as a finding, not tuned away.
+
+**Attempt history, disclosed:**
+
+- **Attempt 1 (no evidence),** `logs/w1-cft-gesture-redaction-attempt1-noclick.log`:
+  - Window 1 waited the then-default 15 minutes with no click and failed.
+  - Window 2 then received a click.
+  - The run had been stopped at that point, so no record was written and the attempt counts for
+    nothing.
+- **Dry runs (degraded route, never gesture evidence),** `logs/w1-cft-gesture-redaction-dryrun.json`:
+  the same passes and audits on `M3_WORKER_FRAME=1` with no click, labelled as such.
+  - The first passed with TR-01 warm median 313 ms.
+  - Two later reruns measured every stage about 3.5–4.5× slower on unchanged code:
+    UI head 129.5 ms, TR-01 warm median 1,099.5 and 1,226.5 ms, max 1,456 ms. Unrelated stages
+    slowed too, so this is recorded as machine state; its cause was not determined.
+  - The kept dry run, after the harness changes below, measured TR-01 308.5 ms and UI head 28.5 ms.
+    It matched M10.5's DPR-1 masks exactly, and its RE-1 boxes and scores equalled M8.1's exactly.
+- **Harness corrections before the formal run.** No product code changed between attempts except the
+  stage seam, which is test-only and tested.
+  - The dry-run record said a gesture was recorded; its check names now say no gesture and the
+    degraded route.
+  - The model check read the upstream `.pdiparams` hash instead of the ONNX pin.
+  - The prompt banner's text was in the measured frame, adding two detections that the canonical
+    clip removed. It now leaves the page once the click is acknowledged.
+- **One harness defect found after the formal run.** Its RE-1 score comparison used JSON text,
+  which also compares key order, so the record reports `re1ScoresEqualM81: false` for all six
+  images. The deep-equality re-reading above is the corrected comparison. The harness now uses deep
+  equality, and the record is left as written.
+
+M10.3, M10.4 and M10.5 were re-run on this tree: rectangles, checks, golden outputs and masks are
+identical to their committed records, timing aside. Their committed logs were then restored
+unchanged.
+
 ## Conclusion
 
 Region enumeration works through the real extension on this fixture. That supplies the regions the
@@ -205,6 +394,23 @@ at four capture scales, and fails closed as specified. It is exercised through t
 product perception pass does not call it yet. Detector recall at capture scales other than the screened
 1280×720 is not screened: these cells show TR-01 found every fixture line, and nothing more. Encoding,
 verification of encoded bytes and egress are later units.
+
+M10.6: the product perception pass now runs the M10.5 chain on frames from the real gesture route.
+The chain is click → browser-minted stream → offscreen frame → UI head → full-frame TR-01 →
+`UNREAD_REGION` → fail-closed plan → canonical geometry → opaque fill in place, and it ends with only
+the sanitized RGBA frame held.
+
+- **Verified:** on W1 in four real-click windows, on one synthetic fixture, with timeout and REFUSED
+  behaving as specified. The worker and service-worker boundaries held, and both engineering gates
+  were met with margin.
+- **Stream frames are not byte-equal to screenshots.** TR-01's boxes on gesture-stream frames differ
+  from its boxes on the frozen screenshots by up to 2.71 px. On the held-out set this costs no
+  exposure (0 / 306) and fails no RE-1 gate, but it means M8.1's byte-level equivalence does not carry
+  over to the stream route.
+- **J7 remains open.** Bounding this needs more than six images and more than one capture scale, and
+  is a measurement for a later unit.
+- **Not yet verified:** visual-only PII protection in the product, until the sanitized frame is
+  encoded, verified and sent through the test-only loopback sink.
 
 ## Reproducibility
 
@@ -240,3 +446,21 @@ npm run build -w @pratibimb/extension
 
 Unit tests: `apps/extension/test/visualRedaction.test.ts` and
 `tests/browser/support/m10-mask-golden.test.mjs`.
+
+M10.6 (the harness builds the product and evidence variants itself and restores the product build):
+
+```
+TR01_PROBE=1 npm run build -w @pratibimb/extension
+CHROME_PATH="<chrome for testing>" node tests/browser/extension/run-re1-product.mjs
+npm run build -w @pratibimb/extension
+CHROME_PATH="<chrome for testing>" M106_DRY_RUN=1 M106_DPRS=1 node tests/browser/extension/run-gesture-redaction.mjs
+CHROME_PATH="<chrome for testing>" node tests/browser/extension/run-gesture-redaction.mjs
+node tests/browser/extension/analyse-re1-stream.mjs
+```
+
+- **The fourth command needs a person.** It opens four windows in turn, and each waits up to 30
+  minutes for one click on the PratiBimb toolbar action. It refuses to overwrite an existing formal
+  record.
+- **The first three commands need no click.** The dry run is the degraded-route rehearsal and is
+  never gesture evidence.
+- **Unit tests:** `apps/extension/test/perceptionPass.test.ts`.

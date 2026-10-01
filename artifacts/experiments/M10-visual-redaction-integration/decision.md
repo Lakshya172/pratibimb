@@ -60,3 +60,22 @@ loopback sink.
 | REFUSED | invalid region, frame or geometry. The whole buffer is overwritten, and no frame is returned |
 | fail-closed | any detector failure or malformed report masks every region's visible area whole; the sanitized frame may continue |
 | wiring | not wired into the product perception pass in this unit: the evidence probe drives the real pieces. Wiring it to the gesture route is the next unit |
+
+## M10.6 decisions (product perception pass on the gesture route)
+
+> **Forward pointers.** The M10.4 "UI head ordering" row above deferred the sequential rule to the
+> perception pass; it is implemented here: the pass awaits the UI head, then TR-01. The M10.5
+> "wiring" row above is superseded by this section. Neither earlier row is edited.
+
+| question | decision |
+|---|---|
+| route | the approved REAL_GESTURE_STREAM only: toolbar click → `activeTab` → `getMediaStreamId` → offscreen `getUserMedia` → `grabFrame`. No `captureVisibleTab` fallback, no polling, no periodic capture, no new permission. The degraded `M3_WORKER_FRAME` route stays a test-only build flag and is never gesture evidence |
+| owner | the offscreen document creates the one TR-01 host (lazily) and hands the perception realm a `textRegions.detect`. No other context creates a host or a worker |
+| order | capture → UI head (to completion) → TR-01 on the FULL frame → `reportFromFullFrame` (association, `UNREAD_REGION`) → `sanitizeFrame` (fail-closed plan, canonical geometry, fill in place). Sequential, never concurrent. No crop, no other model, no OCR |
+| regions | `perceive` REQUIRES the observation's `visualRegions` (compile-time), so no caller can get a frame that looks sanitized without them. Both product callers (the run loop and `PERCEIVE_ONCE`) pass them |
+| frame lifetime | the `ImageBitmap` is closed as soon as its RGBA is read, and the track is stopped after one frame. The only frame kept between passes is the last SANITIZED one. Every pass starts with none held. REFUSED, a geometry mismatch and a fusion failure keep none, and the first two overwrite the buffer |
+| worker copy | the worker zeroes the pixel copy it was lent after every DETECT, whatever the outcome |
+| deadline | TR-01's 2,000 ms gate, enforced by the host. A pass may tighten it, never loosen it |
+| verification seams | test builds only (`#tr01-probe`): an instrumented spawn, the pre-fill digest hook (`onMaskPlanned`) and a stage-name hook (`onStage`). The product build resolves them to `null`, and a seam that throws cannot change a pass |
+| RE-1 on stream frames | measured, not tuned: TR-01's boxes on gesture-stream frames are not byte-equal to M8.1's (largest coordinate difference 2.71 px, same counts, every RE-1 gate passing, 0 / 306 exposed). The **owner directed** that this be recorded as a finding and that M10.6 proceed. M9 J7 (stream-route re-screening) is **not closed** by six images at one scale |
+| output | the sanitized RGBA frame, in the offscreen document. Nothing is encoded or sent; WebP and the test-only loopback sink are the next unit |

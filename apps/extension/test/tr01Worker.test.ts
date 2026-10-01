@@ -589,11 +589,18 @@ describe("the worker and its host: no network, no text, no OCR, no egress, no ac
     for (const src of [files.worker, files.core, files.protocol]) expect(src).not.toMatch(/regionId|selector|documentId|origin:\s*string|href\b(?!\))/);
   });
 
-  it("nothing in the product calls the host yet — only the test-build probe does", () => {
+  it("M10.6: the offscreen document is the host's only product owner, and it feeds the perception realm", () => {
     const main = strip(read("apps/extension/host/offscreen/main.ts"));
-    expect(main).not.toMatch(/createTr01Host|spawnTr01Worker|tr01-host/);
-    expect(main).toContain('from "#tr01-probe"');
+    // One host, created lazily, handed to the realm as its text-region detector.
+    expect(main.match(/createTr01Host\(/g)).toHaveLength(1);
+    expect(main).toMatch(/textRegions:\s*\{\s*detect:\s*\(frame, options\)\s*=>\s*textRegionHost\(\)\.detect\(frame, options\)\s*\}/);
+    // No other product file creates a host or a worker.
+    for (const f of ["host/background.ts", "host/content.ts", "host-lib/extension-run.ts", "host-lib/extension-ports.ts", "host-lib/perception-realm.ts"]) {
+      expect(strip(read(`apps/extension/${f}`)), f).not.toMatch(/createTr01Host|spawnTr01Worker|new Worker\(/);
+    }
+    // A product build's probe has no seam, no driver and no worker.
     const absent = strip(read("apps/extension/probe/tr01-absent.ts"));
-    expect(absent).not.toMatch(/createTr01Host|Worker/);
+    expect(absent).not.toMatch(/createTr01Host|Worker|perceiveTab/);
+    expect(absent).toMatch(/export const tr01Seam = null;/);
   });
 });

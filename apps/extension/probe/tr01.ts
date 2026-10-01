@@ -48,13 +48,26 @@ const offscreenWasmBytes = (): number | null =>
 
 // ── an instrumented spawn: the host sees an ordinary worker; the probe can also ask the instrument ──
 let current: Worker | null = null;
+/**
+ * M10.6 — THE PASS TIMELINE: stage names from the realm's seam, and what crossed to and from the
+ * worker, each with this realm's clock. Names, sizes and times only: never a pixel or a box.
+ */
+type Extra = { width?: number; height?: number; rgbaLength?: number; runId?: number };
+let timeline: ({ at: number; event: string } & Extra)[] = [];
+const mark = (event: string, extra: Extra = {}): void => {
+  if (timeline.length < 200) timeline.push({ at: performance.now(), event, ...extra });
+};
 let instrumentWaiter: ((reply: unknown) => void) | null = null;
 
 function instrumentedSpawn(): WorkerLike {
   const real = spawnTr01Worker() as unknown as Worker;
   current = real;
   const proxy: WorkerLike = {
-    postMessage: (message, transfer) => real.postMessage(message, transfer),
+    postMessage: (message, transfer) => {
+      const m = message as { type?: unknown; width?: unknown; height?: unknown; runId?: unknown; rgba?: { length?: unknown } };
+      if (m?.type === "TR01_DETECT") mark("worker:detect-posted", { width: Number(m.width), height: Number(m.height), rgbaLength: Number(m.rgba?.length), runId: Number(m.runId) });
+      real.postMessage(message, transfer);
+    },
     terminate: () => {
       real.terminate();
       if (current === real) current = null;
@@ -69,6 +82,7 @@ function instrumentedSpawn(): WorkerLike {
       instrumentWaiter = null;
       return;
     }
+    mark(`worker:reply:${String((event.data as { type?: unknown })?.type)}`);
     proxy.onmessage?.({ data: event.data });
   };
   real.onerror = (event) => proxy.onerror?.(event);
@@ -278,6 +292,30 @@ async function step(msg: Record<string, unknown>): Promise<unknown> {
         pixels: msg["returnPixels"] === true ? { before: b64(before), after: result.outcome === "SANITIZED" ? b64(captured.rgba) : null } : null,
       };
     }
+    case "re1-frame": {
+      // M10.6 RE-1 product check: a stored held-out frame through the PRODUCT host and the PRODUCT
+      // redaction path, at the held-out capture's own geometry (1280×720, DPR 1).
+      const stored = frames.get(String(msg["name"]));
+      if (!stored) return { error: `no frame ${String(msg["name"])}` };
+      const region = msg["region"] as { x: number; y: number; w: number; h: number };
+      host ??= createTr01Host({ spawn: instrumentedSpawn });
+      const outcome = await host.detect(stored);
+      const geometry: CaptureGeometry = {
+        dpr: 1,
+        zoom: 1,
+        viewportCss: { w: stored.width, h: stored.height },
+        captureSize: { w: stored.width, h: stored.height },
+        scroll: { x: 0, y: 0 },
+        origin: "http://127.0.0.1:8975",
+      };
+      const regions: VisualRegion[] = [{ id: "canvas:0", rect: region }];
+      const frame = { width: stored.width, height: stored.height, rgba: stored.rgba.slice() };
+      const result = sanitizeFrame({ frame, geometry, regions, report: reportFromFullFrame(outcome, geometry, regions) });
+      return {
+        outcome: outcome.ok ? { ok: true, detections: outcome.detections } : outcome,
+        result: result.outcome === "SANITIZED" ? { outcome: "SANITIZED", failClosed: result.failClosed, cssMask: result.regions[0]?.cssMask ?? [], pixelRects: result.regions[0]?.pixelRects ?? [] } : result,
+      };
+    }
     case "mask-bench": {
       const last = lastMask;
       if (!last) return { error: "no frame: run mask first" };
@@ -339,13 +377,201 @@ async function step(msg: Record<string, unknown>): Promise<unknown> {
 }
 
 /** Service worker only, like every other control-plane kind: a tab cannot drive the detector. */
-export function serveTr01Probe(message: unknown, sender: { tab?: unknown }, sendResponse: (reply: unknown) => void): boolean {
+// ── M10.6: the product pass, driven and verified without keeping a raw frame ────────────────────
+
+type CssRect = { x: number; y: number; w: number; h: number };
+
+/** What the offscreen document lends the probe: its own pass, its kept frame, its host's status. */
+export interface Tr01ProbeContext {
+  readonly perceiveTab: (
+    tabId: number,
+    frameId: number,
+    extra?: { readonly adjustRegions?: (regions: readonly { id: string; rect: CssRect }[]) => readonly { id: string; rect: CssRect }[]; readonly detectorDeadlineMs?: number }
+  ) => Promise<{ observed: { visualRegions: readonly unknown[]; viewport: unknown }; summary: { readonly redaction: unknown } }>;
+  readonly sanitizedFrame: () => { width: number; height: number; rgba: Uint8ClampedArray } | null;
+  readonly tr01Status: () => unknown;
+}
+
+/** Two independent 32-bit hashes and a count over a pixel selection. A digest, never the pixels. */
+function digest(rgba: Uint8ClampedArray, width: number, height: number, include: (x: number, y: number) => boolean) {
+  let fnv = 0x811c9dc5;
+  let djb = 5381;
+  let n = 0;
+  for (let y = 0; y < height; y++)
+    for (let x = 0; x < width; x++) {
+      if (!include(x, y)) continue;
+      n++;
+      const o = (y * width + x) * 4;
+      for (let k = 0; k < 4; k++) {
+        const b = rgba[o + k] as number;
+        fnv = Math.imul(fnv ^ b, 0x01000193) >>> 0;
+        djb = (Math.imul(djb, 33) + b) >>> 0;
+      }
+    }
+  return `${n}:${fnv.toString(16)}:${djb.toString(16)}`;
+}
+
+/** Set by a `pass` before it runs: the fixture's control rectangles and the page's CSS width. */
+let passControls: { rects: CssRect[]; cssWidth: number } = { rects: [], cssWidth: 1 };
+/** Written by the pre-fill hook: the mask about to be applied, and digests of what must not change. */
+type Planned = { rects: { x: number; y: number; w: number; h: number }[]; outside: string; controls: string[]; controlsInMask: number };
+let planned: Planned | null = null;
+/** Read through a function: the hook assigns `planned` from inside the pass, which flow analysis cannot see. */
+const plannedNow = (): Planned | null => planned;
+
+const pixelRectOf = (r: CssRect, s: number, width: number, height: number) => ({
+  x0: Math.max(0, Math.ceil(r.x * s)),
+  y0: Math.max(0, Math.ceil(r.y * s)),
+  x1: Math.min(width, Math.floor((r.x + r.w) * s)),
+  y1: Math.min(height, Math.floor((r.y + r.h) * s)),
+});
+
+/**
+ * THE SEAM an evidence build hands the offscreen document: an instrumented worker spawn, and a
+ * pre-fill hook that records the mask and DIGESTS of everything that must stay unchanged — so the
+ * sanitized frame can be verified afterwards with no raw copy kept anywhere.
+ */
+export const tr01Seam = {
+  spawn: instrumentedSpawn,
+  onStage(stage: string) {
+    mark(`stage:${stage}`);
+  },
+  onMaskPlanned(frame: { width: number; height: number; rgba: Uint8ClampedArray | Uint8Array }, rects: readonly { x: number; y: number; w: number; h: number }[]) {
+    const rgba = frame.rgba as Uint8ClampedArray;
+    const masked = new Uint8Array(frame.width * frame.height);
+    for (const r of rects)
+      for (let y = Math.max(0, r.y); y < Math.min(frame.height, r.y + r.h); y++)
+        for (let x = Math.max(0, r.x); x < Math.min(frame.width, r.x + r.w); x++) masked[y * frame.width + x] = 1;
+    const s = frame.width / passControls.cssWidth;
+    let controlsInMask = 0;
+    const controls = passControls.rects.map((c) => {
+      const b = pixelRectOf(c, s, frame.width, frame.height);
+      for (let y = b.y0; y < b.y1; y++) for (let x = b.x0; x < b.x1; x++) if (masked[y * frame.width + x]) controlsInMask++;
+      return digest(rgba, frame.width, frame.height, (x, y) => x >= b.x0 && x < b.x1 && y >= b.y0 && y < b.y1);
+    });
+    mark("maskPlanned");
+    planned = {
+      rects: rects.map((r) => ({ x: r.x, y: r.y, w: r.w, h: r.h })),
+      outside: digest(rgba, frame.width, frame.height, (x, y) => masked[y * frame.width + x] === 0),
+      controls,
+      controlsInMask,
+    };
+  },
+};
+
+// The offscreen realm's network arrivals, from here on (test build only).
+const offscreenArrivals: { origin: string; foreign: boolean }[] = [];
+{
+  const self = new URL(globalThis.location.href).origin;
+  const nativeFetch = globalThis.fetch;
+  globalThis.fetch = ((input: RequestInfo | URL, init?: RequestInit) => {
+    let origin = "unparseable";
+    try {
+      origin = new URL(typeof input === "string" ? input : input instanceof URL ? input.href : input.url, globalThis.location.href).origin;
+    } catch {
+      /* recorded as unparseable */
+    }
+    offscreenArrivals.push({ origin, foreign: origin !== self });
+    return nativeFetch.call(globalThis, input, init);
+  }) as typeof fetch;
+}
+
+async function pass(msg: Record<string, unknown>, ctx: Tr01ProbeContext): Promise<unknown> {
+  const tabId = Number(msg["tabId"]);
+  const frameId = Number(msg["frameId"] ?? 0);
+  passControls = { rects: (msg["controlRects"] as CssRect[] | undefined) ?? [], cssWidth: Number(msg["cssWidth"] ?? 1) };
+  planned = null;
+  timeline = [];
+  const corrupt = msg["corrupt"];
+  const adjustRegions =
+    corrupt === "nan-rect"
+      ? (rs: readonly { id: string; rect: CssRect }[]) => rs.map((r, i) => ({ id: r.id, rect: i === 0 ? { ...r.rect, w: NaN } : r.rect }))
+      : corrupt === "duplicate-id"
+        ? (rs: readonly { id: string; rect: CssRect }[]) => [...rs.map((r) => ({ id: r.id, rect: r.rect })), ...(rs[0] ? [{ id: rs[0].id, rect: rs[0].rect }] : [])]
+        : undefined;
+  const deadlineMs = typeof msg["deadlineMs"] === "number" ? msg["deadlineMs"] : undefined;
+  const t0 = performance.now();
+  const { observed, summary } = await ctx.perceiveTab(tabId, frameId, {
+    ...(adjustRegions ? { adjustRegions } : {}),
+    ...(deadlineMs === undefined ? {} : { detectorDeadlineMs: deadlineMs }),
+  });
+  const wallMs = performance.now() - t0;
+  const frame = ctx.sanitizedFrame();
+
+  let verification: unknown = null;
+  const p = plannedNow();
+  if (frame && p) {
+    const masked = new Uint8Array(frame.width * frame.height);
+    for (const r of p.rects) for (let y = Math.max(0, r.y); y < Math.min(frame.height, r.y + r.h); y++) for (let x = Math.max(0, r.x); x < Math.min(frame.width, r.x + r.w); x++) masked[y * frame.width + x] = 1;
+    let maskPixels = 0;
+    let notFill = 0;
+    for (let i = 0; i < masked.length; i++) {
+      if (!masked[i]) continue;
+      maskPixels++;
+      const o = i * 4;
+      if (!(frame.rgba[o] === MASK_FILL.r && frame.rgba[o + 1] === MASK_FILL.g && frame.rgba[o + 2] === MASK_FILL.b && frame.rgba[o + 3] === MASK_FILL.a)) notFill++;
+    }
+    const s = frame.width / passControls.cssWidth;
+    const ink = ((msg["inkRects"] as CssRect[] | undefined) ?? []).map((r) => {
+      const b = pixelRectOf(r, s, frame.width, frame.height);
+      let pixels = 0;
+      let uncovered = 0;
+      for (let y = b.y0; y < b.y1; y++)
+        for (let x = b.x0; x < b.x1; x++, pixels++) {
+          const o = (y * frame.width + x) * 4;
+          if (!(frame.rgba[o] === 0 && frame.rgba[o + 1] === 0 && frame.rgba[o + 2] === 0 && frame.rgba[o + 3] === 255)) uncovered++;
+        }
+      return { pixels, uncovered };
+    });
+    const controlsAfter = passControls.rects.map((c) => {
+      const b = pixelRectOf(c, s, frame.width, frame.height);
+      return digest(frame.rgba, frame.width, frame.height, (x, y) => x >= b.x0 && x < b.x1 && y >= b.y0 && y < b.y1);
+    });
+    verification = {
+      maskPixels,
+      maskPixelsNotFill: notFill,
+      outsideMaskUnchanged: digest(frame.rgba, frame.width, frame.height, (x, y) => masked[y * frame.width + x] === 0) === p.outside,
+      ink,
+      controlsUnchanged: controlsAfter.every((d, i) => d === p.controls[i]),
+      controlPixelsInsideMask: p.controlsInMask,
+      rawCopyKeptByProbe: false,
+    };
+  }
+  const summaryOut: Record<string, unknown> = { ...(summary as object) };
+  delete (summaryOut as Record<string, unknown>)["elements"];
+  delete (summaryOut as Record<string, unknown>)["sourceBySelector"];
+  return {
+    viewport: observed.viewport,
+    visualRegions: observed.visualRegions,
+    summary: summaryOut,
+    frameHeld: frame !== null,
+    frame: frame ? { width: frame.width, height: frame.height, rgbaBytes: frame.rgba.byteLength } : null,
+    verification,
+    tr01: ctx.tr01Status(),
+    // Relative to the pass's start, in this realm's clock.
+    timeline: timeline.map((e) => ({ ...e, at: e.at - t0 })),
+    wallMs,
+  };
+}
+
+export function serveTr01Probe(message: unknown, sender: { tab?: unknown }, sendResponse: (reply: unknown) => void, context?: Tr01ProbeContext): boolean {
   const msg = message as Record<string, unknown> | null;
   if (msg?.["kind"] !== "TR01_PROBE") return false;
   if (sender.tab) {
     sendResponse({ refused: "TR01_PROBE_ONLY_FROM_SERVICE_WORKER" });
     return true;
   }
-  void step(msg).then(sendResponse, (e: unknown) => sendResponse({ error: e instanceof Error ? `${e.name}: ${e.message}` : String(e) }));
+  const run =
+    msg["op"] === "pass"
+      ? context
+        ? pass(msg, context)
+        : Promise.resolve({ error: "no offscreen context" })
+      : msg["op"] === "product-state"
+        ? // Preflight: the product host's state and whether a sanitized frame is held — no stale pass.
+          Promise.resolve(context ? { tr01: context.tr01Status(), sanitizedFrameHeld: context.sanitizedFrame() !== null } : { error: "no offscreen context" })
+      : msg["op"] === "offscreen-arrivals"
+        ? Promise.resolve({ arrivals: offscreenArrivals.length, foreign: offscreenArrivals.filter((a) => a.foreign).length, origins: [...new Set(offscreenArrivals.map((a) => a.origin))] })
+        : step(msg);
+  void run.then(sendResponse, (e: unknown) => sendResponse({ error: e instanceof Error ? `${e.name}: ${e.message}` : String(e) }));
   return true;
 }

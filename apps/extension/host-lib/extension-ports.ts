@@ -44,7 +44,8 @@ import {
 } from "@pratibimb/orchestrator";
 import { type ReasonerClient, type ReasonerKind } from "@pratibimb/reasoner";
 
-import { type PerceptionSummary } from "./perception-realm";
+import { type PerceptionOptions, type PerceptionSummary } from "./perception-realm";
+import type { VisualRegionReading } from "@pratibimb/extension-transport";
 
 
 export interface ExtensionPortsOptions {
@@ -69,7 +70,9 @@ export interface ExtensionPortsOptions {
   perceive?(
     graph: ElementGraph,
     measurement: ViewportMeasurement,
-    options?: { readonly collect?: boolean; readonly documentId?: string | null }
+    /** M10.6: the same reading's visual-only regions. Required: the redaction stage plans against them. */
+    visualRegions: readonly VisualRegionReading[],
+    options?: PerceptionOptions
   ): Promise<PerceptionSummary>;
 }
 
@@ -143,7 +146,7 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
 
   const observe = async (): Promise<Observation> => {
     report.observations += 1;
-    const { graph, focus, viewport, structure } = await observeBoundDocument(options.relay, options.binding);
+    const { graph, focus, viewport, structure, visualRegions } = await observeBoundDocument(options.relay, options.binding);
     latestFrame = graph.frameId;
 
     /**
@@ -173,6 +176,8 @@ export function createExtensionPorts(options: ExtensionPortsOptions): ExtensionP
         scrollY: viewport.scrollY,
           origin: options.origin,
         },
+        // M10.6: the same reading's visual-only regions, so the frame is redacted against them.
+        visualRegions,
         // Bind the grant to the document this reading belongs to, as the browser attested it.
         { documentId: options.binding.document.documentId }
       );
