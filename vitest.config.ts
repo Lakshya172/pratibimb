@@ -6,7 +6,9 @@ export default defineConfig({
     // in an offscreen document and in a dedicated worker, so the unit suite runs in plain
     // Node and the BROWSER matrix (G1/G2/G3) is a separate, real-browser gate.
     environment: "node",
-    include: ["packages/*/test/**/*.test.ts"],
+    // `apps/*/test` holds the demo-reliability suite: the presenter-facing behaviour that has to
+    // keep working, checked without a browser so it runs in the ordinary gate.
+    include: ["packages/*/test/**/*.test.ts", "apps/*/test/**/*.test.ts"],
     reporters: ["default"],
   },
   resolve: {

@@ -19,4 +19,5 @@ export {
   type EgressRefusalCause,
   type EgressRequest,
   type EgressTransport,
+  type PeerReceipt,
 } from "./guard.js";

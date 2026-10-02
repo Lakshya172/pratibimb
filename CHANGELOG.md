@@ -52,6 +52,57 @@ fixture in Chrome for Testing 153.0.8010.12
   values**, and the client's digest matched the receiving service's independently computed one
   (`26d7c09f…`). Bodies are on disk under the experiment's `logs/captures/`.
 
+**The demo, rehearsed until it is boring** — W2, Chrome for Testing 153.0.8010.12, 5 rounds, 15 acts,
+no unexpected failures ([DEMO-1](artifacts/experiments/DEMO-1-sih-rehearsal/README.md)).
+
+- **`npm run demo`** starts every service, rehearses all three acts and judges itself against
+  declared expectations; **`npm run demo:present`** hands a headful browser to a presenter. The acts
+  live in `apps/demo/src/demoScript.ts` as data, so the buttons, the runner and the tests read one
+  definition — and an act chooses only **which reasoner answers and at what address**. No security
+  layer beneath can tell which act is running.
+- **The compromised and honest reasoners listen at the same time** on different ports, so a presenter
+  can run success → reset → refusal → reset → outage without restarting anything. The outage act
+  addresses a port with nothing behind it, so the connection is genuinely refused; the resulting
+  `ERR_CONNECTION_REFUSED` is **asserted as evidence**, because a clean console there would mean the
+  act had become a simulation.
+- **The digest comparison is now visible during the demo.** The receiving service reports what it got
+  in a response header and `sendVerified` records the claim beside its own digest. **This is not a
+  security control**: it is read after the send, gates nothing, and a hostile peer could put any
+  string in it. The guarantee is unchanged — the bytes that were scanned are the bytes that were sent.
+- Presenter material: [`presenter-runbook.md`](docs/demo/presenter-runbook.md) and
+  [`judge-cheat-sheet.md`](docs/demo/judge-cheat-sheet.md), whose answers use demonstrated facts only
+  and say "NOT PROVEN" where that is the honest answer.
+
+### Fixed in the demo surface
+- **The LOOP-1 runner had been failing since the DEMO-1 view change**, on two copy assertions ("no egress
+  client", "REFUSED") that the view had rightly stopped printing. They now assert the current, truthful
+  wording; every security assertion in that runner is unchanged.
+- **The LOOP-2 runner's refusal run had silently become an outage.** The reasoner service started defaulting
+  hostile mode to a second port, so LOOP-2 — which addresses the first — hit a dead address, fell back and
+  "succeeded". Every mode defaults to the original port again; the SIH runner passes its second port
+  explicitly.
+- **Entrance animations started from opacity 0**, so a browser that paused them — an occluded window, some
+  screen-capture paths — left the boundary rows and the outcome invisible. They now move but never fade.
+- **The `local model` checkbox was dead UI** — nothing read it, so ticking it silently ran the
+  deterministic planner. A control that implied a path which was not exercised.
+- **The footer and pane 5 still claimed "no model, no network client" and "no egress client exists in
+  this phase"**, both untrue since LOOP-2.
+- **`sweep` threw on a cyclic object**, which mid-demo would have taken out the evidence pane — and a
+  caller catching that throw would have been one line from reporting a leak check as clean because it
+  could not run. It now prunes cycles and reports that it did.
+
+**The demo, redesigned for the room** — the same three acts and the same pipeline, presented as a story a
+judge can follow from across a room.
+
+- The Planning View now leads with the privacy boundary — *On your device* (trusted, the real values) against
+  *What the reasoner sees* (untrusted, references only) — then *Model proposes → Client decides → Human
+  approval → Restore & act* and one outcome banner. The detailed panes remain underneath as technical evidence.
+- Every status on screen comes from `apps/demo/src/story.ts`: pure functions over the run record, tested
+  against real runs, including that nothing but the device side ever carries a value.
+- Read-only taps let the screen fill in *during* the run; the approval moment used to show empty panes. They
+  pass every call through unchanged and catch their own errors, because a throw inside `propose` would be
+  read as `REASONER_THREW` and trigger a fallback.
+
 ### Notes on the model
 - **`MODEL_PATH = EXPERIMENTAL`, `FALLBACK_PATH = VERIFIED`.** A 0.5B model given the bare schema
   produced schema-valid nonsense; it needed enum-constrained decoding and a worked example before it

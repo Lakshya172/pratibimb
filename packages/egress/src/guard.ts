@@ -48,6 +48,36 @@ const TOKEN_PATTERN = /<PII:[A-Z]+:\d+>/g;
 
 export type EgressTransport = "LOOPBACK_HTTP";
 
+/**
+ * Headers a receiving service may use to state what it believes it received.
+ *
+ * **This is not a security control and must never be read as one.** The guarantee this module
+ * provides is that the bytes which were scanned are the bytes that were sent — one string, produced
+ * once (step 3), used for every subsequent step. That property holds whether or not any peer says
+ * anything.
+ *
+ * What the receipt adds is a *second party's* arithmetic. The client says "I sent bytes whose digest
+ * is X"; the peer says "I received bytes whose digest is Y". When X equals Y, the bytes were not
+ * altered between here and there. When they differ — or when the peer says nothing at all — that is
+ * information, not a refusal: a hostile peer can claim any digest it likes, so agreement is evidence
+ * only in the cooperative case and is recorded as a claim, never as a verdict.
+ */
+const PEER_SHA_HEADER = "x-pratibimb-received-sha256";
+const PEER_BYTES_HEADER = "x-pratibimb-received-bytes";
+
+/** What the far end claimed about the bytes it got. Untrusted by construction. */
+export interface PeerReceipt {
+  /** The digest the peer reported, verbatim, or `null` if it reported none. */
+  readonly sha256: string | null;
+  readonly bytes: number | null;
+  /**
+   * Whether the peer's digest matches the one this module computed over the bytes it sent.
+   *
+   * `null` means the peer did not claim one — absence of a cross-check, not a failed cross-check.
+   */
+  readonly agrees: boolean | null;
+}
+
 export type EgressRefusalCause =
   | "HANDOFF_NOT_VERIFIED"
   | "DESTINATION_NOT_LOOPBACK"
@@ -80,6 +110,13 @@ export interface EgressRecord {
   readonly references: readonly string[];
   readonly responseStatus: number | null;
   readonly responseBytes: number | null;
+  /**
+   * What the far end said it received. A cross-check, not a guarantee — see {@link PeerReceipt}.
+   *
+   * Absent when the response carried no receipt headers at all, which is the normal case for any
+   * service that was not built to answer this question.
+   */
+  readonly peerReceipt?: PeerReceipt;
   readonly elapsedMs: number;
 }
 
@@ -236,6 +273,22 @@ export async function sendVerified(request: EgressRequest): Promise<EgressOutcom
     clearTimeout(timer);
   }
 
+  // ── 8. what the far end claims it got ─────────────────────────────────────────────────────
+  // Read after the send, never before it, and it gates nothing: by this point the bytes have
+  // already gone. A peer that lies about this changes only the record, and the record says the
+  // number came from the peer. Absent headers are absence of a cross-check, not a failure of one.
+  const claimedSha = response.headers.get(PEER_SHA_HEADER);
+  const claimedBytes = response.headers.get(PEER_BYTES_HEADER);
+  const parsedBytes = claimedBytes === null ? null : Number.parseInt(claimedBytes, 10);
+  const peerReceipt: PeerReceipt | null =
+    claimedSha === null && claimedBytes === null
+      ? null
+      : {
+          sha256: claimedSha,
+          bytes: parsedBytes !== null && Number.isFinite(parsedBytes) ? parsedBytes : null,
+          agrees: claimedSha === null ? null : claimedSha === payloadSha256,
+        };
+
   return {
     sent: true,
     responseText,
@@ -251,6 +304,7 @@ export async function sendVerified(request: EgressRequest): Promise<EgressOutcom
       references: carried,
       responseStatus: response.status,
       responseBytes: utf8Length(responseText),
+      ...(peerReceipt ? { peerReceipt } : {}),
       elapsedMs: clock() - startedAt,
     },
   };
