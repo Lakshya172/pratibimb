@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * M10.4 — the TR-01 detector worker in the REAL extension, on W1. No gesture, no capture, no egress.
+ * M10.4 — the TR-01 detector worker in the REAL extension. No gesture, no capture, no egress.
  *
  * Requires the evidence build (the probe and the memory instrument are absent from a product build):
  *   TR01_PROBE=1 npm run build -w @pratibimb/extension
@@ -8,8 +8,12 @@
  * WHAT IT DOES, through the offscreen document's `TR01_PROBE` (service worker only):
  *   1. the existing UI head in the offscreen realm: load + 1 warm-up + N runs (combined workload);
  *   2. create the host → prepare (runtime pin, model fetch + SHA-256, session) → model-load latency;
- *   3. TR-01 on the seven M8.1 frames (dev, H1–H6) — output compared EXACTLY with M8.1's recorded
- *      boxes and scores (the WASM map M8.1 recorded, same pinned runtime) — then warm repetitions;
+ *   3. TR-01 on the seven frozen frames (dev, H1–H6) — output compared EXACTLY with THIS
+ *      WORKSTATION'S baseline boxes and scores, both WASM-derived — then warm repetitions.
+ *      On W1 that baseline is M8.1's historical run record; elsewhere it is the workstation's own,
+ *      because M8.2's native reference is machine-local (see support/m82-baseline.mjs). Equality
+ *      stays exact; an unknown machine refuses rather than borrowing a baseline.
+ *      `--establish-baseline` fills the WASM stage of this machine's baseline and exits non-zero;
  *   4. two concurrent requests: the second must be DETECTOR_BUSY;
  *   5. terminate (dispose) → recreate → run again → identical output;
  *   6. a run with the deadline TIGHTENED to 50 ms → DETECTOR_TIMEOUT, worker terminated → the next
@@ -26,13 +30,23 @@ import { cpus, release, tmpdir } from "node:os";
 
 import { ROOT } from "../demo/server.mjs";
 import { decodePng } from "../support/png-decode.mjs";
+import { baselinePath, fixturesDir, loadBaseline } from "../support/m82-baseline.mjs";
+import { scoreImage } from "../support/redaction-metrics.mjs";
 import { assertOwnEvidencePath, evidenceFileName, provenanceOf, resolveWorkstation } from "../support/workstation.mjs";
 
 const WS = resolveWorkstation();
 const EXT = join(ROOT, "apps", "extension", ".output", "chrome-mv3");
 const OUT = join(ROOT, "artifacts", "experiments", "M10-visual-redaction-integration", "logs");
-const FIX = join(ROOT, "artifacts", "experiments", "M8.2-qg03-visual-text-feasibility", "models", "fixtures");
-const M81 = JSON.parse(readFileSync(join(ROOT, "artifacts", "experiments", "M8.1-visual-text-screening", "results", "tr-01-run1.json"), "utf8"));
+const FIX = fixturesDir(WS);
+/**
+ * The WASM stage of baseline establishment lives here, because this is the only harness that runs the
+ * real ORT WASM session inside the real extension. M8.1's recorded boxes were WASM-derived, so a
+ * baseline whose boxes came from the native reference is not the quantity these harnesses compare —
+ * `loadBaseline` refuses such a baseline until this stage has filled it in.
+ */
+const ESTABLISH = process.argv.includes("--establish-baseline");
+const BASELINE_PATH = baselinePath("TR-01", WS);
+const HELD_OUT = JSON.parse(readFileSync(join(ROOT, "tests", "browser", "extension", "fixture", "heldout", "groundtruth.json"), "utf8"));
 const NAMES = ["dev", "H1", "H2", "H3", "H4", "H5", "H6"];
 const WARM_DEV = 20;
 const WARM_HELD_OUT = 3;
@@ -54,7 +68,17 @@ const offscreenChunks = readdirSync(join(EXT, "chunks")).filter((f) => f.startsW
 if (!offscreenChunks.includes("TR01_PROBE_ONLY_FROM_SERVICE_WORKER")) {
   refuse("this build has no TR-01 probe (absent from product builds by design). Build: TR01_PROBE=1 npm run build -w @pratibimb/extension");
 }
-for (const n of NAMES) if (!existsSync(join(FIX, "screenshots", `${n}.png`))) refuse(`missing M8.2 fixture screenshots/${n}.png`);
+for (const n of NAMES) if (!existsSync(join(FIX, "screenshots", `${n}.png`))) refuse(`missing M8.2 fixture screenshots/${n}.png for ${WS.id}`);
+if (ESTABLISH && WS.id === "W1") refuse("W1's baseline is M8.1's historical run record. It is immutable and is never re-established.");
+if (ESTABLISH && !existsSync(BASELINE_PATH)) refuse(`no native stage to complete at ${BASELINE_PATH}; run prepare-fixtures.mjs --establish-baseline first`);
+/**
+ * In establishment mode the baseline is read raw, because `loadBaseline` deliberately refuses a
+ * baseline whose WASM stage is incomplete — which is exactly the state this run exists to leave.
+ */
+const BASELINE = ESTABLISH ? JSON.parse(readFileSync(BASELINE_PATH, "utf8")) : loadBaseline("TR-01", WS);
+if (ESTABLISH && BASELINE.establishment?.stage !== "NATIVE") {
+  refuse(`${BASELINE_PATH} is not at the NATIVE stage (found ${JSON.stringify(BASELINE.establishment?.stage)}); re-run prepare-fixtures.mjs --establish-baseline`);
+}
 
 const stats = (xs) => {
   const s = [...xs].sort((a, b) => a - b);
@@ -63,7 +87,7 @@ const stats = (xs) => {
 };
 const MB = (b) => (b === null || b === undefined ? null : Math.round((b / 1048576) * 10) / 10);
 const boxesOf = (o) => (o?.ok ? o.detections : null);
-const sameAsM81 = (name, detections) => JSON.stringify(detections) === JSON.stringify(M81.inputs[name].boxes);
+const sameAsBaseline = (name, detections) => JSON.stringify(detections) === JSON.stringify(BASELINE.inputs[name].boxes);
 
 const record = { stages: {}, runs: {}, checks: {}, memory: {}, failure: null };
 let context = null;
@@ -176,7 +200,7 @@ try {
   await probe({ op: "dispose" });
 
   // ── checks ──
-  const golden = Object.fromEntries(NAMES.map((n) => [n, first[n].outcome?.ok === true && sameAsM81(n, first[n].outcome.detections)]));
+  const golden = Object.fromEntries(NAMES.map((n) => [n, first[n].outcome?.ok === true && sameAsBaseline(n, first[n].outcome.detections)]));
   const allDetections = NAMES.flatMap((n) => boxesOf(first[n].outcome) ?? []);
   const workerPeak = peak.workerWasmBytes;
   const offscreenPeak = record.memory["1-offscreen-after-ui-head-warm"].offscreenWasmBytes;
@@ -191,7 +215,7 @@ try {
   const arrivals = peak.workerArrivals;
   record.checks = {
     modelHashVerifiedAtRuntime: prepared.status?.lastInit?.ok === true && prepared.status.lastInit.model.sha256 === "18aaccf9c9cd27656becda13bc0ef31eaa0ea3aef4d45166839f2093561575e8" && prepared.status.lastInit.model.bytes === 4766440,
-    goldenAllSevenFramesEqualM81: Object.values(golden).every(Boolean),
+    goldenAllSevenFramesEqualBaseline: Object.values(golden).every(Boolean),
     deterministicWarmOutput: warmOutputs.every((o) => o === warmOutputs[0]) && warmOutputs[0] === JSON.stringify(boxesOf(first.dev.outcome)),
     geometryOnlyOutput: allDetections.length > 0 && allDetections.every((d) => JSON.stringify(Object.keys(d).sort()) === '["h","score","w","x","y"]'),
     concurrentSecondRefusedBusy: [record.stages.concurrent.a, record.stages.concurrent.b].sort().join(",") === "DETECTOR_BUSY,ok",
@@ -209,20 +233,88 @@ try {
     noForeignNetworkArrivals: arrivals !== null && arrivals.foreign === 0,
   };
   record.golden = golden;
+  record.wasmDetections = Object.fromEntries(NAMES.map((n) => [n, boxesOf(first[n].outcome)]));
 } catch (e) {
   record.failure = `${e.name}: ${String(e.message).slice(0, 400)}`;
 } finally {
   if (context) await context.close();
 }
 
+/**
+ * ESTABLISHMENT — fill the WASM stage of this machine's baseline, then exit non-zero.
+ *
+ * It exits 3 and writes no M10.4 evidence log: an establishment run measured nothing against a
+ * baseline, so it must not leave a record that could later be read as a passing verification. Run the
+ * harness again without the flag to verify against what was established.
+ */
+if (ESTABLISH) {
+  if (record.failure !== null) refuse(`establishment run failed before it could measure: ${record.failure}`);
+  if (!record.wasmDetections || NAMES.some((n) => !Array.isArray(record.wasmDetections[n]))) refuse("the establishment run produced no WASM detections");
+  const geom = (b) => [b.x, b.y, b.w, b.h];
+  const inputs = { ...BASELINE.inputs };
+  const wasmVsNative = {};
+  for (const n of NAMES) {
+    const wasm = record.wasmDetections[n];
+    const native = BASELINE.inputs[n].nativeBoxes;
+    const sameCount = wasm.length === native.length;
+    let maxCoordinate = null;
+    let maxScore = null;
+    if (sameCount) {
+      maxCoordinate = 0;
+      maxScore = 0;
+      for (let i = 0; i < wasm.length; i += 1) {
+        for (const k of ["x", "y", "w", "h"]) maxCoordinate = Math.max(maxCoordinate, Math.abs(wasm[i][k] - native[i][k]));
+        maxScore = Math.max(maxScore, Math.abs(wasm[i].score - native[i].score));
+      }
+    }
+    // The WASM detections become the baseline's authoritative boxes; the native ones are kept beside
+    // them so the web-vs-native comparison M8.1 made on W1 is on the record for this machine too.
+    inputs[n] = { ...BASELINE.inputs[n], boxes: wasm };
+    wasmVsNative[n] = {
+      wasmBoxes: wasm.length,
+      nativeBoxes: native.length,
+      sameCount,
+      geometryIdentical: sameCount && wasm.every((b, i) => geom(b).every((v, k) => v === geom(native[i])[k])),
+      maxCoordinateDifferencePx: maxCoordinate,
+      maxScoreDifference: maxScore,
+    };
+  }
+  const perImage = HELD_OUT.images.map((img) => ({
+    image: img.image,
+    ...scoreImage({ boxes: record.wasmDetections[img.image].map(({ x, y, w, h }) => ({ x, y, w, h })) }, { region: img.region, strings: img.strings }),
+  }));
+  const completed = {
+    ...BASELINE,
+    inputs,
+    heldOut: { perImage },
+    establishment: {
+      stage: "WASM",
+      wasmStageComplete: true,
+      wasmStageAt: new Date().toISOString(),
+      boxesDerivedFrom: "the real ORT WASM session in the extension's offscreen document, via TR01_PROBE — the same provenance as M8.1's recorded boxes",
+      re1DerivedFrom: "scoreImage over those WASM boxes against the frozen held-out ground truth (unchanged scorer)",
+      note: BASELINE.establishment?.note ?? null,
+    },
+    wasmVsNative,
+    runtime: { browserBinary: executablePath, browser: BASELINE.browser ?? null, node: process.version, playwright: require2("playwright/package.json").version },
+  };
+  assertOwnEvidencePath(BASELINE_PATH, WS);
+  writeFileSync(BASELINE_PATH, JSON.stringify(completed, null, 1));
+  console.log(JSON.stringify({ workstation: WS.id, baseline: BASELINE_PATH, stage: "WASM", wasmVsNative, re1: perImage.map((p) => ({ image: p.image, exposedSensitiveGlyphs: p.exposedSensitiveGlyphs, sensitiveGlyphs: p.sensitiveGlyphs, gates: p.gates })) }, null, 1));
+  console.error("\nESTABLISHED — this is NOT a verification pass. Re-run without --establish-baseline to verify.");
+  process.exit(3);
+}
+
 const passed = record.failure === null && Object.keys(record.checks).length > 0 && Object.values(record.checks).every(Boolean);
 const evidence = {
   experiment: "M10.4 — TR-01 detector worker in the real MV3 extension",
   verdict: passed ? "PASS" : "FAIL",
+  baseline: BASELINE_PATH,
   notAClaim: [
     "no tab was captured; frames are M8.2's fixed screenshots handed to the offscreen document",
     "no mask, encode or egress exists yet; TR-01 is not called by any product path",
-    "one workstation (W1), one browser cell; timings are this machine's",
+    `one workstation (${WS.id}), one browser cell; timings are this machine's`,
+    "the golden comparison is against THIS workstation's baseline; M8.2's native reference is machine-local",
   ],
   gates: GATES,
   fixed: { frames: NAMES, warmDevRuns: WARM_DEV, warmHeldOutRunsEach: WARM_HELD_OUT, uiHeadRuns: UI_HEAD_RUNS, coldCycles: COLD_CYCLES, timeoutTestDeadlineMs: 50 },

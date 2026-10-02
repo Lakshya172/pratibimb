@@ -1,0 +1,104 @@
+{
+  "experiment": "M10.6 — RE-1 through the product path, compared with the screened TR-01",
+  "verdict": "PASS",
+  "baseline": "C:\\Users\\OMEN\\Desktop\\pratibimb-w2\\artifacts\\experiments\\M8.2-qg03-visual-text-feasibility\\logs\\w2-baseline-tr-01.json",
+  "heldOut": {
+    "set": "RE-1 held-out visual-text set",
+    "version": 1,
+    "totals": {
+      "images": 6,
+      "strings": 63,
+      "sensitiveStrings": 20,
+      "sensitiveGlyphs": 306,
+      "nonSensitiveStrings": 43
+    }
+  },
+  "notAClaim": [
+    "the frames are the frozen held-out SCREENSHOTS (M8.1's inputs), not tab-stream frames; stream-vs-screenshot pixel equivalence (G-3) is measured separately",
+    "RE-1 bounds exposure on a small synthetic set; no recall claim beyond it"
+  ],
+  "checks": {
+    "allSixImages": true,
+    "boxesAndScoresEqualScreenedTr01": true,
+    "productMaskIsTheCanonicalGeometry": true,
+    "re1ScoresEqualBaseline": true,
+    "zeroExposedSensitiveGlyphs": true
+  },
+  "images": [
+    {
+      "image": "H1",
+      "detections": 11,
+      "boxesAndScoresEqualBaseline": true,
+      "productMaskEqualsCanonical": true,
+      "productFailClosed": false,
+      "scoreEqualsBaseline": true,
+      "exposedSensitiveGlyphs": 0,
+      "baselineExposedSensitiveGlyphs": 0,
+      "sensitiveGlyphs": 40
+    },
+    {
+      "image": "H2",
+      "detections": 11,
+      "boxesAndScoresEqualBaseline": true,
+      "productMaskEqualsCanonical": true,
+      "productFailClosed": false,
+      "scoreEqualsBaseline": true,
+      "exposedSensitiveGlyphs": 0,
+      "baselineExposedSensitiveGlyphs": 0,
+      "sensitiveGlyphs": 64
+    },
+    {
+      "image": "H3",
+      "detections": 7,
+      "boxesAndScoresEqualBaseline": true,
+      "productMaskEqualsCanonical": true,
+      "productFailClosed": false,
+      "scoreEqualsBaseline": true,
+      "exposedSensitiveGlyphs": 0,
+      "baselineExposedSensitiveGlyphs": 0,
+      "sensitiveGlyphs": 47
+    },
+    {
+      "image": "H4",
+      "detections": 8,
+      "boxesAndScoresEqualBaseline": true,
+      "productMaskEqualsCanonical": true,
+      "productFailClosed": false,
+      "scoreEqualsBaseline": true,
+      "exposedSensitiveGlyphs": 0,
+      "baselineExposedSensitiveGlyphs": 0,
+      "sensitiveGlyphs": 45
+    },
+    {
+      "image": "H5",
+      "detections": 7,
+      "boxesAndScoresEqualBaseline": true,
+      "productMaskEqualsCanonical": true,
+      "productFailClosed": false,
+      "scoreEqualsBaseline": true,
+      "exposedSensitiveGlyphs": 0,
+      "baselineExposedSensitiveGlyphs": 0,
+      "sensitiveGlyphs": 51
+    },
+    {
+      "image": "H6",
+      "detections": 13,
+      "boxesAndScoresEqualBaseline": true,
+      "productMaskEqualsCanonical": true,
+      "productFailClosed": false,
+      "scoreEqualsBaseline": true,
+      "exposedSensitiveGlyphs": 0,
+      "baselineExposedSensitiveGlyphs": 0,
+      "sensitiveGlyphs": 59
+    }
+  ],
+  "failure": null,
+  "recordedAt": "2026-10-02T09:23:26.089Z",
+  "provenance": {
+    "workstation": "W2",
+    "host": "LAPTOP-SRCINK2B",
+    "workstationSource": "registry",
+    "browserBinary": "C:\\Users\\OMEN\\pratibimb-browsers\\cft-153.0.8010.12\\chrome.exe",
+    "build": "TR01_PROBE=1 (evidence build)"
+  }
+}

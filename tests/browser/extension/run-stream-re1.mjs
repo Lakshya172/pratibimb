@@ -37,6 +37,7 @@ import { isDeepStrictEqual } from "node:util";
 import { ROOT, startDemoServer } from "../demo/server.mjs";
 import { scoreImage } from "../support/redaction-metrics.mjs";
 import { connectSrcOf, manifestRouteSha } from "../support/build-route.mjs";
+import { baselinePath, fixturesDir, loadBaseline } from "../support/m82-baseline.mjs";
 import { assertOwnEvidencePath, evidenceFileName, provenanceOf, resolveWorkstation } from "../support/workstation.mjs";
 
 const WS = resolveWorkstation();
@@ -47,9 +48,10 @@ const DPRS = (process.env.M12_DPRS ?? "1,1.25,1.5,2").split(",").map(Number);
 const WAIT_MS = Number(process.env.M12_GESTURE_WAIT_MS ?? 30 * 60_000);
 const PASSES = 3;
 const DRY = process.env.M12_DRY_RUN === "1";
-const HELD_OUT_DIR = join(ROOT, "artifacts", "experiments", "M8.2-qg03-visual-text-feasibility", "models", "fixtures", "screenshots");
+const HELD_OUT_DIR = join(fixturesDir(resolveWorkstation()), "screenshots");
 const HELD_OUT = JSON.parse(readFileSync(join(ROOT, "tests", "browser", "extension", "fixture", "heldout", "groundtruth.json"), "utf8"));
-const M81 = JSON.parse(readFileSync(join(ROOT, "artifacts", "experiments", "M8.1-visual-text-screening", "results", "tr-01-run1.json"), "utf8"));
+/** This workstation's baseline: M8.2's native reference is machine-local. See support/m82-baseline.mjs. */
+const BASELINE = loadBaseline("TR-01", resolveWorkstation());
 const TR01_SHA256 = /onnx:[\s\S]*?sha256:\s*"([0-9a-f]{64})"/.exec(readFileSync(join(APP, "host-lib", "tr01-pin.ts"), "utf8"))?.[1] ?? null;
 
 const refuse = (m) => {
@@ -204,15 +206,15 @@ try {
         const cssDetections = first.detections.map((d) => ({ ...d, x: d.x * s, y: d.y * s, w: d.w * s, h: d.h * s }));
         const boxes = cssDetections.map(({ x, y, w, h }) => ({ x, y, w, h }));
         const score = scoreImage({ boxes }, { region: img.region, strings: img.strings });
-        const m81Boxes = M81.inputs[img.image].boxes;
-        const m81Score = M81.heldOut.perImage.find((q) => q.image === img.image);
+        const baseBoxes = BASELINE.inputs[img.image].boxes;
+        const baseScore = BASELINE.heldOut.perImage.find((q) => q.image === img.image);
         let coord = null;
         let scoreDiff = null;
-        if (cssDetections.length === m81Boxes.length) {
+        if (cssDetections.length === baseBoxes.length) {
           coord = 0;
           scoreDiff = 0;
           cssDetections.forEach((a, k) => {
-            const b = m81Boxes[k];
+            const b = baseBoxes[k];
             coord = Math.max(coord, Math.abs(a.x - b.x), Math.abs(a.y - b.y), Math.abs(a.w - b.w), Math.abs(a.h - b.h));
             scoreDiff = Math.max(scoreDiff, Math.abs(a.score - b.score));
           });
@@ -237,9 +239,9 @@ try {
           g3LargestBoxShare: score.largestSingleBoxRegionShare,
           gates: score.gates,
           sensitiveGlyphs: score.sensitiveGlyphs,
-          vsM81: { detections: cssDetections.length, m81Detections: m81Boxes.length, boxesExactlyEqual: isDeepStrictEqual(cssDetections, m81Boxes), maxCoordinateDifferencePx: coord, maxScoreDifference: scoreDiff, re1ScoreEqual: isDeepStrictEqual({ image: img.image, ...score }, m81Score) },
+          vsBaseline: { baseline: baselinePath("TR-01", resolveWorkstation()), detections: cssDetections.length, baselineDetections: baseBoxes.length, boxesExactlyEqual: isDeepStrictEqual(cssDetections, baseBoxes), maxCoordinateDifferencePx: coord, maxScoreDifference: scoreDiff, re1ScoreEqual: isDeepStrictEqual({ image: img.image, ...score }, baseScore) },
         });
-        console.log(`    ${img.image}: ${first.detections.length} boxes, exposed ${score.exposedSensitiveGlyphs}/${score.sensitiveGlyphs}, gates ${Object.values(score.gates).every(Boolean) ? "PASS" : "FAIL"}, deterministic ${images.at(-1).deterministicAcrossPasses}, max Δ vs M8.1 ${coord?.toFixed(3) ?? "n/a"} px`);
+        console.log(`    ${img.image}: ${first.detections.length} boxes, exposed ${score.exposedSensitiveGlyphs}/${score.sensitiveGlyphs}, gates ${Object.values(score.gates).every(Boolean) ? "PASS" : "FAIL"}, deterministic ${images.at(-1).deterministicAcrossPasses}, max Δ vs baseline ${coord?.toFixed(3) ?? "n/a"} px`);
       }
       const captures = images.flatMap((i) => i.passes.map((p) => p.capture));
       cell.stream = {

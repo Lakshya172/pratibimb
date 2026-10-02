@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 /**
  * M10.6 — RE-1 ON THE PRODUCT PATH: the six frozen held-out frames through the product's TR-01 host
- * and the product's redaction path, scored by the frozen RE-1 scorer, compared with M8.1.
+ * and the product's redaction path, scored by the frozen RE-1 scorer, compared with THIS
+ * WORKSTATION'S M8.2 baseline (W1: M8.1's historical record; elsewhere the machine's own, because
+ * M8.2's native reference is machine-local — see tests/browser/support/m82-baseline.mjs).
  *
  * Requires the evidence build (the probe carries the frames in; the product path does the work):
  *   TR01_PROBE=1 npm run build -w @pratibimb/extension
@@ -9,9 +11,9 @@
  * For each of H1–H6 (M8.2's git-ignored copies of the frozen held-out screenshots, 1280×720, DPR 1):
  *   TR-01 in the real worker → reportFromFullFrame → sanitizeFrame, with the held-out visual region.
  * Required, EXACTLY:
- *   - boxes and scores equal M8.1's recorded run1 boxes (the screened TR-01);
+ *   - boxes and scores equal this workstation's baseline boxes (the screened TR-01);
  *   - the product's CSS mask equals the canonical `redactionMask(boxes, region)` the scorer uses;
- *   - `scoreImage` over the product's boxes equals M8.1's recorded per-image RE-1 score, field for field;
+ *   - `scoreImage` over the product's boxes equals the baseline's per-image RE-1 score, field for field;
  *   - the RE-1 verdict (0 exposed sensitive glyphs) is unchanged.
  * A difference is reported and the run FAILS. Nothing is tuned, and the held-out set is read, never
  * written.
@@ -28,13 +30,19 @@ import { redactionMask } from "../../../packages/privacy/src/redactionGeometry.t
 import { ROOT } from "../demo/server.mjs";
 import { decodePng } from "../support/png-decode.mjs";
 import { scoreImage } from "../support/redaction-metrics.mjs";
+import { baselinePath, fixturesDir, loadBaseline } from "../support/m82-baseline.mjs";
 import { assertOwnEvidencePath, evidenceFileName, provenanceOf, resolveWorkstation } from "../support/workstation.mjs";
 
 const WS = resolveWorkstation();
 const EXT = join(ROOT, "apps", "extension", ".output", "chrome-mv3");
 const OUT = join(ROOT, "artifacts", "experiments", "M10-visual-redaction-integration", "logs");
-const FIX = join(ROOT, "artifacts", "experiments", "M8.2-qg03-visual-text-feasibility", "models", "fixtures", "screenshots");
-const M81 = JSON.parse(readFileSync(join(ROOT, "artifacts", "experiments", "M8.1-visual-text-screening", "results", "tr-01-run1.json"), "utf8"));
+const FIX = join(fixturesDir(WS), "screenshots");
+/**
+ * This workstation's baseline, not M8.1's W1 record. M8.2's native reference is machine-local, so a
+ * cross-machine comparison would fail for reasons unrelated to the code under test. The comparison
+ * itself is unchanged and still exact; an unknown machine refuses. See support/m82-baseline.mjs.
+ */
+const BASELINE = loadBaseline("TR-01", WS);
 const HELD_OUT = JSON.parse(readFileSync(join(ROOT, "tests", "browser", "extension", "fixture", "heldout", "groundtruth.json"), "utf8"));
 
 const refuse = (m) => {
@@ -72,19 +80,19 @@ try {
     const r = await probe({ op: "re1-frame", name: img.image, region: img.region });
     if (!r.outcome.ok) throw new Error(`${img.image}: detector refused ${r.outcome.code}`);
     const boxes = r.outcome.detections.map(({ x, y, w, h }) => ({ x, y, w, h }));
-    const recorded = M81.inputs[img.image].boxes;
+    const recorded = BASELINE.inputs[img.image].boxes;
     const score = scoreImage({ boxes }, { region: img.region, strings: img.strings });
-    const m81Score = M81.heldOut.perImage.find((p) => p.image === img.image);
+    const baselineScore = BASELINE.heldOut.perImage.find((p) => p.image === img.image);
     images.push({
       image: img.image,
       detections: boxes.length,
-      boxesAndScoresEqualM81: JSON.stringify(r.outcome.detections) === JSON.stringify(recorded),
+      boxesAndScoresEqualBaseline: JSON.stringify(r.outcome.detections) === JSON.stringify(recorded),
       productMaskEqualsCanonical: JSON.stringify(r.result.cssMask) === JSON.stringify(redactionMask(boxes, img.region)),
       productFailClosed: r.result.failClosed,
       // M8.1 stored each per-image score labelled with its image: `{ image, ...scoreImage(...) }`.
-      scoreEqualsM81: isDeepStrictEqual({ image: img.image, ...score }, m81Score),
+      scoreEqualsBaseline: isDeepStrictEqual({ image: img.image, ...score }, baselineScore),
       exposedSensitiveGlyphs: score.exposedSensitiveGlyphs,
-      m81ExposedSensitiveGlyphs: m81Score?.exposedSensitiveGlyphs ?? null,
+      baselineExposedSensitiveGlyphs: baselineScore?.exposedSensitiveGlyphs ?? null,
       sensitiveGlyphs: score.sensitiveGlyphs,
     });
   }
@@ -96,15 +104,16 @@ try {
 
 const checks = {
   allSixImages: images.length === HELD_OUT.images.length,
-  boxesAndScoresEqualScreenedTr01: images.every((i) => i.boxesAndScoresEqualM81),
+  boxesAndScoresEqualScreenedTr01: images.every((i) => i.boxesAndScoresEqualBaseline),
   productMaskIsTheCanonicalGeometry: images.every((i) => i.productMaskEqualsCanonical && i.productFailClosed === false),
-  re1ScoresEqualM81: images.every((i) => i.scoreEqualsM81),
+  re1ScoresEqualBaseline: images.every((i) => i.scoreEqualsBaseline),
   zeroExposedSensitiveGlyphs: images.every((i) => i.exposedSensitiveGlyphs === 0),
 };
 const passed = failure === null && Object.values(checks).every(Boolean);
 const record = {
-  experiment: "M10.6 — RE-1 through the product path, compared with the screened TR-01 (M8.1)",
+  experiment: "M10.6 — RE-1 through the product path, compared with the screened TR-01",
   verdict: passed ? "PASS" : "FAIL",
+  baseline: baselinePath("TR-01", WS),
   heldOut: { set: HELD_OUT.set, version: HELD_OUT.version, totals: HELD_OUT.totals },
   notAClaim: [
     "the frames are the frozen held-out SCREENSHOTS (M8.1's inputs), not tab-stream frames; stream-vs-screenshot pixel equivalence (G-3) is measured separately",
@@ -121,7 +130,7 @@ const target = assertOwnEvidencePath(join(OUT, evidenceFileName(WS, "cft-re1-pro
 writeFileSync(target, `${JSON.stringify(record, null, 2)}\n`, "utf8");
 console.log(`\n${record.verdict}  RE-1 through the product path`);
 for (const [k, v] of Object.entries(checks)) console.log(`  ${v ? "PASS" : "FAIL"}  ${k}`);
-for (const i of images) console.log(`  ${i.image}: ${i.detections} boxes, exposed ${i.exposedSensitiveGlyphs}/${i.sensitiveGlyphs} (M8.1 ${i.m81ExposedSensitiveGlyphs})`);
+for (const i of images) console.log(`  ${i.image}: ${i.detections} boxes, exposed ${i.exposedSensitiveGlyphs}/${i.sensitiveGlyphs} (${WS.id} baseline ${i.baselineExposedSensitiveGlyphs})`);
 if (failure) console.log(`  failure: ${failure}`);
 console.log(`written: ${target}`);
 process.exit(passed ? 0 : 1);

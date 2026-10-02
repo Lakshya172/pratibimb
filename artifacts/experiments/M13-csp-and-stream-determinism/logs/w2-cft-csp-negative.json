@@ -1,0 +1,737 @@
+{
+  "experiment": "M13 — ADR-0013 CSP negative tests in the real extension (no click)",
+  "phases": {
+    "product": {
+      "name": "product",
+      "csp": "default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self' http://127.0.0.1:8995/v1/chat/completions; style-src 'sha256-m8177FDykU5Du1Rd/j5mkhTgw4bPCr4KkGCjgcTQlvI='; object-src 'none'; base-uri 'none'; form-action 'none'",
+      "legitimate": {
+        "offscreenReloadViolations": [],
+        "ortSmoke": {
+          "ok": true,
+          "pinnedArtifact": {
+            "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+            "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+            "bytes": 27797172,
+            "installedAt": "2026-10-02T09:32:59.018Z"
+          },
+          "wasmCompilationAllowed": {
+            "context": "offscreen",
+            "compiled": true,
+            "instantiated": true,
+            "probeResult": 5,
+            "checkedAt": "2026-10-02T09:32:58.902Z"
+          },
+          "modelBytes": 302960,
+          "outputDims": [
+            1,
+            12,
+            6400
+          ],
+          "ms": {
+            "bootstrap": 118,
+            "session": 781,
+            "firstRun": 135
+          }
+        },
+        "perceptionBoot": null,
+        "sidePanel": {
+          "bodyMargin": "12px",
+          "preBackground": "rgb(244, 245, 247)",
+          "hostStatus": "ok",
+          "violations": []
+        }
+      },
+      "attacks": {
+        "offscreen": {
+          "injected": {
+            "fetch": "REJECTED TypeError",
+            "xhr": "ERROR",
+            "webSocket": "ERROR",
+            "eventSource": "ERROR",
+            "sendBeacon": "QUEUED",
+            "importScripts": "NOT_APPLICABLE",
+            "dynamicImport": "REJECTED TypeError",
+            "webRtcStun": "NO_EVENT",
+            "img": "ERROR",
+            "iframe": "LOADED",
+            "object": "ERROR",
+            "embed": "NO_EVENT",
+            "script": "ERROR",
+            "stylesheet": "ERROR",
+            "prefetch": "ERROR",
+            "video": "ERROR",
+            "audio": "ERROR",
+            "cssBackgroundImage": "APPLIED",
+            "font": "REJECTED NetworkError",
+            "worker": "ERROR",
+            "windowOpen": "OPENED",
+            "formSubmit": "SUBMITTED",
+            "anchorBlank": "CLICKED",
+            "blankIframeOpen": "OPENED",
+            "anchorPing": "CLICKED",
+            "sinkFramePath": "REJECTED TypeError"
+          },
+          "violationsSeenInRealm": [
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/fetch"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/xhr"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "ws://127.0.0.1:8996/offscreen/ws"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/es"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/beacon"
+            },
+            {
+              "directive": "script-src-elem",
+              "blocked": "http://127.0.0.1:8996/offscreen/import.js"
+            },
+            {
+              "directive": "img-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/img"
+            },
+            {
+              "directive": "frame-src",
+              "blocked": "http://127.0.0.1:8996/"
+            },
+            {
+              "directive": "object-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/object"
+            },
+            {
+              "directive": "object-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/object"
+            },
+            {
+              "directive": "object-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/embed"
+            },
+            {
+              "directive": "object-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/embed"
+            },
+            {
+              "directive": "script-src-elem",
+              "blocked": "http://127.0.0.1:8996/offscreen/script.js"
+            },
+            {
+              "directive": "style-src-elem",
+              "blocked": "http://127.0.0.1:8996/offscreen/style.css"
+            },
+            {
+              "directive": "default-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/prefetch"
+            },
+            {
+              "directive": "media-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/video"
+            },
+            {
+              "directive": "media-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/audio"
+            },
+            {
+              "directive": "img-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/cssbg"
+            },
+            {
+              "directive": "font-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/font"
+            },
+            {
+              "directive": "worker-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/worker.js"
+            },
+            {
+              "directive": "form-action",
+              "blocked": "http://127.0.0.1:8996/offscreen/form"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/ping"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8995/m10/frame"
+            }
+          ],
+          "foreignArrivals": [
+            {
+              "at": "2026-10-02T09:33:11.471Z",
+              "proto": "http",
+              "method": "GET",
+              "path": "/offscreen/open",
+              "origin": null
+            },
+            {
+              "at": "2026-10-02T09:33:12.355Z",
+              "proto": "http",
+              "method": "GET",
+              "path": "/offscreen/anchorblank",
+              "origin": null
+            },
+            {
+              "at": "2026-10-02T09:33:13.217Z",
+              "proto": "http",
+              "method": "GET",
+              "path": "/offscreen/iframeopen",
+              "origin": null
+            }
+          ],
+          "foreignArrivalChannels": [
+            "open",
+            "anchorblank",
+            "iframeopen"
+          ],
+          "sinkArrivals": []
+        },
+        "serviceWorker": {
+          "injected": {
+            "fetch": "REJECTED TypeError",
+            "xhr": "NOT_APPLICABLE",
+            "webSocket": "ERROR",
+            "eventSource": "ERROR",
+            "sendBeacon": "NOT_APPLICABLE",
+            "importScripts": "THREW NetworkError",
+            "dynamicImport": "REJECTED TypeError",
+            "webRtcStun": "NOT_APPLICABLE",
+            "tabsCreate": "CREATED",
+            "windowsCreate": "CREATED",
+            "clientsOpenWindow": "REJECTED InvalidAccessError",
+            "sinkFramePath": "REJECTED TypeError"
+          },
+          "violationsSeenInRealm": [
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/serviceWorker/fetch"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "ws://127.0.0.1:8996/serviceWorker/ws"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/serviceWorker/es"
+            },
+            {
+              "directive": "script-src-elem",
+              "blocked": "http://127.0.0.1:8996/serviceWorker/importscripts"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8995/m10/frame"
+            }
+          ],
+          "foreignArrivals": [
+            {
+              "at": "2026-10-02T09:33:17.568Z",
+              "proto": "http",
+              "method": "GET",
+              "path": "/serviceWorker/tabscreate",
+              "origin": null
+            },
+            {
+              "at": "2026-10-02T09:33:18.912Z",
+              "proto": "http",
+              "method": "GET",
+              "path": "/serviceWorker/windowscreate",
+              "origin": null
+            }
+          ],
+          "foreignArrivalChannels": [
+            "tabscreate",
+            "windowscreate"
+          ],
+          "sinkArrivals": []
+        }
+      },
+      "tr01WorkerAttached": "NOT_APPLICABLE",
+      "webRtcControl": {
+        "page": "NO_EVENT",
+        "udpArrivals": 5
+      },
+      "reasonerEndpointControl": {
+        "result": "RESPONSE 400",
+        "arrivals": [
+          "/v1/chat/completions"
+        ]
+      },
+      "navigation": {
+        "result": "ASSIGNED",
+        "arrivals": []
+      },
+      "sinkArrivalsTotal": [
+        "/v1/chat/completions"
+      ],
+      "checks": {
+        "everyRealmInjected": true,
+        "zeroForeignArrivalsThroughCspGovernedChannels": true,
+        "reasonerEndpointReachable": true,
+        "sinkFramePath": true,
+        "offscreenReloadsWithoutViolation": true,
+        "ortAndModelLoad": true,
+        "sidePanelStyledAndRunning": true
+      },
+      "foreignArrivalChannels": {
+        "offscreen": [],
+        "serviceWorker": []
+      },
+      "navigationClass": {
+        "arrivalsByRealm": {
+          "offscreen": [
+            "open",
+            "anchorblank",
+            "iframeopen"
+          ],
+          "serviceWorker": [
+            "tabscreate",
+            "windowscreate"
+          ]
+        },
+        "selfNavigationArrivals": 0,
+        "closed": false
+      },
+      "unexpectedThrows": {
+        "offscreen": [],
+        "serviceWorker": []
+      }
+    },
+    "evidence": {
+      "name": "evidence",
+      "csp": "default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self' http://127.0.0.1:8995; style-src 'sha256-m8177FDykU5Du1Rd/j5mkhTgw4bPCr4KkGCjgcTQlvI='; object-src 'none'; base-uri 'none'; form-action 'none'",
+      "legitimate": {
+        "offscreenReloadViolations": [],
+        "ortSmoke": {
+          "ok": true,
+          "pinnedArtifact": {
+            "artifact": "ort-wasm-simd-threaded.jsep.wasm",
+            "sha256": "db816fadbab47a755170c08f933961e231412ac17f5981f9a62e519708a44dea",
+            "bytes": 27797172,
+            "installedAt": "2026-10-02T09:33:42.680Z"
+          },
+          "wasmCompilationAllowed": {
+            "context": "offscreen",
+            "compiled": true,
+            "instantiated": true,
+            "probeResult": 5,
+            "checkedAt": "2026-10-02T09:33:42.560Z"
+          },
+          "modelBytes": 302960,
+          "outputDims": [
+            1,
+            12,
+            6400
+          ],
+          "ms": {
+            "bootstrap": 122,
+            "session": 985,
+            "firstRun": 136
+          }
+        },
+        "perceptionBoot": null,
+        "sidePanel": {
+          "bodyMargin": "12px",
+          "preBackground": "rgb(244, 245, 247)",
+          "hostStatus": "ok",
+          "violations": []
+        },
+        "perceptionPass": {
+          "error": null,
+          "route": "WORKER_FRAME",
+          "detectorRan": true,
+          "outcome": "SANITIZED",
+          "violationsDuringPass": []
+        }
+      },
+      "attacks": {
+        "offscreen": {
+          "injected": {
+            "fetch": "REJECTED TypeError",
+            "xhr": "ERROR",
+            "webSocket": "ERROR",
+            "eventSource": "ERROR",
+            "sendBeacon": "QUEUED",
+            "importScripts": "NOT_APPLICABLE",
+            "dynamicImport": "REJECTED TypeError",
+            "webRtcStun": "NO_EVENT",
+            "img": "ERROR",
+            "iframe": "LOADED",
+            "object": "ERROR",
+            "embed": "NO_EVENT",
+            "script": "ERROR",
+            "stylesheet": "ERROR",
+            "prefetch": "ERROR",
+            "video": "ERROR",
+            "audio": "ERROR",
+            "cssBackgroundImage": "APPLIED",
+            "font": "REJECTED NetworkError",
+            "worker": "ERROR",
+            "windowOpen": "OPENED",
+            "formSubmit": "SUBMITTED",
+            "anchorBlank": "CLICKED",
+            "blankIframeOpen": "OPENED",
+            "anchorPing": "CLICKED",
+            "sinkFramePath": "RESPONSE 400"
+          },
+          "violationsSeenInRealm": [
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/fetch"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/xhr"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "ws://127.0.0.1:8996/offscreen/ws"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/es"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/beacon"
+            },
+            {
+              "directive": "script-src-elem",
+              "blocked": "http://127.0.0.1:8996/offscreen/import.js"
+            },
+            {
+              "directive": "img-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/img"
+            },
+            {
+              "directive": "frame-src",
+              "blocked": "http://127.0.0.1:8996/"
+            },
+            {
+              "directive": "object-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/object"
+            },
+            {
+              "directive": "object-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/object"
+            },
+            {
+              "directive": "object-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/embed"
+            },
+            {
+              "directive": "object-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/embed"
+            },
+            {
+              "directive": "script-src-elem",
+              "blocked": "http://127.0.0.1:8996/offscreen/script.js"
+            },
+            {
+              "directive": "style-src-elem",
+              "blocked": "http://127.0.0.1:8996/offscreen/style.css"
+            },
+            {
+              "directive": "default-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/prefetch"
+            },
+            {
+              "directive": "media-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/video"
+            },
+            {
+              "directive": "media-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/audio"
+            },
+            {
+              "directive": "img-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/cssbg"
+            },
+            {
+              "directive": "font-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/font"
+            },
+            {
+              "directive": "worker-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/worker.js"
+            },
+            {
+              "directive": "form-action",
+              "blocked": "http://127.0.0.1:8996/offscreen/form"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/offscreen/ping"
+            }
+          ],
+          "foreignArrivals": [
+            {
+              "at": "2026-10-02T09:33:58.564Z",
+              "proto": "http",
+              "method": "GET",
+              "path": "/offscreen/open",
+              "origin": null
+            },
+            {
+              "at": "2026-10-02T09:33:59.451Z",
+              "proto": "http",
+              "method": "GET",
+              "path": "/offscreen/anchorblank",
+              "origin": null
+            },
+            {
+              "at": "2026-10-02T09:34:00.306Z",
+              "proto": "http",
+              "method": "GET",
+              "path": "/offscreen/iframeopen",
+              "origin": null
+            }
+          ],
+          "foreignArrivalChannels": [
+            "open",
+            "anchorblank",
+            "iframeopen"
+          ],
+          "sinkArrivals": [
+            {
+              "path": "/m10/frame",
+              "accepted": false,
+              "reason": "not a WebP container: not RIFF"
+            }
+          ]
+        },
+        "serviceWorker": {
+          "injected": {
+            "fetch": "REJECTED TypeError",
+            "xhr": "NOT_APPLICABLE",
+            "webSocket": "ERROR",
+            "eventSource": "ERROR",
+            "sendBeacon": "NOT_APPLICABLE",
+            "importScripts": "THREW NetworkError",
+            "dynamicImport": "REJECTED TypeError",
+            "webRtcStun": "NOT_APPLICABLE",
+            "tabsCreate": "CREATED",
+            "windowsCreate": "CREATED",
+            "clientsOpenWindow": "REJECTED InvalidAccessError",
+            "sinkFramePath": "RESPONSE 400"
+          },
+          "violationsSeenInRealm": [
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/serviceWorker/fetch"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "ws://127.0.0.1:8996/serviceWorker/ws"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/serviceWorker/es"
+            },
+            {
+              "directive": "script-src-elem",
+              "blocked": "http://127.0.0.1:8996/serviceWorker/importscripts"
+            }
+          ],
+          "foreignArrivals": [
+            {
+              "at": "2026-10-02T09:34:04.667Z",
+              "proto": "http",
+              "method": "GET",
+              "path": "/serviceWorker/tabscreate",
+              "origin": null
+            },
+            {
+              "at": "2026-10-02T09:34:05.986Z",
+              "proto": "http",
+              "method": "GET",
+              "path": "/serviceWorker/windowscreate",
+              "origin": null
+            }
+          ],
+          "foreignArrivalChannels": [
+            "tabscreate",
+            "windowscreate"
+          ],
+          "sinkArrivals": [
+            {
+              "path": "/m10/frame",
+              "accepted": false,
+              "reason": "not a WebP container: not RIFF"
+            }
+          ]
+        },
+        "tr01Worker": {
+          "injected": {
+            "fetch": "REJECTED TypeError",
+            "xhr": "ERROR",
+            "webSocket": "ERROR",
+            "eventSource": "ERROR",
+            "sendBeacon": "NOT_APPLICABLE",
+            "importScripts": "THREW NetworkError",
+            "dynamicImport": "REJECTED TypeError",
+            "webRtcStun": "NOT_APPLICABLE",
+            "sinkFramePath": "RESPONSE 400"
+          },
+          "violationsSeenInRealm": [
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/tr01Worker/fetch"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/tr01Worker/xhr"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "ws://127.0.0.1:8996/tr01Worker/ws"
+            },
+            {
+              "directive": "connect-src",
+              "blocked": "http://127.0.0.1:8996/tr01Worker/es"
+            },
+            {
+              "directive": "script-src-elem",
+              "blocked": "http://127.0.0.1:8996/tr01Worker/importscripts"
+            },
+            {
+              "directive": "script-src-elem",
+              "blocked": "http://127.0.0.1:8996/tr01Worker/import.js"
+            }
+          ],
+          "foreignArrivals": [],
+          "foreignArrivalChannels": [],
+          "sinkArrivals": [
+            {
+              "path": "/m10/frame",
+              "accepted": false,
+              "reason": "not a WebP container: not RIFF"
+            }
+          ]
+        }
+      },
+      "tr01WorkerAttached": true,
+      "reasonerEndpointControl": {
+        "result": "RESPONSE 400",
+        "arrivals": [
+          "/v1/chat/completions"
+        ]
+      },
+      "navigation": {
+        "result": "ASSIGNED",
+        "arrivals": []
+      },
+      "sinkArrivalsTotal": [
+        "/m10/frame",
+        "/m10/frame",
+        "/m10/frame",
+        "/v1/chat/completions"
+      ],
+      "checks": {
+        "everyRealmInjected": true,
+        "zeroForeignArrivalsThroughCspGovernedChannels": true,
+        "reasonerEndpointReachable": true,
+        "sinkFramePath": true,
+        "offscreenReloadsWithoutViolation": true,
+        "ortAndModelLoad": true,
+        "sidePanelStyledAndRunning": true,
+        "perceptionPassUnderNewCsp": true,
+        "tr01WorkerAttacked": true
+      },
+      "foreignArrivalChannels": {
+        "offscreen": [],
+        "serviceWorker": [],
+        "tr01Worker": []
+      },
+      "navigationClass": {
+        "arrivalsByRealm": {
+          "offscreen": [
+            "open",
+            "anchorblank",
+            "iframeopen"
+          ],
+          "serviceWorker": [
+            "tabscreate",
+            "windowscreate"
+          ],
+          "tr01Worker": []
+        },
+        "selfNavigationArrivals": 0,
+        "closed": false
+      },
+      "unexpectedThrows": {
+        "offscreen": [],
+        "serviceWorker": [],
+        "tr01Worker": []
+      }
+    }
+  },
+  "policies": {
+    "product": "default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self' http://127.0.0.1:8995/v1/chat/completions; style-src 'sha256-m8177FDykU5Du1Rd/j5mkhTgw4bPCr4KkGCjgcTQlvI='; object-src 'none'; base-uri 'none'; form-action 'none'",
+    "evidence": "default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self' http://127.0.0.1:8995; style-src 'sha256-m8177FDykU5Du1Rd/j5mkhTgw4bPCr4KkGCjgcTQlvI='; object-src 'none'; base-uri 'none'; form-action 'none'",
+    "differOnlyInConnectSrc": true,
+    "productConnectSrc": "'self' http://127.0.0.1:8995/v1/chat/completions",
+    "evidenceConnectSrc": "'self' http://127.0.0.1:8995",
+    "builtSidePanelStyleHashInPolicy": true
+  },
+  "verdict": "PASS",
+  "navigationClass": {
+    "product": {
+      "arrivalsByRealm": {
+        "offscreen": [
+          "open",
+          "anchorblank",
+          "iframeopen"
+        ],
+        "serviceWorker": [
+          "tabscreate",
+          "windowscreate"
+        ]
+      },
+      "selfNavigationArrivals": 0,
+      "closed": false
+    },
+    "evidence": {
+      "arrivalsByRealm": {
+        "offscreen": [
+          "open",
+          "anchorblank",
+          "iframeopen"
+        ],
+        "serviceWorker": [
+          "tabscreate",
+          "windowscreate"
+        ],
+        "tr01Worker": []
+      },
+      "selfNavigationArrivals": 0,
+      "closed": false
+    }
+  },
+  "networkBoundaryClosed": false,
+  "notAClaim": [
+    "the foreign origin is a second loopback port standing in for any unauthorised destination",
+    "injection is through the DevTools protocol, i.e. code already running in the realm; this bounds what such code can reach, it does not show how it got there"
+  ],
+  "recordedAt": "2026-10-02T09:34:23.364Z",
+  "provenance": {
+    "workstation": "W2",
+    "host": "LAPTOP-SRCINK2B",
+    "workstationSource": "registry",
+    "os": "win32 10.0.26200",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M              ",
+    "node": "v26.4.0",
+    "playwright": "1.63.0",
+    "browserBinary": "C:\\Users\\OMEN\\pratibimb-browsers\\cft-153.0.8010.12\\chrome.exe",
+    "headless": false
+  }
+}

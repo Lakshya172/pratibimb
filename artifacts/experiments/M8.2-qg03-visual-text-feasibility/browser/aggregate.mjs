@@ -31,6 +31,9 @@ import {
   teardownPass,
 } from "../../../../tests/browser/support/qg03-feasibility.mjs";
 
+import { fixturesDir } from "../../../../tests/browser/support/m82-baseline.mjs";
+import { resolveWorkstation } from "../../../../tests/browser/support/workstation.mjs";
+
 const HERE = dirname(fileURLToPath(import.meta.url));
 const EXP = dirname(HERE);
 const ROOT = join(EXP, "..", "..", "..");
@@ -44,7 +47,7 @@ const r2 = (v) => (typeof v === "number" ? Math.round(v * 100) / 100 : v);
 const sum2 = (v) => Object.fromEntries(Object.entries(summarise(v)).map(([k, x]) => [k, r2(x)]));
 
 const frozen = read(join(ROOT, "tests", "browser", "extension", "fixture", "heldout", "groundtruth.json"));
-const devTruth = read(join(EXP, "models", "fixtures", "dev-truth.json"));
+const devTruth = read(join(fixturesDir(resolveWorkstation()), "dev-truth.json"));
 const launches = readdirSync(join(EXP, "results"))
   .filter((f) => f.endsWith(".json") && !f.startsWith("smoke-") && !f.startsWith("diag-") && !["cells.json", "qg03-verdict.json"].includes(f))
   .flatMap((f) => read(join(EXP, "results", f)).launches.map((l) => ({ ...l, file: f })));

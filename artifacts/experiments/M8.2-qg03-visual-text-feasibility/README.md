@@ -148,3 +148,61 @@ node artifacts/experiments/M8.2-qg03-visual-text-feasibility/browser/aggregate.m
 `prepare-fixtures.mjs` refuses unless every input equals M8.1's byte for byte. The build refuses
 unless every model matches its frozen hash. The Linux cell needs the WSL2 guest described in
 `logs/environment.json`.
+
+---
+
+## Amendment 2026-10-02 — the real-frame baseline is per workstation
+
+> Added when W2 became the development machine. **No result above changed, no threshold moved, no
+> comparison was relaxed, and W1's records were not touched.** What changed is which record is
+> authoritative for which machine.
+
+**M8.2's native reference is machine-local.** `prepare-fixtures.mjs` used to refuse unless every input
+and native output equalled M8.1's, and to stamp every record `workstation: "W1"` whatever machine it
+ran on. On W2 that comparison fails for **two independent, measured reasons**, both recorded in
+[`logs/baseline-divergence-w1-vs-w2.md`](logs/baseline-divergence-w1-vs-w2.md):
+
+1. **Rasterisation.** The same browser build, viewport and DPR render the same DOM — *identical*
+   geometry, verified against the frozen held-out ground truth — to different glyph pixels on a
+   different GPU. Every screenshot and every tensor derived from one differs.
+2. **CPU floating-point kernels.** onnxruntime 1.29.0, handed the **byte-identical** synthetic tensor
+   and the **byte-identical** model, returns a different output on W1 and W2. `min` and `max` agree
+   exactly; the summations diverge at ~1e-7; each machine is deterministic. No screenshot is involved.
+
+So **byte-identical cross-machine native output is not assumed**, and the fixtures are workstation
+scoped (`models/fixtures/<W1|W2>/`, still git-ignored).
+
+**Exact equality remains mandatory within a workstation.** `tests/browser/support/m82-baseline.mjs`
+resolves the baseline for the machine that is running: W1 → M8.1's historical record, read-only;
+another machine → its own `logs/<ws>-baseline-<candidate>.json`. **An unknown workstation fails
+closed** — it refuses rather than silently borrowing another machine's baseline, which would be
+indistinguishable from a pass.
+
+**W1 evidence remains historical and immutable.** `results/tr-01-run1.json`,
+`logs/fixture-integrity.json` and the conversion records keep their bytes. W2 writes
+`logs/w2-fixture-integrity.json` and `logs/w2-baseline-tr-0{1,2}.json`.
+
+**W2 has a separate validated baseline:** fixtures bit-stable across two independent runs; WASM and
+native box geometry identical (0 px) on all seven frames, reproducing M8.1's own W1 diagnostic; RE-1
+scores and redaction masks bit-identical to M8.1's; 0/306 sensitive glyphs exposed.
+
+**TR-02 has a native stage on W2 and no WASM stage**, because no product harness runs the rollback
+candidate through ORT WASM. `loadBaseline` refuses to use its native boxes for a WASM comparison, and
+`build-extension.mjs` refuses on any workstation but W1, which needs M8.2's own browser cells.
+
+### Reproducibility on a machine with no baseline
+
+```bash
+# 1 — native stage (refuses on W1: that baseline is M8.1's and is immutable)
+CHROME_PATH=<cft chrome.exe> REF_PYTHON=<measurement venv python> \
+  node artifacts/experiments/M8.2-qg03-visual-text-feasibility/browser/prepare-fixtures.mjs --establish-baseline
+# 2 — WASM stage, TR-01 only
+TR01_PROBE=1 npm run build -w @pratibimb/extension
+CHROME_PATH=<cft chrome.exe> node tests/browser/extension/run-tr01-worker.mjs --establish-baseline
+# 3 — verify against what was established
+CHROME_PATH=<cft chrome.exe> REF_PYTHON=<…> \
+  node artifacts/experiments/M8.2-qg03-visual-text-feasibility/browser/prepare-fixtures.mjs
+```
+
+Both establishment steps exit **non-zero** on purpose: an establishment run measured nothing against a
+baseline, so it must never be read as a passing verification.

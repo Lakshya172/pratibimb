@@ -1,0 +1,4392 @@
+{
+  "experiment": "M10.6 — DRY RUN of the gesture-redaction harness on the DEGRADED route (not gesture evidence)",
+  "verdict": "PASS",
+  "status": "MECHANICS VERIFIED ON THE DEGRADED ROUTE — NOT GESTURE EVIDENCE",
+  "dryRun": true,
+  "humanInTheLoop": false,
+  "realGesturePerWindow": [
+    {
+      "dpr": 1,
+      "realGesture": "NOT APPLICABLE (dry run)"
+    }
+  ],
+  "re1Stream": {
+    "note": "frozen held-out screenshots displayed 1:1 at (0,0) in the granted document, captured through the gesture stream; boxes in capture px",
+    "allOnStreamRoute": false,
+    "boxesAndScoresEqualBaseline": true,
+    "re1ScoresEqualBaseline": true,
+    "zeroExposedSensitiveGlyphs": true
+  },
+  "machine": {
+    "at": "2026-10-02T09:26:56.889Z",
+    "acPower": "False",
+    "powerScheme": "Power Scheme GUID: 381b4222-f694-41f0-9685-ff5bb260df2e  (Balanced)",
+    "cpuLoadPercent": "17"
+  },
+  "invocationMethod": "no gesture: the degraded M3_WORKER_FRAME route (captureVisibleTab in the service worker), paced; this record is not gesture evidence",
+  "notAClaim": [
+    "one synthetic fixture, one workstation, one operator; no recall claim for arbitrary sites",
+    "nothing was encoded or sent: the output is the sanitized RGBA frame held in the offscreen document",
+    "detector recall is screened at 1280x720 only (M8.1); other cells show this fixture only"
+  ],
+  "build": {
+    "productRoute": {
+      "background": "2d22c9d6a505b7e73693f3c8470558c52ceee0d78a2c26d229be8b7963f13043",
+      "content": "19a1d7bb361ac2def8cbfcc5882e48aa13f60f93a9f970d2437b41efd866fae7",
+      "manifest": "a5b38a8cc4e4b18ef1d24ab62c4bc97cec836ffaf490f69d2f5461ba5f3e599c",
+      "connectSrc": "'self' http://127.0.0.1:8995/v1/chat/completions"
+    },
+    "evidenceRoute": {
+      "background": "90fe8be6f1fa07e3c1dd5c9b8b266515aacddc3edb4b094992cfff713b633198",
+      "content": "19a1d7bb361ac2def8cbfcc5882e48aa13f60f93a9f970d2437b41efd866fae7",
+      "manifest": "28a24cb007c323dc610cefd77e7a4cd8abbe5e6c58a306fe5294e8376e602451",
+      "connectSrc": "'self' http://127.0.0.1:8995"
+    },
+    "routeIdenticalToProduct": false,
+    "connectSrcDiffersOnlyByCollector": true,
+    "hostPermissions": [
+      "http://127.0.0.1/*",
+      "<all_urls>"
+    ],
+    "permissions": [
+      "offscreen",
+      "sidePanel",
+      "activeTab",
+      "tabCapture"
+    ],
+    "noAllUrls": false,
+    "noCaptureVisibleTab": false,
+    "probePresent": true
+  },
+  "gates": {
+    "deadlineMs": 2000,
+    "wasmBudgetBytes": 209715200
+  },
+  "cells": [
+    {
+      "dpr": 1,
+      "window": "1 of 1",
+      "realGesture": "NOT APPLICABLE (dry run)",
+      "failure": null,
+      "steps": {
+        "awaitingSince": "2026-10-02T09:27:22.267Z",
+        "gesture": {
+          "dryRun": true,
+          "tabId": null,
+          "note": "no gesture: degraded route"
+        }
+      },
+      "preflight": {
+        "freshProfile": true,
+        "noOffscreenBeforeThisRun": true,
+        "extensionLoaded": true,
+        "fixturePageServed": true,
+        "contentScriptAttested": true,
+        "fixtureTabIsActive": true,
+        "actionPresent": true,
+        "noGrantYet": true,
+        "captureRefusedBeforeGesture": "n/a (dry run: degraded route)",
+        "browserRefusesStreamIdBeforeGesture": true,
+        "instrumentationReady": true,
+        "productTr01HostNotYetCreated": true,
+        "noSanitizedFrameHeld": true,
+        "pageDevicePixelRatio": 1
+      },
+      "preflightDetail": {
+        "browserMintBeforeError": "Extension has not been invoked for the current page (see activeTab permission). Chrome pages cannot be captured."
+      },
+      "re1Stream": {
+        "note": "frozen held-out screenshots displayed 1:1 at (0,0) in the granted document, captured through the gesture stream; boxes in capture px",
+        "images": [
+          {
+            "image": "H1",
+            "shown": {
+              "naturalWidth": 1280,
+              "naturalHeight": 720,
+              "scrollX": 0,
+              "scrollY": 0,
+              "innerWidth": 1280,
+              "innerHeight": 720
+            },
+            "route": "WORKER_FRAME",
+            "capture": {
+              "w": 1280,
+              "h": 720,
+              "format": "png",
+              "bytes": 25539,
+              "dpr": 1,
+              "scaleToCss": 1
+            },
+            "detectorRan": true,
+            "detections": 11,
+            "baselineDetections": 11,
+            "boxesAndScoresEqualBaseline": true,
+            "boxes": [
+              {
+                "x": 37.73622047244094,
+                "y": 20.462598425196852,
+                "w": 322.02755905511805,
+                "h": 22.074803149606304,
+                "score": 0.7450281191859546
+              },
+              {
+                "x": 63.09905660377358,
+                "y": 79.28915094339624,
+                "w": 336.30188679245276,
+                "h": 24.79669811320754,
+                "score": 0.8098191782030173
+              },
+              {
+                "x": 76.11486486486487,
+                "y": 156.2533783783784,
+                "w": 47.77027027027026,
+                "h": 21.618243243243228,
+                "score": 0.751176366848605
+              },
+              {
+                "x": 78.25399709302324,
+                "y": 182.92859738372093,
+                "w": 219.74200581395348,
+                "h": 24.517805232558175,
+                "score": 0.8686798405874807
+              },
+              {
+                "x": 79.0264423076923,
+                "y": 237.6237980769231,
+                "w": 100.69711538461537,
+                "h": 18.627403846153868,
+                "score": 0.9500610199972418
+              },
+              {
+                "x": 77.49177631578947,
+                "y": 264.3675986842106,
+                "w": 195.01644736842104,
+                "h": 27.01480263157896,
+                "score": 0.9377494519025507
+              },
+              {
+                "x": 75.9090909090909,
+                "y": 322.56818181818187,
+                "w": 85.68181818181819,
+                "h": 20.863636363636317,
+                "score": 0.7944147210439731
+              },
+              {
+                "x": 457.40384615384613,
+                "y": 322.78846153846155,
+                "w": 67.69230769230768,
+                "h": 20.423076923076962,
+                "score": 0.8509026588872075
+              },
+              {
+                "x": 76.2987012987013,
+                "y": 345.41883116883116,
+                "w": 99.90259740259737,
+                "h": 23.537337662337734,
+                "score": 0.8182697011267438
+              },
+              {
+                "x": 457.56167763157896,
+                "y": 345.4305098684211,
+                "w": 98.62664473684208,
+                "h": 23.513980263157862,
+                "score": 0.8631977872864326
+              },
+              {
+                "x": 77.3898678414097,
+                "y": 488.15088105726875,
+                "w": 287.7202643171806,
+                "h": 19.32323788546256,
+                "score": 0.7578351127443376
+              }
+            ],
+            "canonicalMaskForHeldOutRegion": [
+              {
+                "x": 59.09905660377358,
+                "y": 75.28915094339624,
+                "w": 344.30188679245276,
+                "h": 32.79669811320754
+              },
+              {
+                "x": 72.11486486486487,
+                "y": 152.2533783783784,
+                "w": 55.77027027027026,
+                "h": 29.618243243243228
+              },
+              {
+                "x": 74.25399709302324,
+                "y": 178.92859738372093,
+                "w": 227.74200581395348,
+                "h": 32.517805232558175
+              },
+              {
+                "x": 75.0264423076923,
+                "y": 233.6237980769231,
+                "w": 108.69711538461537,
+                "h": 26.627403846153868
+              },
+              {
+                "x": 73.49177631578947,
+                "y": 260.3675986842106,
+                "w": 203.01644736842104,
+                "h": 35.01480263157896
+              },
+              {
+                "x": 71.9090909090909,
+                "y": 318.56818181818187,
+                "w": 93.68181818181819,
+                "h": 28.863636363636317
+              },
+              {
+                "x": 453.40384615384613,
+                "y": 318.78846153846155,
+                "w": 75.69230769230768,
+                "h": 28.423076923076962
+              },
+              {
+                "x": 72.2987012987013,
+                "y": 341.41883116883116,
+                "w": 107.90259740259737,
+                "h": 31.537337662337734
+              },
+              {
+                "x": 453.56167763157896,
+                "y": 341.4305098684211,
+                "w": 106.62664473684208,
+                "h": 31.513980263157862
+              },
+              {
+                "x": 73.3898678414097,
+                "y": 484.15088105726875,
+                "w": 295.7202643171806,
+                "h": 27.32323788546256
+              }
+            ],
+            "score": {
+              "failed": false,
+              "boxes": 11,
+              "maskRects": 10,
+              "sensitiveGlyphs": 40,
+              "exposedSensitiveGlyphs": 0,
+              "exposed": [],
+              "nonSensitiveGlyphsFullyMasked": 1,
+              "strings": [
+                {
+                  "id": "h1-title",
+                  "sensitive": false,
+                  "glyphs": 21,
+                  "glyphsFullyMasked": 21,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.6382318701697879
+                },
+                {
+                  "id": "h1-l-name",
+                  "sensitive": false,
+                  "glyphs": 4,
+                  "glyphsFullyMasked": 4,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.3636898876747232
+                },
+                {
+                  "id": "h1-name",
+                  "sensitive": true,
+                  "glyphs": 18,
+                  "glyphsFullyMasked": 18,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.7554754677134489
+                },
+                {
+                  "id": "h1-l-id",
+                  "sensitive": false,
+                  "glyphs": 14,
+                  "glyphsFullyMasked": 14,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.7302110767586542
+                },
+                {
+                  "id": "h1-idnum",
+                  "sensitive": true,
+                  "glyphs": 12,
+                  "glyphsFullyMasked": 12,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.6762350342083855
+                },
+                {
+                  "id": "h1-l-dob",
+                  "sensitive": false,
+                  "glyphs": 11,
+                  "glyphsFullyMasked": 11,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.4705836347396323
+                },
+                {
+                  "id": "h1-dob",
+                  "sensitive": true,
+                  "glyphs": 10,
+                  "glyphsFullyMasked": 10,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.5034466569764203
+                },
+                {
+                  "id": "h1-l-valid",
+                  "sensitive": false,
+                  "glyphs": 10,
+                  "glyphsFullyMasked": 10,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.48180683373057814
+                },
+                {
+                  "id": "h1-valid",
+                  "sensitive": false,
+                  "glyphs": 10,
+                  "glyphsFullyMasked": 10,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.5105047308559958
+                },
+                {
+                  "id": "h1-foot",
+                  "sensitive": false,
+                  "glyphs": 48,
+                  "glyphsFullyMasked": 48,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.5615504720058674
+                }
+              ],
+              "lineAreaPx": 30602.765625,
+              "overMaskAreaPx": 5485.190886867327,
+              "overMaskRatio": 0.17923840459655604,
+              "largestSingleBoxRegionShare": 0.026138807965138497,
+              "maskedRegionShare": 0.11318406925463127,
+              "gates": {
+                "noExposedSensitiveGlyph": true,
+                "overMaskWithinBudget": true,
+                "noBlanketBox": true
+              }
+            },
+            "scoreEqualsBaseline": true,
+            "exposedSensitiveGlyphs": 0,
+            "baselineExposedSensitiveGlyphs": 0,
+            "sensitiveGlyphs": 40
+          },
+          {
+            "image": "H2",
+            "shown": {
+              "naturalWidth": 1280,
+              "naturalHeight": 720,
+              "scrollX": 0,
+              "scrollY": 0,
+              "innerWidth": 1280,
+              "innerHeight": 720
+            },
+            "route": "WORKER_FRAME",
+            "capture": {
+              "w": 1280,
+              "h": 720,
+              "format": "png",
+              "bytes": 21039,
+              "dpr": 1,
+              "scaleToCss": 1
+            },
+            "detectorRan": true,
+            "detections": 11,
+            "baselineDetections": 11,
+            "boxesAndScoresEqualBaseline": true,
+            "boxes": [
+              {
+                "x": 38.987154150197625,
+                "y": 20.463438735177867,
+                "w": 320.7756916996047,
+                "h": 22.073122529644273,
+                "score": 0.7514184144534627
+              },
+              {
+                "x": 69.09482758620689,
+                "y": 90.31034482758622,
+                "w": 221.8103448275862,
+                "h": 21.879310344827573,
+                "score": 0.8533758196575814
+              },
+              {
+                "x": 77.05,
+                "y": 152.595,
+                "w": 97.15000000000002,
+                "h": 21.06000000000003,
+                "score": 0.8086332081080373
+              },
+              {
+                "x": 336.7628205128205,
+                "y": 152.33653846153848,
+                "w": 150.22435897435895,
+                "h": 21.576923076923066,
+                "score": 0.7717148455184534
+              },
+              {
+                "x": 77.75462962962962,
+                "y": 203.85416666666666,
+                "w": 104.49074074074076,
+                "h": 18.666666666666686,
+                "score": 0.8667015770457426
+              },
+              {
+                "x": 338.28419811320754,
+                "y": 205.4557783018868,
+                "w": 268.43160377358487,
+                "h": 16.588443396226438,
+                "score": 0.8859647872426749
+              },
+              {
+                "x": 77.26694915254237,
+                "y": 255.16525423728817,
+                "w": 76.71610169491527,
+                "h": 20.669491525423695,
+                "score": 0.8879486356734061
+              },
+              {
+                "x": 337.60135135135135,
+                "y": 256.59121621621625,
+                "w": 142.29729729729723,
+                "h": 18.94256756756755,
+                "score": 0.8545153054234745
+              },
+              {
+                "x": 78.46354166666667,
+                "y": 306.8671875,
+                "w": 46.82291666666666,
+                "h": 17.390625000000057,
+                "score": 0.9736412594764691
+              },
+              {
+                "x": 338.6257684426229,
+                "y": 305.88819159836066,
+                "w": 308.9984631147541,
+                "h": 19.34861680327873,
+                "score": 0.8371925290051967
+              },
+              {
+                "x": 67.36150568181817,
+                "y": 438.62535511363643,
+                "w": 334.02698863636357,
+                "h": 19.374289772727195,
+                "score": 0.7186539948582981
+              }
+            ],
+            "canonicalMaskForHeldOutRegion": [
+              {
+                "x": 65.09482758620689,
+                "y": 86.31034482758622,
+                "w": 229.8103448275862,
+                "h": 29.879310344827573
+              },
+              {
+                "x": 332.7628205128205,
+                "y": 148.33653846153848,
+                "w": 158.22435897435895,
+                "h": 29.576923076923066
+              },
+              {
+                "x": 73.05,
+                "y": 148.595,
+                "w": 105.15000000000002,
+                "h": 29.06000000000003
+              },
+              {
+                "x": 73.75462962962962,
+                "y": 199.85416666666666,
+                "w": 112.49074074074076,
+                "h": 26.666666666666686
+              },
+              {
+                "x": 334.28419811320754,
+                "y": 201.4557783018868,
+                "w": 276.43160377358487,
+                "h": 24.588443396226438
+              },
+              {
+                "x": 73.26694915254237,
+                "y": 251.16525423728817,
+                "w": 84.71610169491527,
+                "h": 28.669491525423695
+              },
+              {
+                "x": 333.60135135135135,
+                "y": 252.59121621621625,
+                "w": 150.29729729729723,
+                "h": 26.94256756756755
+              },
+              {
+                "x": 334.6257684426229,
+                "y": 301.88819159836066,
+                "w": 316.9984631147541,
+                "h": 27.34861680327873
+              },
+              {
+                "x": 74.46354166666667,
+                "y": 302.8671875,
+                "w": 54.82291666666664,
+                "h": 25.390625000000057
+              },
+              {
+                "x": 63.36150568181817,
+                "y": 434.62535511363643,
+                "w": 342.02698863636357,
+                "h": 27.374289772727195
+              }
+            ],
+            "score": {
+              "failed": false,
+              "boxes": 11,
+              "maskRects": 10,
+              "sensitiveGlyphs": 64,
+              "exposedSensitiveGlyphs": 0,
+              "exposed": [],
+              "nonSensitiveGlyphsFullyMasked": 1,
+              "strings": [
+                {
+                  "id": "h2-title",
+                  "sensitive": false,
+                  "glyphs": 18,
+                  "glyphsFullyMasked": 18,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.6279043550661125
+                },
+                {
+                  "id": "h2-l-holder",
+                  "sensitive": false,
+                  "glyphs": 13,
+                  "glyphsFullyMasked": 13,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.44927109161433154
+                },
+                {
+                  "id": "h2-holder",
+                  "sensitive": true,
+                  "glyphs": 18,
+                  "glyphsFullyMasked": 18,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.5758438208453469
+                },
+                {
+                  "id": "h2-l-iban",
+                  "sensitive": false,
+                  "glyphs": 13,
+                  "glyphsFullyMasked": 13,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.5158148854357865
+                },
+                {
+                  "id": "h2-iban",
+                  "sensitive": true,
+                  "glyphs": 30,
+                  "glyphsFullyMasked": 30,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.4748560654277261
+                },
+                {
+                  "id": "h2-l-card",
+                  "sensitive": false,
+                  "glyphs": 10,
+                  "glyphsFullyMasked": 10,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.43705294507722825
+                },
+                {
+                  "id": "h2-card",
+                  "sensitive": true,
+                  "glyphs": 16,
+                  "glyphsFullyMasked": 16,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.40558116880422385
+                },
+                {
+                  "id": "h2-l-branch",
+                  "sensitive": false,
+                  "glyphs": 6,
+                  "glyphsFullyMasked": 6,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.5058390724644618
+                },
+                {
+                  "id": "h2-branch",
+                  "sensitive": false,
+                  "glyphs": 38,
+                  "glyphsFullyMasked": 38,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.6611881745883816
+                },
+                {
+                  "id": "h2-foot",
+                  "sensitive": false,
+                  "glyphs": 52,
+                  "glyphsFullyMasked": 52,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.5612988195381837
+                }
+              ],
+              "lineAreaPx": 26714.1171875,
+              "overMaskAreaPx": 9462.388227816595,
+              "overMaskRatio": 0.35420928048650663,
+              "largestSingleBoxRegionShare": 0.02229225213577402,
+              "maskedRegionShare": 0.11976467951024505,
+              "gates": {
+                "noExposedSensitiveGlyph": true,
+                "overMaskWithinBudget": true,
+                "noBlanketBox": true
+              }
+            },
+            "scoreEqualsBaseline": true,
+            "exposedSensitiveGlyphs": 0,
+            "baselineExposedSensitiveGlyphs": 0,
+            "sensitiveGlyphs": 64
+          },
+          {
+            "image": "H3",
+            "shown": {
+              "naturalWidth": 1280,
+              "naturalHeight": 720,
+              "scrollX": 0,
+              "scrollY": 0,
+              "innerWidth": 1280,
+              "innerHeight": 720
+            },
+            "route": "WORKER_FRAME",
+            "capture": {
+              "w": 1280,
+              "h": 720,
+              "format": "png",
+              "bytes": 25938,
+              "dpr": 1,
+              "scaleToCss": 1
+            },
+            "detectorRan": true,
+            "detections": 7,
+            "baselineDetections": 7,
+            "boxesAndScoresEqualBaseline": true,
+            "boxes": [
+              {
+                "x": 37.73622047244094,
+                "y": 20.462598425196852,
+                "w": 322.02755905511805,
+                "h": 22.074803149606304,
+                "score": 0.7404536421494028
+              },
+              {
+                "x": 78.53030303030303,
+                "y": 107.80227272727274,
+                "w": 622.9393939393939,
+                "h": 19.52045454545454,
+                "score": 0.8253198956996551
+              },
+              {
+                "x": 78.88793103448275,
+                "y": 129.49913793103448,
+                "w": 548.4741379310344,
+                "h": 22.251724137931035,
+                "score": 0.8021314744804866
+              },
+              {
+                "x": 78.01339285714285,
+                "y": 153.46205357142858,
+                "w": 477.7232142857143,
+                "h": 24.95089285714286,
+                "score": 0.6874572408016243
+              },
+              {
+                "x": 78.11224489795919,
+                "y": 216.55102040816328,
+                "w": 126.27551020408163,
+                "h": 21.397959183673464,
+                "score": 0.8434815391898155
+              },
+              {
+                "x": 77.6980198019802,
+                "y": 275.8032178217822,
+                "w": 383.3539603960396,
+                "h": 22.14356435643566,
+                "score": 0.7945376594061568
+              },
+              {
+                "x": 76.85123574144487,
+                "y": 298.66611216730035,
+                "w": 333.7975285171103,
+                "h": 24.79277566539929,
+                "score": 0.6915349165077076
+              }
+            ],
+            "canonicalMaskForHeldOutRegion": [
+              {
+                "x": 74.53030303030303,
+                "y": 103.80227272727274,
+                "w": 630.9393939393939,
+                "h": 27.520454545454527
+              },
+              {
+                "x": 74.88793103448275,
+                "y": 125.49913793103448,
+                "w": 556.4741379310344,
+                "h": 30.251724137931035
+              },
+              {
+                "x": 74.01339285714285,
+                "y": 149.46205357142858,
+                "w": 485.7232142857143,
+                "h": 32.95089285714286
+              },
+              {
+                "x": 74.11224489795919,
+                "y": 212.55102040816328,
+                "w": 134.27551020408163,
+                "h": 29.397959183673464
+              },
+              {
+                "x": 73.6980198019802,
+                "y": 271.8032178217822,
+                "w": 391.3539603960396,
+                "h": 30.14356435643566
+              },
+              {
+                "x": 72.85123574144487,
+                "y": 294.66611216730035,
+                "w": 341.7975285171103,
+                "h": 32.79277566539929
+              }
+            ],
+            "score": {
+              "failed": false,
+              "boxes": 7,
+              "maskRects": 6,
+              "sensitiveGlyphs": 47,
+              "exposedSensitiveGlyphs": 0,
+              "exposed": [],
+              "nonSensitiveGlyphsFullyMasked": 1,
+              "strings": [
+                {
+                  "id": "h3-a1",
+                  "sensitive": false,
+                  "glyphs": 28,
+                  "glyphsFullyMasked": 28,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.2814606252031806
+                },
+                {
+                  "id": "h3-prn",
+                  "sensitive": true,
+                  "glyphs": 12,
+                  "glyphsFullyMasked": 12,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.1293964613627825
+                },
+                {
+                  "id": "h3-a2",
+                  "sensitive": false,
+                  "glyphs": 32,
+                  "glyphsFullyMasked": 32,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.26848140278232036
+                },
+                {
+                  "id": "h3-b1",
+                  "sensitive": false,
+                  "glyphs": 23,
+                  "glyphsFullyMasked": 23,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.24521574407759192
+                },
+                {
+                  "id": "h3-upi",
+                  "sensitive": true,
+                  "glyphs": 22,
+                  "glyphsFullyMasked": 22,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.22488832101344194
+                },
+                {
+                  "id": "h3-b2",
+                  "sensitive": false,
+                  "glyphs": 20,
+                  "glyphsFullyMasked": 20,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.19212631463891208
+                },
+                {
+                  "id": "h3-c1",
+                  "sensitive": false,
+                  "glyphs": 19,
+                  "glyphsFullyMasked": 19,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.19947087582375625
+                },
+                {
+                  "id": "h3-phone",
+                  "sensitive": true,
+                  "glyphs": 13,
+                  "glyphsFullyMasked": 13,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.12013280722882559
+                },
+                {
+                  "id": "h3-c2",
+                  "sensitive": false,
+                  "glyphs": 25,
+                  "glyphsFullyMasked": 25,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.23882628594364863
+                },
+                {
+                  "id": "h3-sign",
+                  "sensitive": false,
+                  "glyphs": 14,
+                  "glyphsFullyMasked": 14,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.6637350616320574
+                },
+                {
+                  "id": "h3-p1",
+                  "sensitive": false,
+                  "glyphs": 46,
+                  "glyphsFullyMasked": 46,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.6704910238942393
+                },
+                {
+                  "id": "h3-p2",
+                  "sensitive": false,
+                  "glyphs": 38,
+                  "glyphsFullyMasked": 38,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.5915189847950467
+                }
+              ],
+              "lineAreaPx": 46312.9453125,
+              "overMaskAreaPx": 7017.838932975282,
+              "overMaskRatio": 0.15153082762544895,
+              "largestSingleBoxRegionShare": 0.04569404976801505,
+              "maskedRegionShare": 0.17995691146485862,
+              "gates": {
+                "noExposedSensitiveGlyph": true,
+                "overMaskWithinBudget": true,
+                "noBlanketBox": true
+              }
+            },
+            "scoreEqualsBaseline": true,
+            "exposedSensitiveGlyphs": 0,
+            "baselineExposedSensitiveGlyphs": 0,
+            "sensitiveGlyphs": 47
+          },
+          {
+            "image": "H4",
+            "shown": {
+              "naturalWidth": 1280,
+              "naturalHeight": 720,
+              "scrollX": 0,
+              "scrollY": 0,
+              "innerWidth": 1280,
+              "innerHeight": 720
+            },
+            "route": "WORKER_FRAME",
+            "capture": {
+              "w": 1280,
+              "h": 720,
+              "format": "png",
+              "bytes": 18707,
+              "dpr": 1,
+              "scaleToCss": 1
+            },
+            "detectorRan": true,
+            "detections": 8,
+            "baselineDetections": 8,
+            "boxesAndScoresEqualBaseline": true,
+            "boxes": [
+              {
+                "x": 38.61835629921259,
+                "y": 21.256520669291337,
+                "w": 321.51328740157476,
+                "h": 19.361958661417322,
+                "score": 0.8331345337157031
+              },
+              {
+                "x": 100.58779761904762,
+                "y": 120.90401785714288,
+                "w": 162.57440476190473,
+                "h": 29.316964285714263,
+                "score": 0.857051435949303
+              },
+              {
+                "x": 77.95112781954887,
+                "y": 205.15601503759402,
+                "w": 170.34774436090223,
+                "h": 21.687969924811995,
+                "score": 0.8096807372868061
+              },
+              {
+                "x": 535.431654676259,
+                "y": 211.88848920863313,
+                "w": 177.88669064748206,
+                "h": 21.723021582733764,
+                "score": 0.8636894385323269
+              },
+              {
+                "x": 79.638671875,
+                "y": 224.6748046875,
+                "w": 163.22265625,
+                "h": 16.400390625,
+                "score": 0.9893692150060597
+              },
+              {
+                "x": 78.36780575539568,
+                "y": 278.6560251798561,
+                "w": 177.0143884892086,
+                "h": 16.437949640287798,
+                "score": 0.99410790533649
+              },
+              {
+                "x": 79.04194078947367,
+                "y": 327.63774671052636,
+                "w": 98.16611842105263,
+                "h": 18.59950657894734,
+                "score": 0.9436356650499577
+              },
+              {
+                "x": 77.67619680851064,
+                "y": 342.15857712765956,
+                "w": 120.89760638297872,
+                "h": 18.80784574468089,
+                "score": 0.7891307263734502
+              }
+            ],
+            "canonicalMaskForHeldOutRegion": [
+              {
+                "x": 96.58779761904762,
+                "y": 116.90401785714288,
+                "w": 170.57440476190473,
+                "h": 37.31696428571426
+              },
+              {
+                "x": 73.95112781954887,
+                "y": 201.15601503759402,
+                "w": 178.34774436090223,
+                "h": 29.687969924811995
+              },
+              {
+                "x": 531.431654676259,
+                "y": 207.88848920863313,
+                "w": 185.88669064748206,
+                "h": 29.723021582733764
+              },
+              {
+                "x": 75.638671875,
+                "y": 220.6748046875,
+                "w": 171.22265625,
+                "h": 24.400390625
+              },
+              {
+                "x": 74.36780575539568,
+                "y": 274.6560251798561,
+                "w": 185.0143884892086,
+                "h": 24.437949640287798
+              },
+              {
+                "x": 75.04194078947367,
+                "y": 323.63774671052636,
+                "w": 106.16611842105263,
+                "h": 26.59950657894734
+              },
+              {
+                "x": 73.67619680851064,
+                "y": 338.15857712765956,
+                "w": 128.89760638297872,
+                "h": 26.80784574468089
+              }
+            ],
+            "score": {
+              "failed": false,
+              "boxes": 8,
+              "maskRects": 7,
+              "sensitiveGlyphs": 45,
+              "exposedSensitiveGlyphs": 0,
+              "exposed": [],
+              "nonSensitiveGlyphsFullyMasked": 1,
+              "strings": [
+                {
+                  "id": "h4-otp-l",
+                  "sensitive": false,
+                  "glyphs": 3,
+                  "glyphsFullyMasked": 3,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.23869311190861756
+                },
+                {
+                  "id": "h4-otp",
+                  "sensitive": true,
+                  "glyphs": 6,
+                  "glyphsFullyMasked": 6,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.38966707889353186
+                },
+                {
+                  "id": "h4-pol-l",
+                  "sensitive": false,
+                  "glyphs": 6,
+                  "glyphsFullyMasked": 6,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.173283495615687
+                },
+                {
+                  "id": "h4-policy",
+                  "sensitive": true,
+                  "glyphs": 14,
+                  "glyphsFullyMasked": 14,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.38177560923126647
+                },
+                {
+                  "id": "h4-renew",
+                  "sensitive": false,
+                  "glyphs": 17,
+                  "glyphsFullyMasked": 17,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.6440064011127348
+                },
+                {
+                  "id": "h4-nom-l",
+                  "sensitive": false,
+                  "glyphs": 8,
+                  "glyphsFullyMasked": 8,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.2382752494125712
+                },
+                {
+                  "id": "h4-nominee",
+                  "sensitive": true,
+                  "glyphs": 13,
+                  "glyphsFullyMasked": 13,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.42842303458654557
+                },
+                {
+                  "id": "h4-status",
+                  "sensitive": false,
+                  "glyphs": 13,
+                  "glyphsFullyMasked": 13,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.4942819709593188
+                },
+                {
+                  "id": "h4-plan",
+                  "sensitive": false,
+                  "glyphs": 18,
+                  "glyphsFullyMasked": 18,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.7172699594867818
+                },
+                {
+                  "id": "h4-claim-l",
+                  "sensitive": false,
+                  "glyphs": 5,
+                  "glyphsFullyMasked": 5,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.1648844103887229
+                },
+                {
+                  "id": "h4-claim",
+                  "sensitive": true,
+                  "glyphs": 12,
+                  "glyphsFullyMasked": 12,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.407204174903177
+                }
+              ],
+              "lineAreaPx": 19335.7197265625,
+              "overMaskAreaPx": 2545.4922727204735,
+              "overMaskRatio": 0.13164714366559607,
+              "largestSingleBoxRegionShare": 0.019646046205422738,
+              "maskedRegionShare": 0.08993944708701833,
+              "gates": {
+                "noExposedSensitiveGlyph": true,
+                "overMaskWithinBudget": true,
+                "noBlanketBox": true
+              }
+            },
+            "scoreEqualsBaseline": true,
+            "exposedSensitiveGlyphs": 0,
+            "baselineExposedSensitiveGlyphs": 0,
+            "sensitiveGlyphs": 45
+          },
+          {
+            "image": "H5",
+            "shown": {
+              "naturalWidth": 1280,
+              "naturalHeight": 720,
+              "scrollX": 0,
+              "scrollY": 0,
+              "innerWidth": 1280,
+              "innerHeight": 720
+            },
+            "route": "WORKER_FRAME",
+            "capture": {
+              "w": 1280,
+              "h": 720,
+              "format": "png",
+              "bytes": 19434,
+              "dpr": 1,
+              "scaleToCss": 1
+            },
+            "detectorRan": true,
+            "detections": 7,
+            "baselineDetections": 7,
+            "boxesAndScoresEqualBaseline": true,
+            "boxes": [
+              {
+                "x": 37.73529411764706,
+                "y": 20.461764705882352,
+                "w": 323.27941176470586,
+                "h": 22.076470588235296,
+                "score": 0.7160483476091252
+              },
+              {
+                "x": 1018.0709134615383,
+                "y": 72.51382211538463,
+                "w": 67.6081730769231,
+                "h": 18.09735576923076,
+                "score": 0.9744592159513443
+              },
+              {
+                "x": 53.64423076923077,
+                "y": 74.15480769230768,
+                "w": 83.96153846153845,
+                "h": 15.94038461538463,
+                "score": 0.9200435580506836
+              },
+              {
+                "x": 438.875,
+                "y": 254.3625,
+                "w": 313.4999999999999,
+                "h": 38.02499999999998,
+                "score": 0.7381060176708113
+              },
+              {
+                "x": 798.4729381443299,
+                "y": 349.6256443298969,
+                "w": 124.30412371134025,
+                "h": 16.248711340206228,
+                "score": 0.9331529298763135
+              },
+              {
+                "x": 54.715909090909086,
+                "y": 475.6193181818182,
+                "w": 126.81818181818178,
+                "h": 16.261363636363683,
+                "score": 0.9680325412408426
+              },
+              {
+                "x": 928.388671875,
+                "y": 476.6748046875,
+                "w": 163.22265625,
+                "h": 16.400390625,
+                "score": 0.9364899333383216
+              }
+            ],
+            "canonicalMaskForHeldOutRegion": [
+              {
+                "x": 1014.0709134615383,
+                "y": 68.51382211538463,
+                "w": 75.6081730769231,
+                "h": 26.09735576923076
+              },
+              {
+                "x": 49.64423076923077,
+                "y": 70.15480769230768,
+                "w": 91.96153846153845,
+                "h": 23.94038461538463
+              },
+              {
+                "x": 434.875,
+                "y": 250.3625,
+                "w": 321.4999999999999,
+                "h": 46.02499999999998
+              },
+              {
+                "x": 794.4729381443299,
+                "y": 345.6256443298969,
+                "w": 132.30412371134025,
+                "h": 24.248711340206228
+              },
+              {
+                "x": 50.715909090909086,
+                "y": 471.6193181818182,
+                "w": 134.81818181818178,
+                "h": 24.261363636363683
+              },
+              {
+                "x": 924.388671875,
+                "y": 472.6748046875,
+                "w": 171.22265625,
+                "h": 24.400390625
+              }
+            ],
+            "score": {
+              "failed": false,
+              "boxes": 7,
+              "maskRects": 6,
+              "sensitiveGlyphs": 51,
+              "exposedSensitiveGlyphs": 0,
+              "exposed": [],
+              "nonSensitiveGlyphsFullyMasked": 1,
+              "strings": [
+                {
+                  "id": "h5-ref-l",
+                  "sensitive": false,
+                  "glyphs": 3,
+                  "glyphsFullyMasked": 3,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.1331805602046588
+                },
+                {
+                  "id": "h5-ref",
+                  "sensitive": true,
+                  "glyphs": 9,
+                  "glyphsFullyMasked": 9,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.31373360123774163
+                },
+                {
+                  "id": "h5-page",
+                  "sensitive": false,
+                  "glyphs": 8,
+                  "glyphsFullyMasked": 8,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.5368068445093831
+                },
+                {
+                  "id": "h5-head",
+                  "sensitive": false,
+                  "glyphs": 16,
+                  "glyphsFullyMasked": 16,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.7802251729377244
+                },
+                {
+                  "id": "h5-acct-l",
+                  "sensitive": false,
+                  "glyphs": 4,
+                  "glyphsFullyMasked": 4,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.09894710412164223
+                },
+                {
+                  "id": "h5-acct",
+                  "sensitive": true,
+                  "glyphs": 12,
+                  "glyphsFullyMasked": 12,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.36304586395188687
+                },
+                {
+                  "id": "h5-gen",
+                  "sensitive": false,
+                  "glyphs": 19,
+                  "glyphsFullyMasked": 19,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.5313405919614062
+                },
+                {
+                  "id": "h5-email",
+                  "sensitive": true,
+                  "glyphs": 30,
+                  "glyphsFullyMasked": 30,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.5916835344463452
+                }
+              ],
+              "lineAreaPx": 17662.41650390625,
+              "overMaskAreaPx": 4955.598398231899,
+              "overMaskRatio": 0.28057306864753817,
+              "largestSingleBoxRegionShare": 0.030572391528925595,
+              "maskedRegionShare": 0.061216493032378846,
+              "gates": {
+                "noExposedSensitiveGlyph": true,
+                "overMaskWithinBudget": true,
+                "noBlanketBox": true
+              }
+            },
+            "scoreEqualsBaseline": true,
+            "exposedSensitiveGlyphs": 0,
+            "baselineExposedSensitiveGlyphs": 0,
+            "sensitiveGlyphs": 51
+          },
+          {
+            "image": "H6",
+            "shown": {
+              "naturalWidth": 1280,
+              "naturalHeight": 720,
+              "scrollX": 0,
+              "scrollY": 0,
+              "innerWidth": 1280,
+              "innerHeight": 720
+            },
+            "route": "WORKER_FRAME",
+            "capture": {
+              "w": 1280,
+              "h": 720,
+              "format": "png",
+              "bytes": 19386,
+              "dpr": 1,
+              "scaleToCss": 1
+            },
+            "detectorRan": true,
+            "detections": 13,
+            "baselineDetections": 13,
+            "boxesAndScoresEqualBaseline": true,
+            "boxes": [
+              {
+                "x": 37.73622047244094,
+                "y": 20.462598425196852,
+                "w": 322.02755905511805,
+                "h": 22.074803149606304,
+                "score": 0.7390416137480397
+              },
+              {
+                "x": 327.4837662337662,
+                "y": 112.48538961038962,
+                "w": 197.5324675324676,
+                "h": 27.02922077922078,
+                "score": 0.7259394782284896
+              },
+              {
+                "x": 67.3820754716981,
+                "y": 116.89386792452831,
+                "w": 68.98584905660377,
+                "h": 20.462264150943412,
+                "score": 0.8768312450912263
+              },
+              {
+                "x": 326.071875,
+                "y": 174.2146875,
+                "w": 129.10625,
+                "h": 23.945625000000035,
+                "score": 0.8318830353727562
+              },
+              {
+                "x": 66.68103448275862,
+                "y": 177.01293103448276,
+                "w": 36.63793103448276,
+                "h": 20.599137931034505,
+                "score": 0.7941943302750587
+              },
+              {
+                "x": 69.05,
+                "y": 237.645,
+                "w": 96.89999999999999,
+                "h": 18.585000000000008,
+                "score": 0.9076325143335247
+              },
+              {
+                "x": 328.79638671875,
+                "y": 237.416748046875,
+                "w": 163.6572265625,
+                "h": 19.04150390625,
+                "score": 0.946039109929534
+              },
+              {
+                "x": 326.8685567010309,
+                "y": 295.30670103092785,
+                "w": 125.01288659793812,
+                "h": 21.386597938144348,
+                "score": 0.8281282204506772
+              },
+              {
+                "x": 66.8560606060606,
+                "y": 296.42045454545456,
+                "w": 127.53787878787878,
+                "h": 21.409090909090878,
+                "score": 0.7592666231013916
+              },
+              {
+                "x": 325.96713362068965,
+                "y": 355.24542025862075,
+                "w": 149.31573275862064,
+                "h": 24.134159482758548,
+                "score": 0.6817903274192493
+              },
+              {
+                "x": 67.9405737704918,
+                "y": 358.1465163934426,
+                "w": 79.11885245901641,
+                "h": 18.331967213114808,
+                "score": 0.8392468023867834
+              },
+              {
+                "x": 327.2023809523809,
+                "y": 415.9821428571429,
+                "w": 81.84523809523813,
+                "h": 20.785714285714278,
+                "score": 0.9762959375977516
+              },
+              {
+                "x": 67.87162162162161,
+                "y": 417.7094594594595,
+                "w": 48.00675675675677,
+                "h": 19.581081081081095,
+                "score": 0.8876107648528856
+              }
+            ],
+            "canonicalMaskForHeldOutRegion": [
+              {
+                "x": 323.4837662337662,
+                "y": 108.48538961038962,
+                "w": 205.5324675324676,
+                "h": 35.02922077922078
+              },
+              {
+                "x": 63.3820754716981,
+                "y": 112.89386792452831,
+                "w": 76.98584905660377,
+                "h": 28.462264150943412
+              },
+              {
+                "x": 322.071875,
+                "y": 170.2146875,
+                "w": 137.10625,
+                "h": 31.945625000000035
+              },
+              {
+                "x": 62.68103448275862,
+                "y": 173.01293103448276,
+                "w": 44.63793103448276,
+                "h": 28.599137931034505
+              },
+              {
+                "x": 324.79638671875,
+                "y": 233.416748046875,
+                "w": 171.6572265625,
+                "h": 27.04150390625
+              },
+              {
+                "x": 65.05,
+                "y": 233.645,
+                "w": 104.89999999999999,
+                "h": 26.585000000000008
+              },
+              {
+                "x": 322.8685567010309,
+                "y": 291.30670103092785,
+                "w": 133.01288659793812,
+                "h": 29.386597938144348
+              },
+              {
+                "x": 62.856060606060595,
+                "y": 292.42045454545456,
+                "w": 135.53787878787878,
+                "h": 29.409090909090878
+              },
+              {
+                "x": 321.96713362068965,
+                "y": 351.24542025862075,
+                "w": 157.31573275862064,
+                "h": 32.13415948275855
+              },
+              {
+                "x": 63.940573770491795,
+                "y": 354.1465163934426,
+                "w": 87.11885245901641,
+                "h": 26.331967213114808
+              },
+              {
+                "x": 323.2023809523809,
+                "y": 411.9821428571429,
+                "w": 89.84523809523813,
+                "h": 28.785714285714278
+              },
+              {
+                "x": 63.871621621621614,
+                "y": 413.7094594594595,
+                "w": 56.00675675675677,
+                "h": 27.581081081081095
+              }
+            ],
+            "score": {
+              "failed": false,
+              "boxes": 13,
+              "maskRects": 12,
+              "sensitiveGlyphs": 59,
+              "exposedSensitiveGlyphs": 0,
+              "exposed": [],
+              "nonSensitiveGlyphsFullyMasked": 1,
+              "strings": [
+                {
+                  "id": "h6-l-emp",
+                  "sensitive": false,
+                  "glyphs": 8,
+                  "glyphsFullyMasked": 8,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.5752974745146249
+                },
+                {
+                  "id": "h6-emp",
+                  "sensitive": true,
+                  "glyphs": 21,
+                  "glyphsFullyMasked": 21,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.6431294350933772
+                },
+                {
+                  "id": "h6-l-pan",
+                  "sensitive": false,
+                  "glyphs": 3,
+                  "glyphsFullyMasked": 3,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.3661900102162644
+                },
+                {
+                  "id": "h6-pan",
+                  "sensitive": true,
+                  "glyphs": 10,
+                  "glyphsFullyMasked": 10,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.6263181484299529
+                },
+                {
+                  "id": "h6-l-sal",
+                  "sensitive": false,
+                  "glyphs": 13,
+                  "glyphsFullyMasked": 13,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.7285496094562315
+                },
+                {
+                  "id": "h6-sal",
+                  "sensitive": true,
+                  "glyphs": 15,
+                  "glyphsFullyMasked": 15,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.5087697167865007
+                },
+                {
+                  "id": "h6-l-emg",
+                  "sensitive": false,
+                  "glyphs": 16,
+                  "glyphsFullyMasked": 16,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.620120593707378
+                },
+                {
+                  "id": "h6-emg",
+                  "sensitive": true,
+                  "glyphs": 13,
+                  "glyphsFullyMasked": 13,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.4807968025498619
+                },
+                {
+                  "id": "h6-l-dept",
+                  "sensitive": false,
+                  "glyphs": 10,
+                  "glyphsFullyMasked": 10,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.7167438930251895
+                },
+                {
+                  "id": "h6-dept",
+                  "sensitive": false,
+                  "glyphs": 19,
+                  "glyphsFullyMasked": 19,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.542863333383466
+                },
+                {
+                  "id": "h6-l-join",
+                  "sensitive": false,
+                  "glyphs": 6,
+                  "glyphsFullyMasked": 6,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.4411455593874584
+                },
+                {
+                  "id": "h6-join",
+                  "sensitive": false,
+                  "glyphs": 10,
+                  "glyphsFullyMasked": 10,
+                  "inkAreaMasked": 1,
+                  "bestIouUndilated": 0.4809798324742268
+                }
+              ],
+              "lineAreaPx": 22103.09130859375,
+              "overMaskAreaPx": 8300.45243083058,
+              "overMaskRatio": 0.3755335538791056,
+              "largestSingleBoxRegionShare": 0.015651396048897464,
+              "maskedRegionShare": 0.0909849323787154,
+              "gates": {
+                "noExposedSensitiveGlyph": true,
+                "overMaskWithinBudget": true,
+                "noBlanketBox": true
+              }
+            },
+            "scoreEqualsBaseline": true,
+            "exposedSensitiveGlyphs": 0,
+            "baselineExposedSensitiveGlyphs": 0,
+            "sensitiveGlyphs": 59
+          }
+        ],
+        "allOnStreamRoute": false,
+        "boxesAndScoresEqualBaseline": true,
+        "re1ScoresEqualBaseline": true,
+        "zeroExposedSensitiveGlyphs": true
+      },
+      "clickEvidence": null,
+      "order": {
+        "cold": {
+          "inOrder": true,
+          "tr01InputIsFullFrame": true,
+          "tr01RunId": 1
+        },
+        "allInOrder": true,
+        "allFullFrame": true,
+        "tr01RunIds": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          13
+        ],
+        "coldTimeline": [
+          {
+            "at": 1088.5999999940395,
+            "event": "stage:frame"
+          },
+          {
+            "at": 1088.9000000059605,
+            "event": "stage:uihead:start"
+          },
+          {
+            "at": 1274.7000000178814,
+            "event": "stage:uihead:end"
+          },
+          {
+            "at": 1275.2000000178814,
+            "event": "stage:tr01:start"
+          },
+          {
+            "at": 2020.300000011921,
+            "event": "worker:reply:TR01_READY"
+          },
+          {
+            "at": 2022.7000000178814,
+            "event": "worker:detect-posted",
+            "width": 1280,
+            "height": 720,
+            "rgbaLength": 3686400,
+            "runId": 1
+          },
+          {
+            "at": 2850.5,
+            "event": "worker:reply:TR01_RESULT"
+          },
+          {
+            "at": 2850.7000000178814,
+            "event": "stage:tr01:end"
+          },
+          {
+            "at": 2851.7000000178814,
+            "event": "stage:findings"
+          },
+          {
+            "at": 2874.7000000178814,
+            "event": "maskPlanned"
+          },
+          {
+            "at": 2922.300000011921,
+            "event": "stage:mask:end"
+          }
+        ]
+      },
+      "model": {
+        "sha256": "18aaccf9c9cd27656becda13bc0ef31eaa0ea3aef4d45166839f2093561575e8",
+        "bytes": 4766440,
+        "pinned": "18aaccf9c9cd27656becda13bc0ef31eaa0ea3aef4d45166839f2093561575e8"
+      },
+      "vsM105Dpr1": {
+        "note": "informational: M10.5's DPR-1 frame was captureVisibleTab (PNG), this is the tab stream; not a gate",
+        "m105Detections": 6,
+        "detections": 6,
+        "m105Masks": [
+          {
+            "regionId": "canvas:0",
+            "pixelRects": [
+              {
+                "x": 59,
+                "y": 101,
+                "w": 375,
+                "h": 37
+              },
+              {
+                "x": 59,
+                "y": 175,
+                "w": 302,
+                "h": 34
+              }
+            ]
+          },
+          {
+            "regionId": "img:0",
+            "pixelRects": [
+              {
+                "x": 654,
+                "y": 93,
+                "w": 410,
+                "h": 37
+              },
+              {
+                "x": 654,
+                "y": 156,
+                "w": 218,
+                "h": 33
+              }
+            ]
+          },
+          {
+            "regionId": "canvas:1",
+            "pixelRects": [
+              {
+                "x": 25,
+                "y": 390,
+                "w": 291,
+                "h": 34
+              }
+            ]
+          }
+        ],
+        "masks": [
+          {
+            "regionId": "canvas:0",
+            "pixelRects": [
+              {
+                "x": 59,
+                "y": 101,
+                "w": 375,
+                "h": 37
+              },
+              {
+                "x": 59,
+                "y": 175,
+                "w": 302,
+                "h": 34
+              }
+            ]
+          },
+          {
+            "regionId": "img:0",
+            "pixelRects": [
+              {
+                "x": 654,
+                "y": 93,
+                "w": 410,
+                "h": 37
+              },
+              {
+                "x": 654,
+                "y": 156,
+                "w": 218,
+                "h": 33
+              }
+            ]
+          },
+          {
+            "regionId": "canvas:1",
+            "pixelRects": [
+              {
+                "x": 25,
+                "y": 390,
+                "w": 291,
+                "h": 34
+              }
+            ]
+          }
+        ],
+        "pixelRectsEqual": true
+      },
+      "truth": {
+        "inkRects": 5,
+        "controls": 2,
+        "cssWidth": 1280,
+        "pageDpr": 1
+      },
+      "stream": {
+        "capture": {
+          "w": 1280,
+          "h": 720,
+          "format": "png",
+          "bytes": 30968,
+          "dpr": 1,
+          "scaleToCss": 1
+        },
+        "route": "WORKER_FRAME",
+        "workerSawPixels": true,
+        "viewport": {
+          "w": 1280,
+          "h": 720,
+          "dpr": 1,
+          "scrollX": 0,
+          "scrollY": 0
+        },
+        "requestedDeviceScale": 1,
+        "pageDevicePixelRatio": 1
+      },
+      "geometry": {
+        "visualRegions": [
+          {
+            "id": "canvas:0",
+            "kind": "canvas",
+            "rect": {
+              "x": 40,
+              "y": 60,
+              "w": 520,
+              "h": 200
+            }
+          },
+          {
+            "id": "img:0",
+            "kind": "img",
+            "rect": {
+              "x": 640,
+              "y": 60,
+              "w": 480,
+              "h": 160
+            }
+          },
+          {
+            "id": "canvas:1",
+            "kind": "canvas",
+            "rect": {
+              "x": -80,
+              "y": 330,
+              "w": 420,
+              "h": 150
+            }
+          }
+        ],
+        "cold": {
+          "visualRegions": [
+            {
+              "id": "canvas:0",
+              "rect": {
+                "x": 40,
+                "y": 60,
+                "w": 520,
+                "h": 200
+              }
+            },
+            {
+              "id": "img:0",
+              "rect": {
+                "x": 640,
+                "y": 60,
+                "w": 480,
+                "h": 160
+              }
+            },
+            {
+              "id": "canvas:1",
+              "rect": {
+                "x": -80,
+                "y": 330,
+                "w": 420,
+                "h": 150
+              }
+            }
+          ],
+          "detections": [
+            {
+              "x": 658.4216772151899,
+              "y": 97.57950949367088,
+              "w": 400.6566455696202,
+              "h": 27.590981012658247,
+              "score": 0.8603883154836356
+            },
+            {
+              "x": 63.45052083333333,
+              "y": 105.48046875000001,
+              "w": 365.5989583333333,
+              "h": 27.539062499999986,
+              "score": 0.8951596790080448
+            },
+            {
+              "x": 658.2755335365853,
+              "y": 160.44798018292684,
+              "w": 209.69893292682934,
+              "h": 24.479039634146346,
+              "score": 0.8884854215874894
+            },
+            {
+              "x": 63.14123376623376,
+              "y": 179.45211038961043,
+              "w": 293.7175324675324,
+              "h": 24.72077922077918,
+              "score": 0.9062954735708189
+            },
+            {
+              "x": 636.3639567669172,
+              "y": 360.10256109022555,
+              "w": 338.52208646616543,
+              "h": 30.169877819548958,
+              "score": 0.7520220970724993
+            },
+            {
+              "x": 29.40456081081081,
+              "y": 394.33910472972974,
+              "w": 282.44087837837833,
+              "h": 24.696790540540576,
+              "score": 0.9636093946130063
+            }
+          ],
+          "masks": [
+            {
+              "regionId": "canvas:0",
+              "cssMask": [
+                {
+                  "x": 59.45052083333333,
+                  "y": 101.48046875000001,
+                  "w": 373.5989583333333,
+                  "h": 35.539062499999986
+                },
+                {
+                  "x": 59.14123376623376,
+                  "y": 175.45211038961043,
+                  "w": 301.7175324675324,
+                  "h": 32.72077922077918
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 59,
+                  "y": 101,
+                  "w": 375,
+                  "h": 37
+                },
+                {
+                  "x": 59,
+                  "y": 175,
+                  "w": 302,
+                  "h": 34
+                }
+              ]
+            },
+            {
+              "regionId": "img:0",
+              "cssMask": [
+                {
+                  "x": 654.4216772151899,
+                  "y": 93.57950949367088,
+                  "w": 408.6566455696202,
+                  "h": 35.59098101265826
+                },
+                {
+                  "x": 654.2755335365853,
+                  "y": 156.44798018292684,
+                  "w": 217.69893292682934,
+                  "h": 32.479039634146346
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 654,
+                  "y": 93,
+                  "w": 410,
+                  "h": 37
+                },
+                {
+                  "x": 654,
+                  "y": 156,
+                  "w": 218,
+                  "h": 33
+                }
+              ]
+            },
+            {
+              "regionId": "canvas:1",
+              "cssMask": [
+                {
+                  "x": 25.40456081081081,
+                  "y": 390.33910472972974,
+                  "w": 290.44087837837833,
+                  "h": 32.696790540540576
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 25,
+                  "y": 390,
+                  "w": 291,
+                  "h": 34
+                }
+              ]
+            }
+          ]
+        },
+        "firstWarm": {
+          "visualRegions": [
+            {
+              "id": "canvas:0",
+              "rect": {
+                "x": 40,
+                "y": 60,
+                "w": 520,
+                "h": 200
+              }
+            },
+            {
+              "id": "img:0",
+              "rect": {
+                "x": 640,
+                "y": 60,
+                "w": 480,
+                "h": 160
+              }
+            },
+            {
+              "id": "canvas:1",
+              "rect": {
+                "x": -80,
+                "y": 330,
+                "w": 420,
+                "h": 150
+              }
+            }
+          ],
+          "detections": [
+            {
+              "x": 658.4216772151899,
+              "y": 97.57950949367088,
+              "w": 400.6566455696202,
+              "h": 27.590981012658247,
+              "score": 0.8603883154836356
+            },
+            {
+              "x": 63.45052083333333,
+              "y": 105.48046875000001,
+              "w": 365.5989583333333,
+              "h": 27.539062499999986,
+              "score": 0.8951596790080448
+            },
+            {
+              "x": 658.2755335365853,
+              "y": 160.44798018292684,
+              "w": 209.69893292682934,
+              "h": 24.479039634146346,
+              "score": 0.8884854215874894
+            },
+            {
+              "x": 63.14123376623376,
+              "y": 179.45211038961043,
+              "w": 293.7175324675324,
+              "h": 24.72077922077918,
+              "score": 0.9062954735708189
+            },
+            {
+              "x": 636.3639567669172,
+              "y": 360.10256109022555,
+              "w": 338.52208646616543,
+              "h": 30.169877819548958,
+              "score": 0.7520220970724993
+            },
+            {
+              "x": 29.40456081081081,
+              "y": 394.33910472972974,
+              "w": 282.44087837837833,
+              "h": 24.696790540540576,
+              "score": 0.9636093946130063
+            }
+          ],
+          "masks": [
+            {
+              "regionId": "canvas:0",
+              "cssMask": [
+                {
+                  "x": 59.45052083333333,
+                  "y": 101.48046875000001,
+                  "w": 373.5989583333333,
+                  "h": 35.539062499999986
+                },
+                {
+                  "x": 59.14123376623376,
+                  "y": 175.45211038961043,
+                  "w": 301.7175324675324,
+                  "h": 32.72077922077918
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 59,
+                  "y": 101,
+                  "w": 375,
+                  "h": 37
+                },
+                {
+                  "x": 59,
+                  "y": 175,
+                  "w": 302,
+                  "h": 34
+                }
+              ]
+            },
+            {
+              "regionId": "img:0",
+              "cssMask": [
+                {
+                  "x": 654.4216772151899,
+                  "y": 93.57950949367088,
+                  "w": 408.6566455696202,
+                  "h": 35.59098101265826
+                },
+                {
+                  "x": 654.2755335365853,
+                  "y": 156.44798018292684,
+                  "w": 217.69893292682934,
+                  "h": 32.479039634146346
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 654,
+                  "y": 93,
+                  "w": 410,
+                  "h": 37
+                },
+                {
+                  "x": 654,
+                  "y": 156,
+                  "w": 218,
+                  "h": 33
+                }
+              ]
+            },
+            {
+              "regionId": "canvas:1",
+              "cssMask": [
+                {
+                  "x": 25.40456081081081,
+                  "y": 390.33910472972974,
+                  "w": 290.44087837837833,
+                  "h": 32.696790540540576
+                }
+              ],
+              "pixelRects": [
+                {
+                  "x": 25,
+                  "y": 390,
+                  "w": 291,
+                  "h": 34
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "cold": {
+        "summary": {
+          "ran": true,
+          "refusal": null,
+          "route": "WORKER_FRAME",
+          "workerSawPixels": true,
+          "capture": {
+            "w": 1280,
+            "h": 720,
+            "format": "png",
+            "bytes": 30968,
+            "dpr": 1,
+            "scaleToCss": 1
+          },
+          "detector": {
+            "modelId": "pratibimb-t1-ui-head",
+            "revision": "ba6d9e93695b",
+            "backend": "wasm",
+            "ran": true,
+            "detections": 32,
+            "byClass": {
+              "textbox": 26,
+              "link": 2,
+              "tab": 1,
+              "button": 3
+            },
+            "refusal": null
+          },
+          "fusion": {
+            "matched": 0,
+            "visionOnly": 32,
+            "domOnly": 0,
+            "overlaySuspected": 0
+          },
+          "text": {
+            "available": false,
+            "refusal": {
+              "code": "TEXT_PERCEPTION_UNAVAILABLE",
+              "detail": "No local text model is adopted. PP-OCRv5_mobile_det fails the S-04a-1 correctness criterion on WASM (4.12e-02 against a 2e-02 bound), and model-adoption rule 2 is frozen: a model that fails the WASM columns is not shipped whatever it does on WebGPU. See artifacts/experiments/M4-gesture-text-perception/ocr-audit.md."
+            },
+            "findings": [],
+            "ms": 0
+          },
+          "redaction": {
+            "outcome": "SANITIZED",
+            "failClosed": false,
+            "reason": null,
+            "refusal": null,
+            "detector": {
+              "modelId": "PP-OCRv4_mobile_det",
+              "ran": true,
+              "code": null,
+              "detections": 6
+            },
+            "regions": 3,
+            "maskRects": 5,
+            "pixelWrites": 56401,
+            "rawBitmapClosed": true,
+            "frameKept": true,
+            "ms": {
+              "detector": 1576,
+              "mapping": 0,
+              "plan": 1,
+              "pixelMapping": 0,
+              "fill": 2
+            },
+            "detail": {
+              "visualRegions": [
+                {
+                  "id": "canvas:0",
+                  "rect": {
+                    "x": 40,
+                    "y": 60,
+                    "w": 520,
+                    "h": 200
+                  }
+                },
+                {
+                  "id": "img:0",
+                  "rect": {
+                    "x": 640,
+                    "y": 60,
+                    "w": 480,
+                    "h": 160
+                  }
+                },
+                {
+                  "id": "canvas:1",
+                  "rect": {
+                    "x": -80,
+                    "y": 330,
+                    "w": 420,
+                    "h": 150
+                  }
+                }
+              ],
+              "detections": [
+                {
+                  "x": 658.4216772151899,
+                  "y": 97.57950949367088,
+                  "w": 400.6566455696202,
+                  "h": 27.590981012658247,
+                  "score": 0.8603883154836356
+                },
+                {
+                  "x": 63.45052083333333,
+                  "y": 105.48046875000001,
+                  "w": 365.5989583333333,
+                  "h": 27.539062499999986,
+                  "score": 0.8951596790080448
+                },
+                {
+                  "x": 658.2755335365853,
+                  "y": 160.44798018292684,
+                  "w": 209.69893292682934,
+                  "h": 24.479039634146346,
+                  "score": 0.8884854215874894
+                },
+                {
+                  "x": 63.14123376623376,
+                  "y": 179.45211038961043,
+                  "w": 293.7175324675324,
+                  "h": 24.72077922077918,
+                  "score": 0.9062954735708189
+                },
+                {
+                  "x": 636.3639567669172,
+                  "y": 360.10256109022555,
+                  "w": 338.52208646616543,
+                  "h": 30.169877819548958,
+                  "score": 0.7520220970724993
+                },
+                {
+                  "x": 29.40456081081081,
+                  "y": 394.33910472972974,
+                  "w": 282.44087837837833,
+                  "h": 24.696790540540576,
+                  "score": 0.9636093946130063
+                }
+              ],
+              "masks": [
+                {
+                  "regionId": "canvas:0",
+                  "cssMask": [
+                    {
+                      "x": 59.45052083333333,
+                      "y": 101.48046875000001,
+                      "w": 373.5989583333333,
+                      "h": 35.539062499999986
+                    },
+                    {
+                      "x": 59.14123376623376,
+                      "y": 175.45211038961043,
+                      "w": 301.7175324675324,
+                      "h": 32.72077922077918
+                    }
+                  ],
+                  "pixelRects": [
+                    {
+                      "x": 59,
+                      "y": 101,
+                      "w": 375,
+                      "h": 37
+                    },
+                    {
+                      "x": 59,
+                      "y": 175,
+                      "w": 302,
+                      "h": 34
+                    }
+                  ]
+                },
+                {
+                  "regionId": "img:0",
+                  "cssMask": [
+                    {
+                      "x": 654.4216772151899,
+                      "y": 93.57950949367088,
+                      "w": 408.6566455696202,
+                      "h": 35.59098101265826
+                    },
+                    {
+                      "x": 654.2755335365853,
+                      "y": 156.44798018292684,
+                      "w": 217.69893292682934,
+                      "h": 32.479039634146346
+                    }
+                  ],
+                  "pixelRects": [
+                    {
+                      "x": 654,
+                      "y": 93,
+                      "w": 410,
+                      "h": 37
+                    },
+                    {
+                      "x": 654,
+                      "y": 156,
+                      "w": 218,
+                      "h": 33
+                    }
+                  ]
+                },
+                {
+                  "regionId": "canvas:1",
+                  "cssMask": [
+                    {
+                      "x": 25.40456081081081,
+                      "y": 390.33910472972974,
+                      "w": 290.44087837837833,
+                      "h": 32.696790540540576
+                    }
+                  ],
+                  "pixelRects": [
+                    {
+                      "x": 25,
+                      "y": 390,
+                      "w": 291,
+                      "h": 34
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "detail": {
+            "anchors": 6400,
+            "afterFiltering": 32,
+            "threshold": 0.25,
+            "detections": [
+              {
+                "box": {
+                  "x": 718.5508117675781,
+                  "y": 181.1871566772461,
+                  "w": 290.11212158203125,
+                  "h": 43.35255432128906
+                },
+                "label": "textbox",
+                "score": 0.6753586530685425
+              },
+              {
+                "box": {
+                  "x": 118.87577819824219,
+                  "y": 188.62443923950195,
+                  "w": 350.3110656738281,
+                  "h": 44.876365661621094
+                },
+                "label": "textbox",
+                "score": 0.5653479695320129
+              },
+              {
+                "box": {
+                  "x": 0,
+                  "y": 188.2848243713379,
+                  "w": 311.23284912109375,
+                  "h": 46.41643524169922
+                },
+                "label": "textbox",
+                "score": 0.4868854582309723
+              },
+              {
+                "box": {
+                  "x": 186.04586791992188,
+                  "y": 202.53113555908203,
+                  "w": 427.83843994140625,
+                  "h": 51.75126647949219
+                },
+                "label": "textbox",
+                "score": 0.48683732748031616
+              },
+              {
+                "box": {
+                  "x": 607.3126068115234,
+                  "y": 179.29711151123047,
+                  "w": 284.3298645019531,
+                  "h": 44.91297912597656
+                },
+                "label": "textbox",
+                "score": 0.45063039660453796
+              },
+              {
+                "box": {
+                  "x": 24.63702392578125,
+                  "y": 200.52949905395508,
+                  "w": 385.9281921386719,
+                  "h": 54.590354919433594
+                },
+                "label": "textbox",
+                "score": 0.4498479962348938
+              },
+              {
+                "box": {
+                  "x": 568.5399703979492,
+                  "y": 463.9979543685913,
+                  "w": 217.76332092285156,
+                  "h": 20.951601028442383
+                },
+                "label": "textbox",
+                "score": 0.4062853753566742
+              },
+              {
+                "box": {
+                  "x": 648.5399703979492,
+                  "y": 463.9979543685913,
+                  "w": 217.76332092285156,
+                  "h": 20.951601028442383
+                },
+                "label": "textbox",
+                "score": 0.4062853753566742
+              },
+              {
+                "box": {
+                  "x": 728.5399703979492,
+                  "y": 463.9979543685913,
+                  "w": 217.76332092285156,
+                  "h": 20.951601028442383
+                },
+                "label": "textbox",
+                "score": 0.4062853753566742
+              },
+              {
+                "box": {
+                  "x": 43.486358642578125,
+                  "y": 169.6135139465332,
+                  "w": 175.33447265625,
+                  "h": 28.609458923339844
+                },
+                "label": "link",
+                "score": 0.4061605930328369
+              },
+              {
+                "box": {
+                  "x": 654.9841022491455,
+                  "y": 458.984676361084,
+                  "w": 57.969295501708984,
+                  "h": 38.99243927001953
+                },
+                "label": "textbox",
+                "score": 0.39104163646698
+              },
+              {
+                "box": {
+                  "x": 646.1052379608154,
+                  "y": 504.95944595336914,
+                  "w": 61.01181411743164,
+                  "h": 34.38481903076172
+                },
+                "label": "tab",
+                "score": 0.3865527808666229
+              },
+              {
+                "box": {
+                  "x": 595.7091293334961,
+                  "y": 353.4907445907593,
+                  "w": 217.0534210205078,
+                  "h": 30.804765701293945
+                },
+                "label": "link",
+                "score": 0.33242517709732056
+              },
+              {
+                "box": {
+                  "x": 670.2672119140625,
+                  "y": 461.57483291625977,
+                  "w": 66.048095703125,
+                  "h": 36.79613494873047
+                },
+                "label": "textbox",
+                "score": 0.3170480728149414
+              },
+              {
+                "box": {
+                  "x": 702.2672119140625,
+                  "y": 461.57483291625977,
+                  "w": 66.048095703125,
+                  "h": 36.79613494873047
+                },
+                "label": "textbox",
+                "score": 0.3170480728149414
+              },
+              {
+                "box": {
+                  "x": 734.2672119140625,
+                  "y": 461.57483291625977,
+                  "w": 66.048095703125,
+                  "h": 36.79613494873047
+                },
+                "label": "textbox",
+                "score": 0.3170480728149414
+              },
+              {
+                "box": {
+                  "x": 766.2672119140625,
+                  "y": 461.57483291625977,
+                  "w": 66.048095703125,
+                  "h": 36.79613494873047
+                },
+                "label": "textbox",
+                "score": 0.3170480728149414
+              },
+              {
+                "box": {
+                  "x": 798.2672119140625,
+                  "y": 461.57483291625977,
+                  "w": 66.048095703125,
+                  "h": 36.79613494873047
+                },
+                "label": "textbox",
+                "score": 0.3170480728149414
+              },
+              {
+                "box": {
+                  "x": 830.2672119140625,
+                  "y": 461.57483291625977,
+                  "w": 66.048095703125,
+                  "h": 36.79613494873047
+                },
+                "label": "textbox",
+                "score": 0.3170480728149414
+              },
+              {
+                "box": {
+                  "x": 862.2672119140625,
+                  "y": 461.57483291625977,
+                  "w": 66.048095703125,
+                  "h": 36.79613494873047
+                },
+                "label": "textbox",
+                "score": 0.3170480728149414
+              },
+              {
+                "box": {
+                  "x": 645.7790050506592,
+                  "y": 473.2585144042969,
+                  "w": 47.60287857055664,
+                  "h": 40.98822021484375
+                },
+                "label": "button",
+                "score": 0.288896381855011
+              },
+              {
+                "box": {
+                  "x": 651.1430816650391,
+                  "y": 509.48985862731934,
+                  "w": 68.96664428710938,
+                  "h": 25.333515167236328
+                },
+                "label": "textbox",
+                "score": 0.28488337993621826
+              },
+              {
+                "box": {
+                  "x": 683.1430816650391,
+                  "y": 509.48985862731934,
+                  "w": 68.96664428710938,
+                  "h": 25.333515167236328
+                },
+                "label": "textbox",
+                "score": 0.28488337993621826
+              },
+              {
+                "box": {
+                  "x": 715.1430816650391,
+                  "y": 509.48985862731934,
+                  "w": 68.96664428710938,
+                  "h": 25.333515167236328
+                },
+                "label": "textbox",
+                "score": 0.28488337993621826
+              },
+              {
+                "box": {
+                  "x": 747.1430816650391,
+                  "y": 509.48985862731934,
+                  "w": 68.96664428710938,
+                  "h": 25.333515167236328
+                },
+                "label": "textbox",
+                "score": 0.28488337993621826
+              },
+              {
+                "box": {
+                  "x": 779.1430816650391,
+                  "y": 509.48985862731934,
+                  "w": 68.96664428710938,
+                  "h": 25.333515167236328
+                },
+                "label": "textbox",
+                "score": 0.28488337993621826
+              },
+              {
+                "box": {
+                  "x": 811.1430816650391,
+                  "y": 509.48985862731934,
+                  "w": 68.96664428710938,
+                  "h": 25.333515167236328
+                },
+                "label": "textbox",
+                "score": 0.28488337993621826
+              },
+              {
+                "box": {
+                  "x": 843.1430816650391,
+                  "y": 509.48985862731934,
+                  "w": 68.96664428710938,
+                  "h": 25.333515167236328
+                },
+                "label": "textbox",
+                "score": 0.28488337993621826
+              },
+              {
+                "box": {
+                  "x": 875.1430816650391,
+                  "y": 509.48985862731934,
+                  "w": 68.96664428710938,
+                  "h": 25.333515167236328
+                },
+                "label": "textbox",
+                "score": 0.28488337993621826
+              },
+              {
+                "box": {
+                  "x": 811.8351287841797,
+                  "y": 463.99506092071533,
+                  "w": 193.71243286132812,
+                  "h": 19.979116439819336
+                },
+                "label": "textbox",
+                "score": 0.2799074649810791
+              },
+              {
+                "box": {
+                  "x": 19.82684326171875,
+                  "y": 167.76426315307617,
+                  "w": 177.56130981445312,
+                  "h": 45.222938537597656
+                },
+                "label": "button",
+                "score": 0.2743073105812073
+              },
+              {
+                "box": {
+                  "x": 645.6904830932617,
+                  "y": 491.12577056884766,
+                  "w": 43.88868713378906,
+                  "h": 40.21049499511719
+                },
+                "label": "button",
+                "score": 0.26601681113243103
+              }
+            ]
+          },
+          "ms": {
+            "capture": 46,
+            "decode": 18,
+            "encode": 0,
+            "preprocess": 57,
+            "infer": 129,
+            "fuse": 1,
+            "total": 1900
+          }
+        },
+        "verification": {
+          "maskPixels": 56401,
+          "maskPixelsNotFill": 0,
+          "outsideMaskUnchanged": true,
+          "ink": [
+            {
+              "pixels": 7942,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5510,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5282,
+              "uncovered": 0
+            },
+            {
+              "pixels": 7880,
+              "uncovered": 0
+            },
+            {
+              "pixels": 3451,
+              "uncovered": 0
+            }
+          ],
+          "controlsUnchanged": true,
+          "controlPixelsInsideMask": 0,
+          "rawCopyKeptByProbe": false
+        },
+        "tr01": {
+          "state": "ready",
+          "generation": 1,
+          "workersCreated": 1,
+          "terminations": 0,
+          "staleDropped": 0,
+          "lastInit": {
+            "ok": true,
+            "model": {
+              "sha256": "18aaccf9c9cd27656becda13bc0ef31eaa0ea3aef4d45166839f2093561575e8",
+              "bytes": 4766440
+            },
+            "ms": {
+              "runtime": 129.09999999403954,
+              "model": 34,
+              "session": 501.7000000178814
+            }
+          }
+        },
+        "wallMs": 2923.9000000059605
+      },
+      "warm": [
+        {
+          "detections": 6,
+          "maskRects": 5,
+          "verification": {
+            "maskPixels": 56401,
+            "maskPixelsNotFill": 0,
+            "outsideMaskUnchanged": true,
+            "ink": [
+              {
+                "pixels": 7942,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5510,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5282,
+                "uncovered": 0
+              },
+              {
+                "pixels": 7880,
+                "uncovered": 0
+              },
+              {
+                "pixels": 3451,
+                "uncovered": 0
+              }
+            ],
+            "controlsUnchanged": true,
+            "controlPixelsInsideMask": 0,
+            "rawCopyKeptByProbe": false
+          },
+          "ms": {
+            "capture": 39,
+            "decode": 10,
+            "encode": 0,
+            "preprocess": 60,
+            "infer": 102,
+            "fuse": 1,
+            "total": 1192
+          },
+          "redactionMs": {
+            "detector": 940,
+            "mapping": 0,
+            "plan": 0,
+            "pixelMapping": 1,
+            "fill": 0
+          },
+          "wallMs": 1195.0999999940395
+        },
+        {
+          "detections": 6,
+          "maskRects": 5,
+          "verification": {
+            "maskPixels": 56401,
+            "maskPixelsNotFill": 0,
+            "outsideMaskUnchanged": true,
+            "ink": [
+              {
+                "pixels": 7942,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5510,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5282,
+                "uncovered": 0
+              },
+              {
+                "pixels": 7880,
+                "uncovered": 0
+              },
+              {
+                "pixels": 3451,
+                "uncovered": 0
+              }
+            ],
+            "controlsUnchanged": true,
+            "controlPixelsInsideMask": 0,
+            "rawCopyKeptByProbe": false
+          },
+          "ms": {
+            "capture": 59,
+            "decode": 18,
+            "encode": 0,
+            "preprocess": 279,
+            "infer": 117,
+            "fuse": 0,
+            "total": 1434
+          },
+          "redactionMs": {
+            "detector": 900,
+            "mapping": 1,
+            "plan": 2,
+            "pixelMapping": 0,
+            "fill": 0
+          },
+          "wallMs": 1438
+        },
+        {
+          "detections": 6,
+          "maskRects": 5,
+          "verification": {
+            "maskPixels": 56401,
+            "maskPixelsNotFill": 0,
+            "outsideMaskUnchanged": true,
+            "ink": [
+              {
+                "pixels": 7942,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5510,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5282,
+                "uncovered": 0
+              },
+              {
+                "pixels": 7880,
+                "uncovered": 0
+              },
+              {
+                "pixels": 3451,
+                "uncovered": 0
+              }
+            ],
+            "controlsUnchanged": true,
+            "controlPixelsInsideMask": 0,
+            "rawCopyKeptByProbe": false
+          },
+          "ms": {
+            "capture": 56,
+            "decode": 16,
+            "encode": 0,
+            "preprocess": 88,
+            "infer": 118,
+            "fuse": 0,
+            "total": 1282
+          },
+          "redactionMs": {
+            "detector": 917,
+            "mapping": 3,
+            "plan": 0,
+            "pixelMapping": 0,
+            "fill": 0
+          },
+          "wallMs": 1286.7000000178814
+        },
+        {
+          "detections": 6,
+          "maskRects": 5,
+          "verification": {
+            "maskPixels": 56401,
+            "maskPixelsNotFill": 0,
+            "outsideMaskUnchanged": true,
+            "ink": [
+              {
+                "pixels": 7942,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5510,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5282,
+                "uncovered": 0
+              },
+              {
+                "pixels": 7880,
+                "uncovered": 0
+              },
+              {
+                "pixels": 3451,
+                "uncovered": 0
+              }
+            ],
+            "controlsUnchanged": true,
+            "controlPixelsInsideMask": 0,
+            "rawCopyKeptByProbe": false
+          },
+          "ms": {
+            "capture": 55,
+            "decode": 17,
+            "encode": 0,
+            "preprocess": 45,
+            "infer": 114,
+            "fuse": 1,
+            "total": 1126
+          },
+          "redactionMs": {
+            "detector": 839,
+            "mapping": 1,
+            "plan": 0,
+            "pixelMapping": 0,
+            "fill": 0
+          },
+          "wallMs": 1127.699999988079
+        },
+        {
+          "detections": 6,
+          "maskRects": 5,
+          "verification": {
+            "maskPixels": 56401,
+            "maskPixelsNotFill": 0,
+            "outsideMaskUnchanged": true,
+            "ink": [
+              {
+                "pixels": 7942,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5510,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5282,
+                "uncovered": 0
+              },
+              {
+                "pixels": 7880,
+                "uncovered": 0
+              },
+              {
+                "pixels": 3451,
+                "uncovered": 0
+              }
+            ],
+            "controlsUnchanged": true,
+            "controlPixelsInsideMask": 0,
+            "rawCopyKeptByProbe": false
+          },
+          "ms": {
+            "capture": 56,
+            "decode": 13,
+            "encode": 0,
+            "preprocess": 40,
+            "infer": 106,
+            "fuse": 0,
+            "total": 1114
+          },
+          "redactionMs": {
+            "detector": 845,
+            "mapping": 0,
+            "plan": 0,
+            "pixelMapping": 0,
+            "fill": 0
+          },
+          "wallMs": 1116.4000000059605
+        },
+        {
+          "detections": 6,
+          "maskRects": 5,
+          "verification": {
+            "maskPixels": 56401,
+            "maskPixelsNotFill": 0,
+            "outsideMaskUnchanged": true,
+            "ink": [
+              {
+                "pixels": 7942,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5510,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5282,
+                "uncovered": 0
+              },
+              {
+                "pixels": 7880,
+                "uncovered": 0
+              },
+              {
+                "pixels": 3451,
+                "uncovered": 0
+              }
+            ],
+            "controlsUnchanged": true,
+            "controlPixelsInsideMask": 0,
+            "rawCopyKeptByProbe": false
+          },
+          "ms": {
+            "capture": 55,
+            "decode": 16,
+            "encode": 0,
+            "preprocess": 43,
+            "infer": 93,
+            "fuse": 0,
+            "total": 1026
+          },
+          "redactionMs": {
+            "detector": 775,
+            "mapping": 1,
+            "plan": 0,
+            "pixelMapping": 0,
+            "fill": 0
+          },
+          "wallMs": 1029.5999999940395
+        },
+        {
+          "detections": 6,
+          "maskRects": 5,
+          "verification": {
+            "maskPixels": 56401,
+            "maskPixelsNotFill": 0,
+            "outsideMaskUnchanged": true,
+            "ink": [
+              {
+                "pixels": 7942,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5510,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5282,
+                "uncovered": 0
+              },
+              {
+                "pixels": 7880,
+                "uncovered": 0
+              },
+              {
+                "pixels": 3451,
+                "uncovered": 0
+              }
+            ],
+            "controlsUnchanged": true,
+            "controlPixelsInsideMask": 0,
+            "rawCopyKeptByProbe": false
+          },
+          "ms": {
+            "capture": 54,
+            "decode": 20,
+            "encode": 0,
+            "preprocess": 65,
+            "infer": 125,
+            "fuse": 0,
+            "total": 1245
+          },
+          "redactionMs": {
+            "detector": 941,
+            "mapping": 0,
+            "plan": 0,
+            "pixelMapping": 0,
+            "fill": 0
+          },
+          "wallMs": 1250.199999988079
+        },
+        {
+          "detections": 6,
+          "maskRects": 5,
+          "verification": {
+            "maskPixels": 56401,
+            "maskPixelsNotFill": 0,
+            "outsideMaskUnchanged": true,
+            "ink": [
+              {
+                "pixels": 7942,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5510,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5282,
+                "uncovered": 0
+              },
+              {
+                "pixels": 7880,
+                "uncovered": 0
+              },
+              {
+                "pixels": 3451,
+                "uncovered": 0
+              }
+            ],
+            "controlsUnchanged": true,
+            "controlPixelsInsideMask": 0,
+            "rawCopyKeptByProbe": false
+          },
+          "ms": {
+            "capture": 64,
+            "decode": 17,
+            "encode": 0,
+            "preprocess": 42,
+            "infer": 113,
+            "fuse": 0,
+            "total": 1164
+          },
+          "redactionMs": {
+            "detector": 888,
+            "mapping": 0,
+            "plan": 0,
+            "pixelMapping": 0,
+            "fill": 0
+          },
+          "wallMs": 1167.199999988079
+        },
+        {
+          "detections": 6,
+          "maskRects": 5,
+          "verification": {
+            "maskPixels": 56401,
+            "maskPixelsNotFill": 0,
+            "outsideMaskUnchanged": true,
+            "ink": [
+              {
+                "pixels": 7942,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5510,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5282,
+                "uncovered": 0
+              },
+              {
+                "pixels": 7880,
+                "uncovered": 0
+              },
+              {
+                "pixels": 3451,
+                "uncovered": 0
+              }
+            ],
+            "controlsUnchanged": true,
+            "controlPixelsInsideMask": 0,
+            "rawCopyKeptByProbe": false
+          },
+          "ms": {
+            "capture": 68,
+            "decode": 14,
+            "encode": 0,
+            "preprocess": 44,
+            "infer": 111,
+            "fuse": 0,
+            "total": 1145
+          },
+          "redactionMs": {
+            "detector": 868,
+            "mapping": 0,
+            "plan": 0,
+            "pixelMapping": 0,
+            "fill": 1
+          },
+          "wallMs": 1147.6000000238419
+        },
+        {
+          "detections": 6,
+          "maskRects": 5,
+          "verification": {
+            "maskPixels": 56401,
+            "maskPixelsNotFill": 0,
+            "outsideMaskUnchanged": true,
+            "ink": [
+              {
+                "pixels": 7942,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5510,
+                "uncovered": 0
+              },
+              {
+                "pixels": 5282,
+                "uncovered": 0
+              },
+              {
+                "pixels": 7880,
+                "uncovered": 0
+              },
+              {
+                "pixels": 3451,
+                "uncovered": 0
+              }
+            ],
+            "controlsUnchanged": true,
+            "controlPixelsInsideMask": 0,
+            "rawCopyKeptByProbe": false
+          },
+          "ms": {
+            "capture": 65,
+            "decode": 16,
+            "encode": 0,
+            "preprocess": 47,
+            "infer": 112,
+            "fuse": 0,
+            "total": 1199
+          },
+          "redactionMs": {
+            "detector": 920,
+            "mapping": 0,
+            "plan": 1,
+            "pixelMapping": 0,
+            "fill": 0
+          },
+          "wallMs": 1202.800000011921
+        }
+      ],
+      "timeout": {
+        "redaction": {
+          "outcome": "SANITIZED",
+          "failClosed": true,
+          "reason": "TIMEOUT",
+          "refusal": null,
+          "detector": {
+            "modelId": "PP-OCRv4_mobile_det",
+            "ran": false,
+            "code": "DETECTOR_TIMEOUT",
+            "detections": 0
+          },
+          "regions": 3,
+          "maskRects": 3,
+          "pixelWrites": 231800,
+          "rawBitmapClosed": true,
+          "frameKept": true,
+          "ms": {
+            "detector": 54,
+            "mapping": 0,
+            "plan": 0,
+            "pixelMapping": 0,
+            "fill": 2
+          },
+          "detail": {
+            "visualRegions": [
+              {
+                "id": "canvas:0",
+                "rect": {
+                  "x": 40,
+                  "y": 60,
+                  "w": 520,
+                  "h": 200
+                }
+              },
+              {
+                "id": "img:0",
+                "rect": {
+                  "x": 640,
+                  "y": 60,
+                  "w": 480,
+                  "h": 160
+                }
+              },
+              {
+                "id": "canvas:1",
+                "rect": {
+                  "x": -80,
+                  "y": 330,
+                  "w": 420,
+                  "h": 150
+                }
+              }
+            ],
+            "detections": [],
+            "masks": [
+              {
+                "regionId": "canvas:0",
+                "cssMask": [
+                  {
+                    "x": 40,
+                    "y": 60,
+                    "w": 520,
+                    "h": 200
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 40,
+                    "y": 60,
+                    "w": 520,
+                    "h": 200
+                  }
+                ]
+              },
+              {
+                "regionId": "img:0",
+                "cssMask": [
+                  {
+                    "x": 640,
+                    "y": 60,
+                    "w": 480,
+                    "h": 160
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 640,
+                    "y": 60,
+                    "w": 480,
+                    "h": 160
+                  }
+                ]
+              },
+              {
+                "regionId": "canvas:1",
+                "cssMask": [
+                  {
+                    "x": -80,
+                    "y": 330,
+                    "w": 420,
+                    "h": 150
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 0,
+                    "y": 330,
+                    "w": 340,
+                    "h": 150
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "verification": {
+          "maskPixels": 231800,
+          "maskPixelsNotFill": 0,
+          "outsideMaskUnchanged": true,
+          "ink": [
+            {
+              "pixels": 7942,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5510,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5282,
+              "uncovered": 0
+            },
+            {
+              "pixels": 7880,
+              "uncovered": 0
+            },
+            {
+              "pixels": 3451,
+              "uncovered": 0
+            }
+          ],
+          "controlsUnchanged": true,
+          "controlPixelsInsideMask": 0,
+          "rawCopyKeptByProbe": false
+        },
+        "tr01": {
+          "state": "idle",
+          "generation": 1,
+          "workersCreated": 1,
+          "terminations": 1,
+          "staleDropped": 0,
+          "lastInit": {
+            "ok": true,
+            "model": {
+              "sha256": "18aaccf9c9cd27656becda13bc0ef31eaa0ea3aef4d45166839f2093561575e8",
+              "bytes": 4766440
+            },
+            "ms": {
+              "runtime": 129.09999999403954,
+              "model": 34,
+              "session": 501.7000000178814
+            }
+          }
+        },
+        "wholeRegionArea": 231800
+      },
+      "recovery": {
+        "redaction": {
+          "outcome": "SANITIZED",
+          "failClosed": false,
+          "reason": null,
+          "refusal": null,
+          "detector": {
+            "modelId": "PP-OCRv4_mobile_det",
+            "ran": true,
+            "code": null,
+            "detections": 6
+          },
+          "regions": 3,
+          "maskRects": 5,
+          "pixelWrites": 56401,
+          "rawBitmapClosed": true,
+          "frameKept": true,
+          "ms": {
+            "detector": 1588,
+            "mapping": 1,
+            "plan": 0,
+            "pixelMapping": 0,
+            "fill": 1
+          },
+          "detail": {
+            "visualRegions": [
+              {
+                "id": "canvas:0",
+                "rect": {
+                  "x": 40,
+                  "y": 60,
+                  "w": 520,
+                  "h": 200
+                }
+              },
+              {
+                "id": "img:0",
+                "rect": {
+                  "x": 640,
+                  "y": 60,
+                  "w": 480,
+                  "h": 160
+                }
+              },
+              {
+                "id": "canvas:1",
+                "rect": {
+                  "x": -80,
+                  "y": 330,
+                  "w": 420,
+                  "h": 150
+                }
+              }
+            ],
+            "detections": [
+              {
+                "x": 658.4216772151899,
+                "y": 97.57950949367088,
+                "w": 400.6566455696202,
+                "h": 27.590981012658247,
+                "score": 0.8603883154836356
+              },
+              {
+                "x": 63.45052083333333,
+                "y": 105.48046875000001,
+                "w": 365.5989583333333,
+                "h": 27.539062499999986,
+                "score": 0.8951596790080448
+              },
+              {
+                "x": 658.2755335365853,
+                "y": 160.44798018292684,
+                "w": 209.69893292682934,
+                "h": 24.479039634146346,
+                "score": 0.8884854215874894
+              },
+              {
+                "x": 63.14123376623376,
+                "y": 179.45211038961043,
+                "w": 293.7175324675324,
+                "h": 24.72077922077918,
+                "score": 0.9062954735708189
+              },
+              {
+                "x": 636.3639567669172,
+                "y": 360.10256109022555,
+                "w": 338.52208646616543,
+                "h": 30.169877819548958,
+                "score": 0.7520220970724993
+              },
+              {
+                "x": 29.40456081081081,
+                "y": 394.33910472972974,
+                "w": 282.44087837837833,
+                "h": 24.696790540540576,
+                "score": 0.9636093946130063
+              }
+            ],
+            "masks": [
+              {
+                "regionId": "canvas:0",
+                "cssMask": [
+                  {
+                    "x": 59.45052083333333,
+                    "y": 101.48046875000001,
+                    "w": 373.5989583333333,
+                    "h": 35.539062499999986
+                  },
+                  {
+                    "x": 59.14123376623376,
+                    "y": 175.45211038961043,
+                    "w": 301.7175324675324,
+                    "h": 32.72077922077918
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 59,
+                    "y": 101,
+                    "w": 375,
+                    "h": 37
+                  },
+                  {
+                    "x": 59,
+                    "y": 175,
+                    "w": 302,
+                    "h": 34
+                  }
+                ]
+              },
+              {
+                "regionId": "img:0",
+                "cssMask": [
+                  {
+                    "x": 654.4216772151899,
+                    "y": 93.57950949367088,
+                    "w": 408.6566455696202,
+                    "h": 35.59098101265826
+                  },
+                  {
+                    "x": 654.2755335365853,
+                    "y": 156.44798018292684,
+                    "w": 217.69893292682934,
+                    "h": 32.479039634146346
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 654,
+                    "y": 93,
+                    "w": 410,
+                    "h": 37
+                  },
+                  {
+                    "x": 654,
+                    "y": 156,
+                    "w": 218,
+                    "h": 33
+                  }
+                ]
+              },
+              {
+                "regionId": "canvas:1",
+                "cssMask": [
+                  {
+                    "x": 25.40456081081081,
+                    "y": 390.33910472972974,
+                    "w": 290.44087837837833,
+                    "h": 32.696790540540576
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 25,
+                    "y": 390,
+                    "w": 291,
+                    "h": 34
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "verification": {
+          "maskPixels": 56401,
+          "maskPixelsNotFill": 0,
+          "outsideMaskUnchanged": true,
+          "ink": [
+            {
+              "pixels": 7942,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5510,
+              "uncovered": 0
+            },
+            {
+              "pixels": 5282,
+              "uncovered": 0
+            },
+            {
+              "pixels": 7880,
+              "uncovered": 0
+            },
+            {
+              "pixels": 3451,
+              "uncovered": 0
+            }
+          ],
+          "controlsUnchanged": true,
+          "controlPixelsInsideMask": 0,
+          "rawCopyKeptByProbe": false
+        },
+        "tr01": {
+          "state": "ready",
+          "generation": 2,
+          "workersCreated": 2,
+          "terminations": 1,
+          "staleDropped": 0,
+          "lastInit": {
+            "ok": true,
+            "model": {
+              "sha256": "18aaccf9c9cd27656becda13bc0ef31eaa0ea3aef4d45166839f2093561575e8",
+              "bytes": 4766440
+            },
+            "ms": {
+              "runtime": 129.2000000178814,
+              "model": 35.099999994039536,
+              "session": 476.40000000596046
+            }
+          }
+        }
+      },
+      "refused": [
+        {
+          "redaction": {
+            "outcome": "REFUSED",
+            "failClosed": null,
+            "reason": null,
+            "refusal": {
+              "code": "REGION_INVALID",
+              "detail": "region \"canvas:0\" has no finite, positive rectangle"
+            },
+            "detector": {
+              "modelId": "PP-OCRv4_mobile_det",
+              "ran": true,
+              "code": null,
+              "detections": 6
+            },
+            "regions": 3,
+            "maskRects": 0,
+            "pixelWrites": 0,
+            "rawBitmapClosed": true,
+            "frameKept": false,
+            "ms": {
+              "detector": 790,
+              "mapping": 0,
+              "plan": 0,
+              "pixelMapping": 0,
+              "fill": 0
+            },
+            "detail": {
+              "visualRegions": [
+                {
+                  "id": "canvas:0",
+                  "rect": {
+                    "x": 40,
+                    "y": 60,
+                    "w": null,
+                    "h": 200
+                  }
+                },
+                {
+                  "id": "img:0",
+                  "rect": {
+                    "x": 640,
+                    "y": 60,
+                    "w": 480,
+                    "h": 160
+                  }
+                },
+                {
+                  "id": "canvas:1",
+                  "rect": {
+                    "x": -80,
+                    "y": 330,
+                    "w": 420,
+                    "h": 150
+                  }
+                }
+              ],
+              "detections": [
+                {
+                  "x": 658.4216772151899,
+                  "y": 97.57950949367088,
+                  "w": 400.6566455696202,
+                  "h": 27.590981012658247,
+                  "score": 0.8603883154836356
+                },
+                {
+                  "x": 63.45052083333333,
+                  "y": 105.48046875000001,
+                  "w": 365.5989583333333,
+                  "h": 27.539062499999986,
+                  "score": 0.8951596790080448
+                },
+                {
+                  "x": 658.2755335365853,
+                  "y": 160.44798018292684,
+                  "w": 209.69893292682934,
+                  "h": 24.479039634146346,
+                  "score": 0.8884854215874894
+                },
+                {
+                  "x": 63.14123376623376,
+                  "y": 179.45211038961043,
+                  "w": 293.7175324675324,
+                  "h": 24.72077922077918,
+                  "score": 0.9062954735708189
+                },
+                {
+                  "x": 636.3639567669172,
+                  "y": 360.10256109022555,
+                  "w": 338.52208646616543,
+                  "h": 30.169877819548958,
+                  "score": 0.7520220970724993
+                },
+                {
+                  "x": 29.40456081081081,
+                  "y": 394.33910472972974,
+                  "w": 282.44087837837833,
+                  "h": 24.696790540540576,
+                  "score": 0.9636093946130063
+                }
+              ],
+              "masks": []
+            }
+          },
+          "frameHeld": false,
+          "verification": null
+        },
+        {
+          "redaction": {
+            "outcome": "REFUSED",
+            "failClosed": null,
+            "reason": null,
+            "refusal": {
+              "code": "REGION_INVALID",
+              "detail": "region id \"canvas:0\" is duplicated"
+            },
+            "detector": {
+              "modelId": "PP-OCRv4_mobile_det",
+              "ran": true,
+              "code": null,
+              "detections": 6
+            },
+            "regions": 4,
+            "maskRects": 0,
+            "pixelWrites": 0,
+            "rawBitmapClosed": true,
+            "frameKept": false,
+            "ms": {
+              "detector": 960,
+              "mapping": 0,
+              "plan": 0,
+              "pixelMapping": 0,
+              "fill": 0
+            },
+            "detail": {
+              "visualRegions": [
+                {
+                  "id": "canvas:0",
+                  "rect": {
+                    "x": 40,
+                    "y": 60,
+                    "w": 520,
+                    "h": 200
+                  }
+                },
+                {
+                  "id": "img:0",
+                  "rect": {
+                    "x": 640,
+                    "y": 60,
+                    "w": 480,
+                    "h": 160
+                  }
+                },
+                {
+                  "id": "canvas:1",
+                  "rect": {
+                    "x": -80,
+                    "y": 330,
+                    "w": 420,
+                    "h": 150
+                  }
+                },
+                {
+                  "id": "canvas:0",
+                  "rect": {
+                    "x": 40,
+                    "y": 60,
+                    "w": 520,
+                    "h": 200
+                  }
+                }
+              ],
+              "detections": [
+                {
+                  "x": 658.4216772151899,
+                  "y": 97.57950949367088,
+                  "w": 400.6566455696202,
+                  "h": 27.590981012658247,
+                  "score": 0.8603883154836356
+                },
+                {
+                  "x": 63.45052083333333,
+                  "y": 105.48046875000001,
+                  "w": 365.5989583333333,
+                  "h": 27.539062499999986,
+                  "score": 0.8951596790080448
+                },
+                {
+                  "x": 658.2755335365853,
+                  "y": 160.44798018292684,
+                  "w": 209.69893292682934,
+                  "h": 24.479039634146346,
+                  "score": 0.8884854215874894
+                },
+                {
+                  "x": 63.14123376623376,
+                  "y": 179.45211038961043,
+                  "w": 293.7175324675324,
+                  "h": 24.72077922077918,
+                  "score": 0.9062954735708189
+                },
+                {
+                  "x": 636.3639567669172,
+                  "y": 360.10256109022555,
+                  "w": 338.52208646616543,
+                  "h": 30.169877819548958,
+                  "score": 0.7520220970724993
+                },
+                {
+                  "x": 29.40456081081081,
+                  "y": 394.33910472972974,
+                  "w": 282.44087837837833,
+                  "h": 24.696790540540576,
+                  "score": 0.9636093946130063
+                }
+              ],
+              "masks": []
+            }
+          },
+          "frameHeld": false,
+          "verification": null
+        }
+      ],
+      "plainPerceiveOnce": {
+        "redaction": {
+          "outcome": "SANITIZED",
+          "failClosed": false,
+          "reason": null,
+          "refusal": null,
+          "detector": {
+            "modelId": "PP-OCRv4_mobile_det",
+            "ran": true,
+            "code": null,
+            "detections": 13
+          },
+          "regions": 1,
+          "maskRects": 13,
+          "pixelWrites": 53888,
+          "rawBitmapClosed": true,
+          "frameKept": true,
+          "ms": {
+            "detector": 743,
+            "mapping": 0,
+            "plan": 0,
+            "pixelMapping": 0,
+            "fill": 0
+          },
+          "detail": {
+            "visualRegions": [
+              {
+                "id": "img:0",
+                "rect": {
+                  "x": 0,
+                  "y": 0,
+                  "w": 1280,
+                  "h": 720
+                }
+              }
+            ],
+            "detections": [
+              {
+                "x": 37.73622047244094,
+                "y": 20.462598425196852,
+                "w": 322.02755905511805,
+                "h": 22.074803149606304,
+                "score": 0.7390416137480397
+              },
+              {
+                "x": 327.4837662337662,
+                "y": 112.48538961038962,
+                "w": 197.5324675324676,
+                "h": 27.02922077922078,
+                "score": 0.7259394782284896
+              },
+              {
+                "x": 67.3820754716981,
+                "y": 116.89386792452831,
+                "w": 68.98584905660377,
+                "h": 20.462264150943412,
+                "score": 0.8768312450912263
+              },
+              {
+                "x": 326.071875,
+                "y": 174.2146875,
+                "w": 129.10625,
+                "h": 23.945625000000035,
+                "score": 0.8318830353727562
+              },
+              {
+                "x": 66.68103448275862,
+                "y": 177.01293103448276,
+                "w": 36.63793103448276,
+                "h": 20.599137931034505,
+                "score": 0.7941943302750587
+              },
+              {
+                "x": 69.05,
+                "y": 237.645,
+                "w": 96.89999999999999,
+                "h": 18.585000000000008,
+                "score": 0.9076325143335247
+              },
+              {
+                "x": 328.79638671875,
+                "y": 237.416748046875,
+                "w": 163.6572265625,
+                "h": 19.04150390625,
+                "score": 0.946039109929534
+              },
+              {
+                "x": 326.8685567010309,
+                "y": 295.30670103092785,
+                "w": 125.01288659793812,
+                "h": 21.386597938144348,
+                "score": 0.8281282204506772
+              },
+              {
+                "x": 66.8560606060606,
+                "y": 296.42045454545456,
+                "w": 127.53787878787878,
+                "h": 21.409090909090878,
+                "score": 0.7592666231013916
+              },
+              {
+                "x": 325.96713362068965,
+                "y": 355.24542025862075,
+                "w": 149.31573275862064,
+                "h": 24.134159482758548,
+                "score": 0.6817903274192493
+              },
+              {
+                "x": 67.9405737704918,
+                "y": 358.1465163934426,
+                "w": 79.11885245901641,
+                "h": 18.331967213114808,
+                "score": 0.8392468023867834
+              },
+              {
+                "x": 327.2023809523809,
+                "y": 415.9821428571429,
+                "w": 81.84523809523813,
+                "h": 20.785714285714278,
+                "score": 0.9762959375977516
+              },
+              {
+                "x": 67.87162162162161,
+                "y": 417.7094594594595,
+                "w": 48.00675675675677,
+                "h": 19.581081081081095,
+                "score": 0.8876107648528856
+              }
+            ],
+            "masks": [
+              {
+                "regionId": "img:0",
+                "cssMask": [
+                  {
+                    "x": 33.73622047244094,
+                    "y": 16.462598425196852,
+                    "w": 330.02755905511805,
+                    "h": 30.074803149606304
+                  },
+                  {
+                    "x": 323.4837662337662,
+                    "y": 108.48538961038962,
+                    "w": 205.5324675324676,
+                    "h": 35.02922077922078
+                  },
+                  {
+                    "x": 63.3820754716981,
+                    "y": 112.89386792452831,
+                    "w": 76.98584905660377,
+                    "h": 28.462264150943412
+                  },
+                  {
+                    "x": 322.071875,
+                    "y": 170.2146875,
+                    "w": 137.10625,
+                    "h": 31.945625000000035
+                  },
+                  {
+                    "x": 62.68103448275862,
+                    "y": 173.01293103448276,
+                    "w": 44.63793103448276,
+                    "h": 28.599137931034505
+                  },
+                  {
+                    "x": 324.79638671875,
+                    "y": 233.416748046875,
+                    "w": 171.6572265625,
+                    "h": 27.04150390625
+                  },
+                  {
+                    "x": 65.05,
+                    "y": 233.645,
+                    "w": 104.89999999999999,
+                    "h": 26.585000000000008
+                  },
+                  {
+                    "x": 322.8685567010309,
+                    "y": 291.30670103092785,
+                    "w": 133.01288659793812,
+                    "h": 29.386597938144348
+                  },
+                  {
+                    "x": 62.856060606060595,
+                    "y": 292.42045454545456,
+                    "w": 135.53787878787878,
+                    "h": 29.409090909090878
+                  },
+                  {
+                    "x": 321.96713362068965,
+                    "y": 351.24542025862075,
+                    "w": 157.31573275862064,
+                    "h": 32.13415948275855
+                  },
+                  {
+                    "x": 63.940573770491795,
+                    "y": 354.1465163934426,
+                    "w": 87.11885245901641,
+                    "h": 26.331967213114808
+                  },
+                  {
+                    "x": 323.2023809523809,
+                    "y": 411.9821428571429,
+                    "w": 89.84523809523813,
+                    "h": 28.785714285714278
+                  },
+                  {
+                    "x": 63.871621621621614,
+                    "y": 413.7094594594595,
+                    "w": 56.00675675675677,
+                    "h": 27.581081081081095
+                  }
+                ],
+                "pixelRects": [
+                  {
+                    "x": 33,
+                    "y": 16,
+                    "w": 331,
+                    "h": 31
+                  },
+                  {
+                    "x": 323,
+                    "y": 108,
+                    "w": 207,
+                    "h": 36
+                  },
+                  {
+                    "x": 63,
+                    "y": 112,
+                    "w": 78,
+                    "h": 30
+                  },
+                  {
+                    "x": 322,
+                    "y": 170,
+                    "w": 138,
+                    "h": 33
+                  },
+                  {
+                    "x": 62,
+                    "y": 173,
+                    "w": 46,
+                    "h": 29
+                  },
+                  {
+                    "x": 324,
+                    "y": 233,
+                    "w": 173,
+                    "h": 28
+                  },
+                  {
+                    "x": 65,
+                    "y": 233,
+                    "w": 105,
+                    "h": 28
+                  },
+                  {
+                    "x": 322,
+                    "y": 291,
+                    "w": 134,
+                    "h": 30
+                  },
+                  {
+                    "x": 62,
+                    "y": 292,
+                    "w": 137,
+                    "h": 30
+                  },
+                  {
+                    "x": 321,
+                    "y": 351,
+                    "w": 159,
+                    "h": 33
+                  },
+                  {
+                    "x": 63,
+                    "y": 354,
+                    "w": 89,
+                    "h": 27
+                  },
+                  {
+                    "x": 323,
+                    "y": 411,
+                    "w": 91,
+                    "h": 30
+                  },
+                  {
+                    "x": 63,
+                    "y": 413,
+                    "w": 57,
+                    "h": 29
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "route": "WORKER_FRAME",
+        "carriesPixels": false
+      },
+      "memory": {
+        "method": "WASM linear memory, WebAssembly.Memory wrapped before ORT created memory, read from buffer.byteLength",
+        "workerWasmBytes": 137494528,
+        "offscreenWasmBytes": 27656192
+      },
+      "workerAudit": {
+        "received": 11,
+        "shapes": [
+          {
+            "type": "TR01_INIT",
+            "shape": {
+              "protocol": "number",
+              "type": "string"
+            }
+          },
+          {
+            "type": "TR01_DETECT",
+            "shape": {
+              "height": "number",
+              "protocol": "number",
+              "rgba": "Uint8ClampedArray(3686400)",
+              "runId": "number",
+              "type": "string",
+              "width": "number"
+            }
+          }
+        ],
+        "foreignArrivals": 0,
+        "origins": [
+          "chrome-extension://hhmeakgpjffepcilaacgpdngfdhdcfid"
+        ]
+      },
+      "offscreenNetwork": {
+        "arrivals": 2,
+        "foreign": 0,
+        "origins": [
+          "chrome-extension://hhmeakgpjffepcilaacgpdngfdhdcfid"
+        ],
+        "byOrigin": {
+          "chrome-extension://hhmeakgpjffepcilaacgpdngfdhdcfid": 2
+        }
+      },
+      "serviceWorkerAudit": {
+        "messages": 112,
+        "bytes": 26092,
+        "png": false,
+        "dataUrl": false,
+        "longestBase64": 0
+      },
+      "latency": {
+        "uiHeadInfer": {
+          "n": 10,
+          "min": 93,
+          "median": 112.5,
+          "p90": 118,
+          "max": 125
+        },
+        "uiHeadPreprocess": {
+          "n": 10,
+          "min": 40,
+          "median": 46,
+          "p90": 88,
+          "max": 279
+        },
+        "capture": {
+          "n": 10,
+          "min": 39,
+          "median": 56,
+          "p90": 65,
+          "max": 68
+        },
+        "tr01Warm": {
+          "n": 10,
+          "min": 775,
+          "median": 894,
+          "p90": 940,
+          "max": 941
+        },
+        "mapping": {
+          "n": 10,
+          "min": 0,
+          "median": 0,
+          "p90": 1,
+          "max": 3
+        },
+        "plan": {
+          "n": 10,
+          "min": 0,
+          "median": 0,
+          "p90": 1,
+          "max": 2
+        },
+        "pixelMapping": {
+          "n": 10,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 1
+        },
+        "fill": {
+          "n": 10,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 1
+        },
+        "passTotal": {
+          "n": 10,
+          "min": 1026,
+          "median": 1178,
+          "p90": 1282,
+          "max": 1434
+        },
+        "tr01Init": {
+          "runtime": 129.09999999403954,
+          "model": 34,
+          "session": 501.7000000178814
+        },
+        "coldPassTotal": 1900
+      },
+      "checks": {
+        "dryRunProceededWithoutGesture": true,
+        "passRanInM9OrderWithFullFrameTr01": true,
+        "tr01ModelHashVerifiedAtRuntime": true,
+        "degradedWorkerFrameRoute": true,
+        "uiHeadThenTr01Ran": true,
+        "tr01FoundText": true,
+        "sanitizedAndVerified": true,
+        "everyFixtureInkPixelMasked": true,
+        "rawBitmapClosed": true,
+        "timeoutMasksRegionsWhole": true,
+        "timeoutRecoveredOnFreshWorker": true,
+        "refusedIsTerminal": true,
+        "deadlineEveryWarmTr01Under2000ms": true,
+        "wasmUnder200MB": true,
+        "workerReceivedOnlyPixelsDimensionsAndRunIds": true,
+        "serviceWorkerSawNoPixels": true,
+        "noForeignNetwork": true
+      }
+    }
+  ],
+  "recordedAt": "2026-10-02T09:28:17.467Z",
+  "provenance": {
+    "workstation": "W2",
+    "host": "LAPTOP-SRCINK2B",
+    "workstationSource": "registry",
+    "os": "win32 10.0.26200",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M              ",
+    "node": "v26.4.0",
+    "playwright": "1.63.0",
+    "browserBinary": "C:\\Users\\OMEN\\pratibimb-browsers\\cft-153.0.8010.12\\chrome.exe",
+    "headless": false
+  }
+}

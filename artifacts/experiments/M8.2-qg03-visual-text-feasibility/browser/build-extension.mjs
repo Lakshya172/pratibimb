@@ -23,12 +23,15 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { REDACTION_CRITERIA } from "../../../../tests/browser/support/redaction-metrics.mjs";
 import { DB_POSTPROCESS, dbPostprocess, judgeWasm, tensorStats } from "../../../../tests/browser/support/text-detector-screening.mjs";
+import { baselinePath, fixturesDir, integrityRecordPath } from "../../../../tests/browser/support/m82-baseline.mjs";
+import { resolveWorkstation } from "../../../../tests/browser/support/workstation.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const EXP = dirname(HERE);
 const ROOT = join(EXP, "..", "..", "..");
 const M81 = join(ROOT, "artifacts", "experiments", "M8.1-visual-text-screening");
-const FIX = join(EXP, "models", "fixtures");
+const WS = resolveWorkstation();
+const FIX = fixturesDir(WS);
 const OUT = join(EXP, "models", "ext");
 const ORT_DIST = join(ROOT, "node_modules", "onnxruntime-web", "dist");
 const INSTRUMENT = join(ROOT, "artifacts", "experiments", "W1-QG03-t1-detector-runtime", "harness", "qg03-instrument.js");
@@ -43,7 +46,8 @@ const must = (p, hint) => {
 };
 must(join(ROOT, "packages/security/dist/src/index.js"), "run: npm run typecheck");
 must(join(ROOT, "packages/perception/dist/src/index.js"), "run: npm run typecheck");
-must(join(EXP, "logs", "fixture-integrity.json"), "run: prepare-fixtures.mjs");
+must(integrityRecordPath(WS), "run: prepare-fixtures.mjs");
+must(baselinePath("TR-01", WS), "run: prepare-fixtures.mjs --establish-baseline");
 
 const { buildExtensionPagesCsp } = await import(pathToFileURL(join(ROOT, "packages/security/dist/src/index.js")).href);
 const CSP = buildExtensionPagesCsp(`http://127.0.0.1:${PORT}`);
@@ -84,11 +88,26 @@ for (const [k, p] of [["uiHead", UI_HEAD], ["yunet", YUNET]]) {
 }
 
 const build = { csp: CSP, port: PORT, lib: Object.fromEntries(Object.entries(lib).map(([k, v]) => [k, sha256(v)])), instrumentSha256: sha256(readFileSync(INSTRUMENT)), candidates: {} };
-const integrity = JSON.parse(readFileSync(join(EXP, "logs", "fixture-integrity.json"), "utf8"));
+const integrity = JSON.parse(readFileSync(integrityRecordPath(WS), "utf8"));
 
 for (const [cid, spec] of Object.entries(MODELS)) {
   const dir = join(FIX, cid);
   const nat = JSON.parse(readFileSync(join(dir, "native-reference.json"), "utf8"));
+  // The WASM reference hashes below exist only in M8.1's W1 record. M8.2's own browser cells have
+  // not been re-run on another workstation, so rather than substitute a null and build a reference
+  // that silently compares nothing, this REFUSES and names what would have to be produced first.
+  if (WS.id !== "W1") {
+    console.error(
+      `missing: an M8.2 WASM reference for ${cid} on ${WS.id}.
+` +
+        "  build-extension.mjs needs `inputs[*].wasm.outputSha256`, which only M8.2's own browser cells
+" +
+        "  produce; the M8.2 cells have not been re-run on this machine. It refuses rather than emitting a
+" +
+        "  reference whose WASM comparison is empty. Re-run M8.2's browser cells here, or run on W1."
+    );
+    process.exit(1);
+  }
   const m81 = JSON.parse(readFileSync(join(M81, "results", `${cid.toLowerCase()}-run1.json`), "utf8"));
   const modelBytes = readFileSync(join(dir, "model.onnx"));
   const inputs = {};

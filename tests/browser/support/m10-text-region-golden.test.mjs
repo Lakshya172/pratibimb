@@ -5,9 +5,15 @@
  * the code TR-01 was screened with (M8.1 / M8.2 / M8.2a):
  *
  *   preprocessing   M8.2's `browser/m82-preprocess.js` — measured byte-identical to the screened
- *                   Python tensor in M8.2 — and, on real frames, M8.1's committed input sha256
+ *                   Python tensor in M8.2 — and, on real frames, the baseline's committed input sha256
  *   post-processing `tests/browser/support/text-detector-screening.mjs` `dbPostprocess` (M8.1)
- *   boxes           M8.1's recorded run1 boxes (geometry)
+ *   boxes           this workstation's baseline boxes (geometry)
+ *
+ * THE BASELINE IS PER MACHINE, and exactness is unchanged. M8.2's native reference is machine-local:
+ * onnxruntime returns a different output for a byte-identical tensor and model on a different CPU,
+ * and a different GPU rasterises the same DOM to different pixels. W1 keeps M8.1's historical record;
+ * another machine uses its own; an unknown machine REFUSES rather than borrowing one. See
+ * `m82-baseline.mjs` and `../../../artifacts/experiments/M8.2-qg03-visual-text-feasibility/logs/baseline-divergence-w1-vs-w2.md`.
  *
  * The comparison is EXACT: byte equality for tensors, deep equality for boxes and scores. Visual
  * similarity is never the criterion. If anything here fails, the port is wrong — the product is not
@@ -15,24 +21,26 @@
  *
  * Two layers:
  *   1. deterministic synthetic inputs — always run, committed data only;
- *   2. the real M8.1 frames and maps — run when M8.2's git-ignored fixtures exist on this machine,
- *      and SKIPPED VISIBLY (never passed vacuously) when they do not.
+ *   2. the real frozen frames and this machine's maps — run when M8.2's git-ignored fixtures exist
+ *      for this workstation, and SKIPPED VISIBLY (never passed vacuously) when they do not.
  *
  * Nothing here imports the M9 reference model, and nothing in the product imports anything here.
  */
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
+import { pathToFileURL } from "node:url";
 import { inflateSync } from "node:zlib";
 import { describe, expect, it } from "vitest";
 
 import { TEXT_REGION_LABEL, createTextRegionDetector, dbPostprocess, frameId, preprocessTextRegion, textRegionInputSize, TR01_RESIZE } from "@pratibimb/perception";
 
 import { DB_POSTPROCESS as SCREENED_DB, dbPostprocess as screenedDbPostprocess } from "./text-detector-screening.mjs";
+import { baselineWorkstation, fixturesDir, FIXTURE_NAMES, hasBaseline, loadBaseline } from "./m82-baseline.mjs";
 
 const ROOT = new URL("../../../", import.meta.url);
-const M81 = new URL("artifacts/experiments/M8.1-visual-text-screening/", ROOT);
 const M82 = new URL("artifacts/experiments/M8.2-qg03-visual-text-feasibility/", ROOT);
-const FIX = new URL("models/fixtures/", M82);
+const WS = baselineWorkstation();
+const FIX = pathToFileURL(fixturesDir(WS) + "/");
 const sha256 = (buf) => createHash("sha256").update(buf).digest("hex");
 const bytesOf = (f32) => Buffer.from(f32.buffer, f32.byteOffset, f32.byteLength);
 
@@ -165,21 +173,21 @@ describe("synthetic golden: product == screened", () => {
 });
 
 // ── 2. real M8.1 frames and maps — when the fixtures exist ─────────────────────────────────────
-const NAMES = ["dev", "H1", "H2", "H3", "H4", "H5", "H6"];
+const NAMES = FIXTURE_NAMES;
 const haveFixtures = NAMES.every((n) => existsSync(new URL(`screenshots/${n}.png`, FIX)) && existsSync(new URL(`TR-01/native-${n}.f32`, FIX)));
-const m81 = JSON.parse(readFileSync(new URL("results/tr-01-run1.json", M81), "utf8"));
+const baseline = haveFixtures ? loadBaseline("TR-01", WS) : null;
 
-describe.skipIf(!haveFixtures)("real golden (M8.1 frames): product == screened, end to end", () => {
+describe.skipIf(!haveFixtures)(`real golden (frozen frames, ${WS.id} baseline): product == screened, end to end`, () => {
   const ref = haveFixtures ? JSON.parse(readFileSync(new URL("TR-01/native-reference.json", FIX), "utf8")) : null;
 
   for (const name of NAMES) {
     it(`${name}: same tensor, same map interpretation, same boxes, same scores`, async () => {
       const img = decodePng(readFileSync(new URL(`screenshots/${name}.png`, FIX)));
-      expect([img.height, img.width]).toEqual(m81.inputs[name].input.source_hw);
+      expect([img.height, img.width]).toEqual(baseline.inputs[name].input.source_hw);
 
       // same input → same normalized input (M8.1's committed hash, and the screened tensor file)
       const tensor = preprocessTextRegion(img);
-      expect(sha256(bytesOf(tensor.tensor))).toBe(m81.inputs[name].inputSha256);
+      expect(sha256(bytesOf(tensor.tensor))).toBe(baseline.inputs[name].inputSha256);
       expect(bytesOf(tensor.tensor).equals(readFileSync(new URL(`TR-01/input-${name}.f32`, FIX)))).toBe(true);
       expect(tensor.ratioH).toBe(ref.inputs[name].meta.ratio_h);
       expect(tensor.ratioW).toBe(ref.inputs[name].meta.ratio_w);
@@ -195,7 +203,7 @@ describe.skipIf(!haveFixtures)("real golden (M8.1 frames): product == screened, 
         acceptedBackends: ["wasm"],
         pixels: () => img,
         infer: async (t, dims) => {
-          expect(sha256(bytesOf(t))).toBe(m81.inputs[name].inputSha256);
+          expect(sha256(bytesOf(t))).toBe(baseline.inputs[name].inputSha256);
           return { data: mapData, dims: [1, 1, dims[2], dims[3]] };
         },
       });
@@ -206,10 +214,11 @@ describe.skipIf(!haveFixtures)("real golden (M8.1 frames): product == screened, 
       expect(product).toEqual(screened.boxes);
       expect(out.value.every((d) => d.label === TEXT_REGION_LABEL)).toBe(true);
 
-      // and the same box GEOMETRY M8.1 recorded (its boxes came from the WASM map; M8.1's diagnostics
-      // measured WASM and native geometry identical — 0 px edge difference — with scores differing in
-      // low digits, so geometry is compared exactly and scores only against the screened function)
-      const recorded = m81.inputs[name].boxes.map((b) => [b.x, b.y, b.w, b.h]);
+      // and the same box GEOMETRY the baseline recorded (its boxes came from the WASM map, on W1 and
+      // on every later machine alike; the WASM-vs-native geometry difference is recorded per machine
+      // in the baseline's `wasmVsNative` block, with scores differing in low digits — so geometry is
+      // compared exactly and scores only against the screened function)
+      const recorded = baseline.inputs[name].boxes.map((b) => [b.x, b.y, b.w, b.h]);
       expect(product.map((b) => [b.x, b.y, b.w, b.h])).toEqual(recorded);
     });
   }
@@ -219,6 +228,7 @@ describe("the real layer is not silently absent", () => {
   it("states whether it ran", () => {
     // A skipped real layer must be visible in the record rather than read as a pass.
     expect(typeof haveFixtures).toBe("boolean");
-    if (!haveFixtures) console.warn("m10 golden: M8.2 fixtures absent — the real-frame layer was SKIPPED");
+    if (haveFixtures) expect(hasBaseline("TR-01", WS)).toBe(true);
+    if (!haveFixtures) console.warn(`m10 golden: M8.2 fixtures absent for ${WS.id} — the real-frame layer was SKIPPED`);
   });
 });

@@ -113,3 +113,30 @@ Depends on decision 1:
 - **If the amendment is authorised:** **M8.2a**. Re-run the Firefox WASM (Linux) cell for both
   candidates under an amended, pre-registered harness. Every other cell and result stands.
 - **If not:** **M9 — adoption review for TR-01.** This is the ADR, not integration.
+
+---
+
+## Amendment 2026-10-02 — W2 real-frame baseline (owner decision)
+
+**Decision:** establish a formal W2-specific M8.2 real-frame baseline. Keep `dev`. Preserve the
+measured W1→W2 `dev` difference explicitly. Preserve all W1 evidence byte for byte. Establish TR-02
+on W2 in the same operation.
+
+**What this amendment does NOT change:** detector thresholds, detector model, preprocessing, crop
+geometry, privacy logic, scoring logic, or any product behaviour. No verdict above is revised.
+
+| Statement | Status |
+|---|---|
+| M8.2's native reference behaviour is **machine-local** | **ESTABLISHED** — onnxruntime returns a different output for a byte-identical tensor and model on a different CPU; `min`/`max` identical, summations differing at ~1e-7, deterministic per machine |
+| W1 evidence remains **historical and immutable** | **HELD** — `results/tr-01-run1.json`, `logs/fixture-integrity.json` and the conversion records are unchanged |
+| W2 has a **separate validated baseline** | **ESTABLISHED** — `logs/w2-baseline-tr-01.json` (native + WASM stages) and `logs/w2-baseline-tr-02.json` (native stage) |
+| Byte-identical cross-machine native output is **not assumed** | **ENFORCED** — the baseline is resolved per workstation |
+| Exact equality remains **mandatory within a workstation** | **ENFORCED** — byte equality for tensors, deep equality for boxes and scores; nothing relaxed |
+| An unknown workstation **fails closed** | **ENFORCED** — `loadBaseline` refuses; there is no fallback |
+| `dev` is **retained**, its 2.1013 px W1→W2 difference recorded | **DONE** — [`logs/baseline-divergence-w1-vs-w2.md`](logs/baseline-divergence-w1-vs-w2.md) |
+| TR-02 **WASM stage on W2** | **NOT ESTABLISHED, reported** — no product harness runs the rollback candidate through ORT WASM; completing it means re-running M8.2's own browser cells on W2 |
+| M8.2's own browser cells on W2 | **NOT RUN** — `build-extension.mjs` refuses on any workstation but W1 rather than emitting a reference whose WASM comparison is empty |
+| The real gesture route on W2 | **NOT RUN** — `run-gesture-redaction` and `run-stream-re1` were exercised on the degraded dry-run route, which the harnesses label as NOT gesture evidence |
+
+**Privacy, measured on W2 and unchanged from M8.1:** RE-1 scores identical field for field, redaction
+masks identical, 0/306 sensitive glyphs exposed, every RE-1 gate passing.

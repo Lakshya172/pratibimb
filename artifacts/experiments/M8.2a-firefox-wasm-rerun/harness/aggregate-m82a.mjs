@@ -18,6 +18,8 @@ import { fileURLToPath } from "node:url";
 import { scoreImage, scoreSet } from "../../../../tests/browser/support/redaction-metrics.mjs";
 import { dbPostprocess, plaintextCheck } from "../../../../tests/browser/support/text-detector-screening.mjs";
 import { cellVerdict, coexistencePass, modeVerdict, qg03Verdict, summarise, teardownPass } from "../../../../tests/browser/support/qg03-feasibility.mjs";
+import { fixturesDir } from "../../../../tests/browser/support/m82-baseline.mjs";
+import { resolveWorkstation } from "../../../../tests/browser/support/workstation.mjs";
 import { AMENDMENT, onlyTheAmendmentDiffers, prefDiff } from "./amendment.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
@@ -30,7 +32,7 @@ const sha = (s) => createHash("sha256").update(s).digest("hex");
 const CANDIDATES = ["TR-01", "TR-02"];
 const REALISTIC = ["dev", "H1", "H2", "H3", "H4", "H5", "H6"];
 const frozen = read(join(ROOT, "tests", "browser", "extension", "fixture", "heldout", "groundtruth.json"));
-const devTruth = read(join(M82, "models", "fixtures", "dev-truth.json"));
+const devTruth = read(join(fixturesDir(resolveWorkstation()), "dev-truth.json"));
 const conv = Object.fromEntries(CANDIDATES.map((c) => [c, read(join(M81, "logs", `${c.toLowerCase()}-conversion.json`))]));
 const m81 = Object.fromEntries(CANDIDATES.map((c) => [c, read(join(M81, "results", `${c.toLowerCase()}-run1.json`))]));
 const lastAt = (r) => (r?.memory?.length ? r.memory[r.memory.length - 1].at : null);

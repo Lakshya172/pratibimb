@@ -53,6 +53,7 @@ import { redactionMask } from "../../../packages/privacy/src/redactionGeometry.t
 import { ROOT, startDemoServer } from "../demo/server.mjs";
 import { scoreImage } from "../support/redaction-metrics.mjs";
 import { connectSrcOf, manifestRouteSha } from "../support/build-route.mjs";
+import { fixturesDir, loadBaseline } from "../support/m82-baseline.mjs";
 import { assertOwnEvidencePath, evidenceFileName, provenanceOf, resolveWorkstation } from "../support/workstation.mjs";
 
 const WS = resolveWorkstation();
@@ -63,9 +64,10 @@ const DPRS = (process.env.M106_DPRS ?? "1,1.25,1.5,2").split(",").map(Number);
 const WAIT_MS = Number(process.env.M106_GESTURE_WAIT_MS ?? 30 * 60_000);
 /** The window whose frames are CSS-sized AND device-sized, so M8.1's 1280×720 frames map 1:1. */
 const RE1_DPR = Number(process.env.M106_RE1_DPR ?? 1);
-const HELD_OUT_DIR = join(ROOT, "artifacts", "experiments", "M8.2-qg03-visual-text-feasibility", "models", "fixtures", "screenshots");
+const HELD_OUT_DIR = join(fixturesDir(resolveWorkstation()), "screenshots");
 const HELD_OUT = JSON.parse(readFileSync(join(ROOT, "tests", "browser", "extension", "fixture", "heldout", "groundtruth.json"), "utf8"));
-const M81 = JSON.parse(readFileSync(join(ROOT, "artifacts", "experiments", "M8.1-visual-text-screening", "results", "tr-01-run1.json"), "utf8"));
+/** This workstation's baseline: M8.2's native reference is machine-local. See support/m82-baseline.mjs. */
+const BASELINE = loadBaseline("TR-01", resolveWorkstation());
 const M105 = JSON.parse(execSync("git show HEAD:artifacts/experiments/M10-visual-redaction-integration/logs/w1-cft-visual-mask.json", { cwd: ROOT, encoding: "utf8", maxBuffer: 64 << 20 }));
 // The CONVERTED ONNX the product runs (not the upstream `source` weights, which the file names first).
 const TR01_SHA256 = /onnx:[\s\S]*?sha256:\s*"([0-9a-f]{64})"/.exec(readFileSync(join(APP, "host-lib", "tr01-pin.ts"), "utf8"))?.[1] ?? null;
@@ -289,7 +291,7 @@ try {
           const detections = r.summary.redaction.detail?.detections ?? [];
           const boxes = detections.map(({ x, y, w, h }) => ({ x, y, w, h }));
           const score = scoreImage({ boxes }, { region: img.region, strings: img.strings });
-          const m81Score = M81.heldOut.perImage.find((q) => q.image === img.image);
+          const baseScore = BASELINE.heldOut.perImage.find((q) => q.image === img.image);
           images.push({
             image: img.image,
             shown,
@@ -297,17 +299,17 @@ try {
             capture: r.summary.capture,
             detectorRan: r.summary.redaction.detector.ran,
             detections: detections.length,
-            m81Detections: M81.inputs[img.image].boxes.length,
-            boxesAndScoresEqualM81: isDeepStrictEqual(detections, M81.inputs[img.image].boxes),
+            baselineDetections: BASELINE.inputs[img.image].boxes.length,
+            boxesAndScoresEqualBaseline: isDeepStrictEqual(detections, BASELINE.inputs[img.image].boxes),
             boxes: detections,
             canonicalMaskForHeldOutRegion: redactionMask(boxes, img.region),
             score,
             // Deep equality, not JSON text: M8.1 stored its fields in its own key order. (The first formal
             // record, w1-cft-gesture-redaction.json, was written with a JSON-text comparison and so reports
             // a score mismatch on every image; recomputed with this comparison, five of six are equal.)
-            scoreEqualsM81: isDeepStrictEqual({ image: img.image, ...score }, m81Score),
+            scoreEqualsBaseline: isDeepStrictEqual({ image: img.image, ...score }, baseScore),
             exposedSensitiveGlyphs: score.exposedSensitiveGlyphs,
-            m81ExposedSensitiveGlyphs: m81Score?.exposedSensitiveGlyphs ?? null,
+            baselineExposedSensitiveGlyphs: baseScore?.exposedSensitiveGlyphs ?? null,
             sensitiveGlyphs: score.sensitiveGlyphs,
           });
         }
@@ -315,8 +317,8 @@ try {
           note: "frozen held-out screenshots displayed 1:1 at (0,0) in the granted document, captured through the gesture stream; boxes in capture px",
           images,
           allOnStreamRoute: images.every((i) => i.route === "GESTURE_STREAM" && i.capture?.w === 1280 && i.capture?.h === 720),
-          boxesAndScoresEqualM81: images.every((i) => i.boxesAndScoresEqualM81),
-          re1ScoresEqualM81: images.every((i) => i.scoreEqualsM81),
+          boxesAndScoresEqualBaseline: images.every((i) => i.boxesAndScoresEqualBaseline),
+          re1ScoresEqualBaseline: images.every((i) => i.scoreEqualsBaseline),
           zeroExposedSensitiveGlyphs: images.every((i) => i.exposedSensitiveGlyphs === 0),
         };
       }
@@ -442,7 +444,7 @@ try {
       };
       if (!DRY && cell.checks.realGestureRecorded) cell.realGesture = "RECORDED";
       console.log(`>>> WINDOW_DONE ${index + 1}/${DPRS.length}: ${Object.values(cell.checks).every(Boolean) ? "PASS" : "FAIL " + Object.entries(cell.checks).filter(([, v]) => !v).map(([k]) => k).join(",")}`);
-      if (cell.re1Stream) console.log(`>>> RE1_STREAM boxesEqualM81=${cell.re1Stream.boxesAndScoresEqualM81} scoresEqualM81=${cell.re1Stream.re1ScoresEqualM81} zeroExposed=${cell.re1Stream.zeroExposedSensitiveGlyphs}`);
+      if (cell.re1Stream) console.log(`>>> RE1_STREAM boxesEqualBaseline=${cell.re1Stream.boxesAndScoresEqualBaseline} scoresEqualBaseline=${cell.re1Stream.re1ScoresEqualBaseline} zeroExposed=${cell.re1Stream.zeroExposedSensitiveGlyphs}`);
     } catch (e) {
       cell.failure = `${e.name}: ${String(e.message).slice(0, 400)}`;
       console.log(`>>> WINDOW_FAILED ${index + 1}/${DPRS.length}: ${cell.failure}`);
